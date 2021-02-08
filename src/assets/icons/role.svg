@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="162" height="156" viewBox="0 0 162 156">
+  <defs>
+    <clipPath id="clip-Google_Pixel_4_4XL_1">
+      <rect width="162" height="156"/>
+    </clipPath>
+  </defs>
+  <g id="Google_Pixel_4_4XL_1" data-name="Google Pixel 4, 4XL – 1" clip-path="url(#clip-Google_Pixel_4_4XL_1)">
+    <rect width="162" height="156" fill="#fff"/>
+    <g id="Group_1" data-name="Group 1" transform="translate(31 27.475)">
+      <path id="Path_1" data-name="Path 1" d="M33.7,71.7a19.543,19.543,0,0,1-10.9,3.4,18.565,18.565,0,0,1-10.9-3.4A14.08,14.08,0,0,0,2.5,85v8.7A1.324,1.324,0,0,0,3.8,95h38a1.324,1.324,0,0,0,1.3-1.3V85A14.256,14.256,0,0,0,33.7,71.7Z" fill="#fff"/>
+      <circle id="Ellipse_1" data-name="Ellipse 1" cx="12.2" cy="12.2" r="12.2" transform="translate(10.6 43.7)" fill="#fff"/>
+      <path id="Path_2" data-name="Path 2" d="M88.1,32.4a19.543,19.543,0,0,1-10.9,3.4,18.565,18.565,0,0,1-10.9-3.4,14.08,14.08,0,0,0-9.4,13.3v8.7a1.324,1.324,0,0,0,1.3,1.3h38a1.324,1.324,0,0,0,1.3-1.3V45.7A14.178,14.178,0,0,0,88.1,32.4Z" fill="#fff"/>
+      <circle id="Ellipse_2" data-name="Ellipse 2" cx="12.2" cy="12.2" r="12.2" transform="translate(65 4.5)" fill="#fff"/>
+      <path id="Path_3" data-name="Path 3" d="M57.4,12.7,48.2,3.5a3.323,3.323,0,0,0-4.7,4.7L47,11.7H22.8A3.329,3.329,0,0,0,19.5,15V34.2a3.3,3.3,0,1,0,6.6,0V18.4h21l-3.5,3.5a3.32,3.32,0,0,0,0,4.7,3.445,3.445,0,0,0,2.3,1,3.038,3.038,0,0,0,2.3-1l9.2-9.2A3.32,3.32,0,0,0,57.4,12.7Z" fill="#fff"/>
+      <path id="Path_4" data-name="Path 4" d="M85.5,62.5a3.329,3.329,0,0,0-3.3,3.3V81.7h-21l3.5-3.5A3.323,3.323,0,1,0,60,73.5l-9.2,9.2a3.32,3.32,0,0,0,0,4.7L60,96.6a3.445,3.445,0,0,0,2.3,1,3.038,3.038,0,0,0,2.3-1,3.32,3.32,0,0,0,0-4.7l-3.5-3.5H85.4a3.329,3.329,0,0,0,3.3-3.3V65.8A3.125,3.125,0,0,0,85.5,62.5Z" fill="#fff"/>
+    </g>
+  </g>
+</svg>

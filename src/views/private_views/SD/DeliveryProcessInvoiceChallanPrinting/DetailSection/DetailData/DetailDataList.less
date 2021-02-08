@@ -1,0 +1,193 @@
+#detail-data-list.detail-data-list {
+
+    .detail-data-list-inner {
+        .detail-data-submit-section {
+            width  : 93%;
+            margin : 0 auto;
+            padding: 10px 0;
+
+            .detail-data-submit-section-inner {
+                overflow: hidden;
+
+                .serial-range-custom-section {
+                    display: inline-block;
+                    float  : left;
+                    width  : 80%;
+
+                    .serial-range-custom-section-inner {
+                        display: block;
+
+                        .range-customization-section {
+                            .range-customization-section-inner {
+                                span {
+                                    display    : inline-block;
+                                    font-size  : 14px;
+                                    font-weight: 500;
+                                }
+
+                                form.input-btns {
+                                    display       : inline-block;
+                                    vertical-align: middle;
+
+                                    p {
+                                        font-size  : 14px;
+                                        margin     : 0 10px;
+                                        line-height: 1;
+                                        display    : inline-block;
+
+                                        input {
+                                            display                : inline-block;
+                                            width                  : 20px;
+                                            height                 : 20px;
+                                            border-radius          : 50%;
+                                            opacity                : 1;
+                                            cursor                 : pointer;
+                                            position               : relative;
+                                            pointer-events         : auto;
+                                            // ::after {
+                                            //     border: 2px solid black;
+                                            //     background-color: #658a65;
+                                            //     color: #026CD1;
+                                            // }
+                                            // :checked {
+                                            //     border: 2px solid rgb(214, 0, 0);
+                                            //     background-color: #00f000;
+                                            //     color: #026CD1;
+                                            // }
+                                        }
+
+                                        span {
+                                            display       : inline-block;
+                                            padding       : 0;
+                                            vertical-align: bottom;
+                                            font-weight   : 400;
+
+                                            &::before {
+                                                display: none;
+                                            }
+
+                                            &::after {
+                                                display: none;
+                                            }
+                                        }
+
+                                        span.active {
+                                            color: #026CD1;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .submit-btn-section {
+                    display: inline-block;
+                    float  : right;
+
+                    .submit-btn-section-inner {
+                        button {
+                            color        : #FCFCFC;
+                            font-size    : 14px;
+                            background   : #026CD1;
+                            width        : 140px;
+                            padding      : 12px 0;
+                            border-radius: 2px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .detail-data-list-section {
+            margin-top: 20px;
+
+            .detail-data-list-section-inner {
+                .data-table {
+                    border-top: 1px solid #E9F2FB;
+                    position  : relative;
+
+                    tr {
+                        border-bottom: none;
+                        display      : table;
+                        width        : 100%;
+                    }
+
+                    thead {
+
+                        tr.data-table-head-row {
+                            border-bottom: 1px solid #E9F2FB;
+
+                            th {
+                                padding    : 10px 6px;
+                                text-align : center;
+                                color      : #026CD1;
+                                font-size  : 16px;
+                                font-weight: 500;
+                                width      : 15%;
+                            }
+
+                            th:first-child {
+                                width: 10%;
+                            }
+
+                            th:nth-child(4) {
+                                width: 25%;
+                            }
+                        }
+                    }
+
+                    tbody {
+                        width            : 100%;
+                        display          : list-item;
+                        height           : calc(100vh - (74px + 73px + (40px + 84px + 30px + 60px + 20px + 46px) + 32px));
+                        overflow         : auto;
+                        -webkit-flex-flow: row wrap;
+
+                        &::-webkit-scrollbar {
+                            width: 2px;
+                        }
+
+                        &::-webkit-scrollbar-track {
+                            box-shadow   : inset 0 0 5px grey;
+                            border-radius: 10px;
+                        }
+
+                        &::-webkit-scrollbar-thumb {
+                            background   : #168fff;
+                            border-radius: 10px;
+                        }
+
+                        &::-webkit-scrollbar-thumb:hover {
+                            background: #004e98;
+                        }
+
+                        tr.data-table-data-row {
+
+                            &:hover {
+                                background: #E2EDFA;
+                            }
+
+                            td {
+                                padding   : 10px 6px;
+                                text-align: center;
+                                color     : #111213;
+                                font-size : 14px;
+                                width     : 15%;
+                            }
+
+                            td:first-child {
+                                width: 10%;
+                            }
+
+                            td:nth-child(4) {
+                                width: 25%;
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+}

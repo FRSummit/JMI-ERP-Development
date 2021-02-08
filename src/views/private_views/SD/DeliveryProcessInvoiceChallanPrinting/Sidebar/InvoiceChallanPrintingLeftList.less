@@ -1,0 +1,289 @@
+@hex-triplet       : #e6e6e6;
+@black             : #000000;
+@blue              : #026CD1;
+@station-background: #026CD126;
+
+@window_height            : 100vh;
+@window_width             : 100vw;
+@header_height            : 74px;
+@sidebar_default_width    : 60px;
+@secondary_left_menu_width: 300px;
+@title_breadcrumb_height  : 73px;
+@footer_height            : 32px;
+
+@secondary_left_menu_DA_section_height           : 60px;
+@secondary_left_menu_date_range_section_height   : 45px;
+@secondary_left_menu_challan_text_section_height : 36px;
+
+#invoice-challan-printing-left-list.invoice-challan-printing-left-list {
+    display : table-cell;
+    position: relative;
+    overflow: hidden;
+    width   : @secondary_left_menu_width;
+
+    .invoice-challan-printing-list-section {
+        position       : fixed;
+        display        : inline-block;
+        width          : @secondary_left_menu_width;
+        border-right   : 2px solid @hex-triplet;
+        // padding     : 20px;
+
+        .invoice-challan-printing-list-section-inner {
+            overflow: hidden;
+            display : block;
+            height  : 100%;
+
+            .month-selection-section {
+                padding: 10px 20px 20px;
+
+                .month-selection-section-inner {
+                    display  : block;
+                    font-size: 13px;
+                    color    : #36454F;
+                    overflow : hidden;
+
+                    .select-option-label {
+                        display: inline-block;
+                        width  : auto;
+                        float  : left;
+
+                        p.month-selection-label {
+                            font-weight: 500;
+                            margin     : 0;
+                            padding    : 6px 0px 5px;
+                        }
+                    }
+
+                    .select-options {
+                        display : inline-block;
+                        width   : 210px;
+                        float   : right;
+                        position: relative;
+
+                        span.right-icon {
+                            svg {
+                                position: absolute;
+                                right   : 8px;
+                                top     : 8px;
+                                color   : #BFCFE2;
+                            }
+                        }
+
+                        span.down-icon {
+                            svg {
+                                position: absolute;
+                                right   : 8px;
+                                top     : 10px;
+                                color   : #BFCFE2;
+                            }
+                        }
+
+                        select.selectpicker {
+                            display     : block;
+                            height      : 30px;
+                            padding-left: 10px;
+                            // border      : 1px solid #BFCFE2;
+                            border      : 1px solid #E1E2E3;
+
+                            option {}
+                        }
+
+                    }
+                }
+            }
+
+            .date-range {
+                padding   : 0 20px 10px;
+                // margin : 0 0 10px 0;
+
+                .date-range-inner {
+                    // text-align: right;
+                    p {
+                        margin   : 0;
+                        font-size: 14px;
+                        overflow : hidden;
+                        position : relative;
+
+                        span {
+                            vertical-align: sub;
+                        }
+
+                        .mx-datepicker.mx-datepicker-range {
+                            width: 180px;
+                            float: right;
+                            text-align: right;
+                        }
+
+                        input {
+                            // margin: 0 4px;
+                            width    : 170px;
+                            float    : right;
+                            font-size: 12px;
+                            // border   : 1px solid #9e9e9e;
+                            border      : 1px solid #E1E2E3;
+                            height   : auto;
+                            padding  : 6px 0 6px 2px;
+
+                            &:focus {
+                                outline           : 0;
+                                outline-offset    : 0;
+                                -moz-box-shadow   : none;
+                                -webkit-box-shadow: none;
+                                box-shadow        : none;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .location-title {
+                padding   : 2px 20px 10px;
+                // margin : 0 0 6px;
+
+                .location-title-inner {
+                    p {
+                        margin     : 0;
+                        font-size  : 16px;
+                        font-weight: 500;
+                        color      : #000000;
+
+                        span {
+                            color: @blue;
+                        }
+                    }
+                }
+            }
+
+            .location-list-section {
+                position: relative;
+                height  : calc(@window_height - (@header_height + @title_breadcrumb_height + @secondary_left_menu_DA_section_height + @secondary_left_menu_date_range_section_height + @secondary_left_menu_challan_text_section_height + @footer_height));
+
+                .location-list-section-inner {
+                    position       : fixed;
+                    overflow-y     : scroll;
+                    width          : 300px;
+                    height         : calc(@window_height - (@header_height + @title_breadcrumb_height + @secondary_left_menu_DA_section_height + @secondary_left_menu_date_range_section_height + @secondary_left_menu_challan_text_section_height + @footer_height));
+                    scrollbar-width: none;
+
+                    &::-webkit-scrollbar {
+                        width: 2px;
+                    }
+
+                    &::-webkit-scrollbar-track {
+                        box-shadow   : inset 0 0 5px grey;
+                        border-radius: 10px;
+                    }
+
+                    &::-webkit-scrollbar-thumb {
+                        background   : #168fff;
+                        border-radius: 10px;
+                    }
+
+                    &::-webkit-scrollbar-thumb:hover {
+                        background: #004e98;
+                    }
+                }
+
+                .invoice-challan-printing-section-list {
+                    // box-shadow: 0px 0px 8px #026CD11A;
+                    padding      : 0;
+                    // margin       : 0 0 6px;
+                    margin       : 0;
+                    border-bottom: 2px solid #026CD11A;
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+
+                    &:hover {
+                        background    : #026CD11A;
+                        // border-left: 2px solid #026CD1;
+                    }
+
+                    .invoice-challan-printing-section-list-inner {
+                        padding: 12px 20px;
+                        cursor : pointer;
+
+                        .name-status-section {
+                            overflow: hidden;
+
+                            .name-section {
+                                display: inline-block;
+                                float  : left;
+
+                                p.name-text {
+                                    font-size  : 16px;
+                                    color      : #026CD1;
+                                    margin     : 0;
+                                    line-height: 1;
+                                    font-weight: 500;
+                                }
+                            }
+
+                            .status-section {
+                                display: inline-block;
+                                float  : right;
+
+                                p.status-text {
+                                    font-size  : 14px;
+                                    margin     : 0;
+                                    color      : #4F5C64;
+                                    display    : inline-block;
+                                    float      : right;
+                                    line-height: 1;
+                                }
+                            }
+                        }
+
+                        .contact-number-section {
+                            margin  : 8px 0;
+                            overflow: hidden;
+
+                            p.contact-number {
+                                display: inline-block;
+                                float: left;
+                                font-size  : 14px;
+                                margin     : 0;
+                                line-height: 1;
+                                color      : #4F5C64;
+                            }
+
+                            p.status {
+                                display: inline-block;
+                                float: right;
+                                font-size  : 14px;
+                                margin     : 0;
+                                line-height: 1;
+                                color      : #28A411;
+
+                                span.status-icon {
+                                    width: 10px;
+                                    height: 10px;
+                                    background: #28A411;
+                                    display: inline-block;
+                                    border-radius: 2px;
+                                    margin-right: 4px;
+                                }
+                            }
+                        }
+
+                        .territory-text-section {
+                            overflow: hidden;
+
+                            p.territory-text {
+                                font-size  : 14px;
+                                margin     : 0;
+                                line-height: 1;
+                                color      : #B3B9BD;
+                                width: 100%;
+                                white-space: nowrap;
+                                overflow: hidden !important;
+                                text-overflow: ellipsis;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

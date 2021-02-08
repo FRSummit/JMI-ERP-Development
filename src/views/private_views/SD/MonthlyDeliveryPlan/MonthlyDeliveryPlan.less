@@ -1,0 +1,761 @@
+@hex-triplet        : #e6e6e6;
+@black              : #000000;
+@blue               : #026CD1;
+@station-background : #026CD126;
+
+@window_height            : 100vh;
+@window_width             : 100vw;
+@header_height            : 74px;
+@sidebar_default_width    : 60px;
+@secondary_left_menu_width: 300px;
+@title_breadcrumb_height  : 73px;
+@footer_height            : 32px;
+
+#monthly-delivery-plan.monthly-delivery-plan {
+    position: relative;
+    height  : calc(@window_height - (@header_height + @footer_height));
+
+    .monthly-delivery-plan-section {
+        border-top: 2px solid @hex-triplet;
+
+        // margin-top: 20px;
+        .monthly-delivery-plan-inner {
+            // display: flex;
+            display: table;
+            width  : 100%;
+
+            .monthly-delivery-plan-detail-section {
+                // display: inline-block;
+                display: table-cell;
+                padding: 20px 0;
+                height : calc(@window_height - (@header_height + @title_breadcrumb_height + @footer_height));
+
+                .monthly-delivery-plan-detail-inner {
+                    font-size: 14px;
+                    height   : 100%;
+
+                    .monthly-delivery-plan-detail-header-section {
+                        border-bottom: 2px solid #026CD11A;
+
+                        .monthly-delivery-plan-detail-header-section-inner {
+                            padding: 4px 20px 6px;
+
+                            .delivery-plan-date-section {
+                                padding : 4px 0 6px;
+                                overflow: hidden;
+
+                                .date-section {
+                                    display: inline-block;
+                                    float  : left;
+
+                                    p.date-text {
+                                        font-size  : 18px;
+                                        color      : #18191A;
+                                        font-weight: bold;
+                                        margin     : 0;
+                                        line-height: 1;
+
+                                        span.default-text {}
+
+                                        span.date-text {
+                                            color      : #026CD1;
+                                            margin-left: 4px;
+                                        }
+                                    }
+                                }
+
+                                .select-option-box {
+                                    display: inline-block;
+                                    float  : right;
+
+                                    .default-text {
+                                        display: inline-block;
+
+                                        span {
+                                            color      : #000000;
+                                            font-size  : 18px;
+                                            font-weight: 500;
+                                        }
+                                    }
+
+                                    .select-options {
+                                        display    : inline-block;
+                                        width      : auto;
+                                        position   : relative;
+                                        margin-left: 6px;
+
+                                        span.right-icon {
+                                            svg {
+                                                position : absolute;
+                                                right    : 8px;
+                                                top      : 10px;
+                                                color    : #026CD1;
+                                                font-size: 10px;
+                                            }
+                                        }
+
+                                        select.selectpicker {
+                                            display     : block;
+                                            width       : 200px;
+                                            height      : 32px;
+                                            padding-left: 10px;
+                                            border      : 1px solid #BFCFE2;
+                                            font-size   : 14px;
+
+                                            &:focus {
+                                                outline           : 0;
+                                                outline-offset    : 0;
+                                                -moz-box-shadow   : none;
+                                                -webkit-box-shadow: none;
+                                                box-shadow        : none;
+                                                border            : 1px solid #026CD1;
+                                            }
+
+                                            option {
+                                                color: #36454F;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            .da-name-contact-number-territory-details-section {
+                                display: block;
+                                width  : 100%;
+                                padding: 6px 0;
+
+                                div {
+                                    display: inline-block;
+                                    width  : 30%;
+
+                                    p {
+                                        font-size  : 14px;
+                                        color      : #18191A;
+                                        margin     : 0;
+                                        line-height: 1;
+
+                                        span.default-text {}
+
+                                        span:nth-child(2) {
+                                            color      : #026CD1;
+                                            margin-left: 4px;
+                                        }
+                                    }
+                                }
+
+                                .da-name-section {}
+
+                                .territory-details-section {
+                                    width: 70%;
+
+                                    p.territory-details-text {
+                                        display : inline-block;
+                                        position: relative;
+
+                                        .territory-details {
+                                            span {
+                                                color: #000000;
+
+                                                .more-option {
+                                                    &:hover {
+                                                        color: #026CD1;
+                                                    }
+                                                }
+
+                                                .tool-tip {
+                                                    display: none;
+                                                }
+
+                                                &:hover {
+
+                                                    .tool-tip {
+                                                        display      : block;
+                                                        position     : absolute;
+                                                        width        : 500px;
+                                                        // top       : 30px;
+                                                        bottom       : 20px;
+                                                        left         : 60px;
+                                                        font-size    : 14px;
+                                                        background   : transparent;
+                                                        z-index      : 999;
+
+                                                        span {
+                                                            color  : #026CD1;
+                                                            display: block;
+                                                            margin : 4px 0;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    .add-btn-section {
+                                        display       : inline-block;
+                                        vertical-align: middle;
+                                        margin-left   : 16px;
+                                        width         : auto;
+                                        position      : relative;
+
+                                        span.add-btn-inner {
+                                            background   : #E2EDFA;
+                                            padding      : 5px 9px 4px;
+                                            display      : block;
+                                            overflow     : hidden;
+                                            border-radius: 50%;
+                                            cursor       : pointer;
+                                            width        : 30px;
+                                            height       : 30px;
+                                            padding      : 5px 7px;
+
+                                            svg {
+                                                color    : #026CD1;
+                                                font-size: 18px;
+                                            }
+
+                                            &:hover {
+                                                background: #026CD1;
+
+                                                svg {
+                                                    color: #FFFFFF;
+                                                }
+                                            }
+                                        }
+
+                                        .tool-tip {
+                                            display: none;
+                                        }
+
+                                        &:hover {
+
+                                            .tool-tip {
+                                                display       : block;
+                                                position      : absolute;
+                                                width         : 70px;
+                                                text-align    : center;
+                                                line-height   : 1;
+                                                color         : #026CD1;
+                                                left          : -20px;
+                                                // top        : -14px;
+                                                bottom        : 30px;
+                                            }
+                                        }
+
+                                        .add-territory-modal-section {
+                                            position        : fixed;
+                                            width           : 100%;
+                                            height          : 100%;
+                                            left            : 0;
+                                            top             : 0;
+                                            background-color: rgba(0, 18, 35, 0.4);
+                                            z-index         : 999;
+
+                                            .add-territory-modal {
+                                                position           : fixed;
+                                                top                : 244px;
+                                                left               : calc((100vw / 2));
+                                                // position        : absolute;
+                                                // right           : 0;
+                                                // top             : 36px;
+                                                width              : 350px;
+                                                height             : 400px;
+                                                background         : #FFFFFF 0% 0% no-repeat padding-box;
+                                                box-shadow         : 0px 0px 20px #026cd129;
+                                                border-radius      : 8px;
+                                                padding            : 10px;
+
+                                                .add-territory-modal-inner {
+                                                    width   : 100%;
+                                                    position: relative;
+
+                                                    p.title {
+                                                        padding       : 6px 20px;
+                                                        text-align    : left;
+                                                        letter-spacing: 0px;
+                                                        color         : #36454F;
+                                                        font-size     : 14px;
+                                                    }
+
+                                                    span.close-icon {
+                                                        color        : red;
+                                                        font-size    : 16px;
+                                                        font-weight  : 700;
+                                                        background   : #E2EDFA;
+                                                        padding      : 4px 10px 3px;
+                                                        border-radius: 50%;
+                                                        position     : absolute;
+                                                        right        : 0;
+                                                        top          : -2px;
+                                                        cursor       : pointer;
+
+                                                        span.tool-tip {
+                                                            display: none;
+                                                        }
+
+                                                        &:hover {
+
+                                                            span.tool-tip {
+                                                                display       : block;
+                                                                position      : absolute;
+                                                                width         : 100px;
+                                                                color         : red;
+                                                                text-align    : center;
+                                                                line-height   : 1;
+                                                                font-weight   : normal;
+                                                                top           : -20px;
+                                                                left          : -40px;
+                                                                // top        : -14px;
+                                                                bottom        : 30px;
+                                                            }
+                                                        }
+
+
+                                                        svg {
+                                                            line-height: 1;
+                                                        }
+                                                    }
+
+                                                    .search-territory {
+                                                        display: block;
+                                                        width  : 100%;
+                                                        padding: 10px 20px;
+
+                                                        .search-territory-inner {
+                                                            width: 100%;
+
+                                                            .form-group {
+                                                                margin        : 0;
+                                                                position      : relative;
+                                                                display       : inline-block;
+                                                                vertical-align: middle;
+                                                                width         : 100%;
+                                                            }
+
+                                                            .has-search .form-control {
+                                                                padding-left: 2.375rem;
+                                                            }
+
+                                                            .has-search .form-control-feedback {
+                                                                position      : absolute;
+                                                                z-index       : 2;
+                                                                display       : block;
+                                                                width         : 16px;
+                                                                height        : 16px;
+                                                                text-align    : center;
+                                                                pointer-events: none;
+                                                                color         : #aaa;
+                                                                top           : 8px;
+                                                                left          : 12px;
+                                                                border        : none;
+                                                                padding       : 2px;
+                                                            }
+
+                                                            input {
+                                                                margin       : 0;
+                                                                border-bottom: none;
+                                                                border       : 1px solid #BFCFE2;
+                                                                box-sizing   : inherit;
+                                                                font-size    : 12px;
+                                                                height       : auto;
+                                                                padding      : 6px 0;
+                                                            }
+
+                                                            input:focus {
+                                                                box-shadow: none;
+                                                            }
+                                                        }
+                                                    }
+
+                                                    .territory-list {
+                                                        display: block;
+                                                        width  : 100%;
+
+                                                        .territory-list-inner {
+                                                            width     : 100%;
+                                                            overflow-y: scroll;
+                                                            height    : 300px;
+
+                                                            &::-webkit-scrollbar {
+                                                                width: 2px;
+                                                            }
+
+                                                            &::-webkit-scrollbar-track {
+                                                                box-shadow   : inset 0 0 5px grey;
+                                                                border-radius: 10px;
+                                                            }
+
+                                                            &::-webkit-scrollbar-thumb {
+                                                                background   : #168fff;
+                                                                border-radius: 10px;
+                                                            }
+
+                                                            &::-webkit-scrollbar-thumb:hover {
+                                                                background: #004e98;
+                                                            }
+
+                                                            p.territory-name {
+                                                                padding       : 10px 20px;
+                                                                text-align    : left;
+                                                                letter-spacing: 0px;
+                                                                color         : #36454F;
+                                                                font-size     : 14px;
+                                                                border-bottom : 1px solid #F0F6FC;
+                                                                cursor        : pointer;
+
+                                                                span {
+                                                                    color   : #36454F;
+                                                                    // width: 100%;
+                                                                    display : inline-block;
+                                                                    margin  : 0;
+
+                                                                    span {
+                                                                        font-weight: 500;
+                                                                    }
+                                                                }
+
+                                                                span:first-child {
+                                                                    margin-bottom: 4px;
+                                                                }
+
+                                                                &:hover {
+                                                                    background: #E2EDFA;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .monthly-delivery-plan-detail-calender-section {
+                        width    : 100%;
+                        display  : list-item;
+                        // height: calc(100vh - (74px + 73px + (40px + 84px + 30px + 60px + 20px + 46px) + 32px));
+                        height   : calc(100vh - (74px + 73px + (84px + 34px) + 32px));
+                        overflow : auto;
+
+                        &::-webkit-scrollbar {
+                            width: 2px;
+                        }
+
+                        &::-webkit-scrollbar-track {
+                            box-shadow   : inset 0 0 5px grey;
+                            border-radius: 10px;
+                        }
+
+                        &::-webkit-scrollbar-thumb {
+                            background   : #168fff;
+                            border-radius: 10px;
+                        }
+
+                        &::-webkit-scrollbar-thumb:hover {
+                            background: #004e98;
+                        }
+
+                        .monthly-delivery-plan-detail-calender-section-inner {}
+                    }
+
+                    .monthly-delivery-plan-submit-section {
+                        position  : absolute;
+                        bottom    : 20px;
+                        text-align: center;
+                        width     : calc(@window_width - (@sidebar_default_width + @secondary_left_menu_width));
+
+                        .monthly-delivery-plan-submit-section-inner {
+                            .plan-submit-btn {
+                                background   : #026CD1;
+                                color        : #FFFFFF;
+                                padding      : 10px 12px;
+                                border-radius: 2px;
+                                font-size    : 16px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .confirmation-alert-popup {
+        position        : fixed;
+        left            : calc((100vw / 2) - 200px);
+        // background   : #001223;
+        z-index         : 9999;
+        width           : 100%;
+        height          : 100%;
+        left            : 0;
+        top             : 0;
+        background-color: rgb(0 18 35 / 86%);
+
+        .confirmation-alert-popup-inner {
+            padding      : 20px;
+            text-align   : center;
+            width        : 400px;
+            background   : #FFFFFF;
+            position     : absolute;
+            top          : calc((100vh / 2) - 100px);
+            left         : calc((100vw / 2) - 200px);
+            opacity      : 1;
+            z-index      : 9999;
+            border-radius: 2px;
+
+            span.popup-icon {
+                margin-bottom: 20px;
+                display      : block;
+
+                svg {
+                    color : #C11616;
+                    width : 24px;
+                    height: 28px;
+                }
+            }
+
+            .alert-text {
+                font-size    : 24px;
+                margin       : 0;
+                line-height  : 1;
+                margin-bottom: 10px;
+                display      : block;
+                color        : #C11616;
+            }
+
+            .alert-desc {
+                font-size    : 20px;
+                margin       : 0;
+                line-height  : 1;
+                margin-bottom: 30px;
+                display      : block;
+                color        : #36454F;
+            }
+
+            span.divider {
+                background   : #C11616;
+                width        : 100%;
+                height       : 1px;
+                display      : block;
+                margin-bottom: 10px;
+                display      : block;
+            }
+
+            .confirmation-submit-section {
+                text-transform: uppercase;
+
+                .confirm-btn-section {
+                    display: inline-block;
+                    width  : 50%;
+
+                    span {
+                        outline: 0;
+                        cursor : pointer;
+                        color  : #36454F;
+                    }
+                }
+
+                .cancel-btn-section {
+                    display: inline-block;
+                    width  : 50%;
+
+                    span {
+                        outline: 0;
+                        cursor : pointer;
+                        color  : #C11616;
+                    }
+                }
+            }
+        }
+    }
+
+    .copy-modal {
+        position: fixed;
+        // top     : calc(74px + 73px + 80px + 24px);
+        // right   : 120px;
+        background-color: rgb(0 18 35 / 10%);
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 999;
+
+        .add-territory-modal {
+            position        : absolute;
+            // right           : 0;
+            // top             : 36px;
+            width           : 350px;
+            height          : 400px;
+            background      : #FFFFFF 0% 0% no-repeat padding-box;
+            box-shadow      : 0px 0px 20px #026cd129;
+            border-radius   : 8px;
+            padding         : 10px;
+            top: calc(74px + 73px + 80px + 24px);
+            right: 120px;
+
+            .add-territory-modal-inner {
+                width   : 100%;
+                position: relative;
+
+                p.title {
+                    padding       : 6px 20px;
+                    text-align    : left;
+                    letter-spacing: 0px;
+                    color         : #36454F;
+                    font-size     : 14px;
+                }
+
+                span.close-icon {
+                    color        : red;
+                    font-size    : 16px;
+                    font-weight  : 700;
+                    background   : #E2EDFA;
+                    padding      : 4px 10px 3px;
+                    border-radius: 50%;
+                    position     : absolute;
+                    right        : 0;
+                    top          : -2px;
+                    cursor       : pointer;
+
+                    span.tool-tip {
+                        display: none;
+                    }
+
+                    &:hover {
+
+                        span.tool-tip {
+                            display       : block;
+                            position      : absolute;
+                            width         : 100px;
+                            color         : red;
+                            text-align    : center;
+                            line-height   : 1;
+                            font-weight   : normal;
+                            top           : -20px;
+                            left          : -40px;
+                            // top        : -14px;
+                            bottom        : 30px;
+                        }
+                    }
+
+
+                    svg {
+                        line-height: 1;
+                    }
+                }
+
+                .search-territory {
+                    display: block;
+                    width  : 100%;
+                    padding: 10px 20px;
+
+                    .search-territory-inner {
+                        width: 100%;
+
+                        .form-group {
+                            margin        : 0;
+                            position      : relative;
+                            display       : inline-block;
+                            vertical-align: middle;
+                            width         : 100%;
+                        }
+
+                        .has-search .form-control {
+                            padding-left: 2.375rem;
+                        }
+
+                        .has-search .form-control-feedback {
+                            position      : absolute;
+                            z-index       : 2;
+                            display       : block;
+                            width         : 16px;
+                            height        : 16px;
+                            text-align    : center;
+                            pointer-events: none;
+                            color         : #aaa;
+                            top           : 8px;
+                            left          : 12px;
+                            border        : none;
+                            padding       : 2px;
+                        }
+
+                        input {
+                            margin       : 0;
+                            border-bottom: none;
+                            border       : 1px solid #BFCFE2;
+                            box-sizing   : inherit;
+                            font-size    : 12px;
+                            height       : auto;
+                            padding      : 6px 0;
+                        }
+
+                        input:focus {
+                            box-shadow: none;
+                        }
+                    }
+                }
+
+                .territory-list {
+                    display: block;
+                    width  : 100%;
+
+                    .territory-list-inner {
+                        width     : 100%;
+                        overflow-y: scroll;
+                        height    : 280px;
+
+                        &::-webkit-scrollbar {
+                            width: 2px;
+                        }
+
+                        &::-webkit-scrollbar-track {
+                            box-shadow   : inset 0 0 5px grey;
+                            border-radius: 10px;
+                        }
+
+                        &::-webkit-scrollbar-thumb {
+                            background   : #168fff;
+                            border-radius: 10px;
+                        }
+
+                        &::-webkit-scrollbar-thumb:hover {
+                            background: #004e98;
+                        }
+
+                        p.territory-name {
+                            padding       : 10px 20px;
+                            text-align    : left;
+                            letter-spacing: 0px;
+                            color         : #36454F;
+                            font-size     : 14px;
+                            border-bottom : 1px solid #F0F6FC;
+                            cursor        : pointer;
+                            margin        : 0;
+
+                            span {
+                                color   : #36454F;
+                                // width: 100%;
+                                display : inline-block;
+                                margin  : 0;
+
+                                span {
+                                    font-weight: 500;
+                                }
+                            }
+
+                            span:first-child {
+                                margin-bottom: 4px;
+                            }
+
+                            &:hover {
+                                background: #E2EDFA;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

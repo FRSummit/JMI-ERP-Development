@@ -1,0 +1,670 @@
+@hex-triplet       : #e6e6e6;
+@black             : #000000;
+@blue              : #026CD1;
+@station-background: #026CD126;
+
+@window_height            : 100vh;
+@window_width             : 100vw;
+@header_height            : 74px;
+@sidebar_default_width    : 60px;
+@secondary_left_menu_width: 300px;
+@title_breadcrumb_height  : 73px;
+@footer_height            : 32px;
+
+@secondary_left_menu_search_section_height: 62px;
+@secondary_left_menu_month_section_height : 60px;
+
+#monthly-delivery-plan-left-list.monthly-delivery-plan-left-list {
+    display : table-cell;
+    position: relative;
+    overflow: hidden;
+    width   : @secondary_left_menu_width;
+
+    .monthly-delivery-plan-list-section {
+        position       : fixed;
+        display        : inline-block;
+        width          : @secondary_left_menu_width;
+        border-right   : 2px solid @hex-triplet;
+        // padding     : 20px;
+
+        .monthly-delivery-plan-list-section-inner {
+            overflow: hidden;
+            display : block;
+            height  : 100%;
+
+            .search-section {
+                padding: 20px 20px 10px;
+
+                .form-group {
+                    margin        : 0;
+                    position      : relative;
+                    display       : inline-block;
+                    vertical-align: middle;
+                    width         : 85%;
+                }
+
+                .has-search .form-control {
+                    padding-left: 2.375rem;
+                }
+
+                .has-search .form-control-feedback {
+                    position      : absolute;
+                    z-index       : 2;
+                    display       : block;
+                    width         : 16px;
+                    height        : 16px;
+                    text-align    : center;
+                    pointer-events: none;
+                    color         : #aaa;
+                    top           : 8px;
+                    left          : 12px;
+                    border        : none;
+                    padding       : 2px;
+                }
+
+                input {
+                    margin       : 0;
+                    border-bottom: none;
+                    border       : 1px solid #BFCFE2;
+                    box-sizing   : inherit;
+                    font-size    : 12px;
+                    height       : auto;
+                    padding      : 6px 0;
+                }
+
+                input:focus {
+                    box-shadow: none;
+                }
+
+                svg:last-child {
+                    display       : inline-block;
+                    vertical-align: middle;
+                    height        : 32px;
+                    width         : 32px;
+                    padding       : 8px;
+                    margin        : 0;
+                    float         : right;
+                    color         : #BFCFE2;
+                    border        : 1px solid #BFCFE2;
+                }
+            }
+
+            .month-selection-section {
+                padding: 10px 20px 20px;
+
+                .month-selection-section-inner {
+                    display  : block;
+                    font-size: 13px;
+                    color    : #36454F;
+                    overflow : hidden;
+
+                    // .select-option-label {
+                    //     display: inline-block;
+                    //     width  : 80px;
+                    //     float  : left;
+
+                    //     p.month-selection-label {
+                    //         margin : 0;
+                    //         padding: 6px 0px 5px;
+                    //     }
+                    // }
+
+                    .select-options {
+                        display    : inline-block;
+                        width      : 220px;
+                        // float   : right;
+                        float      : left;
+                        position   : relative;
+
+                        span.right-icon {
+                            svg {
+                                position: absolute;
+                                right   : 8px;
+                                top     : 8px;
+                                color   : #BFCFE2;
+                            }
+                        }
+
+                        select.selectpicker {
+                            display     : block;
+                            height      : 30px;
+                            padding-left: 10px;
+                            border      : 1px solid #BFCFE2;
+
+                            option {}
+                        }
+
+                    }
+
+                    .copy-delete-btn-section {
+                        display    : inline-block;
+                        width      : 30px;
+                        float      : right;
+                        line-height: 1.6;
+
+                        .copy-btn {
+                            padding      : 5px 9px 4px;
+                            display      : block;
+                            overflow     : hidden;
+                            border-radius: 50%;
+                            cursor       : pointer;
+
+                            svg {
+                                color    : #026CD1;
+                                font-size: 14px;
+                            }
+
+                            &:hover {
+                                background: #E2EDFA;
+                            }
+                        }
+
+                        .delete-btn {
+                            padding      : 5px 9px 4px;
+                            display      : block;
+                            overflow     : hidden;
+                            border-radius: 50%;
+                            cursor       : pointer;
+
+                            svg {
+                                color    : #DF2A43;
+                                font-size: 14px;
+                            }
+
+                            &:hover {
+                                background: #E2EDFA;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .monthly-list-section {
+                position: relative;
+                height  : calc(@window_height - (@header_height + @title_breadcrumb_height + @secondary_left_menu_search_section_height + @secondary_left_menu_month_section_height + @footer_height));
+
+                .monthly-list-section-inner {
+                    position       : fixed;
+                    overflow-y     : scroll;
+                    width          : 300px;
+                    height         : calc(@window_height - (@header_height + @title_breadcrumb_height + @secondary_left_menu_search_section_height + @secondary_left_menu_month_section_height + @footer_height));
+                    scrollbar-width: none;
+
+                    &::-webkit-scrollbar {
+                        width: 2px;
+                    }
+
+                    &::-webkit-scrollbar-track {
+                        box-shadow   : inset 0 0 5px grey;
+                        border-radius: 10px;
+                    }
+
+                    &::-webkit-scrollbar-thumb {
+                        background   : #168fff;
+                        border-radius: 10px;
+                    }
+
+                    &::-webkit-scrollbar-thumb:hover {
+                        background: #004e98;
+                    }
+
+                    .monthly-plan-list-progressbar {
+                        text-align: center;
+                        margin    : 40px 0;
+                        color     : #026cd1;
+                    }
+                }
+
+                .monthly-delivery-plan-section-list {
+                    // box-shadow: 0px 0px 8px #026CD11A;
+                    padding         : 0;
+                    // margin       : 0 0 6px;
+                    margin          : 0;
+                    border-bottom   : 2px solid #026CD11A;
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+
+                    &:hover {
+                        background    : #026CD11A;
+                        // border-left: 2px solid #026CD1;
+                    }
+
+                    .monthly-delivery-plan-section-list-inner {
+                        padding : 12px 20px;
+                        cursor  : pointer;
+                        position: relative;
+
+                        .name-status-section {
+                            overflow   : hidden;
+                            line-height: 1;
+
+                            .name-section {
+                                display   : inline-block;
+                                // float  : left;
+
+                                p.name-text {
+                                    font-size       : 14px;
+                                    color           : #026CD1;
+                                    margin          : 0;
+                                    line-height     : 1;
+                                    font-weight     : 500;
+                                    width           : 100%;
+                                    // width        : 180px;
+                                    // white-space  : nowrap;
+                                    // overflow     : hidden !important;
+                                    // text-overflow: ellipsis;
+
+                                    // span.tool-tip {
+                                    //     display: none;
+                                    // }
+
+                                    // &:hover {
+                                    //     color: #99bbda;
+
+                                    //     span.tool-tip {
+                                    //         display : block;
+                                    //         position: absolute;
+                                    //         left    : 20px;
+                                    //         top     : 0px;
+                                    //         color   : #026CD1;
+                                    //     }
+                                    // }
+                                }
+                            }
+
+                            // .status-section {
+                            //     display: inline-block;
+                            //     float  : right;
+
+                            //     span.status-color {
+                            //         background   : #28A411;
+                            //         width        : 8px;
+                            //         height       : 8px;
+                            //         display      : inline-block;
+                            //         float        : left;
+                            //         margin-top   : 2px;
+                            //         margin-right : 4px;
+                            //         border-radius: 2px;
+                            //     }
+
+                            //     span.Available {
+                            //         background: #28A411;
+                            //     }
+
+                            //     span.Occupied {
+                            //         background: #FCC428;
+                            //     }
+
+                            //     p.status-text {
+                            //         font-size  : 14px;
+                            //         margin     : 0;
+                            //         color      : #28A411;
+                            //         display    : inline-block;
+                            //         float      : right;
+                            //         line-height: 1;
+                            //     }
+
+                            //     p.Available {
+                            //         color: #28A411;
+                            //     }
+
+                            //     p.Occupied {
+                            //         color: #FCC428;
+                            //     }
+                            // }
+                        }
+
+                        .contact-number-section {
+                            margin  : 8px 0;
+                            overflow: hidden;
+
+                            p.contact-number {
+                                font-size  : 14px;
+                                margin     : 0;
+                                line-height: 1;
+                                color      : #4F5C64;
+                            }
+                        }
+
+                        .territory-text-section {
+                            overflow: hidden;
+
+                            p.territory-text {
+                                display    : inline-block;
+                                float      : left;
+                                font-size  : 14px;
+                                margin     : 0;
+                                line-height: 1;
+                                color      : #B3B9BD;
+                            }
+
+                            .status-section {
+                                display: inline-block;
+                                float  : right;
+
+                                span.status-color {
+                                    background   : #28A411;
+                                    width        : 8px;
+                                    height       : 8px;
+                                    display      : inline-block;
+                                    float        : left;
+                                    margin-top   : 2px;
+                                    margin-right : 4px;
+                                    border-radius: 2px;
+                                }
+
+                                span.Available {
+                                    background: #28A411;
+                                }
+
+                                span.Occupied {
+                                    background: #FCC428;
+                                }
+
+                                p.status-text {
+                                    font-size  : 14px;
+                                    margin     : 0;
+                                    color      : #28A411;
+                                    display    : inline-block;
+                                    float      : right;
+                                    line-height: 1;
+                                }
+
+                                p.Available {
+                                    color: #28A411;
+                                }
+
+                                p.Occupied {
+                                    color: #FCC428;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .monthly-delivery-plan-section-list.active {
+                    background: #026CD11A;
+                }
+            }
+        }
+    }
+    
+    .confirmation-alert-popup {
+        position        : fixed;
+        left            : calc((100vw / 2) - 200px);
+        // background   : #001223;
+        z-index         : 9999;
+        width           : 100%;
+        height          : 100%;
+        left            : 0;
+        top             : 0;
+        background-color: rgb(0 18 35 / 86%);
+
+        .confirmation-alert-popup-inner {
+            padding      : 20px;
+            text-align   : center;
+            width        : 400px;
+            background   : #FFFFFF;
+            position     : absolute;
+            top          : calc((100vh / 2) - 100px);
+            left         : calc((100vw / 2) - 200px);
+            opacity      : 1;
+            z-index      : 9999;
+            border-radius: 2px;
+
+            span.popup-icon {
+                margin-bottom: 20px;
+                display      : block;
+
+                svg {
+                    color : #C11616;
+                    width : 24px;
+                    height: 28px;
+                }
+            }
+
+            .alert-text {
+                font-size    : 24px;
+                margin       : 0;
+                line-height  : 1;
+                margin-bottom: 10px;
+                display      : block;
+                color        : #C11616;
+            }
+
+            .alert-desc {
+                font-size    : 20px;
+                margin       : 0;
+                line-height  : 1;
+                margin-bottom: 30px;
+                display      : block;
+                color        : #36454F;
+            }
+
+            span.divider {
+                background   : #C11616;
+                width        : 100%;
+                height       : 1px;
+                display      : block;
+                margin-bottom: 10px;
+                display      : block;
+            }
+
+            .confirmation-submit-section {
+                text-transform: uppercase;
+
+                .confirm-btn-section {
+                    display: inline-block;
+                    width  : 50%;
+
+                    span {
+                        outline: 0;
+                        cursor : pointer;
+                        color  : #36454F;
+                    }
+                }
+
+                .cancel-btn-section {
+                    display: inline-block;
+                    width  : 50%;
+
+                    span {
+                        outline: 0;
+                        cursor : pointer;
+                        color  : #C11616;
+                    }
+                }
+            }
+        }
+    }
+
+    .copy-modal {
+        position: fixed;
+        // top     : calc(74px + 73px + 80px + 24px);
+        // right   : 120px;
+        background-color: rgb(0 18 35 / 10%);
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 999;
+
+        .add-territory-modal {
+            position        : absolute;
+            // right           : 0;
+            // top             : 36px;
+            width           : 350px;
+            height          : 400px;
+            background      : #FFFFFF 0% 0% no-repeat padding-box;
+            box-shadow      : 0px 0px 20px #026cd129;
+            border-radius   : 8px;
+            padding         : 10px;
+            top: calc(74px + 73px + 20px);
+            left: 360px;
+
+            .add-territory-modal-inner {
+                width   : 100%;
+                position: relative;
+
+                p.title {
+                    padding       : 6px 20px;
+                    text-align    : left;
+                    letter-spacing: 0px;
+                    color         : #36454F;
+                    font-size     : 14px;
+                }
+
+                span.close-icon {
+                    color        : red;
+                    font-size    : 16px;
+                    font-weight  : 700;
+                    background   : #E2EDFA;
+                    padding      : 4px 10px 3px;
+                    border-radius: 50%;
+                    position     : absolute;
+                    right        : 0;
+                    top          : -2px;
+                    cursor       : pointer;
+
+                    span.tool-tip {
+                        display: none;
+                    }
+
+                    &:hover {
+
+                        span.tool-tip {
+                            display       : block;
+                            position      : absolute;
+                            width         : 100px;
+                            color         : red;
+                            text-align    : center;
+                            line-height   : 1;
+                            font-weight   : normal;
+                            top           : -20px;
+                            left          : -40px;
+                            // top        : -14px;
+                            bottom        : 30px;
+                        }
+                    }
+
+
+                    svg {
+                        line-height: 1;
+                    }
+                }
+
+                .search-territory {
+                    display: block;
+                    width  : 100%;
+                    padding: 10px 20px;
+
+                    .search-territory-inner {
+                        width: 100%;
+
+                        .form-group {
+                            margin        : 0;
+                            position      : relative;
+                            display       : inline-block;
+                            vertical-align: middle;
+                            width         : 100%;
+                        }
+
+                        .has-search .form-control {
+                            padding-left: 2.375rem;
+                        }
+
+                        .has-search .form-control-feedback {
+                            position      : absolute;
+                            z-index       : 2;
+                            display       : block;
+                            width         : 16px;
+                            height        : 16px;
+                            text-align    : center;
+                            pointer-events: none;
+                            color         : #aaa;
+                            top           : 8px;
+                            left          : 12px;
+                            border        : none;
+                            padding       : 2px;
+                        }
+
+                        input {
+                            margin       : 0;
+                            border-bottom: none;
+                            border       : 1px solid #BFCFE2;
+                            box-sizing   : inherit;
+                            font-size    : 12px;
+                            height       : auto;
+                            padding      : 6px 0;
+                        }
+
+                        input:focus {
+                            box-shadow: none;
+                        }
+                    }
+                }
+
+                .territory-list {
+                    display: block;
+                    width  : 100%;
+
+                    .territory-list-inner {
+                        width     : 100%;
+                        overflow-y: scroll;
+                        height    : 280px;
+
+                        &::-webkit-scrollbar {
+                            width: 2px;
+                        }
+
+                        &::-webkit-scrollbar-track {
+                            box-shadow   : inset 0 0 5px grey;
+                            border-radius: 10px;
+                        }
+
+                        &::-webkit-scrollbar-thumb {
+                            background   : #168fff;
+                            border-radius: 10px;
+                        }
+
+                        &::-webkit-scrollbar-thumb:hover {
+                            background: #004e98;
+                        }
+
+                        p.territory-name {
+                            padding       : 10px 20px;
+                            text-align    : left;
+                            letter-spacing: 0px;
+                            color         : #36454F;
+                            font-size     : 14px;
+                            border-bottom : 1px solid #F0F6FC;
+                            cursor        : pointer;
+                            margin        : 0;
+
+                            span {
+                                color   : #36454F;
+                                // width: 100%;
+                                display : inline-block;
+                                margin  : 0;
+
+                                span {
+                                    font-weight: 500;
+                                }
+                            }
+
+                            span:first-child {
+                                margin-bottom: 4px;
+                            }
+
+                            &:hover {
+                                background: #E2EDFA;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

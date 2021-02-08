@@ -1,0 +1,157 @@
+@hex-triplet        : #e6e6e6;
+@black              : #000000;
+@blue               : #026CD1;
+@station-background : #026CD126;
+
+@window_height            : 100vh;
+@window_width             : 100vw;
+@header_height            : 74px;
+@sidebar_default_width    : 60px;
+@secondary_left_menu_width: 300px;
+@title_breadcrumb_height  : 73px;
+@footer_height            : 32px;
+
+#delivery-process-dispatch-entry.delivery-process-dispatch-entry {
+    position: relative;
+
+    .delivery-process-dispatch-entry-inner {
+        border-top: 2px solid @hex-triplet;
+        padding   : 0 40px;
+
+        .dispatch-entry-tab-section {
+            .mt-3.dispatch-entry-tabs {
+                display : block;
+                overflow: hidden;
+                height  : auto;
+                margin-top: 20px !important;
+
+                .manual-entry-tab {
+                    .manual-entry-tab-inner {
+                        display : block;
+                        width   : 100%;
+                        overflow: hidden;
+
+                        .input-section {
+                            display       : inline-block;
+                            width         : 80%;
+                            vertical-align: middle;
+
+                            .input-section-inner {
+                                display: table;
+                                width  : 100%;
+
+                                div {
+                                    display: table-cell;
+                                    width  : 25%;
+                                    padding: 6px 10px;
+
+                                    div {
+                                        span {
+                                            display      : block;
+                                            width        : 100%;
+                                            font-size    : 14px;
+                                            margin-bottom: 6px;
+                                            color        : #026CD1;
+                                        }
+
+                                        input {
+                                            display      : block;
+                                            width        : 100%;
+                                            font-size    : 14px;
+                                            border       : 1px solid #E1E2E3;
+                                            border-radius: 2px;
+                                            height       : auto;
+                                            padding      : 11px 0 11px 10px;
+                                            box-sizing   : border-box;
+
+                                            &:focus {
+                                                outline           : 0;
+                                                outline-offset    : 0;
+                                                -moz-box-shadow   : none;
+                                                -webkit-box-shadow: none;
+                                                box-shadow        : none;
+                                                border: 1px solid #026CD1;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        .submit-section {
+                            display       : inline-block;
+                            width         : 20%;
+                            text-align    : center;
+                            vertical-align: text-top;
+
+                            .submit-section-inner {
+                                button {
+                                    color        : #FCFCFC;
+                                    font-size    : 14px;
+                                    background   : #026CD1;
+                                    width        : 140px;
+                                    padding      : 12px 0;
+                                    border-radius: 2px;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .bar-code-scan-tab {
+                    .bar-code-scan-tab-inner {
+                        display : block;
+                        width   : 100%;
+                        overflow: hidden;
+
+                        .delivery-details-section {
+                            display       : inline-block;
+                            width         : 80%;
+                            vertical-align: middle;
+
+                            .delivery-details-section-inner {
+                                display: table;
+                                width  : 100%;
+
+                                div {
+                                    display   : table-cell;
+                                    width     : 25%;
+                                    padding   : 6px 10px;
+                                    text-align: center;
+
+                                    p {
+                                        font-size: 16px;
+                                        color    : #000000;
+                                        margin   : 0;
+
+                                        span {
+                                            color: #026CD1;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        .submit-section {
+                            display       : inline-block;
+                            width         : 20%;
+                            vertical-align: middle;
+                            text-align    : center;
+
+                            .submit-section-inner {
+                                button {
+                                    color        : #FCFCFC;
+                                    font-size    : 14px;
+                                    background   : #026CD1;
+                                    width        : 140px;
+                                    padding      : 12px 0;
+                                    border-radius: 2px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

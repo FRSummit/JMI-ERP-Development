@@ -1,0 +1,265 @@
+@hex-triplet       : #e6e6e6;
+@black             : #000000;
+@blue              : #026CD1;
+@station-background: #026CD126;
+
+#secondary-sidebar.secondary-sidebar {
+
+    .area-tree-name-section {
+        display     : inline-block;
+        width       : 20%;
+        min-width   : 300px;
+        max-width   : 300px;
+        border-right: 2px solid @hex-triplet;
+        padding     : 20px;
+
+        .search-section {
+            margin-bottom: 20px;
+
+            .form-group {
+                margin        : 0;
+                position      : relative;
+                display       : inline-block;
+                vertical-align: middle;
+                width         : 85%;
+            }
+
+            .has-search .form-control {
+                padding-left: 2.375rem;
+            }
+
+            .has-search .form-control-feedback {
+                position      : absolute;
+                z-index       : 2;
+                display       : block;
+                width         : 16px;
+                height        : 16px;
+                text-align    : center;
+                pointer-events: none;
+                color         : #aaa;
+                top           : 8px;
+                left          : 12px;
+                border        : none;
+            }
+
+            input {
+                margin       : 0;
+                border-bottom: none;
+                border       : 1px solid #DEF0FF;
+                box-sizing   : inherit;
+                font-size    : 12px;
+                height       : auto;
+                padding      : 6px 0;
+            }
+
+            input:focus {
+                box-shadow: none;
+            }
+
+            svg:last-child {
+                display       : inline-block;
+                vertical-align: middle;
+                height        : 32px;
+                width         : 32px;
+                padding       : 8px;
+                margin        : 0;
+                float         : right;
+                color         : #e8e8e8cf;
+            }
+        }
+
+        .area-tree-inner {
+            .area-title-text {
+                margin-bottom: 10px;
+
+                .icon-arrow {
+                    display       : inline-block;
+                    vertical-align: top;
+
+                    svg {
+                        width  : 22px;
+                        height : 22px;
+                        padding: 5px;
+                    }
+
+                    .fa-chevron-right {}
+
+                    .fa-chevron-down {}
+                }
+
+                .list-text {
+                    display    : inline-block;
+                    font-size  : 18px;
+                    font-weight: 500;
+                }
+            }
+
+            .main-area-list-section {
+
+                // transition: all .5s ease-in-out;
+                // height: 0;
+                // overflow: hidden;
+                .division-area {
+                    .icon-arrow {
+                        display       : inline-block;
+                        vertical-align: top;
+
+                        .fa-chevron-right {}
+
+                        .fa-chevron-down {}
+                    }
+
+                    .division-inner {
+                        display: inline-block;
+
+                        .division-name {}
+
+                        .district-area-section {
+                            .district-area {
+                                .icon-arrow {
+                                    display       : inline-block;
+                                    vertical-align: top;
+
+                                    .fa-chevron-right {}
+
+                                    .fa-chevron-down {}
+                                }
+
+                                .district-inner {
+                                    display: inline-block;
+
+                                    .district-name {}
+
+                                    .thana-area-section {
+                                        .thana-area {
+                                            .icon-square {
+                                                display       : inline-block;
+                                                vertical-align: top;
+
+                                                .square-icon {
+                                                    width        : 15px;
+                                                    height       : 15px;
+                                                    // background: #026CD1;
+                                                    display      : block;
+                                                    border       : 1px solid #0073de4d;
+                                                    margin-top   : 4px;
+                                                    margin-right : 4px;
+                                                    border-radius: 2px;
+                                                    cursor       : pointer;
+                                                }
+                                            }
+
+                                            .thana-inner {
+                                                display: inline-block;
+
+                                                .thana-name {}
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+
+    .area-detail-section {
+        display: inline-block;
+        width  : 80%;
+        padding: 20px;
+
+        .area-detail-inner {
+            font-size: 14px;
+
+            .area-title-section {
+                position: relative;
+
+                .area-name {
+                    font-size     : 26px;
+                    margin        : 0;
+                    color         : @black;
+                    display       : inline-block;
+                    margin-right  : 20px;
+                    vertical-align: middle;
+                }
+
+                .area-station {
+                    font-size     : 10px;
+                    margin        : 0;
+                    color         : @blue;
+                    border        : 1px solid @blue;
+                    border-radius : 20px;
+                    background    : @station-background;
+                    padding       : 1px 12px;
+                    display       : inline-block;
+                    vertical-align: middle;
+                }
+
+                .edit-icon-section {
+                    position     : absolute;
+                    right        : 20px;
+                    top          : 0;
+                    background   : #026CD10F;
+                    width        : 30px;
+                    height       : 30px;
+                    text-align   : center;
+                    border-radius: 50%;
+                    cursor       : pointer;
+                    padding-left : 2px;
+
+                    .fa-pencil-alt {
+                        color         : @blue;
+                        vertical-align: bottom;
+                        padding       : 0;
+                    }
+                }
+            }
+
+            .area-code-section {
+                .area-code {
+                    font-size: 14px;
+                    color    : @blue;
+                    margin   : 0;
+
+                    .area-code-no {
+                        color: @black;
+                    }
+                }
+            }
+
+            .area-description-section {
+                margin-top: 10px;
+
+                .area-description-title {
+                    margin   : 0;
+                    font-size: 14px;
+                    color    : @blue;
+                    margin   : 0;
+                }
+
+                .area-description {
+                    margin    : 0;
+                    font-size : 14px;
+                    color     : @black;
+                    max-width : 800px;
+                    margin-top: 10px;
+                }
+            }
+
+            .area-demography-map-section {
+                margin-top: 30px;
+
+                .geo-tab {
+                    overflow  : inherit;
+                    height    : auto;
+                    margin-top: 0 !important;
+                    color     : @black;
+                    display   : block;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,31 @@
+>> create project
+>> vue add vuetify
+>> npm install materialize-css@next
+>> import $ from 'jquery'
+>> npm install --save config vee-validate
+>> npm install bcryptjs
+>> npm install --save lodash.debounce
+>> npm install vue-html-to-paper --save
+>> npm install vue bootstrap-vue bootstrap
+>> npm install jspdf --save
+>> npm install --save jspdf-autotable
+>> npm install jquery --save
+>> npm install print-js --save
+>> npm install less less-loader --save-dev
+>> npm i -S vuedraggable
+>> npm install vue2-google-maps --save
+>> npm i vuejs-google-maps
+>> npm install --save google-maps-api-loader
+>> npm install vue-browser-geolocation
+>> npm install @types/google-maps --save-dev
+>> npm install --save google-maps
+>> npm i vue2-daterange-picker --save
+>> npm install vue-hotel-datepicker
+>> npm install --save vue2-datepicker
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 
+>> 

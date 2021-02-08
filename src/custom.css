@@ -1,0 +1,361 @@
+/* App */
+
+#app {
+    font-family: "Roboto";
+}
+
+/* views > private_views > ADM > Create New Sbu */
+
+/* .active {
+    border-bottom: 2px solid #026cd1;
+} */
+
+
+
+/* Sidebar */
+.static-menu-section-inner.jemy-hover .static-menu-icon,
+.primary-menu-section-inner.jemy-hover .primary-icon,
+.tertiary-menu-section-inner.jemy-hover .tertiary-icon {
+    color: #026CD1 !important;
+}
+.static-secondary-menu-section-inner.jemy-hover .static-secondary-icon,
+.secondary-menu-section-inner.jemy-hover .secondary-icon,
+.tertiary-poly-menu-section-inner.jemy-hover .tertiary-poly-icon {
+    background: #026CD1 !important;
+}
+/* Sidebar */
+
+#create-new-sbu .v-card,
+.geo-location .v-card {
+    margin-top: 20px;
+    margin: 16px 2px 0;
+    box-shadow: none;
+}
+
+#create-new-sbu .theme--light.v-tabs>.v-tabs-bar,
+#geo-location .theme--light.v-tabs>.v-tabs-bar {
+    background: #FFFFFF !important;
+    padding: 0 50px;
+    border-bottom: 2px solid #026cd1;
+}
+
+#create-new-sbu .new-sbu-tab.v-tab,
+#geo-location .v-tab {
+    border-bottom: 2px solid #026cd1;
+    text-transform: none;
+    font-size: 16px;
+    font-weight: normal;
+    letter-spacing: normal;
+    padding: 10px 16px;
+    color: #000000;
+}
+
+#geo-location .v-tab {
+    padding: 10px 20px;
+    border-bottom: none;
+    width: 200px;
+}
+
+#create-new-sbu .v-tabs-slider-wrapper {
+    color: #026cd1;
+    display: none;
+}
+
+#geo-location .v-tabs-slider-wrapper {
+    color: black;
+}
+
+#create-new-sbu .new-sbu-tab.v-tab--active,
+#geo-location .v-tab--active {
+    border: 2px solid #026cd1;
+    border-bottom: none;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    color: #026cd1;
+}
+
+#create-new-sbu .new-sbu-tab.v-tab--active::before {
+    background: #FFFFFF;
+}
+
+#create-new-sbu .new-sbu-tab.v-tab:hover {
+    color: #026cd1;
+    background: #FFFFFF;
+}
+
+#create-new-sbu .v-slide-group__wrapper {
+    display: block;
+}
+
+#create-new-sbu .theme--light.v-tabs>.v-tabs-bar {
+    height: auto;
+    background: #def0ff;
+}
+
+#create-new-sbu .v-window.tab-container.v-item-group.theme--light.v-tabs-items {
+    border: 2px solid #026cd1;
+    border-radius: 4px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    padding: 10px;
+    border-top: none;
+    min-height: 500px;
+}
+
+#create-new-sbu .new-sbu-tab.v-tab:last-child {
+    border-bottom: 2px solid #026cd1;
+    flex-grow: 100;
+    cursor: unset;
+    /* background: #def0ff; */
+}
+
+#create-new-sbu .new-sbu-tab.v-tab:last-child:hover {
+    color: #FFFFFF;
+    background: #FFFFFF;
+}
+
+/* @media only screen and (max-width: 1300px) {
+}
+@media only screen and (max-width: 1050px) {
+} */
+
+
+/* Geo Location */
+#geo-location svg {
+    width: 16px;
+    padding: 2px;
+    border: 1px solid #DEF0FF;
+    border-radius: 2px;
+    margin-right: 4px;
+    cursor: pointer;
+}
+#geo-location .icon-arrow svg.fa-chevron-down {
+    color: #026CD1;
+    border: 1px solid #0073de4d;
+}
+#geo-location .area-tree-inner p {
+    margin: 2px 0;
+    font-size: 14px;
+    cursor: pointer;
+}
+#geo-location .jemy-active {
+    color: #026CD1;
+}
+#geo-location .jemy-active-square {
+    background: #026CD1;
+}
+#geo-location .nav-tabs {
+    border-bottom: 1px solid #026CD1;
+    padding-left: 40px;
+}
+
+#geo-location .nav-item {
+    width: 200px;
+    margin-bottom: -1px;
+}
+
+#geo-location .nav-link {
+    text-align: center;
+    font-size: 16px;
+    color: #000000;
+    border: 2px solid transparent;
+}
+
+#geo-location .nav-link.active {
+    border-color: #026CD1 #026CD1 #FFFFFF;
+    color: #026CD1;
+}
+
+#geo-location .demographics-inner {
+    text-align: center;
+    max-width: 560px;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+
+#geo-location .demographics-inner .household-section,
+#geo-location .demographics-inner .population-section  {
+    display: inline-block;
+    width: 50%;
+    font-size: 14px;
+}
+#geo-location .demographics-inner p {
+    margin: 0;
+}
+#geo-location .demographics-inner .household-section .household-title,
+#geo-location .demographics-inner .population-section .population-title {
+    font-size: 14px;
+    color: #026CD1;
+    text-align: left;
+    margin: 0 10px;
+    padding: 0 10px;
+}
+#geo-location .demographics-inner .household-section .household-value,
+#geo-location .demographics-inner .population-section .population-value {
+    font-size: 29px;
+    border: 1px solid #E1E2E3;
+    width: 240px;
+    margin: 10px auto;
+    padding: 10px 0;
+}
+
+/* Delivery Scheduling */
+.gm-style .gm-style-iw-c {
+    /* transform: none; */
+    padding: 0;
+}
+.gm-style .gm-style-iw-d {
+    padding: 0 !important;
+    overflow: unset !important;
+    overflow-y: scroll !important;
+}
+.gm-ui-hover-effect {
+    width: 20px !important;
+    height: 20px !important;
+    top: 6px !important;
+    right: 6px !important;
+}
+.gm-ui-hover-effect img {
+    width: 20px !important;
+    height: 20px !important;
+    margin: 0 !important;
+}
+.mx-datepicker-main.mx-datepicker-popup {
+    background: #FBFCFE;
+    top: calc(74px + 73px + 60px + 30px) !important;
+    box-shadow: 0px 0px 22px -6px #026cd1;
+    padding: 10px;
+    border-radius: 4px;
+}
+.mx-calendar.mx-calendar-panel-date {
+    display: inline-block;
+    border: 2px solid #5b9fec;
+    border-radius: 4px;
+    padding: 4px 8px;
+}
+.mx-calendar.mx-calendar-panel-date:nth-child(1) {
+    margin-right: 20px;
+}
+
+#delivery-scheduling-left-list .mx-input-wrapper,
+#delivery-packing-preparation-left-list .mx-input-wrapper,
+#invoice-challan-printing-left-list .mx-input-wrapper  {
+    display: block;
+    position: relative;
+}
+
+#delivery-scheduling-left-list .mx-input-wrapper input,
+#delivery-packing-preparation-left-list .mx-input-wrapper input,
+#invoice-challan-printing-left-list .mx-input-wrapper input {
+    font-size: 12px;
+    width: 176px;
+    /* border   : 1px solid #9e9e9e; */
+    border      : 1px solid #E1E2E3;
+    height   : auto;
+    padding  : 6px 0 6px 2px;
+
+}
+
+#delivery-scheduling-left-list .mx-input-wrapper input:focus,
+#delivery-packing-preparation-left-list .mx-input-wrapper input:focus,
+#invoice-challan-printing-left-list .mx-input-wrapper input:focus {
+    outline           : 0;
+    outline-offset    : 0;
+    -moz-box-shadow   : none;
+    -webkit-box-shadow: none;
+    box-shadow        : none;
+}
+
+#delivery-scheduling-left-list .mx-input-wrapper i,
+#delivery-packing-preparation-left-list .mx-input-wrapper i,
+#invoice-challan-printing-left-list .mx-input-wrapper i {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+}
+
+#delivery-scheduling-left-list .mx-input-wrapper i:last-child,
+#delivery-packing-preparation-left-list .mx-input-wrapper i:last-child,
+#invoice-challan-printing-left-list .mx-input-wrapper i:last-child {
+    position: absolute;
+    top: 2px;
+    right: 18px;
+}
+
+.mx-datepicker-main.mx-datepicker-popup .mx-date-row td {
+    color: #000000;
+}
+
+.mx-datepicker-main.mx-datepicker-popup .mx-date-row td.not-current-month {
+    color: #949494;
+}
+
+.mx-datepicker-main.mx-datepicker-popup .mx-date-row td:hover {
+    background: #E2EDFA;
+}
+
+.mx-datepicker-main.mx-datepicker-popup .mx-date-row td.active {
+    background: #026CD1;
+}
+
+.mx-datepicker-main.mx-datepicker-popup .mx-date-row td.in-range {
+    background: #E2EDFA;
+    color: #4377a7;
+}
+
+.mx-datepicker-main.mx-datepicker-popup .mx-date-row td div {
+    cursor: pointer;
+    overflow: hidden;
+    line-height: 1;
+    display: block;
+}
+
+/* Delivery Packing Preparation & Invoice Challan Printing */
+#delivery-packing-preparation .v-sheet.v-card,
+#invoice-challan-printing .v-sheet.v-card {
+    box-shadow: none;
+}
+#delivery-packing-preparation .v-tabs-slider-wrapper,
+#invoice-challan-printing .v-tabs-slider-wrapper {
+    display: none
+}
+#delivery-packing-preparation .v-tabs-bar,
+#invoice-challan-printing .v-tabs-bar {
+    height: auto;
+}
+#delivery-packing-preparation .v-tab.v-tab:hover,
+#invoice-challan-printing .v-tab.v-tab:hover {
+    background: none;
+}
+#delivery-packing-preparation .v-tab:before,
+#invoice-challan-printing .v-tab:before {
+    background-color: unset;
+}
+
+/* Dispatch Entry */
+#delivery-process-dispatch-entry .tabs.mt-3.dispatch-entry-tabs {
+    /* display : block;
+    overflow: hidden;
+    height  : auto; */
+}
+#delivery-process-dispatch-entry .tabs.mt-3 ul {
+    border-bottom: 2px solid #E2EDFA;
+}
+#delivery-process-dispatch-entry .tabs.mt-3 ul li {
+    /* margin-bottom: 0; */
+}
+#delivery-process-dispatch-entry .tabs.mt-3 ul li a {
+    border: none;
+    padding: 8px 20px;
+    color: #000000;
+    font-size: 18px;
+    /* font-weight: 500; */
+}
+#delivery-process-dispatch-entry .tabs.mt-3 ul li a.active {
+    border-bottom: 2px solid #026CD1;
+    color: #026CD1;
+}
+#delivery-process-dispatch-entry .tab-content {
+    padding: 20px;
+    margin-top: 20px;
+}

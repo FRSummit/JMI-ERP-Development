@@ -1,0 +1,1594 @@
+// Header Start
+@headerBackground     : #FBFCFE;
+@headerShadow         : #026CD129;
+@headerGroupNameColor : #026CD1;
+@headerBlueColor      : #026CD1;
+@headerRedCircle      : #DF2A43;
+// Header End
+
+// Sidebar Start
+@sideNavbarCreamBackground         : #FBFCFE;
+@sidebarIconTextDefaultColor       : #264667;
+@jemyActiveColor                   : #026CD1;
+@blueTextColor                     : #026CD1;
+@blueIconColor                     : #026CD1;
+@sidebarTextIconDivHoverBackground : #E2EDFA;
+
+@primaryIconHeight             : 47px;
+@primaryIconPaddingTop         : 12px;
+@primary_menu_area_inner_width : 294px;
+@primaryMenuTextPadding        : 16px 6px;
+@primaryMenuTextWeight         : 500;
+
+@secondaryIconHeight                    : 38px;
+@secondaryIconMarginTop                 : 0px;
+@secondaryIconPaddingTop                : 14px;
+@secondaryIconPaddingLeft               : 8px;
+@static_secondary_menu_area_inner_width : 278px;
+@secondary_menu_area_inner_width        : 270px;
+@secondaryMenuTextPadding               : 12px 6px;
+@secondaryMenuTextWeight                : 400;
+
+@tertiaryIconHeight             : 34px;
+@tertiaryIconMarginTop          : 0px;
+@tertiaryIconPaddingTop         : 8px;
+@tertiaryIconPaddingLeft        : 8px;
+@tertiary_menu_area_inner_width : 246px;
+@tertiaryMenuTextPadding        : 10px 6px;
+@tertiaryMenuTextWeight         : normal;
+
+@polyTertiaryIconHeight             : 34px;
+@polyTertiaryIconMarginTop          : 0px;
+@polyTertiaryIconPaddingTop         : 12px;
+@polyTertiaryIconPaddingLeft        : 8px;
+@polyTertiary_menu_area_inner_width : 230px;
+@polyTertiaryMenuTextPadding        : 10px 6px;
+@PolyTertiaryMenuTextWeight         : normal;
+
+@sidenavTransition         : 0.3s;
+@menuColupsIconTransition  : 0.3s;
+@menuSectionInnerTransition: 0.3s;
+// Sidebar End
+
+// Main Section Start
+@main_section_margin_top   : 74px;
+@main_section_margin_left  : 60px;
+@main_section_margin_bottom: 32px;
+// Main Section End
+
+// Footer Start
+@footerBackground : #026CD1;
+@footerPadding    : 7px 0;
+@footerTextColor  : #FFFFFF;
+@footerTextSize   : 12px;
+// Footer End
+
+#app {
+    #master-layout {
+        #header.header {
+            background: @headerBackground;
+            box-shadow: 0px 0px 5px @headerShadow;
+            width     : 100%;
+            overflow  : hidden;
+            position  : fixed;
+            z-index   : 9;
+            top       : 0;
+
+            .header-inner {
+                width   : 100%;
+                display : block;
+                overflow: hidden;
+                padding : 10px;
+
+                .left-section {
+                    float: left;
+
+                    .hamburger-menu-section {
+                        display: inline-block;
+                        margin : 0 10px;
+
+                        .hamburger {
+                            font-size     : 26px;
+                            color         : @headerBlueColor;
+                            cursor        : pointer;
+                            vertical-align: middle;
+                        }
+                    }
+
+                    .logo-section {
+                        display       : inline-block;
+                        vertical-align: middle;
+                        margin        : 0 20px;
+
+                        img.group-logo {
+                            width : auto;
+                            height: auto;
+                        }
+                    }
+
+                    .group-name-section {
+                        display       : inline-block;
+                        vertical-align: middle;
+
+                        p.group-name {
+                            font-size  : 32px;
+                            color      : @headerGroupNameColor;
+                            font-family: "Roboto";
+                            font-weight: 400;
+                            margin     : 0;
+                            display    : inline-block;
+                            margin-left: 20px;
+                        }
+                    }
+
+                    .group-selection-dropdown-section {
+                        display       : inline-block;
+                        vertical-align: middle;
+
+                        span.group-selection-icon {
+                            width        : 30px;
+                            display      : inline-block;
+                            text-align   : center;
+                            margin-left  : 14px;
+                            cursor       : pointer;
+                            background   : #E2EDFA;
+                            padding      : 4px 6px;
+                            border-radius: 50%;
+
+                            svg {
+                                width    : 14px;
+                                color    : @headerBlueColor;
+                                transform: rotate(90deg);
+                            }
+                        }
+
+                        .group-list-section {
+                            position: absolute;
+
+                            .group-list-triangle-sec {
+                                margin-left: 18px;
+
+                                span.company-tri-icon {
+                                    display: block;
+                                    cursor : pointer;
+
+                                    svg {
+                                        color : @headerBlueColor;
+                                        width : 20px;
+                                        height: 20px;
+                                    }
+                                }
+                            }
+
+                            .group-list-sec {
+                                background : #ffffff;
+                                color      : #026cd1;
+                                width      : 250px;
+                                max-height : 200px;
+                                box-shadow : 0px 5px 5px 2px #d0d0d04d;
+                                padding    : 10px 10px;
+                                overflow   : auto;
+                                margin-top : 16px;
+                                margin-left: -94px;
+                                z-index    : 5;
+                                position   : fixed;
+
+                                &::-webkit-scrollbar {
+                                    width: 4px;
+                                }
+
+                                &::-webkit-scrollbar-track {
+                                    box-shadow   : inset 0 0 5px grey;
+                                    border-radius: 10px;
+                                }
+
+                                &::-webkit-scrollbar-thumb {
+                                    background   : #168fff;
+                                    border-radius: 10px;
+                                }
+
+                                &::-webkit-scrollbar-thumb:hover {
+                                    background: #004e98;
+                                }
+
+                                .group-progressbar {
+                                    text-align: center;
+                                    margin    : 20px 0;
+                                    color     : #026cd1;
+
+                                }
+
+                                .comapny-list-sec {
+                                    .comapny-sec {
+                                        padding: 0 10px;
+
+                                        &:hover {
+                                            background   : #026cd1;
+                                            color        : #ffffff;
+                                            border-radius: 4px;
+                                        }
+
+                                        p.company-name {
+                                            margin   : 0;
+                                            font-size: 18px;
+                                            padding  : 10px 0;
+                                            width    : 100%;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .right-section {
+                    float  : right;
+                    padding: 5px 0 4px;
+
+                    .chat-section {
+                        display: inline-block;
+                        margin : 0 16px;
+                        cursor : pointer;
+
+                        .chat-icon-chat {
+                            width: 16px;
+
+                            svg {
+                                color : @headerBlueColor;
+                                width : 20px;
+                                height: 20px;
+                            }
+                        }
+
+                        span.chat-circle {
+                            height          : 10px;
+                            width           : 10px;
+                            background-color: @headerRedCircle;
+                            border-radius   : 50%;
+                            display         : inline-block;
+                            vertical-align  : top;
+                            margin-top      : -4px;
+                            margin-left     : -8px;
+                        }
+
+                        #chat-modal.chat-modal {
+                            position: absolute;
+
+                            .chat-modal-triangle-sec {
+                                margin-left: -2px;
+
+                                span.chat-tri-icon {
+                                    display: block;
+                                    cursor : pointer;
+
+                                    svg {
+                                        color : @headerBlueColor;
+                                        width : 20px;
+                                        height: 20px;
+                                    }
+                                }
+                            }
+
+                            .chat-inner-sec {
+                                position      : fixed;
+                                top           : 90px;
+                                right         : 80px;
+                                color         : #222;
+                                background    : #fff;
+                                font-family   : "Roboto";
+                                width         : 380px;
+                                padding-top   : 6px;
+                                padding-bottom: 10px;
+                                z-index       : 5;
+                                box-shadow    : 0px 0px 22px -6px #026cd1;
+                                max-height    : 500px;
+                                overflow      : auto;
+
+                                &::-webkit-scrollbar {
+                                    width: 4px;
+                                }
+
+                                &::-webkit-scrollbar-track {
+                                    box-shadow   : inset 0 0 5px grey;
+                                    border-radius: 10px;
+                                }
+
+                                &::-webkit-scrollbar-thumb {
+                                    background   : #45a5ff;
+                                    border-radius: 10px;
+                                }
+
+                                &::-webkit-scrollbar-thumb:hover {
+                                    background: #006ace;
+                                }
+
+                                p.chat-txt {
+                                    font-size  : 14px;
+                                    font-weight: bold;
+                                    margin     : 0;
+                                    padding    : 4px 40px;
+                                }
+
+                                .chat-progressbar {
+                                    text-align: center;
+                                    margin    : 20px 0;
+                                    color     : #026cd1;
+                                }
+
+                                .chat-modal-inner {
+                                    a.chat {
+                                        padding        : 6px 30px;
+                                        margin         : 6px 0;
+                                        padding-right  : 20px;
+                                        display        : block;
+                                        text-decoration: none;
+                                        color          : #222222;
+
+                                        img.chat-icon {
+                                            display       : inline-block;
+                                            vertical-align: top;
+                                            width         : 30px !important;
+                                            border-radius : 20px;
+                                            border        : 2px solid #00000000;
+                                        }
+
+                                        .chat-title-desc {
+                                            display : inline-block;
+                                            width   : 290px;
+                                            overflow: hidden;
+
+                                            .chat-title {
+                                                margin     : 0;
+                                                font-size  : 14px;
+                                                color      : #026cd1;
+                                                font-weight: bold;
+                                            }
+
+                                            .chat-description {
+                                                margin       : 4px 0 0;
+                                                font-size    : 12px;
+                                                white-space  : nowrap;
+                                                overflow     : hidden !important;
+                                                text-overflow: ellipsis;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .notification-section {
+                        display: inline-block;
+                        margin : 0 16px;
+                        cursor : pointer;
+
+                        .bell-icon-bell {
+                            width: 16px;
+
+                            svg {
+                                color : @headerBlueColor;
+                                width : 22px;
+                                height: 22px;
+                            }
+                        }
+
+                        span.bell-circle {
+                            height          : 10px;
+                            width           : 10px;
+                            background-color: @headerRedCircle;
+                            border-radius   : 50%;
+                            display         : inline-block;
+                            vertical-align  : top;
+                            margin-top      : -2px;
+                            margin-left     : -8px;
+                        }
+
+                        #notification-modal.notification-modal {
+                            position: absolute;
+
+                            .notification-modal-triangle-sec {
+                                margin-left: -2px;
+
+                                .notification-tri-icon {
+                                    display: block;
+                                    cursor : pointer;
+
+                                    svg {
+                                        color : @headerBlueColor;
+                                        width : 20px;
+                                        height: 20px;
+                                    }
+                                }
+                            }
+
+                            .notification-inner-sec {
+                                position      : fixed;
+                                top           : 90px;
+                                right         : 20px;
+                                color         : #222;
+                                background    : #fff;
+                                font-family   : "Roboto";
+                                width         : 380px;
+                                padding-top   : 6px;
+                                padding-bottom: 10px;
+                                z-index       : 5;
+                                box-shadow    : 0px 0px 22px -6px #026cd1;
+                                max-height    : 500px;
+                                overflow      : auto;
+
+                                &::-webkit-scrollbar {
+                                    width: 4px;
+                                }
+
+                                &::-webkit-scrollbar-track {
+                                    box-shadow   : inset 0 0 5px grey;
+                                    border-radius: 10px;
+                                }
+
+                                &::-webkit-scrollbar-thumb {
+                                    background   : #45a5ff;
+                                    border-radius: 10px;
+                                }
+
+                                &::-webkit-scrollbar-thumb:hover {
+                                    background: #006ace;
+                                }
+
+                                p.notification-txt {
+                                    font-size  : 14px;
+                                    font-weight: bold;
+                                    margin     : 0;
+                                    padding    : 4px 40px;
+                                }
+
+                                .notification-progressbar {
+                                    text-align: center;
+                                    margin    : 20px 0;
+                                    color     : #026cd1;
+                                }
+
+                                .notification-modal-inner {
+                                    a.notification {
+                                        padding        : 6px 40px;
+                                        margin         : 6px 0;
+                                        padding-right  : 20px;
+                                        display        : block;
+                                        text-decoration: none;
+                                        color          : #222222;
+
+                                        .notification-title-desc {
+                                            img.notification-icon {
+                                                width         : 16px;
+                                                display       : inline-block;
+                                                vertical-align: middle;
+                                            }
+
+                                            p.notification-title {
+                                                margin     : 0;
+                                                font-size  : 14px;
+                                                color      : #026cd1;
+                                                display    : inline-block;
+                                                margin-left: 11px;
+                                            }
+                                        }
+
+                                        p.notification-description {
+                                            margin       : 4px 0 0;
+                                            font-size    : 12px;
+                                            white-space  : nowrap;
+                                            overflow     : hidden !important;
+                                            text-overflow: ellipsis;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .profile-section {
+                        display: inline-block;
+                        margin : 0 10px;
+                        cursor : pointer;
+
+                        .profile-img-section {
+                            display      : inline-block;
+                            margin-right : 6px;
+                            border       : 2px solid @headerBlueColor;
+                            border-radius: 50%;
+
+                            img.user-icon {
+                                width         : 36px;
+                                border-radius : 50%;
+                                vertical-align: bottom;
+                            }
+                        }
+
+                        .profile-desc-section {
+                            display   : inline-block;
+                            text-align: left;
+
+                            p.profile-name {
+                                margin       : 0;
+                                font-size    : 14px;
+                                color        : @headerBlueColor;
+                                font-weight  : 500;
+                                font-family  : "Roboto";
+                                margin-bottom: 2px;
+                                display      : inline-block;
+                            }
+
+                            span.profile-arrow {
+                                width         : auto;
+                                display       : inline-block;
+                                vertical-align: middle;
+                                margin-left   : 14px;
+                                cursor        : pointer;
+                                color         : @headerBlueColor;
+
+                            }
+
+                            span.profile-arrow.profile-arrow-rotation {
+                                transform: rotate(180deg);
+                            }
+
+                            p.profile-designation {
+                                margin     : 0;
+                                font-size  : 12px;
+                                font-family: "Roboto";
+                            }
+                        }
+
+                        #profile-modal.profile-modal {
+                            position: absolute;
+
+                            .profile-modal-triangle-sec {
+                                margin-top : -2px;
+                                margin-left: 8px;
+
+                                .profile-tri-icon {
+                                    display: block;
+                                    cursor : pointer;
+
+                                    svg {
+                                        color : @headerBlueColor;
+                                        width : 20px;
+                                        height: 20px;
+                                    }
+                                }
+                            }
+
+                            .profile-modal-inner {
+                                position      : fixed;
+                                top           : 90px;
+                                right         : 40px;
+                                background    : #ffffff;
+                                width         : 300px;
+                                z-index       : 5;
+                                font-family   : "Roboto";
+                                box-shadow    : 0px 0px 22px -6px #026cd1;
+                                padding-top   : 20px;
+                                padding-bottom: 30px;
+
+                                .profile-img-title-designation {
+                                    text-align: center;
+
+                                    img.profile-img {
+                                        width        : 50px;
+                                        border-radius: 50px;
+                                    }
+
+                                    p.profile-title {
+                                        font-size  : 18px;
+                                        color      : #222222;
+                                        font-weight: bold;
+                                        margin     : 0;
+                                    }
+
+                                    p.profile-designation {
+                                        font-size: 14px;
+                                        color    : #757575;
+                                        margin   : 0;
+                                    }
+                                }
+
+                                .profile-role-section {
+                                    padding   : 0 40px;
+                                    margin-top: 20px;
+
+                                    p.profile-modal-role-text {
+                                        font-size    : 14px;
+                                        font-weight  : bold;
+                                        color        : #222222;
+                                        margin       : 0;
+                                        margin-bottom: 6px;
+                                    }
+
+                                    p.profile-role-role {
+                                        font-size: 16px;
+                                        color    : #555555;
+                                        margin   : 0;
+                                        padding  : 2px 0 2px 10px;
+                                        cursor   : pointer;
+                                    }
+                                }
+
+                                .profile-my-profile {
+                                    padding   : 0 40px;
+                                    margin-top: 20px;
+
+                                    p.profile-my-profile-text {
+                                        font-size    : 14px;
+                                        font-weight  : bold;
+                                        color        : #222222;
+                                        margin       : 0;
+                                        margin-bottom: 6px;
+                                    }
+
+                                    div {
+                                        margin: 6px 0;
+
+                                        a {
+                                            font-size      : 16px;
+                                            color          : #555555;
+                                            margin         : 0;
+                                            padding        : 2px 0 2px 10px;
+                                            cursor         : pointer;
+                                            text-decoration: none;
+                                        }
+                                    }
+                                }
+
+                                .profile_logout {
+                                    font-size    : 16px;
+                                    color        : #222222;
+                                    margin       : 20px 0 0;
+                                    margin-bottom: 6px;
+                                    cursor       : pointer;
+                                    text-align   : center;
+
+                                    a {
+                                        text-decoration: none;
+                                        color          : #222222;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        #sidenavbar.sidenavbar {
+            width          : 60px;
+            background     : @sideNavbarCreamBackground;
+            z-index        : 99;
+            top            : 74px;
+            bottom         : 32px;
+            position       : fixed;
+            overflow-y     : scroll;
+            overflow-x     : hidden;
+            padding        : 0;
+            transition     : @sidenavTransition;
+            box-shadow     : 0 6px 8px 0 rgba(0, 0, 0, .35);
+            scrollbar-width: none;
+
+            &::-webkit-scrollbar {
+                width: 0px;
+            }
+
+            &::-webkit-scrollbar-track {
+                box-shadow   : inset 0 0 5px grey;
+                border-radius: 10px;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background   : #168fff;
+                border-radius: 10px;
+            }
+
+            &::-webkit-scrollbar-thumb:hover {
+                background: #004e98;
+            }
+
+            #sidenav-menu-sec.sidenav-menu-sec {
+
+                .menu-section-area {
+                    .menu-section-colps-icon {
+                        margin    : 20px 0;
+                        width     : 60px;
+                        position  : absolute;
+                        right     : 0;
+                        transition: @menuColupsIconTransition;
+
+                        div.icon-inner {
+                            .search-icon {
+
+                                span.search-primary-icon {
+                                    width     : 30px;
+                                    height    : 30px;
+                                    display   : block;
+                                    margin    : 0px auto 20px;
+                                    text-align: center;
+
+                                    i {
+                                        // color    : @sidebarIconTextDefaultColor;
+                                        // font-size: 34px;
+                                        color        : @blueIconColor;
+                                        font-size    : 20px;
+                                        line-height  : 0.8;
+                                        padding      : 10px 10px 8px;
+                                        border       : 0.5px solid #E2EDFA;
+                                        background   : #FFFFFF;
+                                        border-radius: 6px;
+                                    }
+
+                                    svg {
+                                        // color : @sidebarIconTextDefaultColor;
+                                        // width : 30px;
+                                        // height: 30px;
+                                        color        : @blueIconColor;
+                                        width        : 26px;
+                                        height       : 26px;
+                                        padding      : 4px;
+                                        border       : 0.5px solid #E2EDFA;
+                                        background   : #FFFFFF;
+                                        border-radius: 6px;
+                                    }
+                                }
+                            }
+
+                            .menu-list {
+                                margin-top: 48px;
+
+                                span.single-primary-icon {
+                                    width     : 30px;
+                                    height    : 30px;
+                                    display   : block;
+                                    margin    : 0px auto 20px;
+                                    text-align: center;
+
+                                    i {
+                                        color       : @sidebarIconTextDefaultColor;
+                                        // width    : 25px;
+                                        // height   : 25px;
+                                        // font-size: 26px;
+                                        width       : 20px;
+                                        height      : 20px;
+                                        font-size   : 22px;
+                                    }
+
+                                    svg {
+                                        color : @sidebarIconTextDefaultColor;
+                                        width : 25px;
+                                        height: 25px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .menu-section-inner {
+                        position  : absolute;
+                        left      : -350px;
+                        transition: @menuSectionInnerTransition;
+
+                        .search-section {
+                            margin-bottom: 10px;
+                            padding      : 20px 24px 10px 24px;
+                            position     : fixed;
+                            width        : 350px;
+                            z-index      : 99;
+                            background   : #FFF;
+                            border-bottom: 1px solid #E7F2FC;
+
+                            .form-group {
+                                margin        : 0;
+                                position      : relative;
+                                display       : inline-block;
+                                vertical-align: middle;
+                                width         : 100%;
+                            }
+
+                            .has-search .form-control {
+                                padding-left: 2rem;
+                            }
+
+                            .has-search .form-control-feedback {
+                                position      : absolute;
+                                z-index       : 2;
+                                display       : block;
+                                width         : 12px;
+                                height        : 12px;
+                                text-align    : center;
+                                pointer-events: none;
+                                color         : #026CD1;
+                                top           : 14px;
+                                left          : 12px;
+                                border        : none;
+                            }
+
+                            input {
+                                margin       : 0;
+                                border-bottom: none;
+                                border       : 1px solid #026CD1;
+                                box-sizing   : inherit;
+                                font-size    : 14px;
+                                height       : auto;
+                                padding      : 8px 0;
+                                border-radius: 4px;
+
+                                &:focus {
+                                    box-shadow: none;
+                                }
+                            }
+                        }
+
+                        .static-menu {
+                            padding   : 10px 10px 0px 14px;
+                            margin-top: 70px;
+
+                            .static-menu-section {
+                                .static-menu-section-inner {
+                                    display    : block;
+                                    width      : 100%;
+                                    line-height: 0;
+                                    margin     : 2px 0;
+                                    position   : relative;
+
+                                    .static-menu-icon-inner {
+                                        position                 : absolute;
+                                        display                  : inline-block;
+                                        width                    : auto;
+                                        height                   : @primaryIconHeight;
+                                        padding-top              : @primaryIconPaddingTop;
+                                        padding-left             : 10px;
+                                        border-top-left-radius   : 4px;
+                                        border-bottom-left-radius: 4px;
+
+                                        span.static-menu-icon {
+                                            display: block;
+                                            height : 20px;
+                                            color  : @sidebarIconTextDefaultColor;
+
+                                            i {
+                                                width    : 20px;
+                                                height   : 20px;
+                                                font-size: 22px;
+                                                cursor   : pointer;
+                                            }
+
+                                            svg {
+                                                width : 20px;
+                                                height: 20px;
+                                                cursor: pointer;
+                                            }
+                                        }
+
+                                        span.static-menu-icon.jemy-hover {
+                                            color: @blueIconColor;
+                                        }
+
+                                        span.static-menu-icon.jemy-active {
+                                            color: @blueIconColor;
+                                        }
+                                    }
+
+                                    .static-menu-icon-inner.jemy-hover {
+                                        background: @sidebarTextIconDivHoverBackground;
+                                    }
+
+                                    .static-menu-area-inner {
+                                        display    : inline-block;
+                                        width      : @primary_menu_area_inner_width;
+                                        margin-left: 30px;
+
+                                        .static-menu-name-section {
+                                            line-height               : 0;
+                                            cursor                    : pointer;
+                                            border-top-right-radius   : 4px;
+                                            border-bottom-right-radius: 4px;
+
+                                            &:hover {
+                                                background: @sidebarTextIconDivHoverBackground;
+                                            }
+
+                                            p.static-menu-name {
+                                                margin                    : 0;
+                                                font-size                 : 15px;
+                                                font-weight               : @primaryMenuTextWeight;
+                                                display                   : inline-block;
+                                                width                     : 100%;
+                                                white-space               : nowrap;
+                                                overflow                  : hidden !important;
+                                                text-overflow             : ellipsis;
+                                                text-align                : left;
+                                                color                     : @sidebarIconTextDefaultColor;
+                                                cursor                    : pointer;
+                                                padding                   : @primaryMenuTextPadding;
+                                                line-height               : 1;
+                                                border-top-right-radius   : 4px;
+                                                border-bottom-right-radius: 4px;
+
+                                                &:hover {
+                                                    white-space: normal;
+                                                    min-width  : 100%;
+                                                    color      : @blueTextColor;
+                                                    overflow   : visible;
+                                                    z-index    : 15;
+                                                    background : @sidebarTextIconDivHoverBackground;
+                                                }
+
+                                                span.right-arrow-icon {
+                                                    position: absolute;
+                                                    right   : 10px;
+
+                                                    svg {
+                                                        color : @blueTextColor;
+                                                        width : auto;
+                                                        height: 12px;
+                                                    }
+                                                }
+
+                                                span.down-arrow-icon {
+                                                    position: absolute;
+                                                    right   : 10px;
+
+                                                    svg {
+                                                        color : @blueTextColor;
+                                                        width : auto;
+                                                        height: 12px;
+                                                    }
+                                                }
+                                            }
+
+                                            p.static-menu-name.jemy-active {
+                                                color: @jemyActiveColor;
+                                            }
+                                        }
+
+                                        .static-secondary-menu-section {
+                                            display: block;
+
+                                            .static-secondary-menu-section-inner {
+                                                display    : block;
+                                                width      : 100%;
+                                                line-height: 0;
+                                                margin     : 2px 0;
+
+                                                .static-secondary-menu-icon-inner {
+                                                    display                  : inline-block;
+                                                    width                    : auto;
+                                                    height                   : @secondaryIconHeight;
+                                                    margin-top               : @secondaryIconMarginTop;
+                                                    padding-top              : @secondaryIconPaddingTop;
+                                                    padding-left             : @secondaryIconPaddingLeft;
+                                                    border-top-left-radius   : 4px;
+                                                    border-bottom-left-radius: 4px;
+
+                                                    span.static-secondary-icon {
+                                                        width        : 8px;
+                                                        height       : 8px;
+                                                        background   : #264667;
+                                                        display      : block;
+                                                        border-radius: 50%;
+                                                        cursor       : pointer;
+                                                    }
+
+                                                    span.static-secondary-icon.jemy-active {
+                                                        background: @jemyActiveColor;
+                                                    }
+
+                                                    span.static-secondary-icon.jemy-hover {
+                                                        background: @blueIconColor;
+                                                    }
+                                                }
+
+                                                .static-secondary-menu-icon-inner.jemy-hover {
+                                                    background: @sidebarTextIconDivHoverBackground;
+                                                }
+                                            }
+
+                                            .static-secondary-menu-area-inner {
+                                                display: inline-block;
+                                                width  : @static_secondary_menu_area_inner_width;
+
+                                                .static-secondary-menu-name-section {
+                                                    line-height               : 0;
+                                                    cursor                    : pointer;
+                                                    border-top-right-radius   : 4px;
+                                                    border-bottom-right-radius: 4px;
+
+                                                    &:hover {
+                                                        background: @sidebarTextIconDivHoverBackground;
+                                                    }
+
+                                                    p.static-secondary-menu-name {
+                                                        margin                    : 0;
+                                                        font-size                 : 14px;
+                                                        font-weight               : @secondaryMenuTextWeight;
+                                                        display                   : inline-block;
+                                                        width                     : 100%;
+                                                        white-space               : nowrap;
+                                                        overflow                  : hidden !important;
+                                                        text-overflow             : ellipsis;
+                                                        text-align                : left;
+                                                        color                     : @sidebarIconTextDefaultColor;
+                                                        cursor                    : pointer;
+                                                        padding                   : @secondaryMenuTextPadding;
+                                                        line-height               : 1;
+                                                        position                  : relative;
+                                                        border-top-right-radius   : 4px;
+                                                        border-bottom-right-radius: 4px;
+
+                                                        &:hover {
+                                                            white-space: normal;
+                                                            min-width  : 100%;
+                                                            color      : @blueTextColor;
+                                                            overflow   : visible;
+                                                            z-index    : 15;
+                                                            background : @sidebarTextIconDivHoverBackground;
+                                                        }
+                                                    }
+
+                                                    p.static-secondary-menu-name.jemy-active {
+                                                        color: @jemyActiveColor;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        .dynamic-menu {
+                            margin-bottom: 70px;
+
+                            .primary-menu-section {
+                                padding: 0px 10px 20px 14px;
+
+                                .primary-menu-section-inner {
+                                    display    : block;
+                                    width      : 100%;
+                                    line-height: 0;
+                                    margin     : 2px 0;
+                                    position   : relative;
+
+                                    .primary-menu-icon-inner {
+                                        position                 : absolute;
+                                        display                  : inline-block;
+                                        width                    : auto;
+                                        height                   : @primaryIconHeight;
+                                        padding-top              : @primaryIconPaddingTop;
+                                        padding-left             : 10px;
+                                        border-top-left-radius   : 4px;
+                                        border-bottom-left-radius: 4px;
+
+                                        span.primary-icon {
+                                            display: block;
+                                            height : 20px;
+                                            color  : @sidebarIconTextDefaultColor;
+
+                                            i {
+                                                width    : 20px;
+                                                height   : 20px;
+                                                font-size: 22px;
+                                                cursor   : pointer;
+                                                display  : block;
+                                            }
+
+                                            svg {
+                                                width : 20px;
+                                                height: 20px;
+                                                cursor: pointer;
+                                            }
+                                        }
+
+                                        span.primary-icon.jemy-active {
+                                            color: @jemyActiveColor;
+                                        }
+
+                                        span.primary-icon.jemy-hover {
+                                            color: @blueIconColor;
+                                        }
+                                    }
+
+                                    .primary-menu-icon-inner.jemy-hover {
+                                        background: @sidebarTextIconDivHoverBackground;
+                                    }
+
+                                    .primary-menu-area-inner {
+                                        display    : inline-block;
+                                        width      : @primary_menu_area_inner_width;
+                                        margin-left: 30px;
+
+                                        .primary-menu-name-section {
+                                            line-height               : 0;
+                                            cursor                    : pointer;
+                                            border-top-right-radius   : 4px;
+                                            border-bottom-right-radius: 4px;
+
+                                            &:hover {
+                                                background: @sidebarTextIconDivHoverBackground;
+                                            }
+
+                                            p.primary-menu-name {
+                                                margin                    : 0;
+                                                font-size                 : 15px;
+                                                font-weight               : @primaryMenuTextWeight;
+                                                display                   : inline-block;
+                                                width                     : 100%;
+                                                white-space               : nowrap;
+                                                overflow                  : hidden !important;
+                                                text-overflow             : ellipsis;
+                                                text-align                : left;
+                                                color                     : @sidebarIconTextDefaultColor;
+                                                cursor                    : pointer;
+                                                padding                   : @primaryMenuTextPadding;
+                                                line-height               : 1;
+                                                position                  : relative;
+                                                border-top-right-radius   : 4px;
+                                                border-bottom-right-radius: 4px;
+
+                                                &:hover {
+                                                    white-space: normal;
+                                                    min-width  : 100%;
+                                                    color      : @blueTextColor;
+                                                    overflow   : visible;
+                                                    z-index    : 15;
+                                                    background : @sidebarTextIconDivHoverBackground;
+                                                }
+
+                                                span.right-arrow-icon {
+                                                    position: absolute;
+                                                    right   : 10px;
+
+                                                    svg {
+                                                        color : @blueTextColor;
+                                                        width : auto;
+                                                        height: 12px;
+                                                    }
+                                                }
+
+                                                span.down-arrow-icon {
+                                                    position: absolute;
+                                                    right   : 10px;
+
+                                                    svg {
+                                                        color : @blueTextColor;
+                                                        width : auto;
+                                                        height: 12px;
+                                                    }
+                                                }
+                                            }
+
+                                            p.primary-menu-name.jemy-active {
+                                                color: @jemyActiveColor;
+                                            }
+                                        }
+
+                                        .secondary-menu-section {
+                                            display: block;
+
+                                            .secondary-menu-section-inner {
+                                                display    : block;
+                                                width      : 100%;
+                                                line-height: 0;
+                                                margin     : 2px 0;
+                                                position   : relative;
+
+                                                .secondary-menu-icon-inner {
+                                                    display                  : inline-block;
+                                                    width                    : auto;
+                                                    vertical-align           : top;
+                                                    height                   : @secondaryIconHeight;
+                                                    margin-top               : @secondaryIconMarginTop;
+                                                    padding-top              : @secondaryIconPaddingTop;
+                                                    padding-left             : @secondaryIconPaddingLeft;
+                                                    border-top-left-radius   : 4px;
+                                                    border-bottom-left-radius: 4px;
+
+                                                    span.secondary-icon {
+                                                        width        : 16px;
+                                                        height       : 8px;
+                                                        background   : @sidebarIconTextDefaultColor;
+                                                        display      : block;
+                                                        border-radius: 6px;
+                                                        cursor       : pointer;
+                                                    }
+
+                                                    span.secondary-icon.jemy-active {
+                                                        background: @jemyActiveColor;
+                                                    }
+
+                                                    span.secondary-icon.jemy-hover {
+                                                        background: @blueIconColor;
+                                                    }
+                                                }
+
+                                                .secondary-menu-icon-inner.jemy-hover {
+                                                    background: @sidebarTextIconDivHoverBackground;
+                                                }
+
+                                                .secondary-menu-area-inner {
+                                                    display: inline-block;
+                                                    width  : @secondary_menu_area_inner_width;
+
+                                                    .secondary-menu-name-section {
+                                                        line-height               : 0;
+                                                        cursor                    : pointer;
+                                                        border-top-right-radius   : 4px;
+                                                        border-bottom-right-radius: 4px;
+
+                                                        &:hover {
+                                                            background: @sidebarTextIconDivHoverBackground;
+                                                        }
+
+                                                        p.secondary-menu-name {
+                                                            margin                    : 0;
+                                                            font-size                 : 14px;
+                                                            font-weight               : 500;
+                                                            display                   : inline-block;
+                                                            width                     : 100%;
+                                                            white-space               : nowrap;
+                                                            overflow                  : hidden !important;
+                                                            text-overflow             : ellipsis;
+                                                            text-align                : left;
+                                                            color                     : @sidebarIconTextDefaultColor;
+                                                            cursor                    : pointer;
+                                                            padding                   : @secondaryMenuTextPadding;
+                                                            line-height               : 1;
+                                                            position                  : relative;
+                                                            border-top-right-radius   : 4px;
+                                                            border-bottom-right-radius: 4px;
+
+                                                            &:hover {
+                                                                white-space: normal;
+                                                                min-width  : 100%;
+                                                                color      : @blueTextColor;
+                                                                overflow   : visible;
+                                                                z-index    : 15;
+                                                                background : @sidebarTextIconDivHoverBackground;
+                                                            }
+
+                                                            span.right-arrow-icon {
+                                                                position: absolute;
+                                                                right   : 10px;
+
+                                                                svg {
+                                                                    color : @blueTextColor;
+                                                                    width : auto;
+                                                                    height: 12px;
+                                                                }
+                                                            }
+
+                                                            span.down-arrow-icon {
+                                                                position: absolute;
+                                                                right   : 10px;
+
+                                                                svg {
+                                                                    color : @blueTextColor;
+                                                                    width : auto;
+                                                                    height: 12px;
+                                                                }
+                                                            }
+                                                        }
+
+                                                        p.secondary-menu-name.jemy-active {
+                                                            color: @jemyActiveColor;
+                                                        }
+                                                    }
+
+                                                    .tertiary-menu-section {
+                                                        display    : block;
+                                                        margin-left: 0;
+
+                                                        .tertiary-menu-section-inner {
+                                                            display    : block;
+                                                            width      : 100%;
+                                                            line-height: 0;
+                                                            margin     : 2px 0;
+                                                            position   : relative;
+
+                                                            .tertiary-menu-icon-inner {
+                                                                display                  : inline-block;
+                                                                width                    : auto;
+                                                                margin-top               : 8px;
+                                                                vertical-align           : top;
+                                                                height                   : @tertiaryIconHeight;
+                                                                margin-top               : @tertiaryIconMarginTop;
+                                                                padding-top              : @tertiaryIconPaddingTop;
+                                                                padding-left             : @tertiaryIconPaddingLeft;
+                                                                border-top-left-radius   : 4px;
+                                                                border-bottom-left-radius: 4px;
+
+                                                                span.tertiary-icon {
+                                                                    display    : block;
+                                                                    height     : 16px;
+                                                                    line-height: 1;
+                                                                    color      : @sidebarIconTextDefaultColor;
+
+                                                                    svg {
+                                                                        width : 16px;
+                                                                        height: 16px;
+                                                                        cursor: pointer;
+                                                                    }
+                                                                }
+
+                                                                span.tertiary-icon.jemy-active {
+                                                                    color: @jemyActiveColor;
+                                                                }
+                                                            }
+
+                                                            .tertiary-menu-icon-inner.jemy-hover {
+                                                                background: @sidebarTextIconDivHoverBackground;
+                                                            }
+
+                                                            .tertiary-menu-area-inner {
+                                                                display: inline-block;
+                                                                width  : @tertiary_menu_area_inner_width;
+
+                                                                .tertiary-menu-name-section {
+                                                                    line-height               : 0;
+                                                                    cursor                    : pointer;
+                                                                    border-top-right-radius   : 4px;
+                                                                    border-bottom-right-radius: 4px;
+
+                                                                    &:hover {
+                                                                        background: @sidebarTextIconDivHoverBackground;
+                                                                    }
+
+                                                                    p.tertiary-menu-name {
+                                                                        margin                    : 0;
+                                                                        font-size                 : 14px;
+                                                                        font-weight               : @tertiaryMenuTextWeight;
+                                                                        display                   : inline-block;
+                                                                        width                     : 100%;
+                                                                        white-space               : nowrap;
+                                                                        overflow                  : hidden !important;
+                                                                        text-overflow             : ellipsis;
+                                                                        text-align                : left;
+                                                                        color                     : @sidebarIconTextDefaultColor;
+                                                                        cursor                    : pointer;
+                                                                        padding                   : @tertiaryMenuTextPadding;
+                                                                        line-height               : 1;
+                                                                        position                  : relative;
+                                                                        border-top-right-radius   : 4px;
+                                                                        border-bottom-right-radius: 4px;
+
+                                                                        &:hover {
+                                                                            white-space: normal;
+                                                                            min-width  : 100%;
+                                                                            color      : @blueTextColor;
+                                                                            overflow   : visible;
+                                                                            z-index    : 15;
+                                                                            background : @sidebarTextIconDivHoverBackground;
+                                                                        }
+
+                                                                        span.right-arrow-icon {
+                                                                            position: absolute;
+                                                                            right   : 10px;
+
+                                                                            svg {
+                                                                                color : @blueTextColor;
+                                                                                width : auto;
+                                                                                height: 12px;
+                                                                            }
+                                                                        }
+
+                                                                        span.down-arrow-icon {
+                                                                            position: absolute;
+                                                                            right   : 10px;
+
+                                                                            svg {
+                                                                                color : @blueTextColor;
+                                                                                width : auto;
+                                                                                height: 12px;
+                                                                            }
+                                                                        }
+                                                                    }
+
+                                                                    p.tertiary-menu-name.jemy-active {
+                                                                        color: @jemyActiveColor;
+                                                                    }
+                                                                }
+
+                                                                .tertiary-poly-menu-section {
+                                                                    display    : block;
+                                                                    margin-left: 0;
+
+                                                                    .tertiary-poly-menu-section-inner {
+                                                                        display    : block;
+                                                                        width      : 100%;
+                                                                        line-height: 0;
+                                                                        margin     : 2px 0;
+                                                                        position   : relative;
+
+                                                                        .tertiary-poly-menu-icon-inner {
+                                                                            display                  : inline-block;
+                                                                            width                    : auto;
+                                                                            margin-top               : 12px;
+                                                                            vertical-align           : top;
+                                                                            height                   : @polyTertiaryIconHeight;
+                                                                            margin-top               : @polyTertiaryIconMarginTop;
+                                                                            padding-top              : @polyTertiaryIconPaddingTop;
+                                                                            padding-left             : @polyTertiaryIconPaddingLeft;
+                                                                            border-top-left-radius   : 4px;
+                                                                            border-bottom-left-radius: 4px;
+
+                                                                            span.tertiary-poly-icon {
+                                                                                width        : 8px;
+                                                                                height       : 8px;
+                                                                                background   : @sidebarIconTextDefaultColor;
+                                                                                display      : block;
+                                                                                border-radius: 50%;
+                                                                                cursor       : pointer;
+                                                                            }
+
+                                                                            span.tertiary-poly-icon.jemy-active {
+                                                                                background: @jemyActiveColor;
+                                                                            }
+                                                                        }
+
+                                                                        .tertiary-poly-menu-icon-inner.jemy-hover {
+                                                                            background: @sidebarTextIconDivHoverBackground;
+                                                                        }
+
+                                                                        .tertiary-poly-menu-area-inner {
+                                                                            display: inline-block;
+                                                                            width  : @polyTertiary_menu_area_inner_width;
+
+                                                                            .tertiary-poly-menu-name-section {
+                                                                                line-height               : 0;
+                                                                                cursor                    : pointer;
+                                                                                border-top-right-radius   : 4px;
+                                                                                border-bottom-right-radius: 4px;
+
+                                                                                &:hover {
+                                                                                    background: @sidebarTextIconDivHoverBackground;
+                                                                                }
+
+                                                                                p.tertiary-poly-menu-name {
+                                                                                    margin                    : 0;
+                                                                                    font-size                 : 14px;
+                                                                                    font-weight               : @PolyTertiaryMenuTextWeight;
+                                                                                    display                   : inline-block;
+                                                                                    width                     : 100%;
+                                                                                    white-space               : nowrap;
+                                                                                    overflow                  : hidden !important;
+                                                                                    text-overflow             : ellipsis;
+                                                                                    text-align                : left;
+                                                                                    color                     : @sidebarIconTextDefaultColor;
+                                                                                    cursor                    : pointer;
+                                                                                    padding                   : @polyTertiaryMenuTextPadding;
+                                                                                    line-height               : 1;
+                                                                                    border-top-right-radius   : 4px;
+                                                                                    border-bottom-right-radius: 4px;
+
+                                                                                    &:hover {
+                                                                                        white-space: normal;
+                                                                                        min-width  : 100%;
+                                                                                        color      : @blueTextColor;
+                                                                                        overflow   : visible;
+                                                                                        z-index    : 15;
+                                                                                        background : @sidebarTextIconDivHoverBackground;
+                                                                                    }
+                                                                                }
+
+                                                                                p.tertiary-poly-menu-name.jemy-active {
+                                                                                    color: @jemyActiveColor;
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        .bottom-logo-section {
+                            position  : fixed;
+                            bottom    : 32px;
+                            width     : 350px;
+                            background: #FFFFFF;
+                            z-index   : 99;
+                            border-top: 1px solid #E7F2FC;
+                            padding   : 20px 0 10px;
+
+                            .bottom-logo-inner {
+                                width : 200px;
+                                margin: 0 auto;
+
+                                .erp-logo {
+                                    img {
+                                        width: 70px;
+                                    }
+
+                                    .logo-version {
+                                        font-size  : 8px;
+                                        margin     : 0;
+                                        line-height: 1;
+                                        color      : @blueTextColor;
+
+                                        span {}
+                                    }
+                                }
+
+                                .mononsoft-logo {
+                                    .left-section {
+                                        display: inline-block;
+
+                                        .logo-poweredby {
+                                            font-size  : 10px;
+                                            margin     : 0;
+                                            line-height: 1;
+                                            font-weight: 500;
+                                        }
+                                    }
+
+                                    .right-section {
+                                        display    : inline-block;
+                                        margin-left: 10px;
+
+                                        img {
+                                            width : 70px;
+                                            height: 13px;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+
+                    }
+                }
+            }
+        }
+
+        #main-section {
+            transition   : margin-left 0.5s;
+            margin-left  : @main_section_margin_left;
+            margin-top   : @main_section_margin_top;
+            margin-bottom: @main_section_margin_bottom;
+        }
+
+        #footer.footer {
+            background : @footerBackground;
+            color      : @footerTextColor;
+            padding    : @footerPadding;
+            width      : 100%;
+            max-height : 60px;
+            position   : fixed;
+            bottom     : 0;
+            font-family: "Roboto";
+            font-size  : @footerTextSize;
+            text-align : center;
+
+            marquee {
+                width    : 100%;
+                direction: left;
+                height   : auto;
+
+                .footer-inner {
+                    line-height: 1;
+
+                    p {
+                        display    : inline-block;
+                        width      : 33%;
+                        min-width: 252px;
+                        margin     : 0;
+                        line-height: 1;
+                    }
+                }
+            }
+        }
+    }
+}

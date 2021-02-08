@@ -1,0 +1,13 @@
+@media print {
+  @page {
+    size: landscape
+  }
+  #sbu tr th, 
+  #sbu tr td {
+    width: 20%
+  }
+  #sbu tr th:last-child, 
+  #sbu tr td:last-child {
+    display: none;
+  }
+}
