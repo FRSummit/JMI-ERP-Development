@@ -36,8 +36,10 @@
               </select>
             </div>
             <div class="copy-delete-btn-section">
-              <span class="copy-btn" @click="copyMonthData"><i class="fas fa-copy"></i></span>
-              <span class="delete-btn" @click="deleteMonthData"><i class="fas fa-trash-alt"></i></span>
+              <span class="copy-btn" @click="copyMonthData" v-if="all_available_or_occupied_copy"><img src="../../../../../assets/images/copy.png" alt=""></span>
+              <span class="copy-btn" @click="copyMonthData" v-if="!all_available_or_occupied_copy"><img src="../../../../../assets/images/del.png" alt=""></span>
+              <!-- <span class="copy-btn" @click="copyMonthData" v-if="all_available_or_occupied_copy"><i class="fas fa-copy"></i></span> -->
+              <!-- <span class="delete-btn" @click="deleteMonthData" v-if="!all_available_or_occupied_copy"><i class="fas fa-trash-alt"></i></span> -->
             </div>
           </div>
         </div>
@@ -140,7 +142,7 @@ import ERPService from '../../../../../service/ERPSidebarService'
 const service = new ERPService()
 
 export default {
-  props: ["leftside_da_list", "allAvailableOrOccupied_Copy"],
+  props: ["leftside_da_list", "all_available_or_occupied_copy"],
   data() {
     return {
       months: [],
@@ -296,6 +298,11 @@ export default {
         .then(res => {
           console.log(res.data)
           this.previous_months_list_to_copy = res.data.data
+          if(!this.previous_months_list_to_copy.length) {
+            setTimeout(() => {
+              this.copy_modal_month = false
+            }, 2000)
+          }
         })
     },
     monthClickToCopy(t) {
@@ -309,6 +316,9 @@ export default {
       service.getSD_DPD_COPY_EXECUTE_PROCEDURE(selectedMMYYYY, t.dp_mnyr)
         .then(res => {
           console.log(res.data)
+          if(res.data.response_code === 200) {
+            window.location.reload()
+          }
         })
     }
   },

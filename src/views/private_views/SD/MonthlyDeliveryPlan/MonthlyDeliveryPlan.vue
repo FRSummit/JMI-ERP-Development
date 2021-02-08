@@ -8,7 +8,7 @@
           :total_tt_count="territory_area_data_list.length"
           v-on:selected_month="selectedMonthFromLeft"
           v-on:selected_user_schedule_plan="selectedUserSchedulePlan"
-          :allAvailableOrOccupied_Copy="allAvailableOrOccupied_Copy"
+          :all_available_or_occupied_copy="allAvailableOrOccupied_Copy"
           v-on:delete_this_month_data="deleteThisMonthData"
         />
         <div class="monthly-delivery-plan-detail-section">
