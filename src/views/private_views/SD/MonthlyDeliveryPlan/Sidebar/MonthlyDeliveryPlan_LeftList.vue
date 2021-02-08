@@ -36,14 +36,8 @@
               </select>
             </div>
             <div class="copy-delete-btn-section">
-              <!-- <span class="copy-btn" v-if="allAvailableOrOccupied_Copy" @click="copyMonthData"> -->
-              <span class="copy-btn" @click="copyMonthData">
-                <i class="fas fa-copy"></i>
-              </span>
-              <!-- <span class="delete-btn" v-if="!allAvailableOrOccupied_Copy" @click="deleteMonthData"> -->
-              <span class="delete-btn" @click="deleteMonthData">
-                <i class="fas fa-trash-alt"></i>
-              </span>
+              <span class="copy-btn" @click="copyMonthData"><i class="fas fa-copy"></i></span>
+              <span class="delete-btn" @click="deleteMonthData"><i class="fas fa-trash-alt"></i></span>
             </div>
           </div>
         </div>
