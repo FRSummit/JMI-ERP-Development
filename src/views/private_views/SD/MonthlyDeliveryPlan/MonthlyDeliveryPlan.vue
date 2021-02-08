@@ -394,11 +394,15 @@ export default {
       let target_date = this.changed_or_selected_MMYYYY
       let force_id = this.selectPreviousMonthToImport.force_id
       // console.log('Selected month for import: ' + this.selectPreviousMonthToImport.date + '    ' + this.selectPreviousMonthToImport.dp_mnyr + '    ' + this.selectPreviousMonthToImport.force_id)
-      console.log('Selected month for import: ' + soruce_date + '  ' + target_date + '  ' + force_id)
+      // console.log('Selected month for import: ' + soruce_date + '  ' + target_date + '  ' + force_id)
       this.DA_COPY_FOR_FUTURE_MONTH_FROM_SERVICE(soruce_date, target_date, force_id)
     },
     async DA_COPY_FOR_FUTURE_MONTH_FROM_SERVICE(SRC_DATE, TARGET_DATE, FORCE_ID) {
       console.log(SRC_DATE + '  ' + TARGET_DATE + '  ' + FORCE_ID)
+      service.getExecuteProcedureCopyDeliveryPlanByForce(SRC_DATE, TARGET_DATE, FORCE_ID)
+        .then(res => {
+          console.log(res.data)
+        })
     },
     async RELOAD_ALL_TERRITORY_LIST_FOR_DA(MMYYYY) {
       await service.getAllDAInfo_MMYYYY_MonthlyDeliveryPlan(MMYYYY)

@@ -231,6 +231,17 @@ export default class PostService {
     })
   }
 
+  // MONTHLY DELIVERY PLAN - DELETE ALL MONTH DATA
+  getExecuteProcedureCopyDeliveryPlanByForce(soruce_date, target_date, force_id) {
+    let web_menu_url = '/api/web/execute-procedure-copy-delivery-plan-by-force/' + soruce_date + '/' + target_date + '/' + force_id
+    return axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
+
   getAllSidebarMenu() {
     // return axios.get('/jerp_menu');
     return axios({
