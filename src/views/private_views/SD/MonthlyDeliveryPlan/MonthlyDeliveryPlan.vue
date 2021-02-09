@@ -114,7 +114,6 @@
                     :destroy_ok="destroyOK"
                     v-on:remove_territory_calendar="removeTerritoryCalendar"
                     v-on:copy_territory_calendar="copyTerritoryCalendar"
-                    
                   />
                 </div>
               </div>
@@ -155,34 +154,31 @@
     <!-- Copy Modal -->
     <div class="copy-modal" v-if="copy_modal">
       <div class="add-territory-modal" v-click-outside="copyModalSectionOutsideClick">
-                        <div class="add-territory-modal-inner">
-                          <p class="title">Select Territory</p>
-                          <span class="close-icon" @click="closeTerritoryCopyModal">
-                            <i class="fas fa-times"></i>
-                            <span class="tool-tip">Close Modal</span>
-                          </span>
-                          <div class="search-territory">
-                            <div class="search-territory-inner">
-                              <div class="form-group has-search">
-                                <span class="fa fa-search form-control-feedback"></span>
-                                <input
-                                  type="text"
-                                  class="form-control"
-                                  placeholder="Search by Name, ID No"
-                                />
-                              </div>
-                            </div>
-                          </div>
-                          <div class="territory-list">
-                            <div class="territory-list-inner">
-                              <p class="territory-name" :class="checkIfTerritoryAreaDataListHasThisArea(t) ? 'hide': ''" v-for="(t, i) in all_territory_list_for_this_DA" :key="i" @click="territoryNameAddClickForCopy(t)">
-                                <span>{{ t.area_name }}</span>
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+        <div class="add-territory-modal-inner">
+          <p class="title">Select Territory</p>
+          <span class="close-icon" @click="closeTerritoryCopyModal">
+            <i class="fas fa-times"></i>
+            <span class="tool-tip">Close Modal</span>
+          </span>
+          <div class="search-territory">
+            <div class="search-territory-inner">
+              <div class="form-group has-search">
+                <span class="fa fa-search form-control-feedback"></span>
+                <input type="text" class="form-control" placeholder="Search by Name, ID No"/>
+              </div>
+            </div>
+          </div>
+          <div class="territory-list">
+            <div class="territory-list-inner">
+              <p class="territory-name" :class="checkIfTerritoryAreaDataListHasThisArea(t) ? 'hide': ''" v-for="(t, i) in all_territory_list_for_this_DA" :key="i" @click="territoryNameAddClickForCopy(t)">
+                <span>{{ t.area_name }}</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+    
   </div>
 </template>
 
