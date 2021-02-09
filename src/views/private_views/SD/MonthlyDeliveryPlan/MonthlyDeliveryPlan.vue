@@ -845,13 +845,12 @@ export default {
       await service.getExecuteDeleteForceProcedure_All_Force_delete_for_DA(mmyyyy, force_id)
         .then(res => {
           console.log(res.data)
-          window.location.reload()
+          // window.location.reload()
         
-          // Commented
-          // this.ALL_DA_INFO_MMYYYY_FROM_SERVICE(this.changed_or_selected_MMYYYY)
-          // this.CURRENT_MONTH_STATUS_CHECK_FOR_ALL_A_O(this.changed_or_selected_MMYYYY)
-          // this.territory_area_data_list = []
-          // this.all_force_remove_popup = false
+          this.territory_area_data_list = []
+          this.ALL_DA_INFO_MMYYYY_FROM_SERVICE(this.changed_or_selected_MMYYYY)
+          this.CURRENT_MONTH_STATUS_CHECK_FOR_ALL_A_O(this.changed_or_selected_MMYYYY)
+          this.all_force_remove_popup = false
         })
     },
     // Reload data after full set copy
