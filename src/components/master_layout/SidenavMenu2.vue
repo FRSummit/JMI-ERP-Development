@@ -290,8 +290,8 @@ export default {
                 .catch( (err) => {
                     console.log(err)
                 });
+            this.$emit('close_side_nav')
         }
-        this.$emit('close_side_nav')
       },
       secondaryMenuClick(id_i, id_j, menu_details) {
         let tertiaryMenuSection = document.querySelector("#tertiary-menu-section-" + id_i + "-" + id_j)
@@ -322,8 +322,8 @@ export default {
                 .catch( (err) => {
                     console.log(err)
                 });
+            this.$emit('close_side_nav')
         }
-        this.$emit('close_side_nav')
       },
       tertiaryMenuClick(id_i, id_j, id_k, menu_details) {
         let tertiaryPolyMenuSection = document.querySelector("#tertiary-poly-menu-section-" + id_i + "-" + id_j + "-" + id_k)
@@ -351,8 +351,8 @@ export default {
         }
         if(menu_details.feature && (this.$router.currentRoute.path !== menu_details.feature.url)) {
             this.$router.push(menu_details.feature.url)
+            this.$emit('close_side_nav')
         }
-        this.$emit('close_side_nav')
       },
       polyTertiaryMenuClick(id_i, id_j, id_k, id_l, menu_details) {
         this.closeAllTertiaryPolyMenuForTertiaryPolyMenuClick()
@@ -368,8 +368,8 @@ export default {
         }
         if(menu_details.feature && (this.$router.currentRoute.path !== menu_details.feature.url)) {
             this.$router.push(menu_details.feature.url)
+            this.$emit('close_side_nav')
         }
-        this.$emit('close_side_nav')
       },
     //   Static
       closeAllStaticPrimaryMenuSectionForPrimaryMenuClick() {

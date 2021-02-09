@@ -74,12 +74,14 @@ export const router = new VueRouter({
       component: () => import('../views/private_views/SD/SalesArea/GeoLocation.vue')
     },
     {
-      path: '/sd/monthly-delivery-plan',
+      // path: '/sd/monthly-delivery-plan',
+      path: '/features/local_sales/delivery_plan',
       name: 'Monthly Delivery Plan',
       component: () => import('../views/private_views/SD/MonthlyDeliveryPlan/MonthlyDeliveryPlan.vue')
     },
     {
-      path: '/sd/delivery-scheduling',
+      // path: '/sd/delivery-scheduling',
+      path: '/features/local_sales/delivery_schedule',
       name: 'Delivery Scheduling',
       component: () => import('../views/private_views/SD/DeliveryScheduling/DeliveryScheduling.vue')
     },

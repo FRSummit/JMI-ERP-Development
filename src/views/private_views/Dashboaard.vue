@@ -13,9 +13,11 @@
     <br />
     <router-link to="/sd/geo-location">SD ---- Geo Location</router-link>
     <br /> -->
-    <router-link to="/sd/monthly-delivery-plan">SD ----> Monthly Delivery Plan</router-link>
+    <!-- <router-link to="/sd/monthly-delivery-plan">SD ---- Monthly Delivery Plan</router-link> -->
+    <router-link to="/features/local_sales/delivery_plan">SD ----> Monthly Delivery Plan</router-link>
     <br />
-    <router-link to="/sd/delivery-scheduling">SD ----> Delivery Scheduling</router-link>
+    <!-- <router-link to="/sd/delivery-scheduling">SD ---- Delivery Scheduling</router-link> -->
+    <router-link to="/features/local_sales/delivery_schedule">SD ----> Delivery Scheduling</router-link>
     <br />
     <router-link to="/sd/delivery-process--packing-preparation">SD ----> Delivery Process - Packing Preparation</router-link>
     <br />

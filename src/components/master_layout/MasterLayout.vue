@@ -124,8 +124,10 @@ export default {
   },
   methods: {
     closeSideNav() {
-      // console.log('working')
-      // this.toggleNav()
+      this.sidenav = false;
+      document.getElementById("sidenavbar").style.width = "60px";
+      document.querySelector(".menu-section-inner").style.left = "-350px";
+      document.querySelector(".menu-section-colps-icon").style.right = "0px";
     },
     toggleNav() {
       if (this.sidenav) {
