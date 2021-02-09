@@ -18,8 +18,8 @@ const actions = {
             .then(
                 user => {
                     commit('loginSuccess', user);
-                    router.push('/dashboard');
-                    // window.location.href = env.baseURL + '/dashboard'
+                    // router.push('/dashboard');
+                    router.push('/features/users/dashboard');
                 },
                 error => {
                     commit('loginFailure', error);

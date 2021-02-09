@@ -33,7 +33,8 @@ export const router = new VueRouter({
       component: () => import('../views/public_views/Signup.vue')
     },
     {
-      path: '/dashboard',
+      // path: '/dashboard',
+      path: '/features/users/dashboard',
       name: 'Dashboard',
       component: () => import('../views/private_views/Dashboaard.vue')
     },

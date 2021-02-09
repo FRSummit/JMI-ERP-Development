@@ -71,7 +71,7 @@
       @mouseover="sidebarHoverOver()"
       @mouseleave="sidebarHoverLeave()"
     >
-      <SidenavMenu />
+      <SidenavMenu v-on:close_side_nav="closeSideNav" />
     </div>
     <div id="main-section">
       <router-view v-on:routeName="currentRouteName" />
@@ -123,6 +123,10 @@ export default {
     // console.log(this.$route.name);
   },
   methods: {
+    closeSideNav() {
+      // console.log('working')
+      // this.toggleNav()
+    },
     toggleNav() {
       if (this.sidenav) {
         this.sidenav = false;

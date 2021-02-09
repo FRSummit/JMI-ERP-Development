@@ -1,7 +1,8 @@
 <template>
   <div class="about">
     <h1>This is an about page</h1>
-    <router-link to="/dashboard">Dashboard</router-link>
+    <!-- <router-link to="/dashboard">Dashboard</router-link> -->
+    <router-link to="/features/users/dashboard">Dashboard</router-link>
   </div>
 </template>
 
