@@ -847,6 +847,7 @@ export default {
           console.log(res.data)
           window.location.reload()
         
+          // Commented
           // this.ALL_DA_INFO_MMYYYY_FROM_SERVICE(this.changed_or_selected_MMYYYY)
           // this.CURRENT_MONTH_STATUS_CHECK_FOR_ALL_A_O(this.changed_or_selected_MMYYYY)
           // this.territory_area_data_list = []
