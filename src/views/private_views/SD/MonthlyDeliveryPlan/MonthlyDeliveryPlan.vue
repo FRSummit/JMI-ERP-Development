@@ -10,6 +10,8 @@
           v-on:selected_user_schedule_plan="selectedUserSchedulePlan"
           :all_available_or_occupied_copy="allAvailableOrOccupied_Copy"
           v-on:delete_this_month_data="deleteThisMonthData"
+          v-on:RELOAD_AFTER_FULL_SET_COPY="reloadAfterFullSetCopy"
+          :DELETE_THIS_MONTH_DATA_POPUP="delete_this_month_data_popup"
         />
         <div class="monthly-delivery-plan-detail-section">
           <div class="monthly-delivery-plan-detail-inner">
@@ -271,6 +273,9 @@ export default {
 
       // Destroy Popup
       all_force_remove_popup: false,
+
+      // Delete Month data popup - LeftSide
+      DELETE_THIS_MONTH_DATA_POPUP: false,
     };
   },
   created() {
@@ -417,6 +422,9 @@ export default {
         .then(res => {
           console.log(res.data)
           window.location.reload()
+        
+          // this.ALL_DA_INFO_MMYYYY_FROM_SERVICE(this.changed_or_selected_MMYYYY)
+          // this.CURRENT_MONTH_STATUS_CHECK_FOR_ALL_A_O(this.changed_or_selected_MMYYYY)
         })
     },
     async RELOAD_ALL_TERRITORY_LIST_FOR_DA(MMYYYY) {
@@ -606,13 +614,6 @@ export default {
                     "area_name": area_name
                 })
           }
-          // console.log(this.territory_area_data_list.length)
-          // this.leftSectionListTerritoryCount()
-          // if(this.territory_area_data_list.length === 0) {
-          //   document.querySelector('#monthly-delivery-plan-section-list-inner-' + this.selector_id_from_left_da_list + ' .status-color').className = 'status-color Available'
-          //   document.querySelector('#monthly-delivery-plan-section-list-inner-' + this.selector_id_from_left_da_list + ' .status-text').className = 'status-text Available'
-          //   document.querySelector('#monthly-delivery-plan-section-list-inner-' + this.selector_id_from_left_da_list + ' .status-text').innerHTML = 'Available'
-          // }
         }).catch(err => {
           console.log("Destroy Error : " + err)
         })
@@ -811,7 +812,12 @@ export default {
       await service.getSD_DPD_DELETE_EXECUTE_PROCEDURE(mmyyyy)
         .then(res => {
           console.log(res.data)
+
           window.location.reload()
+        
+          // this.ALL_DA_INFO_MMYYYY_FROM_SERVICE(this.changed_or_selected_MMYYYY)
+          // this.CURRENT_MONTH_STATUS_CHECK_FOR_ALL_A_O(this.changed_or_selected_MMYYYY)
+          // this.DELETE_THIS_MONTH_DATA_POPUP = false
         })
     },
 
@@ -836,11 +842,21 @@ export default {
     },
     async REMOVE_ALL_AREA_FOR_FORCE_OR_DA(mmyyyy, force_id) {
       // console.log(mmyyyy + '    ' + force_id)
-      service.getExecuteDeleteForceProcedure_All_Force_delete_for_DA(mmyyyy, force_id)
+      await service.getExecuteDeleteForceProcedure_All_Force_delete_for_DA(mmyyyy, force_id)
         .then(res => {
           console.log(res.data)
           window.location.reload()
+        
+          // this.ALL_DA_INFO_MMYYYY_FROM_SERVICE(this.changed_or_selected_MMYYYY)
+          // this.CURRENT_MONTH_STATUS_CHECK_FOR_ALL_A_O(this.changed_or_selected_MMYYYY)
+          // this.territory_area_data_list = []
+          // this.all_force_remove_popup = false
         })
+    },
+    // Reload data after full set copy
+    reloadAfterFullSetCopy() {
+      this.ALL_DA_INFO_MMYYYY_FROM_SERVICE(this.changed_or_selected_MMYYYY)
+      this.CURRENT_MONTH_STATUS_CHECK_FOR_ALL_A_O(this.changed_or_selected_MMYYYY)
     }
   },
 };
