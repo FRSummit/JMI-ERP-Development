@@ -607,15 +607,18 @@ export default {
                 })
           }
           // console.log(this.territory_area_data_list.length)
-          this.leftSectionListTerritoryCount()
-          if(this.territory_area_data_list.length === 0) {
-            document.querySelector('#monthly-delivery-plan-section-list-inner-' + this.selector_id_from_left_da_list + ' .status-color').className = 'status-color Available'
-            document.querySelector('#monthly-delivery-plan-section-list-inner-' + this.selector_id_from_left_da_list + ' .status-text').className = 'status-text Available'
-            document.querySelector('#monthly-delivery-plan-section-list-inner-' + this.selector_id_from_left_da_list + ' .status-text').innerHTML = 'Available'
-          }
+          // this.leftSectionListTerritoryCount()
+          // if(this.territory_area_data_list.length === 0) {
+          //   document.querySelector('#monthly-delivery-plan-section-list-inner-' + this.selector_id_from_left_da_list + ' .status-color').className = 'status-color Available'
+          //   document.querySelector('#monthly-delivery-plan-section-list-inner-' + this.selector_id_from_left_da_list + ' .status-text').className = 'status-text Available'
+          //   document.querySelector('#monthly-delivery-plan-section-list-inner-' + this.selector_id_from_left_da_list + ' .status-text').innerHTML = 'Available'
+          // }
         }).catch(err => {
           console.log("Destroy Error : " + err)
         })
+        
+        this.ALL_DA_INFO_MMYYYY_FROM_SERVICE(this.changed_or_selected_MMYYYY)
+        this.CURRENT_MONTH_STATUS_CHECK_FOR_ALL_A_O(this.changed_or_selected_MMYYYY)
     },
     submitPlan() {
       console.log("Set Plan Clicked");
@@ -676,12 +679,15 @@ export default {
           }
           console.log('Occupaid : ' + this.territory_area_data_list.length)
           this.territory_modal = false
-          this.leftSectionListStatusChange()
-          this.leftSectionListTerritoryCount()
+          // this.leftSectionListStatusChange()
+          // this.leftSectionListTerritoryCount()
           this.CURRENT_MONTH_STATUS_CHECK_FOR_ALL_A_O(this.changed_or_selected_MMYYYY)
         }).catch(err => {
           console.log("Create Error : " + err)
         })
+        
+        this.ALL_DA_INFO_MMYYYY_FROM_SERVICE(this.changed_or_selected_MMYYYY)
+        this.CURRENT_MONTH_STATUS_CHECK_FOR_ALL_A_O(this.changed_or_selected_MMYYYY)
     },
     async CREATE_NEW_SD_DPD_AREA_OR_NEW_TERRITORY_FOR_AVAILABLE_DA_FROM_SERVICE(dp_id, force_id, area_id, area_name) {
       await service.getCreateSD_DPD_AREA_ForAvailableDA(dp_id, force_id, area_id)
@@ -699,12 +705,15 @@ export default {
           // document.querySelector('#monthly-delivery-plan-section-list-inner-' + this.selector_id_from_left_da_list + ' .status-text').className = 'status-text Occupied'
           this.territory_modal = false
           console.log('Available : ' + this.territory_area_data_list.length)
-          this.leftSectionListStatusChange()
-          this.leftSectionListTerritoryCount()
+          // this.leftSectionListStatusChange()
+          // this.leftSectionListTerritoryCount()
           this.CURRENT_MONTH_STATUS_CHECK_FOR_ALL_A_O(this.changed_or_selected_MMYYYY)
         }).catch(err => {
           console.log("Create Error : " + err)
         })
+        
+        this.ALL_DA_INFO_MMYYYY_FROM_SERVICE(this.changed_or_selected_MMYYYY)
+        this.CURRENT_MONTH_STATUS_CHECK_FOR_ALL_A_O(this.changed_or_selected_MMYYYY)
     },
     async CREATE_NEW_SD_DPD_AREA_OR_NEW_TERRITORY_FOR_AVAILABLE_DA_FOR_FUTURE_MONTH_FROM_SERVICE(mmyyyy, force_id, area_id, area_name) {
       await service.getCreateSD_DPD_AREA_ForAvailableDA_ForFuture(mmyyyy, force_id, area_id)
@@ -722,27 +731,30 @@ export default {
           // document.querySelector('#monthly-delivery-plan-section-list-inner-' + this.selector_id_from_left_da_list + ' .status-text').className = 'status-text Occupied'
           this.territory_modal = false
           console.log('Future Available : ' + this.territory_area_data_list.length)
-          this.leftSectionListStatusChange()
-          this.leftSectionListTerritoryCount()
+          // this.leftSectionListStatusChange()
+          // this.leftSectionListTerritoryCount()
           this.CURRENT_MONTH_STATUS_CHECK_FOR_ALL_A_O(this.changed_or_selected_MMYYYY)
         }).catch(err => {
           console.log("Create Error : " + err)
         })
+        
+        this.ALL_DA_INFO_MMYYYY_FROM_SERVICE(this.changed_or_selected_MMYYYY)
+        this.CURRENT_MONTH_STATUS_CHECK_FOR_ALL_A_O(this.changed_or_selected_MMYYYY)
     },
     closeTerritoryModal() {
       this.territory_modal = false
     },
-    leftSectionListStatusChange() {
-      if(this.territory_area_data_list.length) {
-        console.log('data found : ' + this.selector_id_from_left_da_list)
-        document.querySelector('#monthly-delivery-plan-section-list-inner-' + this.selector_id_from_left_da_list + ' .status-color').className = 'status-color Occupied'
-        document.querySelector('#monthly-delivery-plan-section-list-inner-' + this.selector_id_from_left_da_list + ' .status-text').className = 'status-text Occupied'
-        document.querySelector('#monthly-delivery-plan-section-list-inner-' + this.selector_id_from_left_da_list + ' .status-text').innerHTML = 'Occupied'
-      }
-    },
-    leftSectionListTerritoryCount() {
-      document.querySelector('#monthly-delivery-plan-section-list-inner-' + this.selector_id_from_left_da_list + ' #territory-text-' + this.selector_id_from_left_da_list + ' .counter').innerHTML = this.territory_area_data_list.length
-    },
+    // leftSectionListStatusChange() {
+    //   if(this.territory_area_data_list.length) {
+    //     console.log('data found : ' + this.selector_id_from_left_da_list)
+        // document.querySelector('#monthly-delivery-plan-section-list-inner-' + this.selector_id_from_left_da_list + ' .status-color').className = 'status-color Occupied'
+        // document.querySelector('#monthly-delivery-plan-section-list-inner-' + this.selector_id_from_left_da_list + ' .status-text').className = 'status-text Occupied'
+        // document.querySelector('#monthly-delivery-plan-section-list-inner-' + this.selector_id_from_left_da_list + ' .status-text').innerHTML = 'Occupied'
+    //   }
+    // },
+    // leftSectionListTerritoryCount() {
+    //   document.querySelector('#monthly-delivery-plan-section-list-inner-' + this.selector_id_from_left_da_list + ' #territory-text-' + this.selector_id_from_left_da_list + ' .counter').innerHTML = this.territory_area_data_list.length
+    // },
     copyTerritoryCalendar(t) {
       this.copy_selected_territory_area_id = t.id
       if(this.copy_modal) {
@@ -774,15 +786,17 @@ export default {
                 }
               }
             }
-            this.leftSectionListTerritoryCount()
             this.copy_modal = false
             // console.log('Future Available : ' + this.territory_area_data_list.length)
-            this.leftSectionListStatusChange()
-          this.leftSectionListTerritoryCount()
+            // this.leftSectionListStatusChange()
+            // this.leftSectionListTerritoryCount()
           }
         }).catch(err => {
           console.log("Create Error : " + err)
         })
+        
+        this.ALL_DA_INFO_MMYYYY_FROM_SERVICE(this.changed_or_selected_MMYYYY)
+        this.CURRENT_MONTH_STATUS_CHECK_FOR_ALL_A_O(this.changed_or_selected_MMYYYY)
     },
     disableActivateAllLeftSideDaList() {
       let length = document.getElementsByClassName('monthly-delivery-plan-section-list').length
