@@ -234,6 +234,17 @@ export default class PostService {
     })
   }
 
+  // MONTHLY DELIVERY PLAN - REMVOE ALL AREA FOR FORCE OR DA
+  getExecuteDeleteForceProcedure_All_Force_delete_for_DA(mmyyyy, force_id) {
+    let web_menu_url = '/api/web/execute-delete-force-procedure/' + mmyyyy + '/' + force_id
+    return axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
+
   getAllSidebarMenu() {
     // return axios.get('/jerp_menu');
     return axios({

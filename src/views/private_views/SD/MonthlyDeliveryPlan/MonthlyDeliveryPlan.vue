@@ -26,6 +26,10 @@
                       >
                     </p>
                   </div>
+                  
+                  <div class="delete-force-btn-section" v-if="!importPlanMonthsData.length && territory_area_data_list.length">
+                    <span class="delete-btn" @click="deleteAllAreaOfThisForce"><i class="fas fa-trash-alt"></i></span>
+                  </div>
                   <div class="select-option-box" v-if="importPlanMonthsData.length">
                     <div class="default-text">
                       <span>Import Plan From:</span>
@@ -142,6 +146,10 @@
       </div>
     </div>
 
+    <AllForceRemove v-if="all_force_remove_popup"
+      v-on:remove_all_area_cancel_click="removeAllAreaCancelClick"
+      v-on:remove_all_area_confirm_click="removeAllAreaConfirmClick" />
+
     <!-- Copy Modal -->
     <div class="copy-modal" v-if="copy_modal">
       <div class="add-territory-modal" v-click-outside="copyModalSectionOutsideClick">
@@ -180,6 +188,7 @@
 import Heading from "../../../../components/master_layout/HeadingTitleBreadcrumb/HeadingTitleBreadcrumb";
 import MonthlyDeliveryPlanLeftList from "./Sidebar/MonthlyDeliveryPlan_LeftList";
 import PlanCalendar from "./PlanCalendar/PlanCalendar";
+import AllForceRemove from "./DeleteFragments/AllForceDelete";
 
 import ERPService from '../../../../service/ERPSidebarService'
 const service = new ERPService()
@@ -189,6 +198,7 @@ export default {
     Heading,
     MonthlyDeliveryPlanLeftList,
     PlanCalendar,
+    AllForceRemove,
   },
   data() {
     return {
@@ -257,7 +267,10 @@ export default {
       selectPreviousMonthToImport: '',
 
       // Monthly AVG status
-      allAvailableOrOccupied_Copy: true
+      allAvailableOrOccupied_Copy: true,
+
+      // Destroy Popup
+      all_force_remove_popup: false,
     };
   },
   created() {
@@ -782,6 +795,34 @@ export default {
     },
     async DELETE_WHOLE_MONTH_DATA_FROM_SERVICE(mmyyyy) {
       await service.getSD_DPD_DELETE_EXECUTE_PROCEDURE(mmyyyy)
+        .then(res => {
+          console.log(res.data)
+          window.location.reload()
+        })
+    },
+
+    // Delete All force btn Click
+    deleteAllAreaOfThisForce() {
+      if(this.all_force_remove_popup) {
+        this.all_force_remove_popup = false
+      } else {
+        this.all_force_remove_popup = true
+      }
+    },
+
+    // Destroy Popup - All force remove
+    removeAllAreaCancelClick() {
+      this.all_force_remove_popup = false
+    },
+    removeAllAreaConfirmClick() {
+      let MMYYYY = this.changed_or_selected_MMYYYY
+      let FORCE_ID = this.selectedSchedule.id
+      // console.log('confirm : ' + MMYYYY + '  ' + FORCE_ID)
+      this.REMOVE_ALL_AREA_FOR_FORCE_OR_DA(MMYYYY, FORCE_ID)
+    },
+    async REMOVE_ALL_AREA_FOR_FORCE_OR_DA(mmyyyy, force_id) {
+      // console.log(mmyyyy + '    ' + force_id)
+      service.getExecuteDeleteForceProcedure_All_Force_delete_for_DA(mmyyyy, force_id)
         .then(res => {
           console.log(res.data)
           window.location.reload()
