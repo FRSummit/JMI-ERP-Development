@@ -32,7 +32,7 @@
                   <div class="delete-force-btn-section" v-if="!importPlanMonthsData.length && territory_area_data_list.length">
                     <span class="delete-btn" @click="deleteAllAreaOfThisForce"><i class="fas fa-trash-alt"></i></span>
                   </div>
-                  <div class="select-option-box" v-if="importPlanMonthsData.length">
+                  <div class="select-option-box" v-if="importPlanMonthsData.length && !territory_area_data_list.length">
                     <div class="default-text">
                       <span>Import Plan From:</span>
                     </div>
@@ -412,11 +412,11 @@ export default {
     async DA_COPY_FOR_FUTURE_MONTH_FROM_SERVICE(SRC_DATE, TARGET_DATE, FORCE_ID) {
       service.getExecuteProcedureCopyDeliveryPlanByForce(SRC_DATE, TARGET_DATE, FORCE_ID)
         .then( () => {
-          // window.location.reload()
+          window.location.reload()
         
-          this.ALL_DA_INFO_MMYYYY_FROM_SERVICE(this.changed_or_selected_MMYYYY)
-          this.CURRENT_MONTH_STATUS_CHECK_FOR_ALL_A_O(this.changed_or_selected_MMYYYY)
-          this.MONTHLY_DELIVERY_PLAN_BY_MMYYYY_AND_FORCE_ID_FROM_SERVICE(this.changed_or_selected_MMYYYY, this.selectedSchedule.id)
+          // this.ALL_DA_INFO_MMYYYY_FROM_SERVICE(this.changed_or_selected_MMYYYY)
+          // this.CURRENT_MONTH_STATUS_CHECK_FOR_ALL_A_O(this.changed_or_selected_MMYYYY)
+          // this.MONTHLY_DELIVERY_PLAN_BY_MMYYYY_AND_FORCE_ID_FROM_SERVICE(this.changed_or_selected_MMYYYY, this.selectedSchedule.id)
         })
     },
     async RELOAD_ALL_TERRITORY_LIST_FOR_DA(MMYYYY) {
@@ -745,6 +745,7 @@ export default {
         
         this.ALL_DA_INFO_MMYYYY_FROM_SERVICE(this.changed_or_selected_MMYYYY)
         this.CURRENT_MONTH_STATUS_CHECK_FOR_ALL_A_O(this.changed_or_selected_MMYYYY)
+        // this.MONTHLY_DELIVERY_PLAN_BY_MMYYYY_AND_FORCE_ID_FROM_SERVICE(this.changed_or_selected_MMYYYY, this.selectedSchedule.id)
     },
     disableActivateAllLeftSideDaList() {
       let length = document.getElementsByClassName('monthly-delivery-plan-section-list').length
@@ -789,12 +790,12 @@ export default {
     async REMOVE_ALL_AREA_FOR_FORCE_OR_DA(mmyyyy, force_id) {
       await service.getExecuteDeleteForceProcedure_All_Force_delete_for_DA(mmyyyy, force_id)
         .then( () => {
-          // window.location.reload()
+          window.location.reload()
         
-          this.territory_area_data_list = []
-          this.ALL_DA_INFO_MMYYYY_FROM_SERVICE(this.changed_or_selected_MMYYYY)
-          this.CURRENT_MONTH_STATUS_CHECK_FOR_ALL_A_O(this.changed_or_selected_MMYYYY)
-          this.all_force_remove_popup = false
+          // this.territory_area_data_list = []
+          // this.ALL_DA_INFO_MMYYYY_FROM_SERVICE(this.changed_or_selected_MMYYYY)
+          // this.CURRENT_MONTH_STATUS_CHECK_FOR_ALL_A_O(this.changed_or_selected_MMYYYY)
+          // this.all_force_remove_popup = false
         })
     },
     // Reload data after full set copy
