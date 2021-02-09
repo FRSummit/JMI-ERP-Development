@@ -285,8 +285,9 @@ export default {
     let currentMM = ((new Date().getMonth() + 1) < 10 ? ('0' + (new Date().getMonth() + 1)) : (new Date().getMonth() + 1) )
     let currentMMYYYY = (currentMM.toString() + curretnYYYY.toString())
 
-    this.CURRENT_MONTH_STATUS_CHECK_FOR_ALL_A_O(currentMMYYYY)
     this.ALL_DA_INFO_MMYYYY_FROM_SERVICE(currentMMYYYY)
+    this.CURRENT_MONTH_STATUS_CHECK_FOR_ALL_A_O(currentMMYYYY)
+    console.log('mounted')
   },
   methods: {
     createBreadcrumbData() {
@@ -402,6 +403,7 @@ export default {
       service.getExecuteProcedureCopyDeliveryPlanByForce(SRC_DATE, TARGET_DATE, FORCE_ID)
         .then(res => {
           console.log(res.data)
+          window.location.reload()
         })
     },
     async RELOAD_ALL_TERRITORY_LIST_FOR_DA(MMYYYY) {

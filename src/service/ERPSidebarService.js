@@ -54,7 +54,9 @@ export default class PostService {
     })
   }
 
-  // 
+  // MONTHLY DELIVERY PLAN
+  // MOUNTED 2'ND API CALL
+  // MONTH SELECTION API CALL
   getDICMonthlyDeliveryPlan_MMYYYY_MonthlyDeliveryPlan(mmyyyy) {
     // console.log(mmyyyy)
     let web_menu_url = '/api/web/dic-monthly-delivery-plan/' + mmyyyy
@@ -66,7 +68,9 @@ export default class PostService {
     })
   }
 
-  // MONTHLY DELIVERY PLAN - LEFT SECTION - ALL DA INFO LIST 
+  // MONTHLY DELIVERY PLAN - LEFT SECTION - ALL DA INFO LIST
+  // MOUNTED 1'ST API CALL
+  // MONTH SELECTION API CALL
   getAllDAInfo_MMYYYY_MonthlyDeliveryPlan(mmyyyy) {
     // console.log(mmyyyy)
     let web_menu_url = '/api/web/all-da-info/' + mmyyyy

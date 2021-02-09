@@ -37,7 +37,7 @@
             </div>
             <div class="copy-delete-btn-section">
               <span class="copy-btn" @click="copyMonthData" v-if="all_available_or_occupied_copy"><img src="../../../../../assets/images/copy.png" alt=""></span>
-              <span class="copy-btn" @click="copyMonthData" v-if="!all_available_or_occupied_copy"><img src="../../../../../assets/images/del.png" alt=""></span>
+              <span class="copy-btn" @click="deleteMonthData" v-if="!all_available_or_occupied_copy"><img src="../../../../../assets/images/del.png" alt=""></span>
               <!-- <span class="copy-btn" @click="copyMonthData" v-if="all_available_or_occupied_copy"><i class="fas fa-copy"></i></span> -->
               <!-- <span class="delete-btn" @click="deleteMonthData" v-if="!all_available_or_occupied_copy"><i class="fas fa-trash-alt"></i></span> -->
             </div>
@@ -313,7 +313,7 @@ export default {
       // console.log(t.date)
       // console.log(selectedMMYYYY)
       // console.log(t.dp_mnyr)
-      service.getSD_DPD_COPY_EXECUTE_PROCEDURE(selectedMMYYYY, t.dp_mnyr)
+      service.getSD_DPD_COPY_EXECUTE_PROCEDURE(t.dp_mnyr, selectedMMYYYY)
         .then(res => {
           console.log(res.data)
           if(res.data.response_code === 200) {
