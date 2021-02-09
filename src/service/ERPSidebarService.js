@@ -78,18 +78,6 @@ export default class PostService {
     })
   }
 
-  // // MONTHLY DELIVERY PLAN - LEFT SECTION - ALL DA INFO LIST 
-  // getDIC_Monthly_Delivery_Plan_MMYYYY_MonthlyDeliveryPlan(mmyyyy) {
-  //   // console.log(mmyyyy)
-  //   let web_menu_url = '/api/web/dic-monthly-delivery-plan/' + mmyyyy
-  //   return axios(web_menu_url, {
-  //     method: 'GET',
-  //     headers: {
-  //       'Authorization': token_type + ' ' + token
-  //     }
-  //   })
-  // }
-
   // MONTHLY DELIVERY PLAN - RIGHT SECTION DATA BY SELECTED MONTH_YEAR & FORCE ID
   getMonthlyDeliveryPlanByForceId_MonthlyDeliveryPlan(mmyyyy, force_id) {
     // console.log(mmyyyy + '    ' + force_id)
