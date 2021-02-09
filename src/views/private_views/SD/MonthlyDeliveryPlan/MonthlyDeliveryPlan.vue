@@ -421,10 +421,11 @@ export default {
       service.getExecuteProcedureCopyDeliveryPlanByForce(SRC_DATE, TARGET_DATE, FORCE_ID)
         .then(res => {
           console.log(res.data)
-          window.location.reload()
+          // window.location.reload()
         
-          // this.ALL_DA_INFO_MMYYYY_FROM_SERVICE(this.changed_or_selected_MMYYYY)
-          // this.CURRENT_MONTH_STATUS_CHECK_FOR_ALL_A_O(this.changed_or_selected_MMYYYY)
+          this.ALL_DA_INFO_MMYYYY_FROM_SERVICE(this.changed_or_selected_MMYYYY)
+          this.CURRENT_MONTH_STATUS_CHECK_FOR_ALL_A_O(this.changed_or_selected_MMYYYY)
+          this.MONTHLY_DELIVERY_PLAN_BY_MMYYYY_AND_FORCE_ID_FROM_SERVICE(this.changed_or_selected_MMYYYY, this.selectedSchedule.id)
         })
     },
     async RELOAD_ALL_TERRITORY_LIST_FOR_DA(MMYYYY) {
@@ -589,10 +590,6 @@ export default {
       this.remove_territory_data = []
     },
     confirmFromPopup() {
-      // console.log(this.remove_territory_data.re_sel_dpf_id)
-      // console.log(this.remove_territory_data.re_sel_area_id)
-      // console.log(this.remove_territory_data.re_sel_area_name)
-      // console.log(this.remove_territory_data.re_sel_area_lvl)
       this.DESTROY_SD_DPD_AREA_FROM_SERVICE(this.remove_territory_data.re_sel_dpf_id, this.remove_territory_data.re_sel_area_id, this.remove_territory_data.re_sel_area_name, this.remove_territory_data.re_sel_area_lvl)
       this.remove_territory_data = []
       this.destroy_popup = false
