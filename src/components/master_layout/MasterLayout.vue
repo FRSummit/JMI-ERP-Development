@@ -27,14 +27,14 @@
         <div class="right-section">
           <div class="chat-section" @click="chatIconClick()">
             <span class="chat-icon-chat">
-              <i class="far fa-comment-alt"></i>
+              <i class="zmdi zmdi-comment-text"></i>
             </span>
             <span class="chat-circle"></span>
             <ChatModal />
           </div>
           <div class="notification-section" @click="bellIconClick()">
             <span class="bell-icon-bell">
-              <i class="far fa-bell"></i>
+              <i class="zmdi zmdi-notifications"></i>
             </span>
             <span class="bell-circle"></span>
             <NotificationModal />
@@ -51,7 +51,8 @@
               <div>
                 <p class="profile-name">{{ userName }}</p>
                 <span class="profile-arrow">
-                  <i class="fas fa-chevron-down"></i>
+                  <!-- <i class="fas fa-chevron-down"></i> -->
+                  <i class="zmdi zmdi-caret-down-circle"></i>
                 </span>
               </div>
               <p class="profile-designation">{{ userDesignation }}</p>
