@@ -268,7 +268,6 @@ export default {
       this.$emit("delete_this_month_data", selectedMMYYYY);
     },
     async LOAD_MONTH_FOR_COPY_WHOLE_MONTH_DATA(selectedMMYYYY) {
-      console.log(selectedMMYYYY)
       service.getSD_DPD_PreviousMonthByDP_Mnyr(selectedMMYYYY)
         .then(res => {
           this.previous_months_list_to_copy = res.data.data

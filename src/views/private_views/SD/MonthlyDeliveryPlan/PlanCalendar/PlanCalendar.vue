@@ -73,12 +73,9 @@ export default {
     };
   },
   created() {
-    // console.log(this.selectedDate);
   },
   methods: {
     getSelectedDateFromChildComponentCalendar(date) {
-      // console.log(date)
-      // console.log(this.territoryData)
       this.$emit("selected_date_from_calendar", this.territoryData, date);
     },
     getSelectedDateFromChildComponentCalendarToDestroy(date) {
@@ -89,12 +86,9 @@ export default {
       );
     },
     copyTerritoryCalendar(territoryName) {
-      // console.log(territoryName)
       this.$emit("copy_territory_calendar", territoryName);
     },
     removeTerritoryCalendar(territoryName) {
-      // this.hideCalendarRightSection = 'hide'
-      // console.log(">>> " + territoryName.territory_name)
       this.$emit("remove_territory_calendar", territoryName);
     },
   },

@@ -305,7 +305,6 @@ export default {
 
     this.ALL_DA_INFO_MMYYYY_FROM_SERVICE(currentMMYYYY)
     this.CURRENT_MONTH_STATUS_CHECK_FOR_ALL_A_O(currentMMYYYY)
-    console.log('mounted')
   },
   methods: {
     createBreadcrumbData() {
@@ -336,7 +335,6 @@ export default {
     async ALL_DA_INFO_MMYYYY_FROM_SERVICE(MMYYYY) {
       await service.getAllDAInfo_MMYYYY_MonthlyDeliveryPlan(MMYYYY)
         .then(res => {
-          console.log(res.data)
           this.DICWiseUsers_DA_List = res.data.da_info
           this.all_territory_list_for_this_DA = res.data.all_territory_list
           // this.leftSectionListTerritoryCount()
@@ -345,7 +343,6 @@ export default {
     async CURRENT_MONTH_STATUS_CHECK_FOR_ALL_A_O(MMYYYY) {
       await service.getDICMonthlyDeliveryPlan_MMYYYY_MonthlyDeliveryPlan(MMYYYY)
         .then(res => {
-          console.log(res.data)
           if(res.data.response_code === 404) {
             this.allAvailableOrOccupied_Copy = true
           } else {
@@ -384,7 +381,6 @@ export default {
       await service.getMonthlyDeliveryPlanByForceId_MonthlyDeliveryPlan(MMYYYY, FORCE_ID)
           .then(res => {
             if(res.data.response_code === 200) {
-              console.log(res.data)
               this.DIC_DP_ID = res.data.delivery_plan_info.id
               if(res.data.delivery_plan_info.get_dpd_forces.length > 0) {
                 this.territory_area_data_list = res.data.delivery_plan_info.get_dpd_forces[0].get_areas
@@ -397,10 +393,8 @@ export default {
           })
     },
     async IMPORT_PLAN_FROM_PREVIOUS_MONTH_DATA_FROM_SERVICE(FORCE_ID, STATUS) {
-      console.log(FORCE_ID)
       await service.getSD_DPD_PreviousMonthBySource_MonthlyDeliveryPlan(FORCE_ID)
           .then(res => {
-            console.log(res.data)
             if(res.data.response_code === 200 && STATUS === "Available") {
               this.importPlanMonthsData = res.data.data
             } else {
@@ -416,10 +410,8 @@ export default {
       this.DA_COPY_FOR_FUTURE_MONTH_FROM_SERVICE(soruce_date, target_date, force_id)
     },
     async DA_COPY_FOR_FUTURE_MONTH_FROM_SERVICE(SRC_DATE, TARGET_DATE, FORCE_ID) {
-      console.log(SRC_DATE + '  ' + TARGET_DATE + '  ' + FORCE_ID)
       service.getExecuteProcedureCopyDeliveryPlanByForce(SRC_DATE, TARGET_DATE, FORCE_ID)
-        .then(res => {
-          console.log(res.data)
+        .then( () => {
           // window.location.reload()
         
           this.ALL_DA_INFO_MMYYYY_FROM_SERVICE(this.changed_or_selected_MMYYYY)
@@ -536,12 +528,10 @@ export default {
     async CREATE_SD_DPD_DAY_FROM_SERVICE(id, date) {
       await service.getCreateSDDpdDay_MonthlyDeliveryPlan(id, date)
         .then(res => {
-          console.log(res.data)
           if(res.data.message === "Success!") {
             this.createOK = true
           }
-        }).catch(err => {
-          console.log("Create Error : " + err)
+        }).catch( () => {
           this.createOK = false
         })
     },
@@ -555,12 +545,10 @@ export default {
     async DESTROY_SD_DPD_DAY_FROM_SERVICE(id, date) {
       await service.getDestroySDDpdDay_MonthlyDeliveryPlan(id, date)
         .then(res => {
-          console.log(res.data)
           if(res.data.message === "Success!") {
             this.destroyOK = true
           }
-        }).catch(err => {
-          console.log("Destroy Error : " + err)
+        }).catch( () => {
           this.destroyOK = false
         })
     },
@@ -569,7 +557,6 @@ export default {
       let AREA_ID = t.area_id
       let AREA_NAME = t.area_info.area_name
       let AREA_LVL = t.area_info.lvl
-      // console.log(DPF_ID + '  ' + AREA_ID + '  ' + AREA_NAME + '  ' + AREA_LVL)
       
       this.remove_territory_data = {
         re_sel_dpf_id: DPF_ID,
@@ -577,7 +564,6 @@ export default {
         re_sel_area_name: AREA_NAME,
         re_sel_area_lvl: AREA_LVL
       }
-      // this.DESTROY_SD_DPD_AREA_FROM_SERVICE(DPF_ID, AREA_ID, AREA_NAME, AREA_LVL)
       if(this.destroy_popup) {
         this.destroy_popup = false
       } else {
@@ -594,10 +580,8 @@ export default {
       this.destroy_popup = false
     },
     async DESTROY_SD_DPD_AREA_FROM_SERVICE(dpf_id, area_id, area_name, area_lvl) {
-      console.log(dpf_id + '    ' + area_id)
       await service.getDestroySD_DPD_AREA(dpf_id, area_id)
-        .then(res => {
-          console.log(res.data)
+        .then( () => {
           if(this.territory_area_data_list.length > 0) {
             for (let [i, tt] of this.territory_area_data_list.entries()) {
               if (tt.area_id === area_id) {
@@ -618,7 +602,6 @@ export default {
         this.CURRENT_MONTH_STATUS_CHECK_FOR_ALL_A_O(this.changed_or_selected_MMYYYY)
     },
     submitPlan() {
-      console.log("Set Plan Clicked");
     },
     createNewTerritory() {
       if(this.territory_modal) {
@@ -665,7 +648,6 @@ export default {
     async CREATE_NEW_SD_DPD_AREA_OR_NEW_TERRITORY_FOR_OCCUPAID_DA_FROM_SERVICE(dpf_id, area_id, area_name) {
       await service.getCreateSD_DPD_AREA_ForOccupiedDA(dpf_id, area_id)
         .then(res => {
-          console.log(res.data)
           this.territory_area_data_list.push(res.data.new_area)
           if(this.all_territory_list_for_this_DA.length > 1) {
             for (let [i, tt] of this.all_territory_list_for_this_DA.entries()) {
@@ -674,7 +656,6 @@ export default {
               }
             }
           }
-          console.log('Occupaid : ' + this.territory_area_data_list.length)
           this.territory_modal = false
           this.CURRENT_MONTH_STATUS_CHECK_FOR_ALL_A_O(this.changed_or_selected_MMYYYY)
         }).catch(err => {
@@ -687,7 +668,6 @@ export default {
     async CREATE_NEW_SD_DPD_AREA_OR_NEW_TERRITORY_FOR_AVAILABLE_DA_FROM_SERVICE(dp_id, force_id, area_id, area_name) {
       await service.getCreateSD_DPD_AREA_ForAvailableDA(dp_id, force_id, area_id)
         .then(res => {
-          console.log(res.data)
           this.territory_area_data_list.push(res.data.new_area)
           if(this.all_territory_list_for_this_DA.length > 1) {
             for (let [i, tt] of this.all_territory_list_for_this_DA.entries()) {
@@ -697,7 +677,6 @@ export default {
             }
           }
           this.territory_modal = false
-          console.log('Available : ' + this.territory_area_data_list.length)
           this.CURRENT_MONTH_STATUS_CHECK_FOR_ALL_A_O(this.changed_or_selected_MMYYYY)
         }).catch(err => {
           console.log("Create Error : " + err)
@@ -709,7 +688,6 @@ export default {
     async CREATE_NEW_SD_DPD_AREA_OR_NEW_TERRITORY_FOR_AVAILABLE_DA_FOR_FUTURE_MONTH_FROM_SERVICE(mmyyyy, force_id, area_id, area_name) {
       await service.getCreateSD_DPD_AREA_ForAvailableDA_ForFuture(mmyyyy, force_id, area_id)
         .then(res => {
-          console.log(res.data)
           this.territory_area_data_list.push(res.data.new_area)
           if(this.all_territory_list_for_this_DA.length > 1) {
             for (let [i, tt] of this.all_territory_list_for_this_DA.entries()) {
@@ -719,7 +697,6 @@ export default {
             }
           }
           this.territory_modal = false
-          console.log('Future Available : ' + this.territory_area_data_list.length)
           this.CURRENT_MONTH_STATUS_CHECK_FOR_ALL_A_O(this.changed_or_selected_MMYYYY)
         }).catch(err => {
           console.log("Create Error : " + err)
@@ -749,10 +726,8 @@ export default {
       this.COPY_TERRITORY_FROM_SERVICE(this.copy_selected_territory_area_id, t.id, t.area_name)
     },
     async COPY_TERRITORY_FROM_SERVICE(selected_territory, selected_modal_area_id, area_name) {
-      console.log(selected_territory +'    '+ selected_modal_area_id +'    '+ area_name)
       await service.getCopySD_DPD_Area(selected_territory, selected_modal_area_id)
         .then(res => {
-          console.log(res.data)
           if(res.data.response_code !== 404) {
             this.territory_area_data_list.push(res.data.new_area)
             if(this.all_territory_list_for_this_DA.length > 1) {
@@ -782,8 +757,7 @@ export default {
     },
     async DELETE_WHOLE_MONTH_DATA_FROM_SERVICE(mmyyyy) {
       await service.getSD_DPD_DELETE_EXECUTE_PROCEDURE(mmyyyy)
-        .then(res => {
-          console.log(res.data)
+        .then( () => {
 
           window.location.reload()
         
@@ -810,14 +784,11 @@ export default {
     removeAllAreaConfirmClick() {
       let MMYYYY = this.changed_or_selected_MMYYYY
       let FORCE_ID = this.selectedSchedule.id
-      // console.log('confirm : ' + MMYYYY + '  ' + FORCE_ID)
       this.REMOVE_ALL_AREA_FOR_FORCE_OR_DA(MMYYYY, FORCE_ID)
     },
     async REMOVE_ALL_AREA_FOR_FORCE_OR_DA(mmyyyy, force_id) {
-      // console.log(mmyyyy + '    ' + force_id)
       await service.getExecuteDeleteForceProcedure_All_Force_delete_for_DA(mmyyyy, force_id)
-        .then(res => {
-          console.log(res.data)
+        .then( () => {
           // window.location.reload()
         
           this.territory_area_data_list = []

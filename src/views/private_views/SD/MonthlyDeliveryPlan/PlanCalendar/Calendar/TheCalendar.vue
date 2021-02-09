@@ -4,7 +4,6 @@
       <div class="calendar" v-for="(day, d) in selectedDate" :key="d">
         <div class="days-section">
           <div class="days-section-inner">
-            <!-- <span>S {{ selectedDate }}</span> -->
             <span :class="day.day === 'F' ? 'friday' : null">{{ day.day }}</span>
           </div>
         </div>
@@ -16,7 +15,6 @@
         >
           <div class="dates-section-inner">
             <span>{{ d + 1 }}</span>
-            <!-- <span>{{ check(d + 1) }}</span> -->
           </div>
         </div>
       </div>
@@ -41,7 +39,6 @@ export default {
     for(let i=0; i < this.selectedDate.length; i++) {
       
       this.my_dates.push({date: i+1 < 10 ? ('0' + (i+1)) : (i+1).toString()})
-      // this.my_dates.push({date: i+1 })
     }
   },
   methods: {
@@ -60,21 +57,12 @@ export default {
       return days[dayInt].charAt(0);
     },
     async sendDateFromCalendarToParentComponent(date) {
-      // console.log(date)
-      
-      // this.$emit("selected_date_from_calendar", date);
       if(document.getElementById(this.territoryData.area_id + "-dates-section-" + date).className === "dates-section") {
         await this.$emit("selected_date_from_calendar", date)
-        // console.log(this.create_ok)
-        // if(this.create_ok) {
           document.getElementById(this.territoryData.area_id + "-dates-section-" + date).className = "dates-section DA-DATA"
-        // }
       } else {
         await this.$emit("selected_date_from_calendar_destroy", date)
-        // console.log(this.destroy_ok)
-        // if(this.destroy_ok) {
           document.getElementById(this.territoryData.area_id + "-dates-section-" + date).className = "dates-section"
-        // }
       }
     },
     check(d) {
@@ -82,7 +70,6 @@ export default {
       if(this.territoryData.get_days) {
         for(let i=0; i<this.territoryData.get_days.length; i++) {
           if(this.territoryData.get_days[i].delivery_date.split(' ')[0].split('-')[2] === day) {
-            // console.log(this.territoryData.get_days[i].delivery_date.split(' ')[0].split('-')[2] + '    ' + day)
             return true
           }
         }
