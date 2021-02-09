@@ -31,6 +31,8 @@
     <br />
     <router-link to="/408">408</router-link>
     <br />
+    <router-link to="/500">500</router-link>
+    <br />
     <router-link to="/503">503</router-link>
     <br />
     <router-link to="/under-construction">Under Construction</router-link>
