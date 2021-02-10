@@ -80,7 +80,7 @@ export default {
       // window.location.href = env.baseURL + '/'
       window.location.href = window.location.origin + '/'
       // console.log(window.location.origin.split('//')[1])
-    }
+    },
   },
 };
 </script>
