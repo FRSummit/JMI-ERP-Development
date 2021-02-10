@@ -202,6 +202,7 @@ export default {
     return {
       routeName: "Monthly Delivery Plan",
       parentPath: "Local Sales",
+      pathName: [],
       selectedDate: null,
       selectedDateMonth: null,
       selectedSchedule: null,
@@ -303,10 +304,21 @@ export default {
   },
   methods: {
     createBreadcrumbData() {
-      this.pathName = [
-        { name: "Local Sales" },
-        { name: "Monthly Delivery Plan" },
-      ];
+      // this.pathName = [
+      //   { name: "Local Sales" },
+      //   { name: "Monthly Delivery Plan" },
+      // ];
+      let window_pathname = window.location.pathname
+      for(let i=1; i<window_pathname.split('/').length; i++) {
+        let pp_str = window_pathname.split('/')[i].charAt(0).toUpperCase() + window_pathname.split('/')[i].slice(1)
+        let parts = pp_str.split('_')
+        let parts_length = parts.length
+        let pn_str = ""
+        for(let j=0; j<parts_length; j++) {
+          pn_str += parts[j] + ' '
+        }
+        this.pathName.push({name: pn_str.trim()})
+      }
     },
     selectedMonthFromLeft(date) {
       this.disableActivateAllLeftSideDaList()

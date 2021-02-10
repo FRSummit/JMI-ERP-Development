@@ -30,8 +30,9 @@ export default {
   },
   data() {
     return {
-      routeName: "Delivery Schedule",
-      parentPath: "SD",
+      routeName: "Delivery schedule",
+      parentPath: "Local Sales",
+      pathName: [],
     };
   },
   created() {
@@ -40,7 +41,18 @@ export default {
   },
   methods: {
     createBreadcrumbData() {
-      this.pathName = [{ name: "SD" }, { name: "Delivery Schedule" }];
+      // this.pathName = [{name: "Features"},{ name: "Local Sales" }, { name: "Delivery Schedule" }];
+      let window_pathname = window.location.pathname
+      for(let i=1; i<window_pathname.split('/').length; i++) {
+        let pp_str = window_pathname.split('/')[i].charAt(0).toUpperCase() + window_pathname.split('/')[i].slice(1)
+        let parts = pp_str.split('_')
+        let parts_length = parts.length
+        let pn_str = ""
+        for(let j=0; j<parts_length; j++) {
+          pn_str += parts[j] + ' '
+        }
+        this.pathName.push({name: pn_str.trim()})
+      }
     },
   },
 };

@@ -28,7 +28,8 @@ export default {
   data() {
     return {
       routeName: "Delivery Packing Preparation",
-      parentPath: "SD",
+      parentPath: "Local Sales",
+      pathName: [],
     };
   },
   created() {
@@ -37,7 +38,18 @@ export default {
   },
   methods: {
     createBreadcrumbData() {
-      this.pathName = [{ name: "SD" }, { name: "Delivery Packing Preparation" }];
+      this.pathName = [{name: "Features"},{ name: "Local Sales" }, { name: "Delivery Packing Preparation" }];
+      // let window_pathname = window.location.pathname
+      // for(let i=1; i<window_pathname.split('/').length; i++) {
+      //   let pp_str = window_pathname.split('/')[i].charAt(0).toUpperCase() + window_pathname.split('/')[i].slice(1)
+      //   let parts = pp_str.split('_')
+      //   let parts_length = parts.length
+      //   let pn_str = ""
+      //   for(let j=0; j<parts_length; j++) {
+      //     pn_str += parts[j] + ' '
+      //   }
+      //   this.pathName.push({name: pn_str.trim()})
+      // }
     },
   },
 };
