@@ -315,7 +315,7 @@ export default {
         let parts_length = parts.length
         let pn_str = ""
         for(let j=0; j<parts_length; j++) {
-          pn_str += parts[j] + ' '
+          pn_str += (parts[j].charAt(0).toUpperCase() + parts[j].slice(1)) + ' '
         }
         this.pathName.push({name: pn_str.trim()})
       }
