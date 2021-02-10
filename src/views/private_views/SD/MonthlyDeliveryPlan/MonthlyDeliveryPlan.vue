@@ -302,6 +302,9 @@ export default {
     this.CURRENT_MONTH_STATUS_CHECK_FOR_ALL_A_O(currentMMYYYY)
     // console.log(window.location.origin)
     // console.log(window.location.origin)
+    // console.log(window.location.origin)
+    // console.log(window.location.origin)
+    // console.log(window.location.origin)
   },
   methods: {
     createBreadcrumbData() {
