@@ -16,6 +16,14 @@ $(document).ready(function () {
     //     console.log('Hello 2')
     //     console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
     //   });
-    
+    let c = 45;
+
+function draw(){
+  document.documentElement.style.setProperty('--direction', c++ + 'deg');
+  requestAnimationFrame(draw);
+}
+
+requestAnimationFrame(draw);
+
 
 });
