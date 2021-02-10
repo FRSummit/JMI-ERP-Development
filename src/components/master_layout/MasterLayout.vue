@@ -18,7 +18,7 @@
           <div class="group-name-section">
             <p class="group-name">Nipro JMI Pharma</p>
           </div>
-          <div class="group-selection-dropdown-section">
+          <div class="group-selection-dropdown-section" v-click-outside="groupModalOutsideClick">
             <span class="group-selection-icon" @click="selectGroup()">
               <i class="fas fa-exchange-alt"></i>
             </span>
@@ -223,6 +223,11 @@ export default {
       this.profileArrowRotation();
     },
     // Modal Outside Click Action
+    groupModalOutsideClick() {
+      if(document.querySelector('#group-list-section').className === 'group-list-section') {
+        this.modalToggle("group-list-section");
+      }
+    },
     chatModalOutsideClick() {
       if(document.querySelector('#chat-modal').className === 'chat-modal') {
         this.modalToggle("chat-modal");
