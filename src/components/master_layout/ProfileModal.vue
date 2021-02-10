@@ -1,10 +1,5 @@
 <template>
   <div id="profile-modal" class="profile-modal hide">
-    <div class="profile-modal-triangle-sec">
-      <span class="profile-tri-icon">
-        <i class="fas fa-caret-up"></i>
-      </span>
-    </div>
     <div class="profile-modal-inner">
       <div class="profile-img-title-designation">
         <img
