@@ -143,7 +143,7 @@ export default {
         document.querySelector(".menu-section-inner").style.left = "0px";
         document.querySelector(".menu-section-colps-icon").style.right =
           "-60px";
-        document.querySelector('.hamburger').innerHTML = '<i class="zmdi zmdi-close"></i>'
+        document.querySelector('.hamburger').innerHTML = '<i class="zmdi zmdi-close" style="color: #000000"></i>'
       }
     },
     selectGroup() {
