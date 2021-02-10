@@ -304,6 +304,7 @@ export default {
     // console.log(window.location.origin)
     // console.log(window.location.origin)
     // console.log(window.location.origin)
+    // console.log(window.location.origin)
   },
   methods: {
     createBreadcrumbData() {
