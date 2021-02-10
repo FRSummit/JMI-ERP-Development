@@ -187,6 +187,8 @@ import Heading from "../../../../components/master_layout/HeadingTitleBreadcrumb
 import MonthlyDeliveryPlanLeftList from "./Sidebar/MonthlyDeliveryPlan_LeftList";
 import PlanCalendar from "./PlanCalendar/PlanCalendar";
 import AllForceRemove from "./DeleteFragments/AllForceDelete";
+import BreadcrumbFunctions from '../../../../functions/BreadcrumbFunctions'
+const breadcrumbFunctions = new BreadcrumbFunctions()
 
 import ERPService from '../../../../service/ERPSidebarService'
 const service = new ERPService()
@@ -202,6 +204,7 @@ export default {
     return {
       routeName: "Monthly Delivery Plan",
       parentPath: "Local Sales",
+      pathName: [],
       selectedDate: null,
       selectedDateMonth: null,
       selectedSchedule: null,
@@ -303,10 +306,11 @@ export default {
   },
   methods: {
     createBreadcrumbData() {
-      this.pathName = [
-        { name: "Local Sales" },
-        { name: "Monthly Delivery Plan" },
-      ];
+      // this.pathName = [
+      //   { name: "Local Sales" },
+      //   { name: "Monthly Delivery Plan" },
+      // ];
+      this.pathName = breadcrumbFunctions.jmiERPBreadcrumb(window.location.pathname)
     },
     selectedMonthFromLeft(date) {
       this.disableActivateAllLeftSideDaList()

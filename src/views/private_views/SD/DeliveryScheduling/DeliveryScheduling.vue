@@ -21,6 +21,8 @@
 import Heading from "../../../../components/master_layout/HeadingTitleBreadcrumb/HeadingTitleBreadcrumb";
 import DeliverySchedulingLeftList from "./Sidebar/DeliverySchedulingLeftList";
 import DetailSection from "./DetailSection/DetailSection";
+import BreadcrumbFunctions from '../../../../functions/BreadcrumbFunctions'
+const breadcrumbFunctions = new BreadcrumbFunctions()
 
 export default {
   components: {
@@ -30,8 +32,9 @@ export default {
   },
   data() {
     return {
-      routeName: "Delivery Schedule",
-      parentPath: "SD",
+      routeName: "Delivery schedule",
+      parentPath: "Local Sales",
+      pathName: [],
     };
   },
   created() {
@@ -40,7 +43,8 @@ export default {
   },
   methods: {
     createBreadcrumbData() {
-      this.pathName = [{ name: "SD" }, { name: "Delivery Schedule" }];
+      // this.pathName = [{name: "Features"},{ name: "Local Sales" }, { name: "Delivery Schedule" }];
+      this.pathName = breadcrumbFunctions.jmiERPBreadcrumb(window.location.pathname)
     },
   },
 };

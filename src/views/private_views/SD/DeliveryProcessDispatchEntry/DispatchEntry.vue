@@ -83,6 +83,8 @@
 
 <script>
 import Heading from "../../../../components/master_layout/HeadingTitleBreadcrumb/HeadingTitleBreadcrumb";
+// import BreadcrumbFunctions from '../../../../functions/BreadcrumbFunctions'
+// const breadcrumbFunctions = new BreadcrumbFunctions()
 
 export default {
   components: {
@@ -91,7 +93,8 @@ export default {
   data() {
     return {
       routeName: "Dispatch Entry",
-      parentPath: "SD",
+      parentPath: "Local Sales",
+      pathName: [],
     };
   },
   created() {
@@ -100,7 +103,8 @@ export default {
   },
   methods: {
     createBreadcrumbData() {
-      this.pathName = [{ name: "SD" }, { name: "Dispatch Entry" }];
+      this.pathName = [{name: "Features"},{ name: "Local Sales" }, { name: "Dispatch Entry" }];
+      // this.pathName = breadcrumbFunctions.jmiERPBreadcrumb(window.location.pathname)
     },
   },
 };
