@@ -9,18 +9,18 @@
         z-index         : 999;
 
         .lock-screen-modal-inner {
-            position           : absolute;
-            top                : 74px;
-            left               : 60px;
-            width              : calc(100vw - 60px);
-            height             : calc(100vh - (74px + 32px));
+            position: absolute;
+            top     : 74px;
+            left    : 60px;
+            width   : calc(100vw - 60px);
+            height  : calc(100vh - (74px + 32px));
 
 
             :root {
                 --direction: -45deg;
             }
 
-            div {
+            div.image {
                 position         : absolute;
                 top              : 0;
                 left             : 0;
@@ -31,14 +31,79 @@
             }
 
             .background {
-                background-image    : url('../../../assets/images/lock_screen.png');
+                background-image: url('../../../assets/images/lock_screen.png');
 
             }
 
             .foreground {
                 // background-image: url('./lock_screen.png');
-                background          : #5d5d5d61;
-                mask-image          : linear-gradient(var(--direction), rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0) 60%);
+                background: #5d5d5d61;
+                mask-image: linear-gradient(var(--direction), rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0) 60%);
+            }
+
+            .the-screen {
+                position              : absolute;
+                // right           : 0;
+                // top             : 36px;
+                width                 : 350px;
+                // height             : 400px;
+                background            : #FFFFFF 0% 0% no-repeat padding-box;
+                box-shadow            : 0px 0px 20px #026cd129;
+                border-radius         : 8px;
+                padding               : 10px;
+                top                   : calc((100vh/2) - (74px + 200px));
+                left                  : calc((100vw/2) - 175px);
+
+                .the-screen-inner {
+                    padding   : 16px 20px;
+                    text-align: center;
+
+                    .title {
+                        p {
+                            font-size: 20px;
+
+                            i {
+                                color: #026CD1;
+                            }
+
+                            span {
+                                margin-left: 10px;
+                                color: #0F0909;
+                            }
+                        }
+                    }
+
+                    .pin-input-section {
+                        .pin-input-section-inner {
+                            .label {
+                                .label-inner {
+                                    span {}
+                                }
+                            }
+
+                            .input-sec {
+                                .input-sec-inner {
+                                    input {}
+
+                                    .submit-section {
+                                        span {
+                                            i {}
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .help-section {
+                        .help-section-inner {
+                            span {
+                                font-size: 14px;
+                                color: #026CD1;
+                            }
+                        }
+                    }
+                }
             }
 
 
