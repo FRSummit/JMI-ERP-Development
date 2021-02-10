@@ -38,6 +38,7 @@ export default {
       this.progress = false;
     });
   },
+  methods: {},
 };
 </script>
 

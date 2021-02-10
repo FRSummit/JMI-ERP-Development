@@ -5,7 +5,8 @@
       <div class="header-inner">
         <div class="left-section">
           <div class="hamburger-menu-section">
-            <span class="hamburger" @click="toggleNav()">&#9776;</span>
+            <!-- <span class="hamburger" @click="toggleNav()">&#9776;</span> -->
+            <span class="hamburger" @click="toggleNav()"><i class="zmdi zmdi-menu"></i></span>
           </div>
           <div class="logo-section">
             <img
@@ -39,7 +40,7 @@
             <span class="bell-circle"></span>
             <NotificationModal />
           </div>
-          <div class="profile-section" @click="profileClick()">
+          <div class="profile-section">
             <div class="profile-img-section">
               <img
                 class="user-icon"
@@ -51,8 +52,7 @@
               <div>
                 <p class="profile-name">{{ userName }}</p>
                 <span class="profile-arrow">
-                  <!-- <i class="fas fa-chevron-down"></i> -->
-                  <i class="zmdi zmdi-caret-down-circle"></i>
+                  <i class="zmdi zmdi-caret-down" @click="profileClick()"></i>
                 </span>
               </div>
               <p class="profile-designation">{{ userDesignation }}</p>
@@ -128,6 +128,7 @@ export default {
       document.getElementById("sidenavbar").style.width = "60px";
       document.querySelector(".menu-section-inner").style.left = "-350px";
       document.querySelector(".menu-section-colps-icon").style.right = "0px";
+      document.querySelector('.hamburger').innerHTML = '<i class="zmdi zmdi-menu"></i>'
     },
     toggleNav() {
       if (this.sidenav) {
@@ -135,12 +136,14 @@ export default {
         document.getElementById("sidenavbar").style.width = "60px";
         document.querySelector(".menu-section-inner").style.left = "-350px";
         document.querySelector(".menu-section-colps-icon").style.right = "0px";
+        document.querySelector('.hamburger').innerHTML = '<i class="zmdi zmdi-menu"></i>'
       } else {
         this.sidenav = true;
         document.getElementById("sidenavbar").style.width = "350px";
         document.querySelector(".menu-section-inner").style.left = "0px";
         document.querySelector(".menu-section-colps-icon").style.right =
           "-60px";
+        document.querySelector('.hamburger').innerHTML = '<i class="zmdi zmdi-close"></i>'
       }
     },
     selectGroup() {

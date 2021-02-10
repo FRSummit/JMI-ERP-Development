@@ -86,6 +86,7 @@
                     .hamburger-menu-section {
                         display: inline-block;
                         margin : 0 10px;
+                        width  : 22px;
 
                         .hamburger {
                             font-size     : 26px;
@@ -147,10 +148,12 @@
 
                             .group-list-triangle-sec {
                                 margin-left: 18px;
+                                margin-top : 10px;
 
                                 span.company-tri-icon {
-                                    display: block;
-                                    cursor : pointer;
+                                    display    : block;
+                                    cursor     : pointer;
+                                    line-height: 0;
 
                                     svg {
                                         color : @headerBlueColor;
@@ -161,17 +164,19 @@
                             }
 
                             .group-list-sec {
-                                background : #ffffff;
-                                color      : #026cd1;
-                                width      : 250px;
-                                max-height : 200px;
-                                box-shadow : 0px 5px 5px 2px #d0d0d04d;
-                                padding    : 10px 10px;
-                                overflow   : auto;
-                                margin-top : 16px;
-                                margin-left: -94px;
-                                z-index    : 5;
-                                position   : fixed;
+                                position     : fixed;
+                                top          : 84px;
+                                left         : 440px;
+                                background   : #ffffff;
+                                color        : #026cd1;
+                                width        : 250px;
+                                max-height   : 250px;
+                                box-shadow   : 0 0px 3px 2px rgb(2 108 209 / 16%);
+                                padding      : 10px 10px;
+                                overflow     : auto;
+                                z-index      : 5;
+                                border-radius: 4px;
+                                font-family  : "Roboto";
 
                                 &::-webkit-scrollbar {
                                     width: 4px;
@@ -203,16 +208,17 @@
                                         padding: 0 10px;
 
                                         &:hover {
-                                            background   : #026cd1;
-                                            color        : #ffffff;
+                                            background   : #E2EDFA;
                                             border-radius: 4px;
                                         }
 
                                         p.company-name {
-                                            margin   : 0;
-                                            font-size: 18px;
-                                            padding  : 10px 0;
-                                            width    : 100%;
+                                            margin     : 0;
+                                            font-size  : 16px;
+                                            font-weight: 400;
+                                            padding    : 8px 0;
+                                            width      : 100%;
+                                            cursor     : pointer;
                                         }
                                     }
                                 }
@@ -226,9 +232,9 @@
                     padding: 5px 0 4px;
 
                     .chat-section {
-                        display: inline-block;
+                        display   : inline-block;
                         // margin : 0 24px;
-                        cursor : pointer;
+                        cursor    : pointer;
 
                         .chat-icon-chat {
                             font-size: 28px;
@@ -270,18 +276,19 @@
 
                             .chat-inner-sec {
                                 position      : fixed;
-                                top           : 90px;
-                                right         : 80px;
+                                top           : 84px;
+                                right         : 320px;
                                 color         : #222;
                                 background    : #fff;
                                 font-family   : "Roboto";
-                                width         : 380px;
+                                width         : 330px;
                                 padding-top   : 6px;
                                 padding-bottom: 10px;
                                 z-index       : 5;
-                                box-shadow    : 0px 0px 22px -6px #026cd1;
+                                box-shadow    : 0 0px 3px 2px rgb(2 108 209 / 16%);
                                 max-height    : 500px;
                                 overflow      : auto;
+                                border-radius : 4px;
 
                                 &::-webkit-scrollbar {
                                     width: 4px;
@@ -379,7 +386,7 @@
                             display         : inline-block;
                             vertical-align  : top;
                             margin-top      : 6px;
-                            margin-left     : -6px;
+                            margin-left     : -10px;
                         }
 
                         #notification-modal.notification-modal {
@@ -402,18 +409,19 @@
 
                             .notification-inner-sec {
                                 position      : fixed;
-                                top           : 90px;
-                                right         : 20px;
+                                top           : 84px;
+                                right         : 240px;
                                 color         : #222;
                                 background    : #fff;
                                 font-family   : "Roboto";
-                                width         : 380px;
+                                width         : 330px;
                                 padding-top   : 6px;
                                 padding-bottom: 10px;
                                 z-index       : 5;
-                                box-shadow    : 0px 0px 22px -6px #026cd1;
+                                box-shadow    : 0 0px 3px 2px rgb(2 108 209 / 16%);
                                 max-height    : 500px;
                                 overflow      : auto;
+                                border-radius : 4px;
 
                                 &::-webkit-scrollbar {
                                     width: 4px;
@@ -491,8 +499,8 @@
 
                         .profile-img-section {
                             display      : inline-block;
-                            margin-right : 16px;
-                            border       : 2px solid @headerBlueColor;
+                            margin-right : 20px;
+                            border       : 2px solid #E2EDFA;
                             border-radius: 50%;
 
                             img.user-icon {
@@ -503,8 +511,8 @@
                         }
 
                         .profile-desc-section {
-                            display   : inline-block;
-                            text-align: left;
+                            display       : inline-block;
+                            text-align    : left;
                             vertical-align: bottom;
 
                             p.profile-name {
@@ -526,7 +534,7 @@
                                 color         : @headerBlueColor;
 
                                 i {
-                                    font-size: 16px;
+                                    font-size: 24px;
                                 }
 
                             }
@@ -545,33 +553,18 @@
                         #profile-modal.profile-modal {
                             position: absolute;
 
-                            .profile-modal-triangle-sec {
-                                margin-top : -2px;
-                                margin-left: 8px;
-
-                                .profile-tri-icon {
-                                    display: block;
-                                    cursor : pointer;
-
-                                    svg {
-                                        color : @headerBlueColor;
-                                        width : 20px;
-                                        height: 20px;
-                                    }
-                                }
-                            }
-
                             .profile-modal-inner {
                                 position      : fixed;
-                                top           : 90px;
-                                right         : 40px;
+                                top           : 84px;
+                                right         : 20px;
                                 background    : #ffffff;
                                 width         : 300px;
                                 z-index       : 5;
                                 font-family   : "Roboto";
-                                box-shadow    : 0px 0px 22px -6px #026cd1;
+                                box-shadow    : 0 0px 3px 2px rgb(2 108 209 / 16%);
                                 padding-top   : 20px;
                                 padding-bottom: 30px;
+                                border-radius : 4px;
 
                                 .profile-img-title-designation {
                                     text-align: center;
