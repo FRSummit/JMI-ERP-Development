@@ -2,10 +2,8 @@
   <div id="lock-screen" class="lock-screen">
     <div class="lock-screen-modal">
       <div class="lock-screen-modal-inner">
-        <!-- <main> -->
-          <div class="background"></div>
-          <div class="foreground"></div>
-        <!-- </main> -->
+        <div class="background"></div>
+        <div class="foreground"></div>
       </div>
     </div>
   </div>
@@ -13,11 +11,10 @@
 
 <script>
 export default {
-    data() {
-        return {
-            // c: 40
-        }
-    },
+  data() {
+    return {
+    };
+  },
   created() {
     this.$emit("routeName", this.$route.name);
   },
