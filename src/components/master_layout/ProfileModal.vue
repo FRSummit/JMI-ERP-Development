@@ -43,7 +43,7 @@
 // import ERPSidebarService from "../../service/ERPSidebarService";
 // const service = new ERPSidebarService();
 import { mapState } from "vuex";
-import env from '../../environment'
+// import env from '../../environment'
 
 export default {
   data() {
@@ -81,9 +81,10 @@ export default {
   },
   methods: {
     logingOut() {
-      // this.$router.push('/login')
-      window.location.href = env.baseURL + '/login'
-      // console.log(env.baseURL)
+      // this.$router.push('/')
+      // window.location.href = env.baseURL + '/'
+      window.location.href = window.location.origin + '/'
+      // console.log(window.location.origin.split('//')[1])
     }
   },
 };

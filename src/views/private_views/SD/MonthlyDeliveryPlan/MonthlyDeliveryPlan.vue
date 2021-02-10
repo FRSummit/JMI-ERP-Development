@@ -178,7 +178,7 @@
         </div>
       </div>
     </div>
-    
+
   </div>
 </template>
 
@@ -201,7 +201,7 @@ export default {
   data() {
     return {
       routeName: "Monthly Delivery Plan",
-      parentPath: "Settings & Management",
+      parentPath: "Local Sales",
       selectedDate: null,
       selectedDateMonth: null,
       selectedSchedule: null,
@@ -279,7 +279,6 @@ export default {
     this.createBreadcrumbData();
   },
   async mounted() {
-
     // service.getDICWiseUsers_MonthlyDeliveryPlan()
     //   .then(res => {
     //     console.log(res.data)
@@ -301,11 +300,12 @@ export default {
 
     this.ALL_DA_INFO_MMYYYY_FROM_SERVICE(currentMMYYYY)
     this.CURRENT_MONTH_STATUS_CHECK_FOR_ALL_A_O(currentMMYYYY)
+    console.log(window.location.origin)
   },
   methods: {
     createBreadcrumbData() {
       this.pathName = [
-        { name: "Settings & Management" },
+        { name: "Local Sales" },
         { name: "Monthly Delivery Plan" },
       ];
     },
