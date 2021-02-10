@@ -26,21 +26,25 @@
           </div>
         </div>
         <div class="right-section">
-          <div class="chat-section" @click="chatIconClick()">
-            <span class="chat-icon-chat">
-              <i class="zmdi zmdi-comment-text"></i>
-            </span>
-            <span class="chat-circle"></span>
-            <ChatModal />
+          <div class="chat-section" v-click-outside="chatModalOutsideClick">
+            <div class="chat-section-inner" @click="chatIconClick()">
+              <span class="chat-icon-chat">
+                <i class="zmdi zmdi-comment-text"></i>
+              </span>
+              <span class="chat-circle"></span>
+              <ChatModal />
+            </div>
           </div>
-          <div class="notification-section" @click="bellIconClick()">
-            <span class="bell-icon-bell">
-              <i class="zmdi zmdi-notifications"></i>
-            </span>
-            <span class="bell-circle"></span>
-            <NotificationModal />
+          <div class="notification-section" v-click-outside="notificationModalOutsideClick">
+            <div class="notification-section-inner" @click="bellIconClick()">
+              <span class="bell-icon-bell">
+                <i class="zmdi zmdi-notifications"></i>
+              </span>
+              <span class="bell-circle"></span>
+              <NotificationModal />
+            </div>
           </div>
-          <div class="profile-section">
+          <div class="profile-section" v-click-outside="profileModalOutsideClick">
             <div class="profile-img-section">
               <img
                 class="user-icon"
@@ -57,7 +61,7 @@
               </div>
               <p class="profile-designation">{{ userDesignation }}</p>
             </div>
-            <ProfileModal />
+            <ProfileModal v-on:lock_screen_clicked="lockScreenClicked"/>
           </div>
         </div>
       </div>
@@ -214,6 +218,27 @@ export default {
         document.querySelector(".menu-section-colps-icon").style.right = "0px";
       }
     },
+    lockScreenClicked() {
+      this.modalToggle("profile-modal");
+      this.profileArrowRotation();
+    },
+    // Modal Outside Click Action
+    chatModalOutsideClick() {
+      if(document.querySelector('#chat-modal').className === 'chat-modal') {
+        this.modalToggle("chat-modal");
+      }
+    },
+    notificationModalOutsideClick() {
+      if(document.querySelector('#notification-modal').className === 'notification-modal') {
+        this.modalToggle("notification-modal");
+      }
+    },
+    profileModalOutsideClick() {
+      if(document.querySelector('#profile-modal').className === 'profile-modal') {
+        this.modalToggle("profile-modal");
+        this.profileArrowRotation();
+      }
+    }
   },
 };
 </script>

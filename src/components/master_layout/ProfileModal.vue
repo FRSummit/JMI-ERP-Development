@@ -31,7 +31,7 @@
         </div>
         <span class="devider"></span>
         <div class="lock-screen-section">
-          <span>
+          <span @click="lockScreenClick">
             <i class="zmdi zmdi-lock"></i>
             <span>Lock Screen</span>
           </span>
@@ -101,6 +101,12 @@ export default {
       // window.location.href = env.baseURL + '/'
       window.location.href = window.location.origin + "/";
       // console.log(window.location.origin.split('//')[1])
+    },
+    lockScreenClick() {
+      if (this.$router.currentRoute.path !== "/lock_screen") {
+        this.$router.push("/lock_screen");
+        this.$emit("lock_screen_clicked");
+      }
     },
   },
 };

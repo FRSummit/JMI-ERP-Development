@@ -132,6 +132,11 @@ export const router = new VueRouter({
       name: 'Under Maintenance',
       component: () => import('../views/private_views/UnderMaintenance.vue')
     },
+    {
+      path: '/lock_screen',
+      name: 'Lock Screen',
+      component: () => import('../views/private_views/LockScreen/LockScreen.vue')
+    },
 
     // otherwise redirect to home
     // {
