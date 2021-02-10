@@ -300,7 +300,7 @@ export default {
 
     this.ALL_DA_INFO_MMYYYY_FROM_SERVICE(currentMMYYYY)
     this.CURRENT_MONTH_STATUS_CHECK_FOR_ALL_A_O(currentMMYYYY)
-    console.log(window.location.origin)
+    // console.log(window.location.origin)
   },
   methods: {
     createBreadcrumbData() {
