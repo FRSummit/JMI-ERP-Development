@@ -50,7 +50,7 @@
               </div>
             </div>
           </div>
-          <div class="notification-submit-section">
+          <div class="notification-submit-section" v-if="i % 2 === 0">
             <div class="notification-submit-section-inner">
               <div class="view-btn-section">
                 <div class="view-btn-section-inner">

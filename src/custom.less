@@ -476,20 +476,23 @@
 
 
                                 .notification-modal-section {
+                                    background: #026CD11A;
+                                    padding: 2px 0;
 
                                     .notification-modal-section-inner {
-                                        padding      : 6px 0 0;
-                                        box-shadow   : 0px 0px 6px #026CD11A;
-                                        border-bottom: 4px solid #026CD11A;
+                                        padding      : 8px 0;
+                                        // box-shadow   : 0px 0px 6px #026CD11A;
+                                        // border-bottom: 4px solid #026CD11A;
+                                        background: #FFFFFF;
 
                                         &:hover {
                                             background: #026CD11A;
                                         }
 
-                                        &:last-child {
-                                            box-shadow   : 0px 0px 6px #026CD11A;
-                                            border-bottom: 1px solid #026CD11A;
-                                        }
+                                        // &:last-child {
+                                        //     box-shadow   : 0px 0px 6px #026CD11A;
+                                        //     border-bottom: 1px solid #026CD11A;
+                                        // }
 
                                         .notification-icon-title-description-section {
                                             .notification-icon-title-description-section-inner {
@@ -573,8 +576,7 @@
 
                                             .notification-submit-section-inner {
                                                 display   : block;
-                                                text-align: center;
-                                                width     : 180px;
+                                                width     : 210px;
                                                 margin    : 0 auto;
 
                                                 .view-btn-section {
@@ -1735,6 +1737,7 @@
             margin-left  : @main_section_margin_left;
             margin-top   : @main_section_margin_top;
             margin-bottom: @main_section_margin_bottom;
+            min-height: calc(100vh - (74px + 32px));
         }
 
         #footer.footer {
