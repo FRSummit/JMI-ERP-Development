@@ -6,33 +6,50 @@
       </span>
     </div>
     <div class="chat-inner-sec">
-      <p class="chat-txt">Messages</p>
+      <div class="title-section">
+        <div class="title-section-inner">
+          <p class="chat-txt">Conversations</p>
+        </div>
+      </div>
       <div id="chat-progressbar" class="chat-progressbar" v-if="progress">
         <v-progress-circular
           indeterminate
           color="primary"
         ></v-progress-circular>
       </div>
-      <div class="chat-modal-inner">
-        <a
-          href="www.google.com"
-          class="chat"
-          v-for="(chat, i) in chat"
-          :key="i"
-        >
-          <img
-            src="../../assets/icons/user.png"
-            alt="user-icon"
-            class="chat-icon"
-          />
-          <!-- <span class="chat-icon">
-            <i class="far fa-comment-alt"></i>
-          </span> -->
-          <div class="chat-title-desc">
-            <p class="chat-title">{{ chat.title }}</p>
-            <p class="chat-description">{{ chat.description }}</p>
+      <div class="all-chat-section">
+        <div class="all-chat-section-inner">
+          <p>All Conversations</p>
+          <span><i class="zmdi zmdi-plus"></i></span>
+        </div>
+      </div>
+      <div class="chat-modal-section" v-for="(chat, i) in chat" :key="i">
+        <div class="chat-modal-section-inner">
+          <div class="chat-icon-title-description-section">
+            <div class="chat-icon-title-description-section-inner">
+              <div class="icon-section">
+                <div class="icon-section-inner">
+                  <span><i class="zmdi zmdi-bike"></i></span>
+                </div>
+              </div>
+              <div class="title-description-section">
+                <div class="title-description-section-inner">
+                  <div class="title">
+                    <p>{{ chat.title }}</p>
+                  </div>
+                  <div class="description">
+                    <p>{{ chat.description }}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="time-section">
+                <div class="time-section-inner">
+                  <span>Just now</span>
+                </div>
+              </div>
+            </div>
           </div>
-        </a>
+        </div>
       </div>
     </div>
   </div>

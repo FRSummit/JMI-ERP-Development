@@ -232,9 +232,8 @@
                     padding: 5px 0 4px;
 
                     .chat-section {
-                        display   : inline-block;
-                        // margin : 0 24px;
-                        cursor    : pointer;
+                        display: inline-block;
+                        cursor : pointer;
 
                         .chat-icon-chat {
                             font-size: 28px;
@@ -275,20 +274,21 @@
                             }
 
                             .chat-inner-sec {
-                                position      : fixed;
-                                top           : 84px;
-                                right         : 320px;
-                                color         : #222;
-                                background    : #fff;
-                                font-family   : "Roboto";
-                                width         : 330px;
-                                padding-top   : 6px;
-                                padding-bottom: 10px;
-                                z-index       : 5;
-                                box-shadow    : 0 0px 3px 2px rgb(2 108 209 / 16%);
-                                max-height    : 500px;
-                                overflow      : auto;
-                                border-radius : 4px;
+                                position         : fixed;
+                                top              : 84px;
+                                right            : 320px;
+                                color            : #222;
+                                background       : #fff;
+                                font-family      : "Roboto";
+                                width            : 330px;
+                                // padding-top   : 6px;
+                                // padding-bottom: 10px;
+                                z-index          : 5;
+                                box-shadow       : 0 0px 3px 2px rgb(2 108 209 / 16%);
+                                max-height       : 500px;
+                                overflow         : auto;
+                                border-radius    : 4px;
+                                cursor           : default;
 
                                 &::-webkit-scrollbar {
                                     width: 4px;
@@ -308,11 +308,25 @@
                                     background: #006ace;
                                 }
 
-                                p.chat-txt {
-                                    font-size  : 14px;
-                                    font-weight: bold;
-                                    margin     : 0;
-                                    padding    : 4px 40px;
+                                .title-section {
+
+                                    .title-section-inner {
+
+                                        padding      : 14px 0;
+                                        box-shadow   : 0px 0px 6px #026cd11a;
+                                        border-bottom: 4px solid #026cd11a;
+
+                                        p.chat-txt {
+                                            font-size  : 14px;
+                                            font-weight: bold;
+                                            margin     : 0;
+                                            padding    : 4px 40px;
+                                            color      : #3F4347;
+                                            text-align : center;
+                                            line-height: 1;
+                                        }
+
+                                    }
                                 }
 
                                 .chat-progressbar {
@@ -321,41 +335,133 @@
                                     color     : #026cd1;
                                 }
 
-                                .chat-modal-inner {
-                                    a.chat {
-                                        padding        : 6px 30px;
-                                        margin         : 6px 0;
-                                        padding-right  : 20px;
-                                        display        : block;
-                                        text-decoration: none;
-                                        color          : #222222;
+                                .all-chat-section {
+                                    padding: 0 14px;
+                                    display: block;
 
-                                        img.chat-icon {
+                                    .all-chat-section-inner {
+                                        padding: 10px 0;
+                                        display: block;
+
+                                        p {
+                                            width         : 282px;
                                             display       : inline-block;
-                                            vertical-align: top;
-                                            width         : 30px !important;
-                                            border-radius : 20px;
-                                            border        : 2px solid #00000000;
+                                            margin        : 0;
+                                            font-size     : 14px;
+                                            color         : #026CD1;
+                                            font-weight   : 500;
+                                            vertical-align: middle;
+                                            line-height   : 1;
                                         }
 
-                                        .chat-title-desc {
-                                            display : inline-block;
-                                            width   : 290px;
-                                            overflow: hidden;
+                                        span {
+                                            text-align    : right;
+                                            width         : 16px;
+                                            display       : inline-block;
+                                            vertical-align: middle;
 
-                                            .chat-title {
-                                                margin     : 0;
-                                                font-size  : 14px;
-                                                color      : #026cd1;
-                                                font-weight: bold;
+                                            i {
+                                                color    : #026CD1;
+                                                font-size: 20px;
+                                                font-weight: 500;
                                             }
+                                        }
+                                    }
+                                }
 
-                                            .chat-description {
-                                                margin       : 4px 0 0;
-                                                font-size    : 12px;
-                                                white-space  : nowrap;
-                                                overflow     : hidden !important;
-                                                text-overflow: ellipsis;
+                                .chat-modal-section {
+                                    background: #026CD11A;
+                                    padding   : 2px 0;
+
+                                    .chat-modal-section-inner {
+                                        padding   : 8px 0;
+                                        background: #FFFFFF;
+
+                                        &:hover {
+                                            background: #026CD11A;
+                                        }
+
+                                        // &:last-child {
+                                        //     box-shadow   : 0px 0px 6px #026CD11A;
+                                        //     border-bottom: 1px solid #026CD11A;
+                                        // }
+                                        .chat-icon-title-description-section {
+                                            .chat-icon-title-description-section-inner {
+                                                display : table;
+                                                padding : 0 14px;
+                                                position: relative;
+
+                                                .icon-section {
+                                                    display       : table-cell;
+                                                    width         : 34px;
+                                                    vertical-align: middle;
+
+                                                    .icon-section-inner {
+                                                        span {
+                                                            display      : block;
+                                                            background   : #026CD1;
+                                                            border-radius: 50%;
+                                                            padding      : 4px 5px 3px;
+
+                                                            i {
+                                                                font-size: 24px;
+                                                                color    : #FFFFFF;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+
+                                                .title-description-section {
+                                                    display       : table-cell;
+                                                    width         : 296px;
+                                                    vertical-align: middle;
+
+                                                    .title-description-section-inner {
+                                                        padding: 0 10px;
+
+                                                        .title {
+                                                            margin-bottom: 4px;
+
+                                                            p {
+                                                                margin     : 0;
+                                                                line-height: 1;
+                                                                font-size  : 12px;
+                                                                font-weight: 500;
+                                                                color      : #026CD1;
+                                                            }
+                                                        }
+
+                                                        .description {
+                                                            height  : 24px;
+                                                            overflow: hidden;
+
+                                                            p {
+                                                                margin     : 0;
+                                                                line-height: 1.2;
+                                                                font-size  : 10px;
+                                                                color      : #8E9397;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+
+                                                .time-section {
+                                                    position: absolute;
+                                                    width   : 50px;
+                                                    top     : -2px;
+                                                    right   : 10px;
+
+                                                    .time-section-inner {
+                                                        line-height: 1;
+
+                                                        span {
+                                                            margin     : 0;
+                                                            line-height: 1;
+                                                            font-size  : 12px;
+                                                            color      : #1E1F20;
+                                                        }
+                                                    }
+                                                }
                                             }
                                         }
                                     }
@@ -477,12 +583,10 @@
 
                                 .notification-modal-section {
                                     background: #026CD11A;
-                                    padding: 2px 0;
+                                    padding   : 2px 0;
 
                                     .notification-modal-section-inner {
-                                        padding      : 8px 0;
-                                        // box-shadow   : 0px 0px 6px #026CD11A;
-                                        // border-bottom: 4px solid #026CD11A;
+                                        padding   : 8px 0;
                                         background: #FFFFFF;
 
                                         &:hover {
@@ -575,9 +679,9 @@
                                             padding: 6px 0;
 
                                             .notification-submit-section-inner {
-                                                display   : block;
-                                                width     : 210px;
-                                                margin    : 0 auto;
+                                                display: block;
+                                                width  : 210px;
+                                                margin : 0 auto;
 
                                                 .view-btn-section {
                                                     display: inline-block;
@@ -1737,7 +1841,7 @@
             margin-left  : @main_section_margin_left;
             margin-top   : @main_section_margin_top;
             margin-bottom: @main_section_margin_bottom;
-            min-height: calc(100vh - (74px + 32px));
+            min-height   : calc(100vh - (74px + 32px));
         }
 
         #footer.footer {
