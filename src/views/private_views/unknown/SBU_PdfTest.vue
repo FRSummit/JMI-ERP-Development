@@ -268,6 +268,14 @@ export default {
             });
             // var doc = new jsPDF();
             var doc = new jsPDF('p', 'pt');
+            // doc.text("Hello World", 10, 10);
+            // doc.setFont("helvetica");
+            // doc.setFontType("bold");
+            doc.setFontSize(10);
+            doc.text(20, 20, 'Hello world!');
+            doc.text(20, 30, 'This is client-side Javascript, pumping out a PDF.');
+            doc.addPage();
+            doc.text(20, 20, 'Do you like that?');
             // doc.autoTable(columnHeader, rows, { startY: 10 });
             doc.autoTable(columnHeader, rows);
             doc.save(pdfName + '.pdf');
