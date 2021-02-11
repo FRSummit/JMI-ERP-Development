@@ -44,8 +44,8 @@
               </div>
               <div class="attachment-section">
                 <div class="attachment-section-inner">
-                  <span><i class="zmdi zmdi-attachment"></i></span>
-                  <span><i class="zmdi zmdi-collection-pdf"></i></span>
+                  <span @click="attachmentNotificationClick(notification)"><i class="zmdi zmdi-attachment"></i></span>
+                  <span @click="pdfAttachmentNotificationClick(notification)"><i class="zmdi zmdi-collection-pdf"></i></span>
                 </div>
               </div>
             </div>
@@ -54,34 +54,16 @@
             <div class="notification-submit-section-inner">
               <div class="view-btn-section">
                 <div class="view-btn-section-inner">
-                  <span>View</span>
+                  <span @click="viewNotificationClick(notification)">View</span>
                 </div>
               </div>
               <div class="accept-btn-section">
                 <div class="accept-btn-section-inner">
-                  <span>Accept</span>
+                  <span @click="AcceptNotificationClick(notification)">Accept</span>
                 </div>
               </div>
             </div>
           </div>
-          <!-- <a
-            href="www.google.com"
-            class="notification"
-            v-for="(notification, i) in notification"
-            :key="i"
-          >
-            <div class="notification-title-desc">
-              <img
-                src="../../assets/icons/bell_icon.svg"
-                alt="user-icon"
-                class="notification-icon"
-              />
-              <p class="notification-title">{{ notification.title }}</p>
-            </div>
-            <p class="notification-description">
-              {{ notification.description }}
-            </p>
-          </a> -->
         </div>
       </div>
     </div>
@@ -105,6 +87,20 @@ export default {
       this.progress = false;
     });
   },
+  methods: {
+    attachmentNotificationClick(notification) {
+      console.log(notification)
+    },
+    pdfAttachmentNotificationClick(notification) {
+      console.log(notification)
+    },
+    viewNotificationClick(notification) {
+      console.log(notification)
+    },
+    AcceptNotificationClick(notification) {
+      console.log(notification)
+    },
+  }
 };
 </script>
 
