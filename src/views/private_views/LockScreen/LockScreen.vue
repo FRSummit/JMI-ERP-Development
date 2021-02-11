@@ -30,13 +30,15 @@
                         id="pin"
                         class="form-control"
                       />
-                      <div class="pin-show" @click="pinShowHide">
+                      <div class="pin-show" id="pin-show-hide"  @click="pinShowHide">
                         <div v-show="showPass"><i class="fas fa-eye"></i></div>
-                        <div v-show="!showPass"><i class="fas fa-eye-slash"></i></div>
+                        <div v-show="!showPass">
+                          <i class="fas fa-eye-slash"></i>
+                        </div>
                       </div>
                     </div>
                     <div class="submit-section">
-                      <span><i class="zmdi zmdi-arrow-right"></i></span>
+                      <span @click="submitLockScreenPin"><i class="zmdi zmdi-arrow-right"></i></span>
                     </div>
                   </div>
                 </div>
@@ -66,10 +68,19 @@ export default {
     this.$emit("routeName", this.$route.name);
   },
   methods: {
-      pinShowHide() {
-          console.log('pin show hide')
+    pinShowHide() {
+      if (this.showPass) {
+        this.showPass = false;
+        document.querySelector("#lock-screen #pin").type = "password";
+      } else {
+        this.showPass = true;
+        document.querySelector("#lock-screen #pin").type = "text";
       }
-  }
+    },
+    submitLockScreenPin() {
+        console.log('submitLockScreenPin')
+    }
+  },
 };
 </script>
 
