@@ -51,6 +51,11 @@
           </div>
         </div>
       </div>
+      <div class="show-more-section">
+        <div class="show-more-section-inner">
+          <p>Show More</p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
