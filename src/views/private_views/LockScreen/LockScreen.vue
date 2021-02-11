@@ -69,4 +69,5 @@ export default {
 
 <style lang="less" scoped>
 @import url("./LockScreen.less");
+// @import url("./LockScreen.less");
 </style>
