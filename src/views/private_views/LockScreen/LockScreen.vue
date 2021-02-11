@@ -23,14 +23,14 @@
                   <div class="input-sec-inner">
                     <div class="blmd-line">
                       <input
-                        type="text"
+                        type="password"
                         v-model="pin"
                         name="pin"
                         autocomplete="off"
                         id="pin"
                         class="form-control"
                       />
-                      <div class="pin-show" @click="passwordShowHide">
+                      <div class="pin-show" @click="pinShowHide">
                         <div v-show="showPass"><i class="fas fa-eye"></i></div>
                         <div v-show="!showPass"><i class="fas fa-eye-slash"></i></div>
                       </div>
@@ -65,6 +65,11 @@ export default {
   created() {
     this.$emit("routeName", this.$route.name);
   },
+  methods: {
+      pinShowHide() {
+          console.log('pin show hide')
+      }
+  }
 };
 </script>
 
