@@ -120,6 +120,7 @@ export default {
       sidenav: false,
       authenticated: this.$store.state.userIsAuthorized,
       privatePage: false,
+      mouseOverTriger: true
     };
   },
   created() {},
@@ -129,10 +130,14 @@ export default {
   methods: {
     closeSideNav() {
       this.sidenav = false;
+      this.mouseOverTriger = false
       document.getElementById("sidenavbar").style.width = "60px";
       document.querySelector(".menu-section-inner").style.left = "-350px";
       document.querySelector(".menu-section-colps-icon").style.right = "0px";
       document.querySelector('.hamburger').innerHTML = '<i class="zmdi zmdi-menu"></i>'
+      setTimeout( () => {
+        this.mouseOverTriger = true
+      }, 1000)
     },
     toggleNav() {
       if (this.sidenav) {
@@ -204,7 +209,7 @@ export default {
       }
     },
     sidebarHoverOver() {
-      if (!this.sidenav) {
+      if (!this.sidenav && this.mouseOverTriger) {
         document.getElementById("sidenavbar").style.width = "350px";
         document.querySelector(".menu-section-inner").style.left = "0px";
         document.querySelector(".menu-section-colps-icon").style.right =

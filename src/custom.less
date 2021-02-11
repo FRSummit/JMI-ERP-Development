@@ -137,9 +137,17 @@
                             border-radius: 50%;
 
                             svg {
-                                width    : 14px;
-                                color    : @headerBlueColor;
-                                transform: rotate(90deg);
+                                width     : 14px;
+                                color     : @headerBlueColor;
+                                transform : rotate(-90deg);
+                                transition: 0.3s;
+                            }
+
+                            &:hover {
+                                svg {
+                                    transform : rotate(-180deg);
+                                    transition: 0.3s;
+                                }
                             }
                         }
 
@@ -232,9 +240,8 @@
                     padding: 5px 0 4px;
 
                     .chat-section {
-                        display   : inline-block;
-                        // margin : 0 24px;
-                        cursor    : pointer;
+                        display: inline-block;
+                        cursor : pointer;
 
                         .chat-icon-chat {
                             font-size: 28px;
@@ -275,20 +282,21 @@
                             }
 
                             .chat-inner-sec {
-                                position      : fixed;
-                                top           : 84px;
-                                right         : 320px;
-                                color         : #222;
-                                background    : #fff;
-                                font-family   : "Roboto";
-                                width         : 330px;
-                                padding-top   : 6px;
-                                padding-bottom: 10px;
-                                z-index       : 5;
-                                box-shadow    : 0 0px 3px 2px rgb(2 108 209 / 16%);
-                                max-height    : 500px;
-                                overflow      : auto;
-                                border-radius : 4px;
+                                position         : fixed;
+                                top              : 84px;
+                                right            : 320px;
+                                color            : #222;
+                                background       : #fff;
+                                font-family      : "Roboto";
+                                width            : 330px;
+                                // padding-top   : 6px;
+                                // padding-bottom: 10px;
+                                z-index          : 5;
+                                box-shadow       : 0 0px 3px 2px rgb(2 108 209 / 16%);
+                                max-height       : 500px;
+                                overflow         : auto;
+                                border-radius    : 4px;
+                                cursor           : default;
 
                                 &::-webkit-scrollbar {
                                     width: 4px;
@@ -308,11 +316,25 @@
                                     background: #006ace;
                                 }
 
-                                p.chat-txt {
-                                    font-size  : 14px;
-                                    font-weight: bold;
-                                    margin     : 0;
-                                    padding    : 4px 40px;
+                                .title-section {
+
+                                    .title-section-inner {
+
+                                        padding         : 14px 0;
+                                        // box-shadow   : 0px 0px 6px #026cd11a;
+                                        border-bottom   : 4px solid #026cd11a;
+
+                                        p.chat-txt {
+                                            font-size  : 14px;
+                                            font-weight: bold;
+                                            margin     : 0;
+                                            padding    : 4px 40px;
+                                            color      : #3F4347;
+                                            text-align : center;
+                                            line-height: 1;
+                                        }
+
+                                    }
                                 }
 
                                 .chat-progressbar {
@@ -321,42 +343,168 @@
                                     color     : #026cd1;
                                 }
 
-                                .chat-modal-inner {
-                                    a.chat {
-                                        padding        : 6px 30px;
-                                        margin         : 6px 0;
-                                        padding-right  : 20px;
-                                        display        : block;
-                                        text-decoration: none;
-                                        color          : #222222;
+                                .all-chat-section {
+                                    padding      : 0 14px;
+                                    display      : block;
+                                    border-bottom: 2px solid #026cd11a;
 
-                                        img.chat-icon {
+                                    .all-chat-section-inner {
+                                        padding: 10px 0;
+                                        display: block;
+
+                                        p {
+                                            width         : 282px;
                                             display       : inline-block;
-                                            vertical-align: top;
-                                            width         : 30px !important;
-                                            border-radius : 20px;
-                                            border        : 2px solid #00000000;
+                                            margin        : 0;
+                                            font-size     : 14px;
+                                            color         : #026CD1;
+                                            font-weight   : 500;
+                                            vertical-align: middle;
+                                            line-height   : 1;
                                         }
 
-                                        .chat-title-desc {
-                                            display : inline-block;
-                                            width   : 290px;
-                                            overflow: hidden;
+                                        span {
+                                            text-align    : right;
+                                            width         : 16px;
+                                            display       : inline-block;
+                                            vertical-align: middle;
 
-                                            .chat-title {
-                                                margin     : 0;
-                                                font-size  : 14px;
-                                                color      : #026cd1;
-                                                font-weight: bold;
+                                            i {
+                                                color      : #026CD1;
+                                                font-size  : 20px;
+                                                font-weight: 500;
                                             }
+                                        }
+                                    }
+                                }
 
-                                            .chat-description {
-                                                margin       : 4px 0 0;
-                                                font-size    : 12px;
-                                                white-space  : nowrap;
-                                                overflow     : hidden !important;
-                                                text-overflow: ellipsis;
+                                .chat-modal-section {
+                                    background: #026CD11A;
+                                    padding   : 2px 0;
+
+                                    .chat-modal-section-inner {
+                                        padding   : 8px 0;
+                                        background: #FFFFFF;
+
+                                        &:hover {
+                                            background: #026CD11A;
+                                        }
+
+                                        // &:last-child {
+                                        //     box-shadow   : 0px 0px 6px #026CD11A;
+                                        //     border-bottom: 1px solid #026CD11A;
+                                        // }
+                                        .chat-icon-title-description-section {
+                                            .chat-icon-title-description-section-inner {
+                                                display : table;
+                                                padding : 0 14px;
+                                                position: relative;
+
+                                                .icon-section {
+                                                    display       : table-cell;
+                                                    width         : 34px;
+                                                    vertical-align: middle;
+
+                                                    .icon-section-inner {
+                                                        span {
+                                                            display      : block;
+                                                            background   : #026CD1;
+                                                            border-radius: 50%;
+                                                            padding      : 4px 5px 3px;
+
+                                                            i {
+                                                                font-size: 24px;
+                                                                color    : #FFFFFF;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+
+                                                .title-description-section {
+                                                    display       : table-cell;
+                                                    width         : 296px;
+                                                    vertical-align: middle;
+
+                                                    .title-description-section-inner {
+                                                        padding: 0 10px;
+
+                                                        .title {
+                                                            margin-bottom: 4px;
+
+                                                            p {
+                                                                margin     : 0;
+                                                                line-height: 1;
+                                                                font-size  : 12px;
+                                                                font-weight: 500;
+                                                                color      : #026CD1;
+                                                            }
+                                                        }
+
+                                                        .description {
+                                                            height  : 24px;
+                                                            overflow: hidden;
+
+                                                            p {
+                                                                margin     : 0;
+                                                                line-height: 1.2;
+                                                                font-size  : 10px;
+                                                                color      : #8E9397;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+
+                                                .time-section {
+                                                    position: absolute;
+                                                    width   : 50px;
+                                                    top     : -2px;
+                                                    right   : 10px;
+
+                                                    .time-section-inner {
+                                                        line-height: 1;
+
+                                                        span {
+                                                            margin     : 0;
+                                                            line-height: 1;
+                                                            font-size  : 12px;
+                                                            color      : #1E1F20;
+                                                        }
+                                                    }
+                                                }
                                             }
+                                        }
+                                    }
+                                }
+
+                                .show-more-section {
+                                    padding                   : 2px 0;
+                                    display                   : block;
+                                    position                  : fixed;
+                                    // position: absolute;
+                                    top                       : calc((74px + 500px) - 40px);
+                                    z-index                   : 99;
+                                    // width: 100%;
+                                    background                : #E5F0FA;
+                                    width                     : 326px;
+                                    border-bottom-left-radius : 4px;
+                                    border-bottom-right-radius: 4px;
+
+                                    .show-more-section-inner {
+                                        padding   : 12px 0;
+                                        display   : block;
+                                        background: #FFFFFF;
+
+                                        p {
+                                            width            : 100%;
+                                            display          : inline-block;
+                                            margin           : 0;
+                                            font-size        : 14px;
+                                            font-weight      : 500;
+                                            color            : #026CD1;
+                                            // font-weight   : 500;
+                                            vertical-align   : middle;
+                                            line-height      : 1;
+                                            text-align       : center;
                                         }
                                     }
                                 }
@@ -408,20 +556,21 @@
                             }
 
                             .notification-inner-sec {
-                                position      : fixed;
-                                top           : 84px;
-                                right         : 240px;
-                                color         : #222;
-                                background    : #fff;
-                                font-family   : "Roboto";
-                                width         : 330px;
-                                padding-top   : 6px;
-                                padding-bottom: 10px;
-                                z-index       : 5;
-                                box-shadow    : 0 0px 3px 2px rgb(2 108 209 / 16%);
-                                max-height    : 500px;
-                                overflow      : auto;
-                                border-radius : 4px;
+                                position            : fixed;
+                                top                 : 84px;
+                                right               : 240px;
+                                color               : #222;
+                                background          : #fff;
+                                font-family         : "Roboto";
+                                width               : 330px;
+                                // padding-top   : 6px;
+                                // padding-bottom   : 10px;
+                                z-index             : 5;
+                                box-shadow          : 0 0px 3px 2px rgb(2 108 209 / 16%);
+                                max-height          : 500px;
+                                overflow            : auto;
+                                border-radius       : 4px;
+                                cursor              : default;
 
                                 &::-webkit-scrollbar {
                                     width: 4px;
@@ -441,6 +590,24 @@
                                     background: #006ace;
                                 }
 
+                                .title-text-section {
+                                    .title-text-section-inner {
+                                        padding      : 14px 0;
+                                        box-shadow   : 0px 0px 6px #026CD11A;
+                                        border-bottom: 2px solid #026CD11A;
+
+                                        p.notification-txt {
+                                            font-size  : 16px;
+                                            font-weight: normal;
+                                            margin     : 0;
+                                            padding    : 4px 40px;
+                                            color      : #3F4347;
+                                            text-align : center;
+                                            line-height: 1;
+                                        }
+                                    }
+                                }
+
                                 p.notification-txt {
                                     font-size  : 14px;
                                     font-weight: bold;
@@ -454,37 +621,170 @@
                                     color     : #026cd1;
                                 }
 
-                                .notification-modal-inner {
-                                    a.notification {
-                                        padding        : 6px 40px;
-                                        margin         : 6px 0;
-                                        padding-right  : 20px;
-                                        display        : block;
-                                        text-decoration: none;
-                                        color          : #222222;
 
-                                        .notification-title-desc {
-                                            img.notification-icon {
-                                                width         : 16px;
-                                                display       : inline-block;
-                                                vertical-align: middle;
-                                            }
 
-                                            p.notification-title {
-                                                margin     : 0;
-                                                font-size  : 14px;
-                                                color      : #026cd1;
-                                                display    : inline-block;
-                                                margin-left: 11px;
+                                .notification-modal-section {
+                                    background: #026CD11A;
+                                    padding   : 2px 0;
+
+                                    .notification-modal-section-inner {
+                                        padding   : 8px 0;
+                                        background: #FFFFFF;
+
+                                        &:hover {
+                                            background: #026CD11A;
+                                        }
+
+                                        // &:last-child {
+                                        //     box-shadow   : 0px 0px 6px #026CD11A;
+                                        //     border-bottom: 1px solid #026CD11A;
+                                        // }
+
+                                        .notification-icon-title-description-section {
+                                            .notification-icon-title-description-section-inner {
+                                                display : table;
+                                                padding : 0 14px;
+                                                position: relative;
+
+                                                .icon-section {
+                                                    display       : table-cell;
+                                                    width         : 34px;
+                                                    vertical-align: middle;
+
+                                                    .icon-section-inner {
+                                                        span {
+                                                            display      : block;
+                                                            background   : #026CD1;
+                                                            border-radius: 50%;
+                                                            padding      : 4px 5px 3px;
+
+                                                            i {
+                                                                font-size: 24px;
+                                                                color    : #FFFFFF;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+
+                                                .title-description-section {
+                                                    display       : table-cell;
+                                                    width         : 254px;
+                                                    vertical-align: middle;
+
+                                                    .title-description-section-inner {
+                                                        padding: 0 10px;
+
+                                                        .title {
+                                                            margin-bottom: 4px;
+
+                                                            p {
+                                                                margin     : 0;
+                                                                line-height: 1;
+                                                                font-size  : 12px;
+                                                                font-weight: 500;
+                                                                color      : #026CD1;
+                                                            }
+                                                        }
+
+                                                        .description {
+                                                            height  : 24px;
+                                                            overflow: hidden;
+
+                                                            p {
+                                                                margin     : 0;
+                                                                line-height: 1.2;
+                                                                font-size  : 10px;
+                                                                color      : #8E9397;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+
+                                                .time-section {
+                                                    position: absolute;
+                                                    width   : 50px;
+                                                    top     : -2px;
+                                                    right   : 10px;
+
+                                                    .time-section-inner {
+                                                        line-height: 1;
+
+                                                        span {
+                                                            margin     : 0;
+                                                            line-height: 1;
+                                                            font-size  : 12px;
+                                                            color      : #1E1F20;
+                                                        }
+                                                    }
+                                                }
+
+                                                .attachment-section {
+                                                    display       : table-cell;
+                                                    width         : 14px;
+                                                    vertical-align: bottom;
+
+                                                    .attachment-section-inner {
+                                                        line-height: 1;
+
+                                                        span {
+                                                            cursor: pointer;
+
+                                                            i {
+                                                                color: #026CD1;
+                                                            }
+                                                        }
+                                                    }
+                                                }
                                             }
                                         }
 
-                                        p.notification-description {
-                                            margin       : 4px 0 0;
-                                            font-size    : 12px;
-                                            white-space  : nowrap;
-                                            overflow     : hidden !important;
-                                            text-overflow: ellipsis;
+                                        .notification-submit-section {
+                                            padding: 6px 0;
+
+                                            .notification-submit-section-inner {
+                                                display: block;
+                                                width  : 210px;
+                                                margin : 0 auto;
+
+                                                .view-btn-section {
+                                                    display: inline-block;
+                                                    width  : 80px;
+
+                                                    .view-btn-section-inner {
+                                                        span {
+                                                            border       : 1px solid #026CD1;
+                                                            border-radius: 4px;
+                                                            color        : #026CD1;
+                                                            font-size    : 14px;
+                                                            padding      : 4px 18px 5px;
+                                                            cursor       : pointer;
+                                                            height       : 28px;
+                                                            display      : block;
+                                                            text-align   : center;
+                                                        }
+                                                    }
+                                                }
+
+                                                .accept-btn-section {
+                                                    display    : inline-block;
+                                                    width      : 80px;
+                                                    margin-left: 20px;
+
+                                                    .accept-btn-section-inner {
+                                                        span {
+                                                            background   : #026CD1;
+                                                            border-radius: 4px;
+                                                            color        : #FFFFFF;
+                                                            font-size    : 14px;
+                                                            padding      : 4px 18px 5px;
+                                                            cursor       : pointer;
+                                                            height       : 28px;
+                                                            display      : block;
+                                                            text-align   : center;
+                                                        }
+                                                    }
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -610,47 +910,66 @@
                                     height    : 1px;
                                     background: #EEF4FC;
                                     display   : block;
-                                    margin: 10px 0;
+                                    margin    : 10px 0;
                                 }
 
-                                .profile-role-section {
-                                    padding: 0 16px;
+                                // .profile-role-section {
+                                //     padding: 0 16px;
 
-                                    p.profile-modal-role-text {
-                                        font-size  : 16px;
-                                        font-weight: bold;
-                                        color      : #36454F;
-                                        margin     : 0;
-                                        margin-bottom: 8px;
-                                    }
+                                //     p.profile-modal-role-text {
+                                //         font-size    : 16px;
+                                //         font-weight  : bold;
+                                //         color        : #36454F;
+                                //         margin       : 0;
+                                //         margin-bottom: 8px;
+                                //     }
 
-                                    p.profile-role-role {
-                                        display    : inline-block;
-                                        width      : 33%;
-                                        font-size  : 16px;
-                                        color      : #696A6A;
-                                        margin     : 0;
-                                        padding: 8px 0;
-                                        cursor     : pointer;
-                                        line-height: 1;
+                                //     p.profile-role-role {
+                                //         display    : inline-block;
+                                //         width      : 33%;
+                                //         font-size  : 16px;
+                                //         color      : #696A6A;
+                                //         margin     : 0;
+                                //         padding    : 8px 0;
+                                //         cursor     : pointer;
+                                //         line-height: 1;
 
-                                        span {}
-                                    }
-                                }
+                                //         span {}
+                                //     }
+                                // }
 
                                 .settings-screen-section {
+                                    .switch-section {
+                                        padding: 0 16px;
+
+                                        span {
+                                            i {
+                                                color    : #20252A;
+                                                font-size: 18px;
+                                                width    : 15px;
+                                                transform: rotate(90deg);
+                                            }
+
+                                            span {
+                                                color      : #20252A;
+                                                font-size  : 16px;
+                                                margin-left: 10px;
+                                            }
+                                        }
+                                    }
+
                                     .settings-section {
                                         padding: 0 16px;
 
                                         span {
                                             i {
-                                                color    : #696A6A;
+                                                color    : #20252A;
                                                 font-size: 18px;
                                                 width    : 15px;
                                             }
 
                                             span {
-                                                color      : #696A6A;
+                                                color      : #20252A;
                                                 font-size  : 16px;
                                                 margin-left: 10px;
                                             }
@@ -658,18 +977,18 @@
                                     }
 
                                     .lock-screen-section {
-                                        padding: 0 16px;
+                                        padding      : 0 16px;
                                         margin-bottom: 8px;
 
                                         span {
                                             i {
-                                                color    : #696A6A;
+                                                color    : #20252A;
                                                 font-size: 18px;
                                                 width    : 15px;
                                             }
 
                                             span {
-                                                color      : #696A6A;
+                                                color      : #20252A;
                                                 font-size  : 16px;
                                                 margin-left: 10px;
                                             }
@@ -677,27 +996,28 @@
                                     }
                                 }
 
-                                .profile_logout {
+                                p.profile_logout {
                                     font-size                 : 16px;
                                     color                     : #222222;
                                     cursor                    : pointer;
-                                    text-align                : center;
+                                    text-align                : left;
                                     margin                    : 0;
                                     background                : #026CD1;
                                     border-bottom-left-radius : 4px;
                                     border-bottom-right-radius: 4px;
-                                    padding: 10px 0;
+                                    padding                   : 10px 16px;
 
                                     i {
                                         color : #FFFFFF;
-                                        width : 12px;
-                                        height: 12px;
+                                        font-size: 20px;
+                                        vertical-align: middle;
                                     }
 
                                     a {
                                         margin-left    : 10px;
                                         text-decoration: none;
                                         color          : #FFFFFF;
+                                        vertical-align: middle;
                                     }
                                 }
                             }
@@ -1606,6 +1926,7 @@
             margin-left  : @main_section_margin_left;
             margin-top   : @main_section_margin_top;
             margin-bottom: @main_section_margin_bottom;
+            min-height   : calc(100vh - (74px + 32px));
         }
 
         #footer.footer {

@@ -15,14 +15,21 @@
         </div>
       </div>
       <span class="devider"></span>
-      <div class="profile-role-section">
+      <!-- <div class="profile-role-section">
         <p class="profile-modal-role-text">Switch Role</p>
         <p class="profile-role-role" v-for="(role, i) in user.role" :key="i">
           <span>{{ role.role }}</span>
         </p>
       </div>
-      <span class="devider"></span>
+      <span class="devider"></span> -->
       <div class="settings-screen-section">
+        <div class="switch-section">
+          <span>
+            <i class="zmdi zmdi-swap-vertical-circle"></i>
+            <span>Switch Role</span>
+          </span>
+        </div>
+        <span class="devider"></span>
         <div class="settings-section">
           <span>
             <i class="zmdi zmdi-settings"></i>
