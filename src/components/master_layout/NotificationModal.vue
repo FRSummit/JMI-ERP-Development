@@ -6,7 +6,12 @@
       </span>
     </div>
     <div class="notification-inner-sec">
-      <p class="notification-txt">Notifications</p>
+      <div class="title-text-section">
+        <div class="title-text-section-inner">
+          <p class="notification-txt">Notifications</p>
+        </div>
+      </div>
+
       <div
         id="notification-progressbar"
         class="notification-progressbar"
@@ -17,23 +22,67 @@
           color="primary"
         ></v-progress-circular>
       </div>
-      <div class="notification-modal-inner">
-        <a
-          href="www.google.com"
-          class="notification"
-          v-for="(notification, i) in notification"
-          :key="i"
-        >
-          <div class="notification-title-desc">
-            <img
-              src="../../assets/icons/bell_icon.svg"
-              alt="user-icon"
-              class="notification-icon"
-            />
-            <p class="notification-title">{{ notification.title }}</p>
+      <div class="notification-modal-section" v-for="(notification, i) in notification"
+            :key="i">
+        <div class="notification-modal-section-inner">
+          <div class="notification-icon-title-description-section">
+            <div class="notification-icon-title-description-section-inner">
+              <div class="icon-section">
+                <div class="icon-section-inner">
+                  <span><i class="zmdi zmdi-bike"></i></span>
+                </div>
+              </div>
+              <div class="title-description-section">
+                <div class="title-description-section-inner">
+                  <div class="title">
+                    <p>{{ notification.title }}</p>
+                  </div>
+                  <div class="description">
+                    <p>{{ notification.description }}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="attachment-section">
+                <div class="attachment-section-inner">
+                  <span><i class="zmdi zmdi-attachment"></i></span>
+                  <span><i class="zmdi zmdi-collection-pdf"></i></span>
+                </div>
+              </div>
+            </div>
           </div>
-          <p class="notification-description">{{ notification.description }}</p>
-        </a>
+          <div class="notification-submit-section">
+            <div class="notification-submit-section-inner">
+              <div class="view-btn-section">
+                <div class="view-btn-section-inner">
+                  <span>View</span>
+                </div>
+              </div>
+              <div class="accept-btn-section">
+                <div class="accept-btn-section-inner">
+                  <span>Accept</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <a
+            href="www.google.com"
+            class="notification"
+            v-for="(notification, i) in notification"
+            :key="i"
+          >
+            <div class="notification-title-desc">
+              <img
+                src="../../assets/icons/bell_icon.svg"
+                alt="user-icon"
+                class="notification-icon"
+              />
+              <p class="notification-title">{{ notification.title }}</p>
+            </div>
+            <p class="notification-description">
+              {{ notification.description }}
+            </p>
+          </a> -->
+        </div>
       </div>
     </div>
   </div>

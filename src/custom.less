@@ -408,20 +408,20 @@
                             }
 
                             .notification-inner-sec {
-                                position      : fixed;
-                                top           : 84px;
-                                right         : 240px;
-                                color         : #222;
-                                background    : #fff;
-                                font-family   : "Roboto";
-                                width         : 330px;
-                                padding-top   : 6px;
-                                padding-bottom: 10px;
-                                z-index       : 5;
-                                box-shadow    : 0 0px 3px 2px rgb(2 108 209 / 16%);
-                                max-height    : 500px;
-                                overflow      : auto;
-                                border-radius : 4px;
+                                position         : fixed;
+                                top              : 84px;
+                                right            : 240px;
+                                color            : #222;
+                                background       : #fff;
+                                font-family      : "Roboto";
+                                width            : 330px;
+                                // padding-top   : 6px;
+                                padding-bottom   : 10px;
+                                z-index          : 5;
+                                box-shadow       : 0 0px 3px 2px rgb(2 108 209 / 16%);
+                                max-height       : 500px;
+                                overflow         : auto;
+                                border-radius    : 4px;
 
                                 &::-webkit-scrollbar {
                                     width: 4px;
@@ -441,6 +441,24 @@
                                     background: #006ace;
                                 }
 
+                                .title-text-section {
+                                    .title-text-section-inner {
+                                        padding      : 14px 0;
+                                        box-shadow   : 0px 0px 6px #026CD11A;
+                                        border-bottom: 4px solid #026CD11A;
+
+                                        p.notification-txt {
+                                            font-size  : 16px;
+                                            font-weight: normal;
+                                            margin     : 0;
+                                            padding    : 4px 40px;
+                                            color      : #3F4347;
+                                            text-align : center;
+                                            line-height: 1;
+                                        }
+                                    }
+                                }
+
                                 p.notification-txt {
                                     font-size  : 14px;
                                     font-weight: bold;
@@ -454,38 +472,166 @@
                                     color     : #026cd1;
                                 }
 
-                                .notification-modal-inner {
-                                    a.notification {
-                                        padding        : 6px 40px;
-                                        margin         : 6px 0;
-                                        padding-right  : 20px;
-                                        display        : block;
-                                        text-decoration: none;
-                                        color          : #222222;
 
-                                        .notification-title-desc {
-                                            img.notification-icon {
-                                                width         : 16px;
-                                                display       : inline-block;
-                                                vertical-align: middle;
-                                            }
 
-                                            p.notification-title {
-                                                margin     : 0;
-                                                font-size  : 14px;
-                                                color      : #026cd1;
-                                                display    : inline-block;
-                                                margin-left: 11px;
+                                .notification-modal-section {
+                                    .notification-modal-section-inner {
+                                        .notification-icon-title-description-section {
+                                            .notification-icon-title-description-section-inner {
+                                                display: table;
+                                                padding: 0 14px;
+
+                                                .icon-section {
+                                                    display       : table-cell;
+                                                    width         : 34px;
+                                                    vertical-align: middle;
+
+                                                    .icon-section-inner {
+                                                        span {
+                                                            display      : block;
+                                                            background   : #026CD1;
+                                                            border-radius: 50%;
+                                                            padding      : 4px 5px 3px;
+
+                                                            i {
+                                                                font-size: 24px;
+                                                                color    : #FFFFFF;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+
+                                                .title-description-section {
+                                                    display       : table-cell;
+                                                    width         : 254px;
+                                                    vertical-align: middle;
+
+                                                    .title-description-section-inner {
+                                                        padding: 0 10px;
+
+                                                        .title {
+                                                            margin-bottom: 4px;
+
+                                                            p {
+                                                                margin     : 0;
+                                                                line-height: 1;
+                                                                font-size  : 12px;
+                                                                font-weight: 500;
+                                                                color      : #026CD1;
+                                                            }
+                                                        }
+
+                                                        .description {
+                                                            height  : 24px;
+                                                            overflow: hidden;
+
+                                                            p {
+                                                                margin     : 0;
+                                                                line-height: 1.2;
+                                                                font-size  : 10px;
+                                                                color      : #8E9397;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+
+                                                .attachment-section {
+                                                    display       : table-cell;
+                                                    width         : 14px;
+                                                    vertical-align: middle;
+
+                                                    .attachment-section-inner {
+                                                        span {
+                                                            i {
+                                                                color: #026CD1;
+                                                            }
+                                                        }
+                                                    }
+                                                }
                                             }
                                         }
 
-                                        p.notification-description {
-                                            margin       : 4px 0 0;
-                                            font-size    : 12px;
-                                            white-space  : nowrap;
-                                            overflow     : hidden !important;
-                                            text-overflow: ellipsis;
+                                        .notification-submit-section {
+                                            padding: 6px 0;
+                                            .notification-submit-section-inner {
+                                                display   : block;
+                                                text-align: center;
+                                                width     : 180px;
+                                                margin    : 0 auto;
+
+                                                .view-btn-section {
+                                                    display: inline-block;
+                                                    width  : 80px;
+
+                                                    .view-btn-section-inner {
+                                                        span {
+                                                            border       : 1px solid #026CD1;
+                                                            border-radius: 4px;
+                                                            color        : #026CD1;
+                                                            font-size    : 14px;
+                                                            padding      : 4px 18px 5px;
+                                                            cursor       : pointer;
+                                                            height       : 28px;
+                                                            display      : block;
+                                                        }
+                                                    }
+                                                }
+
+                                                .accept-btn-section {
+                                                    display    : inline-block;
+                                                    width      : 80px;
+                                                    margin-left: 20px;
+
+                                                    .accept-btn-section-inner {
+                                                        span {
+                                                            background   : #026CD1;
+                                                            border-radius: 4px;
+                                                            color        : #FFFFFF;
+                                                            font-size    : 14px;
+                                                            padding      : 4px 18px 5px;
+                                                            cursor       : pointer;
+                                                            height       : 28px;
+                                                            display      : block;
+                                                        }
+                                                    }
+                                                }
+                                            }
                                         }
+
+
+
+                                        // a.notification {
+                                        //     padding        : 6px 40px;
+                                        //     margin         : 6px 0;
+                                        //     padding-right  : 20px;
+                                        //     display        : block;
+                                        //     text-decoration: none;
+                                        //     color          : #222222;
+
+                                        //     .notification-title-desc {
+                                        //         img.notification-icon {
+                                        //             width         : 16px;
+                                        //             display       : inline-block;
+                                        //             vertical-align: middle;
+                                        //         }
+
+                                        //         p.notification-title {
+                                        //             margin     : 0;
+                                        //             font-size  : 14px;
+                                        //             color      : #026cd1;
+                                        //             display    : inline-block;
+                                        //             margin-left: 11px;
+                                        //         }
+                                        //     }
+
+                                        //     p.notification-description {
+                                        //         margin       : 4px 0 0;
+                                        //         font-size    : 12px;
+                                        //         white-space  : nowrap;
+                                        //         overflow     : hidden !important;
+                                        //         text-overflow: ellipsis;
+                                        //     }
+                                        // }
                                     }
                                 }
                             }
@@ -610,17 +756,17 @@
                                     height    : 1px;
                                     background: #EEF4FC;
                                     display   : block;
-                                    margin: 10px 0;
+                                    margin    : 10px 0;
                                 }
 
                                 .profile-role-section {
                                     padding: 0 16px;
 
                                     p.profile-modal-role-text {
-                                        font-size  : 16px;
-                                        font-weight: bold;
-                                        color      : #36454F;
-                                        margin     : 0;
+                                        font-size    : 16px;
+                                        font-weight  : bold;
+                                        color        : #36454F;
+                                        margin       : 0;
                                         margin-bottom: 8px;
                                     }
 
@@ -630,7 +776,7 @@
                                         font-size  : 16px;
                                         color      : #696A6A;
                                         margin     : 0;
-                                        padding: 8px 0;
+                                        padding    : 8px 0;
                                         cursor     : pointer;
                                         line-height: 1;
 
@@ -658,7 +804,7 @@
                                     }
 
                                     .lock-screen-section {
-                                        padding: 0 16px;
+                                        padding      : 0 16px;
                                         margin-bottom: 8px;
 
                                         span {
@@ -686,7 +832,7 @@
                                     background                : #026CD1;
                                     border-bottom-left-radius : 4px;
                                     border-bottom-right-radius: 4px;
-                                    padding: 10px 0;
+                                    padding                   : 10px 0;
 
                                     i {
                                         color : #FFFFFF;
