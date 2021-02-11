@@ -271,6 +271,22 @@ export default {
             // doc.text("Hello World", 10, 10);
             // doc.setFont("helvetica");
             // doc.setFontType("bold");
+
+            // var img = new Image();
+            // img.src = '../../../assets/images/copy.png'
+            // doc.addImage(img, "JPEG", 20, 20);
+
+            const date = new Date();
+            const filename =
+              "timechart_" +
+              date.getFullYear() +
+              ("0" + (date.getMonth() + 1)).slice(-2) +
+              ("0" + date.getDate()).slice(-2) +
+              ("0" + date.getHours()).slice(-2) +
+              ("0" + date.getMinutes()).slice(-2) +
+              ("0" + date.getSeconds()).slice(-2) +
+              ".pdf";
+
             doc.setFontSize(10);
             doc.text(20, 20, 'Hello world!');
             doc.text(20, 30, 'This is client-side Javascript, pumping out a PDF.');
@@ -281,7 +297,15 @@ export default {
             doc.addPage();
             doc.text(20, 20, 'Another table');
             doc.autoTable(columnHeader, rows);
-            doc.save(pdfName + '.pdf');
+            doc.autoTable(columnHeader, rows);
+            doc.autoTable(columnHeader, rows);
+            doc.autoTable(columnHeader, rows);
+            doc.autoTable(columnHeader, rows);
+            doc.autoTable(columnHeader, rows);
+            doc.autoTable(columnHeader, rows);
+            doc.autoTable(columnHeader, rows);
+            doc.autoTable(columnHeader, rows);
+            doc.save(pdfName + '_' + filename + '.pdf');
             // doc.autoPrint(columnHeader, rows);
     },
   },
