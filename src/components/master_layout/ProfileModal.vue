@@ -26,7 +26,7 @@
         <div class="switch-section">
           <span>
             <i class="zmdi zmdi-swap-vertical-circle"></i>
-            <span>Settings</span>
+            <span>Switch Role</span>
           </span>
         </div>
         <span class="devider"></span>

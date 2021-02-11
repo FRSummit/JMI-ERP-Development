@@ -139,7 +139,15 @@
                             svg {
                                 width    : 14px;
                                 color    : @headerBlueColor;
-                                transform: rotate(90deg);
+                                transform: rotate(-90deg);
+                                transition: 0.3s;
+                            }
+
+                            &:hover {
+                                svg {
+                                    transform: rotate(-180deg);
+                                    transition: 0.3s;
+                                }
                             }
                         }
 
