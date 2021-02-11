@@ -278,6 +278,9 @@ export default {
             doc.text(20, 20, 'Do you like that?');
             // doc.autoTable(columnHeader, rows, { startY: 10 });
             doc.autoTable(columnHeader, rows);
+            doc.addPage();
+            doc.text(20, 20, 'Another table');
+            doc.autoTable(columnHeader, rows);
             doc.save(pdfName + '.pdf');
             // doc.autoPrint(columnHeader, rows);
     },
