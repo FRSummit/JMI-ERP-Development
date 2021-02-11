@@ -416,7 +416,7 @@
                                 font-family      : "Roboto";
                                 width            : 330px;
                                 // padding-top   : 6px;
-                                padding-bottom   : 10px;
+                                // padding-bottom   : 10px;
                                 z-index          : 5;
                                 box-shadow       : 0 0px 3px 2px rgb(2 108 209 / 16%);
                                 max-height       : 500px;
@@ -475,7 +475,21 @@
 
 
                                 .notification-modal-section {
+
                                     .notification-modal-section-inner {
+                                        padding      : 6px 0 0;
+                                        box-shadow   : 0px 0px 6px #026CD11A;
+                                        border-bottom: 4px solid #026CD11A;
+
+                                        &:hover {
+                                            background: #026CD11A;
+                                        }
+
+                                        &:last-child {
+                                            box-shadow   : 0px 0px 6px #026CD11A;
+                                            border-bottom: 1px solid #026CD11A;
+                                        }
+
                                         .notification-icon-title-description-section {
                                             .notification-icon-title-description-section-inner {
                                                 display: table;
@@ -553,6 +567,7 @@
 
                                         .notification-submit-section {
                                             padding: 6px 0;
+
                                             .notification-submit-section-inner {
                                                 display   : block;
                                                 text-align: center;
