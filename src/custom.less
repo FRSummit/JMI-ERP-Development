@@ -137,15 +137,15 @@
                             border-radius: 50%;
 
                             svg {
-                                width    : 14px;
-                                color    : @headerBlueColor;
-                                transform: rotate(-90deg);
+                                width     : 14px;
+                                color     : @headerBlueColor;
+                                transform : rotate(-90deg);
                                 transition: 0.3s;
                             }
 
                             &:hover {
                                 svg {
-                                    transform: rotate(-180deg);
+                                    transform : rotate(-180deg);
                                     transition: 0.3s;
                                 }
                             }
@@ -320,9 +320,9 @@
 
                                     .title-section-inner {
 
-                                        padding      : 14px 0;
+                                        padding         : 14px 0;
                                         // box-shadow   : 0px 0px 6px #026cd11a;
-                                        border-bottom: 4px solid #026cd11a;
+                                        border-bottom   : 4px solid #026cd11a;
 
                                         p.chat-txt {
                                             font-size  : 14px;
@@ -344,8 +344,8 @@
                                 }
 
                                 .all-chat-section {
-                                    padding: 0 14px;
-                                    display: block;
+                                    padding      : 0 14px;
+                                    display      : block;
                                     border-bottom: 2px solid #026cd11a;
 
                                     .all-chat-section-inner {
@@ -477,33 +477,33 @@
                                 }
 
                                 .show-more-section {
-                                    padding: 2px 0;
-                                    display: block;
-                                    position: fixed;
+                                    padding                   : 2px 0;
+                                    display                   : block;
+                                    position                  : fixed;
                                     // position: absolute;
-                                    top: calc((74px + 500px) - 48px);
-                                    z-index: 99;
+                                    top                       : calc((74px + 500px) - 48px);
+                                    z-index                   : 99;
                                     // width: 100%;
-                                    background: #E5F0FA;
-                                    width: 326px;
-                                    border-bottom-left-radius: 4px;
+                                    background                : #E5F0FA;
+                                    width                     : 326px;
+                                    border-bottom-left-radius : 4px;
                                     border-bottom-right-radius: 4px;
 
                                     .show-more-section-inner {
-                                        padding: 16px 0;
-                                        display: block;
+                                        padding   : 16px 0;
+                                        display   : block;
                                         background: #FFFFFF;
 
                                         p {
-                                            width         : 100%;
-                                            display       : inline-block;
-                                            margin        : 0;
-                                            font-size     : 14px;
-                                            color         : #026CD1;
+                                            width            : 100%;
+                                            display          : inline-block;
+                                            margin           : 0;
+                                            font-size        : 14px;
+                                            color            : #026CD1;
                                             // font-weight   : 500;
-                                            vertical-align: middle;
-                                            line-height   : 1;
-                                            text-align: center;
+                                            vertical-align   : middle;
+                                            line-height      : 1;
+                                            text-align       : center;
                                         }
                                     }
                                 }
@@ -641,8 +641,9 @@
 
                                         .notification-icon-title-description-section {
                                             .notification-icon-title-description-section-inner {
-                                                display: table;
-                                                padding: 0 14px;
+                                                display : table;
+                                                padding : 0 14px;
+                                                position: relative;
 
                                                 .icon-section {
                                                     display       : table-cell;
@@ -698,6 +699,24 @@
                                                     }
                                                 }
 
+                                                .time-section {
+                                                    position: absolute;
+                                                    width   : 50px;
+                                                    top     : -2px;
+                                                    right   : 10px;
+
+                                                    .time-section-inner {
+                                                        line-height: 1;
+
+                                                        span {
+                                                            margin     : 0;
+                                                            line-height: 1;
+                                                            font-size  : 12px;
+                                                            color      : #1E1F20;
+                                                        }
+                                                    }
+                                                }
+
                                                 .attachment-section {
                                                     display       : table-cell;
                                                     width         : 14px;
@@ -705,6 +724,7 @@
 
                                                     .attachment-section-inner {
                                                         line-height: 1;
+
                                                         span {
                                                             cursor: pointer;
 
@@ -739,7 +759,7 @@
                                                             cursor       : pointer;
                                                             height       : 28px;
                                                             display      : block;
-                                                            text-align: center;
+                                                            text-align   : center;
                                                         }
                                                     }
                                                 }
@@ -759,7 +779,7 @@
                                                             cursor       : pointer;
                                                             height       : 28px;
                                                             display      : block;
-                                                            text-align: center;
+                                                            text-align   : center;
                                                         }
                                                     }
                                                 }
@@ -936,6 +956,7 @@
                                             }
                                         }
                                     }
+
                                     .settings-section {
                                         padding: 0 16px;
 

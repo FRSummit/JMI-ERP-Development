@@ -42,6 +42,11 @@
                   </div>
                 </div>
               </div>
+              <div class="time-section">
+                <div class="time-section-inner">
+                  <span>Just now</span>
+                </div>
+              </div>
               <div class="attachment-section" v-if="i % 2 !== 0">
                 <div class="attachment-section-inner">
                   <!-- <span @click="attachmentNotificationClick(notification)"><i class="zmdi zmdi-attachment"></i></span> -->
