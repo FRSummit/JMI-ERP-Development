@@ -252,7 +252,7 @@ export default {
       });
       doc.save("sample.pdf");*/
       // var source =  this.$refs["cont"];
-      // console.log(this.sub_data)
+      console.log(this.sub_data)
             let rows = [];
             let columnHeader = ['NAME', 'ID NUMBER', 'SISTER CONCERN', 'ACTIVE USER', 'STATUS'];
             let pdfName = 'Schedule';
