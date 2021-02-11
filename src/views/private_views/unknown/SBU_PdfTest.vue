@@ -267,8 +267,12 @@ export default {
                 rows.push(temp);
             });
             // var doc = new jsPDF();
-            var doc = new jsPDF('p', 'pt');
+            // var doc = new jsPDF('p', 'pt');
+            // var doc = new jsPDF('p', 'pt', 'a4', true);
+            var doc = new jsPDF('p', 'pt', 'letter');
+
             // doc.text("Hello World", 10, 10);
+
             // doc.setFont("helvetica");
             // doc.setFontType("bold");
 
@@ -286,6 +290,31 @@ export default {
               ("0" + date.getMinutes()).slice(-2) +
               ("0" + date.getSeconds()).slice(-2) +
               ".pdf";
+
+            /*// var specialElementHandlers = {
+            //     '#bypassme': function (element, renderer) {
+            //         return true
+            //     }
+            // };
+            var margins = {
+                top: 80,
+                bottom: 60,
+                left: 40,
+                width: 522
+            };
+            // all coords and widths are in jsPDF instance's declared units
+            // 'inches' in this case
+
+            doc.fromHTML(
+            // source, // HTML string or DOM elem ref.
+            margins.left, // x coord
+            margins.top, {// y coord
+                'width': margins.width, // max width of content on PDF
+                // 'elementHandlers': specialElementHandlers
+            })*/
+
+            doc.setFont("arial", "bold");
+            doc.setFontSize(14);
 
             doc.setFontSize(10);
             doc.text(20, 20, 'Hello world!');
