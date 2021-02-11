@@ -50,8 +50,8 @@
                 background            : #FFFFFF 0% 0% no-repeat padding-box;
                 box-shadow            : 0px 0px 20px #026cd129;
                 border-radius         : 8px;
-                padding               : 10px;
-                top                   : calc((100vh/2) - (74px + 200px));
+                padding               : 10px 20px;
+                top                   : calc((100vh/2) - (74px + 117px));
                 left                  : calc((100vw/2) - 175px);
 
                 .the-screen-inner {
@@ -68,26 +68,86 @@
 
                             span {
                                 margin-left: 10px;
-                                color: #0F0909;
+                                color      : #0F0909;
                             }
                         }
                     }
 
                     .pin-input-section {
                         .pin-input-section-inner {
+                            padding: 20px 0;
                             .label {
+                                margin-bottom: 10px;
+
                                 .label-inner {
-                                    span {}
+                                    line-height: 1;
+                                    text-align : left;
+
+                                    span {
+                                        font-size: 12px;
+                                        color    : #0F0909;
+                                    }
                                 }
                             }
 
                             .input-sec {
+
                                 .input-sec-inner {
-                                    input {}
+                                    display: table;
+
+                                    .blmd-line {
+                                        display       : table-cell;
+                                        position      : relative;
+                                        width         : 70%;
+                                        vertical-align: middle;
+
+                                        input {
+                                            border       : 1px solid #4279CB;
+                                            border-radius: 2px;
+                                            font-size    : 14px;
+                                            margin       : 0;
+                                            padding      : 6px 10px;
+                                            line-height  : 1;
+                                            box-sizing   : border-box;
+                                            height       : 40px;
+                                        }
+
+                                        .pin-show {
+                                            position: absolute;
+                                            top     : 11px;
+                                            right   : 10px;
+
+                                            svg {
+                                                width : 16px;
+                                                height: 16px;
+                                                cursor: pointer;
+                                            }
+
+                                            svg.fa-eye {
+                                                color: #026CD1;
+                                            }
+
+                                            svg.fa-eye-slash {
+                                                color: #B6D5F2;
+                                            }
+                                        }
+                                    }
 
                                     .submit-section {
+                                        display       : table-cell;
+                                        width         : 20%;
+                                        text-align    : right;
+                                        vertical-align: middle;
+
                                         span {
-                                            i {}
+                                            background   : #026CD1;
+                                            padding      : 11px 20px;
+                                            border-radius: 2px;
+
+                                            i {
+                                                font-size: 20px;
+                                                color    : #FFFFFF;
+                                            }
                                         }
                                     }
                                 }
@@ -96,10 +156,12 @@
                     }
 
                     .help-section {
+                        margin-top: 10px;
+
                         .help-section-inner {
                             span {
                                 font-size: 14px;
-                                color: #026CD1;
+                                color    : #026CD1;
                             }
                         }
                     }
