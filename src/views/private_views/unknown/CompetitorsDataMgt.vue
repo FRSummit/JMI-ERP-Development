@@ -1,23 +1,5 @@
 <template>
   <div id="competitor-data-management" class="competitor-data-management">
-    <!-- <h1 style="text-align: center">Datatable with 3rd Party API</h1>
-    <v-data-table
-      :page="page"
-      :pageCount="numberOfPages"
-      :headers="headers"
-      :items="passengers"
-      :options.sync="options"
-      :server-items-length="totalPassengers"
-      :loading="loading"
-      class="elevation-1"
-    >
-      <template v-slot:[`item.logo`]="{ item }">
-        <img :src="item.airline.logo" style="width: 10%" />
-      </template>
-      <template v-slot:[`item.website`]="{ item }">
-        <a :href="item.airline.website">{{ item.airline.website }}</a>
-      </template>
-    </v-data-table> -->
     <div class="top-intro-section">
       <div class="title-breadcrumb-section">
         <p class="page-title">Competitor Data Management</p>
@@ -36,14 +18,6 @@
             <option value="20">20</option>
             <option value="25">25</option>
           </select>
-
-          <!-- <v-container fluid>
-            <v-row align="center">
-              <v-col class="d-flex" cols="12" sm="6">
-                <v-select :items="items" label="Standard" dense></v-select>
-              </v-col>
-            </v-row>
-          </v-container> -->
         </div>
         <div class="pagination">
           <div class="page-infos">

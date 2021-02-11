@@ -44,6 +44,11 @@ export const router = new VueRouter({
       component: () => import('../views/private_views/unknown/CompetitorsDataMgt.vue')
     },
     {
+      path: '/sbu_pdf_test',
+      name: 'SBU PDF TEST',
+      component: () => import('../views/private_views/unknown/SBU_PdfTest.vue')
+    },
+    {
       path: '/adm/sbu',
       name: 'SBU',
       component: () => import('../views/private_views/ADM/SBU/SBU.vue')
