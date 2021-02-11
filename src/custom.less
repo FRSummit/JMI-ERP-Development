@@ -313,7 +313,7 @@
                                     .title-section-inner {
 
                                         padding      : 14px 0;
-                                        box-shadow   : 0px 0px 6px #026cd11a;
+                                        // box-shadow   : 0px 0px 6px #026cd11a;
                                         border-bottom: 4px solid #026cd11a;
 
                                         p.chat-txt {
@@ -338,6 +338,7 @@
                                 .all-chat-section {
                                     padding: 0 14px;
                                     display: block;
+                                    border-bottom: 2px solid #026cd11a;
 
                                     .all-chat-section-inner {
                                         padding: 10px 0;
@@ -584,7 +585,7 @@
                                     .title-text-section-inner {
                                         padding      : 14px 0;
                                         box-shadow   : 0px 0px 6px #026CD11A;
-                                        border-bottom: 4px solid #026CD11A;
+                                        border-bottom: 2px solid #026CD11A;
 
                                         p.notification-txt {
                                             font-size  : 16px;
@@ -692,9 +693,10 @@
                                                 .attachment-section {
                                                     display       : table-cell;
                                                     width         : 14px;
-                                                    vertical-align: middle;
+                                                    vertical-align: bottom;
 
                                                     .attachment-section-inner {
+                                                        line-height: 1;
                                                         span {
                                                             cursor: pointer;
 
@@ -729,6 +731,7 @@
                                                             cursor       : pointer;
                                                             height       : 28px;
                                                             display      : block;
+                                                            text-align: center;
                                                         }
                                                     }
                                                 }
@@ -748,6 +751,7 @@
                                                             cursor       : pointer;
                                                             height       : 28px;
                                                             display      : block;
+                                                            text-align: center;
                                                         }
                                                     }
                                                 }
@@ -880,44 +884,62 @@
                                     margin    : 10px 0;
                                 }
 
-                                .profile-role-section {
-                                    padding: 0 16px;
+                                // .profile-role-section {
+                                //     padding: 0 16px;
 
-                                    p.profile-modal-role-text {
-                                        font-size    : 16px;
-                                        font-weight  : bold;
-                                        color        : #36454F;
-                                        margin       : 0;
-                                        margin-bottom: 8px;
-                                    }
+                                //     p.profile-modal-role-text {
+                                //         font-size    : 16px;
+                                //         font-weight  : bold;
+                                //         color        : #36454F;
+                                //         margin       : 0;
+                                //         margin-bottom: 8px;
+                                //     }
 
-                                    p.profile-role-role {
-                                        display    : inline-block;
-                                        width      : 33%;
-                                        font-size  : 16px;
-                                        color      : #696A6A;
-                                        margin     : 0;
-                                        padding    : 8px 0;
-                                        cursor     : pointer;
-                                        line-height: 1;
+                                //     p.profile-role-role {
+                                //         display    : inline-block;
+                                //         width      : 33%;
+                                //         font-size  : 16px;
+                                //         color      : #696A6A;
+                                //         margin     : 0;
+                                //         padding    : 8px 0;
+                                //         cursor     : pointer;
+                                //         line-height: 1;
 
-                                        span {}
-                                    }
-                                }
+                                //         span {}
+                                //     }
+                                // }
 
                                 .settings-screen-section {
+                                    .switch-section {
+                                        padding: 0 16px;
+
+                                        span {
+                                            i {
+                                                color    : #20252A;
+                                                font-size: 18px;
+                                                width    : 15px;
+                                                transform: rotate(90deg);
+                                            }
+
+                                            span {
+                                                color      : #20252A;
+                                                font-size  : 16px;
+                                                margin-left: 10px;
+                                            }
+                                        }
+                                    }
                                     .settings-section {
                                         padding: 0 16px;
 
                                         span {
                                             i {
-                                                color    : #696A6A;
+                                                color    : #20252A;
                                                 font-size: 18px;
                                                 width    : 15px;
                                             }
 
                                             span {
-                                                color      : #696A6A;
+                                                color      : #20252A;
                                                 font-size  : 16px;
                                                 margin-left: 10px;
                                             }
@@ -930,13 +952,13 @@
 
                                         span {
                                             i {
-                                                color    : #696A6A;
+                                                color    : #20252A;
                                                 font-size: 18px;
                                                 width    : 15px;
                                             }
 
                                             span {
-                                                color      : #696A6A;
+                                                color      : #20252A;
                                                 font-size  : 16px;
                                                 margin-left: 10px;
                                             }

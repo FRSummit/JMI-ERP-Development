@@ -42,9 +42,9 @@
                   </div>
                 </div>
               </div>
-              <div class="attachment-section">
+              <div class="attachment-section" v-if="i % 2 !== 0">
                 <div class="attachment-section-inner">
-                  <span @click="attachmentNotificationClick(notification)"><i class="zmdi zmdi-attachment"></i></span>
+                  <!-- <span @click="attachmentNotificationClick(notification)"><i class="zmdi zmdi-attachment"></i></span> -->
                   <span @click="pdfAttachmentNotificationClick(notification)"><i class="zmdi zmdi-collection-pdf"></i></span>
                 </div>
               </div>
