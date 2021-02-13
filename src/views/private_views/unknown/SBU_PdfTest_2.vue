@@ -240,7 +240,7 @@ export default {
       // this.$htmlToPaper("cont", env.printOption, () => {
       //   console.warn("done");
       // });
-      customJs.test(this.sub_data)
+      customJs.print_1(this.sub_data)
     },
     onExcelClick() {
       // console.log("excel");
