@@ -7,21 +7,21 @@
                         <b-tab class="b-tab" title="Basic" active>
                             <div class="basic-tab">
                                 <div class="basic-tab-inner">
-                                    Basic
+                                    <BasicInfo />
                                 </div>
                             </div>
                         </b-tab>
-                        <b-tab class="b-tab" title="Institution">
+                        <!-- <b-tab class="b-tab" title="Institution">
                             <div class="institution-tab">
                                 <div class="institution-tab-inner">
-                                    Institution
+                                    <InstitutionInfo />
                                 </div>
                             </div>
-                        </b-tab>
+                        </b-tab> -->
                         <b-tab class="b-tab" title="Chambers">
                             <div class="chambers-tab">
                                 <div class="chambers-tab-inner">
-                                    Chambers
+                                    <ChambersInfo />
                                 </div>
                             </div>
                         </b-tab>
@@ -33,8 +33,16 @@
 </template>
 
 <script>
+import BasicInfo from './BasicInfo/BasicInfo'
+// import InstitutionInfo from './InstitutionInfo/InstitutionInfo'
+import ChambersInfo from './ChambersInfo/ChambersInfo'
+
 export default {
-  components: {},
+  components: {
+      BasicInfo,
+    //   InstitutionInfo,
+      ChambersInfo
+  },
   data() {
     return {};
   },
