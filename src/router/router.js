@@ -116,6 +116,12 @@ export const router = new VueRouter({
       name: 'Create Order',
       component: () => import('../views/private_views/SD/CreateOrder/CreateOrder.vue')
     },
+    // Doctors List
+    {
+      path: '/features/local_sales/doctors_list',
+      name: 'Doctors List',
+      component: () => import('../views/private_views/SD/Doctor/DoctorsList.vue')
+    },
 
     // 404 Page
     {
