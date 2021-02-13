@@ -309,7 +309,9 @@ export default class SBUStatus {
                 )
 
         mywindow.document.write(''
-                            + '<table>'
+                            // + '<table border="solid 2px;" style="color:black;font-size:14px; width: 100%; text-align: center;">'
+                            + '<table style="color:black;font-size:14px; width: 100%; text-align: center;">'
+                            // +   '<thead style="border:10px solid red; background:yellow">'
                             +   '<thead>'
                             +     '<tr>'
                             +       '<th>NAME</th>'
@@ -337,15 +339,16 @@ export default class SBUStatus {
     create_table_body_data(data) {
         let result = ''
         for(let i=0; i<data.length; i++) {
-            result +=    '<tr>'
-                    +   '<td>' + data[i].name + '</td>'
-                    +   '<td>' + data[i].id_number + '</td>'
-                    +   '<td>' + data[i].sister_concern + '</td>'
-                    +   '<td>' + data[i].active_user + '</td>'
-                    +   '<td>' + data[i].status + '</td>'
-                    + '</tr>'
+            result +=   ''
+                    +   '<tr>'
+                    +       '<td>' + data[i].name + '</td>'
+                    +       '<td>' + data[i].id_number + '</td>'
+                    +       '<td>' + data[i].sister_concern + '</td>'
+                    +       '<td>' + data[i].active_user + '</td>'
+                    +       '<td>' + data[i].status + '</td>'
+                    +   '</tr>'
         }
-        return result
+        return result + result + result + result + result + result + result + result + result
     }
     
 }
