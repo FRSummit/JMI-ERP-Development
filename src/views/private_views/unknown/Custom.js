@@ -11,7 +11,7 @@ $(document).ready(function () {
 
 export default class SBUStatus {
 
-    test(pera) {
+    print_1(pera) {
         console.log(pera)
         // $(document).ready(function () {
         //     console.log('I am custom js')
@@ -60,7 +60,7 @@ export default class SBUStatus {
             '<script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.print.min.js"></script>'
         );
         mywindow.document.write('</head><body >');
-        mywindow.document.write('<h1>' + 'document.title' + '</h1>');
+        mywindow.document.write('<h1>' + 'Hello Print' + '</h1>');
         // mywindow.document.write(document.getElementById('cont').innerHTML);
         // Table
         let table = document.createElement('table')
