@@ -1,3 +1,5 @@
+// import { param } from 'jquery';
+
 // console.log('this is custom.js')
 const $ = require('jquery');
 
@@ -45,13 +47,16 @@ export default class SBUStatus {
         // printPreview.close()*/
 
         // var mywindow = window.open('', 'PRINT', 'height=400,width=600');
-        var mywindow = window.open('', 'PRINT');
+        // var mywindow = window.open('', 'PRINT', 'height=750, width=563');  // Letter size paper
 
-        mywindow.document.write(
+        // let myStyle = new URL('./print.css')
+        var mywindow = window.open('', 'PRINT'); 
+
+        /*mywindow.document.write(
             '<html>' +
             '<head>' +
             '<title>' + document.title + '</title>' +
-            '<link rel="stylesheet" href=""/>' +
+            // '<link rel="stylesheet" href="'+ myStyle +'"/>' +
             '<link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css"/>' +
             '<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.dataTables.min.css"/>' +
             '<script src="https://code.jquery.com/jquery-3.5.1.js"></script>' +
@@ -59,10 +64,54 @@ export default class SBUStatus {
             '<script src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>' +
             '<script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.print.min.js"></script>'
         );
-        mywindow.document.write('</head><body >');
-        mywindow.document.write('<h1>' + 'Hello Print' + '</h1>');
+        // mywindow.document.write('</head><body style="height: 215mm; width: 139mm; border:solid grey 1px;">');
+        mywindow.document.write('</head><body>');*/
+        
+        mywindow.document.write(''
+                    + '<html>'
+                    +   '<head>'
+                    +     '<title>' + document.title + '</title>'
+                    +   '</head>'
+                    +   '<body>'
+        )
+
+        /*let custom_style = document.createElement('style')
+        custom_style.type = 'text/css';
+        // Declare the style element
+        let styles = '.header-section { '
+                                +   'display: block;'
+                                + '}';
+        styles += '.header-section p {' 
+                                +   'display: inline-block;'
+                                +   'margin : 0; '
+                                + '}';
+        // styles += ' #header { height: 50px; background: green }';
+        if (custom_style.styleSheet) {
+            custom_style.styleSheet.cssText = styles;
+        } 
+        else {
+            custom_style.appendChild(document.createTextNode(styles));
+        }
+        // custom_style.styleSheet.cssText = styles
+        document.getElementsByTagName("head")[0].appendChild(custom_style);*/
+
+
+        // this.styleFunction()
+
+        // mywindow.document.write('<h1>' + 'Hello Print' + '</h1>');
+        // mywindow.document.write('<h1 style="color: blue;">' + 'Hello Print' + '</h1>');
+        // mywindow.document.write('<h1>' + 'Hello Print' + '</h1>');
+
         // mywindow.document.write(document.getElementById('cont').innerHTML);
-        // Table
+
+        mywindow.document.write(''
+                        + '<div>'
+                        +   '<p>Customer Code: 154</p>'
+                        +   '<p>Invoice No: 155</p>'
+                        + '</div>'
+                    )
+
+        /*// Table
         let table = document.createElement('table')
         table.className = 'display nowrap'
         // table.style.width = 100%
@@ -109,8 +158,29 @@ export default class SBUStatus {
 
         // Table
         let div = document.createElement('div')
-        div.appendChild(table)
-        mywindow.document.write(div.innerHTML);
+        div.appendChild(table)*/
+
+        mywindow.document.write(''
+            + '<table>'
+            +   '<thead>'
+            +     '<tr>'
+            +       '<th>NAME</th>'
+            +       '<th>ID NUMBER</th>'
+            +       '<th>SISTER CONCERN</th>'
+            +       '<th>ACTIVE USER</th>'
+            +       '<th>STATUS</th>'
+            +     '</tr>'
+            +   '</thead>'
+            +   '<tbody>'
+            +     this.tableData(pera)
+            +   '</tbody>'
+            + '</table>'
+        )
+
+
+
+
+        // mywindow.document.write(div.innerHTML);
         // mywindow.document.body.appendChild(table);
 
         /*mywindow.document.write(
@@ -184,6 +254,100 @@ export default class SBUStatus {
 
         return true;
     }
+
+    tableData(pera) {
+        let data = ''
+        for(let i=0; i<pera.length; i++) {
+            data +=    '<tr>'
+                    +   '<td>' + pera[i].name + '</td>'
+                    +   '<td>' + pera[i].id_number + '</td>'
+                    +   '<td>' + pera[i].sister_concern + '</td>'
+                    +   '<td>' + pera[i].active_user + '</td>'
+                    +   '<td>' + pera[i].status + '</td>'
+                    + '</tr>'
+        }
+        return data
+    }
+
+    styleFunction() {
+        console.log('working')
+    }
+
+    print_2(el) {
+        let printWindow = window.open('', 'PRINT', 'height=600,width=800');
+
+        printWindow.document.write('<html><head><title>' + document.title  + '</title>');
+        printWindow.document.write('</head><body >');
+        printWindow.document.write('<h1>' + document.title  + '</h1>');
+        printWindow.document.write(document.getElementById(el).innerHTML);
+        printWindow.document.write('</body></html>');
+
+        printWindow.document.close(); // IE >= 10
+        printWindow.focus(); //  IE >= 10*/
+
+        printWindow.print();
+        // printWindow.close();
+
+        return true;
+    }
+
+    print_3(data) {
+        var mywindow = window.open('', 'PRINT'); 
+        mywindow.document.write(''
+                            + '<html>'
+                            +   '<head>'
+                            +     '<title>' + document.title + '</title>'
+                            +   '</head>'
+                            +   '<body>'
+                )
+
+        mywindow.document.write(''
+                            + '<div>'
+                            +   '<p>Customer Code: 154</p>'
+                            +   '<p>Invoice No: 155</p>'
+                            + '</div>'
+                )
+
+        mywindow.document.write(''
+                            + '<table>'
+                            +   '<thead>'
+                            +     '<tr>'
+                            +       '<th>NAME</th>'
+                            +       '<th>ID NUMBER</th>'
+                            +       '<th>SISTER CONCERN</th>'
+                            +       '<th>ACTIVE USER</th>'
+                            +       '<th>STATUS</th>'
+                            +     '</tr>'
+                            +   '</thead>'
+                            +   '<tbody>'
+                            +     this.create_table_body_data(data)
+                            +   '</tbody>'
+                            + '</table>'
+                )
+
+        mywindow.document.write('</body></html>');
+        mywindow.document.close(); // necessary for IE >= 10
+        mywindow.focus(); // necessary for IE >= 10*/
+        mywindow.print();
+        // mywindow.close();
+
+        return true;
+    }
+    
+    create_table_body_data(data) {
+        let result = ''
+        for(let i=0; i<data.length; i++) {
+            result +=    '<tr>'
+                    +   '<td>' + data[i].name + '</td>'
+                    +   '<td>' + data[i].id_number + '</td>'
+                    +   '<td>' + data[i].sister_concern + '</td>'
+                    +   '<td>' + data[i].active_user + '</td>'
+                    +   '<td>' + data[i].status + '</td>'
+                    + '</tr>'
+        }
+        return result
+    }
+    
 }
 
 // function createTableRow() {

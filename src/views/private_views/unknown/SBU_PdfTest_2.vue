@@ -240,7 +240,9 @@ export default {
       // this.$htmlToPaper("cont", env.printOption, () => {
       //   console.warn("done");
       // });
-      customJs.print_1(this.sub_data)
+    //   customJs.print_1(this.sub_data)
+    //   customJs.print_2('sbu-data-table')
+      customJs.print_3(this.sub_data)
     },
     onExcelClick() {
       // console.log("excel");
@@ -334,8 +336,20 @@ export default {
             doc.autoTable(columnHeader, rows);
             doc.autoTable(columnHeader, rows);
             doc.autoTable(columnHeader, rows);
+
             doc.save(pdfName + '_' + filename + '.pdf');
             // doc.autoPrint(columnHeader, rows);
+
+
+            // const d = new Printd()
+            // d.print(this.$el, this.cssText, (win, doc, node, launchPrint) => {
+            //     // Get style elements
+            //     console.log(node)
+            //     const styles = [].slice.call(document.getElementsByTagName('style'))
+            //     // append them to the the new document head element
+            //     styles.forEach(styleElement => doc.head.appendChild(styleElement.cloneNode(true)))
+            //     launchPrint(win)
+            // })
     },
   },
 };
