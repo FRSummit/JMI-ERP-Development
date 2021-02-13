@@ -1,0 +1,10 @@
+@media print {
+    .header-section {
+        display: block;
+    }
+
+    p {
+        display: inline-block;
+        margin : 0;
+    }
+}
