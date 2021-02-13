@@ -336,6 +336,8 @@ export default {
             doc.autoTable(columnHeader, rows);
             doc.save(pdfName + '_' + filename + '.pdf');
             // doc.autoPrint(columnHeader, rows);
+
+            // Changes from jr
     },
   },
 };
