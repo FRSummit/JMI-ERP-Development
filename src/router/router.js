@@ -110,6 +110,28 @@ export const router = new VueRouter({
       name: 'Delivery Process - Dispatch Entry',
       component: () => import('../views/private_views/SD/DeliveryProcessDispatchEntry/DispatchEntry.vue')
     },
+    // Create Order
+    {
+      path: '/features/local_sales/sales_order',
+      name: 'Create Order',
+      component: () => import('../views/private_views/SD/CreateOrder/CreateOrder.vue')
+    },
+    // Doctors List
+    {
+      path: '/features/local_sales/doctors_list',
+      name: 'Doctors List',
+      component: () => import('../views/private_views/SD/Doctor/DoctorsList.vue')
+    },
+    {
+      path: '/features/local_sales/create_doctor',
+      name: 'Create Doctor',
+      component: () => import('../views/private_views/SD/Doctor/CreateDoctor/CreateDoctor.vue')
+    },
+    {
+      path: '/features/local_sales/doctors_profile',
+      name: 'Doctors Profile',
+      component: () => import('../views/private_views/SD/Doctor/DoctorProfile/DoctorsProfile.vue')
+    },
 
     // 404 Page
     {

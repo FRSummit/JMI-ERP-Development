@@ -24,6 +24,12 @@
     <router-link to="/sd/delivery-process--invoice-rinting">SD ----> Delivery Process - Invoice Printing</router-link>
     <br />
     <router-link to="/sd/delivery-process--dispatch-entry">SD ----> Delivery Process - Dispatch Entry</router-link>
+    <br />
+    <router-link to="/features/local_sales/doctors_list">SD ----> Doctors List</router-link>
+    <br />
+    <router-link to="/features/local_sales/create_doctor">SD ----> Create Doctor</router-link>
+    <br />
+    <router-link to="/features/local_sales/doctors_profile">SD ----> Doctors Profile</router-link>
     <!-- <br />
     <br />
     <br />
