@@ -110,6 +110,12 @@ export const router = new VueRouter({
       name: 'Delivery Process - Dispatch Entry',
       component: () => import('../views/private_views/SD/DeliveryProcessDispatchEntry/DispatchEntry.vue')
     },
+    // Create Order
+    {
+      path: '/features/local_sales/sales_order',
+      name: 'Create Order',
+      component: () => import('../views/private_views/SD/CreateOrder/CreateOrder.vue')
+    },
 
     // 404 Page
     {
