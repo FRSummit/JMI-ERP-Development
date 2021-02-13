@@ -1,12 +1,12 @@
 <template>
-  <div id="doctors-list" class="doctors-list">
+  <div id="doctors-profile" class="doctors-profile">
     <Heading :pathName="pathName" :routeName="routeName" />
   </div>
 </template>
 
 <script>
-import Heading from "../../../../components/master_layout/HeadingTitleBreadcrumb/HeadingTitleBreadcrumb";
-import BreadcrumbFunctions from '../../../../functions/BreadcrumbFunctions'
+import Heading from "../../../../../components/master_layout/HeadingTitleBreadcrumb/HeadingTitleBreadcrumb";
+import BreadcrumbFunctions from '../../../../../functions/BreadcrumbFunctions'
 const breadcrumbFunctions = new BreadcrumbFunctions()
 
 export default {
@@ -15,7 +15,7 @@ export default {
   },
   data() {
     return {
-      routeName: "Doctors List",
+      routeName: "Doctors Profile",
       parentPath: "Local Sales",
       pathName: [],
     };
@@ -34,5 +34,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import url("./DoctorsList.less");
+@import url("./DoctorsProfile.less");
 </style>
