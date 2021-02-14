@@ -28,8 +28,8 @@
                     </div>
                     <div class="profile-name-designation-section">
                         <div class="profile-name-designation-section-inner">
-                            <p class="name">{{ profile[0].advisor_name ? profile[0].advisor_name : "Not Found" }}<span class="icon"><i class="zmdi zmdi-star-circle"></i></span></p>
-                            <p class="designation"><span class="title">{{profile[0].designation ? profile[0].designation : "Default Designation"}}</span><span class="department">JMI-2231225</span></p>
+                            <p class="name">{{ profile.advisor_name ? profile.advisor_name : "Not Found" }}<span class="icon"><i class="zmdi zmdi-star-circle"></i></span></p>
+                            <p class="designation"><span class="title">{{profile.designation ? profile.designation : "Default Designation"}}</span><span class="department">JMI-2231225</span></p>
                         </div>
                     </div>
                     <div class="profile-details-section">
@@ -41,8 +41,8 @@
             </div>
             <div class="mailing-section">
                 <div class="mailing-section-inner">
-                    <p class="phone"><span class="icon"><i class="zmdi zmdi-phone-in-talk"></i></span>{{ profile[0].phone ? profile[0].phone : "Not found" }}</p>
-                    <p class="email"><span class="icon"><i class="zmdi zmdi-email"></i></span>{{ profile[0].email ? profile[0].email : "Not found" }}</p>
+                    <p class="phone"><span class="icon"><i class="zmdi zmdi-phone-in-talk"></i></span>{{ profile.phone ? profile.phone : "Not found" }}</p>
+                    <p class="email"><span class="icon"><i class="zmdi zmdi-email"></i></span>{{ profile.email ? profile.email : "Not found" }}</p>
                 </div>
             </div>
             <div class="bio-section">
@@ -79,13 +79,20 @@ export default {
   components: {},
   data() {
     return {
-        selectedStatus: 'Active',
+        selectedStatus: null,
     };
   },
   created() {},
   mounted() {
+      this.selectedStatus = this.profile.status === 1 ? 'Active' : 'Not Active'
+      console.log(this.profile.status)
   },
   methods: {},
+//   watch: {
+//       profile: () => {
+//       this.selectedStatus = this.profile.status === 1 ? 'Active' : 'Not Active'
+//     },
+//   }
 };
 </script>
 

@@ -2,7 +2,7 @@
   <div id="doctors-profile" class="doctors-profile">
     <Heading :pathName="pathName" :routeName="routeName" />
     <div class="doctors-profile-inner">
-      <ProfileLeftSection :profile="profile" />
+      <ProfileLeftSection :profile="chamber_1" />
       <ProfileDetailsSection :profile="profile" />
     </div>
   </div>
@@ -29,7 +29,9 @@ export default {
       routeName: "Doctors Profile",
       parentPath: "Local Sales",
       pathName: [],
-      profile: []
+      profile: [],
+      chamber_1: [],
+      chamber_2: [],
     };
   },
   created() {
@@ -37,7 +39,7 @@ export default {
     this.createBreadcrumbData();
   },
   async mounted() {
-    console.log()
+    // console.log()
     let route_id = this.$route.path.split(':')[1]
     await this.DOCTORS_PROFILE_FROM_SERVICE(route_id)
   },
@@ -48,9 +50,11 @@ export default {
     async DOCTORS_PROFILE_FROM_SERVICE(route_id) {
       await service.getAdvisorProfile(route_id)
         .then(res => {
-          console.log(res.data)
+          // console.log(res.data)
           this.profile = res.data.profile
-          console.log(this.profile)
+          // console.log(this.profile[0])
+          this.chamber_1 = res.data.profile[0]
+          this.chamber_2 = res.data.profile[1]
         })
     }
   },
