@@ -116,6 +116,12 @@ export const router = new VueRouter({
       name: 'Create Order',
       component: () => import('../views/private_views/SD/CreateOrder/CreateOrder.vue')
     },
+    // Order Approval
+    {
+      path: '/features/local_sales/order_approval',
+      name: 'Order Approval',
+      component: () => import('../views/private_views/SD/OrderApproval/OrderApproval.vue')
+    },
     // Doctors List
     {
       path: '/features/local_sales/doctors_list',
