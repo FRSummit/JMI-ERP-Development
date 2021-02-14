@@ -1,5 +1,5 @@
 <template>
-    <div class="profile-details-section">
+    <div id="profile-details-section" class="profile-details-section">
         Customer Details section
         <BasicInfo />
         <BusinessInfo />
