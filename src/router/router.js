@@ -128,7 +128,7 @@ export const router = new VueRouter({
       component: () => import('../views/private_views/SD/Doctor/CreateDoctor/CreateDoctor.vue')
     },
     {
-      path: '/features/local_sales/doctors_profile',
+      path: '/features/local_sales/doctors_profile:id',
       name: 'Doctors Profile',
       component: () => import('../views/private_views/SD/Doctor/DoctorProfile/DoctorsProfile.vue')
     },

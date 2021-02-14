@@ -8,7 +8,7 @@
                             <span class="status-color"></span>
                             <!-- <span class="right-icon"><i class="fas fa-chevron-right"></i></span> -->
                             <span class="down-icon"><i class="fas fa-chevron-down"></i></span>
-                            <select title="Status" class="selectpicker" v-model="selectedDA" @change="onChange()">
+                            <select title="Status" class="selectpicker" v-model="selectedStatus" @change="onChange()">
                                 <option>Active</option>
                                 <option>Passive</option>
                             </select>
@@ -28,8 +28,8 @@
                     </div>
                     <div class="profile-name-designation-section">
                         <div class="profile-name-designation-section-inner">
-                            <p class="name">Dr Qumrul Hassan Miron<span class="icon"><i class="zmdi zmdi-star-circle"></i></span></p>
-                            <p class="designation"><span class="title">Senior Consultant</span><span class="department">JMI-2231225</span></p>
+                            <p class="name">{{ profile[0].advisor_name ? profile[0].advisor_name : "Not Found" }}<span class="icon"><i class="zmdi zmdi-star-circle"></i></span></p>
+                            <p class="designation"><span class="title">{{profile[0].designation ? profile[0].designation : "Default Designation"}}</span><span class="department">JMI-2231225</span></p>
                         </div>
                     </div>
                     <div class="profile-details-section">
@@ -41,8 +41,8 @@
             </div>
             <div class="mailing-section">
                 <div class="mailing-section-inner">
-                    <p class="phone"><span class="icon"><i class="zmdi zmdi-phone-in-talk"></i></span>01682222222</p>
-                    <p class="email"><span class="icon"><i class="zmdi zmdi-email"></i></span>dr.qumrul@apollo.bd</p>
+                    <p class="phone"><span class="icon"><i class="zmdi zmdi-phone-in-talk"></i></span>{{ profile[0].phone ? profile[0].phone : "Not found" }}</p>
+                    <p class="email"><span class="icon"><i class="zmdi zmdi-email"></i></span>{{ profile[0].email ? profile[0].email : "Not found" }}</p>
                 </div>
             </div>
             <div class="bio-section">
@@ -75,12 +75,16 @@
 
 <script>
 export default {
+  props: ["profile"],
   components: {},
   data() {
-    return {};
+    return {
+        selectedStatus: 'Active',
+    };
   },
   created() {},
-  mounted() {},
+  mounted() {
+  },
   methods: {},
 };
 </script>
