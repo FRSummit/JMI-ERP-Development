@@ -1,7 +1,7 @@
 <template>
-    <div class="order-approval">
-        <Heading :pathName="pathName" :routeName="routeName" />
-    </div>
+  <div id="customer-profile" class="customer-profile">
+    <Heading :pathName="pathName" :routeName="routeName" />
+  </div>
 </template>
 
 <script>
@@ -15,7 +15,7 @@ export default {
   },
   data() {
     return {
-      routeName: "Create Order",
+      routeName: "Customer List",
       parentPath: "Local Sales",
       pathName: [],
     };
@@ -28,12 +28,12 @@ export default {
   methods: {
     createBreadcrumbData() {
     //   this.pathName = breadcrumbFunctions.jmiERPBreadcrumb(window.location.pathname);
-      this.pathName = [{name: "Features"},{ name: "Local Sales" }, { name: "Customer Profile" }];
+      this.pathName = [{name: "Features"},{ name: "Local Sales" }, { name: "Customer List" }];
     },
   },
 };
 </script>
 
 <style lang="less" scoped>
-@import url("./OrderApproval.less");
+@import url("./CustomerList.less");
 </style>

@@ -25,6 +25,19 @@
     <br />
     <router-link to="/sd/delivery-process--dispatch-entry">SD ----> Delivery Process - Dispatch Entry</router-link>
     <br />
+    <br />
+    <router-link to="/features/local_sales/sales_order">SD ----> Create Order</router-link>
+    <br />
+    <router-link to="/features/local_sales/order_approval">SD ----> Order Approval</router-link>
+    <br />
+    <br />
+    <router-link to="/features/local_sales/customer_list">SD ----> Customer List</router-link>
+    <br />
+    <router-link to="/features/local_sales/create_customer">SD ----> Create Customer</router-link>
+    <br />
+    <router-link to="/features/local_sales/customer_profile">SD ----> Customer Profile</router-link>
+    <br />
+    <br />
     <router-link to="/features/local_sales/doctors_list">SD ----> Doctors List</router-link>
     <br />
     <router-link to="/features/local_sales/create_doctor">SD ----> Create Doctor</router-link>
