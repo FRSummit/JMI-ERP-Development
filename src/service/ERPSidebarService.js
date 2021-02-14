@@ -245,6 +245,21 @@ export default class PostService {
     })
   }
 
+  //////////////////////////////////////////////////////////////////////////////////////////
+  // Doctors
+
+  // Get Doctors Profile
+  getAdvisorProfile(id) {
+    let web_menu_url = 'api/mobile/get-advisor-profile/' + id
+    return axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
+
+
   getAllSidebarMenu() {
     // return axios.get('/jerp_menu');
     return axios({
