@@ -1,7 +1,7 @@
 <template>
-  <div id="create-order" class="create-order">
-    <Heading :pathName="pathName" :routeName="routeName" />
-  </div>
+    <div class="order-approval">
+        <Heading :pathName="pathName" :routeName="routeName" />
+    </div>
 </template>
 
 <script>
@@ -35,5 +35,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import url("./CreateOrder.less");
+@import url("./OrderApproval.less");
 </style>

@@ -1,12 +1,12 @@
 <template>
-  <div id="create-order" class="create-order">
+  <div id="customer-profile" class="customer-profile">
     <Heading :pathName="pathName" :routeName="routeName" />
   </div>
 </template>
 
 <script>
-import Heading from "../../../../components/master_layout/HeadingTitleBreadcrumb/HeadingTitleBreadcrumb";
-// import BreadcrumbFunctions from '../../../../functions/BreadcrumbFunctions'
+import Heading from "../../../../../components/master_layout/HeadingTitleBreadcrumb/HeadingTitleBreadcrumb";
+// import BreadcrumbFunctions from '../../../../../functions/BreadcrumbFunctions'
 // const breadcrumbFunctions = new BreadcrumbFunctions()
 
 export default {
@@ -15,7 +15,7 @@ export default {
   },
   data() {
     return {
-      routeName: "Create Order",
+      routeName: "Create Customer",
       parentPath: "Local Sales",
       pathName: [],
     };
@@ -28,12 +28,12 @@ export default {
   methods: {
     createBreadcrumbData() {
     //   this.pathName = breadcrumbFunctions.jmiERPBreadcrumb(window.location.pathname);
-      this.pathName = [{name: "Features"},{ name: "Local Sales" }, { name: "Customer Profile" }];
+      this.pathName = [{name: "Features"},{ name: "Local Sales" }, { name: "Create Customer" }];
     },
   },
 };
 </script>
 
 <style lang="less" scoped>
-@import url("./CreateOrder.less");
+@import url("./CreateCustomer.less");
 </style>

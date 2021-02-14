@@ -1,21 +1,27 @@
 <template>
-  <div id="create-order" class="create-order">
+  <div id="customer-profile" class="customer-profile">
     <Heading :pathName="pathName" :routeName="routeName" />
+    <ProfileLeftSection />
+    <ProfileDetailsSection />
   </div>
 </template>
 
 <script>
-import Heading from "../../../../components/master_layout/HeadingTitleBreadcrumb/HeadingTitleBreadcrumb";
-// import BreadcrumbFunctions from '../../../../functions/BreadcrumbFunctions'
+import Heading from "../../../../../components/master_layout/HeadingTitleBreadcrumb/HeadingTitleBreadcrumb";
+// import BreadcrumbFunctions from '../../../../../functions/BreadcrumbFunctions'
 // const breadcrumbFunctions = new BreadcrumbFunctions()
+import ProfileLeftSection from './LeftSection/LeftSection'
+import ProfileDetailsSection from './ProfileDetailSection/ProfileDetailsSection'
 
 export default {
   components: {
     Heading,
+    ProfileLeftSection,
+    ProfileDetailsSection
   },
   data() {
     return {
-      routeName: "Create Order",
+      routeName: "Customer Profile",
       parentPath: "Local Sales",
       pathName: [],
     };
@@ -35,5 +41,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import url("./CreateOrder.less");
+@import url("./CustomerProfile.less");
 </style>

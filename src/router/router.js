@@ -116,6 +116,28 @@ export const router = new VueRouter({
       name: 'Create Order',
       component: () => import('../views/private_views/SD/CreateOrder/CreateOrder.vue')
     },
+    // Order Approval
+    {
+      path: '/features/local_sales/order_approval',
+      name: 'Order Approval',
+      component: () => import('../views/private_views/SD/OrderApproval/OrderApproval.vue')
+    },
+    // Customer Profile
+    {
+      path: '/features/local_sales/customer_list',
+      name: 'Customer List',
+      component: () => import('../views/private_views/SD/Customer/CustomerList.vue')
+    },
+    {
+      path: '/features/local_sales/create_customer',
+      name: 'Create Customer',
+      component: () => import('../views/private_views/SD/Customer/CreateCustomer/CreateCustomer.vue')
+    },
+    {
+      path: '/features/local_sales/customer_profile',
+      name: 'Create Customer',
+      component: () => import('../views/private_views/SD/Customer/CustomerProfile/CustomerProfile.vue')
+    },
     // Doctors List
     {
       path: '/features/local_sales/doctors_list',
