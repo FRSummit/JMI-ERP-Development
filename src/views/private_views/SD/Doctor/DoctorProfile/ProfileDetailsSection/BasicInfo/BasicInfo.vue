@@ -111,41 +111,41 @@
                       <div class="row">
                           <p class="data-section">
                               <span class="label">Father's Name:</span>
-                              <span class="data">Zakir Hossain</span>
+                              <span class="data">{{ profile[0].father_name ? profile[0].father_name : "Not Found" }}</span>
                           </p>
                           <p class="data-section">
                               <span class="label">Mother's Name:</span>
-                              <span class="data">Mahfuza Akhter</span>
+                              <span class="data">{{ profile[0].mother_name ? profile[0].mother_name : "Not Found" }}</span>
                           </p>
                       </div>
                       <div class="row">
                           <p class="data-section">
                               <span class="label">Spouse Name:</span>
-                              <span class="data">Mrs. Parul Akhter</span>
+                              <span class="data">{{ profile[0].spouse_name ? profile[0].spouse_name : "Not Found" }}</span>
                           </p>
                           <p class="data-section">
                               <span class="label">Spouse DOB:</span>
-                              <span class="data">01/11/1996</span>
+                              <span class="data">{{ profile[0].spouse_dob ? profile[0].spouse_dob : "Not Found" }}</span>
                           </p>
                       </div>
                       <div class="row">
                           <p class="data-section">
                               <span class="label">Childres name:</span>
-                              <span class="data">Mehidi Hasan</span>
+                              <span class="data">{{ profile[0].children_name ? profile[0].children_name : "Not Found" }}</span>
                           </p>
                           <p class="data-section">
                               <span class="label">Children DOB:</span>
-                              <span class="data">02/11/1996</span>
+                              <span class="data">{{ profile[0].children_dob ? profile[0].children_dob : "Not Found" }}</span>
                           </p>
                       </div>
                       <div class="row">
                           <p class="data-section">
                               <span class="label">Childres name:</span>
-                              <span class="data">Mehidi Hasan</span>
+                              <span class="data">{{ profile[0].children_name ? profile[0].children_name : "Not Found" }}</span>
                           </p>
                           <p class="data-section">
                               <span class="label">Children DOB:</span>
-                              <span class="data">02/11/1996</span>
+                              <span class="data">{{ profile[0].children_dob ? profile[0].children_dob : "Not Found" }}</span>
                           </p>
                       </div>
                   </div>
@@ -161,31 +161,31 @@
                       <div class="row">
                           <p class="data-section">
                               <span class="label">Address:</span>
-                              <span class="data">21/1 A Sukrabad</span>
+                              <span class="data">{{ profile[0].address ? profile[0].address : "Not Found" }}</span>
                           </p>
                           <p class="data-section">
                               <span class="label">Post Office:</span>
-                              <span class="data">Kalabagan</span>
+                              <span class="data">{{ profile[0].address ? profile[0].address : "Not Found" }}</span>
                           </p>
                       </div>
                       <div class="row">
                           <p class="data-section">
                               <span class="label">Police Station:</span>
-                              <span class="data">Dhanmondi</span>
+                              <span class="data">{{ profile[0].address ? profile[0].address : "Not Found" }}</span>
                           </p>
                           <p class="data-section">
                               <span class="label">District/City:</span>
-                              <span class="data">Dhaka</span>
+                              <span class="data">{{ profile[0].address ? profile[0].address : "Not Found" }}</span>
                           </p>
                       </div>
                       <div class="row">
                           <p class="data-section">
                               <span class="label">Division/State:</span>
-                              <span class="data">Dhaka</span>
+                              <span class="data">{{ profile[0].address ? profile[0].address : "Not Found" }}</span>
                           </p>
                           <p class="data-section">
                               <span class="label">Zip Code:</span>
-                              <span class="data">648</span>
+                              <span class="data">{{ profile[0].address ? profile[0].address : "Not Found" }}</span>
                           </p>
                       </div>
                   </div>
@@ -201,31 +201,31 @@
                       <div class="row">
                           <p class="data-section">
                               <span class="label">Address:</span>
-                              <span class="data">21/1 A Sukrabad</span>
+                              <span class="data">{{ profile[0].address ? profile[0].address : "Not Found" }}</span>
                           </p>
                           <p class="data-section">
                               <span class="label">Post Office:</span>
-                              <span class="data">Kalabagan</span>
+                              <span class="data">{{ profile[0].address ? profile[0].address : "Not Found" }}</span>
                           </p>
                       </div>
                       <div class="row">
                           <p class="data-section">
                               <span class="label">Police Station:</span>
-                              <span class="data">Dhanmondi</span>
+                              <span class="data">{{ profile[0].address ? profile[0].address : "Not Found" }}</span>
                           </p>
                           <p class="data-section">
                               <span class="label">District/City:</span>
-                              <span class="data">Dhaka</span>
+                              <span class="data">{{ profile[0].address ? profile[0].address : "Not Found" }}</span>
                           </p>
                       </div>
                       <div class="row">
                           <p class="data-section">
                               <span class="label">Division/State:</span>
-                              <span class="data">Dhaka</span>
+                              <span class="data">{{ profile[0].address ? profile[0].address : "Not Found" }}</span>
                           </p>
                           <p class="data-section">
                               <span class="label">Zip Code:</span>
-                              <span class="data">648</span>
+                              <span class="data">{{ profile[0].address ? profile[0].address : "Not Found" }}</span>
                           </p>
                       </div>
                   </div>
