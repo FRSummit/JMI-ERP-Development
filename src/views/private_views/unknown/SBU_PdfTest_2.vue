@@ -272,7 +272,7 @@ export default {
             // var doc = new jsPDF('p', 'pt');
             // var doc = new jsPDF('p', 'pt', 'a4', true);
             // var doc = new jsPDF('p', 'pt', 'letter');
-            var doc = new jsPDF('p', 'px', [612, 792]);
+            var doc = new jsPDF('p', 'pt', [612, 792]);
 
 
             // jsPDF(orientation, unit, format)
@@ -364,6 +364,15 @@ export default {
             let ww = doc.getTextWidth(my_email)
             doc.text(("email weidth: " + ww), 105, 100, "left")
             doc.text((my_email), ( doc.internal.pageSize.getWidth() - ww ), 110, "left")
+            
+            doc.text("Left Margin", ( 54 ), 120, "left")                                        // 54 pt = 72 px = 0.75 inch
+            doc.text("Right Margin", ( doc.internal.pageSize.getWidth() - 54 ), 120, "right")   // 54 pt = 72 px = 0.75 inch
+
+            doc.text("Top Margin", ( doc.internal.pageSize.getWidth() / 2 ), 72, "center")      // 72 pt = 96 px = 0.75 inch
+            doc.text("Bottom Margin", ( doc.internal.pageSize.getWidth() / 2 ), ( doc.internal.pageSize.getHeight() - 54 ), "center")  // 54 pt = 72 px = 0.75 inch
+
+            // doc.text("Right Margin", ( 72 ), 130, "left")
+            // doc.text("Right Margin", ( doc.internal.pageSize.getWidth() - 72 ), 130, "right")
 
             doc.text(20, 30, 'This is client-side Javascript, pumping out a PDF.');
             doc.addPage();
