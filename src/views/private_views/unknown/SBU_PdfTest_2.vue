@@ -326,7 +326,7 @@ export default {
             doc.text(72, 96, 'Do you like that?');
             // doc.autoTable(columnHeader, rows, { startY: 10 });
             //doc.autoTable(columnHeader, rows { margin: { top: 80 } })
-            doc.autoTable(300, 95, 'columnHeader, rows');
+            doc.autoTable(columnHeader, rows,300, 95);
             doc.addPage();
             doc.text(72, 96, 'Another table');
             doc.autoTable(columnHeader, rows);
