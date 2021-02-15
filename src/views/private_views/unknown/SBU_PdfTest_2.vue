@@ -271,7 +271,7 @@ export default {
             // var doc = new jsPDF();
             // var doc = new jsPDF('p', 'pt');
             // var doc = new jsPDF('p', 'pt', 'a4', true);
-            var doc = new jsPDF('p', 'pt', 'letter');
+            var doc = new jsPDF('p', 'pt', 'letter', true);
 
             // doc.text("Hello World", 10, 10);
 
@@ -316,17 +316,19 @@ export default {
             })*/
 
             doc.setFont("arial", "bold");
-            doc.setFontSize(14);
+            // doc.setFontSize(14);
 
             doc.setFontSize(10);
-            doc.text(20, 20, 'Hello world!');
-            doc.text(20, 30, 'This is client-side Javascript, pumping out a PDF.');
+            doc.text(72, 96, 'Hello world!');
+            doc.text(300, 96, 'Hello world!');
+            doc.text(72, 106, 'This is client-side Javascript, pumping out a PDF.');
             doc.addPage();
-            doc.text(20, 20, 'Do you like that?');
+            doc.text(72, 96, 'Do you like that?');
             // doc.autoTable(columnHeader, rows, { startY: 10 });
-            doc.autoTable(columnHeader, rows);
+            //doc.autoTable(columnHeader, rows { margin: { top: 80 } })
+            doc.autoTable(300, 95, 'columnHeader, rows');
             doc.addPage();
-            doc.text(20, 20, 'Another table');
+            doc.text(72, 96, 'Another table');
             doc.autoTable(columnHeader, rows);
             doc.autoTable(columnHeader, rows);
             doc.autoTable(columnHeader, rows);

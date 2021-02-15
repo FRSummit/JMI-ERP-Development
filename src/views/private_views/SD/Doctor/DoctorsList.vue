@@ -42,6 +42,8 @@
 import Heading from "../../../../components/master_layout/HeadingTitleBreadcrumb/HeadingTitleBreadcrumb";
 import BreadcrumbFunctions from "../../../../functions/BreadcrumbFunctions";
 const breadcrumbFunctions = new BreadcrumbFunctions();
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 export default {
   components: {
@@ -209,6 +211,31 @@ export default {
         console.log(item)
       }
   },
+   createPDF () {
+            var source =  this.$refs["myTable"];
+            let rows = [];
+            let columnHeader = ['Name', 'Type', 'Designation', 'Speacialization', 'Territory', 'Status'];
+            let pdfName = 'Description';
+            source.items.forEach(element => {
+                var temp = [
+                    element.StartTime,
+                    element.TERMDESC,
+                    element.M1 || '' + element.M4 || '' + element.M2 || '' + element.M3 || '',
+                    element.T1 || '' + element.T4 || '' + element.T2 || '' + element.T3 || '',
+                    element.W1 || '' + element.W4 || '' + element.W2 || '' + element.W3 || '',
+                    element.R1 || '' + element.R4 || '' + element.R2 || '' + element.R3 || '',
+                    element.F1 || '' + element.F4 || '' + element.F2 || '' + element.F3 || '',
+                    element.S1 || '' + element.S4 || '' + element.S2 || '' + element.S3 || '',
+                    element.U1 || '' + element.U4 || '' + element.U2 || '' + element.U3 || '',
+                ];
+                rows.push(temp);
+            });
+
+  
+            var doc = new jsPDF();
+            doc.autoTable(columnHeader, rows, { startY: 10 });
+            doc.save(pdfName + '.pdf');
+        }
 };
 </script>
 
