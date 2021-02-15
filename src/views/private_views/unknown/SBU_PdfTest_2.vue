@@ -358,6 +358,13 @@ export default {
             doc.text("Test", 105, 60, "center")
             doc.text("Test", 105, 70, "right")
 
+            // Image
+            let image = new Image()
+            image.src = 'https://pbs.twimg.com/profile_images/1343584679664873479/Xos3xQfk.jpg'
+            // addImage(imageData, format, x, y, width, height, alias, compression, rotation)
+            // addImage(imageData, format, x, y, width, height)
+            doc.addImage(image, 'png', 105, 80, 40, 40)
+
             doc.addPage();
 
             doc.text(("doc weidth: " + doc.internal.pageSize.getWidth()), 105, 80, "left")

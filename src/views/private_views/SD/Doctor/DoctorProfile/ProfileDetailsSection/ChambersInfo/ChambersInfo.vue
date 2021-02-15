@@ -65,6 +65,7 @@
                     </div>
                     <div class="chember-map">
                       <div class="chember-map-inner">
+                        <!-- <gmap-map :center="{lat: parseFloat(chember.latitude), lng: parseFloat(chember.longitude)}" :zoom="14" -->
                         <gmap-map :center="checkCenter(chember)" :zoom="14"
                           style="width: 100%; height: 300px; border-radius: 2px;"
                         >
@@ -219,8 +220,8 @@ export default {
       return status === "1" ? "Active" : "Deactive"
     },
     checkCenter(chamber) {
-      if(chamber.latitude && chamber.longitude) {
-        this.center = { 
+      if(chamber) {
+        /*this.center = { 
           lat: parseFloat(chamber.latitude),
           lng: parseFloat(chamber.longitude)
         }
@@ -235,7 +236,7 @@ export default {
             description: chamber.chamber_address ? chamber.chamber_address : "Not Found",
             date_build: "Test attribute",
           },
-        ]
+        ]*/
       }
       return this.center
     },
