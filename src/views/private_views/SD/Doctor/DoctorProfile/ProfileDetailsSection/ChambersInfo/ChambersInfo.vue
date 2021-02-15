@@ -37,11 +37,11 @@
                             </div>
                             <div class="assistant">
                               <span>Assistant Name</span>
-                              <span>Atik Faisal</span>
+                              <span>{{chamber.assistant_name ? chamber.assistant_name : "Not Found"}}</span>
                             </div>
                             <div class="phone">
                               <span>Assistant Phone</span>
-                              <span>01672222222</span>
+                              <span>{{chamber.assistant_phone ? chamber.assistant_phone : "Not Found"}}</span>
                             </div>
                           </div>
                         </div>
@@ -65,7 +65,7 @@
                     </div>
                     <div class="chember-map">
                       <div class="chember-map-inner">
-                        <gmap-map :center="center" :zoom="14"
+                        <gmap-map :center="checkCenter(chember)" :zoom="14"
                           style="width: 100%; height: 300px; border-radius: 2px;"
                         >
                           <gmap-marker :key="index" v-for="(m, index) in markers" :position="m.position"
@@ -152,6 +152,7 @@ export default {
       // VueGoogleMaps.InfoWindow.open(this.Map, m);
         this.infoWindowPos = marker.position;
         this.infoContent = this.getInfoWindowContent(marker);
+        console.log(this.currentMidx + '    ' + index)
         
 
         //check if its the same marker that was selected if yes toggle
@@ -163,8 +164,10 @@ export default {
           this.infoWinOpen = true;
           this.currentMidx = index;
         }
+        console.log(this.currentMidx + '    ' + index)
     },
     getInfoWindowContent(marker) {
+      console.log(marker)
       return (`<div class="card" style="visibility: visible; margin: 0; border: none; box-shadow: none;">
         <!--<div class="card-image">
           <figure class="image is-4by3">
@@ -214,6 +217,27 @@ export default {
     },
     checkStatus(status) {
       return status === "1" ? "Active" : "Deactive"
+    },
+    checkCenter(chamber) {
+      if(chamber.latitude && chamber.longitude) {
+        this.center = { 
+          lat: parseFloat(chamber.latitude),
+          lng: parseFloat(chamber.longitude)
+        }
+        this.markers = [
+          {
+            position: {
+              lat: parseFloat(chamber.latitude),
+              lng: parseFloat(chamber.longitude),
+            },
+            title: chamber.chamber_name ? chamber.chamber_name : "Not Found",
+            name: chamber.chamber_name ? chamber.chamber_name : "Not Found",
+            description: chamber.chamber_address ? chamber.chamber_address : "Not Found",
+            date_build: "Test attribute",
+          },
+        ]
+      }
+      return this.center
     },
     addChemberClick() {
       console.log('add chember clicked')

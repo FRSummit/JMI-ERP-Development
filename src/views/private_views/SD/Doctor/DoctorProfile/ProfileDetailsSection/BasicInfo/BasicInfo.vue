@@ -138,7 +138,7 @@
                               <span class="data">{{ person.children_dob ? person.children_dob : "Not Found" }}</span>
                           </p>
                       </div>
-                      <div class="row">
+                      <!-- <div class="row">
                           <p class="data-section">
                               <span class="label">Childres name:</span>
                               <span class="data">{{ person.children_name ? person.children_name : "Not Found" }}</span>
@@ -147,7 +147,7 @@
                               <span class="label">Children DOB:</span>
                               <span class="data">{{ person.children_dob ? person.children_dob : "Not Found" }}</span>
                           </p>
-                      </div>
+                      </div> -->
                   </div>
               </div>
           </div>
@@ -161,14 +161,15 @@
                       <div class="row">
                           <p class="data-section">
                               <span class="label">Address:</span>
+                              <!-- <span class="data">{{ person.address ? person.address : "Not Found" }}</span> -->
                               <span class="data">{{ person.address ? person.address : "Not Found" }}</span>
                           </p>
-                          <p class="data-section">
+                          <!-- <p class="data-section">
                               <span class="label">Post Office:</span>
                               <span class="data">{{ person.address ? person.address : "Not Found" }}</span>
-                          </p>
+                          </p> -->
                       </div>
-                      <div class="row">
+                      <!-- <div class="row">
                           <p class="data-section">
                               <span class="label">Police Station:</span>
                               <span class="data">{{ person.address ? person.address : "Not Found" }}</span>
@@ -187,7 +188,7 @@
                               <span class="label">Zip Code:</span>
                               <span class="data">{{ person.address ? person.address : "Not Found" }}</span>
                           </p>
-                      </div>
+                      </div> -->
                   </div>
               </div>
           </div>
@@ -201,14 +202,15 @@
                       <div class="row">
                           <p class="data-section">
                               <span class="label">Address:</span>
+                              <!-- <span class="data">{{ person.address ? person.address : "Not Found" }}</span> -->
                               <span class="data">{{ person.address ? person.address : "Not Found" }}</span>
                           </p>
-                          <p class="data-section">
+                          <!-- <p class="data-section">
                               <span class="label">Post Office:</span>
                               <span class="data">{{ person.address ? person.address : "Not Found" }}</span>
-                          </p>
+                          </p> -->
                       </div>
-                      <div class="row">
+                      <!-- <div class="row">
                           <p class="data-section">
                               <span class="label">Police Station:</span>
                               <span class="data">{{ person.address ? person.address : "Not Found" }}</span>
@@ -227,7 +229,7 @@
                               <span class="label">Zip Code:</span>
                               <span class="data">{{ person.address ? person.address : "Not Found" }}</span>
                           </p>
-                      </div>
+                      </div> -->
                   </div>
               </div>
           </div>
