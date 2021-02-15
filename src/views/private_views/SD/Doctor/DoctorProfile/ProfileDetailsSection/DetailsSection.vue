@@ -48,7 +48,8 @@ export default {
     return {};
   },
   created() {},
-  mounted() {},
+  mounted() {
+  },
   methods: {},
 };
 </script>
