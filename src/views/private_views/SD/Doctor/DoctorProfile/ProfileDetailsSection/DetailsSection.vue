@@ -7,7 +7,7 @@
                         <b-tab class="b-tab" title="Basic" active>
                             <div class="basic-tab">
                                 <div class="basic-tab-inner">
-                                    <BasicInfo :profile="profile" />
+                                    <BasicInfo :person="person" :advisor="advisor" :family="family" />
                                 </div>
                             </div>
                         </b-tab>
@@ -21,7 +21,7 @@
                         <b-tab class="b-tab" title="Chambers">
                             <div class="chambers-tab">
                                 <div class="chambers-tab-inner">
-                                    <ChambersInfo :profile="profile" />
+                                    <ChambersInfo :chamber="chamber" :chamber_location="chamber_location" />
                                 </div>
                             </div>
                         </b-tab>
@@ -38,7 +38,7 @@ import BasicInfo from './BasicInfo/BasicInfo'
 import ChambersInfo from './ChambersInfo/ChambersInfo'
 
 export default {
-  props: ["profile"],
+  props: ["person", "advisor", "chamber", "chamber_location", "family"],
   components: {
       BasicInfo,
     //   InstitutionInfo,

@@ -42,7 +42,7 @@
     <br />
     <router-link to="/features/local_sales/create_doctor">SD ----> Create Doctor</router-link>
     <br />
-    <router-link to="/features/local_sales/doctors_profile">SD ----> Doctors Profile</router-link>
+    <router-link to="/features/local_sales/doctors_profile:1">SD ----> Doctors Profile</router-link>
     <!-- <br />
     <br />
     <br />

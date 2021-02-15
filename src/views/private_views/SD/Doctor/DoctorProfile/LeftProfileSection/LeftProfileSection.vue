@@ -15,7 +15,7 @@
                         </div>
                     </div>
                     <div class="core-section">
-                        <span class="core">Hardcore</span>
+                        <span class="core">ID: {{ person.id }}</span>
                     </div>
                 </div>
             </div>
@@ -28,30 +28,30 @@
                     </div>
                     <div class="profile-name-designation-section">
                         <div class="profile-name-designation-section-inner">
-                            <p class="name">{{ profile.advisor_name ? profile.advisor_name : "Not Found" }}<span class="icon"><i class="zmdi zmdi-star-circle"></i></span></p>
-                            <p class="designation"><span class="title">{{profile.designation ? profile.designation : "Default Designation"}}</span><span class="department">JMI-2231225</span></p>
+                            <p class="name">{{ person.name ? person.name : "Not Found" }}<span class="icon"><i class="zmdi zmdi-star-circle"></i></span></p>
+                            <p class="designation"><span class="title">{{person.designation ? person.designation : "Default Designation"}}</span><span class="department">{{ advisor.specialization }}</span></p>
                         </div>
                     </div>
                     <div class="profile-details-section">
                         <div class="profile-details-section-inner">
-                            <p class="details">Cardiovascular / Thoracic Surgery Apollo Hospital Dhaka Bangladesh</p>
+                            <p class="details">{{ person.address ? person.address : "Dummy: Cardiovascular / Thoracic Surgery Apollo Hospital Dhaka Bangladesh" }}</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="mailing-section">
                 <div class="mailing-section-inner">
-                    <p class="phone"><span class="icon"><i class="zmdi zmdi-phone-in-talk"></i></span>{{ profile.phone ? profile.phone : "Not found" }}</p>
-                    <p class="email"><span class="icon"><i class="zmdi zmdi-email"></i></span>{{ profile.email ? profile.email : "Not found" }}</p>
+                    <p class="phone"><span class="icon"><i class="zmdi zmdi-phone-in-talk"></i></span>{{ person.phone ? person.phone : "Not found" }}</p>
+                    <p class="email"><span class="icon"><i class="zmdi zmdi-email"></i></span>{{ person.email ? person.email : "Not found" }}</p>
                 </div>
             </div>
             <div class="bio-section">
                 <div class="bio-section-inner">
                     <div class="title">
-                        <span>bio</span>
+                        <span>Bio</span>
                     </div>
                     <div class="description">
-                        <span>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, seda diam nonumy eirmod tempor invidunt ut the sea labore et dolorae magna aliquyam erat, sed diam voluptua. At vero eos et accusam eta justo duo diam to dolores et ea rebum. Stet clita kasd gubergren, no and Lorem ipsum dolor sit amet, consetetur sadipscing elitr, seda diam nonumy eirmod tempor invidunt ut the sea labore et dolorae magna aliquyam erat, sed diam voluptua. At vero eos et accusam eta justo duo diam to dolores et ea rebum. Stet clita kasd gubergren, no</span>
+                        <span>{{ person.bio ? person.bio : "Dummy: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, seda diam nonumy eirmod tempor invidunt ut the sea labore et dolorae magna aliquyam erat, sed diam voluptua. At vero eos et accusam eta justo duo diam to dolores et ea rebum. Stet clita kasd gubergren, no and Lorem ipsum dolor sit amet, consetetur sadipscing elitr, seda diam nonumy eirmod tempor invidunt ut the sea labore et dolorae magna aliquyam erat, sed diam voluptua. At vero eos et accusam eta justo duo diam to dolores et ea rebum. Stet clita kasd gubergren, no" }}</span>
                     </div>
                 </div>
             </div>
@@ -75,7 +75,7 @@
 
 <script>
 export default {
-  props: ["profile"],
+  props: ["person", "advisor"],
   components: {},
   data() {
     return {
@@ -84,8 +84,7 @@ export default {
   },
   created() {},
   mounted() {
-      this.selectedStatus = this.profile.status === 1 ? 'Active' : 'Not Active'
-      console.log(this.profile.status)
+      this.selectedStatus = this.person.status === "1" ? 'Active' : 'Not Active'
   },
   methods: {},
 //   watch: {

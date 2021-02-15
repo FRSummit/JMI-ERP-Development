@@ -1,6 +1,7 @@
 <template>
   <div id="basic-info-section" class="basic-info-section">
       <div class="basic-info-section-inner">
+          <!-- PERSONAL INFO -->
           <div class="personal-info-section">
               <div class="personal-info-section-inner">
                   <div class="title">
@@ -10,47 +11,47 @@
                       <div class="row">
                           <p class="data-section">
                               <span class="label">Date of Birth</span>
-                              <span class="data">{{ profile[0].dob ? profile[0].dob : "Not Found" }}</span>
+                              <span class="data">{{ person.dob ? person.dob : "Not Found" }}</span>
                           </p>
                           <p class="data-section">
                               <span class="label">Gender:</span>
-                              <span class="data">{{ profile[0].sex ? profile[0].sex : "Not Found" }}</span>
+                              <span class="data">{{ person.sex ? person.sex : "Not Found" }}</span>
                           </p>
                       </div>
                       <div class="row">
                           <p class="data-section">
                               <span class="label">Blood Group:</span>
-                              <span class="data">{{ profile[0].blood_group ? profile[0].blood_group : "Not Found" }}</span>
+                              <span class="data">{{ person.blood_group ? person.blood_group : "Not Found" }}</span>
                           </p>
                           <p class="data-section">
                               <span class="label">Religion:</span>
-                              <span class="data">{{ profile[0].religion ? profile[0].religion : "Not Found" }}</span>
+                              <span class="data">{{ person.religion ? person.religion : "Not Found" }}</span>
                           </p>
                       </div>
                       <div class="row">
                           <p class="data-section">
                               <span class="label">National ID:</span>
-                              <span class="data">{{ profile[0].nid ? profile[0].nid : "Not Found" }}</span>
+                              <span class="data">{{ person.nid ? person.nid : "Not Found" }}</span>
                           </p>
                           <p class="data-section">
                               <span class="label">Marital Status:</span>
-                              <span class="data">{{ profile[0].marital_status ? profile[0].marital_status : "Not Found" }}</span>
+                              <span class="data">{{ person.marital_status ? person.marital_status : "Not Found" }}</span>
                           </p>
                       </div>
                       <div class="row">
                           <p class="data-section">
                               <span class="label">Contact Number:</span>
-                              <span class="data">{{ profile[0].phone ? profile[0].phone : "Not Found" }}</span>
+                              <span class="data">{{ person.phone ? person.phone : "Not Found" }}</span>
                           </p>
                           <p class="data-section">
                               <span class="label">Email:</span>
-                              <span class="data">{{ profile[0].email ? profile[0].email : "Not Found" }}</span>
+                              <span class="data">{{ person.email ? person.email : "Not Found" }}</span>
                           </p>
                       </div>
                   </div>
               </div>
           </div>
-          <!--  -->
+          <!-- PROFESSIONAL INFO -->
           <div class="personal-info-section">
               <div class="personal-info-section-inner">
                   <div class="title">
@@ -60,48 +61,47 @@
                       <div class="row">
                           <p class="data-section">
                               <span class="label">Occupation:</span>
-                              <span class="data">{{ profile[0].occupation ? profile[0].occupation : "Not Found" }}</span>
+                              <span class="data">{{ person.occupation ? person.occupation : "Not Found" }}</span>
                           </p>
                           <p class="data-section">
                               <span class="label">Designation:</span>
-                              <span class="data">{{ profile[0].designation ? profile[0].designation : "Not Found" }}</span>
+                              <span class="data">{{ person.designation ? person.designation : "Not Found" }}</span>
                           </p>
                       </div>
                       <div class="row">
                           <p class="data-section">
                               <span class="label">Specialization:</span>
-                              <span class="data">{{ profile[0].specialization ? profile[0].specialization : "Not Found" }}</span>
+                              <span class="data">{{ advisor.specialization ? advisor.specialization : "Not Found" }}</span>
                           </p>
                           <p class="data-section">
                               <span class="label">Organization:</span>
-                              <span class="data">{{ profile[0].organization ? profile[0].organization : "Not Found" }}</span>
+                              <span class="data">{{ person.organization ? person.organization : "Not Found" }}</span>
                           </p>
                       </div>
                       <div class="row">
                           <p class="data-section">
                               <span class="label">Degree:</span>
-                              <span class="data">{{ profile[0].degree ? profile[0].degree : "Not Found" }}</span>
+                              <span class="data">{{ advisor.degree ? advisor.degree : "Not Found" }}</span>
                           </p>
                           <p class="data-section">
                               <span class="label">Registration Number:</span>
-                              <span class="data">{{ profile[0].registration_number ? profile[0].registration_number : "Not Found" }}</span>
+                              <span class="data">{{ person.registration_number ? person.registration_number : "Not Found" }}</span>
                           </p>
                       </div>
                       <div class="row">
                           <p class="data-section">
                               <span class="label">TIN:</span>
-                              <span class="data">{{ profile[0].tin ? profile[0].tin : "Not Found" }}</span>
+                              <span class="data">{{ person.tin ? person.tin : "Not Found" }}</span>
                           </p>
                           <p class="data-section">
                               <span class="label">Patient per Day:</span>
-                              <span class="data">{{ profile[0].patient ? profile[0].patient : "Not Found" }}</span>
+                              <span class="data">{{ person.patient ? person.patient : "Not Found" }}</span>
                           </p>
                       </div>
                   </div>
               </div>
           </div>
-          <!--  -->
-          <!--  -->
+          <!-- FAMILY INFO -->
           <div class="personal-info-section">
               <div class="personal-info-section-inner">
                   <div class="title">
@@ -111,47 +111,47 @@
                       <div class="row">
                           <p class="data-section">
                               <span class="label">Father's Name:</span>
-                              <span class="data">{{ profile[0].father_name ? profile[0].father_name : "Not Found" }}</span>
+                              <span class="data">{{ person.father_name ? person.father_name : "Not Found" }}</span>
                           </p>
                           <p class="data-section">
                               <span class="label">Mother's Name:</span>
-                              <span class="data">{{ profile[0].mother_name ? profile[0].mother_name : "Not Found" }}</span>
+                              <span class="data">{{ person.mother_name ? person.mother_name : "Not Found" }}</span>
                           </p>
                       </div>
                       <div class="row">
                           <p class="data-section">
                               <span class="label">Spouse Name:</span>
-                              <span class="data">{{ profile[0].spouse_name ? profile[0].spouse_name : "Not Found" }}</span>
+                              <span class="data">{{ person.spouse_name ? person.spouse_name : "Not Found" }}</span>
                           </p>
                           <p class="data-section">
                               <span class="label">Spouse DOB:</span>
-                              <span class="data">{{ profile[0].spouse_dob ? profile[0].spouse_dob : "Not Found" }}</span>
+                              <span class="data">{{ person.spouse_dob ? person.spouse_dob : "Not Found" }}</span>
                           </p>
                       </div>
                       <div class="row">
                           <p class="data-section">
                               <span class="label">Childres name:</span>
-                              <span class="data">{{ profile[0].children_name ? profile[0].children_name : "Not Found" }}</span>
+                              <span class="data">{{ person.children_name ? person.children_name : "Not Found" }}</span>
                           </p>
                           <p class="data-section">
                               <span class="label">Children DOB:</span>
-                              <span class="data">{{ profile[0].children_dob ? profile[0].children_dob : "Not Found" }}</span>
+                              <span class="data">{{ person.children_dob ? person.children_dob : "Not Found" }}</span>
                           </p>
                       </div>
                       <div class="row">
                           <p class="data-section">
                               <span class="label">Childres name:</span>
-                              <span class="data">{{ profile[0].children_name ? profile[0].children_name : "Not Found" }}</span>
+                              <span class="data">{{ person.children_name ? person.children_name : "Not Found" }}</span>
                           </p>
                           <p class="data-section">
                               <span class="label">Children DOB:</span>
-                              <span class="data">{{ profile[0].children_dob ? profile[0].children_dob : "Not Found" }}</span>
+                              <span class="data">{{ person.children_dob ? person.children_dob : "Not Found" }}</span>
                           </p>
                       </div>
                   </div>
               </div>
           </div>
-          <!--  -->
+          <!-- PRESENT ADDRESS -->
           <div class="personal-info-section">
               <div class="personal-info-section-inner">
                   <div class="title">
@@ -161,37 +161,37 @@
                       <div class="row">
                           <p class="data-section">
                               <span class="label">Address:</span>
-                              <span class="data">{{ profile[0].address ? profile[0].address : "Not Found" }}</span>
+                              <span class="data">{{ person.address ? person.address : "Not Found" }}</span>
                           </p>
                           <p class="data-section">
                               <span class="label">Post Office:</span>
-                              <span class="data">{{ profile[0].address ? profile[0].address : "Not Found" }}</span>
+                              <span class="data">{{ person.address ? person.address : "Not Found" }}</span>
                           </p>
                       </div>
                       <div class="row">
                           <p class="data-section">
                               <span class="label">Police Station:</span>
-                              <span class="data">{{ profile[0].address ? profile[0].address : "Not Found" }}</span>
+                              <span class="data">{{ person.address ? person.address : "Not Found" }}</span>
                           </p>
                           <p class="data-section">
                               <span class="label">District/City:</span>
-                              <span class="data">{{ profile[0].address ? profile[0].address : "Not Found" }}</span>
+                              <span class="data">{{ person.address ? person.address : "Not Found" }}</span>
                           </p>
                       </div>
                       <div class="row">
                           <p class="data-section">
                               <span class="label">Division/State:</span>
-                              <span class="data">{{ profile[0].address ? profile[0].address : "Not Found" }}</span>
+                              <span class="data">{{ person.address ? person.address : "Not Found" }}</span>
                           </p>
                           <p class="data-section">
                               <span class="label">Zip Code:</span>
-                              <span class="data">{{ profile[0].address ? profile[0].address : "Not Found" }}</span>
+                              <span class="data">{{ person.address ? person.address : "Not Found" }}</span>
                           </p>
                       </div>
                   </div>
               </div>
           </div>
-          <!--  -->
+          <!-- PERMANENT ADDRESS -->
           <div class="personal-info-section">
               <div class="personal-info-section-inner">
                   <div class="title">
@@ -201,31 +201,31 @@
                       <div class="row">
                           <p class="data-section">
                               <span class="label">Address:</span>
-                              <span class="data">{{ profile[0].address ? profile[0].address : "Not Found" }}</span>
+                              <span class="data">{{ person.address ? person.address : "Not Found" }}</span>
                           </p>
                           <p class="data-section">
                               <span class="label">Post Office:</span>
-                              <span class="data">{{ profile[0].address ? profile[0].address : "Not Found" }}</span>
+                              <span class="data">{{ person.address ? person.address : "Not Found" }}</span>
                           </p>
                       </div>
                       <div class="row">
                           <p class="data-section">
                               <span class="label">Police Station:</span>
-                              <span class="data">{{ profile[0].address ? profile[0].address : "Not Found" }}</span>
+                              <span class="data">{{ person.address ? person.address : "Not Found" }}</span>
                           </p>
                           <p class="data-section">
                               <span class="label">District/City:</span>
-                              <span class="data">{{ profile[0].address ? profile[0].address : "Not Found" }}</span>
+                              <span class="data">{{ person.address ? person.address : "Not Found" }}</span>
                           </p>
                       </div>
                       <div class="row">
                           <p class="data-section">
                               <span class="label">Division/State:</span>
-                              <span class="data">{{ profile[0].address ? profile[0].address : "Not Found" }}</span>
+                              <span class="data">{{ person.address ? person.address : "Not Found" }}</span>
                           </p>
                           <p class="data-section">
                               <span class="label">Zip Code:</span>
-                              <span class="data">{{ profile[0].address ? profile[0].address : "Not Found" }}</span>
+                              <span class="data">{{ person.address ? person.address : "Not Found" }}</span>
                           </p>
                       </div>
                   </div>
@@ -237,7 +237,7 @@
 
 <script>
 export default {
-  props: ["profile"],
+  props: ["person", "advisor", "family"],
   components: {},
   data() {
     return {
