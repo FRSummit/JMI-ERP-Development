@@ -272,7 +272,7 @@ export default {
             // var doc = new jsPDF('p', 'pt');
             // var doc = new jsPDF('p', 'pt', 'a4', true);
             // var doc = new jsPDF('p', 'pt', 'letter');
-            var doc = new jsPDF('p', 'px', [612, 792]);
+            var doc = new jsPDF('p', 'pt', [612, 792]);
 
 
             // jsPDF(orientation, unit, format)
@@ -358,12 +358,27 @@ export default {
             doc.text("Test", 105, 60, "center")
             doc.text("Test", 105, 70, "right")
 
+            doc.addPage();
+
             doc.text(("doc weidth: " + doc.internal.pageSize.getWidth()), 105, 80, "left")
             doc.text(("doc height: " + doc.internal.pageSize.getHeight()), 105, 90, "left")
             let my_email = "frsummit1@gmail.com"
             let ww = doc.getTextWidth(my_email)
             doc.text(("email weidth: " + ww), 105, 100, "left")
             doc.text((my_email), ( doc.internal.pageSize.getWidth() - ww ), 110, "left")
+
+            doc.addPage();
+            
+            doc.text("Left Margin", ( 54 ), 120, "left")                                        // 54 pt = 72 px = 0.75 inch
+            doc.text("Right Margin", ( doc.internal.pageSize.getWidth() - 54 ), 120, "right")   // 54 pt = 72 px = 0.75 inch
+
+            doc.text("Top Margin", ( doc.internal.pageSize.getWidth() / 2 ), 72, "center")      // 72 pt = 96 px = 0.75 inch
+            doc.text("Bottom Margin", ( doc.internal.pageSize.getWidth() / 2 ), ( doc.internal.pageSize.getHeight() - 54 ), "center")  // 54 pt = 72 px = 0.75 inch
+
+            // doc.text("Right Margin", ( 72 ), 130, "left")
+            // doc.text("Right Margin", ( doc.internal.pageSize.getWidth() - 72 ), 130, "right")
+
+            doc.addPage();
 
             doc.text(20, 30, 'This is client-side Javascript, pumping out a PDF.');
             doc.addPage();
@@ -372,6 +387,31 @@ export default {
             doc.autoTable(columnHeader, rows);
             doc.addPage();
             doc.text(20, 20, 'Another table');
+            doc.text(20, 30, 'Another table');
+            doc.text(20, 40, 'Another table');
+            doc.text(20, 50, 'Another table');
+            doc.text(20, 60, 'Another table');
+            doc.autoTable(columnHeader, rows, {
+                margin: { top: 70, left: 10, right: 10, bottom: 0 },
+                drawHeaderCell: (cell, data) => {
+                  console.log(cell + '    ' + data)
+                    if (cell.raw === 'NAME') {//paint.Name header red
+                        cell.styles.fontSize= 15;
+                       cell.styles.textColor = [255,0,0];
+                    } else {
+                        cell.styles.textColor = 255;
+                        cell.styles.fontSize = 10;
+
+                    }
+                },
+                createdCell: (cell, data) => {
+                  console.log(cell + '    ' + data)
+                    if (cell.raw === 'SGD Pharma') {
+                       cell.styles.fontSize= 15;
+                       cell.styles.textColor = [255,0,0];
+                    } 
+                }
+            });
             doc.autoTable(columnHeader, rows);
             doc.autoTable(columnHeader, rows);
             doc.autoTable(columnHeader, rows);
@@ -380,7 +420,37 @@ export default {
             doc.autoTable(columnHeader, rows);
             doc.autoTable(columnHeader, rows);
             doc.autoTable(columnHeader, rows);
-            doc.autoTable(columnHeader, rows);
+
+            doc.addPage();
+
+            var columns = ['ID','Name','Address','Age'];
+            var rowss = [
+                        [1,'John','Vilnius',22],
+                        [2,'Jack','Riga',25]
+                      ]
+            // var doc = new jsPDF('p', 'pt');
+            doc.setFontSize(20);
+            doc.text(30, 30, 'Table'); 
+            doc.autoTable(columns, rowss, {
+                margin: { top: 50, left: 20, right: 20, bottom: 0 },
+                drawHeaderCell: function (cell, data) {
+                  console.log(cell + '    ' + data)
+                    if (cell.raw === 'ID') {//paint.Name header red
+                        cell.styles.fontSize= 15;
+                       cell.styles.textColor = '#272727';
+                    } else {
+                        cell.styles.textColor = '#27dede';
+                        cell.styles.fontSize = 10;
+                    }
+                },
+                createdCell: function (cell, data) {
+                  console.log(cell + '    ' + data)
+                  if (cell.raw === 'Jack') {
+                     cell.styles.fontSize= 15;
+                     cell.styles.textColor = '#blue';
+                  } 
+                },
+            });
 
             doc.save(pdfName + '_' + filename + '.pdf');
             // doc.autoPrint(columnHeader, rows);
