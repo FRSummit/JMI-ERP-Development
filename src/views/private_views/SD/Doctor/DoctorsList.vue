@@ -11,6 +11,10 @@
           :search="search"
           :custom-filter="filterOnlyCapsText"
           @click:row="handleRowClick"
+          :footer-props="{
+            'items-per-page-options': [10, 20, 30, 40, 50]
+          }"
+          :items-per-page="10"
         >
           <!-- <template v-slot:top>
             <v-text-field
