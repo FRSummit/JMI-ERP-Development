@@ -419,6 +419,79 @@ export default {
                     } 
                 }
             });
+            
+            doc.addPage();
+
+            doc.text(20, 20, 'Styling Table');
+            doc.autoTable(columnHeader, rows, {
+                tableLineColor: [189, 195, 199],
+                tableLineWidth: 0.75,
+                styles: {
+                    // font: 'rotobo',
+                    lineColor: [44, 62, 80],
+                    lineWidth: 0.55
+                },
+                /*headerStyles: {
+                    fillColor: [0, 0, 0],
+                    fontSize: 11
+                },*/
+                headerStyles: {
+                    fillColor: [255, 255, 255],
+                    fontSize: 11,
+                    textColor: 50
+                },
+                bodyStyles: {
+                    fillColor: [216, 216, 216],
+                    textColor: 50
+                },
+                alternateRowStyles: {
+                    fillColor: [250, 250, 250]
+                },
+                startY: 100,
+                drawRow: (row, data) => {
+                    // Colspan
+                    doc.setFontStyle('bold');
+                    doc.setFontSize(10);
+                    // if ($(row.raw[0]).hasClass("innerHeader")) {
+                    //     doc.setTextColor(200, 0, 0);
+                    //     doc.setFillColor(110,214,84);
+                    //     doc.rect(data.settings.margin.left, row.y, data.table.width, 20, 'F');
+                    //     doc.autoTableText("", data.settings.margin.left + data.table.width / 2, row.y + row.height / 2, {
+                    //         halign: 'center',
+                    //         valign: 'middle'
+                    //     });
+                    //   /*  data.cursor.y += 20; */
+                    // };
+
+                    if (row.index % 5 === 0) {
+                        var posY = row.y + row.height * 6 + data.settings.margin.bottom;
+                        if (posY > doc.internal.pageSize.height) {
+                            data.addPage();
+                        }
+                    }
+                },
+                drawCell: (cell, data) => {
+                    // Rowspan
+                    console.log(cell);
+                    console.log(data);
+                    // if ($(cell.raw).hasClass("innerHeader")) {
+                    // doc.setTextColor(200, 0, 0);
+                    //         doc.autoTableText(cell.text + '', data.settings.margin.left + data.table.width / 2, data.row.y + data.row.height / 2, {
+                    //         halign: 'center',
+                    //         valign: 'middle'
+                    //     });
+                        
+                    //     return false;
+                    // }
+                }
+            });
+
+
+            doc.addPage();
+
+            doc.autoTable(columnHeader, rows);
+            doc.autoTable(columnHeader, rows);
+            doc.autoTable(columnHeader, rows);
             doc.autoTable(columnHeader, rows);
             doc.autoTable(columnHeader, rows);
             doc.autoTable(columnHeader, rows);
