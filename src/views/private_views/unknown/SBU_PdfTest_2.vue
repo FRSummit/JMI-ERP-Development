@@ -271,7 +271,39 @@ export default {
             // var doc = new jsPDF();
             // var doc = new jsPDF('p', 'pt');
             // var doc = new jsPDF('p', 'pt', 'a4', true);
-            var doc = new jsPDF('p', 'pt', 'letter');
+            // var doc = new jsPDF('p', 'pt', 'letter');
+            var doc = new jsPDF('p', 'px', [612, 792]);
+
+
+            // jsPDF(orientation, unit, format)
+            // orientation One of "portrait" or "landscape" (or shortcuts "p" (Default), "l")
+            // unit Measurement unit to be used when coordinates are specified. One of "pt" (points), "mm" (Default), "cm", "in"
+            // format One of 'a3', 'a4' (Default),'a5' ,'letter' ,'legal'
+
+            /*
+            // Document of 210mm wide and 297mm high
+            new jsPDF('p', 'mm', [297, 210]);
+            // Document of 297mm wide and 210mm high
+            new jsPDF('l', 'mm', [297, 210]);
+            // Document of 5 inch width and 3 inch high
+            new jsPDF('l', 'in', [3, 5]);
+            */
+
+            /*
+            // Document of 8.5 inch width and 11 inch high
+            new jsPDF('p', 'in', [612, 792]);
+
+            or
+
+            // Document of 8.5 inch width and 11 inch high
+            new jsPDF({
+                    orientation: 'p', 
+                    unit: 'in', 
+                    format: [612, 792]
+            });
+            */
+
+
 
             // doc.text("Hello World", 10, 10);
 
@@ -320,6 +352,19 @@ export default {
 
             doc.setFontSize(10);
             doc.text(20, 20, 'Hello world!');
+            doc.text(300, 20, 'Hello world!');
+            doc.text(300, 20, 'Hello world!');
+            doc.text("Test", 105, 50, "left")
+            doc.text("Test", 105, 60, "center")
+            doc.text("Test", 105, 70, "right")
+
+            doc.text(("doc weidth: " + doc.internal.pageSize.getWidth()), 105, 80, "left")
+            doc.text(("doc height: " + doc.internal.pageSize.getHeight()), 105, 90, "left")
+            let my_email = "frsummit1@gmail.com"
+            let ww = doc.getTextWidth(my_email)
+            doc.text(("email weidth: " + ww), 105, 100, "left")
+            doc.text((my_email), ( doc.internal.pageSize.getWidth() - ww ), 110, "left")
+
             doc.text(20, 30, 'This is client-side Javascript, pumping out a PDF.');
             doc.addPage();
             doc.text(20, 20, 'Do you like that?');
