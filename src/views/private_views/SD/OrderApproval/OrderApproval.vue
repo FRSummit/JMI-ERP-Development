@@ -1,6 +1,12 @@
 <template>
     <div class="order-approval">
         <Heading :pathName="pathName" :routeName="routeName" />
+        <div class="order-approval-section">
+          <div class="order-approval-section-inner">
+            <LeftSidebarSection />
+            <DetailsSection />
+          </div>
+        </div>
     </div>
 </template>
 
@@ -9,9 +15,14 @@ import Heading from "../../../../components/master_layout/HeadingTitleBreadcrumb
 // import BreadcrumbFunctions from '../../../../functions/BreadcrumbFunctions'
 // const breadcrumbFunctions = new BreadcrumbFunctions()
 
+import LeftSidebarSection from './LeftSidebarSection/LeftSidebarSection'
+import DetailsSection from './DetailsSection/DetailsSection'
+
 export default {
   components: {
     Heading,
+    LeftSidebarSection,
+    DetailsSection
   },
   data() {
     return {
