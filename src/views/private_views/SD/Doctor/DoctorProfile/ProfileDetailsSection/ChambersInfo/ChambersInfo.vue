@@ -3,20 +3,20 @@
       <div class="chambers-info-section-inner">
           <div class="chember-count-create-section">
             <div class="chember-count-create-section-inner">
-              <p class="chember-count">Total Chamber (<span class="count">{{profile.length}}</span>)</p>
+              <p class="chember-count">Total Chamber (<span class="count">{{chamber.length}}</span>)</p>
               <div class="chember-create">
                 <span @click="addChemberClick()"><i class="zmdi zmdi-plus"></i>Add</span>
               </div>
             </div>
-            <div class="chember-info-card" v-for="(chember, index) in profile" :key="index">
+            <div class="chember-info-card" v-for="(chember, index) in chamber" :key="index">
               <div class="chember-info-card-inner">
                 <div class="chember-info-section">
                   <div class="chember-info-section-inner">
                     <div class="name-address-section">
                       <div class="name-address-section-inner">
                         <div class="name-section">
-                          <p class="name">{{ chember.chamber_name }}<span class="activation"><span class="activation-color"></span>Active</span></p>
-                          <p class="address"><span class="location"><i class="zmdi zmdi-pin"></i></span>15 Genda, Dhaka-Aricha Hwy, Savar Union, Dhaka</p>
+                          <p class="name">{{ chember.chamber_name }}<span class="activation"><span class="activation-color"></span>{{ checkStatus(chember.status) }}</span></p>
+                          <p class="address"><span class="location"><i class="zmdi zmdi-pin"></i></span>{{ chamber.chamber_address ? chamber.chamber_address : "Dummy: 15 Genda, Dhaka-Aricha Hwy, Savar Union, Dhaka" }}</p>
                         </div>
                       </div>
                     </div>
@@ -96,7 +96,7 @@
 import * as VueGoogleMaps from 'vue2-google-maps'
 
 export default {
-  props: ["profile"],
+  props: ["chamber", "chamber_location"],
   components: {},
   data() {
     return {
@@ -211,6 +211,9 @@ export default {
         }
       })
       console.log(this.markers)
+    },
+    checkStatus(status) {
+      return status === "1" ? "Active" : "Deactive"
     },
     addChemberClick() {
       console.log('add chember clicked')
