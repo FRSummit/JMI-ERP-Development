@@ -24,7 +24,7 @@
                 <div id="progressbar" class="progressbar" v-if="!customer_list">
                     <v-progress-circular indeterminate color="primary"></v-progress-circular>
                 </div>
-                <div :id="'customer-section-list-' + c" class="customer-section-list" v-for="(customer, c) in customer_list" :key="c" @click="selectLeftUserSchedule(customer, c)">
+                <div :id="'customer-section-list-' + c" class="customer-section-list" v-for="(customer, c) in customer_list" :key="c" @click="customerClickHandlerFromList(customer, c)">
                     <div :id="'customer-section-list-inner-' + c" class="customer-section-list-inner">
                         <div class="customer-id-type-section">
                             <div class="customer-id-type-section-inner">
@@ -214,19 +214,20 @@ export default {
         onChange(value) {
             switch(value) {
                 case 'a_to_z':
-                console.log('D : ' + value)
-                this.radioSpanDefaultClass = 'active'
-                this.radioSpanCustomClass = ''
-                break
+                    this.radioSpanDefaultClass = 'active'
+                    this.radioSpanCustomClass = ''
+                    break
                 case 'z_to_a':
-                console.log('C : ' + value)
-                this.radioSpanDefaultClass = ''
-                this.radioSpanCustomClass = 'active'
-                break
+                    this.radioSpanDefaultClass = ''
+                    this.radioSpanCustomClass = 'active'
+                    break
                 default:
                     break
             }
         },
+        customerClickHandlerFromList(customer, c) {
+            console.log(c + '    ' +customer)
+        }
     }
 };
 </script>
