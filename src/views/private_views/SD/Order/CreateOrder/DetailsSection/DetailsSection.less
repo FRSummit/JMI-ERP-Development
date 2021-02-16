@@ -124,5 +124,91 @@
                 }
             }
         }
+
+        .order-table {
+            .order-table-inner {
+                padding: 0 10px;
+
+                table {
+                    border-top: none;
+
+                    thead {
+                        tr {
+                            border-bottom: 1px solid #BFCFE2;
+
+                            th {
+                                color      : #026CD1;
+                                font-size  : 16px;
+                                font-weight: 500;
+                                width      : 15%;
+                                text-align : center;
+                            }
+
+                            th:first-child {
+                                width     : 40%;
+                                text-align: left;
+                            }
+
+                            th:last-child {
+                                width     : 40%;
+                                text-align: right;
+                            }
+                        }
+                    }
+
+                    tbody {
+                        tr {
+                            border-bottom: none;
+
+                            td {
+                                color      : #222223;
+                                font-size  : 14px;
+                                font-weight: 400;
+                                width      : 15%;
+                                border-top : none;
+                                padding    : 4px 10px;
+                                text-align : center;
+
+                                span {
+                                    display   : block;
+                                    text-align: left;
+                                }
+
+                                span:last-child {
+                                    font-size : 10px;
+                                    text-align: left;
+                                    color     : #B3B9BD;
+                                }
+                            }
+
+                            td:first-child {
+                                width: 40%;
+                            }
+
+                            td:last-child {
+                                // width     : 40%;
+                                text-align: right;
+                            }
+                        }
+
+                        tr#subtotal-section {
+                            span {
+                                text-align: right;
+                                color     : #111213;
+                                font-size : 12px;
+                            }
+                        }
+
+                        tr#grand-total-section {
+                            span {
+                                text-align: right;
+                                color     : #222223;
+                                font-size : 14px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

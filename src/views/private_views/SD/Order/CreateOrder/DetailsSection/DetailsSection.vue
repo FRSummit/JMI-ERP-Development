@@ -38,19 +38,61 @@
             <!-- Order Table -->
             <div class="order-table">
                 <div class="order-table-inner">
-                    <table class="table" id="order-data-table" style="border-top: 1px solid #e6e6e6">
+                    <table class="table" id="order-data-table">
                         <thead>
                             <tr>
-                                <th style="border: none">{{ head }}</th>
+                                <th style="border: none" v-for="(head, i) in order_table_header" :key="i">{{ head }}</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr v-for="(data, i) in order_table_data" :key="i">
+                                <td>
+                                    <span>{{ data.name }}</span>
+                                    <span>{{ data.stock }}</span>
+                                </td>
+                                <td>{{ data.unit_price }}</td>
+                                <td>{{ data.quantity }}</td>
+                                <td>{{ data.bonus }}</td>
+                                <td>{{ data.total_price }}</td>
+                            </tr>
+                            <!-- Bottom Total Section -->
+                            <tr id="subtotal-section" class="subtotal-section" style="border-top   : 1px solid #BFCFE2;">
                                 <td></td>
+                                <td></td>
+                                <td></td>
+                                <td style="width: 20%">
+                                    <span class="subtotal">Subtotal</span>
+                                    <span class="vat">(+) Vat</span>
+                                    <span class="discount">(-) Discount</span>
+                                    <span class="gross-tatal">Gross Total</span>
+                                    <span class="atjustment">(+/-) Rounding Adjustment</span>
+                                </td>
+                                <td>
+                                    <span class="subtotal">13,032.20</span>
+                                    <span class="vat">50.00</span>
+                                    <span class="discount">250.00</span>
+                                    <span class="gross-tatal">13,032.20</span>
+                                    <span class="atjustment">-0.20</span>
+                                </td>
+                            </tr>
+                            <tr id="grand-total-section" class="grand-total-section" style="border-top   : 1px solid #BFCFE2;">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <span class="grand-total">Grand Total</span>
+                                </td>
+                                <td>
+                                    <span class="grand-total">13,032.00</span>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+            </div>
+            <!-- Bottom Subtotal & Attachment Section -->
+            <div class="subtotal-section">
+                <div class="subtotal-section-inner"></div>
             </div>
         </div>
     </div>
@@ -72,6 +114,57 @@ export default {
                 },
                 {
                     name: "SR 4"
+                },
+            ],
+            order_table_header: ["Name", "Unit Price", "Quantity", "Bonus", "Total Price"],
+            order_table_data: [
+                {
+                    name: "Altrip. Almotriptan",
+                    stock: "Stock: 1000 I UoM: Box",
+                    unit_price: "300.00",
+                    quantity: "5",
+                    bonus: "0",
+                    total_price: "300.00"
+                },
+                {
+                    name: "Altrip. Almotriptan",
+                    stock: "Stock: 1000 I UoM: Box",
+                    unit_price: "300.00",
+                    quantity: "5",
+                    bonus: "0",
+                    total_price: "300.00"
+                },
+                {
+                    name: "Altrip. Almotriptan",
+                    stock: "Stock: 1000 I UoM: Box",
+                    unit_price: "300.00",
+                    quantity: "5",
+                    bonus: "0",
+                    total_price: "300.00"
+                },
+                {
+                    name: "Altrip. Almotriptan",
+                    stock: "Stock: 1000 I UoM: Box",
+                    unit_price: "300.00",
+                    quantity: "5",
+                    bonus: "0",
+                    total_price: "300.00"
+                },
+                {
+                    name: "Altrip. Almotriptan",
+                    stock: "Stock: 1000 I UoM: Box",
+                    unit_price: "300.00",
+                    quantity: "5",
+                    bonus: "0",
+                    total_price: "300.00"
+                },
+                {
+                    name: "Altrip. Almotriptan",
+                    stock: "Stock: 1000 I UoM: Box",
+                    unit_price: "300.00",
+                    quantity: "5",
+                    bonus: "0",
+                    total_price: "300.00"
                 },
             ]
         }
