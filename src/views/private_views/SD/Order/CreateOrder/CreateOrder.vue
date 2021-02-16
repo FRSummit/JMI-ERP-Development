@@ -1,28 +1,29 @@
 <template>
-    <div class="order-approval">
-        <Heading :pathName="pathName" :routeName="routeName" />
-        <div class="order-approval-section">
-          <div class="order-approval-section-inner">
-            <LeftSidebarSection />
-            <DetailsSection />
-          </div>
-        </div>
+  <div id="create-order" class="create-order">
+    <Heading :pathName="pathName" :routeName="routeName" />
+    <div class="create-order-section">
+      <div class="create-order-section-inner">
+        Create Order
+        <LeftSidebar />
+        <DetailsSection />
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
-import Heading from "../../../../components/master_layout/HeadingTitleBreadcrumb/HeadingTitleBreadcrumb";
-// import BreadcrumbFunctions from '../../../../functions/BreadcrumbFunctions'
+import Heading from "../../../../../components/master_layout/HeadingTitleBreadcrumb/HeadingTitleBreadcrumb";
+// import BreadcrumbFunctions from '../../../../../functions/BreadcrumbFunctions'
 // const breadcrumbFunctions = new BreadcrumbFunctions()
 
-import LeftSidebarSection from './LeftSidebarSection/LeftSidebarSection'
+import LeftSidebar from './LeftSidebar/LeftSidebar'
 import DetailsSection from './DetailsSection/DetailsSection'
 
 export default {
   components: {
     Heading,
-    LeftSidebarSection,
-    DetailsSection
+    LeftSidebar,
+    DetailsSection,
   },
   data() {
     return {
@@ -46,5 +47,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import url("./OrderApproval.less");
+@import url("./CreateOrder.less");
 </style>
