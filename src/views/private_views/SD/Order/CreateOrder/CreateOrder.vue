@@ -3,7 +3,6 @@
     <Heading :pathName="pathName" :routeName="routeName" />
     <div class="create-order-section">
       <div class="create-order-section-inner">
-        Create Order
         <LeftSidebar />
         <DetailsSection />
       </div>
@@ -12,8 +11,8 @@
 </template>
 
 <script>
-import Heading from "../../../../components/master_layout/HeadingTitleBreadcrumb/HeadingTitleBreadcrumb";
-// import BreadcrumbFunctions from '../../../../functions/BreadcrumbFunctions'
+import Heading from "../../../../../components/master_layout/HeadingTitleBreadcrumb/HeadingTitleBreadcrumb";
+// import BreadcrumbFunctions from '../../../../../functions/BreadcrumbFunctions'
 // const breadcrumbFunctions = new BreadcrumbFunctions()
 
 import LeftSidebar from './LeftSidebar/LeftSidebar'

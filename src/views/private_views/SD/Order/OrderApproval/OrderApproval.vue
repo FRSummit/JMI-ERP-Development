@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import Heading from "../../../../components/master_layout/HeadingTitleBreadcrumb/HeadingTitleBreadcrumb";
-// import BreadcrumbFunctions from '../../../../functions/BreadcrumbFunctions'
+import Heading from "../../../../../components/master_layout/HeadingTitleBreadcrumb/HeadingTitleBreadcrumb";
+// import BreadcrumbFunctions from '../../../../../functions/BreadcrumbFunctions'
 // const breadcrumbFunctions = new BreadcrumbFunctions()
 
 import LeftSidebarSection from './LeftSidebarSection/LeftSidebarSection'

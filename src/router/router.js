@@ -114,13 +114,13 @@ export const router = new VueRouter({
     {
       path: '/features/local_sales/sales_order',
       name: 'Create Order',
-      component: () => import('../views/private_views/SD/CreateOrder/CreateOrder.vue')
+      component: () => import('../views/private_views/SD/Order/CreateOrder/CreateOrder.vue')
     },
     // Order Approval
     {
       path: '/features/local_sales/order_approval',
       name: 'Order Approval',
-      component: () => import('../views/private_views/SD/OrderApproval/OrderApproval.vue')
+      component: () => import('../views/private_views/SD/Order/OrderApproval/OrderApproval.vue')
     },
     // Customer Profile
     {
