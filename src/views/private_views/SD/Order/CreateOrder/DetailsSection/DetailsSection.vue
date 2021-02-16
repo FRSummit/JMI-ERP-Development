@@ -1,6 +1,8 @@
 <template>
     <div id="create-order-details-section" class="create-order-details-section">
-        Details Section
+        <div class="create-order-details-section-inner">
+            Details Section
+        </div>
     </div>
 </template>
 

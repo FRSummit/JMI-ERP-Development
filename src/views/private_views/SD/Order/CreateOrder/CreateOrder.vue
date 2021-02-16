@@ -3,7 +3,6 @@
     <Heading :pathName="pathName" :routeName="routeName" />
     <div class="create-order-section">
       <div class="create-order-section-inner">
-        Create Order
         <LeftSidebar />
         <DetailsSection />
       </div>
