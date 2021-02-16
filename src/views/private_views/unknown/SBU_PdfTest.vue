@@ -243,99 +243,459 @@ export default {
       customJs.test(this.sub_data)
     },
     onExcelClick() {
-      // console.log("excel");
-      /*const doc = new jsPDF();
-      // const contentHtml = this.$refs.content.innerHTML;
-      const contentHtml = document.getElementById('cont');
-      doc.fromHTML(contentHtml, 15, 15, {
-        width: 170,
-      });
-      doc.save("sample.pdf");*/
-      // var source =  this.$refs["cont"];
-      console.log(this.sub_data)
-            let rows = [];
-            let columnHeader = ['NAME', 'ID NUMBER', 'SISTER CONCERN', 'ACTIVE USER', 'STATUS'];
-            let pdfName = 'Schedule';
-            this.sub_data.forEach(element => {
-                var temp = [
-                    element.name || '',
-                    element.id_number || '',
-                    element.sister_concern || '',
-                    element.active_user || '',
-                    element.status || '',
-                ];
-                rows.push(temp);
-            });
-            // var doc = new jsPDF();
-            // var doc = new jsPDF('p', 'pt');
-            // var doc = new jsPDF('p', 'pt', 'a4', true);
-            var doc = new jsPDF('p', 'pt', 'letter');
+      // // console.log("excel");
+      // /*const doc = new jsPDF();
+      // // const contentHtml = this.$refs.content.innerHTML;
+      // const contentHtml = document.getElementById('cont');
+      // doc.fromHTML(contentHtml, 15, 15, {
+      //  // width: 170,
+      // //});
+      // // doc.save("sample.pdf");*/
+      // // var source =  this.$refs["cont"];
+      // console.log(this.sub_data)
+      //       let rows = [];
+      //       let columnHeader = ['NAME', 'ID NUMBER', 'SISTER CONCERN', 'ACTIVE USER', 'STATUS'];
+      //       let pdfName = 'Schedule';
+      //       this.sub_data.forEach(element => {
+      //           var temp = [
+      //               element.name || '',
+      //               element.id_number || '',
+      //               element.sister_concern || '',
+      //               element.active_user || '',
+      //               element.status || '',
+      //           ];
+      //           rows.push(temp);
+      //       });
+      //       // var doc = new jsPDF();
+      //       // var doc = new jsPDF('p', 'pt');
+      //       // var doc = new jsPDF('p', 'pt', 'a4', true);
+      //       var doc = new jsPDF('p', 'pt', 'letter');
 
-            // doc.text("Hello World", 10, 10);
+      //       // doc.text("Hello World", 10, 10);
 
-            // doc.setFont("helvetica");
-            // doc.setFontType("bold");
+      //       // doc.setFont("helvetica");
+      //       // doc.setFontType("bold");
 
-            // var img = new Image();
-            // img.src = '../../../assets/images/copy.png'
-            // doc.addImage(img, "JPEG", 20, 20);
+      //       // var img = new Image();
+      //       // img.src = '../../../assets/images/copy.png'
+      //       // doc.addImage(img, "JPEG", 20, 20);
 
-            const date = new Date();
-            const filename =
-              "timechart_" +
-              date.getFullYear() +
-              ("0" + (date.getMonth() + 1)).slice(-2) +
-              ("0" + date.getDate()).slice(-2) +
-              ("0" + date.getHours()).slice(-2) +
-              ("0" + date.getMinutes()).slice(-2) +
-              ("0" + date.getSeconds()).slice(-2) +
-              ".pdf";
+      //       const date = new Date();
+      //       const filename =
+      //         "timechart_" +
+      //         date.getFullYear() +
+      //         ("0" + (date.getMonth() + 1)).slice(-2) +
+      //         ("0" + date.getDate()).slice(-2) +
+      //         ("0" + date.getHours()).slice(-2) +
+      //         ("0" + date.getMinutes()).slice(-2) +
+      //         ("0" + date.getSeconds()).slice(-2) +
+      //         ".pdf";
 
-            /*// var specialElementHandlers = {
-            //     '#bypassme': function (element, renderer) {
-            //         return true
-            //     }
-            // };
-            var margins = {
-                top: 80,
-                bottom: 60,
-                left: 40,
-                width: 522
-            };
-            // all coords and widths are in jsPDF instance's declared units
-            // 'inches' in this case
+      //       /*// var specialElementHandlers = {
+      //       //     '#bypassme': function (element, renderer) {
+      //       //         return true
+      //       //     }
+      //       // };
+      //       var margins = {
+      //           top: 80,
+      //           bottom: 60,
+      //           left: 40,
+      //           width: 522
+      //       };
+      //       // all coords and widths are in jsPDF instance's declared units
+      //       // 'inches' in this case
 
-            doc.fromHTML(
-            // source, // HTML string or DOM elem ref.
-            margins.left, // x coord
-            margins.top, {// y coord
-                'width': margins.width, // max width of content on PDF
-                // 'elementHandlers': specialElementHandlers
-            })*/
+      //       doc.fromHTML(
+      //       // source, // HTML string or DOM elem ref.
+      //       margins.left, // x coord
+      //       margins.top, {// y coord
+      //           'width': margins.width, // max width of content on PDF
+      //           // 'elementHandlers': specialElementHandlers
+      //       })*/
 
-            doc.setFont("arial", "bold");
-            doc.setFontSize(14);
+      //       doc.setFont("arial", "bold");
+      //       doc.setFontSize(14);
 
-            doc.setFontSize(10);
-            doc.text(20, 20, 'Hello world!');
-            doc.text(20, 30, 'This is client-side Javascript, pumping out a PDF.');
-            doc.addPage();
-            doc.text(20, 20, 'Do you like that?');
-            // doc.autoTable(columnHeader, rows, { startY: 10 });
-            doc.autoTable(columnHeader, rows);
-            doc.addPage();
-            doc.text(20, 20, 'Another table');
-            doc.autoTable(columnHeader, rows);
-            doc.autoTable(columnHeader, rows);
-            doc.autoTable(columnHeader, rows);
-            doc.autoTable(columnHeader, rows);
-            doc.autoTable(columnHeader, rows);
-            doc.autoTable(columnHeader, rows);
-            doc.autoTable(columnHeader, rows);
-            doc.autoTable(columnHeader, rows);
-            doc.autoTable(columnHeader, rows);
-            doc.save(pdfName + '_' + filename + '.pdf');
-            // doc.autoPrint(columnHeader, rows);
+      //       doc.setFontSize(10);
+      //       doc.text(20, 20, 'Hello world!');
+      //       doc.text(20, 30, 'This is client-side Javascript, pumping out a PDF.');
+      //       doc.addPage();
+      //       doc.text(20, 20, 'Do you like that?');
+      //       // doc.autoTable(columnHeader, rows, { startY: 10 });
+      //       doc.autoTable(columnHeader, rows);
+      //       doc.addPage();
+      //       doc.text(20, 20, 'Another table');
+      //       doc.autoTable(columnHeader, rows);
+      //       doc.autoTable(columnHeader, rows);
+      //       doc.autoTable(columnHeader, rows);
+      //       doc.autoTable(columnHeader, rows);
+      //       doc.autoTable(columnHeader, rows);
+      //       doc.autoTable(columnHeader, rows);
+      //       doc.autoTable(columnHeader, rows);
+      //       doc.autoTable(columnHeader, rows);
+      //       doc.autoTable(columnHeader, rows);
+      //       doc.save(pdfName + '_' + filename + '.pdf');
+      //       // doc.autoPrint(columnHeader, rows);
+
+
+      ///////////////////////////////////////////////////////////////////////////////////////////////
+      ///////////////////////////////////////////////////////////////////////////////////////////////
+      ///////////////////////////////////////////////////////////////////////////////////////////////
+             
+               var doc = new jsPDF('p', 'pt', 'letter');
+               doc.lineHeightProportion =2;
+              //  let img = new Image();
+              //  img.src = '../../../assets/images/LOGO SDR-15.png'
+              //  doc.addImage(img, 'JPEG',  105, 80, 40, 40);
+
+
+                // doc.setFont("arial", "bold");
+                doc.setFont("Roboto", "bold");
+                // doc.setFontType("bold");
+                doc.setFontSize(14);
+
+
+                // LEFT PART
+                doc.setFontSize(10);
+                // Customer Code
+                doc.text(20, 100, 'Customer Code');
+                doc.text(100, 100, ': DHK34105');
+                // Customer Name
+                doc.text(20, 110, 'Customer Name');
+                doc.text(100, 110, ': LABAID CARDIAC HOSPITAL');
+                // Address
+                doc.text(20, 120, 'Address');
+                doc.text(100, 120, ': HOUSE-01, RAOD-04, DHANMONDI');
+                // MIO Name
+                doc.text(20, 130, 'MIO Name');
+                doc.text(100, 130, ': SHAHIDUL ISLAM	');
+                // S.R Name
+                doc.text(20, 140, 'S.R Name');
+                doc.text(100, 140, ': RAMJAN ALI	');
+
+                // RIGHT PART
+                // Invoice Name
+                let paper_weidth = doc.internal.pageSize.getWidth()
+                doc.text( (paper_weidth - 200), 100, 'Invoice No');
+                doc.text( ((paper_weidth - 200) + 80), 100, ': DHK081920086');
+                 // Invoice Date
+                //let paper_weidth = doc.internal.pageSize.getWidth()
+                 doc.text( (paper_weidth - 200), 110, 'Invoice Date');
+                 doc.text( ((paper_weidth - 200) + 80), 110, ': 30/09.2019');
+                // Depot Name
+                // let paper_weidth = doc.internal.pageSize.getWidth()
+                 doc.text( (paper_weidth - 200), 120, 'Depot');
+                 doc.text( ((paper_weidth - 200) + 80), 120, ': Dhaka Depot');
+                // T.Code
+                // let paper_weidth = doc.internal.pageSize.getWidth()
+                 doc.text( (paper_weidth - 200), 130, 'T.Code');
+                 doc.text( ((paper_weidth - 200) + 80), 130, ': DHK341');
+                // Date
+                // let paper_weidth = doc.internal.pageSize.getWidth()
+                 doc.text( (paper_weidth - 200), 140, 'Date');
+                 doc.text( ((paper_weidth - 200) + 80), 140, ': 29.09.2019');
+                 //order no
+                 doc.text( (paper_weidth - 200), 150, 'Order No');
+                 doc.text( ((paper_weidth - 200) + 80), 150, ': 009');
+                 
+                 //In word
+                 doc.text( (paper_weidth - 590), 500, 'In Word:');
+                 doc.text( ((paper_weidth -640) + 80), 500,'One lac Taka only');
+
+                  //Sub Total
+                 doc.text( (paper_weidth - 250), 500, 'Sub Total : ');
+                 doc.text( ((paper_weidth -250) + 80), 500,'16,806.99      96587.77');
+
+
+                 //Gross TP
+                 doc.text( (paper_weidth - 200), 600, 'Gross TP :');
+                 doc.text( ((paper_weidth -200) + 80), 600,'96587.77');
+                // less discount
+                doc.text( (paper_weidth - 270), 620, 'Less Discount 5% on Top :');
+                 doc.text( ((paper_weidth -200) + 80), 620,'4897.77');
+                  // Add VAT on TP
+                doc.text( (paper_weidth - 230), 640, 'Add VAT on TP :');
+                 doc.text( ((paper_weidth -200) + 80), 640,'4897.77');
+                 // less discount
+                doc.text( (paper_weidth - 255), 660, 'Rounding Adjustment :');
+                 doc.text( ((paper_weidth -200) + 80), 660,'4897.77');
+                 // less discount
+                doc.text( (paper_weidth - 210), 680, 'Net payable :');
+                 doc.text( ((paper_weidth -200) + 80), 680,'4897.77');
+
+                  // Signature
+                 doc.text( (paper_weidth - 210), 750, 'For NIPRO JMI Pharma Ltd.');
+
+
+                // doc.text("", 105, 50, "left") 
+                // doc.text("", 105, 60, "center")
+                // doc.text("", 105, 70, "right")
+
+                var columns = ['SN', 'Product Name', 'Pack Size', 'Batch No', 'MFG Date','EXP Date','Unit Price TP/SP','Unit VAT','Unit Price with VAT','Qty','Bouns','Total VAT','Total TP/SP'];
+                var rowss = [
+                            [1,'John','Vilnius', 22, 45, 79, 78, 45, 89, 44, 33, 55, 100],
+                            [2,'Jack','Riga', 25, 74, 98, 74, 95, 98, 34, 44, 56, 99],
+                            [2,'Jack','Riga', 25, 74, 98, 74, 95, 98, 34, 44, 56, 99],
+                            [2,'Jack','Riga', 25, 74, 98, 74, 95, 98, 34, 44, 56, 99],
+                            [2,'Jack','Riga', 25, 74, 98, 74, 95, 98, 34, 44, 56, 99],
+                            [2,'Jack','Riga', 25, 74, 98, 74, 95, 98, 34, 44, 56, 99]
+                          ]
+                // var doc = new jsPDF('p', 'pt');
+                doc.setFontSize(20);
+                doc.text(30, 30, ''); 
+                 doc.autoTable(columns, rowss, {
+                     margin: { top: 160, left: 20, right: 20, bottom: 0 },
+                     drawHeaderCell: function (cell, data) {
+                       console.log(cell + '    ' + data)
+                         if (cell.raw === 'ID') {//paint.Name header red
+                             cell.styles.fontSize= 15;
+                           cell.styles.textColor = '#ffff';
+                         } else {
+                           cell.styles.textColor = '#ffff';
+                            cell.styles.fontSize = 10;
+                         }
+                     },
+                     createdCell: function (cell, data) {
+                       console.log(cell + '    ' + data)
+                       if (cell.raw === 'Jack') {
+                         cell.styles.fontSize= 15;
+                         cell.styles.textColor = '#black';
+                         cell.styles.width='20';
+                       } 
+                     },
+                     });
+                    
+                      //columnStyles: {
+                      //   0: {cellWidth: 10},
+                      // 1: {cellWidth: 20},
+                      //   2: {cellWidth: 10},
+                      //   3: {cellWidth: 10},
+                      //   4: {cellWidth: 10},
+                      //   5: {cellWidth: 10},
+                      //   6: {cellWidth: 10},
+                      //   7: {cellWidth: 10},
+                      //   8: {cellWidth: 10},
+                      //   9: {cellWidth: 10},
+                      //   10: {cellWidth: 10},
+                      // }
+                   
+                //  doc.autoTable({
+                //   html: '#table',
+                //    columnStyles: {
+                //     0: {cellWidth: 100},
+                //     1: {cellWidth: 80},
+                //     2: {cellWidth: 80},
+                //     //etc
+                //    }
+                // });
+
+                // doc.autoTable(columnHeader, rows, {
+                //         margin: { top: 70, left: 10, right: 10, bottom: 0 },
+                //         drawHeaderCell: (cell, data) => {
+                //           console.log(cell + '    ' + data)
+                //             if (cell.raw === 'NAME') {//paint.Name header red
+                //                 cell.styles.fontSize= 15;
+                //               cell.styles.textColor = [255,0,0];
+                //             } else {
+                //                 cell.styles.textColor = 255;
+                //                 cell.styles.fontSize = 10;
+
+                //             }
+                //         },
+
+                //         createdCell: (cell, data) => {
+                //         console.log(cell + '    ' + data)
+                //           if (cell.raw === 'SGD Pharma') {
+                //             cell.styles.fontSize= 15;
+                //             cell.styles.textColor = [255,0,0];
+                //           } 
+                //         }
+
+                //      });
+
+                    // doc.autoTable(columnHeader, rows);
+                    // doc.autoTable(columnHeader, rows);
+                    //  doc.autoTable(columnHeader, rows);
+                    //  doc.autoTable(columnHeader, rows);
+                    //  doc.autoTable(columnHeader, rows);
+                    //  doc.autoTable(columnHeader, rows);
+                    //  doc.autoTable(columnHeader, rows);
+                    //  doc.autoTable(columnHeader, rows);
+                    //  doc.autoTable(columnHeader, rows);
+                    //  doc.autoTable(columnHeader, rows);
+                    //  doc.autoTable(columnHeader, rows);
+                    //  doc.autoTable(columnHeader, rows);
+                    //  doc.autoTable(columnHeader, rows);
+
+                //     console.log(this.sub_data)
+                //       let rows = [1,'Adarbi_40_Tablet','20_s',111119,179.91,31.30,211.21,2,0,62.61,359.82];
+                //       let columnHeader = ['SN', 'Product Name', 'Pack Size', 'Batch No', 'MFG Date','EXP Date','Unit Price TP/SP','Unit VAT','Unit Price with VAT','Qty','Bouns','Total VAT','Total TP/SP'];
+                //       let pdfName = 'Schedule';
+                //       this.sub_data.forEach(element => {
+                //           var temp = [
+                //               element.SN || '',
+                //               element.Product_Name || '',
+                //               element.Pack_Size || '',
+                //               element.Batch_No || '',
+                //               element.MFG_Date || '',
+                //               element.EXP_Date || '',
+                //               element.Unit_Price_TP_SP || '',
+                //               element.Unit_VAT || '',
+                //               element.Unit_Price_with_VAT || '',
+                //               element.Qty || '',
+                //               element.Bouns || '',
+                //               element.Total_VAT || '',
+                //               element.Total_TP_SP || '',
+
+                //           ];
+                //           rows.push(temp);
+                //       });
+
+                //  doc.addPage();
+
+                // doc.text(("doc weidth: " + doc.internal.pageSize.getWidth()), 105, 80, "left")
+                // doc.text(("doc height: " + doc.internal.pageSize.getHeight()), 105, 90, "left")
+                // let my_email = "frsummit1@gmail.com"
+                // let ww = doc.getTextWidth(my_email)
+                // doc.text(("email weidth: " + ww), 105, 100, "left")
+                // doc.text((my_email), ( doc.internal.pageSize.getWidth() - ww ), 110, "left")
+
+                // doc.addPage();
+                
+                // doc.text("Left Margin", ( 54 ), 120, "left")                                        
+                // doc.text("Right Margin", ( doc.internal.pageSize.getWidth() - 54 ), 120, "right")   
+
+                // doc.text("Top Margin", ( doc.internal.pageSize.getWidth() / 2 ), 72, "center")     
+                // doc.text("Bottom Margin", ( doc.internal.pageSize.getWidth() / 2 ), ( doc.internal.pageSize.getHeight() - 54 ), "center")
+
+
+                // doc.addPage();
+
+                // doc.text(20, 30, 'This is client-side Javascript, pumping out a PDF.');
+                // doc.addPage();
+                // doc.text(20, 20, 'Do you like that?');
+
+                //  doc.autoTable(columnHeader, rows);
+
+
+                //     doc.addPage();
+                //     doc.text(20, 20, 'Another table');
+                //     doc.text(20, 30, 'Another table');
+                //     doc.text(20, 40, 'Another table');
+                //     doc.text(20, 50, 'Another table');
+                //     doc.text(20, 60, 'Another table');
+                //     doc.autoTable(columnHeader, rows, {
+                //         margin: { top: 70, left: 10, right: 10, bottom: 0 },
+                //         drawHeaderCell: (cell, data) => {
+                //           console.log(cell + '    ' + data)
+                //             if (cell.raw === 'NAME') {//paint.Name header red
+                //                 cell.styles.fontSize= 15;
+                //               cell.styles.textColor = [255,0,0];
+                //             } else {
+                //                 cell.styles.textColor = 255;
+                //                 cell.styles.fontSize = 10;
+
+                //             }
+                //         },
+
+                //         createdCell: (cell, data) => {
+                //         console.log(cell + '    ' + data)
+                //           if (cell.raw === 'SGD Pharma') {
+                //             cell.styles.fontSize= 15;
+                //             cell.styles.textColor = [255,0,0];
+                //           } 
+                //         }
+
+                //      });  
+                     
+
+                    //  console.log(this.sub_data)
+                    //   let rows = [];
+                    //   let columnHeader = ['NAME', 'ID NUMBER', 'SISTER CONCERN', 'ACTIVE USER', 'STATUS'];
+                      let pdfName = 'Schedule';
+                    //   this.sub_data.forEach(element => {
+                    //       var temp = [
+                    //           element.name || '',
+                    //           element.id_number || '',
+                    //           element.sister_concern || '',
+                    //           element.active_user || '',
+                    //           element.status || '',
+                    //       ];
+                    //       rows.push(temp);
+                    //   });
+                     
+                      // doc.addPage();
+
+                      // doc.autoTable(columnHeader, rows);
+                      // doc.autoTable(columnHeader, rows);
+                      // doc.autoTable(columnHeader, rows);
+                      // doc.autoTable(columnHeader, rows);
+                      // doc.autoTable(columnHeader, rows);
+                      // doc.autoTable(columnHeader, rows);
+                      // doc.autoTable(columnHeader, rows);
+                      // doc.autoTable(columnHeader, rows);
+                      // doc.autoTable(columnHeader, rows);
+                      // doc.autoTable(columnHeader, rows);
+                      // doc.autoTable(columnHeader, rows);
+
+                      //doc.addPage();
+
+                      // var columns = ['SN',' Product Name','Pack Size','Batch No','Exp No','Unit Price TP/SP','Qty'];
+                      // var rowss = [
+                      //             [1,'John','Vilnius',22],
+                      //             [2,'Jack','Riga',25]
+                      //           ]
+                      // // var doc = new jsPDF('p', 'pt');
+                      // doc.setFontSize(20);
+                      // doc.text(30, 30, 'Table'); 
+                      // doc.autoTable(columns, rowss, {
+                      //     margin: { top: 50, left: 20, right: 20, bottom: 0 },
+                      //     drawHeaderCell: function (cell, data) {
+                      //       console.log(cell + '    ' + data)
+                      //         if (cell.raw === 'ID') {//paint.Name header red
+                      //             cell.styles.fontSize= 15;
+                      //           cell.styles.textColor = '#272727';
+                      //         } else {
+                      //             cell.styles.textColor = '#27dede';
+                      //             cell.styles.fontSize = 10;
+                      //         }
+                      //     },
+                      //     createdCell: function (cell, data) {
+                      //       console.log(cell + '    ' + data)
+                      //       if (cell.raw === 'Jack') {
+                      //         cell.styles.fontSize= 15;
+                      //         cell.styles.textColor = '#blue';
+                      //       } 
+                      //     },
+                      // });
+
+                      doc.save(pdfName + '_' + filename + '.pdf');
+
+                      const date = new Date();
+                      const filename =
+                        "timechart_" +
+                        date.getFullYear() +
+                        ("0" + (date.getMonth() + 1)).slice(-2) +
+                        ("0" + date.getDate()).slice(-2) +
+                        ("0" + date.getHours()).slice(-2) +
+                        ("0" + date.getMinutes()).slice(-2) +
+                        ("0" + date.getSeconds()).slice(-2) +
+                        ".pdf";
+
+
+
+
+
+
+
+
+
+
+
+
+      ///////////////////////////////////////////////////////////////////////////////////////////////
+      ///////////////////////////////////////////////////////////////////////////////////////////////
+
     },
   },
 };
