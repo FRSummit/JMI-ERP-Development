@@ -277,7 +277,7 @@ export default class SBUStatus {
         let printWindow = window.open('', 'PRINT', 'height=600,width=800');
 
         printWindow.document.write('<html><head><title>' + document.title  + '</title>');
-        printWindow.document.write('</head><body >');
+        printWindow.document.write('</head><body>');
         printWindow.document.write('<h1>' + document.title  + '</h1>');
         printWindow.document.write(document.getElementById(el).innerHTML);
         printWindow.document.write('</body></html>');
@@ -297,6 +297,9 @@ export default class SBUStatus {
                             + '<html>'
                             +   '<head>'
                             +     '<title>' + document.title + '</title>'
+                            +     '<style>'
+                            +       this.addStylePrint_3()
+                            +     '</style>'
                             +   '</head>'
                             +   '<body>'
                 )
@@ -310,7 +313,7 @@ export default class SBUStatus {
 
         mywindow.document.write(''
                             // + '<table border="solid 2px;" style="color:black;font-size:14px; width: 100%; text-align: center;">'
-                            + '<table style="color:black;font-size:14px; width: 100%; text-align: center;">'
+                            + '<table>'
                             // +   '<thead style="border:10px solid red; background:yellow">'
                             +   '<thead>'
                             +     '<tr>'
@@ -335,6 +338,52 @@ export default class SBUStatus {
 
         return true;
     }
+
+    addStylePrint_3() {
+        let style = ''
+        style += ''
+            //   + '@page {'
+            //   +     'size: 7in 9.25in;'
+            //   +     'margin: 27mm 16mm 27mm 16mm;'
+            //   + '}'
+            //      A4 => size: 21cm 29.7cm;
+            //      A4 => margin: 30mm 45mm 30mm 45mm;
+              +
+              + '@media print {'
+              +     'body {'
+              +         'width: 21cm;'       /*width :210mm;*/
+              +         'height: 29.7cm;'    /*height:297mm;*/
+              +         'margin: 30mm 45mm 30mm 45mm;' 
+              +         '/* change the margins as you want them to be. */'
+              +     '}' 
+              + '}'
+              + 'p {'
+              +     'font-size: 14px;'
+              +     'margin: 0px;'
+              + '}'
+              + 'table {'
+              +     'border-collapse: collapse;'
+              +     'color:black;'
+              +     'font-size:14px;'
+              +     'width: 100%; text-align: center;'
+              +     'text-align: center;'
+              + '}'
+              + 'thead {'
+              +     'border: 1px solid #000000'
+              + '}'
+              + 'tbody {'
+              +     'border: 1px solid #000000'
+              + '}'
+
+              + '/*Page break class*/'
+              + '/*.page-break {'
+              +     'height: 0;'
+              +      'page-break-before: always;'
+              +     'margin: 0;'
+              +     'border-top: none;'
+              + '}*/'
+        return style
+    }
     
     create_table_body_data(data) {
         let result = ''
@@ -348,7 +397,7 @@ export default class SBUStatus {
                     +       '<td>' + data[i].status + '</td>'
                     +   '</tr>'
         }
-        return result + result + result + result + result + result + result + result + result
+        return result + result + result + result + result + result + result + result + result+ result + result + result + result + result + result + result
     }
     
 }
