@@ -58,7 +58,10 @@
                             </tr>
                             <!-- Bottom Total Section -->
                             <tr id="subtotal-section" class="subtotal-section" style="border-top   : 1px solid #BFCFE2;">
-                                <td></td>
+                                <td>
+                                    <span class="add-order-section" @click="addOrderClickHandler"><i class="zmdi zmdi-plus"></i>Add Products</span>
+                                    <span class="attachment-section" @click="addAttachmentClickHandler"><i class="zmdi zmdi-attachment-alt"></i>Attachment</span>
+                                </td>
                                 <td></td>
                                 <td></td>
                                 <td style="width: 20%">
@@ -96,8 +99,8 @@
             <!-- Bottom Subtotal & Attachment Section -->
             <div class="submit-section">
                 <div class="submit-section-inner">
-                    <span class="cancel-order">Cancel Order</span>
-                    <span class="proceed-order">Proceed Order</span>
+                    <span class="cancel-order" @click="cancelOrderClickHandler">Cancel Order</span>
+                    <span class="proceed-order" @click="proceedOrderClickHandler">Proceed Order</span>
                 </div>
             </div>
         </div>
@@ -172,8 +175,40 @@ export default {
                     bonus: "0",
                     total_price: "300.00"
                 },
+                {
+                    name: "Altrip. Almotriptan",
+                    stock: "Stock: 1000 I UoM: Box",
+                    unit_price: "300.00",
+                    quantity: "5",
+                    bonus: "0",
+                    total_price: "300.00"
+                },
+                {
+                    name: "Altrip. Almotriptan",
+                    stock: "Stock: 1000 I UoM: Box",
+                    unit_price: "300.00",
+                    quantity: "5",
+                    bonus: "0",
+                    total_price: "300.00"
+                },
             ]
         }
+    },
+    created() {},
+    mounted() {},
+    methods: {
+        addOrderClickHandler() {
+            console.log('add order')
+        },
+        addAttachmentClickHandler() {
+            console.log('add attachment')
+        },
+        cancelOrderClickHandler() {
+            console.log('cancel order')
+        },
+        proceedOrderClickHandler() {
+            console.log('proceed order')
+        },
     }
 }
 </script>

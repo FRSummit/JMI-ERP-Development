@@ -30,7 +30,7 @@
         box-shadow        : 0px 0px 8px #026CD11A;
         border-radius     : 8px;
         padding           : 20px 0;
-        height            : calc(100vh - (74px + 73px + 40px + 32px));
+        height            : calc(100vh - (74px + 73px + 40px + 32px - 60px));
         // height       : 900px;
         // position     : fixed;
         // overflow-y     : scroll;
@@ -69,7 +69,7 @@
                 color         : #026CD1;
                 font-size     : 12px;
                 background    : #E2EDFA;
-                padding       : 2px 6px;
+                padding       : 3px 6px;
                 border-radius : 20px;
                 margin-left   : 12px;
                 vertical-align: middle;
@@ -182,6 +182,30 @@
                     }
 
                     tbody {
+                        // width            : 100%;
+                        // display          : list-item;
+                        // height           : calc(100vh - (74px + 73px + (40px + 84px + 30px + 60px + 20px + 46px) + 32px));
+                        // overflow         : auto;
+                        // -webkit-flex-flow: row wrap;
+
+                        // &::-webkit-scrollbar {
+                        //     width: 2px;
+                        // }
+
+                        // &::-webkit-scrollbar-track {
+                        //     box-shadow   : inset 0 0 5px grey;
+                        //     border-radius: 10px;
+                        // }
+
+                        // &::-webkit-scrollbar-thumb {
+                        //     background   : #168fff;
+                        //     border-radius: 10px;
+                        // }
+
+                        // &::-webkit-scrollbar-thumb:hover {
+                        //     background: #004e98;
+                        // }
+
                         tr {
                             border-bottom: none;
 
@@ -234,6 +258,36 @@
                                 }
                             }
 
+                            td:nth-child(4) {
+                                span {
+                                    color: #8D979F;
+                                }
+                            }
+
+                            td:first-child {
+                                span {
+                                    margin-top: 10px;
+                                    text-align: left;
+                                    font-size : 14px;
+                                    color     : #026CD1;
+                                    cursor    : pointer;
+
+                                    i {
+                                        font-size   : 18px;
+                                        margin-right: 6px;
+                                    }
+                                }
+
+                                span:last-child {
+                                    margin-top: 30px;
+                                    color     : #8D979F;
+
+                                    i {
+                                        transform: rotate(40deg);
+                                    }
+                                }
+                            }
+
                             &:hover {
                                 background: none;
                             }
@@ -242,9 +296,10 @@
                         tr#grand-total-section {
                             td {
                                 span {
-                                    text-align: right;
-                                    color     : #222223;
-                                    font-size : 14px;
+                                    text-align : right;
+                                    color      : #026CD1;
+                                    font-size  : 14px;
+                                    font-weight: 500;
                                 }
                             }
 
@@ -267,6 +322,7 @@
                     padding      : 11px 29px 10px;
                     border       : 1px solid #DF2A43;
                     border-radius: 2px;
+                    cursor       : pointer;
                 }
 
                 span.proceed-order {
@@ -276,6 +332,7 @@
                     background   : #026CD1;
                     padding      : 12px 26px 11px;
                     border-radius: 2px;
+                    cursor       : pointer;
                 }
             }
         }
