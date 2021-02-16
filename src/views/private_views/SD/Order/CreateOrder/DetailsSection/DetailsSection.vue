@@ -54,6 +54,7 @@
                                 <td>{{ data.quantity }}</td>
                                 <td>{{ data.bonus }}</td>
                                 <td>{{ data.total_price }}</td>
+                                <td>Actions</td>
                             </tr>
                             <!-- Bottom Total Section -->
                             <tr id="subtotal-section" class="subtotal-section" style="border-top   : 1px solid #BFCFE2;">
@@ -74,6 +75,7 @@
                                     <span class="gross-tatal">13,032.20</span>
                                     <span class="atjustment">-0.20</span>
                                 </td>
+                                <td>Actions</td>
                             </tr>
                             <tr id="grand-total-section" class="grand-total-section" style="border-top   : 1px solid #BFCFE2;">
                                 <td></td>
@@ -85,14 +87,18 @@
                                 <td>
                                     <span class="grand-total">13,032.00</span>
                                 </td>
+                                <td>Actions</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
             <!-- Bottom Subtotal & Attachment Section -->
-            <div class="subtotal-section">
-                <div class="subtotal-section-inner"></div>
+            <div class="submit-section">
+                <div class="submit-section-inner">
+                    <span class="cancel-order">Cancel Order</span>
+                    <span class="proceed-order">Proceed Order</span>
+                </div>
             </div>
         </div>
     </div>
