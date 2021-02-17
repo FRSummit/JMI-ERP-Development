@@ -302,19 +302,8 @@ export default class SBUStatus {
                             +     '</style>'
                             +   '</head>'
                             +   '<body>'
-                )
-
-        mywindow.document.write(''
-                            + '<div>'
-                            +   '<p>Customer Code: 154</p>'
-                            +   '<p>Invoice No: 155</p>'
-                            + '</div>'
-                )
-
-        mywindow.document.write(''
-                            // + '<table border="solid 2px;" style="color:black;font-size:14px; width: 100%; text-align: center;">'
+                            + this.create_summery_section_data()
                             + '<table>'
-                            // +   '<thead style="border:10px solid red; background:yellow">'
                             +   '<thead>'
                             +     '<tr>'
                             +       '<th>NAME</th>'
@@ -356,23 +345,23 @@ export default class SBUStatus {
               +         'margin: 30mm 45mm 30mm 45mm;' 
               +         '/* change the margins as you want them to be. */'
               +     '}' 
-              + '}'
-              + 'p {'
-              +     'font-size: 14px;'
-              +     'margin: 0px;'
-              + '}'
-              + 'table {'
-              +     'border-collapse: collapse;'
-              +     'color:black;'
-              +     'font-size:14px;'
-              +     'width: 100%; text-align: center;'
-              +     'text-align: center;'
-              + '}'
-              + 'thead {'
-              +     'border: 1px solid #000000'
-              + '}'
-              + 'tbody {'
-              +     'border: 1px solid #000000'
+              +     'p {'
+              +         'font-size: 14px;'
+              +         'margin: 0px;'
+              +     '}'
+              +     'table {'
+              +         'border-collapse: collapse;'
+              +         'color:black;'
+              +         'font-size:14px;'
+              +         'width: 100%; text-align: center;'
+              +         'text-align: center;'
+              +     '}'
+              +     'thead {'
+              +         'border: 1px solid #000000'
+              +     '}'
+              +     'tbody {'
+              +         'border: 1px solid #000000'
+              +     '}'
               + '}'
 
               + '/*Page break class*/'
@@ -383,6 +372,15 @@ export default class SBUStatus {
               +     'border-top: none;'
               + '}*/'
         return style
+    }
+
+    create_summery_section_data() {
+        let result = ''
+                    + '<div>'
+                    +   '<p>Customer Code: 154</p>'
+                    +   '<p>Invoice No: 155</p>'
+                    + '</div>'
+        return result
     }
     
     create_table_body_data(data) {
