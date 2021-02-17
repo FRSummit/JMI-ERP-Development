@@ -130,47 +130,71 @@
                         </div>
                     </div>
                     
-                        <div class="input-autofield-show-section">
-                            <div class="input-autofield-show-section-inner">
-                                <div class="input-autofield">
-                                    <input type="text" />
-                                </div>
-                                <div class="autofield-show-section">
-                                    <div class="autofield-show-section-inner">
-                                        <div class="header">
-                                            <div class="row">
-                                                <span class="name">Name</span>
-                                                <span class="quantity">Quantity</span>
-                                                <span class="total-price">Total Price</span>
-                                                <span class="add-action"></span>
-                                            </div>
+                    <div class="input-autofield-show-section">
+                        <div class="input-autofield-show-section-inner">
+                            <div class="input-autofield">
+                                <input type="text" placeholder="Search By Batch Number" />
+                            </div>
+                            <div class="autofield-show-section">
+                                <div class="autofield-show-section-inner">
+                                    <div class="header">
+                                        <div class="row">
+                                            <span class="name">Name</span>
+                                            <span class="quantity">Quantity</span>
+                                            <span class="total-price">Total Price</span>
+                                            <span class="add-action"></span>
                                         </div>
-                                        <div class="response-body">
-                                            <tr v-for="(data, i) in auto_field_data" :key="i">
-                                                <td>
-                                                    <span>{{ data.name }}</span>
-                                                    <span>{{ data.stock }}</span>
-                                                </td>
-                                                <td>
-                                                    <span class="quantity-setup">
-                                                        <span class="qty-increase" @click="increaseProductInAutofieldProductClickHandler(data, i)"><i class="zmdi zmdi-minus"></i></span>
-                                                        <span class="qty">{{ data.quantity }}</span>
-                                                        <span class="qty-decrease" @click="decreaseProductInAutofieldProductClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
-                                                    </span>
-                                                </td>
-                                                <td>{{ data.total_price }}</td>
-                                                <td class="row-action">
-                                                    <span class="delete-icon" @click="addProductFromAutofieldResponseHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
-                                                </td>
-                                            </tr>
-                                        </div>
+                                    </div>
+                                    <div class="response-body">
+                                        <tr v-for="(data, i) in auto_field_data" :key="i">
+                                            <td>
+                                                <span>{{ data.name }}</span>
+                                                <span>{{ data.stock }}</span>
+                                            </td>
+                                            <td>
+                                                <span class="quantity-setup">
+                                                    <span class="qty-increase" @click="increaseProductInAutofieldProductClickHandler(data, i)"><i class="zmdi zmdi-minus"></i></span>
+                                                    <span class="qty">{{ data.quantity }}</span>
+                                                    <span class="qty-decrease" @click="decreaseProductInAutofieldProductClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
+                                                </span>
+                                            </td>
+                                            <td>{{ data.total_price }}</td>
+                                            <td class="row-action">
+                                                <span class="delete-icon" @click="addProductFromAutofieldResponseClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
+                                            </td>
+                                        </tr>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="ordered-product-list">
-                            <div class="ordered-product-list-inner"></div>
+                    </div>
+                    <div class="ordered-product-list">
+                        <div class="ordered-product-list-inner">
+                            <div class="selected-ordered-product">
+                                <tr v-for="(data, i) in selected_auto_field_data" :key="i">
+                                    <td>
+                                        <span>{{ data.name }}</span>
+                                        <span>{{ data.stock }}</span>
+                                    </td>
+                                    <td>
+                                        <span class="quantity-setup">
+                                            <span class="qty">{{ data.quantity }}</span>
+                                        </span>
+                                    </td>
+                                    <td>{{ data.total_price }}</td>
+                                    <td class="row-action">
+                                        <span class="delete-icon" @click="removeAddedOrderedProductClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
+                                    </td>
+                                </tr>
+                            </div>
                         </div>
+                    </div>
+                    <div class="submit-section">
+                        <div class="submit-section-inner">
+                            <span class="cancel-order" @click="cancelOrderFromModalClickHandler">Cancel</span>
+                            <span class="proceed-order" @click="addItemsFromModalClickHandler">Add Items</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -352,24 +376,114 @@ export default {
                     total_price: "300.00"
                 },
             ],
+            selected_auto_field_data: [
+                {
+                    name: "Altrip. Almotriptan",
+                    stock: "Stock: 1000 I UoM: Box",
+                    unit_price: "300.00",
+                    quantity: "5",
+                    bonus: "0",
+                    total_price: "300.00"
+                },
+                {
+                    name: "Altrip. Almotriptan",
+                    stock: "Stock: 1000 I UoM: Box",
+                    unit_price: "300.00",
+                    quantity: "5",
+                    bonus: "0",
+                    total_price: "300.00"
+                },
+                {
+                    name: "Altrip. Almotriptan",
+                    stock: "Stock: 1000 I UoM: Box",
+                    unit_price: "300.00",
+                    quantity: "5",
+                    bonus: "0",
+                    total_price: "300.00"
+                },
+                {
+                    name: "Altrip. Almotriptan",
+                    stock: "Stock: 1000 I UoM: Box",
+                    unit_price: "300.00",
+                    quantity: "5",
+                    bonus: "0",
+                    total_price: "300.00"
+                },
+                {
+                    name: "Altrip. Almotriptan",
+                    stock: "Stock: 1000 I UoM: Box",
+                    unit_price: "300.00",
+                    quantity: "5",
+                    bonus: "0",
+                    total_price: "300.00"
+                },
+                {
+                    name: "Altrip. Almotriptan",
+                    stock: "Stock: 1000 I UoM: Box",
+                    unit_price: "300.00",
+                    quantity: "5",
+                    bonus: "0",
+                    total_price: "300.00"
+                },
+                {
+                    name: "Altrip. Almotriptan",
+                    stock: "Stock: 1000 I UoM: Box",
+                    unit_price: "300.00",
+                    quantity: "5",
+                    bonus: "0",
+                    total_price: "300.00"
+                },
+                {
+                    name: "Altrip. Almotriptan",
+                    stock: "Stock: 1000 I UoM: Box",
+                    unit_price: "300.00",
+                    quantity: "5",
+                    bonus: "0",
+                    total_price: "300.00"
+                },
+                {
+                    name: "Altrip. Almotriptan",
+                    stock: "Stock: 1000 I UoM: Box",
+                    unit_price: "300.00",
+                    quantity: "5",
+                    bonus: "0",
+                    total_price: "300.00"
+                },
+                {
+                    name: "Altrip. Almotriptan",
+                    stock: "Stock: 1000 I UoM: Box",
+                    unit_price: "300.00",
+                    quantity: "5",
+                    bonus: "0",
+                    total_price: "300.00"
+                },
+            ],
             add_order_modal: false,
         }
     },
     created() {},
     mounted() {},
     methods: {
+        //------------------------------------------------------------------------------------------
+        // Table List Actions
+        // Increase Table Row's Single Product/Order
         increaseOrderedItemClickHandler(data, index) {
             console.log(data + '    ' + index)
         },
+        // Decrease Table Row's Single Product/Order
         decreaseOrderedItemClickHandler(data, index) {
             console.log(data + '    ' + index)
         },
+        // Edit Table Row's Single Product/Order
         editOrderitemClickHandler(data, index) {
             console.log(data + '    ' + index)
         },
+        // Delete Table Row's Single Product/Order
         deleteOrderitemClickHandler(data, index) {
             console.log(data + '    ' + index)
         },
+        //------------------------------------------------------------------------------------------
+        // Add Product/Order , Atachment Row
         addOrderClickHandler() {
             if(this.add_order_modal) {
                 this.add_order_modal = false
@@ -380,25 +494,42 @@ export default {
         addAttachmentClickHandler() {
             console.log('add attachment')
         },
+        //------------------------------------------------------------------------------------------
+        // Order Submition Actions
         cancelOrderClickHandler() {
             console.log('cancel order')
         },
         proceedOrderClickHandler() {
             console.log('proceed order')
         },
+        //------------------------------------------------------------------------------------------
         // Order Modal Functions
         addOrderModalOutsideClick() {
             this.add_order_modal = false
         },
+        // Increase Autofield Selected Ordered Product
         increaseProductInAutofieldProductClickHandler(data, index) {
-            console.log(data + '    ' + index)
+            console.log('increase autofield selected product: ' + data + '    ' + index)
         },
+        // Decrease Autofield Selected Ordered Product
         decreaseProductInAutofieldProductClickHandler(data, index) {
-            console.log(data + '    ' + index)
+            console.log('decrease autofield selected product: ' + data + '    ' + index)
         },
-        addProductFromAutofieldResponseHandler(data, index) {
-            console.log(data + '    ' + index)
+        // Add Selected Ordered Product
+        addProductFromAutofieldResponseClickHandler(data, index) {
+            console.log('added ordered product from auto field: ' + data + '    ' + index)
         },
+        // Remove Added Ordered Product
+        removeAddedOrderedProductClickHandler(data, index) {
+            console.log('remove added ordered product: ' + data + '    ' + index)
+        },
+        cancelOrderFromModalClickHandler() {
+            this.add_order_modal = false
+        },
+        addItemsFromModalClickHandler() {
+            console.log('add items from modal')
+        },
+        //------------------------------------------------------------------------------------------
     }
 }
 </script>
