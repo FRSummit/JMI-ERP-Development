@@ -197,6 +197,34 @@
                     </div>
                 </div>
             </div>
+            <!-- Attachment Modal -->
+            <div class="attachment-modal" v-if="attachment_modal">
+                <div class="attachment-modal-inner" v-click-outside="attachmentModalOutsideClick">
+                    <p class="title">Attachments</p>
+                    <div class="file-input-section">
+                        <div class="file-input-section-inner">
+                            <div class="input-section">
+                                <input type="file" placeholder="Choose file...">
+                                <span class="submit-btn" @click="uploadFileCLickHandler">Upload</span>
+                            </div>
+                            <p class="input-type-informations">File Type Should be pdf, jpg, xl, csv. Size of file should not b more than 10MB</p>
+                        </div>
+                    </div>
+                    <div class="uploadeded-file-list">
+                        <div class="uploaded-file-list-inner">
+                            <div class="file" v-for="(a, i) in attachment_list" :key="i">
+                                <div class="file-inner">
+                                    <p class="file-name">{{ a.name }}</p>
+                                    <div class="file-action">
+                                        <span class="download-icon"><i class="zmdi zmdi-download"></i></span>
+                                        <span class="delete-icon"><i class="fas fa-trash-alt"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -458,7 +486,25 @@ export default {
                     total_price: "300.00"
                 },
             ],
+            attachment_list: [
+                {
+                    name: "File Name Line Here.pdf"
+                },
+                {
+                    name: "File Name Line Here.pdf"
+                },
+                {
+                    name: "File Name Line Here.pdf"
+                },
+                {
+                    name: "File Name Line Here.pdf"
+                },
+                {
+                    name: "File Name Line Here.pdf"
+                },
+            ],
             add_order_modal: false,
+            attachment_modal: false,
         }
     },
     created() {},
@@ -492,7 +538,11 @@ export default {
             }
         },
         addAttachmentClickHandler() {
-            console.log('add attachment')
+            if(this.attachment_modal) {
+                this.attachment_modal = false
+            } else {
+                this.attachment_modal = true
+            }
         },
         //------------------------------------------------------------------------------------------
         // Order Submition Actions
@@ -530,6 +580,13 @@ export default {
             console.log('add items from modal')
         },
         //------------------------------------------------------------------------------------------
+        // Attachment Modal
+        attachmentModalOutsideClick() {
+            this.attachment_modal = false
+        },
+        uploadFileCLickHandler() {
+            console.log('File upload')
+        }
     }
 }
 </script>

@@ -880,5 +880,139 @@
                 }
             }
         }
+
+        .attachment-modal {
+            position        : fixed;
+            left            : calc((100vw / 2) - 200px);
+            // background   : #001223;
+            z-index         : 9999;
+            width           : 100%;
+            height          : 100%;
+            left            : 0;
+            top             : 0;
+            background-color: rgb(0 18 35 / 48%);
+
+            .attachment-modal-inner {
+                padding      : 40px 60px;
+                text-align   : center;
+                width        : 600px;
+                background   : #FFFFFF;
+                position     : absolute;
+                top          : calc((100vh / 2) - 175px);
+                left         : calc((100vw / 2) - 300px);
+                opacity      : 1;
+                z-index      : 9999;
+                border-radius: 2px;
+
+                p.title {
+                    margin       : 0;
+                    font-size    : 16px;
+                    color        : #000000;
+                    line-height  : 1;
+                    font-weight  : 500;
+                    text-align   : left;
+                    margin-bottom: 20px;
+                }
+
+                .file-input-section {
+                    .file-input-section-inner {
+                        .input-section {
+                            input {
+                                border   : 1px solid #026CD1;
+                                display  : inline-block;
+                                padding  : 6px 12px;
+                                font-size: 16px;
+                                color    : #026CD1;
+                                cursor   : pointer;
+                                height   : 40px;
+
+                                &:focus {
+                                    box-shadow: none;
+                                }
+                            }
+
+                            span.submit-btn {
+                                font-size                 : 16px;
+                                color                     : #FFFFFF;
+                                background                : #026CD1;
+                                padding                   : 10px 20px 11px;
+                                border-top-right-radius   : 2px;
+                                border-bottom-right-radius: 2px;
+                                cursor                    : pointer;
+                            }
+                        }
+
+                        p.input-type-informations {
+                            padding    : 4px 0;
+                            margin     : 10px 0 10px;
+                            font-size  : 12px;
+                            color      : #36454F;
+                            line-height: 1;
+                        }
+                    }
+                }
+
+                .uploadeded-file-list {
+                    border-top : 1px solid #E9F1FB;
+                    margin-top : 10px;
+                    padding-top: 10px;
+
+                    .uploaded-file-list-inner {
+                        .file {
+                            margin: 6px 0;
+
+                            .file-inner {
+                                display      : block;
+                                width        : 100%;
+                                padding      : 6px 10px;
+                                background   : #E2EDFA;
+                                border-radius: 2px;
+
+                                p.file-name {
+                                    display       : inline-block;
+                                    width         : 80%;
+                                    margin        : 0;
+                                    font-size     : 16px;
+                                    color         : #026CD1;
+                                    line-height   : 1;
+                                    text-align    : left;
+                                    vertical-align: middle;
+                                }
+
+                                .file-action {
+                                    display       : inline-block;
+                                    width         : 20%;
+                                    text-align    : center;
+                                    vertical-align: middle;
+
+                                    span {
+                                        display    : inline-block;
+                                        line-height: 1;
+                                        margin     : 0 10px;
+
+                                        i {}
+                                    }
+
+                                    span.download-icon {
+                                        i {
+                                            color    : #026CD1;
+                                            font-size: 18px;
+                                        }
+                                    }
+
+                                    span.delete-icon {
+                                        svg {
+                                            color : #DF2A43;
+                                            width : 16px;
+                                            height: 16px;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
