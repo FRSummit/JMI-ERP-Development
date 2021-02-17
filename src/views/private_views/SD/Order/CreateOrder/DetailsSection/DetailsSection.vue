@@ -38,24 +38,36 @@
             <!-- Order Table -->
             <div class="order-table">
                 <div class="order-table-inner">
-                    <table class="table" id="order-data-table">
+                    <table class="table" id="order-data-table" cellspacing="0" width="100%">
                         <thead>
                             <tr>
                                 <th style="border: none" v-for="(head, i) in order_table_header" :key="i">{{ head }}</th>
+                                <th style="border: none"></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(data, i) in order_table_data" :key="i">
-                                <td>
-                                    <span>{{ data.name }}</span>
-                                    <span>{{ data.stock }}</span>
-                                </td>
-                                <td>{{ data.unit_price }}</td>
-                                <td>{{ data.quantity }}</td>
-                                <td>{{ data.bonus }}</td>
-                                <td>{{ data.total_price }}</td>
-                                <td>Actions</td>
-                            </tr>
+                            <div class="table-data-rows">
+                                <tr v-for="(data, i) in order_table_data" :key="i">
+                                    <td>
+                                        <span>{{ data.name }}</span>
+                                        <span>{{ data.stock }}</span>
+                                    </td>
+                                    <td>{{ data.unit_price }}</td>
+                                    <td>
+                                        <span class="quantity-setup">
+                                            <span class="qty-increase"><i class="zmdi zmdi-minus"></i></span>
+                                            <span class="qty">{{ data.quantity }}</span>
+                                            <span class="qty-decrease"><i class="zmdi zmdi-plus"></i></span>
+                                        </span>
+                                    </td>
+                                    <td>{{ data.bonus }}</td>
+                                    <td>{{ data.total_price }}</td>
+                                    <td class="row-action">
+                                        <span class="edit-icon" @click="editOrderitemClickHandler(data, i)"><i class="zmdi zmdi-edit"></i></span>
+                                        <span class="delete-icon" @click="deleteOrderitemClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
+                                    </td>
+                                </tr>
+                            </div>
                             <!-- Bottom Total Section -->
                             <tr id="subtotal-section" class="subtotal-section" style="border-top   : 1px solid #BFCFE2;">
                                 <td>
@@ -64,12 +76,12 @@
                                 </td>
                                 <td></td>
                                 <td></td>
-                                <td style="width: 20%">
+                                <td>
                                     <span class="subtotal">Subtotal</span>
                                     <span class="vat">(+) Vat</span>
                                     <span class="discount">(-) Discount</span>
                                     <span class="gross-tatal">Gross Total</span>
-                                    <span class="atjustment">(+/-) Rounding Adjustment</span>
+                                    <span class="atjustment" style="width: 142px;">(+/-) Rounding Adjustment</span>
                                 </td>
                                 <td>
                                     <span class="subtotal">13,032.20</span>
@@ -78,7 +90,7 @@
                                     <span class="gross-tatal">13,032.20</span>
                                     <span class="atjustment">-0.20</span>
                                 </td>
-                                <td>Actions</td>
+                                <td></td>
                             </tr>
                             <tr id="grand-total-section" class="grand-total-section" style="border-top   : 1px solid #BFCFE2;">
                                 <td></td>
@@ -90,7 +102,7 @@
                                 <td>
                                     <span class="grand-total">13,032.00</span>
                                 </td>
-                                <td>Actions</td>
+                                <td></td>
                             </tr>
                         </tbody>
                     </table>
@@ -191,12 +203,66 @@ export default {
                     bonus: "0",
                     total_price: "300.00"
                 },
+                {
+                    name: "Altrip. Almotriptan",
+                    stock: "Stock: 1000 I UoM: Box",
+                    unit_price: "300.00",
+                    quantity: "5",
+                    bonus: "0",
+                    total_price: "300.00"
+                },
+                {
+                    name: "Altrip. Almotriptan",
+                    stock: "Stock: 1000 I UoM: Box",
+                    unit_price: "300.00",
+                    quantity: "5",
+                    bonus: "0",
+                    total_price: "300.00"
+                },
+                {
+                    name: "Altrip. Almotriptan",
+                    stock: "Stock: 1000 I UoM: Box",
+                    unit_price: "300.00",
+                    quantity: "5",
+                    bonus: "0",
+                    total_price: "300.00"
+                },
+                {
+                    name: "Altrip. Almotriptan",
+                    stock: "Stock: 1000 I UoM: Box",
+                    unit_price: "300.00",
+                    quantity: "5",
+                    bonus: "0",
+                    total_price: "300.00"
+                },
+                {
+                    name: "Altrip. Almotriptan",
+                    stock: "Stock: 1000 I UoM: Box",
+                    unit_price: "300.00",
+                    quantity: "5",
+                    bonus: "0",
+                    total_price: "300.00"
+                },
+                {
+                    name: "Altrip. Almotriptan",
+                    stock: "Stock: 1000 I UoM: Box",
+                    unit_price: "300.00",
+                    quantity: "5",
+                    bonus: "0",
+                    total_price: "300.00"
+                },
             ]
         }
     },
     created() {},
     mounted() {},
     methods: {
+        editOrderitemClickHandler(data, index) {
+            console.log(data + '    ' + index)
+        },
+        deleteOrderitemClickHandler(data, index) {
+            console.log(data + '    ' + index)
+        },
         addOrderClickHandler() {
             console.log('add order')
         },
