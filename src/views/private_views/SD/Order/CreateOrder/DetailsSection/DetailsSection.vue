@@ -115,6 +115,64 @@
                     <span class="proceed-order" @click="proceedOrderClickHandler">Proceed Order</span>
                 </div>
             </div>
+            <!-- Add Product Modal -->
+            <div class="add-order-modal-section" v-if="add_order_modal">
+                <div class="add-order-modal-section-inner" v-click-outside="addOrderModalOutsideClick">
+                    <div class="top-section">
+                        <div class="top-section-inner">
+                            <div class="logo">
+                                <img src="../../../../../../assets/icons/user.png" alt="logo">
+                            </div>
+                            <div class="title-section">
+                                <p class="name">ABI Pharmacy and Diagnostic Center<span class="tik-icon"><i class="zmdi zmdi-check"></i></span></p>
+                                <p class="id">JMI-2231225</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                        <div class="input-autofield-show-section">
+                            <div class="input-autofield-show-section-inner">
+                                <div class="input-autofield">
+                                    <input type="text" />
+                                </div>
+                                <div class="autofield-show-section">
+                                    <div class="autofield-show-section-inner">
+                                        <div class="header">
+                                            <div class="row">
+                                                <span class="name">Name</span>
+                                                <span class="quantity">Quantity</span>
+                                                <span class="total-price">Total Price</span>
+                                                <span class="add-action"></span>
+                                            </div>
+                                        </div>
+                                        <div class="response-body">
+                                            <tr v-for="(data, i) in auto_field_data" :key="i">
+                                                <td>
+                                                    <span>{{ data.name }}</span>
+                                                    <span>{{ data.stock }}</span>
+                                                </td>
+                                                <td>
+                                                    <span class="quantity-setup">
+                                                        <span class="qty-increase" @click="increaseProductInAutofieldProductClickHandler(data, i)"><i class="zmdi zmdi-minus"></i></span>
+                                                        <span class="qty">{{ data.quantity }}</span>
+                                                        <span class="qty-decrease" @click="decreaseProductInAutofieldProductClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
+                                                    </span>
+                                                </td>
+                                                <td>{{ data.total_price }}</td>
+                                                <td class="row-action">
+                                                    <span class="delete-icon" @click="addProductFromAutofieldResponseHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
+                                                </td>
+                                            </tr>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ordered-product-list">
+                            <div class="ordered-product-list-inner"></div>
+                        </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -251,7 +309,50 @@ export default {
                     bonus: "0",
                     total_price: "300.00"
                 },
-            ]
+            ],
+            auto_field_data: [
+                {
+                    name: "Altrip. Almotriptan",
+                    stock: "Stock: 1000 I UoM: Box",
+                    unit_price: "300.00",
+                    quantity: "5",
+                    bonus: "0",
+                    total_price: "300.00"
+                },
+                {
+                    name: "Altrip. Almotriptan",
+                    stock: "Stock: 1000 I UoM: Box",
+                    unit_price: "300.00",
+                    quantity: "5",
+                    bonus: "0",
+                    total_price: "300.00"
+                },
+                {
+                    name: "Altrip. Almotriptan",
+                    stock: "Stock: 1000 I UoM: Box",
+                    unit_price: "300.00",
+                    quantity: "5",
+                    bonus: "0",
+                    total_price: "300.00"
+                },
+                {
+                    name: "Altrip. Almotriptan",
+                    stock: "Stock: 1000 I UoM: Box",
+                    unit_price: "300.00",
+                    quantity: "5",
+                    bonus: "0",
+                    total_price: "300.00"
+                },
+                {
+                    name: "Altrip. Almotriptan",
+                    stock: "Stock: 1000 I UoM: Box",
+                    unit_price: "300.00",
+                    quantity: "5",
+                    bonus: "0",
+                    total_price: "300.00"
+                },
+            ],
+            add_order_modal: false,
         }
     },
     created() {},
@@ -270,7 +371,11 @@ export default {
             console.log(data + '    ' + index)
         },
         addOrderClickHandler() {
-            console.log('add order')
+            if(this.add_order_modal) {
+                this.add_order_modal = false
+            } else {
+                this.add_order_modal = true
+            }
         },
         addAttachmentClickHandler() {
             console.log('add attachment')
@@ -280,6 +385,19 @@ export default {
         },
         proceedOrderClickHandler() {
             console.log('proceed order')
+        },
+        // Order Modal Functions
+        addOrderModalOutsideClick() {
+            this.add_order_modal = false
+        },
+        increaseProductInAutofieldProductClickHandler(data, index) {
+            console.log(data + '    ' + index)
+        },
+        decreaseProductInAutofieldProductClickHandler(data, index) {
+            console.log(data + '    ' + index)
+        },
+        addProductFromAutofieldResponseHandler(data, index) {
+            console.log(data + '    ' + index)
         },
     }
 }

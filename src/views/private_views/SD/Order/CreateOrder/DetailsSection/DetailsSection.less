@@ -438,5 +438,296 @@
                 }
             }
         }
+
+        .add-order-modal-section {
+            position        : fixed;
+            left            : calc((100vw / 2) - 200px);
+            z-index         : 9999;
+            width           : 100%;
+            height          : 100%;
+            left            : 0;
+            top             : 0;
+            background-color: rgb(0 18 35 / 48%);
+
+            .add-order-modal-section-inner {
+                padding      : 20px;
+                text-align   : center;
+                width        : calc(100vw/2);
+                background   : #FFFFFF;
+                position     : absolute;
+                top          : calc((100vh / 2) - 200px);
+                left         : calc((100vw / 2) - (100vw / 4));
+                opacity      : 1;
+                z-index      : 9999;
+                border-radius: 2px;
+
+                .top-section {
+                    text-align: left;
+
+                    .top-section-inner {
+                        display: block;
+                        width  : 100%;
+
+                        .logo {
+                            display       : inline-block;
+                            width         : 40px;
+                            margin-right  : 14px;
+                            vertical-align: middle;
+
+                            img {
+                                border       : 1px solid #026CD1;
+                                width        : 40px;
+                                height       : 40px;
+                                border-radius: 50%;
+                            }
+                        }
+
+                        .title-section {
+                            display       : inline-block;
+                            width         : 80%;
+                            vertical-align: middle;
+
+                            p.name {
+                                margin       : 0;
+                                font-size    : 14px;
+                                color        : #393535;
+                                line-height  : 1;
+                                margin-bottom: 6px;
+
+                                span.tik-icon {
+                                    background    : #026CD1;
+                                    border-radius : 50%;
+                                    line-height   : 1;
+                                    width         : 10px;
+                                    height        : 10px;
+                                    display       : inline-block;
+                                    position      : relative;
+                                    vertical-align: middle;
+                                    margin-left   : 6px;
+
+                                    i {
+                                        position : absolute;
+                                        top      : 1px;
+                                        left     : 2px;
+                                        color    : #FFFFFF;
+                                        font-size: 8px;
+                                    }
+                                }
+                            }
+
+                            p.id {
+                                margin     : 0;
+                                font-size  : 14px;
+                                color      : #026CD1;
+                                line-height: 1;
+                            }
+                        }
+                    }
+                }
+
+
+                .input-autofield-show-section {
+                    margin-top: 20px;
+
+                    .input-autofield-show-section-inner {
+                        .input-autofield {
+                            width      : 80%;
+                            margin     : 0 auto;
+                            margin-left: 54px;
+
+                            input {
+                                box-sizing   : border-box;
+                                border       : 1px solid #AAC0D9;
+                                border-radius: 4px;
+                            }
+                        }
+
+                        .autofield-show-section {
+                            border       : 1px solid #AAC0D9;
+                            border-radius: 10px;
+                            margin-top   : 20px;
+
+                            .autofield-show-section-inner {
+                                .header {
+                                    padding: 4px 10px;
+
+                                    .row {
+                                        padding      : 6px 10px;
+                                        font-size    : 16px;
+                                        color        : #111213;
+                                        margin       : 0;
+                                        text-align   : center;
+                                        border-bottom: 1px solid #E9F1FB;
+                                        font-weight  : 500;
+
+                                        span.name {
+                                            width     : 40%;
+                                            text-align: left;
+                                        }
+
+                                        span.quantity {
+                                            width: 20%;
+                                        }
+
+                                        span.total-price {
+                                            width: 20%;
+                                        }
+
+                                        span.add-action {
+                                            width: 20%;
+                                        }
+                                    }
+                                }
+
+                                .response-body {
+                                    width            : 100%;
+                                    display          : list-item;
+                                    height           : 130px;
+                                    /* 6 or 7 rows*/
+                                    overflow         : auto;
+                                    -webkit-flex-flow: row wrap;
+
+                                    &::-webkit-scrollbar {
+                                        width: 2px;
+                                    }
+
+                                    &::-webkit-scrollbar-track {
+                                        box-shadow   : inset 0 0 5px grey;
+                                        border-radius: 10px;
+                                    }
+
+                                    &::-webkit-scrollbar-thumb {
+                                        background   : #168fff;
+                                        border-radius: 10px;
+                                    }
+
+                                    &::-webkit-scrollbar-thumb:hover {
+                                        background: #004e98;
+                                    }
+
+                                    tr {
+                                        padding      : 0px 10px;
+                                        display      : table;
+                                        width        : 100%;
+                                        border-bottom: none;
+
+                                        td {
+                                            color         : #222223;
+                                            font-size     : 14px;
+                                            font-weight   : 400;
+                                            width         : 20%;
+                                            border-top    : none;
+                                            padding       : 4px 10px;
+                                            text-align    : center;
+                                            vertical-align: middle;
+                                        }
+
+                                        td:first-child {
+                                            width: 40%;
+
+                                            span {
+                                                display    : block;
+                                                text-align : left;
+                                                color      : #026CD1;
+                                                font-weight: 500;
+                                            }
+
+                                            span:last-child {
+                                                font-size  : 10px;
+                                                text-align : left;
+                                                font-weight: 400;
+                                            }
+                                        }
+
+                                        // QUantity Column
+                                        td {
+                                            span.quantity-setup {
+
+                                                span.qty-increase {
+                                                    display: none;
+                                                }
+
+                                                span.qty {
+                                                    margin: 0 10px;
+                                                }
+
+                                                span.qty-decrease {
+                                                    display: none;
+                                                }
+                                            }
+                                        }
+
+                                        // Row Action Column
+                                        td.row-action {
+                                            text-align: center;
+
+                                            span {
+                                                display: none;
+                                                cursor : pointer;
+                                            }
+                                        }
+
+                                        &:hover {
+                                            background   : #E2EDFA;
+                                            border-radius: 10px;
+
+                                            td:first-child {
+
+                                                span {
+                                                    color: #026CD1;
+                                                }
+                                            }
+
+                                            // Product increase decrease
+                                            td {
+                                                span.quantity-setup {
+                                                    border       : 1px solid #026CD1;
+                                                    padding      : 2px 8px;
+                                                    border-radius: 2px;
+
+                                                    span.qty-increase {
+                                                        display  : inline-block;
+                                                        color    : #026CD1;
+                                                        font-size: 16px;
+                                                        cursor   : pointer;
+                                                        padding  : 4px;
+                                                    }
+
+                                                    span.qty {
+                                                        margin: 0 10px;
+                                                    }
+
+                                                    span.qty-decrease {
+                                                        display  : inline-block;
+                                                        color    : #AAC0D9;
+                                                        font-size: 16px;
+                                                        cursor   : pointer;
+                                                        padding  : 4px;
+                                                    }
+                                                }
+                                            }
+
+                                            // Row Action Column
+                                            td.row-action {
+
+                                                span {
+                                                    display      : inline-block;
+                                                    font-size    : 18px;
+                                                    color        : #026CD1;
+                                                    background   : #FFFFFF;
+                                                    border-radius: 50%;
+                                                    padding      : 2px 6px;
+                                                    line-height  : 1;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
