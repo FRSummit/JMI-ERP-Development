@@ -31,7 +31,7 @@
                                 </select>
                             </div>
                         </div>
-                        <p class="delivery-dt" style="width: 25%;">Expected Delivery Date: <span>09/12/2020</span></p>
+                        <p class="delivery-dt" style="width: 25%;">Expected Delivery Date: <span>09/12/2020</span><i class="zmdi zmdi-calendar"></i></p>
                     </div>
                 </div>
             </div>
