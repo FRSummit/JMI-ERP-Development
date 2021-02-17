@@ -289,6 +289,7 @@
                                         border       : 1px solid #026CD1;
                                         padding      : 2px 8px;
                                         border-radius: 2px;
+                                        background   : #FFFFFF;
 
                                         span.qty-increase {
                                             display  : inline-block;
@@ -490,6 +491,7 @@
                             p.name {
                                 margin       : 0;
                                 font-size    : 14px;
+                                font-weight  : 500;
                                 color        : #393535;
                                 line-height  : 1;
                                 margin-bottom: 6px;
@@ -688,10 +690,13 @@
 
                                             // Product increase decrease
                                             td {
+                                                color: #026CD1;
+
                                                 span.quantity-setup {
                                                     border       : 1px solid #026CD1;
                                                     padding      : 2px 8px;
                                                     border-radius: 2px;
+                                                    background   : #FFFFFF;
 
                                                     span.qty-increase {
                                                         display  : inline-block;
@@ -775,7 +780,7 @@
                                 border-bottom: none;
 
                                 td {
-                                    color         : #222223;
+                                    color         : #026CD1;
                                     font-size     : 14px;
                                     font-weight   : 400;
                                     width         : 20%;
@@ -814,11 +819,19 @@
 
                                 // Row Action Column
                                 td.row-action {
-                                    text-align: center;
 
                                     span {
-                                        display: none;
-                                        cursor : pointer;
+                                        display      : inline-block;
+                                        background   : #F5BFC6;
+                                        border-radius: 50%;
+                                        padding      : 6px 7px;
+                                        line-height  : 1;
+
+                                        svg {
+                                            color : #DF2A43;
+                                            width : 12px;
+                                            height: 12px;
+                                        }
                                     }
                                 }
 
@@ -830,24 +843,6 @@
 
                                         span {
                                             color: #026CD1;
-                                        }
-                                    }
-
-                                    // Row Action Column
-                                    td.row-action {
-
-                                        span {
-                                            display      : inline-block;
-                                            background   : #F5BFC6;
-                                            border-radius: 50%;
-                                            padding      : 6px 6px;
-                                            line-height  : 1;
-
-                                            svg {
-                                                color : #DF2A43;
-                                                width : 12px;
-                                                height: 12px;
-                                            }
                                         }
                                     }
                                 }

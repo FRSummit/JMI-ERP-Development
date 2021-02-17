@@ -381,7 +381,7 @@ export default {
                     name: "Altrip. Almotriptan",
                     stock: "Stock: 1000 I UoM: Box",
                     unit_price: "300.00",
-                    quantity: "5",
+                    quantity: "200",
                     bonus: "0",
                     total_price: "300.00"
                 },
@@ -389,7 +389,7 @@ export default {
                     name: "Altrip. Almotriptan",
                     stock: "Stock: 1000 I UoM: Box",
                     unit_price: "300.00",
-                    quantity: "5",
+                    quantity: "200",
                     bonus: "0",
                     total_price: "300.00"
                 },
@@ -397,7 +397,7 @@ export default {
                     name: "Altrip. Almotriptan",
                     stock: "Stock: 1000 I UoM: Box",
                     unit_price: "300.00",
-                    quantity: "5",
+                    quantity: "200",
                     bonus: "0",
                     total_price: "300.00"
                 },
