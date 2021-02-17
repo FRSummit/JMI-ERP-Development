@@ -55,9 +55,9 @@
                                     <td>{{ data.unit_price }}</td>
                                     <td>
                                         <span class="quantity-setup">
-                                            <span class="qty-increase"><i class="zmdi zmdi-minus"></i></span>
+                                            <span class="qty-increase" @click="increaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-minus"></i></span>
                                             <span class="qty">{{ data.quantity }}</span>
-                                            <span class="qty-decrease"><i class="zmdi zmdi-plus"></i></span>
+                                            <span class="qty-decrease" @click="decreaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
                                         </span>
                                     </td>
                                     <td>{{ data.bonus }}</td>
@@ -257,6 +257,12 @@ export default {
     created() {},
     mounted() {},
     methods: {
+        increaseOrderedItemClickHandler(data, index) {
+            console.log(data + '    ' + index)
+        },
+        decreaseOrderedItemClickHandler(data, index) {
+            console.log(data + '    ' + index)
+        },
         editOrderitemClickHandler(data, index) {
             console.log(data + '    ' + index)
         },
