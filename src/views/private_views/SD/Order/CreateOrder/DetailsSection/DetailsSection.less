@@ -114,6 +114,12 @@
                         span {
                             color: #026CD1;
                         }
+
+                        i {
+                            color      : #000000;
+                            margin-left: 4px;
+                            font-size  : 14px;
+                        }
                     }
 
                     .sr {
@@ -137,6 +143,7 @@
                                 display     : block;
                                 height      : 25px;
                                 padding-left: 10px;
+                                padding-top : 4px;
                                 border      : 1px solid #BFCFE2;
 
                                 option {}
@@ -155,6 +162,14 @@
                 table {
                     border-top: none;
 
+                    // All Rows
+                    tr {
+
+                        display: table;
+                        width  : 100%;
+                    }
+
+                    // Table Head
                     thead {
                         border-bottom: 1px solid #BFCFE2;
 
@@ -174,49 +189,60 @@
                                 text-align: left;
                             }
 
+                            th:nth-child(5),
                             th:last-child {
-                                // width     : 15%;
                                 text-align: right;
                             }
                         }
                     }
 
+                    // Table Body
                     tbody {
-                        // width            : 100%;
-                        // display          : list-item;
-                        // height           : calc(100vh - (74px + 73px + (40px + 84px + 30px + 60px + 20px + 46px) + 32px));
-                        // overflow         : auto;
-                        // -webkit-flex-flow: row wrap;
 
-                        // &::-webkit-scrollbar {
-                        //     width: 2px;
-                        // }
+                        // Table data rows should be scroll and in 300px height it shows 6/7 rows of data
+                        .table-data-rows {
+                            width            : 100%;
+                            display          : list-item;
+                            height           : 300px;
+                            /* 6 or 7 rows*/
+                            overflow         : auto;
+                            -webkit-flex-flow: row wrap;
 
-                        // &::-webkit-scrollbar-track {
-                        //     box-shadow   : inset 0 0 5px grey;
-                        //     border-radius: 10px;
-                        // }
+                            &::-webkit-scrollbar {
+                                width: 2px;
+                            }
 
-                        // &::-webkit-scrollbar-thumb {
-                        //     background   : #168fff;
-                        //     border-radius: 10px;
-                        // }
+                            &::-webkit-scrollbar-track {
+                                box-shadow   : inset 0 0 5px grey;
+                                border-radius: 10px;
+                            }
 
-                        // &::-webkit-scrollbar-thumb:hover {
-                        //     background: #004e98;
-                        // }
+                            &::-webkit-scrollbar-thumb {
+                                background   : #168fff;
+                                border-radius: 10px;
+                            }
+
+                            &::-webkit-scrollbar-thumb:hover {
+                                background: #004e98;
+                            }
+                        }
 
                         tr {
                             border-bottom: none;
 
                             td {
-                                color      : #222223;
-                                font-size  : 14px;
-                                font-weight: 400;
-                                width      : 15%;
-                                border-top : none;
-                                padding    : 4px 10px;
-                                text-align : center;
+                                color         : #222223;
+                                font-size     : 14px;
+                                font-weight   : 400;
+                                width         : 15%;
+                                border-top    : none;
+                                padding       : 4px 10px;
+                                text-align    : center;
+                                vertical-align: middle;
+                            }
+
+                            td:first-child {
+                                width: 25%;
 
                                 span {
                                     display   : block;
@@ -226,32 +252,117 @@
                                 span:last-child {
                                     font-size : 10px;
                                     text-align: left;
-                                    color     : #B3B9BD;
+                                    color     : #8e8e8e;
                                 }
                             }
 
-                            td:first-child {
-                                width: 25%;
-                            }
-
-                            td:nth-child(5) {
-                                // width     : 40%;
-                                text-align: right;
-                            }
-
+                            td:nth-child(5),
                             td:last-child {
-                                // width     : 40%;
                                 text-align: right;
+                            }
+
+                            // QUantity Column
+                            td {
+                                span.quantity-setup {
+
+                                    span.qty-increase {
+                                        display: none;
+                                    }
+
+                                    span.qty {
+                                        margin: 0 10px;
+                                    }
+
+                                    span.qty-decrease {
+                                        display: none;
+                                    }
+                                }
+                            }
+
+                            // Row Action Column
+                            td.row-action {
+
+                                span {
+                                    display: none;
+                                }
                             }
 
                             &:hover {
                                 background: #E2EDFA;
+
+                                // Quantity Column
+                                td {
+                                    span.quantity-setup {
+                                        border       : 1px solid #026CD1;
+                                        padding      : 2px 8px;
+                                        border-radius: 2px;
+                                        background   : #FFFFFF;
+
+                                        span.qty-increase {
+                                            display  : inline-block;
+                                            color    : #026CD1;
+                                            font-size: 16px;
+                                            cursor   : pointer;
+                                            padding  : 4px;
+                                        }
+
+                                        span.qty {
+                                            margin: 0 10px;
+                                            color : #026CD1;
+                                        }
+
+                                        span.qty-decrease {
+                                            display  : inline-block;
+                                            color    : #AAC0D9;
+                                            font-size: 16px;
+                                            cursor   : pointer;
+                                            padding  : 4px;
+                                        }
+                                    }
+                                }
+
+                                // Row Action Column
+                                td.row-action {
+
+                                    span {
+                                        display      : inline-block;
+                                        background   : #FFFFFF;
+                                        padding      : 4px 8px;
+                                        border-radius: 50%;
+                                        margin       : 0 10px;
+                                        cursor       : pointer;
+
+                                        &:hover {
+                                            background   : #FFFFFF;
+                                            padding      : 4px 8px;
+                                            border-radius: 50%;
+                                        }
+                                    }
+
+                                    span.edit-icon {
+                                        i {
+                                            color    : #026CD1;
+                                            font-size: 16px;
+                                        }
+                                    }
+
+                                    span.delete-icon {
+                                        cursor: pointer;
+
+                                        svg {
+                                            color : #DF2A43;
+                                            width : 14px;
+                                            height: 14px;
+                                        }
+                                    }
+                                }
                             }
                         }
 
                         tr#subtotal-section {
                             td {
                                 span {
+                                    display   : block;
                                     text-align: right;
                                     color     : #111213;
                                     font-size : 12px;
@@ -296,6 +407,7 @@
                         tr#grand-total-section {
                             td {
                                 span {
+                                    width      : auto;
                                     text-align : right;
                                     color      : #026CD1;
                                     font-size  : 14px;
@@ -333,6 +445,612 @@
                     padding      : 12px 26px 11px;
                     border-radius: 2px;
                     cursor       : pointer;
+                }
+            }
+        }
+
+        .add-order-modal-section {
+            position        : fixed;
+            left            : calc((100vw / 2) - 200px);
+            z-index         : 9999;
+            width           : 100%;
+            height          : 100%;
+            left            : 0;
+            top             : 0;
+            background-color: rgb(0 18 35 / 48%);
+
+            .add-order-modal-section-inner {
+                padding      : 20px;
+                text-align   : center;
+                width        : calc(100vw/2);
+                background   : #FFFFFF;
+                position     : absolute;
+                top          : calc((100vh / 2) - 300px);
+                left         : calc((100vw / 2) - (100vw / 4));
+                opacity      : 1;
+                z-index      : 9999;
+                border-radius: 2px;
+
+                .top-section {
+                    text-align: left;
+
+                    .top-section-inner {
+                        display: block;
+                        width  : 100%;
+
+                        .logo {
+                            display       : inline-block;
+                            width         : 40px;
+                            margin-right  : 14px;
+                            vertical-align: middle;
+
+                            img {
+                                border       : 1px solid #026CD1;
+                                width        : 40px;
+                                height       : 40px;
+                                border-radius: 50%;
+                            }
+                        }
+
+                        .title-section {
+                            display       : inline-block;
+                            width         : 80%;
+                            vertical-align: middle;
+
+                            p.name {
+                                margin       : 0;
+                                font-size    : 14px;
+                                font-weight  : 500;
+                                color        : #393535;
+                                line-height  : 1;
+                                margin-bottom: 6px;
+
+                                span.tik-icon {
+                                    background    : #026CD1;
+                                    border-radius : 50%;
+                                    line-height   : 1;
+                                    width         : 10px;
+                                    height        : 10px;
+                                    display       : inline-block;
+                                    position      : relative;
+                                    vertical-align: middle;
+                                    margin-left   : 6px;
+
+                                    i {
+                                        position : absolute;
+                                        top      : 1px;
+                                        left     : 2px;
+                                        color    : #FFFFFF;
+                                        font-size: 8px;
+                                    }
+                                }
+                            }
+
+                            p.id {
+                                margin     : 0;
+                                font-size  : 14px;
+                                color      : #026CD1;
+                                line-height: 1;
+                            }
+                        }
+                    }
+                }
+
+
+                .input-autofield-show-section {
+                    margin-top: 20px;
+
+                    .input-autofield-show-section-inner {
+                        .input-autofield {
+                            width      : 80%;
+                            margin     : 0 auto;
+                            margin-left: 54px;
+
+                            input {
+                                box-sizing   : border-box;
+                                border       : 1px solid #AAC0D9;
+                                border-radius: 4px;
+                                font-size    : 16px;
+                                padding      : 12px 14px;
+                                height       : auto;
+
+                                &:focus {
+                                    box-shadow: none;
+                                }
+                            }
+                        }
+
+                        .autofield-show-section {
+                            border       : 1px solid #AAC0D9;
+                            border-radius: 10px;
+                            margin-top   : 20px;
+
+                            .autofield-show-section-inner {
+                                .header {
+                                    padding: 4px 10px;
+
+                                    .row {
+                                        padding      : 6px 10px;
+                                        font-size    : 16px;
+                                        color        : #111213;
+                                        margin       : 0;
+                                        text-align   : center;
+                                        border-bottom: 1px solid #E9F1FB;
+                                        font-weight  : 500;
+
+                                        span.name {
+                                            width     : 40%;
+                                            text-align: left;
+                                        }
+
+                                        span.quantity {
+                                            width: 20%;
+                                        }
+
+                                        span.total-price {
+                                            width: 20%;
+                                        }
+
+                                        span.add-action {
+                                            width: 20%;
+                                        }
+                                    }
+                                }
+
+                                .response-body {
+                                    width            : 100%;
+                                    display          : list-item;
+                                    height           : 130px;
+                                    margin-bottom    : 6px;
+                                    /* 6 or 7 rows*/
+                                    overflow         : auto;
+                                    -webkit-flex-flow: row wrap;
+
+                                    &::-webkit-scrollbar {
+                                        width: 2px;
+                                    }
+
+                                    &::-webkit-scrollbar-track {
+                                        box-shadow   : inset 0 0 5px grey;
+                                        border-radius: 10px;
+                                    }
+
+                                    &::-webkit-scrollbar-thumb {
+                                        background   : #168fff;
+                                        border-radius: 10px;
+                                    }
+
+                                    &::-webkit-scrollbar-thumb:hover {
+                                        background: #004e98;
+                                    }
+
+                                    tr {
+                                        padding      : 0px 10px;
+                                        display      : table;
+                                        width        : 100%;
+                                        border-bottom: none;
+
+                                        td {
+                                            color         : #222223;
+                                            font-size     : 14px;
+                                            font-weight   : 400;
+                                            width         : 20%;
+                                            border-top    : none;
+                                            padding       : 4px 10px;
+                                            text-align    : center;
+                                            vertical-align: middle;
+                                        }
+
+                                        td:first-child {
+                                            width: 40%;
+
+                                            span {
+                                                display    : block;
+                                                text-align : left;
+                                                color      : #026CD1;
+                                                font-weight: 500;
+                                            }
+
+                                            span:last-child {
+                                                font-size  : 10px;
+                                                text-align : left;
+                                                font-weight: 400;
+                                            }
+                                        }
+
+                                        // QUantity Column
+                                        td {
+                                            span.quantity-setup {
+
+                                                span.qty-increase {
+                                                    display: none;
+                                                }
+
+                                                span.qty {
+                                                    margin: 0 10px;
+                                                }
+
+                                                span.qty-decrease {
+                                                    display: none;
+                                                }
+                                            }
+                                        }
+
+                                        // Row Action Column
+                                        td.row-action {
+                                            text-align: center;
+
+                                            span {
+                                                display: none;
+                                                cursor : pointer;
+                                            }
+                                        }
+
+                                        &:hover {
+                                            background   : #E2EDFA;
+                                            border-radius: 10px;
+
+                                            td:first-child {
+
+                                                span {
+                                                    color: #026CD1;
+                                                }
+                                            }
+
+                                            // Product increase decrease
+                                            td {
+                                                color: #026CD1;
+
+                                                span.quantity-setup {
+                                                    border       : 1px solid #026CD1;
+                                                    padding      : 2px 8px;
+                                                    border-radius: 2px;
+                                                    background   : #FFFFFF;
+
+                                                    span.qty-increase {
+                                                        display  : inline-block;
+                                                        color    : #026CD1;
+                                                        font-size: 16px;
+                                                        cursor   : pointer;
+                                                        padding  : 4px;
+                                                    }
+
+                                                    span.qty {
+                                                        margin: 0 10px;
+                                                    }
+
+                                                    span.qty-decrease {
+                                                        display  : inline-block;
+                                                        color    : #AAC0D9;
+                                                        font-size: 16px;
+                                                        cursor   : pointer;
+                                                        padding  : 4px;
+                                                    }
+                                                }
+                                            }
+
+                                            // Row Action Column
+                                            td.row-action {
+
+                                                span {
+                                                    display      : inline-block;
+                                                    font-size    : 18px;
+                                                    color        : #026CD1;
+                                                    background   : #FFFFFF;
+                                                    border-radius: 50%;
+                                                    padding      : 2px 6px;
+                                                    line-height  : 1;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .ordered-product-list {
+                    margin-top    : 20px;
+                    padding-bottom: 6px;
+                    border-bottom : 1px solid #E9F1FB;
+
+                    .ordered-product-list-inner {
+                        .selected-ordered-product {
+                            width            : 100%;
+                            display          : list-item;
+                            height           : 220px;
+                            /* 6 or 7 rows*/
+                            overflow         : auto;
+                            -webkit-flex-flow: row wrap;
+
+                            &::-webkit-scrollbar {
+                                width: 2px;
+                            }
+
+                            &::-webkit-scrollbar-track {
+                                box-shadow   : inset 0 0 5px grey;
+                                border-radius: 10px;
+                            }
+
+                            &::-webkit-scrollbar-thumb {
+                                background   : #168fff;
+                                border-radius: 10px;
+                            }
+
+                            &::-webkit-scrollbar-thumb:hover {
+                                background: #004e98;
+                            }
+
+                            tr {
+                                padding      : 0px 10px;
+                                display      : table;
+                                width        : 100%;
+                                border-bottom: none;
+
+                                td {
+                                    color         : #026CD1;
+                                    font-size     : 14px;
+                                    font-weight   : 400;
+                                    width         : 20%;
+                                    border-top    : none;
+                                    padding       : 4px 10px;
+                                    text-align    : center;
+                                    vertical-align: middle;
+                                }
+
+                                td:first-child {
+                                    width: 40%;
+
+                                    span {
+                                        display    : block;
+                                        text-align : left;
+                                        color      : #026CD1;
+                                        font-weight: 500;
+                                    }
+
+                                    span:last-child {
+                                        font-size  : 10px;
+                                        text-align : left;
+                                        font-weight: 400;
+                                    }
+                                }
+
+                                // QUantity Column
+                                td {
+                                    span.quantity-setup {
+
+                                        span.qty {
+                                            margin: 0 10px;
+                                        }
+                                    }
+                                }
+
+                                // Row Action Column
+                                td.row-action {
+
+                                    span {
+                                        display      : inline-block;
+                                        background   : #F5BFC6;
+                                        border-radius: 50%;
+                                        padding      : 6px 7px;
+                                        line-height  : 1;
+                                        cursor       : pointer;
+
+                                        svg {
+                                            color : #DF2A43;
+                                            width : 12px;
+                                            height: 12px;
+                                        }
+                                    }
+                                }
+
+                                &:hover {
+                                    background   : #E2EDFA;
+                                    border-radius: 10px;
+
+                                    td:first-child {
+
+                                        span {
+                                            color: #026CD1;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .submit-section {
+                    margin-top: 10px;
+
+                    .submit-section-inner {
+                        text-align: center;
+                        padding   : 14px 0;
+
+                        span.cancel-order {
+                            font-size    : 14px;
+                            color        : #DF2A43;
+                            padding      : 9px 29px 8px;
+                            border       : 1px solid #DF2A43;
+                            border-radius: 2px;
+                            cursor       : pointer;
+                        }
+
+                        span.proceed-order {
+                            margin-left  : 40px;
+                            font-size    : 14px;
+                            color        : #FFFFFF;
+                            background   : #026CD1;
+                            padding      : 10px 26px 9px;
+                            border-radius: 2px;
+                            cursor       : pointer;
+                        }
+                    }
+                }
+            }
+        }
+
+        .attachment-modal {
+            position        : fixed;
+            left            : calc((100vw / 2) - 200px);
+            // background   : #001223;
+            z-index         : 9999;
+            width           : 100%;
+            height          : 100%;
+            left            : 0;
+            top             : 0;
+            background-color: rgb(0 18 35 / 48%);
+
+            .attachment-modal-inner {
+                padding      : 40px 60px;
+                text-align   : center;
+                width        : 600px;
+                background   : #FFFFFF;
+                position     : absolute;
+                top          : calc((100vh / 2) - 175px);
+                left         : calc((100vw / 2) - 300px);
+                opacity      : 1;
+                z-index      : 9999;
+                border-radius: 2px;
+
+                p.title {
+                    margin       : 0;
+                    font-size    : 16px;
+                    color        : #000000;
+                    line-height  : 1;
+                    font-weight  : 500;
+                    text-align   : left;
+                    margin-bottom: 20px;
+                }
+
+                .file-input-section {
+                    .file-input-section-inner {
+                        .input-section {
+                            input {
+                                border   : 1px solid #026CD1;
+                                display  : inline-block;
+                                padding  : 6px 12px;
+                                font-size: 16px;
+                                color    : #026CD1;
+                                cursor   : pointer;
+                                height   : 40px;
+
+                                &:focus {
+                                    box-shadow: none;
+                                }
+                            }
+
+                            span.submit-btn {
+                                font-size                 : 16px;
+                                color                     : #FFFFFF;
+                                background                : #026CD1;
+                                padding                   : 10px 20px 11px;
+                                border-top-right-radius   : 2px;
+                                border-bottom-right-radius: 2px;
+                                cursor                    : pointer;
+                            }
+                        }
+
+                        p.input-type-informations {
+                            padding    : 4px 0;
+                            margin     : 10px 0 10px;
+                            font-size  : 12px;
+                            color      : #36454F;
+                            line-height: 1;
+                        }
+                    }
+                }
+
+                .uploadeded-file-list {
+                    border-top : 1px solid #E9F1FB;
+                    margin-top : 10px;
+                    padding-top: 10px;
+
+                    .uploaded-file-list-inner {
+                        width            : 100%;
+                        display          : list-item;
+                        height           : 170px;
+                        margin-bottom    : 6px;
+                        /* 6 or 7 rows*/
+                        overflow         : auto;
+                        -webkit-flex-flow: row wrap;
+
+                        &::-webkit-scrollbar {
+                            width: 2px;
+                        }
+
+                        &::-webkit-scrollbar-track {
+                            box-shadow   : inset 0 0 5px grey;
+                            border-radius: 10px;
+                        }
+
+                        &::-webkit-scrollbar-thumb {
+                            background   : #168fff;
+                            border-radius: 10px;
+                        }
+
+                        &::-webkit-scrollbar-thumb:hover {
+                            background: #004e98;
+                        }
+
+                        .file {
+                            margin: 6px 0;
+
+                            .file-inner {
+                                display      : block;
+                                width        : 100%;
+                                padding      : 6px 10px;
+                                background   : #E2EDFA;
+                                border-radius: 2px;
+
+                                p.file-name {
+                                    display       : inline-block;
+                                    width         : 80%;
+                                    margin        : 0;
+                                    font-size     : 16px;
+                                    color         : #026CD1;
+                                    line-height   : 1;
+                                    text-align    : left;
+                                    vertical-align: middle;
+                                }
+
+                                .file-action {
+                                    display       : inline-block;
+                                    width         : 20%;
+                                    text-align    : center;
+                                    vertical-align: middle;
+
+                                    span {
+                                        display    : inline-block;
+                                        line-height: 1;
+                                        margin     : 0 10px;
+
+                                        i {}
+                                    }
+
+                                    span.download-icon {
+                                        cursor: pointer;
+
+                                        i {
+                                            color    : #026CD1;
+                                            font-size: 18px;
+                                        }
+                                    }
+
+                                    span.delete-icon {
+                                        cursor: pointer;
+
+                                        svg {
+                                            color : #DF2A43;
+                                            width : 16px;
+                                            height: 16px;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }

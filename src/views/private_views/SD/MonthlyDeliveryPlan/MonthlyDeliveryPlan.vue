@@ -334,6 +334,7 @@ export default {
     async ALL_DA_INFO_MMYYYY_FROM_SERVICE(MMYYYY) {
       await service.getAllDAInfo_MMYYYY_MonthlyDeliveryPlan(MMYYYY)
         .then(res => {
+          console.log(res.data)
           this.DICWiseUsers_DA_List = res.data.da_info
           this.all_territory_list_for_this_DA = res.data.all_territory_list
           // this.leftSectionListTerritoryCount()
