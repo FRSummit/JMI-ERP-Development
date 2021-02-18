@@ -409,3 +409,51 @@
 }
 
 /* Doctor */
+
+/* Create Order - AUtocomplete */
+
+
+#create-order-details-section .advanced-search {
+    box-sizing   : border-box;
+    border       : 1px solid #AAC0D9;
+    border-radius: 4px;
+    font-size    : 16px;
+    padding      : 0px 14px;
+    height       : 44px;
+}
+
+#create-order-details-section .advanced-search:focus {
+    box-shadow   : none;
+    border-bottom: none;
+    outline      : none;
+}
+
+#create-order-details-section .advanced-search:not([readonly]) {
+    box-shadow: none;
+}
+
+#create-order-details-section .advanced-search:not(.browser-default) {
+    box-shadow: none;
+}
+
+#create-order-details-section .advanced-input-container .advanced-input-section .label {
+    margin-top: 10px;
+    text-align: left;
+    color     : #D7D7D7;
+}
+
+#create-order-details-section .advanced-input-container .advanced-input-section input {
+    box-shadow   : none;
+    border-bottom: none;
+    outline      : none;
+}
+
+#create-order-details-section input:focus {
+    box-shadow   : none;
+    border-bottom: none;
+    outline      : none;
+}
+
+#create-order-details-section .options.available-options {
+    /* display: none; */
+}

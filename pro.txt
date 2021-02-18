@@ -22,7 +22,7 @@
 >> npm i vue2-daterange-picker --save
 >> npm install vue-hotel-datepicker
 >> npm install --save vue2-datepicker
->> 
+>> npm install vue-advanced-search
 >> 
 >> 
 >> 
