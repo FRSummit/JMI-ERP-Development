@@ -178,7 +178,7 @@
                                             line-height: 1;
 
                                             span.type {
-                                                color: #FF584C;
+                                                color: #222223;
                                             }
                                         }
                                     }
@@ -191,12 +191,69 @@
                                 margin : 6px 0;
 
                                 .customer-name-section-inner {
+                                    display : block;
+                                    width   : 100%;
+                                    overflow: hidden;
+
                                     .name-section {
+                                        display: inline-block;
+                                        float  : left;
+                                        width  : 70%;
+
                                         p.customer-name {
+                                            font-size    : 14px;
+                                            color        : #36454F;
+                                            margin       : 0;
+                                            line-height  : 1;
+                                            width        : 100%;
+                                            white-space  : nowrap;
+                                            overflow     : hidden !important;
+                                            text-overflow: ellipsis;
+                                        }
+                                    }
+
+                                    .status-section {
+                                        display: inline-block;
+                                        float  : right;
+
+                                        p.status {
                                             font-size  : 14px;
                                             color      : #36454F;
                                             margin     : 0;
                                             line-height: 1;
+
+                                            .status-icon {
+                                                margin-right : 4px;
+                                                width        : 10px;
+                                                height       : 10px;
+                                                display      : inline-block;
+                                                background   : #282828;
+                                                border-radius: 2px;
+                                            }
+
+                                            .status-icon.Approved {
+                                                background: #28a411;
+                                            }
+
+                                            .status-icon.Rejected {
+                                                background: #df2a43;
+                                            }
+
+                                            .status-icon.Pending {
+                                                background: #fcc428;
+                                            }
+                                        }
+
+                                        p.status.Approved {
+                                            color: #28a411;
+                                        }
+
+                                        p.status.Rejected {
+                                            color: #df2a43;
+                                        }
+
+                                        p.status.Pending {
+                                            color: #fcc428;
                                         }
                                     }
                                 }
@@ -208,11 +265,40 @@
 
                                 .customer-address-section-inner {
                                     .address-section {
+                                        display : block;
+                                        width   : 100%;
+                                        overflow: hidden;
+
                                         p.customer-address {
+                                            display    : inline-block;
+                                            float      : left;
                                             font-size  : 12px;
-                                            color      : #B3B9BD;
+                                            color      : #36454F;
                                             margin     : 0;
                                             line-height: 1;
+
+                                            span:first-child {
+                                                margin-right: 6px;
+                                            }
+
+                                            span:last-child {
+                                                margin-left: 6px;
+                                            }
+                                        }
+
+                                        span.checkbox {
+                                            display    : inline-block;
+                                            float      : right;
+                                            font-size  : 12px;
+                                            line-height: 1;
+
+                                            input {
+                                                position: relative;
+                                                opacity: 1;
+                                                pointer-events: auto;
+                                                vertical-align: middle;
+                                                color: #026CD1;
+                                            }
                                         }
                                     }
                                 }

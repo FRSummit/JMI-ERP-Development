@@ -32,21 +32,27 @@
                                     <p class="customer-id">{{ customer.customer_id }}</p>
                                 </div>
                                 <div class="type-section">
-                                    <p class="customer-type">Customer Type: <span class="type">{{ customer.customer_type }}</span></p>
+                                    <p class="customer-type"><span class="type">{{ customer.order_date }}</span></p>
                                 </div>
                             </div>
                         </div>
                         <div class="customer-name-section">
                             <div class="customer-name-section-inner">
                                 <div class="name-section">
-                                    <p class="customer-name">{{ customer.customer_name }}</p>
+                                    <p class="customer-name">{{ customer.order_address }}</p>
+                                </div>
+                                <div class="status-section">
+                                    <p class="status" :class="customer.order_status"><span class="status-icon" :class="customer.order_status"></span>{{ customer.order_status }}</p>
                                 </div>
                             </div>
                         </div>
                         <div class="customer-address-section">
                             <div class="customer-address-section-inner">
                                 <div class="address-section">
-                                    <p class="customer-address">{{ customer.customer_address }}</p>
+                                    <p class="customer-address"><span>Order ID: {{ customer.order_id }}</span>|<span>Total Bill: {{ customer.order_bill }}</span></p>
+                                    <span class="checkbox">
+                                        <input type="checkbox" :id="'order-approval-checkbox-' + c" :name="customer.customer_id" :value="customer.customer_id">
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -110,76 +116,108 @@ export default {
         return {
             customer_list: [
                 {
-                    customer_id: "JMI-2231225",
-                    customer_name: "New Bhai Bhai Pharmacy",
-                    customer_type: "Credit",
-                    customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
+                    customer_id: "DHK0301",
+                    order_date: "09/12/2020",
+                    order_address: "ABI Pharmacy and Diagnostic Center",
+                    order_status: "Pending",
+                    order_id: "102131",
+                    order_bill: "4300",
                 },
                 {
-                    customer_id: "JMI-2231225",
-                    customer_name: "New Bhai Bhai Pharmacy",
-                    customer_type: "Credit",
-                    customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
+                    customer_id: "DHK0301",
+                    order_date: "09/12/2020",
+                    order_address: "ABI Pharmacy and Diagnostic Center",
+                    order_status: "Pending",
+                    order_id: "102131",
+                    order_bill: "4300",
                 },
                 {
-                    customer_id: "JMI-2231225",
-                    customer_name: "New Bhai Bhai Pharmacy",
-                    customer_type: "Credit",
-                    customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
+                    customer_id: "DHK0301",
+                    order_date: "09/12/2020",
+                    order_address: "ABI Pharmacy and Diagnostic Center",
+                    order_status: "Pending",
+                    order_id: "102131",
+                    order_bill: "4300",
                 },
                 {
-                    customer_id: "JMI-2231225",
-                    customer_name: "New Bhai Bhai Pharmacy",
-                    customer_type: "Credit",
-                    customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
+                    customer_id: "DHK0301",
+                    order_date: "09/12/2020",
+                    order_address: "ABI Pharmacy and Diagnostic Center",
+                    order_status: "Pending",
+                    order_id: "102131",
+                    order_bill: "4300",
                 },
                 {
-                    customer_id: "JMI-2231225",
-                    customer_name: "New Bhai Bhai Pharmacy",
-                    customer_type: "Credit",
-                    customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
+                    customer_id: "DHK0301",
+                    order_date: "09/12/2020",
+                    order_address: "ABI Pharmacy and Diagnostic Center",
+                    order_status: "Pending",
+                    order_id: "102131",
+                    order_bill: "4300",
                 },
                 {
-                    customer_id: "JMI-2231225",
-                    customer_name: "New Bhai Bhai Pharmacy",
-                    customer_type: "Credit",
-                    customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
+                    customer_id: "DHK0301",
+                    order_date: "09/12/2020",
+                    order_address: "ABI Pharmacy and Diagnostic Center",
+                    order_status: "Pending",
+                    order_id: "102131",
+                    order_bill: "4300",
                 },
                 {
-                    customer_id: "JMI-2231225",
-                    customer_name: "New Bhai Bhai Pharmacy",
-                    customer_type: "Credit",
-                    customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
+                    customer_id: "DHK0301",
+                    order_date: "09/12/2020",
+                    order_address: "ABI Pharmacy and Diagnostic Center",
+                    order_status: "Pending",
+                    order_id: "102131",
+                    order_bill: "4300",
                 },
                 {
-                    customer_id: "JMI-2231225",
-                    customer_name: "New Bhai Bhai Pharmacy",
-                    customer_type: "Credit",
-                    customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
+                    customer_id: "DHK0301",
+                    order_date: "09/12/2020",
+                    order_address: "ABI Pharmacy and Diagnostic Center",
+                    order_status: "Pending",
+                    order_id: "102131",
+                    order_bill: "4300",
                 },
                 {
-                    customer_id: "JMI-2231225",
-                    customer_name: "New Bhai Bhai Pharmacy",
-                    customer_type: "Credit",
-                    customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
+                    customer_id: "DHK0301",
+                    order_date: "09/12/2020",
+                    order_address: "ABI Pharmacy and Diagnostic Center",
+                    order_status: "Pending",
+                    order_id: "102131",
+                    order_bill: "4300",
                 },
                 {
-                    customer_id: "JMI-2231225",
-                    customer_name: "New Bhai Bhai Pharmacy",
-                    customer_type: "Credit",
-                    customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
+                    customer_id: "DHK0301",
+                    order_date: "09/12/2020",
+                    order_address: "ABI Pharmacy and Diagnostic Center",
+                    order_status: "Pending",
+                    order_id: "102131",
+                    order_bill: "4300",
                 },
                 {
-                    customer_id: "JMI-2231225",
-                    customer_name: "New Bhai Bhai Pharmacy",
-                    customer_type: "Credit",
-                    customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
+                    customer_id: "DHK0301",
+                    order_date: "09/12/2020",
+                    order_address: "ABI Pharmacy and Diagnostic Center",
+                    order_status: "Pending",
+                    order_id: "102131",
+                    order_bill: "4300",
                 },
                 {
-                    customer_id: "JMI-2231225 DDDD",
-                    customer_name: "New Bhai Bhai Pharmacy",
-                    customer_type: "Credit",
-                    customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
+                    customer_id: "DHK0301",
+                    order_date: "09/12/2020",
+                    order_address: "ABI Pharmacy and Diagnostic Center",
+                    order_status: "Pending",
+                    order_id: "102131",
+                    order_bill: "4300",
+                },
+                {
+                    customer_id: "DHK0301",
+                    order_date: "09/12/2020",
+                    order_address: "ABI Pharmacy and Diagnostic Center",
+                    order_status: "Pending",
+                    order_id: "102131",
+                    order_bill: "4300",
                 },
             ],
             radioSpanDefaultClass: 'active',
