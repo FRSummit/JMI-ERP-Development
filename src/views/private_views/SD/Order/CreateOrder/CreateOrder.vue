@@ -3,8 +3,8 @@
     <Heading :pathName="pathName" :routeName="routeName" />
     <div class="create-order-section">
       <div class="create-order-section-inner">
-        <LeftSidebar />
-        <DetailsSection />
+        <LeftSidebar v-on:filter_modal="filterModalToggle" />
+        <DetailsSection :style="filter_modal_toggle === true ? 'z-index: -1;' : 'z-index: 9;'" />
       </div>
     </div>
   </div>
@@ -29,6 +29,7 @@ export default {
       routeName: "Create Order",
       parentPath: "Local Sales",
       pathName: [],
+      filter_modal_toggle: false,
     };
   },
   created() {
@@ -41,6 +42,9 @@ export default {
     //   this.pathName = breadcrumbFunctions.jmiERPBreadcrumb(window.location.pathname);
       this.pathName = [{name: "Features"},{ name: "Local Sales" }, { name: "Create Order" }];
     },
+    filterModalToggle(value) {
+      this.filter_modal_toggle = value
+    }
   },
 };
 </script>

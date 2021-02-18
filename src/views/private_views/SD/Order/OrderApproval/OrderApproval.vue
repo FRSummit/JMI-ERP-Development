@@ -3,8 +3,8 @@
     <Heading :pathName="pathName" :routeName="routeName" />
     <div class="order-approval-section">
       <div class="order-approval-section-inner">
-        <LeftSidebarSection />
-        <DetailsSection />
+        <LeftSidebarSection v-on:filter_modal="filterModalToggle" />
+        <DetailsSection :style="filter_modal_toggle === true ? 'z-index: -1;' : 'z-index: 9;'"/>
       </div>
     </div>
   </div>
@@ -29,6 +29,7 @@ export default {
       routeName: "Order Approval",
       parentPath: "Local Sales",
       pathName: [],
+      filter_modal_toggle: false,
     };
   },
   created() {
@@ -45,6 +46,9 @@ export default {
         { name: "Order Approval" },
       ];
     },
+    filterModalToggle(value) {
+      this.filter_modal_toggle = value
+    }
   },
 };
 </script>

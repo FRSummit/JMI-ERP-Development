@@ -287,12 +287,15 @@ export default {
         filterClick() {
             if(this.filter_modal) {
                 this.filter_modal = false
+                this.$emit('filter_modal', this.filter_modal)
             } else {
                 this.filter_modal = true
+                this.$emit('filter_modal', this.filter_modal)
             }
         },
         filterModalOutsideClick() {
             this.filter_modal = false
+            this.$emit('filter_modal', this.filter_modal)
         },
         onChangeStatusDropdown() {
             console.log('onChangeStatusDropdown: ' + this.on_change_status)
