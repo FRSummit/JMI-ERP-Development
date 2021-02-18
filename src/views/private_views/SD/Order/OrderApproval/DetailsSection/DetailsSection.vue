@@ -24,7 +24,7 @@
                                 <span class="right-icon"
                                     ><i class="fas fa-chevron-right"></i
                                 ></span>
-                                <select title="Pick a customer" class="selectpicker" @change="onChangeSRDropdown()">
+                                <select title="Pick a customer" class="selectpicker" v-model="on_change_SR_dropdown" @change="onChangeSRDropdown()">
                                     <option v-for="(sr, m) in sr_list" :key="m">
                                     {{ sr.name }}
                                     </option>
@@ -239,6 +239,7 @@ export default {
     },
     data() {
         return {
+            on_change_SR_dropdown: null,
             sr_list: [
                 {
                     name: "SR 1"
@@ -523,6 +524,9 @@ export default {
     mounted() {
     },
     methods: {
+        onChangeSRDropdown() {
+            console.log(this.on_change_SR_dropdown)
+        },
         //------------------------------------------------------------------------------------------
         // Table List Actions
         // Increase Table Row's Single Product/Order
