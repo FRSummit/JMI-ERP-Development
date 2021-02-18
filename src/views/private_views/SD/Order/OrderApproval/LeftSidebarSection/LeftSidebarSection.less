@@ -81,17 +81,58 @@
             }
 
             .title-count {
-                padding: 10px 20px;
+                padding : 10px 20px;
+                display : block;
+                width   : 100%;
+                overflow: hidden;
 
                 p.total-customer {
+                    display    : inline-block;
+                    float      : left;
                     font-size  : 16px;
                     color      : #111213;
-                    margin     : 0;
+                    margin     : 8px 0 0 0;
                     font-weight: 500;
+                    line-height: 1;
 
                     span.count {
                         color: #026CD1;
                     }
+                }
+
+                .select-options {
+                    display : inline-block;
+                    width   : 40%;
+                    float   : right;
+                    position: relative;
+
+                    span.right-icon {
+                        svg {
+                            width    : 12px;
+                            height   : 12px;
+                            position : absolute;
+                            right    : 8px;
+                            top      : 10px;
+                            color    : #BFCFE2;
+                            transform: rotate(90deg);
+                        }
+                    }
+
+                    select.selectpicker {
+                        display    : block;
+                        height     : 30px;
+                        padding    : 1px 5px 1px 10px;
+                        line-height: 1;
+                        border     : 1px solid #BFCFE2;
+                        font-size  : 12px;
+
+                        option {
+                            color        : #36454F;
+                            font-size    : 14px;
+                            border-bottom: 1px solid #d6e3f5;
+                        }
+                    }
+
                 }
             }
 
@@ -293,11 +334,11 @@
                                             line-height: 1;
 
                                             input {
-                                                position: relative;
-                                                opacity: 1;
+                                                position      : relative;
+                                                opacity       : 1;
                                                 pointer-events: auto;
                                                 vertical-align: middle;
-                                                color: #026CD1;
+                                                color         : #026CD1;
                                             }
                                         }
                                     }

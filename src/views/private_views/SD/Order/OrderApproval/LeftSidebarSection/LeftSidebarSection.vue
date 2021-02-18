@@ -16,7 +16,13 @@
         </div>
         <!-- Customer Counter -->
         <div class="title-count">
-            <p class="total-customer">Total Customer (<span class="count">250</span>)</p>
+            <p class="total-customer">Pending Orders (<span class="count">250</span>)</p>
+            <div class="select-options">
+                <span class="right-icon"><i class="fas fa-chevron-right"></i></span>
+                    <select title="Pick a customer" class="selectpicker" v-model="on_change_status" @change="onChangeStatusDropdown()">
+                        <option v-for="(status, m) in status_list" :key="m">{{ status.status }}</option>
+                </select>
+            </div>
         </div>
         <!-- Customer List -->
         <div class="customer-list-section">
@@ -71,7 +77,7 @@
                                 <span class="right-icon"
                                     ><i class="fas fa-chevron-right"></i
                                 ></span>
-                                <select title="Pick a customer" class="selectpicker" @change="onChange()">
+                                <select title="Pick a customer" class="selectpicker" v-model="on_change_sort_by" @change="onChangeSortBy()">
                                     <option v-for="(customer, m) in customer_sort_list" :key="m">
                                     {{ customer.name }}
                                     </option>
@@ -94,7 +100,7 @@
                             <span class="right-icon"
                                 ><i class="fas fa-chevron-right"></i
                             ></span>
-                            <select title="Pick a customer" class="selectpicker" @change="onChange()">
+                            <select title="Pick a customer" class="selectpicker" v-model="on_change_filter_by" @change="onChangeFilterBy()">
                                 <option v-for="(customer, m) in customer_sort_list" :key="m">
                                 {{ customer.name }}
                                 </option>
@@ -127,7 +133,15 @@ export default {
                     customer_id: "DHK0301",
                     order_date: "09/12/2020",
                     order_address: "ABI Pharmacy and Diagnostic Center",
-                    order_status: "Pending",
+                    order_status: "Approved",
+                    order_id: "102131",
+                    order_bill: "4300",
+                },
+                {
+                    customer_id: "DHK0301",
+                    order_date: "09/12/2020",
+                    order_address: "ABI Pharmacy and Diagnostic Center",
+                    order_status: "Rejected",
                     order_id: "102131",
                     order_bill: "4300",
                 },
@@ -143,7 +157,15 @@ export default {
                     customer_id: "DHK0301",
                     order_date: "09/12/2020",
                     order_address: "ABI Pharmacy and Diagnostic Center",
-                    order_status: "Pending",
+                    order_status: "Approved",
+                    order_id: "102131",
+                    order_bill: "4300",
+                },
+                {
+                    customer_id: "DHK0301",
+                    order_date: "09/12/2020",
+                    order_address: "ABI Pharmacy and Diagnostic Center",
+                    order_status: "Rejected",
                     order_id: "102131",
                     order_bill: "4300",
                 },
@@ -159,7 +181,15 @@ export default {
                     customer_id: "DHK0301",
                     order_date: "09/12/2020",
                     order_address: "ABI Pharmacy and Diagnostic Center",
-                    order_status: "Pending",
+                    order_status: "Approved",
+                    order_id: "102131",
+                    order_bill: "4300",
+                },
+                {
+                    customer_id: "DHK0301",
+                    order_date: "09/12/2020",
+                    order_address: "ABI Pharmacy and Diagnostic Center",
+                    order_status: "Rejected",
                     order_id: "102131",
                     order_bill: "4300",
                 },
@@ -175,7 +205,15 @@ export default {
                     customer_id: "DHK0301",
                     order_date: "09/12/2020",
                     order_address: "ABI Pharmacy and Diagnostic Center",
-                    order_status: "Pending",
+                    order_status: "Approved",
+                    order_id: "102131",
+                    order_bill: "4300",
+                },
+                {
+                    customer_id: "DHK0301",
+                    order_date: "09/12/2020",
+                    order_address: "ABI Pharmacy and Diagnostic Center",
+                    order_status: "Rejected",
                     order_id: "102131",
                     order_bill: "4300",
                 },
@@ -191,7 +229,7 @@ export default {
                     customer_id: "DHK0301",
                     order_date: "09/12/2020",
                     order_address: "ABI Pharmacy and Diagnostic Center",
-                    order_status: "Pending",
+                    order_status: "Approved",
                     order_id: "102131",
                     order_bill: "4300",
                 },
@@ -199,25 +237,29 @@ export default {
                     customer_id: "DHK0301",
                     order_date: "09/12/2020",
                     order_address: "ABI Pharmacy and Diagnostic Center",
-                    order_status: "Pending",
+                    order_status: "Rejected",
                     order_id: "102131",
                     order_bill: "4300",
                 },
+            ],
+            status_list: [
                 {
-                    customer_id: "DHK0301",
-                    order_date: "09/12/2020",
-                    order_address: "ABI Pharmacy and Diagnostic Center",
-                    order_status: "Pending",
-                    order_id: "102131",
-                    order_bill: "4300",
+                    status: ""
                 },
                 {
-                    customer_id: "DHK0301",
-                    order_date: "09/12/2020",
-                    order_address: "ABI Pharmacy and Diagnostic Center",
-                    order_status: "Pending",
-                    order_id: "102131",
-                    order_bill: "4300",
+                    status: "Select All"
+                },
+                {
+                    status: "Approved Selected"
+                },
+                {
+                    status: "Reject Selected"
+                },
+                {
+                    status: "Delivery Date Shift"
+                },
+                {
+                    status: "Print Selected"
                 },
             ],
             radioSpanDefaultClass: 'active',
@@ -234,6 +276,9 @@ export default {
                 },
             ],
             filter_modal: false,
+            on_change_status: null,
+            on_change_sort_by: null,
+            on_change_filter_by: null,
         }
     },
     created() {},
@@ -249,6 +294,12 @@ export default {
         filterModalOutsideClick() {
             this.filter_modal = false
         },
+        onChangeStatusDropdown() {
+            console.log('onChangeStatusDropdown: ' + this.on_change_status)
+        },
+        onChangeSortBy() {
+            console.log('onChangeSortBy: ' + this.on_change_sort_by)
+        },
         onChange(value) {
             switch(value) {
                 case 'a_to_z':
@@ -262,6 +313,9 @@ export default {
                 default:
                     break
             }
+        },
+        onChangeFilterBy() {
+            console.log('onChangeFilterBy: ' + this.on_change_filter_by)
         },
         customerClickHandlerFromList(customer, c) {
             console.log(c + '    ' +customer)

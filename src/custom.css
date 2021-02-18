@@ -410,10 +410,11 @@
 
 /* Doctor */
 
-/* Create Order - AUtocomplete */
+/* Create Order & Order Approval - Autocomplete */
 
 
-#create-order-details-section .advanced-search {
+#create-order-details-section .advanced-search,
+#order-Approval-details-section .advanced-search {
     box-sizing   : border-box;
     border       : 1px solid #AAC0D9;
     border-radius: 4px;
@@ -422,33 +423,39 @@
     height       : 44px;
 }
 
-#create-order-details-section .advanced-search:focus {
+#create-order-details-section .advanced-search:focus,
+#order-approval-details-section .advanced-search:focus {
     box-shadow   : none;
     border-bottom: none;
     outline      : none;
 }
 
-#create-order-details-section .advanced-search:not([readonly]) {
+#create-order-details-section .advanced-search:not([readonly]),
+#order-approval-details-section .advanced-search:not([readonly]) {
     box-shadow: none;
 }
 
-#create-order-details-section .advanced-search:not(.browser-default) {
+#create-order-details-section .advanced-search:not(.browser-default),
+#order-approval-details-section .advanced-search:not(.browser-default) {
     box-shadow: none;
 }
 
-#create-order-details-section .advanced-input-container .advanced-input-section .label {
+#create-order-details-section .advanced-input-container .advanced-input-section .label,
+#order-approval-details-section .advanced-input-container .advanced-input-section .label {
     margin-top: 10px;
     text-align: left;
     color     : #D7D7D7;
 }
 
-#create-order-details-section .advanced-input-container .advanced-input-section input {
+#create-order-details-section .advanced-input-container .advanced-input-section input,
+#order-approval-details-section .advanced-input-container .advanced-input-section input {
     box-shadow   : none;
     border-bottom: none;
     outline      : none;
 }
 
-#create-order-details-section input:focus {
+#create-order-details-section input:focus,
+#order-approval-details-section input:focus {
     box-shadow   : none;
     border-bottom: none;
     outline      : none;
