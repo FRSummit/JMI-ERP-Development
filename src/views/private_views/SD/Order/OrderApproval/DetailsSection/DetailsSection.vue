@@ -31,7 +31,8 @@
                                 </select>
                             </div>
                         </div>
-                        <p class="delivery-dt" style="width: 25%;">Expected Delivery Date: <span>09/12/2020</span><i class="zmdi zmdi-calendar"></i></p>
+                        <!-- <p class="delivery-dt" style="width: 25%;">Expected Delivery Date: <span><input type="date" id="expected-delivery-date" placeholder="09/12/2020"/></span><span @click="expectedDateCalendarClick" style="cursor: pointer;"><i class="zmdi zmdi-calendar"></i></span></p> -->
+                        <p class="delivery-dt" style="width: 25%;">Exp Delivery Date: <span><input type="date" id="expected-delivery-date" placeholder="09/12/2020"/></span></p>
                     </div>
                 </div>
             </div>
@@ -581,6 +582,9 @@ export default {
     methods: {
         onChangeSRDropdown() {
             console.log(this.on_change_SR_dropdown)
+        },
+        expectedDateCalendarClick() {
+            console.log('expectedDateCalendarClick')
         },
         //------------------------------------------------------------------------------------------
         // Table List Actions
