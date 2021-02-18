@@ -235,11 +235,11 @@
                     <div class="forward-to">
                         <div class="forward-to-inner">
                             <span class="label">To AM (Area Manager)</span>
-                            <div class="select-options" style="display: inline-block; width: 85%; font-size: 14px;">
+                            <div class="select-options">
                                 <span class="right-icon"
                                     ><i class="fas fa-chevron-right"></i
                                 ></span>
-                                <select title="Pick a customer" class="selectpicker" v-model="on_change_SR_dropdown" @change="onChangeSRDropdown()">
+                                <select title="Pick a customer" class="selectpicker" v-model="on_change_order_forward_area_manager" @change="onChangeOrderForwardAreaManager()">
                                     <option v-for="(sr, m) in sr_list" :key="m">
                                     {{ sr.name }}
                                     </option>
@@ -250,11 +250,11 @@
                     <div class="rsm-selection">
                         <div class="rsm-selection-inner">
                             <span class="label">Select RSM</span>
-                            <div class="select-options" style="display: inline-block; width: 85%; font-size: 14px;">
+                            <div class="select-options">
                                 <span class="right-icon"
                                     ><i class="fas fa-chevron-right"></i
                                 ></span>
-                                <select title="Pick a customer" class="selectpicker" v-model="on_change_SR_dropdown" @change="onChangeSRDropdown()">
+                                <select title="Pick a customer" class="selectpicker" v-model="on_change_order_forward_rsm" @change="onChangeOrderForwardRSM()">
                                     <option v-for="(sr, m) in sr_list" :key="m">
                                     {{ sr.name }}
                                     </option>
@@ -265,7 +265,13 @@
                     <div class="statement">
                         <div class="statement-inner">
                             <span class="label">State your Reason</span>
-                            <textarea class="reason-statement"></textarea>
+                            <textarea class="reason-statement" placeholder="Write here..." v-model="statement_reason"></textarea>
+                        </div>
+                    </div>
+                    <div class="submit-section">
+                        <div class="submit-section-inner">
+                            <span class="cancel-order" @click="cancelOrderForwardClickHandler">Cancel</span>
+                            <span class="proceed-order" @click="sendOrderForwardClickHandler">Send</span>
                         </div>
                     </div>
                 </div>
@@ -563,6 +569,10 @@ export default {
                 { label: 'label1', value: 'value1' },
                 { label: 'label2', value: 'value2' }
             ],
+
+            on_change_order_forward_area_manager: null,
+            on_change_order_forward_rsm: null,
+            statement_reason: null,
         }
     },
     created() {},
@@ -660,7 +670,19 @@ export default {
         // Order Forward Modal
         orderForwardModalOutsideClick() {
             this.order_forward_modal = false
-        }
+        },
+        onChangeOrderForwardAreaManager() {
+            console.log(this.on_change_order_forward_area_manager)
+        },
+        onChangeOrderForwardRSM() {
+            console.log(this.on_change_order_forward_rsm)
+        },
+        cancelOrderForwardClickHandler() {
+            console.log('cancelOrderForwardClickHandler')
+        },
+        sendOrderForwardClickHandler() {
+            console.log('sendOrderForwardClickHandler')
+        },
     }
 }
 </script>
