@@ -120,6 +120,24 @@
                             margin-left: 4px;
                             font-size  : 14px;
                         }
+
+                        span {
+                            input[type="date"] {
+                                border   : none;
+                                font-size: 14px;
+                                margin   : 0;
+                                height   : 16px;
+                                display  : inline-block;
+                                width    : 130px;
+                                position: relative;
+
+                                &:focus {
+                                    box-shadow   : none;
+                                    border-bottom: none;
+                                    outline      : none;
+                                }
+                            }
+                        }
                     }
 
                     .sr {

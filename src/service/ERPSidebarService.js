@@ -247,6 +247,35 @@ export default class PostService {
 
   //////////////////////////////////////////////////////////////////////////////////////////
   // Doctors
+  //////////////////////////////////////////////////////////////////////////////////////////
+
+
+  //////////////////////////////////////////////////////////////////////////////////////////
+  // Order
+
+  // CREATE ORDER
+  getAllCustomerForDepot_CreateOrderLeftList() {
+    let web_menu_url = 'http://203.188.246.138:8885/api/web/all-customers-for-depot'
+    return axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
+
+  // CREATE ORDER
+  getCustomerInfoForDepot_CreateOrderLeftList(customer_id) {
+    let web_menu_url = 'http://203.188.246.138:8885/api/web/customer-info-for-depot/' + customer_id
+    return axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
+
+  //////////////////////////////////////////////////////////////////////////////////////////
 
   // Get Doctors Profile
   autocomplete() {

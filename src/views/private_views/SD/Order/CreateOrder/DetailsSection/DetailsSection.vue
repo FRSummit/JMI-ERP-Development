@@ -24,14 +24,15 @@
                                 <span class="right-icon"
                                     ><i class="fas fa-chevron-right"></i
                                 ></span>
-                                <select title="Pick a customer" class="selectpicker" @change="onChangeSRDropdown()">
+                                <select title="Pick a customer" class="selectpicker" v-model="on_change_SR_dropdown" @change="onChangeSRDropdown()">
                                     <option v-for="(sr, m) in sr_list" :key="m">
                                     {{ sr.name }}
                                     </option>
                                 </select>
                             </div>
                         </div>
-                        <p class="delivery-dt" style="width: 25%;">Expected Delivery Date: <span>09/12/2020</span><i class="zmdi zmdi-calendar"></i></p>
+                        <!-- <p class="delivery-dt" style="width: 25%;">Expected Delivery Date: <span>09/12/2020</span><i class="zmdi zmdi-calendar"></i></p> -->
+                        <p class="delivery-dt" style="width: 25%;">Exp Delivery Date: <span><input type="date" id="expected-delivery-date" placeholder="09/12/2020"/></span></p>
                     </div>
                 </div>
             </div>
@@ -239,6 +240,7 @@ export default {
     },
     data() {
         return {
+            on_change_SR_dropdown: null,
             sr_list: [
                 {
                     name: "SR 1"
@@ -523,6 +525,9 @@ export default {
     mounted() {
     },
     methods: {
+        onChangeSRDropdown() {
+            console.log(this.on_change_SR_dropdown)
+        },
         //------------------------------------------------------------------------------------------
         // Table List Actions
         // Increase Table Row's Single Product/Order
