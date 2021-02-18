@@ -19,7 +19,7 @@
                         <p class="am">AM: <span>Atik Faysal Soumitro</span></p>
                         <p class="mio">MIO: <span>Mehedi Hassan</span></p>
                         <div class="sr" style="display: table-cell; width: 20%; padding-right: 20px; padding-bottom: 0; vertical-align: middle;">
-                            <span style="display: inline-block; width: 15%; font-size: 14px; float: left; line-height:1; padding-top: 6px;">SR: </span>
+                            <span style="display: inline-block; width: 15%; font-size: 14px; float: left; line-height:1; padding-top: 3px;">SR: </span>
                             <div class="select-options" style="display: inline-block; width: 85%; font-size: 14px;">
                                 <span class="right-icon"
                                     ><i class="fas fa-chevron-right"></i
@@ -133,7 +133,8 @@
                     <div class="input-autofield-show-section">
                         <div class="input-autofield-show-section-inner">
                             <div class="input-autofield">
-                                <input type="text" placeholder="Search By Batch Number" />
+                                <!-- <input type="text" placeholder="Search By Batch Number" /> -->
+                                <AdvancedSearch class="advanced-search" v-model="autocomplete_modal" :options="autocomplete_options" type="text" placeholder="Search By Batch Number"></AdvancedSearch>
                             </div>
                             <div class="autofield-show-section">
                                 <div class="autofield-show-section-inner">
@@ -230,7 +231,12 @@
 </template>
 
 <script>
+import AdvancedSearch from 'vue-advanced-search'
+
 export default {
+    components: {
+        AdvancedSearch 
+    },
     data() {
         return {
             sr_list: [
@@ -505,10 +511,17 @@ export default {
             ],
             add_order_modal: false,
             attachment_modal: false,
+
+            autocomplete_modal: null,
+            autocomplete_options: [
+                { label: 'label1', value: 'value1' },
+                { label: 'label2', value: 'value2' }
+            ],
         }
     },
     created() {},
-    mounted() {},
+    mounted() {
+    },
     methods: {
         //------------------------------------------------------------------------------------------
         // Table List Actions
@@ -586,6 +599,12 @@ export default {
         },
         uploadFileCLickHandler() {
             console.log('File upload')
+        },
+        //------------------------------------------------------------------------------------------
+        // Autocomplete
+        autocomplete(inp, arr) {
+            console.log(inp)
+            console.log(arr)
         }
     }
 }

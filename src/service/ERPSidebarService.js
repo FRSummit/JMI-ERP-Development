@@ -249,6 +249,12 @@ export default class PostService {
   // Doctors
 
   // Get Doctors Profile
+  autocomplete() {
+    let web_menu_url = 'https://api.publicapis.org/entries'
+    return axios(web_menu_url)
+  }
+
+  // Get Doctors Profile
   getAdvisorProfile(id) {
     let web_menu_url = 'api/mobile/get-advisor-profile/' + id
     return axios(web_menu_url, {
