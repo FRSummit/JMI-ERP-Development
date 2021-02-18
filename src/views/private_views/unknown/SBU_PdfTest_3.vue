@@ -163,8 +163,12 @@ import SBUStatus from "../../../models/SBU_Status";
 const sbuStatus = new SBUStatus();
 import jsPDF from 'jspdf' 
 import 'jspdf-autotable';
+
 import CustomJs from './Custom'
 const customJs = new CustomJs()
+
+import PDF_Demo from './PDF_Demo'
+const pdfDemo = new PDF_Demo()
 
 export default {
   components: {
@@ -648,7 +652,12 @@ export default {
       customJs.print_3(invoice_data)
     },
     onExcelClick() {
-            console.log(this.sub_data)
+      pdfDemo.generate_pdf()
+            
+      var doc = new jsPDF('p', 'pt', [612, 792]);
+      doc.setFont("arial", "bold");
+      doc.setFontSize(14);
+            /*console.log(this.sub_data)
 
             let pdfName = 'Schedule';
             const date = new Date();
@@ -756,10 +765,12 @@ export default {
                     lineColor: [44, 62, 80],
                     lineWidth: 0.55
                 },
-                /*headerStyles: {
-                    fillColor: [0, 0, 0],
-                    fontSize: 11
-                },*/
+
+                // headerStyles: {
+                //     fillColor: [0, 0, 0],
+                //     fontSize: 11
+                // },
+
                 headerStyles: {
                     fillColor: [255, 255, 255],
                     fontSize: 11,
@@ -785,7 +796,7 @@ export default {
                     //         halign: 'center',
                     //         valign: 'middle'
                     //     });
-                    //   /*  data.cursor.y += 20; */
+                    //     data.cursor.y += 20; 
                     // };
 
                     if (row.index % 5 === 0) {
@@ -857,7 +868,7 @@ export default {
                 },
             });
 
-            doc.save(pdfName + '_' + filename + '.pdf');
+            doc.save(pdfName + '_' + filename + '.pdf');*/
     },
   },
 };
