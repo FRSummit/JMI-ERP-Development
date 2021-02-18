@@ -93,7 +93,10 @@
                                 <td></td>
                             </tr>
                             <tr id="grand-total-section" class="grand-total-section" style="border-top   : 1px solid #BFCFE2;">
-                                <td></td>
+                                <td>
+                                    <span class="order-forward" @click="orderForwardClickHandler"><i class="zmdi zmdi-fast-forward"></i>Order Forward</span>
+                                    <span class="order-reject" @click="orderRejectClickHandler">Reject Order</span>
+                                </td>
                                 <td></td>
                                 <td></td>
                                 <td>
@@ -111,8 +114,7 @@
             <!-- Bottom Subtotal & Attachment Section -->
             <div class="submit-section">
                 <div class="submit-section-inner">
-                    <span class="cancel-order" @click="cancelOrderClickHandler">Cancel Order</span>
-                    <span class="proceed-order" @click="proceedOrderClickHandler">Proceed Order</span>
+                    <span class="proceed-order" @click="proceedOrderClickHandler">Approve Order</span>
                 </div>
             </div>
             <!-- Add Product Modal -->
@@ -222,6 +224,48 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Order Forward Modal -->
+            <div class="order-forward-modal" v-if="order_forward_modal">
+                <div class="order-forward-modal-inner" v-click-outside="orderForwardModalOutsideClick">
+                    <p class="title">Order Forward</p>
+                    <div class="forward-to">
+                        <div class="forward-to-inner">
+                            <span class="label">To AM (Area Manager)</span>
+                            <div class="select-options" style="display: inline-block; width: 85%; font-size: 14px;">
+                                <span class="right-icon"
+                                    ><i class="fas fa-chevron-right"></i
+                                ></span>
+                                <select title="Pick a customer" class="selectpicker" v-model="on_change_SR_dropdown" @change="onChangeSRDropdown()">
+                                    <option v-for="(sr, m) in sr_list" :key="m">
+                                    {{ sr.name }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rsm-selection">
+                        <div class="rsm-selection-inner">
+                            <span class="label">Select RSM</span>
+                            <div class="select-options" style="display: inline-block; width: 85%; font-size: 14px;">
+                                <span class="right-icon"
+                                    ><i class="fas fa-chevron-right"></i
+                                ></span>
+                                <select title="Pick a customer" class="selectpicker" v-model="on_change_SR_dropdown" @change="onChangeSRDropdown()">
+                                    <option v-for="(sr, m) in sr_list" :key="m">
+                                    {{ sr.name }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="statement">
+                        <div class="statement-inner">
+                            <span class="label">State your Reason</span>
+                            <textarea class="reason-statement"></textarea>
                         </div>
                     </div>
                 </div>
@@ -512,6 +556,7 @@ export default {
             ],
             add_order_modal: false,
             attachment_modal: false,
+            order_forward_modal: false,
 
             autocomplete_modal: null,
             autocomplete_options: [
@@ -563,8 +608,15 @@ export default {
         },
         //------------------------------------------------------------------------------------------
         // Order Submition Actions
-        cancelOrderClickHandler() {
-            console.log('cancel order')
+        orderForwardClickHandler() {
+            if(this.order_forward_modal) {
+                this.order_forward_modal = false
+            } else {
+                this.order_forward_modal = true
+            }
+        },
+        orderRejectClickHandler() {
+            console.log('orderRejectClickHandler')
         },
         proceedOrderClickHandler() {
             console.log('proceed order')
@@ -605,10 +657,9 @@ export default {
             console.log('File upload')
         },
         //------------------------------------------------------------------------------------------
-        // Autocomplete
-        autocomplete(inp, arr) {
-            console.log(inp)
-            console.log(arr)
+        // Order Forward Modal
+        orderForwardModalOutsideClick() {
+            this.order_forward_modal = false
         }
     }
 }
