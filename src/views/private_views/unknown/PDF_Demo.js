@@ -1,9 +1,15 @@
 import jsPDF from 'jspdf'
 import 'jspdf-autotable';
 
+let top_summery_start_point = 80;
+let table_start_point = null;
+// let subtotal_start_point = null;
+
 export default class PDF_Demo {
     generate_pdf() {
         var doc = new jsPDF('p', 'pt', [612, 792]);
+        // doc.page = 1; // use this as a counter.
+        // var totalPages = 10; // define total amount of pages
         // let font_roboto = './roboto.ttf'
         // doc.setFontSize(10);
         // doc.setFont(font_roboto, "bold");
@@ -13,7 +19,7 @@ export default class PDF_Demo {
         this.generate_summery_section(doc)
         this.generate_table_data(doc)
         this.generate_total_section(doc)
-        // this.generate_footer(doc)
+        this.generate_footer(doc)
 
 
         // generate pdf name
@@ -28,9 +34,12 @@ export default class PDF_Demo {
         // let width_logo_subtitle = doc.getTextWidth(logo_sbutitle)
 
         doc.setFontSize(16);
-        doc.text(logo_title, (doc.internal.pageSize.getWidth() / 2), 30, "center")
+        doc.text(logo_title, (doc.internal.pageSize.getWidth() / 2), 20, "center")
         doc.setFontSize(7);
-        doc.text(logo_sbutitle, (doc.internal.pageSize.getWidth() / 2), 40, "center")
+        doc.text(logo_sbutitle, (doc.internal.pageSize.getWidth() / 2), 30, "center")
+        doc.setLineDash(0, 0)
+        doc.line(10, 35, (doc.internal.pageSize.getWidth() - 10), 35);
+        doc.line(10, 37, (doc.internal.pageSize.getWidth() - 10), 37);
     }
 
     generate_summery_section(doc) {
@@ -38,7 +47,6 @@ export default class PDF_Demo {
         doc.addFont("sans-serif", "bold");
         doc.setFontSize(10);
 
-        // Left Section
 
         // let left_x = 54
         // let left_x_dynamic = 130
@@ -46,44 +54,63 @@ export default class PDF_Demo {
         let left_x = 20
         let left_x_dynamic = 96
 
-        doc.text(left_x, 100, 'Customer Code');
-        doc.text(left_x_dynamic, 100, ': DHK34105');
-
-        doc.text(left_x, 115, 'Customer Name');
-        doc.text(left_x_dynamic, 115, ': LABAID CARDIAC HOSPITAL');
-
-        doc.text(left_x, 130, 'Address');
-        doc.text(left_x_dynamic, 130, ': HOUSE-01, RAOD-04, DHANMONDI');
-
-        doc.text(left_x, 145, 'MIO Name:');
-        doc.text(left_x_dynamic, 145, ': SHAHIDUL ISLAM');
-
-        doc.text(left_x, 160, 'S.R Name');
-        doc.text(left_x_dynamic, 160, ': RAMJAN ALI');
-
-        // Right Section
-
         let right_x = doc.internal.pageSize.getWidth() - 160
         let right_x_dynamic = (doc.internal.pageSize.getWidth() - 160) + 60
 
-        doc.text(right_x, 100, 'Invoice No');
-        doc.text(right_x_dynamic, 100, ': DHK081920086');
+        // let summery_start_height = 80
+        let summery_start_height = top_summery_start_point
 
-        doc.text(right_x, 115, 'Invoice Date');
-        doc.text(right_x_dynamic, 115, ': 30/09/2019');
+        let line_gap = 0
 
-        doc.text(right_x, 130, 'Depot');
-        doc.text(right_x_dynamic, 130, ': Dhaka Depot');
+        // Left Section
+        doc.text(left_x, (summery_start_height + line_gap), 'Customer Code');
+        doc.text(left_x_dynamic, (summery_start_height + line_gap), ': DHK34105');
+        // Right Section
+        doc.text(right_x, (summery_start_height + line_gap), 'Invoice No');
+        doc.text(right_x_dynamic, (summery_start_height + line_gap), ': DHK081920086');
 
-        doc.text(right_x, 145, 'T.Code');
-        doc.text(right_x_dynamic, 145, ': DHK341');
+        line_gap += 15
 
-        doc.text(right_x, 160, 'Date');
-        doc.text(right_x_dynamic, 160, ': 29.09.2019');
+        // Left Section
+        doc.text(left_x, (summery_start_height + line_gap), 'Customer Name');
+        doc.text(left_x_dynamic, (summery_start_height + line_gap), ': LABAID CARDIAC HOSPITAL');
+        // Right Section
+        doc.text(right_x, (summery_start_height + line_gap), 'Invoice Date');
+        doc.text(right_x_dynamic, (summery_start_height + line_gap), ': 30/09/2019');
+
+        line_gap += 15
+
+        // Left Section
+        doc.text(left_x, (summery_start_height + line_gap), 'Address');
+        doc.text(left_x_dynamic, (summery_start_height + line_gap), ': HOUSE-01, RAOD-04, DHANMONDI');
+        // Right Section
+        doc.text(right_x, (summery_start_height + line_gap), 'Depot');
+        doc.text(right_x_dynamic, (summery_start_height + line_gap), ': Dhaka Depot');
+
+        line_gap += 15
+
+        // Left Section
+        doc.text(left_x, (summery_start_height + line_gap), 'MIO Name:');
+        doc.text(left_x_dynamic, (summery_start_height + line_gap), ': SHAHIDUL ISLAM');
+        // Right Section
+        doc.text(right_x, (summery_start_height + line_gap), 'T.Code');
+        doc.text(right_x_dynamic, (summery_start_height + line_gap), ': DHK341');
+
+        line_gap += 15
+
+        // Left Section
+        doc.text(left_x, (summery_start_height + line_gap), 'S.R Name');
+        doc.text(left_x_dynamic, (summery_start_height + line_gap), ': RAMJAN ALI');
+        // Right Section
+        doc.text(right_x, (summery_start_height + line_gap), 'Date');
+        doc.text(right_x_dynamic, (summery_start_height + line_gap), ': 29.09.2019');
 
         // Order Number
-        doc.text((right_x - 130), 160, 'Order No');
-        doc.text((right_x_dynamic - 150), 160, ': DHK081920086');
+        doc.text((right_x - 130), (summery_start_height + line_gap), 'Order No');
+        doc.text((right_x_dynamic - 150), (summery_start_height + line_gap), ': DHK081920086');
+
+        line_gap += 15
+        table_start_point = top_summery_start_point + line_gap
     }
 
     generate_table_data(doc) {
@@ -128,7 +155,7 @@ export default class PDF_Demo {
         // doc.autoTable(columnHeader, rows, { startY: 180 })
         // doc.autoTable(columnHeader, rows, {margin: { top: 180, left: 10, right: 10, bottom: 100 }})
         doc.autoTable(columnHeader, rows, {
-                startY: 180,
+                startY: table_start_point,
                 // theme: "grid",
                 // addPageContent: pageContent,
                 // tableWidth: 200,
@@ -168,6 +195,15 @@ export default class PDF_Demo {
                     unit_VAT: {
                         columnWidth: 50
                     },
+                    unit_price_with_VAT: {
+                        halign: "center"
+                    },
+                    qty: {
+                        halign: "center"
+                    },
+                    bonus: {
+                        halign: "center"
+                    },
                     total_VAT: {
                         columnWidth: 50,
                         halign: "right",
@@ -181,7 +217,10 @@ export default class PDF_Demo {
 
         // let finalY = doc.lastAutoTable.finalY;
     }   
+
     generate_total_section(doc) {
+        let doc_width = doc.internal.pageSize.getWidth()
+        let doc_height = doc.internal.pageSize.getHeight()
 
         doc.setFontSize(10);
         let finalY = doc.lastAutoTable.finalY
@@ -202,37 +241,37 @@ export default class PDF_Demo {
         /* -------------------- Right Section -------------------- */
         // doc.setLineDash([10, 10], 0);
         doc.setDrawColor(0, 0, 0);
-        doc.line((doc.internal.pageSize.getWidth() - 150), finalY, (doc.internal.pageSize.getWidth() - 5), finalY);
+        doc.line((doc_width - 150), finalY, (doc_width - 5), finalY);
 
         // Subtotal
-        doc.text((doc.internal.pageSize.getWidth() - 120), (finalY + 10), 'Sub Total :', "right");
-        doc.text((doc.internal.pageSize.getWidth() - 60), (finalY + 10), '16,806.27', "right");
-        doc.text((doc.internal.pageSize.getWidth() - 10), (finalY + 10), '96,587.77', "right");
+        doc.text((doc_width - 120), (finalY + 10), 'Sub Total :', "right");
+        doc.text((doc_width - 60), (finalY + 10), '16,806.27', "right");
+        doc.text((doc_width - 10), (finalY + 10), '96,587.77', "right");
 
-        doc.line((doc.internal.pageSize.getWidth() - 150), (finalY + 30), (doc.internal.pageSize.getWidth() - 5), (finalY + 30));
+        doc.line((doc_width - 150), (finalY + 30), (doc_width - 5), (finalY + 30));
         // Gross TP
-        doc.text((doc.internal.pageSize.getWidth() - 120), (finalY + 44), 'Gross TP :', "right");
-        doc.text((doc.internal.pageSize.getWidth() - 10), (finalY + 44), '96,587.77', "right");
+        doc.text((doc_width - 120), (finalY + 44), 'Gross TP :', "right");
+        doc.text((doc_width - 10), (finalY + 44), '96,587.77', "right");
 
-        doc.line((doc.internal.pageSize.getWidth() - 150), (finalY + 50), (doc.internal.pageSize.getWidth() - 5), (finalY + 50));
+        doc.line((doc_width - 150), (finalY + 50), (doc_width - 5), (finalY + 50));
         // Discount
-        doc.text((doc.internal.pageSize.getWidth() - 120), (finalY + 64), 'Less discount 5% on TP :', "right");
-        doc.text((doc.internal.pageSize.getWidth() - 10), (finalY + 64), '4,829.39', "right");
+        doc.text((doc_width - 120), (finalY + 64), 'Less discount 5% on TP :', "right");
+        doc.text((doc_width - 10), (finalY + 64), '4,829.39', "right");
 
-        doc.line((doc.internal.pageSize.getWidth() - 150), (finalY + 70), (doc.internal.pageSize.getWidth() - 5), (finalY + 70));
+        doc.line((doc_width - 150), (finalY + 70), (doc_width - 5), (finalY + 70));
         // Add VAT on TP
-        doc.text((doc.internal.pageSize.getWidth() - 120), (finalY + 84), 'Add VAT on TP :', "right");
-        doc.text((doc.internal.pageSize.getWidth() - 10), (finalY + 84), '16,806.27', "right");
+        doc.text((doc_width - 120), (finalY + 84), 'Add VAT on TP :', "right");
+        doc.text((doc_width - 10), (finalY + 84), '16,806.27', "right");
 
-        doc.line((doc.internal.pageSize.getWidth() - 150), (finalY + 90), (doc.internal.pageSize.getWidth() - 5), (finalY + 90));
+        doc.line((doc_width - 150), (finalY + 90), (doc_width - 5), (finalY + 90));
         // Rounding Adjustment
-        doc.text((doc.internal.pageSize.getWidth() - 120), (finalY + 104), 'Rounding Adjustment :', "right");
-        doc.text((doc.internal.pageSize.getWidth() - 10), (finalY + 104), '0.35', "right");
+        doc.text((doc_width - 120), (finalY + 104), 'Rounding Adjustment :', "right");
+        doc.text((doc_width - 10), (finalY + 104), '0.35', "right");
 
-        doc.line((doc.internal.pageSize.getWidth() - 150), (finalY + 110), (doc.internal.pageSize.getWidth() - 5), (finalY + 110));
+        doc.line((doc_width - 150), (finalY + 110), (doc_width - 5), (finalY + 110));
         // Net Payable
-        doc.text((doc.internal.pageSize.getWidth() - 120), (finalY + 124), 'Net Payable :', "right");
-        doc.text((doc.internal.pageSize.getWidth() - 10), (finalY + 124), '108,565.00', "right");
+        doc.text((doc_width - 120), (finalY + 124), 'Net Payable :', "right");
+        doc.text((doc_width - 10), (finalY + 124), '108,565.00', "right");
 
 
 
@@ -259,7 +298,7 @@ export default class PDF_Demo {
         // doc.text(250, (finalY + 160), ('dd  ' + pageInfo.pageNumber), "left");
 
 
-        // doc.text(250, (doc.internal.pageSize.height - 50), ('dd  ' + pageInfo.pageNumber), "left");
+        // doc.text(250, (doc_height - 50), ('dd  ' + pageInfo.pageNumber), "left");
 
 
 
@@ -268,12 +307,26 @@ export default class PDF_Demo {
             doc.addPage()
             // finalY = 60
         }
-        doc.text((doc.internal.pageSize.getWidth() - 120), (doc.internal.pageSize.height - 94), 'AZAHER', "center");
-        doc.line((doc.internal.pageSize.getWidth() - 50), (doc.internal.pageSize.height - 90), (doc.internal.pageSize.getWidth() - 200), (doc.internal.pageSize.height - 90));
-        doc.text((doc.internal.pageSize.getWidth() - 120), (doc.internal.pageSize.height - 80), 'For NIPRO JMI Pharma Ltd.	', "center");
+        doc.text((doc_width - 120), (doc_height - 54), 'AZAHER', "center");
+        doc.setLineDash(0, 0)
+        doc.line((doc_width - 50), (doc_height - 50), (doc_width - 200), (doc_height - 50));
+        doc.text((doc_width - 120), (doc_height - 40), 'For NIPRO JMI Pharma Ltd.	', "center");
 
     }
-    // generate_footer(doc) {}
+
+    generate_footer(doc) {
+        let footer_text = "This is a footer text. Powered by Mononsoft Limited. Developed by: Fayazur Rahman Summit"
+        let doc_width = doc.internal.pageSize.getWidth()
+        let doc_height = doc.internal.pageSize.getHeight()
+        
+        doc.setFontSize(7);
+        // doc.text(str, 50, doc.internal.pageSize.height - 10)
+
+        doc.setLineDash(0, 0)
+        doc.line(10, (doc_height - 30), (doc_width - 10), (doc_height - 30));
+        doc.text((doc_width /2), (doc_height - 20), footer_text, "center")
+        doc.text((doc_width /2), (doc_height - 10), footer_text, "center")
+    }
 
     get_doc_width(doc) {
         return doc.internal.pageSize.getWidth()
@@ -301,6 +354,36 @@ export default class PDF_Demo {
 
     data_list() {
         let data = [
+            {
+                sn: "1",
+                product_name: "Adarbi 40 Tablet",
+                pack_size: "20's",
+                batch_no: "111119",
+                mfg_date: "Jan'19",
+                eXP_date: "Dec.'20",
+                unit_price_TP_SP: "179.91",
+                unit_VAT: "  31.30",
+                unit_price_with_VAT: "211.21",
+                qty: "2",
+                bonus: "0",
+                total_VAT: "62.61",
+                total_TP_SP: "359.82"
+            },
+            {
+                sn: "1",
+                product_name: "Adarbi 40 Tablet",
+                pack_size: "20's",
+                batch_no: "111119",
+                mfg_date: "Jan'19",
+                eXP_date: "Dec.'20",
+                unit_price_TP_SP: "179.91",
+                unit_VAT: "  31.30",
+                unit_price_with_VAT: "211.21",
+                qty: "2",
+                bonus: "0",
+                total_VAT: "62.61",
+                total_TP_SP: "359.82"
+            },
             {
                 sn: "1",
                 product_name: "Adarbi 40 Tablet",
