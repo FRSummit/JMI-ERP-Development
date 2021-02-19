@@ -82,7 +82,7 @@ export default class PDF_Demo {
         doc.text(right_x_dynamic, 160, ': 29.09.2019');
 
         // Order Number
-        doc.text((right_x - 130), 160, 'Order No.');
+        doc.text((right_x - 130), 160, 'Order No');
         doc.text((right_x_dynamic - 150), 160, ': DHK081920086');
     }
 
@@ -169,9 +169,11 @@ export default class PDF_Demo {
                         columnWidth: 50
                     },
                     total_VAT: {
+                        columnWidth: 50,
                         halign: "right",
                     },
                     total_TP_SP: {
+                        columnWidth: 50,
                         halign: "right",
                     },
                 }
@@ -180,12 +182,96 @@ export default class PDF_Demo {
         // let finalY = doc.lastAutoTable.finalY;
     }   
     generate_total_section(doc) {
-        let finalY = doc.lastAutoTable.finalY
-        doc.text(20, (finalY + 10), "Hello!")
 
+        doc.setFontSize(10);
+        let finalY = doc.lastAutoTable.finalY
+
+
+        if((finalY + 120 + 50) > 792) {
+            doc.addPage()
+            finalY = 60
+        }
+
+        /* -------------------- Left Section -------------------- */
+        // Gross TP
+        doc.text(5, (finalY + 44), 'In Word :', "left");
+        doc.text(50, (finalY + 44), 'Taka One Lac Eight Thousand Five Hundred Sixty Five only.', "left");
+
+
+
+        /* -------------------- Right Section -------------------- */
         // doc.setLineDash([10, 10], 0);
         doc.setDrawColor(0, 0, 0);
         doc.line((doc.internal.pageSize.getWidth() - 150), finalY, (doc.internal.pageSize.getWidth() - 5), finalY);
+
+        // Subtotal
+        doc.text((doc.internal.pageSize.getWidth() - 120), (finalY + 10), 'Sub Total :', "right");
+        doc.text((doc.internal.pageSize.getWidth() - 60), (finalY + 10), '16,806.27', "right");
+        doc.text((doc.internal.pageSize.getWidth() - 10), (finalY + 10), '96,587.77', "right");
+
+        doc.line((doc.internal.pageSize.getWidth() - 150), (finalY + 30), (doc.internal.pageSize.getWidth() - 5), (finalY + 30));
+        // Gross TP
+        doc.text((doc.internal.pageSize.getWidth() - 120), (finalY + 44), 'Gross TP :', "right");
+        doc.text((doc.internal.pageSize.getWidth() - 10), (finalY + 44), '96,587.77', "right");
+
+        doc.line((doc.internal.pageSize.getWidth() - 150), (finalY + 50), (doc.internal.pageSize.getWidth() - 5), (finalY + 50));
+        // Discount
+        doc.text((doc.internal.pageSize.getWidth() - 120), (finalY + 64), 'Less discount 5% on TP :', "right");
+        doc.text((doc.internal.pageSize.getWidth() - 10), (finalY + 64), '4,829.39', "right");
+
+        doc.line((doc.internal.pageSize.getWidth() - 150), (finalY + 70), (doc.internal.pageSize.getWidth() - 5), (finalY + 70));
+        // Add VAT on TP
+        doc.text((doc.internal.pageSize.getWidth() - 120), (finalY + 84), 'Add VAT on TP :', "right");
+        doc.text((doc.internal.pageSize.getWidth() - 10), (finalY + 84), '16,806.27', "right");
+
+        doc.line((doc.internal.pageSize.getWidth() - 150), (finalY + 90), (doc.internal.pageSize.getWidth() - 5), (finalY + 90));
+        // Rounding Adjustment
+        doc.text((doc.internal.pageSize.getWidth() - 120), (finalY + 104), 'Rounding Adjustment :', "right");
+        doc.text((doc.internal.pageSize.getWidth() - 10), (finalY + 104), '0.35', "right");
+
+        doc.line((doc.internal.pageSize.getWidth() - 150), (finalY + 110), (doc.internal.pageSize.getWidth() - 5), (finalY + 110));
+        // Net Payable
+        doc.text((doc.internal.pageSize.getWidth() - 120), (finalY + 124), 'Net Payable :', "right");
+        doc.text((doc.internal.pageSize.getWidth() - 10), (finalY + 124), '108,565.00', "right");
+
+
+
+        /* -------------------- Present Credit Status -------------------- */
+        doc.text(50, (finalY + 80), 'Present Credit Status:', "left");
+        doc.text(50, (finalY + 90), 'Invoice', "left");
+        doc.text(110, (finalY + 90), 'Inv_Date', "left");
+        doc.text(180, (finalY + 90), 'Pay Mode', "left");
+        doc.text(250, (finalY + 90), 'Outstanding', "left");
+
+        
+        /* -------------------- Total -------------------- */
+        doc.text(200, (finalY + 120), 'Total:', "left");
+        // 7mm of line, 3mm of space, 1mm of line, 3mm of space and then repeats, however, it will start the pattern 10mm in so the first part of the dash to be drawn is the 1mm section
+        doc.setLineDash([1, 1, 1, 1], 30);
+        doc.line(230, (finalY + 110), 300, (finalY + 110));
+
+        // 10mm of line drawn, followed by 10mm of space repeating along the way from left to right.
+        doc.setLineDash([10, 10], 0);
+        doc.line(230, (finalY + 124), 300, (finalY + 124));
+        // doc.text(230, (finalY + 130), 'Total:', "left");
+
+        // let pageInfo = doc.internal.getCurrentPageInfo();
+        // doc.text(250, (finalY + 160), ('dd  ' + pageInfo.pageNumber), "left");
+
+
+        // doc.text(250, (doc.internal.pageSize.height - 50), ('dd  ' + pageInfo.pageNumber), "left");
+
+
+
+        /* -------------------- Signature and Company name -------------------- */	
+        if((finalY + 120 + 50 + 80) > 792) {
+            doc.addPage()
+            // finalY = 60
+        }
+        doc.text((doc.internal.pageSize.getWidth() - 120), (doc.internal.pageSize.height - 94), 'AZAHER', "center");
+        doc.line((doc.internal.pageSize.getWidth() - 50), (doc.internal.pageSize.height - 90), (doc.internal.pageSize.getWidth() - 200), (doc.internal.pageSize.height - 90));
+        doc.text((doc.internal.pageSize.getWidth() - 120), (doc.internal.pageSize.height - 80), 'For NIPRO JMI Pharma Ltd.	', "center");
+
     }
     // generate_footer(doc) {}
 
@@ -215,321 +301,6 @@ export default class PDF_Demo {
 
     data_list() {
         let data = [
-            {
-                sn: "1",
-                product_name: "Adarbi 40 Tablet",
-                pack_size: "20's",
-                batch_no: "111119",
-                mfg_date: "Jan'19",
-                eXP_date: "Dec.'20",
-                unit_price_TP_SP: "179.91",
-                unit_VAT: "  31.30",
-                unit_price_with_VAT: "211.21",
-                qty: "2",
-                bonus: "0",
-                total_VAT: "62.61",
-                total_TP_SP: "359.82"
-            },
-            {
-                sn: "1",
-                product_name: "Adarbi 40 Tablet",
-                pack_size: "20's",
-                batch_no: "111119",
-                mfg_date: "Jan'19",
-                eXP_date: "Dec.'20",
-                unit_price_TP_SP: "179.91",
-                unit_VAT: "  31.30",
-                unit_price_with_VAT: "211.21",
-                qty: "2",
-                bonus: "0",
-                total_VAT: "62.61",
-                total_TP_SP: "359.82"
-            },
-            {
-                sn: "1",
-                product_name: "Adarbi 40 Tablet",
-                pack_size: "20's",
-                batch_no: "111119",
-                mfg_date: "Jan'19",
-                eXP_date: "Dec.'20",
-                unit_price_TP_SP: "179.91",
-                unit_VAT: "  31.30",
-                unit_price_with_VAT: "211.21",
-                qty: "2",
-                bonus: "0",
-                total_VAT: "62.61",
-                total_TP_SP: "359.82"
-            },
-            {
-                sn: "1",
-                product_name: "Adarbi 40 Tablet",
-                pack_size: "20's",
-                batch_no: "111119",
-                mfg_date: "Jan'19",
-                eXP_date: "Dec.'20",
-                unit_price_TP_SP: "179.91",
-                unit_VAT: "  31.30",
-                unit_price_with_VAT: "211.21",
-                qty: "2",
-                bonus: "0",
-                total_VAT: "62.61",
-                total_TP_SP: "359.82"
-            },
-            {
-                sn: "1",
-                product_name: "Adarbi 40 Tablet",
-                pack_size: "20's",
-                batch_no: "111119",
-                mfg_date: "Jan'19",
-                eXP_date: "Dec.'20",
-                unit_price_TP_SP: "179.91",
-                unit_VAT: "  31.30",
-                unit_price_with_VAT: "211.21",
-                qty: "2",
-                bonus: "0",
-                total_VAT: "62.61",
-                total_TP_SP: "359.82"
-            },
-            {
-                sn: "1",
-                product_name: "Adarbi 40 Tablet",
-                pack_size: "20's",
-                batch_no: "111119",
-                mfg_date: "Jan'19",
-                eXP_date: "Dec.'20",
-                unit_price_TP_SP: "179.91",
-                unit_VAT: "  31.30",
-                unit_price_with_VAT: "211.21",
-                qty: "2",
-                bonus: "0",
-                total_VAT: "62.61",
-                total_TP_SP: "359.82"
-            },
-            {
-                sn: "1",
-                product_name: "Adarbi 40 Tablet",
-                pack_size: "20's",
-                batch_no: "111119",
-                mfg_date: "Jan'19",
-                eXP_date: "Dec.'20",
-                unit_price_TP_SP: "179.91",
-                unit_VAT: "  31.30",
-                unit_price_with_VAT: "211.21",
-                qty: "2",
-                bonus: "0",
-                total_VAT: "62.61",
-                total_TP_SP: "359.82"
-            },
-            {
-                sn: "1",
-                product_name: "Adarbi 40 Tablet",
-                pack_size: "20's",
-                batch_no: "111119",
-                mfg_date: "Jan'19",
-                eXP_date: "Dec.'20",
-                unit_price_TP_SP: "179.91",
-                unit_VAT: "  31.30",
-                unit_price_with_VAT: "211.21",
-                qty: "2",
-                bonus: "0",
-                total_VAT: "62.61",
-                total_TP_SP: "359.82"
-            },
-            {
-                sn: "1",
-                product_name: "Adarbi 40 Tablet",
-                pack_size: "20's",
-                batch_no: "111119",
-                mfg_date: "Jan'19",
-                eXP_date: "Dec.'20",
-                unit_price_TP_SP: "179.91",
-                unit_VAT: "  31.30",
-                unit_price_with_VAT: "211.21",
-                qty: "2",
-                bonus: "0",
-                total_VAT: "62.61",
-                total_TP_SP: "359.82"
-            },
-            {
-                sn: "1",
-                product_name: "Adarbi 40 Tablet",
-                pack_size: "20's",
-                batch_no: "111119",
-                mfg_date: "Jan'19",
-                eXP_date: "Dec.'20",
-                unit_price_TP_SP: "179.91",
-                unit_VAT: "  31.30",
-                unit_price_with_VAT: "211.21",
-                qty: "2",
-                bonus: "0",
-                total_VAT: "62.61",
-                total_TP_SP: "359.82"
-            },
-            {
-                sn: "1",
-                product_name: "Adarbi 40 Tablet",
-                pack_size: "20's",
-                batch_no: "111119",
-                mfg_date: "Jan'19",
-                eXP_date: "Dec.'20",
-                unit_price_TP_SP: "179.91",
-                unit_VAT: "  31.30",
-                unit_price_with_VAT: "211.21",
-                qty: "2",
-                bonus: "0",
-                total_VAT: "62.61",
-                total_TP_SP: "359.82"
-            },
-            {
-                sn: "1",
-                product_name: "Adarbi 40 Tablet",
-                pack_size: "20's",
-                batch_no: "111119",
-                mfg_date: "Jan'19",
-                eXP_date: "Dec.'20",
-                unit_price_TP_SP: "179.91",
-                unit_VAT: "  31.30",
-                unit_price_with_VAT: "211.21",
-                qty: "2",
-                bonus: "0",
-                total_VAT: "62.61",
-                total_TP_SP: "359.82"
-            },
-            {
-                sn: "1",
-                product_name: "Adarbi 40 Tablet",
-                pack_size: "20's",
-                batch_no: "111119",
-                mfg_date: "Jan'19",
-                eXP_date: "Dec.'20",
-                unit_price_TP_SP: "179.91",
-                unit_VAT: "  31.30",
-                unit_price_with_VAT: "211.21",
-                qty: "2",
-                bonus: "0",
-                total_VAT: "62.61",
-                total_TP_SP: "359.82"
-            },
-            {
-                sn: "1",
-                product_name: "Adarbi 40 Tablet",
-                pack_size: "20's",
-                batch_no: "111119",
-                mfg_date: "Jan'19",
-                eXP_date: "Dec.'20",
-                unit_price_TP_SP: "179.91",
-                unit_VAT: "  31.30",
-                unit_price_with_VAT: "211.21",
-                qty: "2",
-                bonus: "0",
-                total_VAT: "62.61",
-                total_TP_SP: "359.82"
-            },
-            {
-                sn: "1",
-                product_name: "Adarbi 40 Tablet",
-                pack_size: "20's",
-                batch_no: "111119",
-                mfg_date: "Jan'19",
-                eXP_date: "Dec.'20",
-                unit_price_TP_SP: "179.91",
-                unit_VAT: "  31.30",
-                unit_price_with_VAT: "211.21",
-                qty: "2",
-                bonus: "0",
-                total_VAT: "62.61",
-                total_TP_SP: "359.82"
-            },
-            {
-                sn: "1",
-                product_name: "Adarbi 40 Tablet",
-                pack_size: "20's",
-                batch_no: "111119",
-                mfg_date: "Jan'19",
-                eXP_date: "Dec.'20",
-                unit_price_TP_SP: "179.91",
-                unit_VAT: "  31.30",
-                unit_price_with_VAT: "211.21",
-                qty: "2",
-                bonus: "0",
-                total_VAT: "62.61",
-                total_TP_SP: "359.82"
-            },
-            {
-                sn: "1",
-                product_name: "Adarbi 40 Tablet",
-                pack_size: "20's",
-                batch_no: "111119",
-                mfg_date: "Jan'19",
-                eXP_date: "Dec.'20",
-                unit_price_TP_SP: "179.91",
-                unit_VAT: "  31.30",
-                unit_price_with_VAT: "211.21",
-                qty: "2",
-                bonus: "0",
-                total_VAT: "62.61",
-                total_TP_SP: "359.82"
-            },
-            {
-                sn: "1",
-                product_name: "Adarbi 40 Tablet",
-                pack_size: "20's",
-                batch_no: "111119",
-                mfg_date: "Jan'19",
-                eXP_date: "Dec.'20",
-                unit_price_TP_SP: "179.91",
-                unit_VAT: "  31.30",
-                unit_price_with_VAT: "211.21",
-                qty: "2",
-                bonus: "0",
-                total_VAT: "62.61",
-                total_TP_SP: "359.82"
-            },
-            {
-                sn: "1",
-                product_name: "Adarbi 40 Tablet",
-                pack_size: "20's",
-                batch_no: "111119",
-                mfg_date: "Jan'19",
-                eXP_date: "Dec.'20",
-                unit_price_TP_SP: "179.91",
-                unit_VAT: "  31.30",
-                unit_price_with_VAT: "211.21",
-                qty: "2",
-                bonus: "0",
-                total_VAT: "62.61",
-                total_TP_SP: "359.82"
-            },
-            {
-                sn: "1",
-                product_name: "Adarbi 40 Tablet",
-                pack_size: "20's",
-                batch_no: "111119",
-                mfg_date: "Jan'19",
-                eXP_date: "Dec.'20",
-                unit_price_TP_SP: "179.91",
-                unit_VAT: "  31.30",
-                unit_price_with_VAT: "211.21",
-                qty: "2",
-                bonus: "0",
-                total_VAT: "62.61",
-                total_TP_SP: "359.82"
-            },
-            {
-                sn: "1",
-                product_name: "Adarbi 40 Tablet",
-                pack_size: "20's",
-                batch_no: "111119",
-                mfg_date: "Jan'19",
-                eXP_date: "Dec.'20",
-                unit_price_TP_SP: "179.91",
-                unit_VAT: "  31.30",
-                unit_price_with_VAT: "211.21",
-                qty: "2",
-                bonus: "0",
-                total_VAT: "62.61",
-                total_TP_SP: "359.82"
-            },
             {
                 sn: "1",
                 product_name: "Adarbi 40 Tablet",
