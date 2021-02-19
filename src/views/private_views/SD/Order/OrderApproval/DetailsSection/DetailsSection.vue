@@ -1,24 +1,23 @@
 <template>
     <div id="order-approval-details-section" class="order-approval-details-section">
         <div class="order-approval-details-section-inner">
-            <p class="customer-id">Customer ID: <span class="id">JMI-2231225</span><span class="customer-type">Credit Customer</span></p>
+            <p class="customer-id"><span class="lvl">Customer ID:</span><span class="id">JMI-2231225</span><span class="customer-type">Credit Customer</span></p>
+            <p class="customer-id"><span class="lvl">Customer Name:</span><span class="id">ABI Pharmacy and Diagnostic Center</span><span class="order-placed">Order Status: <span>Status</span></span></p>
+            <p class="customer-id"><span class="lvl">Address:</span><span class="id">House:100, Road: 11,Block:C,Dhaka 1213</span></p>
             <div class="header-summery-section">
                 <div class="header-summery-section-inner">
                     <div class="row">
-                        <p class="customer-name">Customer: <span style="text-decoration: underline;">ABI Pharmacy and Diagnostic Center</span></p>
+                        <!-- <p class="customer-name">Customer: <span style="text-decoration: underline;">ABI Pharmacy and Diagnostic Center</span></p> -->
                         <p class="current-outstanding">Current Outstanding: <span style="text-decoration: underline;">200500</span></p>
                         <p class="order-placed">Order Placed: <span>Placed</span></p>
-                        <p class="order-placed">Order Status: <span>Status</span></p>
-                    </div>
-                    <div class="row">
+                        <!-- <p class="order-placed">Order Status: <span>Status</span></p> -->
                         <p class="area">Area: <span>DHK0300-Dhanmondi</span></p>
-                        <p class="territory">Territory: <span>DHK0301-Dhanmondi 32</span></p>
-                        <p class="address" style="width: 40%;">Address: <span>House:100, Road: 11,Block:C,Dhaka 1213</span></p>
                     </div>
                     <div class="row">
-                        <p class="am">AM: <span>Atik Faysal Soumitro</span></p>
-                        <p class="mio">MIO: <span>Mehedi Hassan</span></p>
-                        <div class="sr" style="display: table-cell; width: 20%; padding-right: 20px; padding-bottom: 0; vertical-align: middle;">
+                        <!-- <p class="area">Area: <span>DHK0300-Dhanmondi</span></p> -->
+                        <p class="territory">Territory: <span>DHK0301-Dhanmondi 32</span></p>
+                        <!-- <p class="address" style="width: 40%;">Address: <span>House:100, Road: 11,Block:C,Dhaka 1213</span></p> -->
+                        <div class="sr" style="display: table-cell; width: 33%; padding-right: 20px; padding-bottom: 0; vertical-align: middle;">
                             <span style="display: inline-block; width: 15%; font-size: 14px; float: left; line-height:1; padding-top: 3px;">SR: </span>
                             <div class="select-options" style="display: inline-block; width: 85%; font-size: 14px;">
                                 <span class="right-icon"
@@ -31,8 +30,26 @@
                                 </select>
                             </div>
                         </div>
-                        <!-- <p class="delivery-dt" style="width: 25%;">Expected Delivery Date: <span><input type="date" id="expected-delivery-date" placeholder="09/12/2020"/></span><span @click="expectedDateCalendarClick" style="cursor: pointer;"><i class="zmdi zmdi-calendar"></i></span></p> -->
-                        <p class="delivery-dt" style="width: 25%;">Exp Delivery Date: <span><input type="date" id="expected-delivery-date" placeholder="09/12/2020"/></span></p>
+                        <p class="delivery-dt">Exp D D: <span><input type="date" id="expected-delivery-date" placeholder="09/12/2020"/></span></p>
+                    </div>
+                    <div class="row">
+                        <p class="am">AM: <span>Atik Faysal Soumitro</span></p>
+                        <p class="mio">MIO: <span>Mehedi Hassan</span></p>
+                        <!-- <div class="sr" style="display: table-cell; width: 25%; padding-right: 20px; padding-bottom: 0; vertical-align: middle;">
+                            <span style="display: inline-block; width: 15%; font-size: 14px; float: left; line-height:1; padding-top: 3px;">SR: </span>
+                            <div class="select-options" style="display: inline-block; width: 85%; font-size: 14px;">
+                                <span class="right-icon"
+                                    ><i class="fas fa-chevron-right"></i
+                                ></span>
+                                <select title="Pick a customer" class="selectpicker" v-model="on_change_SR_dropdown" @change="onChangeSRDropdown()">
+                                    <option v-for="(sr, m) in sr_list" :key="m">
+                                    {{ sr.name }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div> -->
+                        <!-- <p class="delivery-dt" style="width: 25%;">Expected Delivery Date: <span>09/12/2020</span><i class="zmdi zmdi-calendar"></i></p> -->
+                        <!-- <p class="delivery-dt">Exp D D: <span><input type="date" id="expected-delivery-date" placeholder="09/12/2020"/></span></p> -->
                     </div>
                 </div>
             </div>
