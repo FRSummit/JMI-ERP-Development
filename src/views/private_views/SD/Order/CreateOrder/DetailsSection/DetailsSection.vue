@@ -3,19 +3,19 @@
         <div class="create-order-details-section-inner">
             <p class="customer-id"><span class="lvl">Customer ID:</span><span class="id">{{ customer_data ? customer_data.customer_id : ""}}</span><span class="customer-type">{{ customer_data ? customer_data.credit_flag === "Y" ? "Credit Customer" : "Debit Customer" : "No Customer" }}</span></p>
             <p class="customer-id"><span class="lvl">Customer Name:</span><span class="id">{{ customer_data ? customer_data.display_name : "" }}</span><span class="order-placed">Order Status: <span>Status</span></span></p>
-            <p class="customer-id"><span class="lvl">Address:</span><span class="id">Demo Address, Demo Address, Not Implemented</span></p>
+            <p class="customer-id"><span class="lvl">Address:</span><span class="id">{{ customer_data ? customer_data.customer_info.customer_address !== null ? customer_data.customer_info.customer_address : "Null" : "" }}</span></p>
             <div class="header-summery-section">
                 <div class="header-summery-section-inner">
                     <div class="row">
                         <!-- <p class="customer-name">Customer: <span style="text-decoration: underline;">ABI Pharmacy and Diagnostic Center</span></p> -->
-                        <p class="current-outstanding">Current Outstanding: <span style="text-decoration: underline;">200500</span></p>
-                        <p class="order-placed">Order Placed: <span>Placed</span></p>
+                        <p class="current-outstanding">Current Outstanding: <span style="text-decoration: underline;">{{ customer_data ? customer_data.current_due !== null ? customer_data.current_due : "00" : "" }}</span></p>
+                        <p class="order-placed">Order Placed: <span>...</span></p>
                         <!-- <p class="order-placed">Order Status: <span>Status</span></p> -->
                         <p class="area">Area: <span>DHK0300-Dhanmondi</span></p>
                     </div>
                     <div class="row">
                         <!-- <p class="area">Area: <span>DHK0300-Dhanmondi</span></p> -->
-                        <p class="territory">Territory: <span>DHK0301-Dhanmondi 32</span></p>
+                        <p class="territory">Territory: <span>{{ customer_data ? customer_data.customer_area_info.sales_force.get_sales_area.area_name : "" }}</span></p>
                         <!-- <p class="address" style="width: 40%;">Address: <span>House:100, Road: 11,Block:C,Dhaka 1213</span></p> -->
                         <div class="sr" style="display: table-cell; width: 33%; padding-right: 20px; padding-bottom: 0; vertical-align: middle;">
                             <span style="display: inline-block; width: 15%; font-size: 14px; float: left; line-height:1; padding-top: 6px;">SR: </span>
@@ -33,8 +33,8 @@
                         <p class="delivery-dt">Exp D D: <span><input type="date" id="expected-delivery-date" placeholder="09/12/2020"/></span></p>
                     </div>
                     <div class="row">
-                        <p class="am">AM: <span>Atik Faysal Soumitro</span></p>
-                        <p class="mio">MIO: <span>Mehedi Hassan</span></p>
+                        <p class="am">AM: <span>{{ customer_data ? customer_data.customer_area_info.sales_force.manager_info.name : "" }}</span></p>
+                        <p class="mio">MIO: <span>{{ customer_data ? customer_data.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info.name : "" }}</span></p>
                         <!-- <div class="sr" style="display: table-cell; width: 25%; padding-right: 20px; padding-bottom: 0; vertical-align: middle;">
                             <span style="display: inline-block; width: 15%; font-size: 14px; float: left; line-height:1; padding-top: 3px;">SR: </span>
                             <div class="select-options" style="display: inline-block; width: 85%; font-size: 14px;">

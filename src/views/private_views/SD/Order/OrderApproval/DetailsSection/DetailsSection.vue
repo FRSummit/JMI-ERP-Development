@@ -1,55 +1,45 @@
 <template>
     <div id="order-approval-details-section" class="order-approval-details-section">
         <div class="order-approval-details-section-inner">
-            <p class="customer-id"><span class="lvl">Customer ID:</span><span class="id">JMI-2231225</span><span class="customer-type">Credit Customer</span></p>
-            <p class="customer-id"><span class="lvl">Customer Name:</span><span class="id url" @click="customerDetailsClickHandler">ABI Pharmacy and Diagnostic Center</span><span class="order-placed">Order Status: <span>Status</span></span></p>
-            <p class="customer-id"><span class="lvl">Address:</span><span class="id">House:100, Road: 11,Block:C,Dhaka 1213</span></p>
+            <p class="order-id"><span class="jmi-lvl">Order ID:</span><span class="id">JMI-2231225</span><span class="customer-type">Credit</span></p>
             <div class="header-summery-section">
                 <div class="header-summery-section-inner">
+                <!-- <div class="container"> -->
                     <div class="row">
-                        <!-- <p class="customer-name">Customer: <span style="text-decoration: underline;">ABI Pharmacy and Diagnostic Center</span></p> -->
-                        <p class="current-outstanding">Current Outstanding: <span style="text-decoration: underline; cursor: pointer;" @click="currentOutstandingClickHandler">200500</span></p>
-                        <p class="order-placed">Order Placed: <span>Placed</span></p>
-                        <!-- <p class="order-placed">Order Status: <span>Status</span></p> -->
-                        <p class="area">Area: <span>DHK0300-Dhanmondi</span></p>
+                        <div class="col-lg-3 col-md-6 col-sm-12">
+                            <p class="order">
+                                <span class="jmi-lvl">Customer:</span>
+                                <span class="jmi-lvl-value id url" @click="customerDetailsClickHandler">ABI Pharmacy and Diagnostic Center</span>
+                            </p>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-12"><p class="current-outstanding">Current Outstanding: <span class="jmi-lvl-value" style="text-decoration: underline; cursor: pointer;" @click="currentOutstandingClickHandler">200500</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-12"><p class="order-placed">Order Placed: <span class="jmi-lvl-value">Placed</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-12"><p class="order-placed">Status: <span class="jmi-lvl-value">Pending</span></p></div>
                     </div>
                     <div class="row">
-                        <!-- <p class="area">Area: <span>DHK0300-Dhanmondi</span></p> -->
-                        <p class="territory">Territory: <span>DHK0301-Dhanmondi 32</span></p>
-                        <!-- <p class="address" style="width: 40%;">Address: <span>House:100, Road: 11,Block:C,Dhaka 1213</span></p> -->
-                        <div class="sr" style="display: table-cell; width: 33%; padding-right: 20px; padding-bottom: 0; vertical-align: middle;">
-                            <span style="display: inline-block; width: 15%; font-size: 14px; float: left; line-height:1; padding-top: 6px;">SR: </span>
-                            <div class="select-options" style="display: inline-block; width: 50%; min-width: 120px; font-size: 14px;">
-                                <span class="right-icon"
-                                    ><i class="fas fa-chevron-right"></i
-                                ></span>
-                                <select title="Pick a customer" class="selectpicker" v-model="on_change_SR_dropdown" @change="onChangeSRDropdown()">
-                                    <option v-for="(sr, m) in sr_list" :key="m">
-                                    {{ sr.name }}
-                                    </option>
-                                </select>
+                        <div class="col-lg-3 col-md-6 col-sm-12"><p class="area">Area: <span class="jmi-lvl-value">DHK0300-Dhanmondi</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-12"><p class="territory">Territory: <span class="jmi-lvl-value">DHK0301-Dhanmondi 32</span></p></div>
+                        <div class="col-lg-6 col-md-12 col-sm-12"><p class="jmi-col_50"><span class="jmi-lvl">Address:</span><span class="jmi-lvl-value address">House:100, Road: 11,Block:C,Dhaka 1213</span></p></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 col-sm-12"><p class="am">AM: <span class="jmi-lvl-value">Atik Faysal Soumitro</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-12"><p class="mio">MIO: <span class="jmi-lvl-value">Mehedi Hassan</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-12">
+                            <div class="sr" style="display: table-cell; width: 33%; padding-right: 20px; padding-bottom: 0; vertical-align: middle;">
+                                <span style="display: inline-block; width: 15%; font-size: 14px; float: left; line-height:1; padding-top: 6px;">SR: </span>
+                                <div class="select-options" style="display: inline-block; width: 50%; min-width: 120px; font-size: 14px;">
+                                    <span class="right-icon"
+                                        ><i class="fas fa-chevron-right"></i
+                                    ></span>
+                                    <select title="Pick a customer" class="selectpicker" v-model="on_change_SR_dropdown" @change="onChangeSRDropdown()">
+                                        <option v-for="(sr, m) in sr_list" :key="m">
+                                        {{ sr.name }}
+                                        </option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                        <p class="delivery-dt">Exp D D: <span><input type="date" id="expected-delivery-date" placeholder="09/12/2020"/></span></p>
-                    </div>
-                    <div class="row">
-                        <p class="am">AM: <span>Atik Faysal Soumitro</span></p>
-                        <p class="mio">MIO: <span>Mehedi Hassan</span></p>
-                        <!-- <div class="sr" style="display: table-cell; width: 25%; padding-right: 20px; padding-bottom: 0; vertical-align: middle;">
-                            <span style="display: inline-block; width: 15%; font-size: 14px; float: left; line-height:1; padding-top: 3px;">SR: </span>
-                            <div class="select-options" style="display: inline-block; width: 85%; font-size: 14px;">
-                                <span class="right-icon"
-                                    ><i class="fas fa-chevron-right"></i
-                                ></span>
-                                <select title="Pick a customer" class="selectpicker" v-model="on_change_SR_dropdown" @change="onChangeSRDropdown()">
-                                    <option v-for="(sr, m) in sr_list" :key="m">
-                                    {{ sr.name }}
-                                    </option>
-                                </select>
-                            </div>
-                        </div> -->
-                        <!-- <p class="delivery-dt" style="width: 25%;">Expected Delivery Date: <span>09/12/2020</span><i class="zmdi zmdi-calendar"></i></p> -->
-                        <!-- <p class="delivery-dt">Exp D D: <span><input type="date" id="expected-delivery-date" placeholder="09/12/2020"/></span></p> -->
+                        <div class="col-lg-3 col-md-6 col-sm-12"><p class="delivery-dt"><span class="jmi-lvl">Exp D D:</span> <span class="jmi-lvl-value"><input type="date" id="expected-delivery-date" placeholder="09/12/2020"/></span></p></div>
                     </div>
                 </div>
             </div>

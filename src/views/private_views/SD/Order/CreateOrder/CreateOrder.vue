@@ -84,7 +84,7 @@ export default {
       await service.getCustomerInfoForDepot_CreateOrderLeftList(customer_id)
         .then(res => {
           console.log(res.data)
-          this.customer_data = res.data.customer_info
+          this.customer_data = res.data.customer_details
         })
     }
   },
