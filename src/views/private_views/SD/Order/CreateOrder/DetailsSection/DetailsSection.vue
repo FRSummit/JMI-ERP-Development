@@ -1,23 +1,67 @@
 <template>
     <div id="create-order-details-section" class="create-order-details-section">
         <div class="create-order-details-section-inner">
-            <p class="customer-id"><span class="lvl">Customer ID:</span><span class="id">{{ customer_data ? customer_data.customer_id : ""}}</span><span class="customer-type">{{ customer_data ? customer_data.credit_flag === "Y" ? "Credit Customer" : "Debit Customer" : "No Customer" }}</span></p>
-            <p class="customer-id"><span class="lvl">Customer Name:</span><span class="id">{{ customer_data ? customer_data.display_name : "" }}</span><span class="order-placed">Order Status: <span>Status</span></span></p>
-            <p class="customer-id"><span class="lvl">Address:</span><span class="id">{{ customer_data ? customer_data.customer_info.customer_address !== null ? customer_data.customer_info.customer_address : "Null" : "" }}</span></p>
+            <div class="title-section">
+                <div class="row">
+                    <div class="col-lg-4 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer ID:</span><span class="id">{{ customer_data ? customer_data.customer_id : ""}}</span><span class="customer-type">{{ customer_data ? customer_data.credit_flag === "Y" ? "Credit" : "Debit" : "No Customer" }}</span></p></div>
+                    <div class="col-lg-8 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer Name:</span><span class="jmi-lvl-value">{{ customer_data ? customer_data.display_name : "" }}</span></p></div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><span class="jmi-lvl-value address">{{ customer_data ? customer_data.customer_info.customer_address !== null ? customer_data.customer_info.customer_address : "Null" : "" }}</span></p></div>                        
+                </div>
+            </div>
+
             <div class="header-summery-section">
                 <div class="header-summery-section-inner">
+
+
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Current Outstanding:</span><span class="jmi-lvl-value url">{{ customer_data ? customer_data.current_due !== null ? customer_data.current_due : "00" : "" }}</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Order Placed:</span> <span class="jmi-lvl-value">-- Dev. No Data ---</span></p></div>
+                        <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Status:</span> <span class="jmi-lvl-value">Pending</span></p></div> -->
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title">Area: <span class="jmi-lvl-value">-- Dev. No Data ---</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title">Territory: <span class="jmi-lvl-value">{{ customer_data ? customer_data.customer_area_info.sales_force.get_sales_area.area_name : "" }}</span></p></div>
+                    </div>
+                    <div class="row">
+                        <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title">Territory: <span class="jmi-lvl-value">{{ customer_data ? customer_data.customer_area_info.sales_force.get_sales_area.area_name : "" }}</span></p></div> -->
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="am">AM: <span class="jmi-lvl-value">{{ customer_data ? customer_data.customer_area_info.sales_force.manager_info.name : "" }}</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="mio">MIO: <span class="jmi-lvl-value">{{ customer_data ? customer_data.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info.name : "" }}</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="sr" style="display: table-cell; width: 33%; padding-right: 20px; padding-bottom: 0; vertical-align: middle;">
+                                <span style="display: inline-block; width: 15%; font-size: 14px; float: left; line-height:1; padding-top: 6px;">SR: </span>
+                                <div class="select-options" style="display: inline-block; width: 50%; min-width: 120px; font-size: 14px;">
+                                    <span class="right-icon"
+                                        ><i class="fas fa-chevron-right"></i
+                                    ></span>
+                                    <select title="Pick a customer" class="selectpicker" v-model="on_change_SR_dropdown" @change="onChangeSRDropdown()">
+                                        <option v-for="(sr, m) in sr_list" :key="m">
+                                        {{ sr.name }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="delivery-dt"><span class="jmi-lvl">Exp D D:</span> <span class="jmi-lvl-value"><input type="date" id="expected-delivery-date" placeholder="09/12/2020"/></span></p></div>
+                    </div>
+                    <div class="row">
+                        <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="delivery-dt"><span class="jmi-lvl">Exp D D:</span> <span class="jmi-lvl-value"><input type="date" id="expected-delivery-date" placeholder="09/12/2020"/></span></p></div> -->
+                    </div>
+
+
+
+
                     <div class="row">
                         <!-- <p class="customer-name">Customer: <span style="text-decoration: underline;">ABI Pharmacy and Diagnostic Center</span></p> -->
-                        <p class="current-outstanding">Current Outstanding: <span style="text-decoration: underline;">{{ customer_data ? customer_data.current_due !== null ? customer_data.current_due : "00" : "" }}</span></p>
-                        <p class="order-placed">Order Placed: <span>...</span></p>
+                        <!-- <p class="current-outstanding">Current Outstanding: <span style="text-decoration: underline;">{{ customer_data ? customer_data.current_due !== null ? customer_data.current_due : "00" : "" }}</span></p> -->
+                        <!-- <p class="order-placed">Order Placed: <span>...</span></p> -->
                         <!-- <p class="order-placed">Order Status: <span>Status</span></p> -->
-                        <p class="area">Area: <span>DHK0300-Dhanmondi</span></p>
+                        <!-- <p class="area">Area: <span>DHK0300-Dhanmondi</span></p> -->
                     </div>
                     <div class="row">
                         <!-- <p class="area">Area: <span>DHK0300-Dhanmondi</span></p> -->
-                        <p class="territory">Territory: <span>{{ customer_data ? customer_data.customer_area_info.sales_force.get_sales_area.area_name : "" }}</span></p>
+                        <!-- <p class="territory">Territory: <span>{{ customer_data ? customer_data.customer_area_info.sales_force.get_sales_area.area_name : "" }}</span></p> -->
                         <!-- <p class="address" style="width: 40%;">Address: <span>House:100, Road: 11,Block:C,Dhaka 1213</span></p> -->
-                        <div class="sr" style="display: table-cell; width: 33%; padding-right: 20px; padding-bottom: 0; vertical-align: middle;">
+                        <!-- <div class="sr" style="display: table-cell; width: 33%; padding-right: 20px; padding-bottom: 0; vertical-align: middle;">
                             <span style="display: inline-block; width: 15%; font-size: 14px; float: left; line-height:1; padding-top: 6px;">SR: </span>
                             <div class="select-options" style="display: inline-block; width: 50%; min-width: 120px; font-size: 14px;">
                                 <span class="right-icon"
@@ -29,12 +73,12 @@
                                     </option>
                                 </select>
                             </div>
-                        </div>
-                        <p class="delivery-dt">Exp D D: <span><input type="date" id="expected-delivery-date" placeholder="09/12/2020"/></span></p>
+                        </div> -->
+                        <!-- <p class="delivery-dt">Exp D D: <span><input type="date" id="expected-delivery-date" placeholder="09/12/2020"/></span></p> -->
                     </div>
                     <div class="row">
-                        <p class="am">AM: <span>{{ customer_data ? customer_data.customer_area_info.sales_force.manager_info.name : "" }}</span></p>
-                        <p class="mio">MIO: <span>{{ customer_data ? customer_data.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info.name : "" }}</span></p>
+                        <!-- <p class="am">AM: <span>{{ customer_data ? customer_data.customer_area_info.sales_force.manager_info.name : "" }}</span></p> -->
+                        <!-- <p class="mio">MIO: <span>{{ customer_data ? customer_data.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info.name : "" }}</span></p> -->
                         <!-- <div class="sr" style="display: table-cell; width: 25%; padding-right: 20px; padding-bottom: 0; vertical-align: middle;">
                             <span style="display: inline-block; width: 15%; font-size: 14px; float: left; line-height:1; padding-top: 3px;">SR: </span>
                             <div class="select-options" style="display: inline-block; width: 85%; font-size: 14px;">
