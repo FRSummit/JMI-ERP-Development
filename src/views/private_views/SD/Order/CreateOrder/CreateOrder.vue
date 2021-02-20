@@ -40,8 +40,8 @@ export default {
     this.createBreadcrumbData();
   },
   async mounted() {
-    this.ALL_CUSTOMER_FOR_DEPOT__FROM_SERVICE()
-    this.CUSTOMER_INFO_FOR_DEPOT__FROM_SERVICE(1003)
+    await this.ALL_CUSTOMER_FOR_DEPOT__FROM_SERVICE()
+    await this.CUSTOMER_INFO_FOR_DEPOT__FROM_SERVICE(1003)
   },
   methods: {
     createBreadcrumbData() {
@@ -53,7 +53,7 @@ export default {
     },
     // Service implementation
     async ALL_CUSTOMER_FOR_DEPOT__FROM_SERVICE() {
-      await service.getCustomerInfoForDepot_CreateOrderLeftList()
+      await service.getAllCustomerForDepot_CreateOrderLeftList()
         .then(res => {
           console.log(res)
         })

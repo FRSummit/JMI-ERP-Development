@@ -2,13 +2,13 @@
     <div id="order-approval-details-section" class="order-approval-details-section">
         <div class="order-approval-details-section-inner">
             <p class="customer-id"><span class="lvl">Customer ID:</span><span class="id">JMI-2231225</span><span class="customer-type">Credit Customer</span></p>
-            <p class="customer-id"><span class="lvl">Customer Name:</span><span class="id">ABI Pharmacy and Diagnostic Center</span><span class="order-placed">Order Status: <span>Status</span></span></p>
+            <p class="customer-id"><span class="lvl">Customer Name:</span><span class="id url">ABI Pharmacy and Diagnostic Center</span><span class="order-placed">Order Status: <span>Status</span></span></p>
             <p class="customer-id"><span class="lvl">Address:</span><span class="id">House:100, Road: 11,Block:C,Dhaka 1213</span></p>
             <div class="header-summery-section">
                 <div class="header-summery-section-inner">
                     <div class="row">
                         <!-- <p class="customer-name">Customer: <span style="text-decoration: underline;">ABI Pharmacy and Diagnostic Center</span></p> -->
-                        <p class="current-outstanding">Current Outstanding: <span style="text-decoration: underline;">200500</span></p>
+                        <p class="current-outstanding">Current Outstanding: <span style="text-decoration: underline; cursor: pointer;" @click="currentOutstandingClickHandler">200500</span></p>
                         <p class="order-placed">Order Placed: <span>Placed</span></p>
                         <!-- <p class="order-placed">Order Status: <span>Status</span></p> -->
                         <p class="area">Area: <span>DHK0300-Dhanmondi</span></p>
@@ -290,6 +290,52 @@
                         <div class="submit-section-inner">
                             <span class="cancel-order" @click="cancelOrderForwardClickHandler">Cancel</span>
                             <span class="proceed-order" @click="sendOrderForwardClickHandler">Send</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Current Outstanding Modal -->
+            <div class="current-outstanding-modal" v-if="outstanding_modal">
+                <div class="current-outstanding-modal-inner" v-click-outside="outstandingModalOutsideClick">
+                    <p class="title">Present Credit Status</p>
+                    <div class="data-details">
+                        <div class="data-details-inner">
+                            <div class="data-head">
+                                <div class="row">
+                                    <div class="data-col">
+                                        <span>Invoice No</span>
+                                    </div>
+                                    <div class="data-col">
+                                        <span>Invoice Date</span>
+                                    </div>
+                                    <div class="data-col">
+                                        <span>Outstanding</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="data-body">
+                                <div class="row" v-for="(o, i) in outstanding_list" :key="i">
+                                    <div class="data-col">
+                                        <span>{{ o.inv_no }}</span>
+                                    </div>
+                                    <div class="data-col">
+                                        <span>{{ o.inv_date }}</span>
+                                    </div>
+                                    <div class="data-col">
+                                        <span>{{ o.inv_outstanding }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="data-total">
+                                <div class="row">
+                                    <div class="data-col" style="width: 66%; text-align: right;">
+                                        <span style="color: #111213;">Total Outstanding:</span>
+                                    </div>
+                                    <div class="data-col">
+                                        <span>200050</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -591,6 +637,74 @@ export default {
             on_change_order_forward_area_manager: null,
             on_change_order_forward_rsm: null,
             statement_reason: null,
+            outstanding_list: [
+                {
+                    inv_no: "D133HK0301001",
+                    inv_date: "09/12/2020",
+                    inv_outstanding: "500000"
+                },
+                {
+                    inv_no: "D133HK0301001",
+                    inv_date: "09/12/2020",
+                    inv_outstanding: "500000"
+                },
+                {
+                    inv_no: "D133HK0301001",
+                    inv_date: "09/12/2020",
+                    inv_outstanding: "500000"
+                },
+                {
+                    inv_no: "D133HK0301001",
+                    inv_date: "09/12/2020",
+                    inv_outstanding: "500000"
+                },
+                {
+                    inv_no: "D133HK0301001",
+                    inv_date: "09/12/2020",
+                    inv_outstanding: "500000"
+                },
+                {
+                    inv_no: "D133HK0301001",
+                    inv_date: "09/12/2020",
+                    inv_outstanding: "500000"
+                },
+                {
+                    inv_no: "D133HK0301001",
+                    inv_date: "09/12/2020",
+                    inv_outstanding: "500000"
+                },
+                {
+                    inv_no: "D133HK0301001",
+                    inv_date: "09/12/2020",
+                    inv_outstanding: "500000"
+                },
+                {
+                    inv_no: "D133HK0301001",
+                    inv_date: "09/12/2020",
+                    inv_outstanding: "500000"
+                },
+                {
+                    inv_no: "D133HK0301001",
+                    inv_date: "09/12/2020",
+                    inv_outstanding: "500000"
+                },
+                {
+                    inv_no: "D133HK0301001",
+                    inv_date: "09/12/2020",
+                    inv_outstanding: "500000"
+                },
+                {
+                    inv_no: "D133HK0301001",
+                    inv_date: "09/12/2020",
+                    inv_outstanding: "500000"
+                },
+                {
+                    inv_no: "D133HK0301001",
+                    inv_date: "09/12/2020",
+                    inv_outstanding: "500000"
+                },
+            ],
+            outstanding_modal: false,
         }
     },
     created() {},
@@ -704,6 +818,18 @@ export default {
         sendOrderForwardClickHandler() {
             console.log('sendOrderForwardClickHandler')
         },
+        //------------------------------------------------------------------------------------------
+        // Current Outstanding Modal
+        currentOutstandingClickHandler() {
+            if(this.outstanding_modal) {
+                this.outstanding_modal = false
+            } else {
+                this.outstanding_modal = true
+            }
+        },
+        outstandingModalOutsideClick() {
+            this.outstanding_modal = false
+        }
     }
 }
 </script>
