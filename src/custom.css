@@ -572,12 +572,12 @@
 }
 
 .jmi-title {
-    padding    : 0 20px;
+    /* padding    : 0 20px; */
     font-size  : 14px;
     color      : #2F2F30;
     margin     : 0;
     line-height: 1.7;
-    font-weight: 500;
+    /* font-weight: 500; */
 }
 
 @media only screen and (max-width: 992px) {

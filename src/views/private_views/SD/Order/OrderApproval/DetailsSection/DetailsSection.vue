@@ -3,9 +3,12 @@
         <div class="order-approval-details-section-inner">
             <div class="title-section">
                 <div class="row">
-                    <!-- <p class="order-id"><span class="jmi-lvl">Order ID:</span><span class="id">JMI-2231225</span><span class="customer-type">Credit</span></p> -->
                     <div class="col-lg-4 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Order ID:</span><span class="id">JMI-2231225</span><span class="customer-type">Credit</span></p></div>
                     <div class="col-lg-8 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer:</span><span class="jmi-lvl-value id url" @click="customerDetailsClickHandler">ABI Pharmacy and Diagnostic Center</span></p></div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><span class="jmi-lvl-value address">House:100, Road: 11,Block:C,Dhaka 1213</span></p></div>
+                    
                 </div>
             </div>
             
@@ -13,25 +16,16 @@
                 <div class="header-summery-section-inner">
                 <!-- <div class="container"> -->
                     <div class="row">
-                        <div class="col-lg-3 col-md-6 col-sm-12">
-                            <p class="order">
-                                <span class="jmi-lvl">Customer:</span>
-                                <span class="jmi-lvl-value id url" @click="customerDetailsClickHandler">ABI Pharmacy and Diagnostic Center</span>
-                            </p>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-12"><p class="current-outstanding">Current Outstanding: <span class="jmi-lvl-value" style="text-decoration: underline; cursor: pointer;" @click="currentOutstandingClickHandler">200500</span></p></div>
-                        <div class="col-lg-3 col-md-6 col-sm-12"><p class="order-placed">Order Placed: <span class="jmi-lvl-value">Placed</span></p></div>
-                        <div class="col-lg-3 col-md-6 col-sm-12"><p class="order-placed">Status: <span class="jmi-lvl-value">Pending</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Current Outstanding:</span><span class="jmi-lvl-value" style="text-decoration: underline; cursor: pointer;" @click="currentOutstandingClickHandler">200500</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Order Placed:</span> <span class="jmi-lvl-value">Placed</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Status:</span> <span class="jmi-lvl-value">Pending</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title">Area: <span class="jmi-lvl-value">DHK0300-Dhanmondi</span></p></div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-3 col-md-6 col-sm-12"><p class="area">Area: <span class="jmi-lvl-value">DHK0300-Dhanmondi</span></p></div>
-                        <div class="col-lg-3 col-md-6 col-sm-12"><p class="territory">Territory: <span class="jmi-lvl-value">DHK0301-Dhanmondi 32</span></p></div>
-                        <div class="col-lg-6 col-md-12 col-sm-12"><p class="jmi-col_50"><span class="jmi-lvl">Address:</span><span class="jmi-lvl-value address">House:100, Road: 11,Block:C,Dhaka 1213</span></p></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-3 col-md-6 col-sm-12"><p class="am">AM: <span class="jmi-lvl-value">Atik Faysal Soumitro</span></p></div>
-                        <div class="col-lg-3 col-md-6 col-sm-12"><p class="mio">MIO: <span class="jmi-lvl-value">Mehedi Hassan</span></p></div>
-                        <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title">Territory: <span class="jmi-lvl-value">DHK0301-Dhanmondi 32</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="am">AM: <span class="jmi-lvl-value">Atik Faysal Soumitro</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="mio">MIO: <span class="jmi-lvl-value">Mehedi Hassan</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6">
                             <div class="sr" style="display: table-cell; width: 33%; padding-right: 20px; padding-bottom: 0; vertical-align: middle;">
                                 <span style="display: inline-block; width: 15%; font-size: 14px; float: left; line-height:1; padding-top: 6px;">SR: </span>
                                 <div class="select-options" style="display: inline-block; width: 50%; min-width: 120px; font-size: 14px;">
@@ -46,7 +40,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-6 col-sm-12"><p class="delivery-dt"><span class="jmi-lvl">Exp D D:</span> <span class="jmi-lvl-value"><input type="date" id="expected-delivery-date" placeholder="09/12/2020"/></span></p></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="delivery-dt"><span class="jmi-lvl">Exp D D:</span> <span class="jmi-lvl-value"><input type="date" id="expected-delivery-date" placeholder="09/12/2020"/></span></p></div>
                     </div>
                 </div>
             </div>
