@@ -9,7 +9,9 @@
             <input
               type="text"
               class="form-control"
+              id="search-filter"
               placeholder="Search by Name, ID No"
+              v-on:keyup="searchKeyUpHandler"
             />
           </div>
           <span @click="filterClick"><i class="fas fa-filter"></i></span>
@@ -247,6 +249,24 @@ export default {
                 document.querySelector('#customer-section-list-' + c).className = 'customer-section-list'
             }
             this.$emit("select_customer_by_customer_code", customer.customer_info.id)
+        },
+        searchKeyUpHandler(value) {
+            console.log(value.key)
+            let input = document.getElementById("search-filter");
+            let filter = input.value.toUpperCase();
+
+            let list = document.querySelectorAll('.customer-section-list')
+            for (let i = 0; i < list.length; i++) {
+                let pera = list[i].querySelectorAll(".customer-id")[0];
+                if (pera) {
+                    let txtValue = pera.textContent || pera.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        list[i].style.display = "";
+                    } else {
+                        list[i].style.display = "none";
+                    }
+                }       
+            }
         },
         /*----------- Service implementation ------------*/
         async ALL_CUSTOMER_FOR_DEPOT__FROM_SERVICE() {

@@ -9,7 +9,9 @@
             <input
               type="text"
               class="form-control"
+              id="search-filter"
               placeholder="Search by Name, ID No"
+              v-on:keyup="searchKeyUpHandler"
             />
           </div>
           <span @click="filterClick"><i class="fas fa-filter"></i></span>
@@ -130,7 +132,7 @@ export default {
                     order_bill: "4300",
                 },
                 {
-                    customer_id: "DHK0301",
+                    customer_id: "MKY0301",
                     order_date: "09/12/2020",
                     order_address: "ABI Pharmacy and Diagnostic Center",
                     order_status: "Approved",
@@ -138,7 +140,7 @@ export default {
                     order_bill: "4300",
                 },
                 {
-                    customer_id: "DHK0301",
+                    customer_id: "SGN0301",
                     order_date: "09/12/2020",
                     order_address: "ABI Pharmacy and Diagnostic Center",
                     order_status: "Rejected",
@@ -146,7 +148,7 @@ export default {
                     order_bill: "4300",
                 },
                 {
-                    customer_id: "DHK0301",
+                    customer_id: "FKR0301",
                     order_date: "09/12/2020",
                     order_address: "ABI Pharmacy and Diagnostic Center",
                     order_status: "Pending",
@@ -154,7 +156,7 @@ export default {
                     order_bill: "4300",
                 },
                 {
-                    customer_id: "DHK0301",
+                    customer_id: "NGO0301",
                     order_date: "09/12/2020",
                     order_address: "ABI Pharmacy and Diagnostic Center",
                     order_status: "Approved",
@@ -162,7 +164,7 @@ export default {
                     order_bill: "4300",
                 },
                 {
-                    customer_id: "DHK0301",
+                    customer_id: "LLP0301",
                     order_date: "09/12/2020",
                     order_address: "ABI Pharmacy and Diagnostic Center",
                     order_status: "Rejected",
@@ -170,7 +172,7 @@ export default {
                     order_bill: "4300",
                 },
                 {
-                    customer_id: "DHK0301",
+                    customer_id: "MNO0301",
                     order_date: "09/12/2020",
                     order_address: "ABI Pharmacy and Diagnostic Center",
                     order_status: "Pending",
@@ -178,7 +180,7 @@ export default {
                     order_bill: "4300",
                 },
                 {
-                    customer_id: "DHK0301",
+                    customer_id: "AAD0301",
                     order_date: "09/12/2020",
                     order_address: "ABI Pharmacy and Diagnostic Center",
                     order_status: "Approved",
@@ -322,6 +324,24 @@ export default {
         },
         customerClickHandlerFromList(customer, c) {
             console.log(c + '    ' +customer)
+        },
+        searchKeyUpHandler(value) {
+            console.log(value.key)
+            let input = document.getElementById("search-filter");
+            let filter = input.value.toUpperCase();
+
+            let list = document.querySelectorAll('.customer-section-list')
+            for (let i = 0; i < list.length; i++) {
+                let pera = list[i].querySelectorAll(".customer-id")[0];
+                if (pera) {
+                    let txtValue = pera.textContent || pera.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        list[i].style.display = "";
+                    } else {
+                        list[i].style.display = "none";
+                    }
+                }       
+            }
         }
     }
 }
