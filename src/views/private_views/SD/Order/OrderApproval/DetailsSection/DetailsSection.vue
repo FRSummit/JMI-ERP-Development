@@ -418,11 +418,11 @@
                                         <b-tab title="Business">
                                             <div class="business-section">
                                                 <div class="business-section-inner">
-                                                    <p class="basic-data"><span class="lvl">Vat Registration Number:</span><span class="lvl-value">223558 663 12158</span></p>
-                                                    <p class="basic-data"><span class="lvl">Trade License:</span><span class="lvl-value">223558 663 12158</span></p>
-                                                    <p class="basic-data"><span class="lvl">VIN:</span><span class="lvl-value"></span>223558 663 12158</p>
-                                                    <p class="basic-data"><span class="lvl">TIN:</span><span class="lvl-value"></span>223558 663 12158</p>
-                                                    <p class="basic-data"><span class="lvl">BIN:</span><span class="lvl-value"></span>223558 663 12158</p>
+                                                    <p class="business-data"><span class="lvl">Vat Registration Number:</span><span class="lvl-value">223558 663 12158</span></p>
+                                                    <p class="business-data"><span class="lvl">Trade License:</span><span class="lvl-value">223558 663 12158</span></p>
+                                                    <p class="business-data"><span class="lvl">VIN:</span><span class="lvl-value">223558 663 12158</span></p>
+                                                    <p class="business-data"><span class="lvl">TIN:</span><span class="lvl-value">223558 663 12158</span></p>
+                                                    <p class="business-data"><span class="lvl">BIN:</span><span class="lvl-value">223558 663 12158</span></p>
                                                 </div>
                                             </div>
                                         </b-tab>
@@ -445,6 +445,8 @@
                                                             <div v-html="infoContent"></div>
                                                         </gmap-info-window>
                                                     </gmap-map>
+                                                    <p class="location-details"><span class="icon"><i class="zmdi zmdi-pin"></i></span>63/C Lake Circus, West Panthapath, Dhaka 1205</p>
+                                                    <p class="union-type"><span>Micro Union</span></p>
                                                 </div>
                                             </div>
                                         </b-tab>

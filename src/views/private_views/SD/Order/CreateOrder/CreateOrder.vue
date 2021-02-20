@@ -3,8 +3,13 @@
     <Heading :pathName="pathName" :routeName="routeName" />
     <div class="create-order-section">
       <div class="create-order-section-inner">
-        <LeftSidebar v-on:filter_modal="filterModalToggle" />
-        <DetailsSection :style="filter_modal_toggle === true ? 'z-index: -1;' : 'z-index: 9;'" />
+        <!-- <LeftSidebar :customer_list="left_side_customer_data_list" v-on:filter_modal="filterModalToggle" /> -->
+        <LeftSidebar 
+          v-on:filter_modal="filterModalToggle"
+          v-on:select_customer_by_customer_code="selectCustomerByCustomerCode" />
+        <DetailsSection 
+        :style="filter_modal_toggle === true ? 'z-index: -1;' : 'z-index: 9;'"
+        :customer_data="customer_data" />
       </div>
     </div>
   </div>
@@ -33,6 +38,8 @@ export default {
       parentPath: "Local Sales",
       pathName: [],
       filter_modal_toggle: false,
+      left_side_customer_data_list: [],
+      customer_data: null,
     };
   },
   created() {
@@ -40,8 +47,8 @@ export default {
     this.createBreadcrumbData();
   },
   async mounted() {
-    await this.ALL_CUSTOMER_FOR_DEPOT__FROM_SERVICE()
-    await this.CUSTOMER_INFO_FOR_DEPOT__FROM_SERVICE(1003)
+    // await this.ALL_CUSTOMER_FOR_DEPOT__FROM_SERVICE()
+    // await this.CUSTOMER_INFO_FOR_DEPOT__FROM_SERVICE(1003)
   },
   methods: {
     createBreadcrumbData() {
@@ -51,17 +58,33 @@ export default {
     filterModalToggle(value) {
       this.filter_modal_toggle = value
     },
-    // Service implementation
-    async ALL_CUSTOMER_FOR_DEPOT__FROM_SERVICE() {
-      await service.getAllCustomerForDepot_CreateOrderLeftList()
-        .then(res => {
-          console.log(res)
-        })
+    /***----------------------------Left Section Emitted Functions ---------------------------------- ***/
+    selectCustomerByCustomerCode(value) {
+      // console.log(value)()
+      this.CUSTOMER_INFO_FOR_DEPOT__FROM_SERVICE(value)
+      // this.left_list_customer_selection_id = value
     },
+    /***---------------------------- Service implementation ------------------------------------------***/
+    // async ALL_CUSTOMER_FOR_DEPOT__FROM_SERVICE() {
+    //   await service.getAllCustomerForDepot_CreateOrderLeftList()
+    //     .then(res => {
+    //       console.log(res.data)
+    //       this.left_side_customer_data_list = res.data
+    //     })
+    // },
+    // async CUSTOMER_INFO_FOR_DEPOT__FROM_SERVICE(customer_id) {
+    //   await service.getCustomerInfoForDepot_CreateOrderLeftList(customer_id)
+    //     .then(res => {
+    //       console.log(res.data)
+    //     })
+    // }
+
+    // Service call from left sidebar section
     async CUSTOMER_INFO_FOR_DEPOT__FROM_SERVICE(customer_id) {
       await service.getCustomerInfoForDepot_CreateOrderLeftList(customer_id)
         .then(res => {
-          console.log(res)
+          console.log(res.data)
+          this.customer_data = res.data.customer_info
         })
     }
   },

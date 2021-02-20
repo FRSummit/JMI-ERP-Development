@@ -1,9 +1,9 @@
 <template>
     <div id="create-order-details-section" class="create-order-details-section">
         <div class="create-order-details-section-inner">
-            <p class="customer-id"><span class="lvl">Customer ID:</span><span class="id">JMI-2231225</span><span class="customer-type">Credit Customer</span></p>
-            <p class="customer-id"><span class="lvl">Customer Name:</span><span class="id">ABI Pharmacy and Diagnostic Center</span><span class="order-placed">Order Status: <span>Status</span></span></p>
-            <p class="customer-id"><span class="lvl">Address:</span><span class="id">House:100, Road: 11,Block:C,Dhaka 1213</span></p>
+            <p class="customer-id"><span class="lvl">Customer ID:</span><span class="id">{{ customer_data ? customer_data.customer_id : ""}}</span><span class="customer-type">{{ customer_data ? customer_data.credit_flag === "Y" ? "Credit Customer" : "Debit Customer" : "No Customer" }}</span></p>
+            <p class="customer-id"><span class="lvl">Customer Name:</span><span class="id">{{ customer_data ? customer_data.display_name : "" }}</span><span class="order-placed">Order Status: <span>Status</span></span></p>
+            <p class="customer-id"><span class="lvl">Address:</span><span class="id">Demo Address, Demo Address, Not Implemented</span></p>
             <div class="header-summery-section">
                 <div class="header-summery-section-inner">
                     <div class="row">
@@ -252,6 +252,7 @@
 import AdvancedSearch from 'vue-advanced-search'
 
 export default {
+    props: ["customer_data"],
     components: {
         AdvancedSearch 
     },
