@@ -255,7 +255,7 @@ export default class PostService {
 
   // CREATE ORDER
   getAllCustomerForDepot_CreateOrderLeftList() {
-    let web_menu_url = 'http://203.188.246.138:8885/api/web/all-customers-for-depot'
+    let web_menu_url = '/api/web/all-customers-for-depot'
     return axios(web_menu_url, {
       method: 'GET',
       headers: {
@@ -266,7 +266,7 @@ export default class PostService {
 
   // CREATE ORDER
   getCustomerInfoForDepot_CreateOrderLeftList(customer_id) {
-    let web_menu_url = 'http://203.188.246.138:8885/api/web/customer-info-for-depot/' + customer_id
+    let web_menu_url = '/api/web/customer-info-for-depot/' + customer_id
     return axios(web_menu_url, {
       method: 'GET',
       headers: {

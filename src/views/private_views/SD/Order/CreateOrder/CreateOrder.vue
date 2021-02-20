@@ -40,7 +40,7 @@ export default {
     this.createBreadcrumbData();
   },
   async mounted() {
-    // this.ALL_CUSTOMER_FOR_DEPOT__FROM_SERVICE()
+    this.ALL_CUSTOMER_FOR_DEPOT__FROM_SERVICE()
     this.CUSTOMER_INFO_FOR_DEPOT__FROM_SERVICE(1003)
   },
   methods: {
