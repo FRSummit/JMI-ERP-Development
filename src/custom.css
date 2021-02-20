@@ -464,3 +464,83 @@
 #create-order-details-section .options.available-options {
     /* display: none; */
 }
+
+#order-approval-details-section .mt-3.order-approval-customer-details {
+    height  : auto;
+    overflow: hidden;
+}
+
+#order-approval-details-section .tabs.mt-3 ul {
+    border-bottom: 2px solid #E2EDFA;
+    display      : table;
+    width        : 100%;
+}
+
+#order-approval-details-section .tabs.mt-3 ul li {
+    /* margin-bottom: 0; */
+    display: table-cell;
+}
+
+#order-approval-details-section .tabs.mt-3 ul li a {
+    border        : none;
+    padding       : 8px 20px;
+    color         : #000000;
+    font-size     : 18px;
+    /* font-weight: 500; */
+}
+
+#order-approval-details-section .tabs.mt-3 ul li a.active {
+    border-bottom: 2px solid #026CD1;
+    color        : #026CD1;
+}
+
+/* Default JMI STYLES TABLE, ROW, COLUMN */
+.jmi-row {
+    display: table;
+    width  : 100%;
+}
+
+.jmi-col_15 {
+    display: table-cell;
+    width  : 15%;
+}
+
+.jmi-col_20 {
+    display: table-cell;
+    width  : 20%;
+}
+
+.jmi-col_25 {
+    display: table-cell;
+    width  : 25%;
+}
+
+.jmi-col_33 {
+    display: table-cell;
+    width  : 33%;
+}
+
+.jmi-col_40 {
+    display: table-cell;
+    width  : 40%;
+}
+
+.jmi-col_50 {
+    display: table-cell;
+    width  : 50%;
+}
+
+.jmi-col_70 {
+    display: table-cell;
+    width  : 70%;
+}
+
+.jmi-lvl {
+    display: inline-block;
+    color  : #222223;
+}
+
+.jmi-lvl-value {
+    display: inline-block;
+    color  : #026CD1;
+}

@@ -2,7 +2,7 @@
     <div id="order-approval-details-section" class="order-approval-details-section">
         <div class="order-approval-details-section-inner">
             <p class="customer-id"><span class="lvl">Customer ID:</span><span class="id">JMI-2231225</span><span class="customer-type">Credit Customer</span></p>
-            <p class="customer-id"><span class="lvl">Customer Name:</span><span class="id url">ABI Pharmacy and Diagnostic Center</span><span class="order-placed">Order Status: <span>Status</span></span></p>
+            <p class="customer-id"><span class="lvl">Customer Name:</span><span class="id url" @click="customerDetailsClickHandler">ABI Pharmacy and Diagnostic Center</span><span class="order-placed">Order Status: <span>Status</span></span></p>
             <p class="customer-id"><span class="lvl">Address:</span><span class="id">House:100, Road: 11,Block:C,Dhaka 1213</span></p>
             <div class="header-summery-section">
                 <div class="header-summery-section-inner">
@@ -340,12 +340,128 @@
                     </div>
                 </div>
             </div>
+            <!-- Customer Name click Modal -->
+            <div class="customer-details-modal-section" v-if="customer_details_modal">
+                <div class="customer-details-modal-section-inner" v-click-outside="customerDetailsModalOutsideClick">
+                    <div class="top-section">
+                        <div class="top-section-inner">
+                            <div class="logo">
+                                <img src="../../../../../../assets/icons/user.png" alt="logo">
+                            </div>
+                            <div class="title-section">
+                                <p class="name">ABI Pharmacy and Diagnostic Center<span class="tik-icon"><i class="zmdi zmdi-check"></i></span></p>
+                                <p class="id">JMI-2231225</p>
+                            </div>
+                            <div class="tab-section">
+                                <div class="tab-section-inner">
+                                    <b-tabs class="mt-3 order-approval-customer-details">
+                                        <b-tab title="Basic" active>
+                                            <div class="basic-section">
+                                                <div class="basic-section-inner">
+                                                    <p class="basic-data"><span class="lvl">Customer Name:</span><span class="lvl-value">New Gulshan Pharma</span></p>
+                                                    <p class="basic-data"><span class="lvl">Contact Number:</span><span class="lvl-value">+8801847417317</span></p>
+                                                    <p class="basic-data"><span class="lvl">Email Address:</span><span class="lvl-value">kollolpharma336@gmail.com</span></p>
+                                                    <p class="basic-data"><span class="lvl">Address:</span><span class="lvl-value">15 Genda, Dhaka-Aricha Hwy, Savar Union, Dhaka 1212</span></p>
+                                                    <p class="basic-data"><span class="lvl">Customer Type:</span><span class="lvl-value">Chemist</span></p>
+                                                    <p class="basic-data"><span class="lvl">Sales Area:</span><span class="lvl-value">Savar Bazar</span></p>
+                                                    <p class="basic-data"><span class="lvl">Sales Center:</span><span class="lvl-value">Savar Bazar</span></p>
+                                                    <p class="basic-data"><span class="lvl">Credit Limit:</span><span class="lvl-value">2,00,000</span></p>
+                                                    <p class="basic-data"><span class="lvl">Type of Payment:</span><span class="lvl-value">Cash</span></p>
+                                                </div>
+                                            </div>
+                                        </b-tab>
+                                        <b-tab title="Accounts">
+                                            <div class="account-section">
+                                                <div class="account-section-inner">
+                                                    <div class="jmi-row">
+                                                        <p class="jmi-col_33"><span class="jmi-lvl">Total Order:</span><span class="jmi-lvl-value">00</span></p>
+                                                        <p class="jmi-col_33"><span class="jmi-lvl">Total Invoice:</span><span class="jmi-lvl-value">00</span></p>
+                                                        <p class="jmi-col_33"><span class="jmi-lvl">In Transit:</span><span class="jmi-lvl-value">00</span></p>
+                                                    </div>
+                                                    <div class="jmi-row">
+                                                        <p class="jmi-col_33"><span class="jmi-lvl">Credit Limit:</span><span class="jmi-lvl-value">00</span></p>
+                                                        <p class="jmi-col_33"><span class="jmi-lvl">Current Outstanding:</span><span class="jmi-lvl-value">00</span></p>
+                                                        <p class="jmi-col_33"><span class="jmi-lvl">Available Limit:</span><span class="jmi-lvl-value">00</span></p>
+                                                    </div>
+                                                    <div class="jmi-row">
+                                                        <p class="jmi-col_33"><span class="jmi-lvl">Transactions History</span></p>
+                                                        <p class="jmi-col_50"><span class="prev"><i class="zmdi zmdi-skip-previous"></i></span><span class="account-history-date">December 2020</span><span class="next"><i class="zmdi zmdi-skip-next"></i></span></p>
+                                                    </div>
+                                                    <div class="accounts-data">
+                                                        <div class="accounts-data-inner">
+                                                            <div class="data-head">
+                                                                <div class="jmi-row">
+                                                                    <p class="jmi-col_20"><span class="jmi-data-head-lvl">Date</span></p>
+                                                                    <p class="jmi-col_50"><span class="jmi-data-head-lvl">Particular</span></p>
+                                                                    <p class="jmi-col_15"><span class="jmi-data-head-lvl">Debit</span></p>
+                                                                    <p class="jmi-col_15"><span class="jmi-data-head-lvl">Credit</span></p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="data-body">
+                                                                <div class="jmi-row" v-for="(a, i) in account_data_list" :key="i">
+                                                                    <p class="jmi-col_20"><span class="jmi-data-head-lvl">{{ a.date }}</span></p>
+                                                                    <p class="jmi-col_50"><span class="jmi-data-head-lvl" :class="a.particular">{{ a.particular }}</span> (<span class="account-data-inv">{{ a.inv }}</span>)</p>
+                                                                    <p class="jmi-col_15"><span class="jmi-data-head-lvl">{{ a.debit }}</span></p>
+                                                                    <p class="jmi-col_15"><span class="jmi-data-head-lvl">{{ a.credit }}</span></p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="jmi-row">
+                                                                <p class="jmi-col_70"><span class="ac-ttl-txt">Total:</span></p>
+                                                                <p class="jmi-col_15 ac-ttl-debit">20000</p>
+                                                                <p class="jmi-col_15 ac-ttl-credit">20000</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </b-tab>
+                                        <b-tab title="Business">
+                                            <div class="business-section">
+                                                <div class="business-section-inner">
+                                                    <p class="basic-data"><span class="lvl">Vat Registration Number:</span><span class="lvl-value">223558 663 12158</span></p>
+                                                    <p class="basic-data"><span class="lvl">Trade License:</span><span class="lvl-value">223558 663 12158</span></p>
+                                                    <p class="basic-data"><span class="lvl">VIN:</span><span class="lvl-value"></span>223558 663 12158</p>
+                                                    <p class="basic-data"><span class="lvl">TIN:</span><span class="lvl-value"></span>223558 663 12158</p>
+                                                    <p class="basic-data"><span class="lvl">BIN:</span><span class="lvl-value"></span>223558 663 12158</p>
+                                                </div>
+                                            </div>
+                                        </b-tab>
+                                        <b-tab title="Location">
+                                            <div class="location-section">
+                                                <div class="location-section-inner">
+                                                    <gmap-map :center="center" :zoom="14"
+                                                        style="width: 100%; height: 300px; border-radius: 2px;"
+                                                        >
+                                                        <gmap-marker :key="index" v-for="(m, index) in markers" :position="m.position"
+                                                            @click="centerClick(m, index)"
+                                                        ></gmap-marker>
+
+                                                        <gmap-info-window
+                                                            :options="infoOptions"
+                                                            :position="infoWindowPos"
+                                                            :opened="infoWinOpen"
+                                                            @closeclick="infoWinOpen=false"
+                                                        >
+                                                            <div v-html="infoContent"></div>
+                                                        </gmap-info-window>
+                                                    </gmap-map>
+                                                </div>
+                                            </div>
+                                        </b-tab>
+                                    </b-tabs>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
 import AdvancedSearch from 'vue-advanced-search'
+import * as VueGoogleMaps from 'vue2-google-maps'
 
 export default {
     components: {
@@ -705,10 +821,226 @@ export default {
                 },
             ],
             outstanding_modal: false,
+            customer_details_modal: false,
+            account_data_list: [
+                {
+                    date: "09/12/2020",
+                    particular: "Purchase",
+                    inv: "INV-2231225",
+                    debit: "",
+                    credit: "15,330",
+                },
+                {
+                    date: "09/12/2020",
+                    particular: "Purchase",
+                    inv: "cash",
+                    debit: "15,330",
+                    credit: "",
+                },
+                {
+                    date: "09/12/2020",
+                    particular: "Return",
+                    inv: "INV-2231225",
+                    debit: "15,330",
+                    credit: "",
+                },
+                {
+                    date: "09/12/2020",
+                    particular: "Purchase",
+                    inv: "INV-2231225",
+                    debit: "",
+                    credit: "15,330",
+                },
+                {
+                    date: "09/12/2020",
+                    particular: "Purchase",
+                    inv: "cash",
+                    debit: "15,330",
+                    credit: "",
+                },
+                {
+                    date: "09/12/2020",
+                    particular: "Return",
+                    inv: "INV-2231225",
+                    debit: "15,330",
+                    credit: "",
+                },
+                {
+                    date: "09/12/2020",
+                    particular: "Purchase",
+                    inv: "INV-2231225",
+                    debit: "",
+                    credit: "15,330",
+                },
+                {
+                    date: "09/12/2020",
+                    particular: "Purchase",
+                    inv: "cash",
+                    debit: "15,330",
+                    credit: "",
+                },
+                {
+                    date: "09/12/2020",
+                    particular: "Return",
+                    inv: "INV-2231225",
+                    debit: "15,330",
+                    credit: "",
+                },
+                {
+                    date: "09/12/2020",
+                    particular: "Purchase",
+                    inv: "INV-2231225",
+                    debit: "",
+                    credit: "15,330",
+                },
+                {
+                    date: "09/12/2020",
+                    particular: "Purchase",
+                    inv: "cash",
+                    debit: "15,330",
+                    credit: "",
+                },
+                {
+                    date: "09/12/2020",
+                    particular: "Return",
+                    inv: "INV-2231225",
+                    debit: "15,330",
+                    credit: "",
+                },
+                {
+                    date: "09/12/2020",
+                    particular: "Purchase",
+                    inv: "INV-2231225",
+                    debit: "",
+                    credit: "15,330",
+                },
+                {
+                    date: "09/12/2020",
+                    particular: "Purchase",
+                    inv: "cash",
+                    debit: "15,330",
+                    credit: "",
+                },
+                {
+                    date: "09/12/2020",
+                    particular: "Return",
+                    inv: "INV-2231225",
+                    debit: "15,330",
+                    credit: "",
+                },
+                {
+                    date: "09/12/2020",
+                    particular: "Purchase",
+                    inv: "INV-2231225",
+                    debit: "",
+                    credit: "15,330",
+                },
+                {
+                    date: "09/12/2020",
+                    particular: "Purchase",
+                    inv: "cash",
+                    debit: "15,330",
+                    credit: "",
+                },
+                {
+                    date: "09/12/2020",
+                    particular: "Return",
+                    inv: "INV-2231225",
+                    debit: "15,330",
+                    credit: "",
+                },
+                {
+                    date: "09/12/2020",
+                    particular: "Purchase",
+                    inv: "INV-2231225",
+                    debit: "",
+                    credit: "15,330",
+                },
+                {
+                    date: "09/12/2020",
+                    particular: "Purchase",
+                    inv: "cash",
+                    debit: "15,330",
+                    credit: "",
+                },
+                {
+                    date: "09/12/2020",
+                    particular: "Return",
+                    inv: "INV-2231225",
+                    debit: "15,330",
+                    credit: "",
+                },
+                {
+                    date: "09/12/2020",
+                    particular: "Purchase",
+                    inv: "INV-2231225",
+                    debit: "",
+                    credit: "15,330",
+                },
+                {
+                    date: "09/12/2020",
+                    particular: "Purchase",
+                    inv: "cash",
+                    debit: "15,330",
+                    credit: "",
+                },
+                {
+                    date: "09/12/2020",
+                    particular: "Return",
+                    inv: "INV-2231225",
+                    debit: "15,330",
+                    credit: "",
+                },
+                {
+                    date: "09/12/2020",
+                    particular: "Purchase",
+                    inv: "INV-2231225",
+                    debit: "",
+                    credit: "15,330",
+                },
+                {
+                    date: "09/12/2020",
+                    particular: "Purchase",
+                    inv: "cash",
+                    debit: "15,330",
+                    credit: "",
+                },
+                {
+                    date: "09/12/2020",
+                    particular: "Return",
+                    inv: "INV-2231225",
+                    debit: "15,330",
+                    credit: "",
+                },
+            ],
+            // Map Data
+            center: { lat: 23.74289, lng: 90.39597 },
+            markers: [
+                {
+                position: {
+                    lat: 23.74289,
+                    lng: 90.39597,
+                },
+                title: "Teting",
+                    name: "House of Aleida Greve",
+                    description: "Mymensingh, Dhaka",
+                    date_build: "2016-1-1",
+                },
+            ],
+            places: [],
+            currentPlace: null,
+            directionsService: null,
+            directionsRenderer: null,
+            InfoWindow: VueGoogleMaps.InfoWindow,
+            Map: VueGoogleMaps.Map,
         }
     },
     created() {},
     mounted() {
+        this.$getLocation({})
+        .then( coordinates => {
+            console.log(coordinates)
+        })
     },
     methods: {
         onChangeSRDropdown() {
@@ -829,7 +1161,89 @@ export default {
         },
         outstandingModalOutsideClick() {
             this.outstanding_modal = false
-        }
+        },
+        //------------------------------------------------------------------------------------------
+        // Customer Details Modal
+        customerDetailsClickHandler() {
+            if(this.customer_details_modal) {
+                this.customer_details_modal = false
+            } else {
+                this.customer_details_modal = true
+            }
+        },
+        customerDetailsModalOutsideClick() {
+            this.customer_details_modal = false
+        },
+        //------------------------------------------------------------------------------------------
+        // Customer Details Modal - Location
+        centerClick(marker, index) {
+        console.log(marker.position.lat + '    ' + marker.position.lng + '    ' + index)
+        // VueGoogleMaps.InfoWindow.open(this.Map, m);
+            this.infoWindowPos = marker.position;
+            this.infoContent = this.getInfoWindowContent(marker);
+            console.log(this.currentMidx + '    ' + index)
+            
+
+            //check if its the same marker that was selected if yes toggle
+            if (this.currentMidx == index) {
+            this.infoWinOpen = !this.infoWinOpen;
+            }
+            //if different marker set infowindow to open and reset current marker index
+            else {
+            this.infoWinOpen = true;
+            this.currentMidx = index;
+            }
+            console.log(this.currentMidx + '    ' + index)
+        },
+        getInfoWindowContent(marker) {
+        console.log(marker)
+        return (`<div class="card" style="visibility: visible; margin: 0; border: none; box-shadow: none;">
+            <!--<div class="card-image">
+            <figure class="image is-4by3">
+                <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+            </figure>
+            </div> -->
+            <div class="card-content" style="padding: 10px;">
+            <div class="media">
+                <div class="media-content">
+                <!--<p class="title is-4" style="font-size:14px; color: #026CD1; font-weight: 500;">Location Name: ${marker.name}</p>-->
+                <p class="title is-4" style="font-size:14px; color: #026CD1; font-weight: 500; margin-bottom: 4px;">OID102131</p>
+                </div>
+            </div>
+            <div class="content" style="font-size: 12px; color: #111213">
+                New Gulshan Pharma
+                </br>
+                <time datetime="2016-1-1" style="font-size: 12px; color: #707070; margin-top: 4px; display: block;">
+                F R Summit (0168788300),
+                </br>
+                ${marker.description},
+                </br>
+                ${marker.date_build}
+                </time>
+            </div>
+            </div>
+        </div>`);
+        },
+        geolocate() {
+        console.log("here");
+        navigator.geolocation.getCurrentPosition((position) => {
+            console.log("here 2");
+            console.log(this.markers);
+            this.center = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+            };
+            // this.addCurrentLocation(position)
+            // this.markers.push(this.center)
+        });
+        this.markers.push({
+            position: {
+            lat: this.center.lat,
+            lng: this.center.lng
+            }
+        })
+        console.log(this.markers)
+        },
     }
 }
 </script>

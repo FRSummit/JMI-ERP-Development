@@ -170,6 +170,14 @@
                         }
                     }
 
+                    p.area {
+                        text-align: right;
+                    }
+
+                    p.delivery-dt {
+                        text-align: right;
+                    }
+
                     .sr {
                         .select-options {
                             display : inline-block;
@@ -519,6 +527,7 @@
             }
         }
 
+        // Add Order Modal
         .add-order-modal-section {
             position        : fixed;
             left            : calc((100vw / 2) - 200px);
@@ -970,6 +979,7 @@
             }
         }
 
+        // Attachment Modal
         .attachment-modal {
             position        : fixed;
             left            : calc((100vw / 2) - 200px);
@@ -1134,6 +1144,7 @@
             }
         }
 
+        // Order Forward Modal
         .order-forward-modal {
             position        : fixed;
             left            : calc((100vw / 2) - 200px);
@@ -1318,6 +1329,7 @@
             }
         }
 
+        // Outstanding Modal
         .current-outstanding-modal {
             position        : fixed;
             left            : calc((100vw / 2) - 200px);
@@ -1379,7 +1391,6 @@
                         }
 
                         .data-body {
-                            width: 100%;
                             width            : 100%;
                             display          : list-item;
                             height           : 300px;
@@ -1428,8 +1439,9 @@
                                 }
                             }
                         }
+
                         .data-total {
-                            width        : 100%;
+                            width: 100%;
 
                             .row {
                                 width  : 100%;
@@ -1444,6 +1456,276 @@
                                     span {
                                         font-size: 16px;
                                         color    : #026CD1;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // Customer Details Modal
+        .customer-details-modal-section {
+            position        : fixed;
+            left            : calc((100vw / 2) - 200px);
+            // background   : #001223;
+            z-index         : 9999;
+            width           : 100%;
+            height          : 100%;
+            left            : 0;
+            top             : 0;
+            background-color: rgb(0 18 35 / 48%);
+
+            .customer-details-modal-section-inner {
+                padding      : 20px 10px;
+                text-align   : center;
+                width        : 600px;
+                height       : 600px;
+                background   : #FFFFFF;
+                position     : absolute;
+                top          : calc((100vh / 2) - 400px);
+                left         : calc((100vw / 2) - 300px);
+                opacity      : 1;
+                z-index      : 9999;
+                border-radius: 2px;
+
+                .top-section {
+                    text-align: left;
+
+                    .top-section-inner {
+                        display: block;
+                        width  : 100%;
+
+                        .logo {
+                            display       : inline-block;
+                            width         : 40px;
+                            margin-right  : 14px;
+                            vertical-align: middle;
+
+                            img {
+                                border       : 1px solid #026CD1;
+                                width        : 40px;
+                                height       : 40px;
+                                border-radius: 50%;
+                            }
+                        }
+
+                        .title-section {
+                            display       : inline-block;
+                            width         : 80%;
+                            vertical-align: middle;
+
+                            p.name {
+                                margin       : 0;
+                                font-size    : 14px;
+                                font-weight  : 500;
+                                color        : #393535;
+                                line-height  : 1;
+                                margin-bottom: 6px;
+
+                                span.tik-icon {
+                                    background    : #026CD1;
+                                    border-radius : 50%;
+                                    line-height   : 1;
+                                    width         : 10px;
+                                    height        : 10px;
+                                    display       : inline-block;
+                                    position      : relative;
+                                    vertical-align: middle;
+                                    margin-left   : 6px;
+
+                                    i {
+                                        position : absolute;
+                                        top      : 1px;
+                                        left     : 2px;
+                                        color    : #FFFFFF;
+                                        font-size: 8px;
+                                    }
+                                }
+                            }
+
+                            p.id {
+                                margin     : 0;
+                                font-size  : 14px;
+                                color      : #026CD1;
+                                line-height: 1;
+                            }
+                        }
+
+                        .tab-section {
+                            .tab-section-inner {
+                                .mt-3.order-approval-customer-details {
+                                    height  : auto;
+                                    overflow: hidden;
+
+                                    .basic-section {
+                                        .basic-section-inner {
+                                            p.basic-data {
+                                                margin     : 0;
+                                                line-height: 1.5;
+                                                font-size  : 14px;
+                                                color      : #222223;
+                                                padding    : 4px 20px;
+
+                                                span.lvl {
+                                                    width  : 150px;
+                                                    display: inline-block;
+                                                }
+
+                                                span.lvl-value {
+                                                    display: inline-block;
+                                                    color  : #026CD1;
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    .account-section {
+                                        padding: 20px 0px;
+
+                                        .account-section-inner {
+                                            padding: 4px 0px;
+
+                                            p {
+                                                margin     : 0;
+                                                line-height: 1.5;
+                                                font-size  : 14px;
+                                                padding    : 4px 10px;
+
+                                                span.jmi-lvl-value {
+                                                    margin-left: 6px;
+                                                }
+
+                                                span.prev {
+                                                    cursor: pointer;
+                                                }
+
+                                                span.account-history-date {
+                                                    font-size  : 16px;
+                                                    color      : #222223;
+                                                    font-weight: 500;
+                                                    margin     : 0 10px;
+                                                }
+
+                                                span.next {
+                                                    cursor: pointer;
+                                                }
+
+                                                i {
+                                                    font-size: 16px;
+                                                }
+                                            }
+
+                                            .data-head {
+                                                margin-top   : 10px;
+                                                border-bottom: 1px solid #E9F1FB;
+                                                padding      : 4px 0px;
+
+                                                p {
+                                                    color: #026CD1;
+                                                }
+                                            }
+
+                                            .data-body {
+                                                width            : 100%;
+                                                display          : list-item;
+                                                height           : 250px;
+                                                margin-bottom    : 6px;
+                                                overflow         : auto;
+                                                -webkit-flex-flow: row wrap;
+
+                                                &::-webkit-scrollbar {
+                                                    width: 2px;
+                                                }
+
+                                                &::-webkit-scrollbar-track {
+                                                    box-shadow   : inset 0 0 5px grey;
+                                                    border-radius: 10px;
+                                                }
+
+                                                &::-webkit-scrollbar-thumb {
+                                                    background   : #168fff;
+                                                    border-radius: 10px;
+                                                }
+
+                                                &::-webkit-scrollbar-thumb:hover {
+                                                    background: #004e98;
+                                                }
+
+                                                .jmi-row {
+                                                    &:nth-child(even) {
+                                                        background: #E2EDFA;
+                                                    }
+
+                                                    p {
+                                                        color: #393535;
+
+                                                        span.Return {
+                                                            color: #DF2A43;
+                                                        }
+
+                                                        span.account-data-inv {
+                                                            color: #026CD1;
+                                                        }
+                                                    }
+                                                }
+                                            }
+
+                                            p.jmi-col_70 {
+                                                text-align: right;
+
+                                                span.ac-ttl-txt {
+                                                    font-size  : 16px;
+                                                    font-weight: 500;
+                                                }
+
+                                            }
+
+                                            p.ac-ttl-debit {
+                                                font-size  : 16px;
+                                                font-weight: 500;
+                                                color      : #DF2A43;
+                                            }
+
+                                            p.ac-ttl-credit {
+                                                font-size  : 16px;
+                                                font-weight: 500;
+                                                color      : #026CD1;
+                                            }
+                                        }
+                                    }
+
+                                    .business-section {
+                                        .business-section-inner {
+                                            p.basic-data {
+                                                margin     : 0;
+                                                line-height: 1.5;
+                                                font-size  : 14px;
+                                                color      : #222223;
+                                                padding    : 4px 20px;
+
+                                                span.lvl {
+                                                    width  : 200px;
+                                                    display: inline-block;
+                                                }
+
+                                                span.lvl-value {
+                                                    display: inline-block;
+                                                    color  : #026CD1;
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    .location-section {
+                                        .location-section-inner {
+                                            padding: 20px;
+
+                                            p {
+                                                margin: 0;
+                                            }
+                                        }
                                     }
                                 }
                             }
