@@ -21,10 +21,10 @@
         <!-- Customer List -->
         <div class="customer-list-section">
             <div class="customer-list-section-inner">
-                <div id="progressbar" class="progressbar" v-if="!customer_list">
+                <div id="progressbar" class="progressbar" v-if="!customer_data_list">
                     <v-progress-circular indeterminate color="primary"></v-progress-circular>
                 </div>
-                <div :id="'customer-section-list-' + c" class="customer-section-list" v-for="(customer, c) in customer_list" :key="c" @click="customerClickHandlerFromList(customer, c)">
+                <div :id="'customer-section-list-' + c" class="customer-section-list" v-for="(customer, c) in customer_data_list" :key="c" @click="customerClickHandlerFromList(customer, c)">
                     <div :id="'customer-section-list-inner-' + c" class="customer-section-list-inner">
                         <div class="customer-id-type-section">
                             <div class="customer-id-type-section-inner">
@@ -32,21 +32,21 @@
                                     <p class="customer-id">{{ customer.customer_id }}</p>
                                 </div>
                                 <div class="type-section">
-                                    <p class="customer-type">Customer Type: <span class="type">{{ customer.customer_type }}</span></p>
+                                    <p class="customer-type">Customer Type: <span class="type" :class="customer.credit_flag === 'Y' ? 'Credit' : 'Debit'">{{ customer.credit_flag === "Y" ? "Credit" : "Debit" }}</span></p>
                                 </div>
                             </div>
                         </div>
                         <div class="customer-name-section">
                             <div class="customer-name-section-inner">
                                 <div class="name-section">
-                                    <p class="customer-name">{{ customer.customer_name }}</p>
+                                    <p class="customer-name">{{ customer.customer_info.customer_name }}</p>
                                 </div>
                             </div>
                         </div>
                         <div class="customer-address-section">
                             <div class="customer-address-section-inner">
                                 <div class="address-section">
-                                    <p class="customer-address">{{ customer.customer_address }}</p>
+                                    <p class="customer-address">{{ customer.customer_info.customer_address ? customer.customer_info.customer_address : "Data Not Found! Not Found!! Not Found!!!" }}</p>
                                 </div>
                             </div>
                         </div>
@@ -105,82 +105,86 @@
 </template>
 
 <script>
+import ERPService from '../../../../../../service/ERPSidebarService'
+const service = new ERPService()
+
 export default {
+    props: [],
     data() {
         return {
             customer_list: [
-                {
-                    customer_id: "JMI-2231225",
-                    customer_name: "New Bhai Bhai Pharmacy",
-                    customer_type: "Credit",
-                    customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
-                },
-                {
-                    customer_id: "JMI-2231225",
-                    customer_name: "New Bhai Bhai Pharmacy",
-                    customer_type: "Credit",
-                    customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
-                },
-                {
-                    customer_id: "JMI-2231225",
-                    customer_name: "New Bhai Bhai Pharmacy",
-                    customer_type: "Credit",
-                    customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
-                },
-                {
-                    customer_id: "JMI-2231225",
-                    customer_name: "New Bhai Bhai Pharmacy",
-                    customer_type: "Credit",
-                    customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
-                },
-                {
-                    customer_id: "JMI-2231225",
-                    customer_name: "New Bhai Bhai Pharmacy",
-                    customer_type: "Credit",
-                    customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
-                },
-                {
-                    customer_id: "JMI-2231225",
-                    customer_name: "New Bhai Bhai Pharmacy",
-                    customer_type: "Credit",
-                    customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
-                },
-                {
-                    customer_id: "JMI-2231225",
-                    customer_name: "New Bhai Bhai Pharmacy",
-                    customer_type: "Credit",
-                    customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
-                },
-                {
-                    customer_id: "JMI-2231225",
-                    customer_name: "New Bhai Bhai Pharmacy",
-                    customer_type: "Credit",
-                    customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
-                },
-                {
-                    customer_id: "JMI-2231225",
-                    customer_name: "New Bhai Bhai Pharmacy",
-                    customer_type: "Credit",
-                    customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
-                },
-                {
-                    customer_id: "JMI-2231225",
-                    customer_name: "New Bhai Bhai Pharmacy",
-                    customer_type: "Credit",
-                    customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
-                },
-                {
-                    customer_id: "JMI-2231225",
-                    customer_name: "New Bhai Bhai Pharmacy",
-                    customer_type: "Credit",
-                    customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
-                },
-                {
-                    customer_id: "JMI-2231225 DDDD",
-                    customer_name: "New Bhai Bhai Pharmacy",
-                    customer_type: "Credit",
-                    customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
-                },
+            //     {
+            //         customer_id: "JMI-2231225",
+            //         customer_name: "New Bhai Bhai Pharmacy",
+            //         customer_type: "Credit",
+            //         customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
+            //     },
+            //     {
+            //         customer_id: "JMI-2231225",
+            //         customer_name: "New Bhai Bhai Pharmacy",
+            //         customer_type: "Credit",
+            //         customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
+            //     },
+            //     {
+            //         customer_id: "JMI-2231225",
+            //         customer_name: "New Bhai Bhai Pharmacy",
+            //         customer_type: "Credit",
+            //         customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
+            //     },
+            //     {
+            //         customer_id: "JMI-2231225",
+            //         customer_name: "New Bhai Bhai Pharmacy",
+            //         customer_type: "Credit",
+            //         customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
+            //     },
+            //     {
+            //         customer_id: "JMI-2231225",
+            //         customer_name: "New Bhai Bhai Pharmacy",
+            //         customer_type: "Credit",
+            //         customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
+            //     },
+            //     {
+            //         customer_id: "JMI-2231225",
+            //         customer_name: "New Bhai Bhai Pharmacy",
+            //         customer_type: "Credit",
+            //         customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
+            //     },
+            //     {
+            //         customer_id: "JMI-2231225",
+            //         customer_name: "New Bhai Bhai Pharmacy",
+            //         customer_type: "Credit",
+            //         customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
+            //     },
+            //     {
+            //         customer_id: "JMI-2231225",
+            //         customer_name: "New Bhai Bhai Pharmacy",
+            //         customer_type: "Credit",
+            //         customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
+            //     },
+            //     {
+            //         customer_id: "JMI-2231225",
+            //         customer_name: "New Bhai Bhai Pharmacy",
+            //         customer_type: "Credit",
+            //         customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
+            //     },
+            //     {
+            //         customer_id: "JMI-2231225",
+            //         customer_name: "New Bhai Bhai Pharmacy",
+            //         customer_type: "Credit",
+            //         customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
+            //     },
+            //     {
+            //         customer_id: "JMI-2231225",
+            //         customer_name: "New Bhai Bhai Pharmacy",
+            //         customer_type: "Credit",
+            //         customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
+            //     },
+            //     {
+            //         customer_id: "JMI-2231225 DDDD",
+            //         customer_name: "New Bhai Bhai Pharmacy",
+            //         customer_type: "Credit",
+            //         customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
+            //     },
             ],
             radioSpanDefaultClass: 'active',
             radioSpanCustomClass: null,
@@ -196,10 +200,13 @@ export default {
                 },
             ],
             filter_modal: false,
+            customer_data_list: [],
         }
     },
     created() {},
-    mounted() {},
+    async mounted() {
+        await this.ALL_CUSTOMER_FOR_DEPOT__FROM_SERVICE()
+    },
     methods: {
         filterClick() {
             if(this.filter_modal) {
@@ -229,8 +236,26 @@ export default {
             }
         },
         customerClickHandlerFromList(customer, c) {
-            console.log(c + '    ' +customer)
-        }
+            // console.log(customer + '    ' +c)
+            let length = document.getElementsByClassName('customer-section-list').length
+            for(let i=0; i<length; i++) {
+                document.querySelector('#customer-section-list-' + i).className = 'customer-section-list'
+            }
+            if(document.querySelector('#customer-section-list-' + c).className === 'customer-section-list') {
+                document.querySelector('#customer-section-list-' + c).className = 'customer-section-list active'
+            } else {
+                document.querySelector('#customer-section-list-' + c).className = 'customer-section-list'
+            }
+            this.$emit("select_customer_by_customer_code", customer.customer_info.id)
+        },
+        /*----------- Service implementation ------------*/
+        async ALL_CUSTOMER_FOR_DEPOT__FROM_SERVICE() {
+            await service.getAllCustomerForDepot_CreateOrderLeftList()
+                .then(res => {
+                console.log(res.data)
+                this.customer_data_list = res.data.sbu_customers
+                })
+        },
     }
 };
 </script>
