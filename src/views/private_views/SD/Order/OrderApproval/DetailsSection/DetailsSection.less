@@ -59,56 +59,66 @@
         //     background: #004e98;
         // }
 
-        p.order-id {
-            padding    : 0 20px;
-            font-size  : 14px;
-            color      : #2F2F30;
-            margin     : 0;
-            line-height: 2;
-            font-weight: 500;
+        .title-section {
+            .row {
+                padding: 4px 0;
+                margin : 0;
 
-            // margin-bottom: 20px;
-            span.lvl {
-                // width  : 140px;
-                display     : inline-block;
-                margin-right: 10px;
-            }
+                p.jmi-title {
+                    padding    : 0 20px;
+                    font-size  : 14px;
+                    color      : #2F2F30;
+                    margin     : 0;
+                    line-height: 1.7;
+                    font-weight: 500;
 
-            span.id {
-                color: #026CD1;
-            }
+                    // margin-bottom: 20px;
+                    span.lvl {
+                        // width  : 140px;
+                        display     : inline-block;
+                        margin-right: 10px;
+                    }
 
-            span.customer-type {
-                color            : #026CD1;
-                font-size        : 12px;
-                background       : #E2EDFA;
-                padding          : 2px 6px;
-                border-radius    : 20px;
-                margin-left      : 12px;
-                vertical-align   : middle;
-                // float         : right;
-            }
+                    span.id {
+                        color: #026CD1;
+                    }
 
-            span.order-placed {
-                color            : #026CD1;
-                font-size        : 12px;
-                background       : #E2EDFA;
-                padding          : 2px 6px;
-                border-radius    : 20px;
-                margin-left      : 12px;
-                vertical-align   : middle;
-                // float         : right;
-            }
+                    span.customer-type {
+                        color            : #026CD1;
+                        font-size        : 12px;
+                        background       : #E2EDFA;
+                        padding          : 2px 6px;
+                        border-radius    : 20px;
+                        margin-left      : 12px;
+                        vertical-align   : middle;
+                        // float         : right;
+                    }
 
-            span.url {
-                text-decoration: underline;
-                cursor         : pointer;
+                    span.order-placed {
+                        color            : #026CD1;
+                        font-size        : 12px;
+                        background       : #E2EDFA;
+                        padding          : 2px 6px;
+                        border-radius    : 20px;
+                        margin-left      : 12px;
+                        vertical-align   : middle;
+                        // float         : right;
+                    }
+
+                    span.url {
+                        text-decoration: underline;
+                        cursor         : pointer;
+                    }
+                }
             }
         }
 
+
+
         .header-summery-section {
             margin-top   : 10px;
-            padding      : 0 20px;
+            margin-bottom: 10px;
+            padding      : 0 20px 10px;
             border-bottom: 1px solid #E9F1FB;
 
             .header-summery-section-inner {
@@ -116,12 +126,13 @@
                     // display: table;
                     // width  : 100%;
                     // margin : 0 0 10px;
-                    margin: 0;
+                    padding: 4px 0;
+                    margin : 0;
 
 
                     p {
                         padding    : 0;
-                        line-height: 2;
+                        line-height: 1.7;
                         margin     : 0;
                         font-size  : 14px;
 
@@ -158,8 +169,11 @@
                         }
 
                         #expected-delivery-date {
-                            margin: 0;
-                            height: auto;
+                            margin       : 0;
+                            height       : auto;
+                            font-size    : 14px;
+                            border-bottom: none;
+                            width        : 140px;
                         }
                     }
 

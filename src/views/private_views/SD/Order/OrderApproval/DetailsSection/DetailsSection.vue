@@ -1,7 +1,14 @@
 <template>
     <div id="order-approval-details-section" class="order-approval-details-section">
         <div class="order-approval-details-section-inner">
-            <p class="order-id"><span class="jmi-lvl">Order ID:</span><span class="id">JMI-2231225</span><span class="customer-type">Credit</span></p>
+            <div class="title-section">
+                <div class="row">
+                    <!-- <p class="order-id"><span class="jmi-lvl">Order ID:</span><span class="id">JMI-2231225</span><span class="customer-type">Credit</span></p> -->
+                    <div class="col-lg-4 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Order ID:</span><span class="id">JMI-2231225</span><span class="customer-type">Credit</span></p></div>
+                    <div class="col-lg-8 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer:</span><span class="jmi-lvl-value id url" @click="customerDetailsClickHandler">ABI Pharmacy and Diagnostic Center</span></p></div>
+                </div>
+            </div>
+            
             <div class="header-summery-section">
                 <div class="header-summery-section-inner">
                 <!-- <div class="container"> -->
