@@ -530,9 +530,29 @@
     width  : 50%;
 }
 
+.jmi-col_60 {
+    display: table-cell;
+    width  : 60%;
+}
+
 .jmi-col_70 {
     display: table-cell;
     width  : 70%;
+}
+
+.jmi-col_80 {
+    display: table-cell;
+    width  : 80%;
+}
+
+.jmi-col_90 {
+    display: table-cell;
+    width  : 90%;
+}
+
+.jmi-col_100 {
+    display: table-cell;
+    width  : 100%;
 }
 
 .jmi-lvl {

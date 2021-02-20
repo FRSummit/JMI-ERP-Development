@@ -18,8 +18,8 @@
                         <p class="territory">Territory: <span>DHK0301-Dhanmondi 32</span></p>
                         <!-- <p class="address" style="width: 40%;">Address: <span>House:100, Road: 11,Block:C,Dhaka 1213</span></p> -->
                         <div class="sr" style="display: table-cell; width: 33%; padding-right: 20px; padding-bottom: 0; vertical-align: middle;">
-                            <span style="display: inline-block; width: 15%; font-size: 14px; float: left; line-height:1; padding-top: 3px;">SR: </span>
-                            <div class="select-options" style="display: inline-block; width: 85%; font-size: 14px;">
+                            <span style="display: inline-block; width: 15%; font-size: 14px; float: left; line-height:1; padding-top: 6px;">SR: </span>
+                            <div class="select-options" style="display: inline-block; width: 50%; min-width: 120px; font-size: 14px;">
                                 <span class="right-icon"
                                     ><i class="fas fa-chevron-right"></i
                                 ></span>

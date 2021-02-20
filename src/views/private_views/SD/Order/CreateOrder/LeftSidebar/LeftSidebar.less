@@ -1,3 +1,8 @@
+@extra_lerge: ~"only screen and (min-width: 1250px)";
+@lerge      :~"only screen and (min-width: 1000px) and (max-width: 1249px)";
+@medium     :~"only screen and (min-width: 768px) and (max-width: 999px)";
+@small      :~"only screen and (max-width: 767px)";
+
 #create-order-left-sidebar.create-order-left-sidebar {
     display    : table-cell;
     width      : 300px;
@@ -398,3 +403,46 @@
         }
     }
 }
+
+// 1250+
+@media @extra_lerge {}
+
+// 1000 to 1249
+@media @lerge {}
+
+// 768 to 999
+@media @medium {
+    #create-order-left-sidebar.create-order-left-sidebar {
+        width: 280px;
+    }
+
+    #create-order-left-sidebar.create-order-left-sidebar .create-order-left-sidebar-section {
+        width: 280px
+    }
+
+    #create-order-left-sidebar.create-order-left-sidebar .create-order-left-sidebar-section .create-order-left-sidebar-section-inner .search-section {
+        padding: 20px 10px 10px;
+    }
+
+    #create-order-left-sidebar.create-order-left-sidebar .create-order-left-sidebar-section .create-order-left-sidebar-section-inner .title-count {
+        padding: 10px;
+    }
+
+    #create-order-left-sidebar.create-order-left-sidebar .create-order-left-sidebar-section .create-order-left-sidebar-section-inner .customer-list-section .customer-list-section-inner {
+        width: 280px;
+    }
+
+    #create-order-left-sidebar.create-order-left-sidebar .create-order-left-sidebar-section .create-order-left-sidebar-section-inner .title-count p.total-customer {
+        font-size: 14px;
+    }
+    #create-order-left-sidebar.create-order-left-sidebar .create-order-left-sidebar-section .create-order-left-sidebar-section-inner .customer-list-section .customer-list-section-inner .customer-section-list .customer-section-list-inner {
+        padding: 12px 10px;
+    }
+
+    #create-order-left-sidebar.create-order-left-sidebar .create-order-left-sidebar-section .create-order-left-sidebar-section-inner .customer-list-section .customer-list-section-inner .customer-section-list .customer-section-list-inner .customer-id-type-section .customer-id-type-section-inner .id-section p.customer-id {
+        font-size: 14px;
+    }
+}
+
+// 767-
+@media @small {}
