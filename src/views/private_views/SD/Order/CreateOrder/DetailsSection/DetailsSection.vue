@@ -63,7 +63,8 @@
                                 <!-- <tr v-for="(data, i) in (order_table_modified_data.length > 0 ? order_table_modified_data : order_table_data)" :key="i"> -->
                                 <tr v-for="(data, i) in order_table_modified_data" :key="i">
                                     <td>
-                                        <span>{{ data ? data.product_info.prod_name : "" }}</span>
+                                        <!-- <span>{{ data ? data.product_info.prod_name : "" }}</span> -->
+                                        <span>{{ data ? data.prod_name : "" }}</span>
                                         <span>Product Code: {{ data ? data.prod_id : "" }}</span>
                                     </td>
                                     <td>{{ data ? data.base_tp : "" }}</td>
@@ -157,7 +158,8 @@
                                     <div class="response-body">
                                         <tr class="responer-body-filter-output" v-for="(data, i) in auto_field_data" :key="i">
                                             <td>
-                                                <span class="responer-body-filter-tag">{{ data ? data.product_info.prod_name : "" }}</span>
+                                                <!-- <span class="responer-body-filter-tag">{{ data ? data.product_info.prod_name : "" }}</span> -->
+                                                <span class="responer-body-filter-tag">{{ data ? data.prod_name : "" }}</span>
                                                 <span>Product Code: {{ data ? data.prod_id : "" }}</span>
                                             </td>
                                             <td>
@@ -190,7 +192,8 @@
                                 </tr>
                                 <tr v-for="(data, i) in selected_auto_field_data" :key="i">
                                     <td>
-                                        <span>{{  data ? data.product_info.prod_name : ""  }}</span>
+                                        <!-- <span>{{  data ? data.product_info.prod_name : ""  }}</span> -->
+                                        <span>{{  data ? data.prod_name : ""  }}</span>
                                         <span>Product Code: {{ data ? data.prod_id : "" }}</span>
                                     </td>
                                     <td>
@@ -284,34 +287,22 @@ export default {
                     prod_id: "1001",
                     prod_class: "550",
                     base_tp: "179.91",
-                    product_info: {
-                        id: 1001,
-                        prod_name: "Adarbi 40 Tab",
-                        prod_code: "ABT2"
-                    },
-                    prod_class_info: {
-                        id: 550,
-                        code_id: "53",
-                        element_name: "OTHERS"
-                    },
-                    quantity: 0
+                    prod_name: "Adarbi 40 Tab",
+                    quantity: 0,
+                    prod_code: "ABT2",
+                    code_id: null,
+                    element_name: null
                 },
                 {
-                    id: 1,
+                    id: 2,
                     prod_id: "1002",
-                    prod_class: "550",
-                    base_tp: "179.91",
-                    product_info: {
-                        id: 1001,
-                        prod_name: "Adarbi 40 Tab",
-                        prod_code: "ABT2"
-                    },
-                    prod_class_info: {
-                        id: 550,
-                        code_id: "53",
-                        element_name: "OTHERS"
-                    },
-                    quantity: 0
+                    prod_class: "650",
+                    base_tp: "189.91",
+                    prod_name: "Ladarbi 40 Tab",
+                    quantity: 0,
+                    prod_code: "ABT3",
+                    code_id: null,
+                    element_name: null
                 },
             ],
             order_table_modified_data: [],
@@ -425,20 +416,14 @@ export default {
         addProductFromAutofieldResponseClickHandler(data, index) {
             console.log('added ordered product from auto field: ' + data + '    ' + index)
             let product = {
-                            id: 1,
-                            prod_id: "1001",
-                            prod_class: "550",
-                            base_tp: "179.91",
-                            product_info: {
-                                id: 1001,
-                                prod_name: "Adarbi 40 Tab",
-                                prod_code: "ABT2"
-                            },
-                            prod_class_info: {
-                                id: 550,
-                                code_id: "53",
-                                element_name: "OTHERS"
-                            },
+                            id: data.id,
+                            prod_id: data.prod_id,
+                            prod_class: data.prod_class,
+                            base_tp: data.base_tp,
+                            prod_name: data.prod_name,
+                            prod_code: data.prod_code,
+                            code_id: data.code_id,
+                            element_name: data.element_name,
                             quantity: 0
                         }
             this.selected_auto_field_data.push(product)
