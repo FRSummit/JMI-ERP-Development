@@ -363,6 +363,13 @@ export default {
         // Delete Table Row's Single Product/Order
         deleteOrderitemClickHandler(data, index) {
             console.log(data + '    ' + index)
+            if(this.selected_auto_field_data.length > 0) {
+                for (let [i, tt] of this.selected_auto_field_data.entries()) {
+                    if (tt.prod_id === data.prod_id) {
+                        this.selected_auto_field_data.splice(i, 1);
+                    }
+                }
+            }
         },
         //------------------------------------------------------------------------------------------
         // Add Product/Order , Atachment Row
