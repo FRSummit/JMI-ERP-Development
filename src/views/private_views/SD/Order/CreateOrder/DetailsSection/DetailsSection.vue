@@ -532,14 +532,14 @@ export default {
             for(let i=0; i<this.order_table_data.length; i++) {
                 this.sub_total += this.order_table_data[i].quantity * parseFloat(this.order_table_data[i].base_tp)
             }
-            this.sub_total = this.sub_total.toFixed(2)
-            this.vat = this.vat.toFixed(2)
-            this.vat = this.discount.toFixed(2)
+            // this.sub_total = this.sub_total
+            // this.vat = this.vat
+            // this.vat = this.discount
             this.gross_total = this.sub_total - this.vat + this.discount
-            this.gross_total = this.gross_total.toFixed(2)
-            this.rounding_adjustment = this.rounding_adjustment.toFixed(2)
+            // this.gross_total = this.gross_total
+            // this.rounding_adjustment = this.rounding_adjustment
             this.grand_total = this.sub_total - this.vat + this.discount - this.rounding_adjustment
-            this.grand_total = this.grand_total.toFixed(2)
+            // this.grand_total = this.grand_total
         },
     },
 }
