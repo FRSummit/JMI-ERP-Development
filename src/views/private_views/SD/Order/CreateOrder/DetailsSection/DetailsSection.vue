@@ -101,11 +101,11 @@
                                 </td>
                                 <td>
                                     <!-- <span class="subtotal">13,032.20</span> -->
-                                    <span class="subtotal">{{ sub_total }}</span>
-                                    <span class="vat">{{ vat }}</span>
-                                    <span class="discount">{{ discount }}</span>
-                                    <span class="gross-tatal">{{ gross_total }}</span>
-                                    <span class="atjustment">{{ rounding_adjustment }}</span>
+                                    <span class="subtotal">{{ sub_total.toFixed(2) }}</span>
+                                    <span class="vat">{{ vat.toFixed(2) }}</span>
+                                    <span class="discount">{{ discount.toFixed(2) }}</span>
+                                    <span class="gross-tatal">{{ gross_total.toFixed(2) }}</span>
+                                    <span class="atjustment">{{ rounding_adjustment.toFixed(2) }}</span>
                                 </td>
                                 <td></td>
                             </tr>
@@ -117,7 +117,7 @@
                                     <span class="grand-total">Grand Total</span>
                                 </td>
                                 <td>
-                                    <span class="grand-total">{{ grand_total }}</span>
+                                    <span class="grand-total">{{ grand_total.toFixed(2) }}</span>
                                 </td>
                                 <td></td>
                             </tr>
@@ -322,12 +322,12 @@ export default {
                 { label: 'label1', value: 'value1' },
                 { label: 'label2', value: 'value2' }
             ],
-            sub_total: 0,
-            vat: 0,
-            discount: 0,
-            gross_total: 0,
-            rounding_adjustment: 0,
-            grand_total: 0,
+            sub_total: 0.00,
+            vat: 0.00,
+            discount: 0.00,
+            gross_total: 0.00,
+            rounding_adjustment: 0.00,
+            grand_total: 0.00,
         }
     },
     created() {},
@@ -533,8 +533,11 @@ export default {
                 this.sub_total += this.order_table_data[i].quantity * parseFloat(this.order_table_data[i].base_tp)
             }
             this.sub_total = this.sub_total.toFixed(2)
+            this.vat = this.vat.toFixed(2)
+            this.vat = this.discount.toFixed(2)
             this.gross_total = this.sub_total - this.vat + this.discount
             this.gross_total = this.gross_total.toFixed(2)
+            this.rounding_adjustment = this.rounding_adjustment.toFixed(2)
             this.grand_total = this.sub_total - this.vat + this.discount - this.rounding_adjustment
             this.grand_total = this.grand_total.toFixed(2)
         },
