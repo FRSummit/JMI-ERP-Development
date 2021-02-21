@@ -9,6 +9,31 @@
       v-on:print="onPrintClick"
       v-on:excel="onExcelClick"
     />
+
+    <div class="print-section row">
+      <div class="col-lg-1 col-md-2 col-sm-3"><span @click="sdr015_clickHandler">SDR_015</span></div>
+      <div class="col-lg-1 col-md-2 col-sm-3"><span @click="sdr016_clickHandler">SDR_016</span></div>
+      <div class="col-lg-1 col-md-2 col-sm-3"><span @click="sdr017_clickHandler">SDR_017</span></div>
+      <div class="col-lg-1 col-md-2 col-sm-3"><span @click="sdr018_clickHandler">SDR_018</span></div>
+      <div class="col-lg-1 col-md-2 col-sm-3"><span @click="sdr023_clickHandler">SDR_023</span></div>
+      <div class="col-lg-1 col-md-2 col-sm-3"><span @click="sdr024_clickHandler">SDR_024</span></div>
+      <div class="col-lg-1 col-md-2 col-sm-3"><span @click="sdr025_clickHandler">SDR_025</span></div>
+      <div class="col-lg-1 col-md-2 col-sm-3"><span @click="sdr027_clickHandler">SDR_027</span></div>
+      <div class="col-lg-1 col-md-2 col-sm-3"><span @click="sdr028_clickHandler">SDR_028</span></div>
+      <div class="col-lg-1 col-md-2 col-sm-3"><span @click="sdr029_clickHandler">SDR_029</span></div>
+      <div class="col-lg-1 col-md-2 col-sm-3"><span @click="sdr030_clickHandler">SDR_030</span></div>
+      <div class="col-lg-1 col-md-2 col-sm-3"><span @click="sdr031_clickHandler">SDR_031</span></div>
+      <div class="col-lg-1 col-md-2 col-sm-3"><span @click="sdr032_clickHandler">SDR_032</span></div>
+      <div class="col-lg-1 col-md-2 col-sm-3"><span @click="sdr033_clickHandler">SDR_033</span></div>
+      <div class="col-lg-1 col-md-2 col-sm-3"><span @click="sdr034_clickHandler">SDR_034</span></div>
+      <div class="col-lg-1 col-md-2 col-sm-3"><span @click="sdr035_clickHandler">SDR_035</span></div>
+      <div class="col-lg-1 col-md-2 col-sm-3"><span @click="sdr036_clickHandler">SDR_036</span></div>
+      <div class="col-lg-1 col-md-2 col-sm-3"><span @click="sdr037_clickHandler">SDR_037</span></div>
+      <div class="col-lg-1 col-md-2 col-sm-3"><span @click="sdr038_clickHandler">SDR_038</span></div>
+      <div class="col-lg-1 col-md-2 col-sm-3"><span @click="sdr039_clickHandler">SDR_039</span></div>
+      <div class="col-lg-1 col-md-2 col-sm-3"><span @click="sdr040_clickHandler">SDR_040</span></div>
+    </div>
+
     <table
       id="sbu-data-table"
       class="sbu-data-table"
@@ -170,6 +195,14 @@ const customJs = new CustomJs()
 import PDF_Demo from './PDF_Demo'
 const pdfDemo = new PDF_Demo()
 
+// Import From Print_Func
+import DemoPrintData from './DemoPrintData'
+const demoPrintData = new DemoPrintData()
+
+import SDR_015 from '../../../functions/Print_Func/SDR_015'
+const sdr_015 = new SDR_015()
+// Import From Print_Func
+
 export default {
   components: {
     Heading,
@@ -207,6 +240,35 @@ export default {
     console.log(sbuStatus.Active);
   },
   methods: {
+
+    // --------------------------------------------------------------
+    // Print Functions
+    sdr015_clickHandler() {
+      sdr_015.print_sdr_015(demoPrintData.print_sdr_015_data())
+    },
+    sdr016_clickHandler() {},
+    sdr017_clickHandler() {},
+    sdr018_clickHandler() {},
+    sdr023_clickHandler() {},
+    sdr024_clickHandler() {},
+    sdr025_clickHandler() {},
+    sdr027_clickHandler() {},
+    sdr028_clickHandler() {},
+    sdr029_clickHandler() {},
+    sdr030_clickHandler() {},
+    sdr031_clickHandler() {},
+    sdr032_clickHandler() {},
+    sdr033_clickHandler() {},
+    sdr034_clickHandler() {},
+    sdr035_clickHandler() {},
+    sdr036_clickHandler() {},
+    sdr037_clickHandler() {},
+    sdr038_clickHandler() {},
+    sdr039_clickHandler() {},
+    sdr040_clickHandler() {},
+
+
+    // --------------------------------------------------------------
     createBreadcrumbData() {
       this.pathName = [{ name: "Settings & Management" }, { name: "SBU" }];
     },
@@ -1018,6 +1080,27 @@ export default {
   visibility: visible;
 }
 /* SBU Data - start */
+
+/* Print */
+.print-section {
+  margin: 20px;
+}
+.print-section .col-lg-1.col-md-2.col-sm-3 {
+  margin: 8px;
+}
+.print-section span {
+  background: #026CD1;
+  color: #FFFFFF; 
+  cursor: pointer; 
+  border: 1px solid #026CD1; 
+  font-size: 14px;
+  font-weight: 500;
+  padding: 4px 14px;
+  border-radius: 4px;
+}
+.print-section span:hover {
+  background: #004b92;
+}
 
 /* Media query */
 @media only screen and (max-width: 1050px) {
