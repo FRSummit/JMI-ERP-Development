@@ -79,7 +79,7 @@
                                     <td>{{ data ? (data.bonus ? data.bonus : "No Bonus") : "No data" }}</td>
                                     <td class="total_price">{{ data ? (data.base_tp * data.quantity).toFixed(2) : "" }}</td>
                                     <td class="row-action">
-                                        <span class="edit-icon" @click="editOrderitemClickHandler(data, i)"><i class="zmdi zmdi-edit"></i></span>
+                                        <!-- <span class="edit-icon hide" @click="editOrderitemClickHandler(data, i)"><i class="zmdi zmdi-edit"></i></span> -->
                                         <span class="delete-icon" @click="deleteOrderitemClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
                                     </td>
                                 </tr>
@@ -205,7 +205,7 @@
                                             <span class="qty-decrease" @click="increaseProductInAutofieldProductClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
                                         </span>
                                     </td>
-                                    <td>{{ data ? (data.quantity * data.base_tp) : "" }}</td>
+                                    <td>{{ data ? (data.quantity * data.base_tp).toFixed(2) : "" }}</td>
                                     <td class="row-action">
                                         <span class="delete-icon" @click="removeAddedOrderedProductClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
                                     </td>
@@ -229,7 +229,7 @@
                         <div class="file-input-section-inner">
                             <div class="input-section">
                                 <input type="file" placeholder="Choose file...">
-                                <span class="submit-btn" @click="uploadFileCLickHandler">Upload</span>
+                                <span class="submit-btn" @click="uploadFileClickHandler">Upload</span>
                             </div>
                             <p class="input-type-informations">File Type Should be pdf, jpg, xl, csv. Size of file should not b more than 10MB</p>
                         </div>
@@ -361,13 +361,20 @@ export default {
         // Delete Table Row's Single Product/Order
         deleteOrderitemClickHandler(data, index) {
             console.log(data + '    ' + index)
-            if(this.selected_auto_field_data.length > 0) {
+            if(this.order_table_data.length > 0) {
+                for (let [i, tt] of this.order_table_data.entries()) {
+                    if (tt.prod_id === data.prod_id) {
+                        this.order_table_data.splice(i, 1);
+                    }
+                }
+            }
+            /*if(this.selected_auto_field_data.length > 0) {
                 for (let [i, tt] of this.selected_auto_field_data.entries()) {
                     if (tt.prod_id === data.prod_id) {
                         this.selected_auto_field_data.splice(i, 1);
                     }
                 }
-            }
+            }*/
         },
         //------------------------------------------------------------------------------------------
         // Add Product/Order , Atachment Row
@@ -460,6 +467,22 @@ export default {
             console.log('add items from modal')
             this.order_table_modified_data = this.selected_auto_field_data
             this.createSubtotalCalculation()
+            // Create object for post method
+            let prod_db_list = []
+            for(let i=0; i<this.selected_auto_field_data.length; i++) {
+                let prod_obj = {
+                    prod_id: this.selected_auto_field_data[i].prod_id,
+                    quantity: this.selected_auto_field_data[i].quantity
+                }
+                prod_db_list.push(prod_obj)
+            }
+            let prod_db_data = {
+                sbu_id: 0,
+                customer_id:  this.customer_data ? this.customer_data.customer_id : 0,
+                products: prod_db_list
+            }
+            console.log(prod_db_data)
+            // Close Modal
             this.add_order_modal = false
         },
         //------------------------------------------------------------------------------------------
@@ -467,7 +490,7 @@ export default {
         attachmentModalOutsideClick() {
             this.attachment_modal = false
         },
-        uploadFileCLickHandler() {
+        uploadFileClickHandler() {
             console.log('File upload')
         },
         //------------------------------------------------------------------------------------------
