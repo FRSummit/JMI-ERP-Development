@@ -61,7 +61,8 @@
                         <tbody>
                             <div class="table-data-rows">
                                 <!-- <tr v-for="(data, i) in (order_table_modified_data.length > 0 ? order_table_modified_data : order_table_data)" :key="i"> -->
-                                <tr v-for="(data, i) in order_table_modified_data" :key="i">
+                                <!-- <tr v-for="(data, i) in order_table_modified_data" :key="i"> -->
+                                <tr v-for="(data, i) in order_table_data" :key="i">
                                     <td>
                                         <!-- <span>{{ data ? data.product_info.prod_name : "" }}</span> -->
                                         <span>{{ data ? data.prod_name : "" }}</span>
@@ -76,7 +77,7 @@
                                         </span>
                                     </td>
                                     <td>{{ data ? (data.bonus ? data.bonus : "No Bonus") : "No data" }}</td>
-                                    <td>{{ data ? (data.base_tp * data.quantity) : "" }}</td>
+                                    <td class="total_price">{{ data ? (data.base_tp * data.quantity).toFixed(2) : "" }}</td>
                                     <td class="row-action">
                                         <span class="edit-icon" @click="editOrderitemClickHandler(data, i)"><i class="zmdi zmdi-edit"></i></span>
                                         <span class="delete-icon" @click="deleteOrderitemClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
@@ -96,14 +97,15 @@
                                     <span class="vat">(+) Vat</span>
                                     <span class="discount">(-) Discount</span>
                                     <span class="gross-tatal">Gross Total</span>
-                                    <span class="atjustment" style="width: 142px;">(+/-) Rounding Adjustment</span>
+                                    <span class="atjustment" style="width: 142px; float: right;">(+/-) Rounding Adjustment</span>
                                 </td>
                                 <td>
-                                    <span class="subtotal">13,032.20</span>
-                                    <span class="vat">50.00</span>
-                                    <span class="discount">250.00</span>
-                                    <span class="gross-tatal">13,032.20</span>
-                                    <span class="atjustment">-0.20</span>
+                                    <!-- <span class="subtotal">13,032.20</span> -->
+                                    <span class="subtotal">{{ sub_total }}</span>
+                                    <span class="vat">{{ vat }}</span>
+                                    <span class="discount">{{ discount }}</span>
+                                    <span class="gross-tatal">{{ gross_total }}</span>
+                                    <span class="atjustment">{{ rounding_adjustment }}</span>
                                 </td>
                                 <td></td>
                             </tr>
@@ -115,7 +117,7 @@
                                     <span class="grand-total">Grand Total</span>
                                 </td>
                                 <td>
-                                    <span class="grand-total">13,032.00</span>
+                                    <span class="grand-total">{{ grand_total }}</span>
                                 </td>
                                 <td></td>
                             </tr>
@@ -187,7 +189,7 @@
                                     <td>
                                         <span class="jmi-title">Quantity</span>
                                     </td>
-                                    <td><span class="jmi-title">Price</span></td>
+                                    <td><span class="jmi-title">Total Price</span></td>
                                     <td class="row-action"></td>
                                 </tr>
                                 <tr v-for="(data, i) in selected_auto_field_data" :key="i">
@@ -203,7 +205,7 @@
                                             <span class="qty-decrease" @click="increaseProductInAutofieldProductClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
                                         </span>
                                     </td>
-                                    <td>{{ data ? data.base_tp : "" }}</td>
+                                    <td>{{ data ? (data.quantity * data.base_tp) : "" }}</td>
                                     <td class="row-action">
                                         <span class="delete-icon" @click="removeAddedOrderedProductClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
                                     </td>
@@ -266,20 +268,7 @@ export default {
     data() {
         return {
             on_change_SR_dropdown: null,
-            sr_list: [
-                {
-                    name: "SR 1"
-                },
-                {
-                    name: "SR 2"
-                },
-                {
-                    name: "SR 3"
-                },
-                {
-                    name: "SR 4"
-                },
-            ],
+            sr_list: [],
             order_table_header: ["Name", "Unit Price", "Quantity", "Bonus", "Total Price"],
             order_table_data: [
                 {
@@ -333,10 +322,17 @@ export default {
                 { label: 'label1', value: 'value1' },
                 { label: 'label2', value: 'value2' }
             ],
+            sub_total: 0,
+            vat: 0,
+            discount: 0,
+            gross_total: 0,
+            rounding_adjustment: 0,
+            grand_total: 0,
         }
     },
     created() {},
-    mounted() {
+    async mounted() {
+        await this.DIC_WISE_USERS_FROM_SERVICE()
     },
     methods: {
         onChangeSRDropdown() {
@@ -348,12 +344,14 @@ export default {
         increaseOrderedItemClickHandler(data, index) {
             console.log(data + '    ' + index)
             data.quantity++
+            this.createSubtotalCalculation()
         },
         // Decrease Table Row's Single Product/Order
         decreaseOrderedItemClickHandler(data, index) {
             console.log(data + '    ' + index)
             if(data.quantity > 0) {
                 data.quantity--
+                this.createSubtotalCalculation()
             }
         },
         // Edit Table Row's Single Product/Order
@@ -374,15 +372,12 @@ export default {
         //------------------------------------------------------------------------------------------
         // Add Product/Order , Atachment Row
         addOrderClickHandler() {
+            this.selected_auto_field_data = []
             if(this.add_order_modal) {
                 this.add_order_modal = false
             } else {
                 this.add_order_modal = true
-                service.getSearchProductDataList_CreateOrderDetailsSection()
-                    .then(res => {
-                        console.log(res.data)
-                        this.auto_field_data = res.data.product_list
-                    })
+                this.ADD_PRODUCTS_DATA_LIST_FROM_SERVICE()
             }
         },
         addAttachmentClickHandler() {
@@ -434,6 +429,15 @@ export default {
                             quantity: 0
                         }
             this.selected_auto_field_data.push(product)
+            // Remove this product from all product list
+            if(this.auto_field_data.length > 0) {
+                for (let [i, tt] of this.auto_field_data.entries()) {
+                    if (tt.prod_id === data.prod_id) {
+                        this.auto_field_data.splice(i, 1);
+                    }
+                }
+            }
+             
         },
         // Remove Added Ordered Product
         removeAddedOrderedProductClickHandler(data, index) {
@@ -446,6 +450,8 @@ export default {
                     }
                 }
             }
+            // Adding removed product to all product list
+            this.auto_field_data.push(data)
         },
         cancelOrderFromModalClickHandler() {
             this.add_order_modal = false
@@ -453,6 +459,7 @@ export default {
         addItemsFromModalClickHandler() {
             console.log('add items from modal')
             this.order_table_modified_data = this.selected_auto_field_data
+            this.createSubtotalCalculation()
             this.add_order_modal = false
         },
         //------------------------------------------------------------------------------------------
@@ -477,8 +484,38 @@ export default {
             let txt_selector = "responer-body-filter-tag"
 
             jmiFilter.searchById_LeftSidebar(filter, list, txt_selector)
-        }
-    }
+        },
+        // ------------------------------------------------------------------------------------------
+        // Service Implementation
+        async ADD_PRODUCTS_DATA_LIST_FROM_SERVICE() {
+            await service.getSearchProductDataList_CreateOrderDetailsSection()
+                .then(res => {
+                    console.log(res.data)
+                    this.auto_field_data = res.data.product_list
+                })
+        },
+        async DIC_WISE_USERS_FROM_SERVICE() {
+            await service.getDICWiseUsers_MonthlyDeliveryPlan()
+                .then(res => {
+                    console.log(res.data)
+                    this.sr_list = res.data.users.da
+                })
+        },
+        // ----------------------------------------------------------------------------------------------
+        // Bottom Row Calculation
+        // Create/initial Subtotal
+        createSubtotalCalculation() {
+            this.sub_total = 0
+            for(let i=0; i<this.order_table_data.length; i++) {
+                this.sub_total += this.order_table_data[i].quantity * parseFloat(this.order_table_data[i].base_tp)
+            }
+            this.sub_total = this.sub_total.toFixed(2)
+            this.gross_total = this.sub_total - this.vat + this.discount
+            this.gross_total = this.gross_total.toFixed(2)
+            this.grand_total = this.sub_total - this.vat + this.discount - this.rounding_adjustment
+            this.grand_total = this.grand_total.toFixed(2)
+        },
+    },
 }
 </script>
 
