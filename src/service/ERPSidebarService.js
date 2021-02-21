@@ -286,6 +286,17 @@ export default class PostService {
     })
   }
 
+  // // CREATE ORDER - SR LIST LOAD
+  // getSearchProductDataList_CreateOrderDetailsSection() {
+  //   let web_menu_url = '/api/web/dic-wise-users'
+  //   return axios(web_menu_url, {
+  //     method: 'GET',
+  //     headers: {
+  //       'Authorization': token_type + ' ' + token
+  //     }
+  //   })
+  // }
+
   //////////////////////////////////////////////////////////////////////////////////////////
 
   // Get Doctors Profile

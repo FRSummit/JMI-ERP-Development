@@ -61,9 +61,11 @@
                         <tbody>
                             <div class="table-data-rows">
                                 <!-- <tr v-for="(data, i) in (order_table_modified_data.length > 0 ? order_table_modified_data : order_table_data)" :key="i"> -->
-                                <tr v-for="(data, i) in order_table_modified_data" :key="i">
+                                <!-- <tr v-for="(data, i) in order_table_modified_data" :key="i"> -->
+                                <tr v-for="(data, i) in order_table_data" :key="i">
                                     <td>
-                                        <span>{{ data ? data.product_info.prod_name : "" }}</span>
+                                        <!-- <span>{{ data ? data.product_info.prod_name : "" }}</span> -->
+                                        <span>{{ data ? data.prod_name : "" }}</span>
                                         <span>Product Code: {{ data ? data.prod_id : "" }}</span>
                                     </td>
                                     <td>{{ data ? data.base_tp : "" }}</td>
@@ -75,9 +77,9 @@
                                         </span>
                                     </td>
                                     <td>{{ data ? (data.bonus ? data.bonus : "No Bonus") : "No data" }}</td>
-                                    <td>{{ data ? (data.base_tp * data.quantity) : "" }}</td>
+                                    <td class="total_price">{{ data ? (data.base_tp * data.quantity).toFixed(2) : "" }}</td>
                                     <td class="row-action">
-                                        <span class="edit-icon" @click="editOrderitemClickHandler(data, i)"><i class="zmdi zmdi-edit"></i></span>
+                                        <!-- <span class="edit-icon hide" @click="editOrderitemClickHandler(data, i)"><i class="zmdi zmdi-edit"></i></span> -->
                                         <span class="delete-icon" @click="deleteOrderitemClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
                                     </td>
                                 </tr>
@@ -95,14 +97,15 @@
                                     <span class="vat">(+) Vat</span>
                                     <span class="discount">(-) Discount</span>
                                     <span class="gross-tatal">Gross Total</span>
-                                    <span class="atjustment" style="width: 142px;">(+/-) Rounding Adjustment</span>
+                                    <span class="atjustment" style="width: 142px; float: right;">(+/-) Rounding Adjustment</span>
                                 </td>
                                 <td>
-                                    <span class="subtotal">13,032.20</span>
-                                    <span class="vat">50.00</span>
-                                    <span class="discount">250.00</span>
-                                    <span class="gross-tatal">13,032.20</span>
-                                    <span class="atjustment">-0.20</span>
+                                    <!-- <span class="subtotal">13,032.20</span> -->
+                                    <span class="subtotal">{{ sub_total.toFixed(2) }}</span>
+                                    <span class="vat">{{ vat.toFixed(2) }}</span>
+                                    <span class="discount">{{ discount.toFixed(2) }}</span>
+                                    <span class="gross-tatal">{{ gross_total.toFixed(2) }}</span>
+                                    <span class="atjustment">{{ rounding_adjustment.toFixed(2) }}</span>
                                 </td>
                                 <td></td>
                             </tr>
@@ -114,7 +117,7 @@
                                     <span class="grand-total">Grand Total</span>
                                 </td>
                                 <td>
-                                    <span class="grand-total">13,032.00</span>
+                                    <span class="grand-total">{{ grand_total.toFixed(2) }}</span>
                                 </td>
                                 <td></td>
                             </tr>
@@ -157,7 +160,8 @@
                                     <div class="response-body">
                                         <tr class="responer-body-filter-output" v-for="(data, i) in auto_field_data" :key="i">
                                             <td>
-                                                <span class="responer-body-filter-tag">{{ data ? data.product_info.prod_name : "" }}</span>
+                                                <!-- <span class="responer-body-filter-tag">{{ data ? data.product_info.prod_name : "" }}</span> -->
+                                                <span class="responer-body-filter-tag">{{ data ? data.prod_name : "" }}</span>
                                                 <span>Product Code: {{ data ? data.prod_id : "" }}</span>
                                             </td>
                                             <td>
@@ -185,12 +189,13 @@
                                     <td>
                                         <span class="jmi-title">Quantity</span>
                                     </td>
-                                    <td><span class="jmi-title">Price</span></td>
+                                    <td><span class="jmi-title">Total Price</span></td>
                                     <td class="row-action"></td>
                                 </tr>
                                 <tr v-for="(data, i) in selected_auto_field_data" :key="i">
                                     <td>
-                                        <span>{{  data ? data.product_info.prod_name : ""  }}</span>
+                                        <!-- <span>{{  data ? data.product_info.prod_name : ""  }}</span> -->
+                                        <span>{{  data ? data.prod_name : ""  }}</span>
                                         <span>Product Code: {{ data ? data.prod_id : "" }}</span>
                                     </td>
                                     <td>
@@ -200,7 +205,7 @@
                                             <span class="qty-decrease" @click="increaseProductInAutofieldProductClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
                                         </span>
                                     </td>
-                                    <td>{{ data ? data.base_tp : "" }}</td>
+                                    <td>{{ data ? (data.quantity * data.base_tp).toFixed(2) : "" }}</td>
                                     <td class="row-action">
                                         <span class="delete-icon" @click="removeAddedOrderedProductClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
                                     </td>
@@ -224,7 +229,7 @@
                         <div class="file-input-section-inner">
                             <div class="input-section">
                                 <input type="file" placeholder="Choose file...">
-                                <span class="submit-btn" @click="uploadFileCLickHandler">Upload</span>
+                                <span class="submit-btn" @click="uploadFileClickHandler">Upload</span>
                             </div>
                             <p class="input-type-informations">File Type Should be pdf, jpg, xl, csv. Size of file should not b more than 10MB</p>
                         </div>
@@ -263,20 +268,7 @@ export default {
     data() {
         return {
             on_change_SR_dropdown: null,
-            sr_list: [
-                {
-                    name: "SR 1"
-                },
-                {
-                    name: "SR 2"
-                },
-                {
-                    name: "SR 3"
-                },
-                {
-                    name: "SR 4"
-                },
-            ],
+            sr_list: [],
             order_table_header: ["Name", "Unit Price", "Quantity", "Bonus", "Total Price"],
             order_table_data: [
                 {
@@ -284,34 +276,22 @@ export default {
                     prod_id: "1001",
                     prod_class: "550",
                     base_tp: "179.91",
-                    product_info: {
-                        id: 1001,
-                        prod_name: "Adarbi 40 Tab",
-                        prod_code: "ABT2"
-                    },
-                    prod_class_info: {
-                        id: 550,
-                        code_id: "53",
-                        element_name: "OTHERS"
-                    },
-                    quantity: 0
+                    prod_name: "Adarbi 40 Tab",
+                    quantity: 0,
+                    prod_code: "ABT2",
+                    code_id: null,
+                    element_name: null
                 },
                 {
-                    id: 1,
+                    id: 2,
                     prod_id: "1002",
-                    prod_class: "550",
-                    base_tp: "179.91",
-                    product_info: {
-                        id: 1001,
-                        prod_name: "Adarbi 40 Tab",
-                        prod_code: "ABT2"
-                    },
-                    prod_class_info: {
-                        id: 550,
-                        code_id: "53",
-                        element_name: "OTHERS"
-                    },
-                    quantity: 0
+                    prod_class: "650",
+                    base_tp: "189.91",
+                    prod_name: "Ladarbi 40 Tab",
+                    quantity: 0,
+                    prod_code: "ABT3",
+                    code_id: null,
+                    element_name: null
                 },
             ],
             order_table_modified_data: [],
@@ -342,10 +322,17 @@ export default {
                 { label: 'label1', value: 'value1' },
                 { label: 'label2', value: 'value2' }
             ],
+            sub_total: 0.00,
+            vat: 0.00,
+            discount: 0.00,
+            gross_total: 0.00,
+            rounding_adjustment: 0.00,
+            grand_total: 0.00,
         }
     },
     created() {},
-    mounted() {
+    async mounted() {
+        await this.DIC_WISE_USERS_FROM_SERVICE()
     },
     methods: {
         onChangeSRDropdown() {
@@ -357,12 +344,14 @@ export default {
         increaseOrderedItemClickHandler(data, index) {
             console.log(data + '    ' + index)
             data.quantity++
+            this.createSubtotalCalculation()
         },
         // Decrease Table Row's Single Product/Order
         decreaseOrderedItemClickHandler(data, index) {
             console.log(data + '    ' + index)
             if(data.quantity > 0) {
                 data.quantity--
+                this.createSubtotalCalculation()
             }
         },
         // Edit Table Row's Single Product/Order
@@ -372,19 +361,30 @@ export default {
         // Delete Table Row's Single Product/Order
         deleteOrderitemClickHandler(data, index) {
             console.log(data + '    ' + index)
+            if(this.order_table_data.length > 0) {
+                for (let [i, tt] of this.order_table_data.entries()) {
+                    if (tt.prod_id === data.prod_id) {
+                        this.order_table_data.splice(i, 1);
+                    }
+                }
+            }
+            /*if(this.selected_auto_field_data.length > 0) {
+                for (let [i, tt] of this.selected_auto_field_data.entries()) {
+                    if (tt.prod_id === data.prod_id) {
+                        this.selected_auto_field_data.splice(i, 1);
+                    }
+                }
+            }*/
         },
         //------------------------------------------------------------------------------------------
         // Add Product/Order , Atachment Row
         addOrderClickHandler() {
+            this.selected_auto_field_data = []
             if(this.add_order_modal) {
                 this.add_order_modal = false
             } else {
                 this.add_order_modal = true
-                service.getSearchProductDataList_CreateOrderDetailsSection()
-                    .then(res => {
-                        console.log(res.data)
-                        this.auto_field_data = res.data.product_list
-                    })
+                this.ADD_PRODUCTS_DATA_LIST_FROM_SERVICE()
             }
         },
         addAttachmentClickHandler() {
@@ -425,23 +425,26 @@ export default {
         addProductFromAutofieldResponseClickHandler(data, index) {
             console.log('added ordered product from auto field: ' + data + '    ' + index)
             let product = {
-                            id: 1,
-                            prod_id: "1001",
-                            prod_class: "550",
-                            base_tp: "179.91",
-                            product_info: {
-                                id: 1001,
-                                prod_name: "Adarbi 40 Tab",
-                                prod_code: "ABT2"
-                            },
-                            prod_class_info: {
-                                id: 550,
-                                code_id: "53",
-                                element_name: "OTHERS"
-                            },
+                            id: data.id,
+                            prod_id: data.prod_id,
+                            prod_class: data.prod_class,
+                            base_tp: data.base_tp,
+                            prod_name: data.prod_name,
+                            prod_code: data.prod_code,
+                            code_id: data.code_id,
+                            element_name: data.element_name,
                             quantity: 0
                         }
             this.selected_auto_field_data.push(product)
+            // Remove this product from all product list
+            if(this.auto_field_data.length > 0) {
+                for (let [i, tt] of this.auto_field_data.entries()) {
+                    if (tt.prod_id === data.prod_id) {
+                        this.auto_field_data.splice(i, 1);
+                    }
+                }
+            }
+             
         },
         // Remove Added Ordered Product
         removeAddedOrderedProductClickHandler(data, index) {
@@ -454,6 +457,8 @@ export default {
                     }
                 }
             }
+            // Adding removed product to all product list
+            this.auto_field_data.push(data)
         },
         cancelOrderFromModalClickHandler() {
             this.add_order_modal = false
@@ -461,6 +466,23 @@ export default {
         addItemsFromModalClickHandler() {
             console.log('add items from modal')
             this.order_table_modified_data = this.selected_auto_field_data
+            this.createSubtotalCalculation()
+            // Create object for post method
+            let prod_db_list = []
+            for(let i=0; i<this.selected_auto_field_data.length; i++) {
+                let prod_obj = {
+                    prod_id: this.selected_auto_field_data[i].prod_id,
+                    quantity: this.selected_auto_field_data[i].quantity
+                }
+                prod_db_list.push(prod_obj)
+            }
+            let prod_db_data = {
+                sbu_id: 0,
+                customer_id:  this.customer_data ? this.customer_data.customer_id : 0,
+                products: prod_db_list
+            }
+            console.log(prod_db_data)
+            // Close Modal
             this.add_order_modal = false
         },
         //------------------------------------------------------------------------------------------
@@ -468,7 +490,7 @@ export default {
         attachmentModalOutsideClick() {
             this.attachment_modal = false
         },
-        uploadFileCLickHandler() {
+        uploadFileClickHandler() {
             console.log('File upload')
         },
         //------------------------------------------------------------------------------------------
@@ -485,8 +507,41 @@ export default {
             let txt_selector = "responer-body-filter-tag"
 
             jmiFilter.searchById_LeftSidebar(filter, list, txt_selector)
-        }
-    }
+        },
+        // ------------------------------------------------------------------------------------------
+        // Service Implementation
+        async ADD_PRODUCTS_DATA_LIST_FROM_SERVICE() {
+            await service.getSearchProductDataList_CreateOrderDetailsSection()
+                .then(res => {
+                    console.log(res.data)
+                    this.auto_field_data = res.data.product_list
+                })
+        },
+        async DIC_WISE_USERS_FROM_SERVICE() {
+            await service.getDICWiseUsers_MonthlyDeliveryPlan()
+                .then(res => {
+                    console.log(res.data)
+                    this.sr_list = res.data.users.da
+                })
+        },
+        // ----------------------------------------------------------------------------------------------
+        // Bottom Row Calculation
+        // Create/initial Subtotal
+        createSubtotalCalculation() {
+            this.sub_total = 0
+            for(let i=0; i<this.order_table_data.length; i++) {
+                this.sub_total += this.order_table_data[i].quantity * parseFloat(this.order_table_data[i].base_tp)
+            }
+            // this.sub_total = this.sub_total
+            // this.vat = this.vat
+            // this.vat = this.discount
+            this.gross_total = this.sub_total - this.vat + this.discount
+            // this.gross_total = this.gross_total
+            // this.rounding_adjustment = this.rounding_adjustment
+            this.grand_total = this.sub_total - this.vat + this.discount - this.rounding_adjustment
+            // this.grand_total = this.grand_total
+        },
+    },
 }
 </script>
 
