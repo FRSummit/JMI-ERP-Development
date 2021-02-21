@@ -1,29 +1,29 @@
 @extra_lerge: ~"only screen and (min-width: 1250px)";
-@lerge: ~"only screen and (min-width: 1000px) and (max-width: 1249px)";
-@medium: ~"only screen and (min-width: 768px) and (max-width: 999px)";
-@small: ~"only screen and (max-width: 767px)";
+@lerge      :~"only screen and (min-width: 1000px) and (max-width: 1249px)";
+@medium     :~"only screen and (min-width: 768px) and (max-width: 999px)";
+@small      :~"only screen and (max-width: 767px)";
 
 #create-order-details-section.create-order-details-section {
-    display: table-cell;
-    width: calc(100vw - (60px + 300px));
-    padding: 20px;
-    position: fixed;
-    overflow-x: hidden;
-    overflow-y: scroll;
+    display        : table-cell;
+    width          : calc(100vw - (60px + 300px));
+    padding        : 20px;
+    position       : fixed;
+    overflow-x     : hidden;
+    overflow-y     : scroll;
     scrollbar-width: none;
-    height: calc(100vh - (74px + 73px + 20px + 32px));
+    height         : calc(100vh - (74px + 73px + 20px + 32px));
 
     &::-webkit-scrollbar {
         width: 2px;
     }
 
     &::-webkit-scrollbar-track {
-        box-shadow: inset 0 0 5px grey;
+        box-shadow   : inset 0 0 5px grey;
         border-radius: 10px;
     }
 
     &::-webkit-scrollbar-thumb {
-        background: #168fff;
+        background   : #168fff;
         border-radius: 10px;
     }
 
@@ -32,9 +32,9 @@
     }
 
     .create-order-details-section-inner {
-        box-shadow: 0px 0px 8px #026CD11A;
-        border-radius: 8px;
-        padding: 20px 0;
+        box-shadow           : 0px 0px 8px #026CD11A;
+        border-radius        : 8px;
+        padding              : 20px 0;
         // height            : calc(100vh - (74px + 73px + 40px + 32px - 60px));
         // height       : 900px;
         // position     : fixed;
@@ -104,7 +104,7 @@
 
             .row {
                 padding: 4px 0;
-                margin: 0;
+                margin : 0;
 
                 p.jmi-title {
                     // padding    : 0 20px;
@@ -116,12 +116,12 @@
 
                     // margin-bottom: 20px;
                     span.jmi-lvl {
-                        display: inline-block;
+                        display     : inline-block;
                         margin-right: 10px;
                     }
 
                     span.jmi-lvl-value {
-                        display: inline-block;
+                        display        : inline-block;
                         // margin-right: 10px;
                     }
 
@@ -130,30 +130,30 @@
                     }
 
                     span.customer-type {
-                        color: #026CD1;
-                        font-size: 12px;
-                        background: #E2EDFA;
-                        padding: 2px 6px;
-                        border-radius: 20px;
-                        margin-left: 12px;
-                        vertical-align: middle;
+                        color            : #026CD1;
+                        font-size        : 12px;
+                        background       : #E2EDFA;
+                        padding          : 2px 6px;
+                        border-radius    : 20px;
+                        margin-left      : 12px;
+                        vertical-align   : middle;
                         // float         : right;
                     }
 
                     span.order-placed {
-                        color: #026CD1;
-                        font-size: 12px;
-                        background: #E2EDFA;
-                        padding: 2px 6px;
-                        border-radius: 20px;
-                        margin-left: 12px;
-                        vertical-align: middle;
+                        color            : #026CD1;
+                        font-size        : 12px;
+                        background       : #E2EDFA;
+                        padding          : 2px 6px;
+                        border-radius    : 20px;
+                        margin-left      : 12px;
+                        vertical-align   : middle;
                         // float         : right;
                     }
 
                     span.url {
                         text-decoration: underline;
-                        cursor: pointer;
+                        cursor         : pointer;
                     }
                 }
             }
@@ -162,9 +162,9 @@
 
 
         .header-summery-section {
-            margin-top: 10px;
+            margin-top   : 10px;
             margin-bottom: 10px;
-            padding: 0 20px 10px;
+            padding      : 0 20px 10px;
             border-bottom: 1px solid #E9F1FB;
 
             .header-summery-section-inner {
@@ -172,25 +172,25 @@
                     // display: table;
                     // width  : 100%;
                     // margin : 0 0 10px;
-                    padding: 4px 0;
+                    padding   : 4px 0;
                     // padding: 0;
-                    margin: 0;
+                    margin    : 0;
 
 
                     p {
-                        padding: 0;
+                        padding    : 0;
                         line-height: 1.7;
-                        margin: 0;
-                        font-size: 14px;
+                        margin     : 0;
+                        font-size  : 14px;
 
                         .url {
                             text-decoration: underline;
-                            cursor: pointer;
+                            cursor         : pointer;
                         }
 
                         span.jmi-lvl {
                             margin-right: 6px;
-                            display: inline-block;
+                            display     : inline-block;
                         }
 
                         span.jmi-lvl-value {
@@ -198,29 +198,29 @@
                         }
 
                         span.id.url {
-                            display: inline-block;
-                            width: 140px;
-                            white-space: nowrap;
-                            overflow: hidden !important;
-                            text-overflow: ellipsis;
+                            display       : inline-block;
+                            width         : 140px;
+                            white-space   : nowrap;
+                            overflow      : hidden !important;
+                            text-overflow : ellipsis;
                             vertical-align: middle;
                         }
 
                         span.address {
-                            display: inline-block;
-                            width: 140px;
-                            white-space: nowrap;
-                            overflow: hidden !important;
-                            text-overflow: ellipsis;
+                            display       : inline-block;
+                            width         : 140px;
+                            white-space   : nowrap;
+                            overflow      : hidden !important;
+                            text-overflow : ellipsis;
                             vertical-align: middle;
                         }
 
                         #expected-delivery-date {
-                            margin: 0;
-                            height: auto;
-                            font-size: 14px;
+                            margin       : 0;
+                            height       : auto;
+                            font-size    : 14px;
                             border-bottom: none;
-                            width: 140px;
+                            width        : 140px;
                         }
                     }
 
@@ -228,29 +228,29 @@
 
                     .sr {
                         .select-options {
-                            display: inline-block;
-                            width: 100%;
-                            float: left;
+                            display : inline-block;
+                            width   : 100%;
+                            float   : left;
                             position: relative;
 
                             span.right-icon {
                                 svg {
-                                    width: 10px;
-                                    height: 10px;
-                                    position: absolute;
-                                    right: 8px;
-                                    top: 6px;
-                                    color: #BFCFE2;
+                                    width    : 10px;
+                                    height   : 10px;
+                                    position : absolute;
+                                    right    : 8px;
+                                    top      : 6px;
+                                    color    : #BFCFE2;
                                     transform: rotate(90deg);
                                 }
                             }
 
                             select.selectpicker {
-                                display: block;
-                                height: 22px;
-                                padding: 1px 5px 1px 10px;
+                                display    : block;
+                                height     : 22px;
+                                padding    : 1px 5px 1px 10px;
                                 line-height: 1;
-                                border: 1px solid #BFCFE2;
+                                border     : 1px solid #BFCFE2;
 
                                 option {}
                             }
@@ -375,7 +375,7 @@
                     tr {
 
                         display: table;
-                        width: 100%;
+                        width  : 100%;
                     }
 
                     // Table Head
@@ -386,15 +386,15 @@
                             border-bottom: none;
 
                             th {
-                                color: #026CD1;
-                                font-size: 16px;
+                                color      : #026CD1;
+                                font-size  : 16px;
                                 font-weight: 500;
-                                width: 15%;
-                                text-align: center;
+                                width      : 15%;
+                                text-align : center;
                             }
 
                             th:first-child {
-                                width: 25%;
+                                width     : 25%;
                                 text-align: left;
                             }
 
@@ -410,11 +410,11 @@
 
                         // Table data rows should be scroll and in 300px height it shows 6/7 rows of data
                         .table-data-rows {
-                            width: 100%;
-                            display: list-item;
-                            height: 300px;
+                            width            : 100%;
+                            display          : list-item;
+                            height           : 300px;
                             /* 6 or 7 rows*/
-                            overflow: auto;
+                            overflow         : auto;
                             -webkit-flex-flow: row wrap;
 
                             &::-webkit-scrollbar {
@@ -422,12 +422,12 @@
                             }
 
                             &::-webkit-scrollbar-track {
-                                box-shadow: inset 0 0 5px grey;
+                                box-shadow   : inset 0 0 5px grey;
                                 border-radius: 10px;
                             }
 
                             &::-webkit-scrollbar-thumb {
-                                background: #168fff;
+                                background   : #168fff;
                                 border-radius: 10px;
                             }
 
@@ -440,13 +440,13 @@
                             border-bottom: none;
 
                             td {
-                                color: #222223;
-                                font-size: 14px;
-                                font-weight: 400;
-                                width: 15%;
-                                border-top: none;
-                                padding: 4px 10px;
-                                text-align: center;
+                                color         : #222223;
+                                font-size     : 14px;
+                                font-weight   : 400;
+                                width         : 15%;
+                                border-top    : none;
+                                padding       : 4px 10px;
+                                text-align    : center;
                                 vertical-align: middle;
                             }
 
@@ -454,14 +454,14 @@
                                 width: 25%;
 
                                 span {
-                                    display: block;
+                                    display   : block;
                                     text-align: left;
                                 }
 
                                 span:last-child {
-                                    font-size: 10px;
+                                    font-size : 10px;
                                     text-align: left;
-                                    color: #8e8e8e;
+                                    color     : #8e8e8e;
                                 }
                             }
 
@@ -502,30 +502,30 @@
                                 // Quantity Column
                                 td {
                                     span.quantity-setup {
-                                        border: 1px solid #026CD1;
-                                        padding: 2px 8px;
+                                        border       : 1px solid #026CD1;
+                                        padding      : 2px 8px;
                                         border-radius: 2px;
-                                        background: #FFFFFF;
+                                        background   : #FFFFFF;
 
                                         span.qty-increase {
-                                            display: inline-block;
-                                            color: #026CD1;
+                                            display  : inline-block;
+                                            color    : #026CD1;
                                             font-size: 16px;
-                                            cursor: pointer;
-                                            padding: 4px;
+                                            cursor   : pointer;
+                                            padding  : 4px;
                                         }
 
                                         span.qty {
                                             margin: 0 10px;
-                                            color: #026CD1;
+                                            color : #026CD1;
                                         }
 
                                         span.qty-decrease {
-                                            display: inline-block;
-                                            color: #AAC0D9;
+                                            display  : inline-block;
+                                            color    : #AAC0D9;
                                             font-size: 16px;
-                                            cursor: pointer;
-                                            padding: 4px;
+                                            cursor   : pointer;
+                                            padding  : 4px;
                                         }
                                     }
                                 }
@@ -534,23 +534,23 @@
                                 td.row-action {
 
                                     span {
-                                        display: inline-block;
-                                        background: #FFFFFF;
-                                        padding: 4px 8px;
+                                        display      : inline-block;
+                                        background   : #FFFFFF;
+                                        padding      : 4px 8px;
                                         border-radius: 50%;
-                                        margin: 0 10px;
-                                        cursor: pointer;
+                                        margin       : 0 10px;
+                                        cursor       : pointer;
 
                                         &:hover {
-                                            background: #FFFFFF;
-                                            padding: 4px 8px;
+                                            background   : #FFFFFF;
+                                            padding      : 4px 8px;
                                             border-radius: 50%;
                                         }
                                     }
 
                                     span.edit-icon {
                                         i {
-                                            color: #026CD1;
+                                            color    : #026CD1;
                                             font-size: 16px;
                                         }
                                     }
@@ -559,8 +559,8 @@
                                         cursor: pointer;
 
                                         svg {
-                                            color: #DF2A43;
-                                            width: 14px;
+                                            color : #DF2A43;
+                                            width : 14px;
                                             height: 14px;
                                         }
                                     }
@@ -571,10 +571,10 @@
                         tr#subtotal-section {
                             td {
                                 span {
-                                    display: block;
+                                    display   : block;
                                     text-align: right;
-                                    color: #111213;
-                                    font-size: 12px;
+                                    color     : #111213;
+                                    font-size : 12px;
                                 }
                             }
 
@@ -588,19 +588,19 @@
                                 span {
                                     margin-top: 10px;
                                     text-align: left;
-                                    font-size: 14px;
-                                    color: #026CD1;
-                                    cursor: pointer;
+                                    font-size : 14px;
+                                    color     : #026CD1;
+                                    cursor    : pointer;
 
                                     i {
-                                        font-size: 18px;
+                                        font-size   : 18px;
                                         margin-right: 6px;
                                     }
                                 }
 
                                 span:last-child {
                                     margin-top: 30px;
-                                    color: #8D979F;
+                                    color     : #8D979F;
 
                                     i {
                                         transform: rotate(40deg);
@@ -616,10 +616,10 @@
                         tr#grand-total-section {
                             td {
                                 span {
-                                    width: auto;
-                                    text-align: right;
-                                    color: #026CD1;
-                                    font-size: 14px;
+                                    width      : auto;
+                                    text-align : right;
+                                    color      : #026CD1;
+                                    font-size  : 14px;
                                     font-weight: 500;
                                 }
                             }
@@ -640,58 +640,58 @@
                 text-align: center;
 
                 span.cancel-order {
-                    font-size: 14px;
-                    color: #DF2A43;
-                    padding: 11px 29px 10px;
-                    border: 1px solid #DF2A43;
+                    font-size    : 14px;
+                    color        : #DF2A43;
+                    padding      : 11px 29px 10px;
+                    border       : 1px solid #DF2A43;
                     border-radius: 2px;
-                    cursor: pointer;
+                    cursor       : pointer;
                 }
 
                 span.proceed-order {
-                    margin-left: 40px;
-                    font-size: 14px;
-                    color: #FFFFFF;
-                    background: #026CD1;
-                    padding: 12px 26px 11px;
+                    margin-left  : 40px;
+                    font-size    : 14px;
+                    color        : #FFFFFF;
+                    background   : #026CD1;
+                    padding      : 12px 26px 11px;
                     border-radius: 2px;
-                    cursor: pointer;
+                    cursor       : pointer;
                 }
             }
         }
 
         .add-order-modal-section {
-            position: fixed;
-            left: calc((100vw / 2) - 200px);
-            z-index: 9999;
-            width: 100%;
-            height: 100%;
-            left: 0;
-            top: 0;
+            position        : fixed;
+            left            : calc((100vw / 2) - 200px);
+            z-index         : 9999;
+            width           : 100%;
+            height          : 100%;
+            left            : 0;
+            top             : 0;
             background-color: rgb(0 18 35 / 48%);
 
             .add-order-modal-section-inner {
-                padding: 20px;
-                text-align: center;
-                width: calc(100vw/2);
-                background: #FFFFFF;
-                position: absolute;
+                padding      : 20px;
+                text-align   : center;
+                width        : calc(100vw/2);
+                background   : #FFFFFF;
+                position     : absolute;
                 // top: calc((100vh / 2) - 300px);
-                left: calc((100vw / 2) - (100vw / 4));
-                opacity: 1;
-                z-index: 9999;
+                left         : calc((100vw / 2) - (100vw / 4));
+                opacity      : 1;
+                z-index      : 9999;
                 border-radius: 2px;
 
 
-                
 
-                
-                display: list-item;
+
+
+                display          : list-item;
                 // height: 300px;
-                top: calc((100vh / 2) - ((100vh / 1.5) / 2 ));
-                height: calc(100vh / 1.5);
+                top              : calc((100vh / 2) - ((100vh / 1.5) / 2));
+                height           : calc(100vh / 1.5);
                 /* 6 or 7 rows*/
-                overflow: auto;
+                overflow         : auto;
                 -webkit-flex-flow: row wrap;
 
                 &::-webkit-scrollbar {
@@ -699,12 +699,12 @@
                 }
 
                 &::-webkit-scrollbar-track {
-                    box-shadow: inset 0 0 5px grey;
+                    box-shadow   : inset 0 0 5px grey;
                     border-radius: 10px;
                 }
 
                 &::-webkit-scrollbar-thumb {
-                    background: #168fff;
+                    background   : #168fff;
                     border-radius: 10px;
                 }
 
@@ -717,60 +717,60 @@
 
                     .top-section-inner {
                         display: block;
-                        width: 100%;
+                        width  : 100%;
 
                         .logo {
-                            display: inline-block;
-                            width: 40px;
-                            margin-right: 14px;
+                            display       : inline-block;
+                            width         : 40px;
+                            margin-right  : 14px;
                             vertical-align: middle;
 
                             img {
-                                border: 1px solid #026CD1;
-                                width: 40px;
-                                height: 40px;
+                                border       : 1px solid #026CD1;
+                                width        : 40px;
+                                height       : 40px;
                                 border-radius: 50%;
                             }
                         }
 
                         .title-section {
-                            display: inline-block;
-                            width: 80%;
+                            display       : inline-block;
+                            width         : 80%;
                             vertical-align: middle;
 
                             p.name {
-                                margin: 0;
-                                font-size: 14px;
-                                font-weight: 500;
-                                color: #393535;
-                                line-height: 1;
+                                margin       : 0;
+                                font-size    : 14px;
+                                font-weight  : 500;
+                                color        : #393535;
+                                line-height  : 1;
                                 margin-bottom: 6px;
 
                                 span.tik-icon {
-                                    background: #026CD1;
-                                    border-radius: 50%;
-                                    line-height: 1;
-                                    width: 10px;
-                                    height: 10px;
-                                    display: inline-block;
-                                    position: relative;
+                                    background    : #026CD1;
+                                    border-radius : 50%;
+                                    line-height   : 1;
+                                    width         : 10px;
+                                    height        : 10px;
+                                    display       : inline-block;
+                                    position      : relative;
                                     vertical-align: middle;
-                                    margin-left: 6px;
+                                    margin-left   : 6px;
 
                                     i {
-                                        position: absolute;
-                                        top: 1px;
-                                        left: 2px;
-                                        color: #FFFFFF;
+                                        position : absolute;
+                                        top      : 1px;
+                                        left     : 2px;
+                                        color    : #FFFFFF;
                                         font-size: 8px;
                                     }
                                 }
                             }
 
                             p.id {
-                                margin: 0;
-                                font-size: 14px;
-                                color: #026CD1;
+                                margin     : 0;
+                                font-size  : 14px;
+                                color      : #026CD1;
                                 line-height: 1;
                             }
                         }
@@ -783,17 +783,17 @@
 
                     .input-autofield-show-section-inner {
                         .input-autofield {
-                            width: 80%;
-                            margin: 0 auto;
+                            width      : 80%;
+                            margin     : 0 auto;
                             margin-left: 54px;
 
                             input {
-                                box-sizing: border-box;
-                                border: 1px solid #AAC0D9;
+                                box-sizing   : border-box;
+                                border       : 1px solid #AAC0D9;
                                 border-radius: 4px;
-                                font-size: 16px;
-                                padding: 12px 14px;
-                                height: auto;
+                                font-size    : 16px;
+                                padding      : 12px 14px;
+                                height       : auto;
 
                                 &:focus {
                                     box-shadow: none;
@@ -802,25 +802,41 @@
                         }
 
                         .autofield-show-section {
-                            border: 1px solid #AAC0D9;
+                            border       : 1px solid #AAC0D9;
                             border-radius: 10px;
-                            margin-top: 20px;
+                            margin-top   : 20px;
 
                             .autofield-show-section-inner {
                                 .header {
                                     padding: 4px 10px;
 
+                                    input {
+                                        width        : 95%;
+                                        margin-top   : 6px;
+                                        margin-bottom: 20px;
+                                        box-sizing   : border-box;
+                                        border       : 1px solid #AAC0D9;
+                                        border-radius: 4px;
+                                        font-size    : 16px;
+                                        padding      : 12px 14px;
+                                        height       : auto;
+
+                                        &:focus {
+                                            box-shadow: none;
+                                        }
+                                    }
+
                                     .row {
-                                        padding: 6px 10px;
-                                        font-size: 16px;
-                                        color: #111213;
-                                        margin: 0;
-                                        text-align: center;
+                                        padding      : 6px 10px;
+                                        font-size    : 16px;
+                                        color        : #111213;
+                                        margin       : 0;
+                                        text-align   : center;
                                         border-bottom: 1px solid #E9F1FB;
-                                        font-weight: 500;
+                                        font-weight  : 500;
 
                                         span.name {
-                                            width: 40%;
+                                            width     : 40%;
                                             text-align: left;
                                         }
 
@@ -839,12 +855,12 @@
                                 }
 
                                 .response-body {
-                                    width: 100%;
-                                    display: list-item;
-                                    height: 130px;
-                                    margin-bottom: 6px;
+                                    width            : 100%;
+                                    display          : list-item;
+                                    height           : 130px;
+                                    margin-bottom    : 6px;
                                     /* 6 or 7 rows*/
-                                    overflow: auto;
+                                    overflow         : auto;
                                     -webkit-flex-flow: row wrap;
 
                                     &::-webkit-scrollbar {
@@ -852,12 +868,12 @@
                                     }
 
                                     &::-webkit-scrollbar-track {
-                                        box-shadow: inset 0 0 5px grey;
+                                        box-shadow   : inset 0 0 5px grey;
                                         border-radius: 10px;
                                     }
 
                                     &::-webkit-scrollbar-thumb {
-                                        background: #168fff;
+                                        background   : #168fff;
                                         border-radius: 10px;
                                     }
 
@@ -866,19 +882,19 @@
                                     }
 
                                     tr {
-                                        padding: 0px 10px;
-                                        display: table;
-                                        width: 100%;
+                                        padding      : 0px 10px;
+                                        display      : table;
+                                        width        : 100%;
                                         border-bottom: none;
 
                                         td {
-                                            color: #222223;
-                                            font-size: 14px;
-                                            font-weight: 400;
-                                            width: 20%;
-                                            border-top: none;
-                                            padding: 4px 10px;
-                                            text-align: center;
+                                            color         : #222223;
+                                            font-size     : 14px;
+                                            font-weight   : 400;
+                                            width         : 20%;
+                                            border-top    : none;
+                                            padding       : 4px 10px;
+                                            text-align    : center;
                                             vertical-align: middle;
                                         }
 
@@ -886,15 +902,15 @@
                                             width: 40%;
 
                                             span {
-                                                display: block;
-                                                text-align: left;
-                                                color: #026CD1;
+                                                display    : block;
+                                                text-align : left;
+                                                // color: #026CD1;
                                                 font-weight: 500;
                                             }
 
                                             span:last-child {
-                                                font-size: 10px;
-                                                text-align: left;
+                                                font-size  : 10px;
+                                                text-align : left;
                                                 font-weight: 400;
                                             }
                                         }
@@ -911,6 +927,14 @@
                                                     margin: 0 10px;
                                                 }
 
+                                                input.qty {
+                                                    font-size : 14px;
+                                                    width     : 40px;
+                                                    height    : auto;
+                                                    border    : none;
+                                                    text-align: center;
+                                                }
+
                                                 span.qty-decrease {
                                                     display: none;
                                                 }
@@ -923,13 +947,13 @@
 
                                             span {
                                                 display: none;
-                                                cursor: pointer;
+                                                cursor : pointer;
                                             }
                                         }
 
                                         &:hover {
-                                            background: #E2EDFA;
-                                            border-radius: 10px;
+                                            background      : #E2EDFA;
+                                            // border-radius: 2px;
 
                                             td:first-child {
 
@@ -943,29 +967,37 @@
                                                 color: #026CD1;
 
                                                 span.quantity-setup {
-                                                    border: 1px solid #026CD1;
-                                                    padding: 2px 8px;
+                                                    // border: 1px solid #026CD1;
+                                                    padding      : 2px 8px;
                                                     border-radius: 2px;
-                                                    background: #FFFFFF;
+                                                    // background: #FFFFFF;
 
                                                     span.qty-increase {
-                                                        display: inline-block;
-                                                        color: #026CD1;
+                                                        display  : inline-block;
+                                                        color    : #026CD1;
                                                         font-size: 16px;
-                                                        cursor: pointer;
-                                                        padding: 4px;
+                                                        cursor   : pointer;
+                                                        padding  : 4px;
                                                     }
 
                                                     span.qty {
                                                         margin: 0 10px;
                                                     }
 
+                                                    input.qty {
+                                                        font-size : 14px;
+                                                        width     : 40px;
+                                                        height    : auto;
+                                                        border    : none;
+                                                        text-align: center;
+                                                    }
+
                                                     span.qty-decrease {
-                                                        display: inline-block;
-                                                        color: #AAC0D9;
+                                                        display  : inline-block;
+                                                        color    : #AAC0D9;
                                                         font-size: 16px;
-                                                        cursor: pointer;
-                                                        padding: 4px;
+                                                        cursor   : pointer;
+                                                        padding  : 4px;
                                                     }
                                                 }
                                             }
@@ -974,13 +1006,13 @@
                                             td.row-action {
 
                                                 span {
-                                                    display: inline-block;
-                                                    font-size: 18px;
-                                                    color: #026CD1;
-                                                    background: #FFFFFF;
+                                                    display      : inline-block;
+                                                    font-size    : 18px;
+                                                    color        : #026CD1;
+                                                    background   : #FFFFFF;
                                                     border-radius: 50%;
-                                                    padding: 2px 6px;
-                                                    line-height: 1;
+                                                    padding      : 2px 6px;
+                                                    line-height  : 1;
                                                 }
                                             }
                                         }
@@ -992,17 +1024,17 @@
                 }
 
                 .ordered-product-list {
-                    margin-top: 20px;
+                    margin-top    : 20px;
                     padding-bottom: 6px;
-                    border-bottom: 1px solid #E9F1FB;
+                    border-bottom : 1px solid #E9F1FB;
 
                     .ordered-product-list-inner {
                         .selected-ordered-product {
-                            width: 100%;
-                            display: list-item;
-                            height: 220px;
+                            width            : 100%;
+                            display          : list-item;
+                            height           : 220px;
                             /* 6 or 7 rows*/
-                            overflow: auto;
+                            overflow         : auto;
                             -webkit-flex-flow: row wrap;
 
                             &::-webkit-scrollbar {
@@ -1010,12 +1042,12 @@
                             }
 
                             &::-webkit-scrollbar-track {
-                                box-shadow: inset 0 0 5px grey;
+                                box-shadow   : inset 0 0 5px grey;
                                 border-radius: 10px;
                             }
 
                             &::-webkit-scrollbar-thumb {
-                                background: #168fff;
+                                background   : #168fff;
                                 border-radius: 10px;
                             }
 
@@ -1023,20 +1055,49 @@
                                 background: #004e98;
                             }
 
+                            tr.header-row {
+                                border-bottom: 1px solid #E9F1FB;
+                                padding: 0;
+
+                                .jmi-title {
+                                    padding      : 6px 10px;
+                                    font-size    : 16px;
+                                    color        : #111213;
+                                    margin       : 0;
+                                    text-align   : center;
+                                    font-weight  : 500;
+                                }
+
+                                td:nth-child(2) {
+                                    width: 20%;
+                                }
+
+                                td:first-child {
+                                    width     : 40%;
+                                    text-align: left;
+
+                                    .jmi-title {
+                                        font-size    : 16px;
+                                        text-align   : left;
+                                        font-weight  : 500;
+                                    }
+                                }
+                            }
+
                             tr {
-                                padding: 0px 10px;
-                                display: table;
-                                width: 100%;
+                                padding      : 0px 10px;
+                                display      : table;
+                                width        : 100%;
                                 border-bottom: none;
 
                                 td {
-                                    color: #026CD1;
-                                    font-size: 14px;
-                                    font-weight: 400;
-                                    width: 20%;
-                                    border-top: none;
-                                    padding: 4px 10px;
-                                    text-align: center;
+                                    color         : #026CD1;
+                                    font-size     : 14px;
+                                    font-weight   : 400;
+                                    width         : 20%;
+                                    border-top    : none;
+                                    padding       : 4px 10px;
+                                    text-align    : center;
                                     vertical-align: middle;
                                 }
 
@@ -1044,25 +1105,58 @@
                                     width: 40%;
 
                                     span {
-                                        display: block;
-                                        text-align: left;
-                                        color: #026CD1;
+                                        display    : block;
+                                        text-align : left;
+                                        color      : #026CD1;
                                         font-weight: 500;
                                     }
 
                                     span:last-child {
-                                        font-size: 10px;
-                                        text-align: left;
+                                        font-size  : 10px;
+                                        text-align : left;
                                         font-weight: 400;
                                     }
                                 }
 
+
+
                                 // QUantity Column
+
                                 td {
+                                    color: #026CD1;
+
                                     span.quantity-setup {
+                                        border       : 1px solid #026CD1;
+                                        padding      : 2px 8px;
+                                        border-radius: 2px;
+                                        background   : #FFFFFF;
+
+                                        span.qty-increase {
+                                            display  : inline-block;
+                                            color    : #026CD1;
+                                            font-size: 16px;
+                                            cursor   : pointer;
+                                            padding  : 4px;
+                                        }
 
                                         span.qty {
                                             margin: 0 10px;
+                                        }
+
+                                        input.qty {
+                                            font-size : 14px;
+                                            width     : 40px;
+                                            height    : auto;
+                                            border    : none;
+                                            text-align: center;
+                                        }
+
+                                        span.qty-decrease {
+                                            display  : inline-block;
+                                            color    : #AAC0D9;
+                                            font-size: 16px;
+                                            cursor   : pointer;
+                                            padding  : 4px;
                                         }
                                     }
                                 }
@@ -1071,29 +1165,69 @@
                                 td.row-action {
 
                                     span {
-                                        display: inline-block;
-                                        background: #F5BFC6;
+                                        display      : inline-block;
+                                        background   : #F5BFC6;
                                         border-radius: 50%;
-                                        padding: 6px 7px;
-                                        line-height: 1;
-                                        cursor: pointer;
+                                        padding      : 6px 7px;
+                                        line-height  : 1;
+                                        cursor       : pointer;
 
                                         svg {
-                                            color: #DF2A43;
-                                            width: 12px;
+                                            color : #DF2A43;
+                                            width : 12px;
                                             height: 12px;
                                         }
                                     }
                                 }
 
                                 &:hover {
-                                    background: #E2EDFA;
+                                    background   : #E2EDFA;
                                     border-radius: 10px;
 
                                     td:first-child {
 
                                         span {
                                             color: #026CD1;
+                                        }
+                                    }
+
+                                    // QUantity Column
+                                    td {
+                                        color: #026CD1;
+
+                                        span.quantity-setup {
+                                            // border: 1px solid #026CD1;
+                                            padding      : 2px 8px;
+                                            border-radius: 2px;
+                                            // background: #FFFFFF;
+
+                                            span.qty-increase {
+                                                display  : inline-block;
+                                                color    : #026CD1;
+                                                font-size: 16px;
+                                                cursor   : pointer;
+                                                padding  : 4px;
+                                            }
+
+                                            span.qty {
+                                                margin: 0 10px;
+                                            }
+
+                                            input.qty {
+                                                font-size : 14px;
+                                                width     : 40px;
+                                                height    : auto;
+                                                border    : none;
+                                                text-align: center;
+                                            }
+
+                                            span.qty-decrease {
+                                                display  : inline-block;
+                                                color    : #AAC0D9;
+                                                font-size: 16px;
+                                                cursor   : pointer;
+                                                padding  : 4px;
+                                            }
                                         }
                                     }
                                 }
@@ -1107,25 +1241,25 @@
 
                     .submit-section-inner {
                         text-align: center;
-                        padding: 14px 0;
+                        padding   : 14px 0;
 
                         span.cancel-order {
-                            font-size: 14px;
-                            color: #DF2A43;
-                            padding: 9px 29px 8px;
-                            border: 1px solid #DF2A43;
+                            font-size    : 14px;
+                            color        : #DF2A43;
+                            padding      : 9px 29px 8px;
+                            border       : 1px solid #DF2A43;
                             border-radius: 2px;
-                            cursor: pointer;
+                            cursor       : pointer;
                         }
 
                         span.proceed-order {
-                            margin-left: 40px;
-                            font-size: 14px;
-                            color: #FFFFFF;
-                            background: #026CD1;
-                            padding: 10px 26px 9px;
+                            margin-left  : 40px;
+                            font-size    : 14px;
+                            color        : #FFFFFF;
+                            background   : #026CD1;
+                            padding      : 10px 26px 9px;
                             border-radius: 2px;
-                            cursor: pointer;
+                            cursor       : pointer;
                         }
                     }
                 }
@@ -1133,40 +1267,40 @@
         }
 
         .attachment-modal {
-            position: fixed;
-            left: calc((100vw / 2) - 200px);
+            position        : fixed;
+            left            : calc((100vw / 2) - 200px);
             // background   : #001223;
-            z-index: 9999;
-            width: 100%;
-            height: 100%;
-            left: 0;
-            top: 0;
+            z-index         : 9999;
+            width           : 100%;
+            height          : 100%;
+            left            : 0;
+            top             : 0;
             background-color: rgb(0 18 35 / 48%);
 
             .attachment-modal-inner {
-                padding: 40px 60px;
-                text-align: center;
-                width: 600px;
-                background: #FFFFFF;
-                position: absolute;
+                padding      : 40px 60px;
+                text-align   : center;
+                width        : 600px;
+                background   : #FFFFFF;
+                position     : absolute;
                 // top: calc((100vh / 2) - 175px);
-                left: calc((100vw / 2) - 300px);
-                opacity: 1;
-                z-index: 9999;
+                left         : calc((100vw / 2) - 300px);
+                opacity      : 1;
+                z-index      : 9999;
                 border-radius: 2px;
 
 
-                
 
-                
-                display: list-item;
+
+
+                display          : list-item;
                 // height: 300px;
-                top: calc((100vh / 2) - ((100vh / 1.5) / 2 ));
-                height: calc(100vh / 1.5);
-                min-height: 390px;
-                max-height: 400px;
+                top              : calc((100vh / 2) - ((100vh / 1.5) / 2));
+                height           : calc(100vh / 1.5);
+                min-height       : 390px;
+                max-height       : 400px;
                 /* 6 or 7 rows*/
-                overflow: auto;
+                overflow         : auto;
                 -webkit-flex-flow: row wrap;
 
                 &::-webkit-scrollbar {
@@ -1174,12 +1308,12 @@
                 }
 
                 &::-webkit-scrollbar-track {
-                    box-shadow: inset 0 0 5px grey;
+                    box-shadow   : inset 0 0 5px grey;
                     border-radius: 10px;
                 }
 
                 &::-webkit-scrollbar-thumb {
-                    background: #168fff;
+                    background   : #168fff;
                     border-radius: 10px;
                 }
 
@@ -1188,12 +1322,12 @@
                 }
 
                 p.title {
-                    margin: 0;
-                    font-size: 16px;
-                    color: #000000;
-                    line-height: 1;
-                    font-weight: 500;
-                    text-align: left;
+                    margin       : 0;
+                    font-size    : 16px;
+                    color        : #000000;
+                    line-height  : 1;
+                    font-weight  : 500;
+                    text-align   : left;
                     margin-bottom: 20px;
                 }
 
@@ -1201,13 +1335,13 @@
                     .file-input-section-inner {
                         .input-section {
                             input {
-                                border: 1px solid #026CD1;
-                                display: inline-block;
-                                padding: 6px 12px;
+                                border   : 1px solid #026CD1;
+                                display  : inline-block;
+                                padding  : 6px 12px;
                                 font-size: 16px;
-                                color: #026CD1;
-                                cursor: pointer;
-                                height: 40px;
+                                color    : #026CD1;
+                                cursor   : pointer;
+                                height   : 40px;
 
                                 &:focus {
                                     box-shadow: none;
@@ -1215,38 +1349,38 @@
                             }
 
                             span.submit-btn {
-                                font-size: 16px;
-                                color: #FFFFFF;
-                                background: #026CD1;
-                                padding: 10px 20px 11px;
-                                border-top-right-radius: 2px;
+                                font-size                 : 16px;
+                                color                     : #FFFFFF;
+                                background                : #026CD1;
+                                padding                   : 10px 20px 11px;
+                                border-top-right-radius   : 2px;
                                 border-bottom-right-radius: 2px;
-                                cursor: pointer;
+                                cursor                    : pointer;
                             }
                         }
 
                         p.input-type-informations {
-                            padding: 4px 0;
-                            margin: 10px 0 10px;
-                            font-size: 12px;
-                            color: #36454F;
+                            padding    : 4px 0;
+                            margin     : 10px 0 10px;
+                            font-size  : 12px;
+                            color      : #36454F;
                             line-height: 1;
                         }
                     }
                 }
 
                 .uploadeded-file-list {
-                    border-top: 1px solid #E9F1FB;
-                    margin-top: 10px;
+                    border-top : 1px solid #E9F1FB;
+                    margin-top : 10px;
                     padding-top: 10px;
 
                     .uploaded-file-list-inner {
-                        width: 100%;
-                        display: list-item;
-                        height: 170px;
-                        margin-bottom: 6px;
+                        width            : 100%;
+                        display          : list-item;
+                        height           : 170px;
+                        margin-bottom    : 6px;
                         /* 6 or 7 rows*/
-                        overflow: auto;
+                        overflow         : auto;
                         -webkit-flex-flow: row wrap;
 
                         &::-webkit-scrollbar {
@@ -1254,12 +1388,12 @@
                         }
 
                         &::-webkit-scrollbar-track {
-                            box-shadow: inset 0 0 5px grey;
+                            box-shadow   : inset 0 0 5px grey;
                             border-radius: 10px;
                         }
 
                         &::-webkit-scrollbar-thumb {
-                            background: #168fff;
+                            background   : #168fff;
                             border-radius: 10px;
                         }
 
@@ -1271,33 +1405,33 @@
                             margin: 6px 0;
 
                             .file-inner {
-                                display: block;
-                                width: 100%;
-                                padding: 6px 10px;
-                                background: #E2EDFA;
+                                display      : block;
+                                width        : 100%;
+                                padding      : 6px 10px;
+                                background   : #E2EDFA;
                                 border-radius: 2px;
 
                                 p.file-name {
-                                    display: inline-block;
-                                    width: 80%;
-                                    margin: 0;
-                                    font-size: 16px;
-                                    color: #026CD1;
-                                    line-height: 1;
-                                    text-align: left;
+                                    display       : inline-block;
+                                    width         : 80%;
+                                    margin        : 0;
+                                    font-size     : 16px;
+                                    color         : #026CD1;
+                                    line-height   : 1;
+                                    text-align    : left;
                                     vertical-align: middle;
                                 }
 
                                 .file-action {
-                                    display: inline-block;
-                                    width: 20%;
-                                    text-align: center;
+                                    display       : inline-block;
+                                    width         : 20%;
+                                    text-align    : center;
                                     vertical-align: middle;
 
                                     span {
-                                        display: inline-block;
+                                        display    : inline-block;
                                         line-height: 1;
-                                        margin: 0 10px;
+                                        margin     : 0 10px;
 
                                         i {}
                                     }
@@ -1306,7 +1440,7 @@
                                         cursor: pointer;
 
                                         i {
-                                            color: #026CD1;
+                                            color    : #026CD1;
                                             font-size: 18px;
                                         }
                                     }
@@ -1315,8 +1449,8 @@
                                         cursor: pointer;
 
                                         svg {
-                                            color: #DF2A43;
-                                            width: 16px;
+                                            color : #DF2A43;
+                                            width : 16px;
                                             height: 16px;
                                         }
                                     }
@@ -1358,13 +1492,14 @@
     }
 
     #create-order-details-section.create-order-details-section .create-order-details-section-inner .header-summery-section {
-        padding: 0 8px 10px;
+        padding  : 0 8px 10px;
         font-size: 16px;
     }
-    
+
     #create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table {
         margin-top: 10px;
     }
+
     #create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner {
         padding: 0;
     }
@@ -1394,7 +1529,7 @@
     }
 
     #create-order-details-section.create-order-details-section .create-order-details-section-inner .header-summery-section {
-        padding: 0 8px 10px;
+        padding  : 0 8px 10px;
         font-size: 14px;
     }
 
@@ -1414,9 +1549,11 @@
     #create-order-details-section.create-order-details-section .create-order-details-section-inner .header-summery-section .header-summery-section-inner .row .sr span {
         font-size: 12px !important;
     }
+
     #create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table {
         margin-top: 10px;
     }
+
     #create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner {
         padding: 0;
     }
@@ -1444,16 +1581,16 @@
 
     #create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody tr#grand-total-section td:first-child span {
         font-size: 10px;
-        margin: 0 4px;
-        width: 80px;
+        margin   : 0 4px;
+        width    : 80px;
     }
 
     #create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody tr:hover td span.quantity-setup {
         padding: 2px;
 
         span {
-            padding: 0 2px !important;
-            margin: 0 2px !important;
+            padding     : 0 2px !important;
+            margin      : 0 2px !important;
             // font-size: 12px !important;
 
             i {
@@ -1464,7 +1601,7 @@
 
     #create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody tr#grand-total-section td:first-child span.order-forward {
         margin-right: 0;
-        width: 80px;
+        width       : 80px;
 
         i {
             font-size: 10px;

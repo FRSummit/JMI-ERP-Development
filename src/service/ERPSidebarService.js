@@ -275,6 +275,17 @@ export default class PostService {
     })
   }
 
+  // CREATE ORDER
+  getSearchProductDataList_CreateOrderDetailsSection() {
+    let web_menu_url = '/api/web/search-product-data-list'
+    return axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
+
   //////////////////////////////////////////////////////////////////////////////////////////
 
   // Get Doctors Profile

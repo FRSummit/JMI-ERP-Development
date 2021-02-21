@@ -119,6 +119,9 @@
 </template>
 
 <script>
+import JMIFilter from '.././../../../../../functions/JMIFIlter'
+const jmiFilter = new JMIFilter()
+
 export default {
     data() {
         return {
@@ -329,19 +332,10 @@ export default {
             console.log(value.key)
             let input = document.getElementById("search-filter");
             let filter = input.value.toUpperCase();
-
             let list = document.querySelectorAll('.customer-section-list')
-            for (let i = 0; i < list.length; i++) {
-                let pera = list[i].querySelectorAll(".customer-id")[0];
-                if (pera) {
-                    let txtValue = pera.textContent || pera.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        list[i].style.display = "";
-                    } else {
-                        list[i].style.display = "none";
-                    }
-                }       
-            }
+            let txt_selector = "customer-id"
+
+            jmiFilter.searchById_LeftSidebar(filter, list, txt_selector)
         }
     }
 }

@@ -109,85 +109,13 @@
 <script>
 import ERPService from '../../../../../../service/ERPSidebarService'
 const service = new ERPService()
+import JMIFilter from '.././../../../../../functions/JMIFIlter'
+const jmiFilter = new JMIFilter()
 
 export default {
     props: [],
     data() {
         return {
-            customer_list: [
-            //     {
-            //         customer_id: "JMI-2231225",
-            //         customer_name: "New Bhai Bhai Pharmacy",
-            //         customer_type: "Credit",
-            //         customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
-            //     },
-            //     {
-            //         customer_id: "JMI-2231225",
-            //         customer_name: "New Bhai Bhai Pharmacy",
-            //         customer_type: "Credit",
-            //         customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
-            //     },
-            //     {
-            //         customer_id: "JMI-2231225",
-            //         customer_name: "New Bhai Bhai Pharmacy",
-            //         customer_type: "Credit",
-            //         customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
-            //     },
-            //     {
-            //         customer_id: "JMI-2231225",
-            //         customer_name: "New Bhai Bhai Pharmacy",
-            //         customer_type: "Credit",
-            //         customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
-            //     },
-            //     {
-            //         customer_id: "JMI-2231225",
-            //         customer_name: "New Bhai Bhai Pharmacy",
-            //         customer_type: "Credit",
-            //         customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
-            //     },
-            //     {
-            //         customer_id: "JMI-2231225",
-            //         customer_name: "New Bhai Bhai Pharmacy",
-            //         customer_type: "Credit",
-            //         customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
-            //     },
-            //     {
-            //         customer_id: "JMI-2231225",
-            //         customer_name: "New Bhai Bhai Pharmacy",
-            //         customer_type: "Credit",
-            //         customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
-            //     },
-            //     {
-            //         customer_id: "JMI-2231225",
-            //         customer_name: "New Bhai Bhai Pharmacy",
-            //         customer_type: "Credit",
-            //         customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
-            //     },
-            //     {
-            //         customer_id: "JMI-2231225",
-            //         customer_name: "New Bhai Bhai Pharmacy",
-            //         customer_type: "Credit",
-            //         customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
-            //     },
-            //     {
-            //         customer_id: "JMI-2231225",
-            //         customer_name: "New Bhai Bhai Pharmacy",
-            //         customer_type: "Credit",
-            //         customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
-            //     },
-            //     {
-            //         customer_id: "JMI-2231225",
-            //         customer_name: "New Bhai Bhai Pharmacy",
-            //         customer_type: "Credit",
-            //         customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
-            //     },
-            //     {
-            //         customer_id: "JMI-2231225 DDDD",
-            //         customer_name: "New Bhai Bhai Pharmacy",
-            //         customer_type: "Credit",
-            //         customer_address: "House:100, Road: 11,Block:C,Dhaka 1213",
-            //     },
-            ],
             radioSpanDefaultClass: 'active',
             radioSpanCustomClass: null,
             customer_sort_list: [
@@ -254,19 +182,10 @@ export default {
             console.log(value.key)
             let input = document.getElementById("search-filter");
             let filter = input.value.toUpperCase();
-
             let list = document.querySelectorAll('.customer-section-list')
-            for (let i = 0; i < list.length; i++) {
-                let pera = list[i].querySelectorAll(".customer-id")[0];
-                if (pera) {
-                    let txtValue = pera.textContent || pera.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        list[i].style.display = "";
-                    } else {
-                        list[i].style.display = "none";
-                    }
-                }       
-            }
+            let txt_selector = "customer-id"
+
+            jmiFilter.searchById_LeftSidebar(filter, list, txt_selector)
         },
         /*----------- Service implementation ------------*/
         async ALL_CUSTOMER_FOR_DEPOT__FROM_SERVICE() {

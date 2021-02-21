@@ -580,6 +580,19 @@
     /* font-weight: 500; */
 }
 
+.jmi-auto-filter-input {
+    box-sizing: border-box;
+    border: 1px solid #AAC0D9;
+    border-radius: 4px;
+    font-size: 16px;
+    padding: 12px 14px;
+    height: auto;
+}
+
+.jmi-auto-filter-input:focus {
+    box-shadow: none;
+}
+
 @media only screen and (max-width: 992px) {
     .tabs.mt-3 {
         display: block;

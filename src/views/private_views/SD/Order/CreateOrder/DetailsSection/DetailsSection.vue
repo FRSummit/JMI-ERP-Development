@@ -46,55 +46,6 @@
                     <div class="row">
                         <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="delivery-dt"><span class="jmi-lvl">Exp D D:</span> <span class="jmi-lvl-value"><input type="date" id="expected-delivery-date" placeholder="09/12/2020"/></span></p></div> -->
                     </div>
-
-
-
-
-                    <div class="row">
-                        <!-- <p class="customer-name">Customer: <span style="text-decoration: underline;">ABI Pharmacy and Diagnostic Center</span></p> -->
-                        <!-- <p class="current-outstanding">Current Outstanding: <span style="text-decoration: underline;">{{ customer_data ? customer_data.current_due !== null ? customer_data.current_due : "00" : "" }}</span></p> -->
-                        <!-- <p class="order-placed">Order Placed: <span>...</span></p> -->
-                        <!-- <p class="order-placed">Order Status: <span>Status</span></p> -->
-                        <!-- <p class="area">Area: <span>DHK0300-Dhanmondi</span></p> -->
-                    </div>
-                    <div class="row">
-                        <!-- <p class="area">Area: <span>DHK0300-Dhanmondi</span></p> -->
-                        <!-- <p class="territory">Territory: <span>{{ customer_data ? customer_data.customer_area_info.sales_force.get_sales_area.area_name : "" }}</span></p> -->
-                        <!-- <p class="address" style="width: 40%;">Address: <span>House:100, Road: 11,Block:C,Dhaka 1213</span></p> -->
-                        <!-- <div class="sr" style="display: table-cell; width: 33%; padding-right: 20px; padding-bottom: 0; vertical-align: middle;">
-                            <span style="display: inline-block; width: 15%; font-size: 14px; float: left; line-height:1; padding-top: 6px;">SR: </span>
-                            <div class="select-options" style="display: inline-block; width: 50%; min-width: 120px; font-size: 14px;">
-                                <span class="right-icon"
-                                    ><i class="fas fa-chevron-right"></i
-                                ></span>
-                                <select title="Pick a customer" class="selectpicker" v-model="on_change_SR_dropdown" @change="onChangeSRDropdown()">
-                                    <option v-for="(sr, m) in sr_list" :key="m">
-                                    {{ sr.name }}
-                                    </option>
-                                </select>
-                            </div>
-                        </div> -->
-                        <!-- <p class="delivery-dt">Exp D D: <span><input type="date" id="expected-delivery-date" placeholder="09/12/2020"/></span></p> -->
-                    </div>
-                    <div class="row">
-                        <!-- <p class="am">AM: <span>{{ customer_data ? customer_data.customer_area_info.sales_force.manager_info.name : "" }}</span></p> -->
-                        <!-- <p class="mio">MIO: <span>{{ customer_data ? customer_data.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info.name : "" }}</span></p> -->
-                        <!-- <div class="sr" style="display: table-cell; width: 25%; padding-right: 20px; padding-bottom: 0; vertical-align: middle;">
-                            <span style="display: inline-block; width: 15%; font-size: 14px; float: left; line-height:1; padding-top: 3px;">SR: </span>
-                            <div class="select-options" style="display: inline-block; width: 85%; font-size: 14px;">
-                                <span class="right-icon"
-                                    ><i class="fas fa-chevron-right"></i
-                                ></span>
-                                <select title="Pick a customer" class="selectpicker" v-model="on_change_SR_dropdown" @change="onChangeSRDropdown()">
-                                    <option v-for="(sr, m) in sr_list" :key="m">
-                                    {{ sr.name }}
-                                    </option>
-                                </select>
-                            </div>
-                        </div> -->
-                        <!-- <p class="delivery-dt" style="width: 25%;">Expected Delivery Date: <span>09/12/2020</span><i class="zmdi zmdi-calendar"></i></p> -->
-                        <!-- <p class="delivery-dt">Exp D D: <span><input type="date" id="expected-delivery-date" placeholder="09/12/2020"/></span></p> -->
-                    </div>
                 </div>
             </div>
             <!-- Order Table -->
@@ -109,21 +60,22 @@
                         </thead>
                         <tbody>
                             <div class="table-data-rows">
-                                <tr v-for="(data, i) in order_table_data" :key="i">
+                                <!-- <tr v-for="(data, i) in (order_table_modified_data.length > 0 ? order_table_modified_data : order_table_data)" :key="i"> -->
+                                <tr v-for="(data, i) in order_table_modified_data" :key="i">
                                     <td>
-                                        <span>{{ data.name }}</span>
-                                        <span>{{ data.stock }}</span>
+                                        <span>{{ data ? data.product_info.prod_name : "" }}</span>
+                                        <span>Product Code: {{ data ? data.prod_id : "" }}</span>
                                     </td>
-                                    <td>{{ data.unit_price }}</td>
+                                    <td>{{ data ? data.base_tp : "" }}</td>
                                     <td>
                                         <span class="quantity-setup">
-                                            <span class="qty-increase" @click="increaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-minus"></i></span>
-                                            <span class="qty">{{ data.quantity }}</span>
-                                            <span class="qty-decrease" @click="decreaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
+                                            <span class="qty-increase" @click="decreaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-minus"></i></span>
+                                            <span class="qty">{{ data ? data.quantity : "" }}</span>
+                                            <span class="qty-decrease" @click="increaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
                                         </span>
                                     </td>
-                                    <td>{{ data.bonus }}</td>
-                                    <td>{{ data.total_price }}</td>
+                                    <td>{{ data ? (data.bonus ? data.bonus : "No Bonus") : "No data" }}</td>
+                                    <td>{{ data ? (data.base_tp * data.quantity) : "" }}</td>
                                     <td class="row-action">
                                         <span class="edit-icon" @click="editOrderitemClickHandler(data, i)"><i class="zmdi zmdi-edit"></i></span>
                                         <span class="delete-icon" @click="deleteOrderitemClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
@@ -194,34 +146,26 @@
                     
                     <div class="input-autofield-show-section">
                         <div class="input-autofield-show-section-inner">
-                            <div class="input-autofield">
-                                <!-- <input type="text" placeholder="Search By Batch Number" /> -->
+                            <!-- <div class="input-autofield">
                                 <AdvancedSearch class="advanced-search" v-model="autocomplete_modal" :options="autocomplete_options" type="text" placeholder="Search By Batch Number"></AdvancedSearch>
-                            </div>
+                            </div> -->
                             <div class="autofield-show-section">
                                 <div class="autofield-show-section-inner">
                                     <div class="header">
-                                        <div class="row">
-                                            <span class="name">Name</span>
-                                            <span class="quantity">Quantity</span>
-                                            <span class="total-price">Total Price</span>
-                                            <span class="add-action"></span>
-                                        </div>
+                                        <input id="create-order-add-product" class="jmi-auto-filter-input" type="text" placeholder="Search By Batch Number" v-on:keyup="searchKeyUpAddProductHandler" />
                                     </div>
                                     <div class="response-body">
-                                        <tr v-for="(data, i) in auto_field_data" :key="i">
+                                        <tr class="responer-body-filter-output" v-for="(data, i) in auto_field_data" :key="i">
                                             <td>
-                                                <span>{{ data.name }}</span>
-                                                <span>{{ data.stock }}</span>
+                                                <span class="responer-body-filter-tag">{{ data ? data.product_info.prod_name : "" }}</span>
+                                                <span>Product Code: {{ data ? data.prod_id : "" }}</span>
                                             </td>
                                             <td>
                                                 <span class="quantity-setup">
-                                                    <span class="qty-increase" @click="increaseProductInAutofieldProductClickHandler(data, i)"><i class="zmdi zmdi-minus"></i></span>
-                                                    <span class="qty">{{ data.quantity }}</span>
-                                                    <span class="qty-decrease" @click="decreaseProductInAutofieldProductClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
+                                                    <span class="qty">{{ data ? data.base_tp : "" }}</span>
                                                 </span>
                                             </td>
-                                            <td>{{ data.total_price }}</td>
+                                            <td></td>
                                             <td class="row-action">
                                                 <span class="delete-icon" @click="addProductFromAutofieldResponseClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
                                             </td>
@@ -234,17 +178,29 @@
                     <div class="ordered-product-list">
                         <div class="ordered-product-list-inner">
                             <div class="selected-ordered-product">
+                                <tr class="header-row">
+                                    <td>
+                                        <span class="jmi-title">Name</span>
+                                    </td>
+                                    <td>
+                                        <span class="jmi-title">Quantity</span>
+                                    </td>
+                                    <td><span class="jmi-title">Price</span></td>
+                                    <td class="row-action"></td>
+                                </tr>
                                 <tr v-for="(data, i) in selected_auto_field_data" :key="i">
                                     <td>
-                                        <span>{{ data.name }}</span>
-                                        <span>{{ data.stock }}</span>
+                                        <span>{{  data ? data.product_info.prod_name : ""  }}</span>
+                                        <span>Product Code: {{ data ? data.prod_id : "" }}</span>
                                     </td>
                                     <td>
                                         <span class="quantity-setup">
-                                            <span class="qty">{{ data.quantity }}</span>
+                                            <span class="qty-increase" @click="decreaseProductInAutofieldProductClickHandler(data, i)"><i class="zmdi zmdi-minus"></i></span>
+                                            <input class="qty" type="text" placeholder="00" :value="data.quantity">
+                                            <span class="qty-decrease" @click="increaseProductInAutofieldProductClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
                                         </span>
                                     </td>
-                                    <td>{{ data.total_price }}</td>
+                                    <td>{{ data ? data.base_tp : "" }}</td>
                                     <td class="row-action">
                                         <span class="delete-icon" @click="removeAddedOrderedProductClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
                                     </td>
@@ -293,12 +249,16 @@
 </template>
 
 <script>
-import AdvancedSearch from 'vue-advanced-search'
+// import AdvancedSearch from 'vue-advanced-search'
+import JMIFilter from '.././../../../../../functions/JMIFIlter'
+const jmiFilter = new JMIFilter()
+import ERPService from '../../../../../../service/ERPSidebarService'
+const service = new ERPService()
 
 export default {
     props: ["customer_data"],
     components: {
-        AdvancedSearch 
+        // AdvancedSearch 
     },
     data() {
         return {
@@ -320,242 +280,43 @@ export default {
             order_table_header: ["Name", "Unit Price", "Quantity", "Bonus", "Total Price"],
             order_table_data: [
                 {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
+                    id: 1,
+                    prod_id: "1001",
+                    prod_class: "550",
+                    base_tp: "179.91",
+                    product_info: {
+                        id: 1001,
+                        prod_name: "Adarbi 40 Tab",
+                        prod_code: "ABT2"
+                    },
+                    prod_class_info: {
+                        id: 550,
+                        code_id: "53",
+                        element_name: "OTHERS"
+                    },
+                    quantity: 0
                 },
                 {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
+                    id: 1,
+                    prod_id: "1002",
+                    prod_class: "550",
+                    base_tp: "179.91",
+                    product_info: {
+                        id: 1001,
+                        prod_name: "Adarbi 40 Tab",
+                        prod_code: "ABT2"
+                    },
+                    prod_class_info: {
+                        id: 550,
+                        code_id: "53",
+                        element_name: "OTHERS"
+                    },
+                    quantity: 0
                 },
             ],
-            auto_field_data: [
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-            ],
-            selected_auto_field_data: [
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "200",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "200",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "200",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-            ],
+            order_table_modified_data: [],
+            auto_field_data: [],
+            selected_auto_field_data: [],
             attachment_list: [
                 {
                     name: "File Name Line Here.pdf"
@@ -595,10 +356,14 @@ export default {
         // Increase Table Row's Single Product/Order
         increaseOrderedItemClickHandler(data, index) {
             console.log(data + '    ' + index)
+            data.quantity++
         },
         // Decrease Table Row's Single Product/Order
         decreaseOrderedItemClickHandler(data, index) {
             console.log(data + '    ' + index)
+            if(data.quantity > 0) {
+                data.quantity--
+            }
         },
         // Edit Table Row's Single Product/Order
         editOrderitemClickHandler(data, index) {
@@ -615,6 +380,11 @@ export default {
                 this.add_order_modal = false
             } else {
                 this.add_order_modal = true
+                service.getSearchProductDataList_CreateOrderDetailsSection()
+                    .then(res => {
+                        console.log(res.data)
+                        this.auto_field_data = res.data.product_list
+                    })
             }
         },
         addAttachmentClickHandler() {
@@ -640,24 +410,58 @@ export default {
         // Increase Autofield Selected Ordered Product
         increaseProductInAutofieldProductClickHandler(data, index) {
             console.log('increase autofield selected product: ' + data + '    ' + index)
+            // if(data.quantity > 0) {
+                data.quantity++
+            // }
         },
         // Decrease Autofield Selected Ordered Product
         decreaseProductInAutofieldProductClickHandler(data, index) {
             console.log('decrease autofield selected product: ' + data + '    ' + index)
+            if(data.quantity > 0) {
+                data.quantity--
+            }
         },
         // Add Selected Ordered Product
         addProductFromAutofieldResponseClickHandler(data, index) {
             console.log('added ordered product from auto field: ' + data + '    ' + index)
+            let product = {
+                            id: 1,
+                            prod_id: "1001",
+                            prod_class: "550",
+                            base_tp: "179.91",
+                            product_info: {
+                                id: 1001,
+                                prod_name: "Adarbi 40 Tab",
+                                prod_code: "ABT2"
+                            },
+                            prod_class_info: {
+                                id: 550,
+                                code_id: "53",
+                                element_name: "OTHERS"
+                            },
+                            quantity: 0
+                        }
+            this.selected_auto_field_data.push(product)
         },
         // Remove Added Ordered Product
         removeAddedOrderedProductClickHandler(data, index) {
             console.log('remove added ordered product: ' + data + '    ' + index)
+            // this.selected_auto_field_data.push(data)
+            if(this.selected_auto_field_data.length > 0) {
+                for (let [i, tt] of this.selected_auto_field_data.entries()) {
+                    if (tt.prod_id === data.prod_id) {
+                        this.selected_auto_field_data.splice(i, 1);
+                    }
+                }
+            }
         },
         cancelOrderFromModalClickHandler() {
             this.add_order_modal = false
         },
         addItemsFromModalClickHandler() {
             console.log('add items from modal')
+            this.order_table_modified_data = this.selected_auto_field_data
+            this.add_order_modal = false
         },
         //------------------------------------------------------------------------------------------
         // Attachment Modal
@@ -672,6 +476,15 @@ export default {
         autocomplete(inp, arr) {
             console.log(inp)
             console.log(arr)
+        },
+        // Filter
+        searchKeyUpAddProductHandler() {
+            let input = document.getElementById("create-order-add-product");
+            let filter = input.value.toUpperCase();
+            let list = document.querySelectorAll('.responer-body-filter-output')
+            let txt_selector = "responer-body-filter-tag"
+
+            jmiFilter.searchById_LeftSidebar(filter, list, txt_selector)
         }
     }
 }
