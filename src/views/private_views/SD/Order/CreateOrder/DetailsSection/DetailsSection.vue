@@ -171,6 +171,9 @@
                                         <input id="create-order-add-product" class="jmi-auto-filter-input" type="text" placeholder="Search By Batch Number" v-on:keyup="searchKeyUpAddProductHandler" />
                                     </div>
                                     <div class="response-body">
+                                        <div id="progressbar" class="jmi-progressbar" v-if="!auto_field_data">
+                                            <v-progress-circular indeterminate color="primary"></v-progress-circular>
+                                        </div>
                                         <tr class="responer-body-filter-output" v-for="(data, i) in auto_field_data" :key="i">
                                             <td>
                                                 <!-- <span class="responer-body-filter-tag">{{ data ? data.product_info.prod_name : "" }}</span> -->
@@ -205,6 +208,9 @@
                                     <td><span class="jmi-title">Total Price</span></td>
                                     <td class="row-action"></td>
                                 </tr>
+                                <div id="progressbar" class="jmi-progressbar" v-if="!selected_auto_field_data">
+                                    <v-progress-circular indeterminate color="primary"></v-progress-circular>
+                                </div>
                                 <tr v-for="(data, i) in selected_auto_field_data" :key="i">
                                     <td>
                                         <!-- <span>{{  data ? data.product_info.prod_name : ""  }}</span> -->
@@ -214,7 +220,8 @@
                                     <td>
                                         <span class="quantity-setup">
                                             <span class="qty-increase" @click="decreaseProductInAutofieldProductClickHandler(data, i)"><i class="zmdi zmdi-minus"></i></span>
-                                            <input class="qty" type="number" placeholder="00" :value="data.quantity" v-on:keyup="quantityKeyUp_modal">
+                                            <input :id="'order-add-modal-qty-' + i" class="qty" type="number" placeholder="00" :value="data.quantity ? data.quantity : 0" v-on:keyup="quantityKeyUp_modal($event, i)">
+                                            <!-- <input class="qty" type="number" placeholder="00" v-model="add_order_modal_data_quantity" v-on:keyup="quantityKeyUp_modal(data.quantity)"> -->
                                             <span class="qty-decrease" @click="increaseProductInAutofieldProductClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
                                         </span>
                                     </td>
@@ -330,6 +337,7 @@ export default {
                 },
             ],
             add_order_modal: false,
+            add_order_modal_data_quantity: 0,
             attachment_modal: false,
 
             autocomplete_modal: null,
@@ -452,9 +460,10 @@ export default {
         },
         // 
         // Increase or decrease quantity
-        quantityKeyUp_modal(value) {
+        quantityKeyUp_modal(value, i) {
             console.log(value.key)
-            console.log(value.key)
+            let selector = document.querySelector('#order-add-modal-qty-' + i)
+            console.log(selector)
         },
         // Add Selected Ordered Product
         addProductFromAutofieldResponseClickHandler(data, index) {
@@ -507,7 +516,7 @@ export default {
             for(let i=0; i<this.selected_auto_field_data.length; i++) {
                 let prod_obj = {
                     prod_id: this.selected_auto_field_data[i].prod_id,
-                    quantity: this.selected_auto_field_data[i].quantity
+                    quantity: this.selected_auto_field_data[i].quantity ? this.selected_auto_field_data[i].quantity : 0
                 }
                 prod_db_list.push(prod_obj)
             }
