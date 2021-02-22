@@ -658,33 +658,33 @@
                     margin-top: 20px;
 
                     .input-autofield-show-section-inner {
-                        .input-autofield {
-                            width: 80%;
-                            margin: 0 auto;
-                            margin-left: 54px;
+                        // .input-autofield {
+                        //     width: 80%;
+                        //     margin: 0 auto;
+                        //     margin-left: 54px;
 
-                            input {
-                                box-sizing: border-box;
-                                border: 1px solid #AAC0D9;
-                                border-radius: 4px;
-                                font-size: 16px;
-                                padding: 12px 14px;
-                                height: auto;
+                        //     input {
+                        //         box-sizing: border-box;
+                        //         border: 1px solid #AAC0D9;
+                        //         border-radius: 4px;
+                        //         font-size: 16px;
+                        //         padding: 12px 14px;
+                        //         height: auto;
 
-                                &:focus {
-                                    box-shadow: none;
-                                }
-                            }
+                        //         &:focus {
+                        //             box-shadow: none;
+                        //         }
+                        //     }
 
-                            .advanced-search {
-                                box-sizing: border-box;
-                                border: 1px solid #AAC0D9;
-                                border-radius: 4px;
-                                font-size: 16px;
-                                padding: 0px 14px;
-                                height: 44px;
-                            }
-                        }
+                        //     .advanced-search {
+                        //         box-sizing: border-box;
+                        //         border: 1px solid #AAC0D9;
+                        //         border-radius: 4px;
+                        //         font-size: 16px;
+                        //         padding: 0px 14px;
+                        //         height: 44px;
+                        //     }
+                        // }
 
                         .autofield-show-section {
                             border: 1px solid #AAC0D9;
@@ -695,32 +695,48 @@
                                 .header {
                                     padding: 4px 10px;
 
-                                    .row {
-                                        padding: 6px 10px;
-                                        font-size: 16px;
-                                        color: #111213;
-                                        margin: 0;
-                                        text-align: center;
-                                        border-bottom: 1px solid #E9F1FB;
-                                        font-weight: 500;
+                                    input {
+                                        width        : 95%;
+                                        margin-top   : 6px;
+                                        margin-bottom: 20px;
+                                        box-sizing   : border-box;
+                                        border       : 1px solid #AAC0D9;
+                                        border-radius: 4px;
+                                        font-size    : 16px;
+                                        padding      : 12px 14px;
+                                        height       : auto;
 
-                                        span.name {
-                                            width: 40%;
-                                            text-align: left;
-                                        }
-
-                                        span.quantity {
-                                            width: 20%;
-                                        }
-
-                                        span.total-price {
-                                            width: 20%;
-                                        }
-
-                                        span.add-action {
-                                            width: 20%;
+                                        &:focus {
+                                            box-shadow: none;
                                         }
                                     }
+
+                                    // .row {
+                                    //     padding: 6px 10px;
+                                    //     font-size: 16px;
+                                    //     color: #111213;
+                                    //     margin: 0;
+                                    //     text-align: center;
+                                    //     border-bottom: 1px solid #E9F1FB;
+                                    //     font-weight: 500;
+
+                                    //     span.name {
+                                    //         width: 40%;
+                                    //         text-align: left;
+                                    //     }
+
+                                    //     span.quantity {
+                                    //         width: 20%;
+                                    //     }
+
+                                    //     span.total-price {
+                                    //         width: 20%;
+                                    //     }
+
+                                    //     span.add-action {
+                                    //         width: 20%;
+                                    //     }
+                                    // }
                                 }
 
                                 .response-body {
@@ -751,19 +767,19 @@
                                     }
 
                                     tr {
-                                        padding: 0px 10px;
-                                        display: table;
-                                        width: 100%;
+                                        padding      : 0px 10px;
+                                        display      : table;
+                                        width        : 100%;
                                         border-bottom: none;
 
                                         td {
-                                            color: #222223;
-                                            font-size: 14px;
-                                            font-weight: 400;
-                                            width: 20%;
-                                            border-top: none;
-                                            padding: 4px 10px;
-                                            text-align: center;
+                                            color         : #222223;
+                                            font-size     : 14px;
+                                            font-weight   : 400;
+                                            width         : 20%;
+                                            border-top    : none;
+                                            padding       : 4px 10px;
+                                            text-align    : center;
                                             vertical-align: middle;
                                         }
 
@@ -771,15 +787,15 @@
                                             width: 40%;
 
                                             span {
-                                                display: block;
-                                                text-align: left;
-                                                color: #026CD1;
+                                                display    : block;
+                                                text-align : left;
+                                                // color: #026CD1;
                                                 font-weight: 500;
                                             }
 
                                             span:last-child {
-                                                font-size: 10px;
-                                                text-align: left;
+                                                font-size  : 10px;
+                                                text-align : left;
                                                 font-weight: 400;
                                             }
                                         }
@@ -796,6 +812,14 @@
                                                     margin: 0 10px;
                                                 }
 
+                                                // input.qty {
+                                                //     font-size : 14px;
+                                                //     width     : 40px;
+                                                //     height    : auto;
+                                                //     border    : none;
+                                                //     text-align: center;
+                                                // }
+
                                                 span.qty-decrease {
                                                     display: none;
                                                 }
@@ -808,13 +832,13 @@
 
                                             span {
                                                 display: none;
-                                                cursor: pointer;
+                                                cursor : pointer;
                                             }
                                         }
 
                                         &:hover {
-                                            background: #E2EDFA;
-                                            border-radius: 10px;
+                                            background      : #E2EDFA;
+                                            // border-radius: 2px;
 
                                             td:first-child {
 
@@ -828,29 +852,37 @@
                                                 color: #026CD1;
 
                                                 span.quantity-setup {
-                                                    border: 1px solid #026CD1;
-                                                    padding: 2px 8px;
+                                                    // border: 1px solid #026CD1;
+                                                    padding      : 2px 8px;
                                                     border-radius: 2px;
-                                                    background: #FFFFFF;
+                                                    // background: #FFFFFF;
 
                                                     span.qty-increase {
-                                                        display: inline-block;
-                                                        color: #026CD1;
+                                                        display  : inline-block;
+                                                        color    : #026CD1;
                                                         font-size: 16px;
-                                                        cursor: pointer;
-                                                        padding: 4px;
+                                                        cursor   : pointer;
+                                                        padding  : 4px;
                                                     }
 
                                                     span.qty {
                                                         margin: 0 10px;
                                                     }
 
+                                                    input.qty {
+                                                        font-size : 14px;
+                                                        width     : 40px;
+                                                        height    : auto;
+                                                        border    : none;
+                                                        text-align: center;
+                                                    }
+
                                                     span.qty-decrease {
-                                                        display: inline-block;
-                                                        color: #AAC0D9;
+                                                        display  : inline-block;
+                                                        color    : #AAC0D9;
                                                         font-size: 16px;
-                                                        cursor: pointer;
-                                                        padding: 4px;
+                                                        cursor   : pointer;
+                                                        padding  : 4px;
                                                     }
                                                 }
                                             }
@@ -859,13 +891,13 @@
                                             td.row-action {
 
                                                 span {
-                                                    display: inline-block;
-                                                    font-size: 18px;
-                                                    color: #026CD1;
-                                                    background: #FFFFFF;
+                                                    display      : inline-block;
+                                                    font-size    : 18px;
+                                                    color        : #026CD1;
+                                                    background   : #FFFFFF;
                                                     border-radius: 50%;
-                                                    padding: 2px 6px;
-                                                    line-height: 1;
+                                                    padding      : 2px 6px;
+                                                    line-height  : 1;
                                                 }
                                             }
                                         }
@@ -908,6 +940,35 @@
                                 background: #004e98;
                             }
 
+                            tr.header-row {
+                                border-bottom: 1px solid #E9F1FB;
+                                padding: 0;
+
+                                .jmi-title {
+                                    padding      : 6px 10px;
+                                    font-size    : 16px;
+                                    color        : #111213;
+                                    margin       : 0;
+                                    text-align   : center;
+                                    font-weight  : 500;
+                                }
+
+                                td:nth-child(2) {
+                                    width: 20%;
+                                }
+
+                                td:first-child {
+                                    width     : 40%;
+                                    text-align: left;
+
+                                    .jmi-title {
+                                        font-size    : 16px;
+                                        text-align   : left;
+                                        font-weight  : 500;
+                                    }
+                                }
+                            }
+
                             tr {
                                 padding: 0px 10px;
                                 display: table;
@@ -942,12 +1003,45 @@
                                     }
                                 }
 
+
+
                                 // QUantity Column
+
                                 td {
+                                    color: #026CD1;
+
                                     span.quantity-setup {
+                                        border       : 1px solid #026CD1;
+                                        padding      : 2px 8px;
+                                        border-radius: 2px;
+                                        background   : #FFFFFF;
+
+                                        span.qty-increase {
+                                            display  : inline-block;
+                                            color    : #026CD1;
+                                            font-size: 16px;
+                                            cursor   : pointer;
+                                            padding  : 4px;
+                                        }
 
                                         span.qty {
                                             margin: 0 10px;
+                                        }
+
+                                        input.qty {
+                                            font-size : 14px;
+                                            width     : 40px;
+                                            height    : auto;
+                                            border    : none;
+                                            text-align: center;
+                                        }
+
+                                        span.qty-decrease {
+                                            display  : inline-block;
+                                            color    : #AAC0D9;
+                                            font-size: 16px;
+                                            cursor   : pointer;
+                                            padding  : 4px;
                                         }
                                     }
                                 }

@@ -593,6 +593,17 @@
     box-shadow: none;
 }
 
+.jmi-no-underline {
+    text-decoration: none;
+}
+
+.progressbar,
+.jmi-progressbar {
+    text-align: center;
+    margin    : 40px 0;
+    color     : #026cd1;
+}
+
 @media only screen and (max-width: 992px) {
     .tabs.mt-3 {
         display: block;

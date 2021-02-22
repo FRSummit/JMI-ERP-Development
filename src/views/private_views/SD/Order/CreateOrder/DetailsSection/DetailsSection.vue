@@ -1,6 +1,9 @@
 <template>
     <div id="create-order-details-section" class="create-order-details-section">
-        <div class="create-order-details-section-inner">
+        <div id="progressbar" class="jmi-progressbar" v-if="!customer_data">
+            <v-progress-circular indeterminate color="primary"></v-progress-circular>
+        </div>
+        <div class="create-order-details-section-inner" v-if="customer_data">
             <div class="title-section">
                 <div class="row">
                     <div class="col-lg-4 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer ID:</span><span class="id">{{ customer_data ? customer_data.customer_id : ""}}</span><span class="customer-type">{{ customer_data ? customer_data.credit_flag === "Y" ? "Credit" : "Debit" : "No Customer" }}</span></p></div>
@@ -16,7 +19,7 @@
 
 
                     <div class="row">
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Current Outstanding:</span><span class="jmi-lvl-value url">{{ customer_data ? customer_data.current_due !== null ? customer_data.current_due : "00" : "" }}</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Current Outstanding:</span><span class="jmi-lvl-value url jmi-no-underline">{{ customer_data ? customer_data.current_due !== null ? customer_data.current_due : "00" : "" }}</span></p></div>
                         <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Order Placed:</span> <span class="jmi-lvl-value">-- Dev. No Data ---</span></p></div>
                         <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Status:</span> <span class="jmi-lvl-value">Pending</span></p></div> -->
                         <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title">Area: <span class="jmi-lvl-value">-- Dev. No Data ---</span></p></div>
@@ -28,17 +31,25 @@
                         <div class="col-lg-3 col-md-6 col-sm-6"><p class="mio">MIO: <span class="jmi-lvl-value">{{ customer_data ? customer_data.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info.name : "" }}</span></p></div>
                         <div class="col-lg-3 col-md-6 col-sm-6">
                             <div class="sr" style="display: table-cell; width: 33%; padding-right: 20px; padding-bottom: 0; vertical-align: middle;">
-                                <span style="display: inline-block; width: 15%; font-size: 14px; float: left; line-height:1; padding-top: 6px;">SR: </span>
-                                <div class="select-options" style="display: inline-block; width: 50%; min-width: 120px; font-size: 14px;">
-                                    <span class="right-icon"
-                                        ><i class="fas fa-chevron-right"></i
-                                    ></span>
+                                <span class="jmi-lvl">SR: </span>
+                                <!-- <div class="select-options" style="display: inline-block; width: 50%; min-width: 120px; font-size: 14px;">
+                                    <span class="right-icon"><i class="fas fa-chevron-right"></i></span>
                                     <select title="Pick a customer" class="selectpicker" v-model="on_change_SR_dropdown" @change="onChangeSRDropdown()">
-                                        <option v-for="(sr, m) in sr_list" :key="m">
-                                        {{ sr.name }}
-                                        </option>
+                                        <option v-for="(sr, m) in sr_list" :key="m"><span>{{ sr.name }}</span></option>
                                     </select>
-                                </div>
+                                </div> -->
+                                <p class="selectpicker-pera"> 
+                                    <span class="jmi-lvl-value">{{ selected_sr }}</span>
+                                    <span class="sr-add-icon" @click="srAddIconClickHandler"><i class="zmdi zmdi-plus"></i></span>
+                                    <span class="sr-modal" v-if="sr_add_modal">
+                                        <span class="sr-modal-inner" v-click-outside="srModalSectionOutsideClick">
+                                            <span class="jmi-title">Select SR</span>
+                                            <span class="sr-loop" v-for="(sr, m) in sr_list" :key="m">
+                                                <span  class="sr-name" @click="selectedSRClickHandler(sr.name)">{{ sr.name }}</span>
+                                            </span>
+                                        </span>
+                                    </span>
+                                </p>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6"><p class="delivery-dt"><span class="jmi-lvl">Exp D D:</span> <span class="jmi-lvl-value"><input type="date" id="expected-delivery-date" placeholder="09/12/2020"/></span></p></div>
@@ -59,7 +70,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <div class="table-data-rows">
+                            <div id="progressbar" class="jmi-progressbar" v-if="!order_table_data">
+                                <v-progress-circular indeterminate color="primary"></v-progress-circular>
+                            </div>
+                            <div class="table-data-rows" v-if="order_table_data">
                                 <!-- <tr v-for="(data, i) in (order_table_modified_data.length > 0 ? order_table_modified_data : order_table_data)" :key="i"> -->
                                 <!-- <tr v-for="(data, i) in order_table_modified_data" :key="i"> -->
                                 <tr v-for="(data, i) in order_table_data" :key="i">
@@ -85,7 +99,7 @@
                                 </tr>
                             </div>
                             <!-- Bottom Total Section -->
-                            <tr id="subtotal-section" class="subtotal-section" style="border-top   : 1px solid #BFCFE2;">
+                            <tr id="subtotal-section" class="subtotal-section" style="border-top: 1px solid #BFCFE2;">
                                 <td>
                                     <span class="add-order-section" @click="addOrderClickHandler"><i class="zmdi zmdi-plus"></i>Add Products</span>
                                     <span class="attachment-section" @click="addAttachmentClickHandler"><i class="zmdi zmdi-attachment-alt"></i>Attachment</span>
@@ -100,7 +114,6 @@
                                     <span class="atjustment" style="width: 142px; float: right;">(+/-) Rounding Adjustment</span>
                                 </td>
                                 <td>
-                                    <!-- <span class="subtotal">13,032.20</span> -->
                                     <span class="subtotal">{{ sub_total.toFixed(2) }}</span>
                                     <span class="vat">{{ vat.toFixed(2) }}</span>
                                     <span class="discount">{{ discount.toFixed(2) }}</span>
@@ -109,7 +122,7 @@
                                 </td>
                                 <td></td>
                             </tr>
-                            <tr id="grand-total-section" class="grand-total-section" style="border-top   : 1px solid #BFCFE2;">
+                            <tr id="grand-total-section" class="grand-total-section" style="border-top: 1px solid #BFCFE2;">
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -201,7 +214,7 @@
                                     <td>
                                         <span class="quantity-setup">
                                             <span class="qty-increase" @click="decreaseProductInAutofieldProductClickHandler(data, i)"><i class="zmdi zmdi-minus"></i></span>
-                                            <input class="qty" type="text" placeholder="00" :value="data.quantity">
+                                            <input class="qty" type="number" placeholder="00" :value="data.quantity" v-on:keyup="quantityKeyUp_modal">
                                             <span class="qty-decrease" @click="increaseProductInAutofieldProductClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
                                         </span>
                                     </td>
@@ -269,6 +282,8 @@ export default {
         return {
             on_change_SR_dropdown: null,
             sr_list: [],
+            sr_add_modal: false,
+            selected_sr: null,
             order_table_header: ["Name", "Unit Price", "Quantity", "Bonus", "Total Price"],
             order_table_data: [
                 {
@@ -337,6 +352,20 @@ export default {
     methods: {
         onChangeSRDropdown() {
             console.log(this.on_change_SR_dropdown)
+        },
+        srAddIconClickHandler() {
+            if(this.sr_add_modal) {
+                this.sr_add_modal = false
+            } else {
+                this.sr_add_modal = true
+            }
+        },
+        srModalSectionOutsideClick() {
+            this.sr_add_modal = false
+        },
+        selectedSRClickHandler(value) {
+            this.selected_sr = value
+            this.sr_add_modal = false
         },
         //------------------------------------------------------------------------------------------
         // Table List Actions
@@ -421,6 +450,12 @@ export default {
                 data.quantity--
             }
         },
+        // 
+        // Increase or decrease quantity
+        quantityKeyUp_modal(value) {
+            console.log(value.key)
+            console.log(value.key)
+        },
         // Add Selected Ordered Product
         addProductFromAutofieldResponseClickHandler(data, index) {
             console.log('added ordered product from auto field: ' + data + '    ' + index)
@@ -433,7 +468,7 @@ export default {
                             prod_code: data.prod_code,
                             code_id: data.code_id,
                             element_name: data.element_name,
-                            quantity: 0
+                            quantity: null
                         }
             this.selected_auto_field_data.push(product)
             // Remove this product from all product list
