@@ -110,7 +110,7 @@
                                 </td>
                                 <td></td>
                                 <td></td>
-                                <td>
+                                <td style="text-align: right;">
                                     <span class="grand-total">Grand Total</span>
                                 </td>
                                 <td>
