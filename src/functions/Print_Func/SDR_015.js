@@ -10,22 +10,64 @@ export default class SDR_015 {
                             +               this.addStylePrint_3()
                             +         '</style>'
                             +     '</head>'
-                            +     '<body>'
-                            +         this.create_summery_section_data()
-                            +         '<table>'
-                            +             '<thead>'
-                            +                 this.create_table_head_data()
-                            +             '</thead>'
-                            +             '<tbody>'
-                            +                 this.create_table_body_data(data)
-                            +                 this.create_subtotal_data()
-                            +                 this.create_gross_TP_data()
-                            +                 this.create_discount_data()
-                            +                 this.create_vat_data()
-                            +                 this.create_rounding_adjustment_data()
-                            +                 this.create_net_payable_data()
-                            +             '</tbody>'
-                            +         '</table>'
+                            // +     '<body style="margin: 30px 0px 30px 0px">'
+                            +     '<body style="font-family: sans-serif;">'
+                            // +         '<div class="print-header-section" style="position: fixed; top: 0; height: 60px;">'
+                            // +             '<p style="margin: 0;">Header Section</p>'
+                            // +             '<p style="margin: 0;">Header Section</p>'
+                            // +             '<p style="margin: 0;">Header Section</p>'
+                            // +         '</div>'
+                            // +         this.create_header()
+                            // +         '<div class="print-section" style="position: sticky; top: 60px; bottom: 60px; height: 60px;">'
+                            +         '<div class="print-section" style="">'
+                            +             '<div class="print-section-inner">'
+                            +                 this.create_summery_section_data()
+                            // +                 '<table style="width: 100%; height: 80vh; table-layout: fixed; margin-top: 10vh;">'
+                            // +                 '<table style="width: 100%; height: 80vh; table-layout: fixed;">'
+                            +                 '<table style="">'
+                            +                     '<thead>'
+                            +                         this.create_table_head_data()
+                            +                     '</thead>'
+                            +                     '<tbody>'
+                            +                         this.create_table_body_data(data)
+                            +                         this.create_subtotal_data()
+                            +                         this.create_gross_TP_data()
+                            +                         this.create_discount_data()
+                            +                         this.create_vat_data()
+                            +                         this.create_rounding_adjustment_data()
+                            +                         this.create_net_payable_data()
+                            +                     '</tbody>'
+                            +                 '</table>'
+                            +                 '<div class="status-section" style=" margin-top: 60px;">'
+                            +                     '<table style="width: 50%; margin-left: 10%;">'
+                            +                         '<tr>'
+                            +                             '<td colspan="4"><p style="text-align: left; font-size: 16px; font-weight: 500;">Present Credit Status:</p></td>'
+                            +                         '</tr>'
+                            +                         '<tr  style="border-bottom: 1px solid #000000;">'
+                            +                             '<td>Invoice No</td>'
+                            +                             '<td>Inv Date</td>'
+                            +                             '<td>Pay Mode</td>'
+                            +                             '<td>Outstanding</td>'
+                            +                         '</tr>'
+                            +                         '<tr>'
+                            +                             '<td>DHK012030651</td>'
+                            +                             '<td>31/01/2020</td>'
+                            +                             '<td>CREDIT</td>'
+                            +                             '<td>176,088.00</td>'
+                            +                         '</tr>'
+                            +                     '</table>'
+                            +                 '</div>'
+                            +                 '<div class="signature-section" style="float: right; page-break-after: auto; margin-top: 60px;">'
+                            +                     '<p style="margin: 0; text-align: center;"><span style="border-bottom: 1px solid #000000; width: 300px; display: block;">AZAHER</span><span style="width: 300px; display: block;">For NIPRO JMI Pharma Ltd.</span></p>'
+                            +                 '</div>'
+                            +             '</div>'
+                            +         '</div>'
+                            // +         '<div class="print-footer-section" style="position: fixed; bottom: 0; height: 60px;">'
+                            // +             '<p style="margin: 0;">Footer Section</p>'
+                            // +             '<p style="margin: 0;">Footer Section</p>'
+                            // +             '<p style="margin: 0;">Footer Section</p>'
+                            // +         '</div>'
+                            // +         this.create_footer()
                 )
 
         mywindow.document.write('</body></html>');
@@ -40,25 +82,46 @@ export default class SDR_015 {
     addStylePrint_3() {
         let style = ''
         style += ''
-            //   + '@page {'
-            //   +     'size: 7in 9.25in;'
-            //   +     'margin: 27mm 16mm 27mm 16mm;'
-            //   + '}'
+              + '@page {'
+              +     'size: 8.5in 11in;'
+              // +     'margin: 35mm 0mm 35mm 0mm; border: 1px solid #000000'
+              + '}'
+              // + '@page:last {'
+              // +     '.footer {'
+              // +         'position: fixed;'
+              // +         'bottom: 0;'
+              // +     '}'
+              // + '}'
+              // +     'size: 7in 9.25in;'
+              // +     'margin: 27mm 16mm 27mm 16mm;'
+              // +     'size: 8.5in 11.0in'
+              // +     'margin: 96px 72px 72px 72px'
             //      A4 => size: 21cm 29.7cm;
             //      A4 => margin: 30mm 45mm 30mm 45mm;
               +
               + '@media print {'
+            /*  +     '@page {'
+              +          'size: A4;'
+              // +          'margin: 20mm 0 20mm 0;'
+              +     '}'
               +     'body {'
-              +         'width: 21cm;'       /*width :210mm;*/
-              +         'height: 29.7cm;'    /*height:297mm;*/
-              +         'margin: 30mm 45mm 30mm 45mm;'
-              +         '/* change the margins as you want them to be. */'
-              +     '}' 
+              +         'width: 21cm;'
+              +         'height: 29.7cm;'
+              // +         'margin: 30mm 45mm 30mm 45mm;'
+              +     '}' */
               +     'p {'
               +         'margin: 0px;'
               +         'font-family: sans-serif'
               +     '}'
-                    /*--- initial-data-section ---*/
+              /*--- Header ---*/
+              // +     '.header {'
+              // +         'position: static;'
+              // +         'bottom: 20px;'
+              // +         'left: 0px;'
+              // +         'width: 100%;'
+              // +         'background: gray;'
+              // +     '}'
+              /*--- initial-data-section ---*/
               +     '.initial-data-section {'
               +         'display: block;'
               +         'width: 100%;'
@@ -102,24 +165,28 @@ export default class SDR_015 {
               +         'width: 100%; text-align: center;'
               +         'text-align: center;'
               +         'font-family: sans-serif'
+              +         'page-break-inside: auto;'
               +     '}'
               +     'thead {'
-              +         'border: 1px solid #000000'
+              +         'border: 1px solid #000000; display: table-header-group;'
+              +     '}'
+              +     'tr {'
+              // +         'page-break-inside:avoid; page-break-after: auto;'
               +     '}'
               +     'thead tr th{'
               +         'border: 1px solid #000000'
               +     '}'
-              +     'tbody {'
+              +     'tbody { display: table-header-group;'
             //   +         'border: 1px solid #000000'
               +     '}'
 
             //   +     'thead tr th, tbody tr td {'
             //   +         'width: 5%'
             //   +     '}'
-              +     'thead tr th:nth-child(2),'
-              +     'tbody tr td:nth-child(2) {'
-              +         'width: 20%'
-              +     '}'
+              // +     'thead tr th:nth-child(2),'
+              // +     'tbody tr td:nth-child(2) {'
+              // +         'width: 20%'
+              // +     '}'
             //   +     'thead tr th:nth-child(7),'
             //   +     'tbody tr td:nth-child(7) {'
             //   +         'width: 10%'
@@ -129,15 +196,22 @@ export default class SDR_015 {
             //   +         'width: 10%'
             //   +     '}'
             //   +     'thead tr th:nth-child(12),'
-              +     'tbody tr td:nth-child(12) {'
+              // +     'tbody tr td:nth-child(12) {'
             //   +         'width: 10%'
-              +         'text-align: right;'
-              +     '}'
+              // +         'text-align: right;'
+              // +     '}'
             //   +     'thead tr th:nth-child(13),'
-              +     'tbody tr td:nth-child(13) {'
+              // +     'tbody tr td:nth-child(13) {'
             //   +         'width: 10%'
-              +         'text-align: right;'
+              // +         'text-align: right;'
               +     '}'
+              // +     '.footer {'
+              // +         'position: fixed;'
+              // +         'bottom: 20px;'
+              // +         'left: 0px;'
+              // +         'width: 100%;'
+              // +         'background: gray;'
+              // +     '}'
               + '}'
 
               + '/*Page break class*/'
@@ -148,6 +222,19 @@ export default class SDR_015 {
               +     'border-top: none;'
               + '}*/'
         return style
+    }
+
+    create_header() {
+      let header = ''
+      header += ''
+              + '<div class="header" style="width: 100%; margin-bottom: 20px; background: #dedede;">'
+              +     '<p style="text-align: center; font-size: 20px; line-height: 1.7; font-weight: 800; margin: 0;">NIPRO JMI PHARMA LTD.</p>'
+              +     '<p style="text-align: center; font-size: 14px; line-height: 1.7; margin: 0;">First Japanese Joint Venture Pharmaceuticals in Bangladesh</p>'
+              +     '<p style="text-align: center; font-size: 14px; line-height: 1.7; margin: 0;">First Japanese Joint Venture Pharmaceuticals in Bangladesh</p>'
+              +     '<style style="border-bottom: 1px solid #000000; display: block; width: 100%; height: 1px;"></style>'
+              +     '<style style="border-bottom: 1px solid #000000; display: block; width: 100%; height: 1px;"></style>'
+              + '</div>'
+      return header
     }
 
     create_summery_section_data() {
@@ -224,7 +311,7 @@ export default class SDR_015 {
         header += ''
                 +     '<tr>'
                 +       '<th>SN</th>'
-                +       '<th>Product Name</th>'
+                +       '<th style="width: 20%;">Product Name</th>'
                 +       '<th>Pack Size</th>'
                 +       '<th>Batch No</th>'
                 +       '<th>MFG Date</th>'
@@ -244,9 +331,9 @@ export default class SDR_015 {
         let result = ''
         for(let i=0; i<data.length; i++) {
             result +=   ''
-                    +   '<tr>'
+                    +   '<tr style="page-break-before: always;">'
                     +       '<td>' + data[i].sn + '</td>'
-                    +       '<td>' + data[i].product_name + '</td>'
+                    +       '<td style="width: 20%;">' + data[i].product_name + '</td>'
                     +       '<td>' + data[i].pack_size + '</td>'
                     +       '<td>' + data[i].batch_no + '</td>'
                     +       '<td>' + data[i].mfg_date + '</td>'
@@ -261,7 +348,7 @@ export default class SDR_015 {
                     +   '</tr>'
         }
         // return result + result + result + result + result + result + result + result + result+ result + result + result + result + result + result + result
-        return result
+        return result + result + result
     }
 
     create_subtotal_data() {
@@ -274,7 +361,7 @@ export default class SDR_015 {
                     +       '<td>' + '' + '</td>'
                     +       '<td>' + '' + '</td>'
                     +       '<td>' + '' + '</td>'
-                    +       '<td colspan="5" style="text-align: center;">' + 'Sub Total :' + '</td>'
+                    +       '<td colspan="5" style="text-align: right;">' + 'Sub Total :' + '</td>'
                     +       '<td style="text-align: right; border-top: 1px solid #000000;">' + '16,806.27' + '</td>'
                     +       '<td style="text-align: right; border-top: 1px solid #000000;">' + '96,587.77' + '</td>'
                     +   '</tr>'
@@ -285,7 +372,7 @@ export default class SDR_015 {
         let gross_tp = ''
         gross_tp += ''
                     +   '<tr>'
-                    +       '<td colspan="9">' + '<p style="text-align: right;">In Word : Taka One Lac Eight Thousand Five Hundred Sixty Five only.</p>' + '</td>'
+                    +       '<td colspan="9">' + '<p style="text-align: left;">In Word : Taka One Lac Eight Thousand Five Hundred Sixty Five only.</p>' + '</td>'
                     // +       '<td>' + '' + '</td>'
                     // +       '<td>' + '' + '</td>'
                     // +       '<td>' + '' + '</td>'
@@ -373,4 +460,16 @@ export default class SDR_015 {
     //                 + '</div>'
     //     return result
     // }
+
+    create_footer() {
+      let footer_text = ''
+      footer_text += ''
+                  + '<div class="footer" style="">'
+                  +     '<p>'
+                  +         'This is footer'
+                  +     '</p>'
+                  + '</div>'
+      
+      return footer_text
+    }
 }

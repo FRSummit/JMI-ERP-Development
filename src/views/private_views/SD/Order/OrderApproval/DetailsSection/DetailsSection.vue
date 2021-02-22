@@ -92,14 +92,14 @@
                                     <span class="vat">(+) Vat</span>
                                     <span class="discount">(-) Discount</span>
                                     <span class="gross-tatal">Gross Total</span>
-                                    <span class="atjustment" style="width: 142px;">(+/-) Rounding Adjustment</span>
+                                    <span class="atjustment" style="width: 142px; float: right;">(+/-) Rounding Adjustment</span>
                                 </td>
                                 <td>
-                                    <span class="subtotal">13,032.20</span>
-                                    <span class="vat">50.00</span>
-                                    <span class="discount">250.00</span>
-                                    <span class="gross-tatal">13,032.20</span>
-                                    <span class="atjustment">-0.20</span>
+                                    <span class="subtotal">{{ sub_total.toFixed(2) }}</span>
+                                    <span class="vat">{{ vat.toFixed(2) }}</span>
+                                    <span class="discount">{{ discount.toFixed(2) }}</span>
+                                    <span class="gross-tatal">{{ gross_total.toFixed(2) }}</span>
+                                    <span class="atjustment">{{ rounding_adjustment.toFixed(2) }}</span>
                                 </td>
                                 <td></td>
                             </tr>
@@ -110,11 +110,11 @@
                                 </td>
                                 <td></td>
                                 <td></td>
-                                <td>
+                                <td style="text-align: right;">
                                     <span class="grand-total">Grand Total</span>
                                 </td>
                                 <td>
-                                    <span class="grand-total">13,032.00</span>
+                                    <span class="grand-total">{{ grand_total.toFixed(2) }}</span>
                                 </td>
                                 <td></td>
                             </tr>
@@ -145,34 +145,23 @@
                     
                     <div class="input-autofield-show-section">
                         <div class="input-autofield-show-section-inner">
-                            <div class="input-autofield">
-                                <!-- <input type="text" placeholder="Search By Batch Number" /> -->
-                                <AdvancedSearch class="advanced-search" v-model="autocomplete_modal" :options="autocomplete_options" type="text" placeholder="Search By Batch Number"></AdvancedSearch>
-                            </div>
                             <div class="autofield-show-section">
                                 <div class="autofield-show-section-inner">
                                     <div class="header">
-                                        <div class="row">
-                                            <span class="name">Name</span>
-                                            <span class="quantity">Quantity</span>
-                                            <span class="total-price">Total Price</span>
-                                            <span class="add-action"></span>
-                                        </div>
+                                        <input id="order-approval-add-product" class="jmi-auto-filter-input" type="text" placeholder="Search By Batch Number" v-on:keyup="searchKeyUpAddProductHandler" />
                                     </div>
                                     <div class="response-body">
-                                        <tr v-for="(data, i) in auto_field_data" :key="i">
+                                        <tr class="responer-body-filter-output" v-for="(data, i) in auto_field_data" :key="i">
                                             <td>
-                                                <span>{{ data.name }}</span>
+                                                <span class="responer-body-filter-tag">{{ data.name }}</span>
                                                 <span>{{ data.stock }}</span>
                                             </td>
                                             <td>
                                                 <span class="quantity-setup">
-                                                    <span class="qty-increase" @click="increaseProductInAutofieldProductClickHandler(data, i)"><i class="zmdi zmdi-minus"></i></span>
                                                     <span class="qty">{{ data.quantity }}</span>
-                                                    <span class="qty-decrease" @click="decreaseProductInAutofieldProductClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
                                                 </span>
                                             </td>
-                                            <td>{{ data.total_price }}</td>
+                                            <td></td>
                                             <td class="row-action">
                                                 <span class="delete-icon" @click="addProductFromAutofieldResponseClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
                                             </td>
@@ -185,6 +174,16 @@
                     <div class="ordered-product-list">
                         <div class="ordered-product-list-inner">
                             <div class="selected-ordered-product">
+                                <tr class="header-row">
+                                    <td>
+                                        <span class="jmi-title">Name</span>
+                                    </td>
+                                    <td>
+                                        <span class="jmi-title">Quantity</span>
+                                    </td>
+                                    <td><span class="jmi-title">Total Price</span></td>
+                                    <td class="row-action"></td>
+                                </tr>
                                 <tr v-for="(data, i) in selected_auto_field_data" :key="i">
                                     <td>
                                         <span>{{ data.name }}</span>
@@ -192,7 +191,9 @@
                                     </td>
                                     <td>
                                         <span class="quantity-setup">
-                                            <span class="qty">{{ data.quantity }}</span>
+                                            <span class="qty-increase" @click="decreaseProductInAutofieldProductClickHandler(data, i)"><i class="zmdi zmdi-minus"></i></span>
+                                            <input class="qty" type="text" placeholder="00" :value="data.quantity">
+                                            <span class="qty-decrease" @click="increaseProductInAutofieldProductClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
                                         </span>
                                     </td>
                                     <td>{{ data.total_price }}</td>
@@ -455,12 +456,15 @@
 </template>
 
 <script>
-import AdvancedSearch from 'vue-advanced-search'
+// import AdvancedSearch from 'vue-advanced-search'
 import * as VueGoogleMaps from 'vue2-google-maps'
+
+import JMIFilter from '.././../../../../../functions/JMIFIlter'
+const jmiFilter = new JMIFilter()
 
 export default {
     components: {
-        AdvancedSearch 
+        // AdvancedSearch 
     },
     data() {
         return {
@@ -1008,6 +1012,12 @@ export default {
                     credit: "",
                 },
             ],
+            sub_total: 0.00,
+            vat: 0.00,
+            discount: 0.00,
+            gross_total: 0.00,
+            rounding_adjustment: 0.00,
+            grand_total: 0.00,
             // Map Data
             center: { lat: 23.74289, lng: 90.39597 },
             markers: [
@@ -1239,6 +1249,16 @@ export default {
         })
         console.log(this.markers)
         },
+        // --------------------------------------------------------------------------------------------
+        // Filter - Order Approval add product modal
+        searchKeyUpAddProductHandler() {
+            let input = document.getElementById("order-approval-add-product");
+            let filter = input.value.toUpperCase();
+            let list = document.querySelectorAll('.responer-body-filter-output')
+            let txt_selector = "responer-body-filter-tag"
+
+            jmiFilter.searchById_LeftSidebar(filter, list, txt_selector)
+        }, 
     }
 }
 </script>

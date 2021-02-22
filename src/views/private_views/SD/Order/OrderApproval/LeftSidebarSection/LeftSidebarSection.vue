@@ -326,7 +326,17 @@ export default {
             console.log('onChangeFilterBy: ' + this.on_change_filter_by)
         },
         customerClickHandlerFromList(customer, c) {
-            console.log(c + '    ' +customer)
+            // console.log(c + '    ' +customer)
+            let length = document.getElementsByClassName('customer-section-list').length
+            for(let i=0; i<length; i++) {
+                document.querySelector('#customer-section-list-' + i).className = 'customer-section-list'
+            }
+            if(document.querySelector('#customer-section-list-' + c).className === 'customer-section-list') {
+                document.querySelector('#customer-section-list-' + c).className = 'customer-section-list active'
+            } else {
+                document.querySelector('#customer-section-list-' + c).className = 'customer-section-list'
+            }
+            // this.$emit("select_customer_by_customer_code", customer.customer_info.id)
         },
         searchKeyUpHandler(value) {
             console.log(value.key)
