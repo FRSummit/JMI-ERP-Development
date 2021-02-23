@@ -34,7 +34,7 @@
                                     <p class="customer-id">{{ customer.customer_id }}</p>
                                 </div>
                                 <div class="type-section">
-                                    <p class="customer-type">Customer Type: <span class="type" :class="customer.credit_flag === 'Y' ? 'Credit' : 'Debit'">{{ customer.credit_flag === "Y" ? "Credit" : "Debit" }}</span></p>
+                                    <p class="customer-type">Customer Type: <span class="type" :class="customer.credit_flag === 'Y' ? 'Credit' : 'Debit'">{{ customer.credit_flag === "Y" ? "Credit" : "Cash" }}</span></p>
                                 </div>
                             </div>
                         </div>
