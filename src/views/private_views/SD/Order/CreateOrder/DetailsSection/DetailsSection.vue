@@ -517,20 +517,30 @@ export default {
             this.createSubtotalCalculation()
             // Create object for post method
             let prod_db_list = []
+            let str = '['
             for(let i=0; i<this.selected_auto_field_data.length; i++) {
                 let prod_obj = {
                     prod_id: parseInt(this.selected_auto_field_data[i].prod_id),
                     buy_quantity: this.selected_auto_field_data[i].quantity ? this.selected_auto_field_data[i].quantity : 0
                 }
+                str += '{"prod_id" : ' + parseInt(this.selected_auto_field_data[i].prod_id) +', "buy_quantity" : ' + (this.selected_auto_field_data[i].quantity ? this.selected_auto_field_data[i].quantity : 0) + '}'
+                if(i < this.selected_auto_field_data.length - 1) {
+                    str += ', '
+                }
                 prod_db_list.push(prod_obj)
             }
-            let prod_db_data = {
-                sbu_id: parseInt(JSON.parse(localStorage.getItem("user")).user_detils.sbu_id),
-                customer_id:  parseInt(this.customer_data ? this.customer_data.customer_id : 0),
-                prod_details: prod_db_list
-            }
+            str += ']'
+            console.log(str)
+            let sbu_id = parseInt(JSON.parse(localStorage.getItem("user")).user_detils.sbu_id)
+            let customer_id = parseInt(this.customer_data ? this.customer_data.customer_id : 0)
+            // let prod_db_data = {
+            //     sbu_id: parseInt(JSON.parse(localStorage.getItem("user")).user_detils.sbu_id),
+            //     customer_id:  parseInt(this.customer_data ? this.customer_data.customer_id : 0),
+            //     prod_details: prod_db_list
+            // }
             // console.log(prod_db_data)
-            this.FIND_PRODUCT_OFFER__FROM_SERVICE(prod_db_data)
+            this.FIND_PRODUCT_OFFER__FROM_SERVICE(str, sbu_id, customer_id)
+            // this.FIND_PRODUCT_OFFER__FROM_SERVICE(prod_db_data)
             // Close Modal
             if(prod_db_list.length > 0) {
                 this.add_order_modal = false
@@ -575,18 +585,25 @@ export default {
                     this.sr_list = res.data.users.da
                 })
         },
-        async FIND_PRODUCT_OFFER__FROM_SERVICE(prod_db_data) {
+        async FIND_PRODUCT_OFFER__FROM_SERVICE(prod_db_data_string, sbu_id, customer_id) {
             let yyyy = new Date().getFullYear()
             let mm = (new Date().getMonth() + 1) < 10 ? ("0" + (new Date().getMonth() + 1)) : (new Date().getMonth() + 1)
             let dd = (new Date().getDate() + 1) < 10 ? ("0" + (new Date().getDate() + 1)) : (new Date().getDate() + 1) 
             let date = yyyy + '-' + mm + '-' + dd
-            console.log(prod_db_data + '   ' + date)
+            console.log(prod_db_data_string + '   ' + date)
             
-            await service.getFindProductOffer_CreateOrderDetailsSection(prod_db_data, date)
+            await service.getFindProductOffer_CreateOrderDetailsSection(prod_db_data_string, sbu_id, customer_id, date)
                 .then(res => {
                     console.log(res.data)
                 })
-            // await fetch(`http://203.188.246.138:8885/api/web/find-product-offer/?prod_details=[{"prod_id" : 1001, "buy_quantity" : 3}, { "prod_id" : 1020, "buy_quantity" : 5}]&customer_id=1001&sbu_id=2&date=2021-02-02`)
+            // let products = JSON.stringify({ prod_db_data })
+            // const requestOptions = {
+            //     method: 'GET',
+            //     headers: { 'Content-Type': 'application/json' },
+            //     body: JSON.stringify({ prod_db_data })
+            // };
+            // console.log(products)
+            // await fetch(`${env.apiBaseUrl}/create_order_find_product_order`, requestOptions)
             //     .then(res => {
             //         console.log(res.data)
             //     })

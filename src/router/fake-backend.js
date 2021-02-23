@@ -182,6 +182,10 @@ export function configureFakeBackend() {
                     return;
                 }
 
+                /*--- CREATE ORDER PAGE -------------------------------------------------------------*/
+                // Create Order page
+                // if (url.endsWith('/users') && opts.method === 'GET') {}
+
                 // pass through any requests not handled above
                 realFetch(url, opts).then(response => resolve(response));
 
