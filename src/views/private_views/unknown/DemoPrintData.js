@@ -321,4 +321,89 @@ export default class DemoPrintData {
 
         return data
     }
+
+    print_sdr_017_data() {
+        let data = [
+            {
+                sn: "1",
+                product_name: "Adarbi 40 Tablet",
+                pack_size: "20's",
+                batch_no: "111119",
+                mfg_date: "Jan'19",
+                eXP_date: "Dec.'20",
+                dispatch_qty: "1",
+                dispatch_bonus: "0",
+                overall_return_return: "0",
+                overall_return_bonus: "0",
+                net_sales: "1",
+                return_status_TP: "",
+                return_status_VAT: "",
+                net_sales_after_return_TP: "225.64",
+                net_sales_after_return_VAT: "39.26",
+                net_sales_after_return_Net_price: "264.90",
+            },
+        ]
+
+        return data
+    }
+
+    print_sdr_018_data() {
+        let data = [
+            {
+                sn: "1",
+                product_name: "Adarbi 40 Tablet",
+                pack_size: "20's",
+                batch_no: "111119",
+                mfg_date: "Jan'19",
+                eXP_date: "Dec.'20",
+                unit_price_TP_SP: "179.91",
+                unit_VAT: "  31.30",
+                unit_price_with_VAT: "211.21",
+                qty: "2",
+                total_VAT: "62.61",
+                total_TP_SP: "359.82"
+            },
+        ]
+
+        return data
+    }
+
+    print_sdr_023_data() {
+        let data = [
+            {
+                invoice_no: "",
+                date: "20's",
+                cust_code: "111119",
+                custoemrName: "Jan'19",
+                address: "Dec.'20",
+                invoice_amount: "179.91",
+            },
+            {
+                invoice_no: "",
+                date: "20's",
+                cust_code: "111119",
+                custoemrName: "Jan'19",
+                address: "Dec.'20",
+                invoice_amount: "179.91",
+            },
+            {
+                invoice_no: "",
+                date: "20's",
+                cust_code: "111119",
+                custoemrName: "Jan'19",
+                address: "Dec.'20",
+                invoice_amount: "179.91",
+            },
+            {
+                invoice_no: "",
+                date: "20's",
+                cust_code: "111119",
+                custoemrName: "Jan'19",
+                address: "Dec.'20",
+                invoice_amount: "179.91",
+            },
+        ]
+
+        return data
+    }
 }
