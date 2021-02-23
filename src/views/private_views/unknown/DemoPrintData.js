@@ -321,4 +321,29 @@ export default class DemoPrintData {
 
         return data
     }
+
+    print_sdr_017_data() {
+        let data = [
+            {
+                sn: "1",
+                product_name: "Adarbi 40 Tablet",
+                pack_size: "20's",
+                batch_no: "111119",
+                mfg_date: "Jan'19",
+                eXP_date: "Dec.'20",
+                dispatch_qty: "1",
+                dispatch_bonus: "0",
+                overall_return_return: "0",
+                overall_return_bonus: "0",
+                net_sales: "1",
+                return_status_TP: "",
+                return_status_VAT: "",
+                net_sales_after_return_TP: "225.64",
+                net_sales_after_return_VAT: "39.26",
+                net_sales_after_return_Net_price: "264.90",
+            },
+        ]
+
+        return data
+    }
 }
