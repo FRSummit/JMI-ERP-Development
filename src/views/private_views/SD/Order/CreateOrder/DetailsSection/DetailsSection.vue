@@ -147,7 +147,11 @@
             </div>
             <!-- Add Product Modal -->
             <div class="add-order-modal-section" v-if="add_order_modal">
-                <div class="add-order-modal-section-inner" v-click-outside="addOrderModalOutsideClick">
+                <!-- <div class="add-order-modal-section-inner" v-click-outside="addOrderModalOutsideClick"> -->
+                <div class="add-order-modal-section-inner">
+                    <div class="close-icon">
+                        <span class="icon" @click="addOrderModalOutsideClick"><i class="zmdi zmdi-close"></i></span>
+                    </div>
                     <div class="top-section">
                         <div class="top-section-inner">
                             <div class="logo">
@@ -355,7 +359,7 @@ export default {
     },
     created() {},
     async mounted() {
-        await this.DIC_WISE_USERS_FROM_SERVICE()
+        await this.DIC_WISE_USERS__FROM_SERVICE()
     },
     methods: {
         onChangeSRDropdown() {
@@ -421,7 +425,7 @@ export default {
                 this.add_order_modal = false
             } else {
                 this.add_order_modal = true
-                this.ADD_PRODUCTS_DATA_LIST_FROM_SERVICE()
+                this.ADD_PRODUCTS_DATA_LIST__FROM_SERVICE()
             }
         },
         addAttachmentClickHandler() {
@@ -515,19 +519,22 @@ export default {
             let prod_db_list = []
             for(let i=0; i<this.selected_auto_field_data.length; i++) {
                 let prod_obj = {
-                    prod_id: this.selected_auto_field_data[i].prod_id,
-                    quantity: this.selected_auto_field_data[i].quantity ? this.selected_auto_field_data[i].quantity : 0
+                    prod_id: parseInt(this.selected_auto_field_data[i].prod_id),
+                    buy_quantity: this.selected_auto_field_data[i].quantity ? this.selected_auto_field_data[i].quantity : 0
                 }
                 prod_db_list.push(prod_obj)
             }
             let prod_db_data = {
-                sbu_id: 0,
-                customer_id:  this.customer_data ? this.customer_data.customer_id : 0,
-                products: prod_db_list
+                sbu_id: parseInt(JSON.parse(localStorage.getItem("user")).user_detils.sbu_id),
+                customer_id:  parseInt(this.customer_data ? this.customer_data.customer_id : 0),
+                prod_details: prod_db_list
             }
-            console.log(prod_db_data)
+            // console.log(prod_db_data)
+            this.FIND_PRODUCT_OFFER__FROM_SERVICE(prod_db_data)
             // Close Modal
-            this.add_order_modal = false
+            if(prod_db_list.length > 0) {
+                this.add_order_modal = false
+            }
         },
         //------------------------------------------------------------------------------------------
         // Attachment Modal
@@ -554,19 +561,35 @@ export default {
         },
         // ------------------------------------------------------------------------------------------
         // Service Implementation
-        async ADD_PRODUCTS_DATA_LIST_FROM_SERVICE() {
+        async ADD_PRODUCTS_DATA_LIST__FROM_SERVICE() {
             await service.getSearchProductDataList_CreateOrderDetailsSection()
                 .then(res => {
                     console.log(res.data)
                     this.auto_field_data = res.data.product_list
                 })
         },
-        async DIC_WISE_USERS_FROM_SERVICE() {
+        async DIC_WISE_USERS__FROM_SERVICE() {
             await service.getDICWiseUsers_MonthlyDeliveryPlan()
                 .then(res => {
                     console.log(res.data)
                     this.sr_list = res.data.users.da
                 })
+        },
+        async FIND_PRODUCT_OFFER__FROM_SERVICE(prod_db_data) {
+            let yyyy = new Date().getFullYear()
+            let mm = (new Date().getMonth() + 1) < 10 ? ("0" + (new Date().getMonth() + 1)) : (new Date().getMonth() + 1)
+            let dd = (new Date().getDate() + 1) < 10 ? ("0" + (new Date().getDate() + 1)) : (new Date().getDate() + 1) 
+            let date = yyyy + '-' + mm + '-' + dd
+            console.log(prod_db_data + '   ' + date)
+            
+            await service.getFindProductOffer_CreateOrderDetailsSection(prod_db_data, date)
+                .then(res => {
+                    console.log(res.data)
+                })
+            // await fetch(`http://203.188.246.138:8885/api/web/find-product-offer/?prod_details=[{"prod_id" : 1001, "buy_quantity" : 3}, { "prod_id" : 1020, "buy_quantity" : 5}]&customer_id=1001&sbu_id=2&date=2021-02-02`)
+            //     .then(res => {
+            //         console.log(res.data)
+            //     })
         },
         // ----------------------------------------------------------------------------------------------
         // Bottom Row Calculation

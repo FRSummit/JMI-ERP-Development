@@ -1,5 +1,6 @@
 import axios from 'axios'
 import env from '../environment'
+// import qs from 'qs'
 
 axios.defaults.baseURL = env.apiBaseUrl;
 let token = JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')).accessToken : null
@@ -249,6 +250,16 @@ export default class PostService {
   // Doctors
   //////////////////////////////////////////////////////////////////////////////////////////
 
+  // Get Doctors Profile
+  getAdvisorProfile(id) {
+    let web_menu_url = 'api/mobile/get-advisor-profile/' + id
+    return axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
 
   //////////////////////////////////////////////////////////////////////////////////////////
   // Order
@@ -286,6 +297,32 @@ export default class PostService {
     })
   }
 
+  // CREATE ORDER - SEND SELECTED PRODUCT LIST
+  getFindProductOffer_CreateOrderDetailsSection(prod_details, date) {
+    console.log(prod_details.prod_details)
+    console.log(JSON.stringify(prod_details.prod_details))
+    console.log(prod_details.customer_id)
+    console.log(prod_details.sbu_id)
+    console.log(date)
+    // let web_menu_url = '/api/web/find-product-offer/?prod_details=' + prod_details.prod_details + '&customer_id=' + prod_details.customer_id + '&sbu_id=' + prod_details.sbu_id + '&date=' + date
+    let web_menu_url = '/api/web/find-product-offers/'
+    return axios(web_menu_url, {
+      method: 'POST',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+      params: {
+        prod_details: [{"prod_id" : 1001, "quantity" : 3}, { "prod_id" : 1020, "quantity" :  5}],
+        customer_id: prod_details.customer_id,
+        sbu_id: prod_details.sbu_id,
+        date: date,
+      },
+      // paramsSerializer: (params) => {
+      //   return qs.stringify(params, { arrayFormat: 'repeat' })
+      // }
+    })
+  }
+
   // // CREATE ORDER - SR LIST LOAD
   // getSearchProductDataList_CreateOrderDetailsSection() {
   //   let web_menu_url = '/api/web/dic-wise-users'
@@ -305,16 +342,6 @@ export default class PostService {
     return axios(web_menu_url)
   }
 
-  // Get Doctors Profile
-  getAdvisorProfile(id) {
-    let web_menu_url = 'api/mobile/get-advisor-profile/' + id
-    return axios(web_menu_url, {
-      method: 'GET',
-      headers: {
-        'Authorization': token_type + ' ' + token
-      }
-    })
-  }
 
 
   getAllSidebarMenu() {
