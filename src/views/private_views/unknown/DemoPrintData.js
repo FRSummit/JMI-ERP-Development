@@ -367,4 +367,43 @@ export default class DemoPrintData {
 
         return data
     }
+
+    print_sdr_023_data() {
+        let data = [
+            {
+                invoice_no: "",
+                date: "20's",
+                cust_code: "111119",
+                custoemrName: "Jan'19",
+                address: "Dec.'20",
+                invoice_amount: "179.91",
+            },
+            {
+                invoice_no: "",
+                date: "20's",
+                cust_code: "111119",
+                custoemrName: "Jan'19",
+                address: "Dec.'20",
+                invoice_amount: "179.91",
+            },
+            {
+                invoice_no: "",
+                date: "20's",
+                cust_code: "111119",
+                custoemrName: "Jan'19",
+                address: "Dec.'20",
+                invoice_amount: "179.91",
+            },
+            {
+                invoice_no: "",
+                date: "20's",
+                cust_code: "111119",
+                custoemrName: "Jan'19",
+                address: "Dec.'20",
+                invoice_amount: "179.91",
+            },
+        ]
+
+        return data
+    }
 }

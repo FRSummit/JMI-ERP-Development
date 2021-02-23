@@ -210,6 +210,9 @@ const sdr_017 = new SDR_017()
 
 import SDR_018 from '../../../functions/Print_Func/SDR_018'
 const sdr_018 = new SDR_018()
+
+import SDR_023 from '../../../functions/Print_Func/SDR_023'
+const sdr_023 = new SDR_023()
 // Import From Print_Func
 
 export default {
@@ -264,7 +267,9 @@ export default {
     sdr018_clickHandler() {
       sdr_018.print_sdr_018(demoPrintData.print_sdr_018_data())
     },
-    sdr023_clickHandler() {},
+    sdr023_clickHandler() {
+      sdr_023.print_sdr_023(demoPrintData.print_sdr_023_data())
+    },
     sdr024_clickHandler() {},
     sdr025_clickHandler() {},
     sdr027_clickHandler() {},

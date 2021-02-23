@@ -190,7 +190,7 @@ export default class SDR_018 {
               +         'border-collapse: collapse;'
               +         'color:black;'
               +         'font-size:12px;'
-              +         'width: 100%; text-align: center;'
+              +         'width: 100%;'
               +         'text-align: center;'
               +         'font-family: sans-serif'
               +         'page-break-inside: auto;'
