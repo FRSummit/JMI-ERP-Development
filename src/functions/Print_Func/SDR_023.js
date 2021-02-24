@@ -94,30 +94,55 @@ export default class SDR_023 {
                                                 '<body>' +
                                                     '<tbody>' +
                                                         this.create_table_body_data(data) +
+                                                        
+                                                        // Grand Total
+                                                        '<tr>' +
+                                                            '<td style="border: none;"></td>' +
+                                                            '<td style="width: 10%; border: none;"></td>' +
+                                                            '<td style="width: 10%; border: none;"></td>' +
+                                                            '<td style="width: 10%; border: none;"></td>' +
+                                                            '<td style="width: 25%; border: none; text-align: left; "></td>' +
+                                                            '<td style="width: 25%; border: none; border-bottom: 2px solid #000000; text-align: left;">Grand Total</td>' +
+                                                            '<td style="width: 15%; border: none; border-bottom: 2px solid #000000; text-align: right;">XXXX</td>' +
+                                                        '</tr>' +
                                                     '</tbody>' +
                                                 '</body>' +
                                             '</table>' +
                                         '</div>' +
                                         //----------------------------------------------------------------------------------------------------------------------------------------------
                                         // BOTTOM SECTION
-                                        '<div class="bottom-section" style="">' +
+                                        '<div class="bottom-section" style="width: 100%; margin-top: 60px;">' +
+                                            // Row 1
+                                            '<div class="row" style="display: flex; justify-content: space-around; width: 100%;">' +
+                                                '<div style="display: inline; width:200px; border-top: 1px solid #000000;">' +
+                                                    '<p style="display: block; width: 100%; margin: 0; font-size: 12px; line-height: 1.2; text-align: center;">Prepared by</p>' +
+                                                    '<p style="display: block; width: 100%; margin: 0; font-size: 12px; line-height: 1.2; text-align: center;">Computer operator</p>' +
+                                                '</div>' +
+                                                '<div style="display: inline; width:200px; border-top: 1px solid #000000;">' +
+                                                    '<p style="display: block; width: 100%; margin: 0; font-size: 12px; line-height: 1.2; text-align: center;">Checked by</p>' +
+                                                    '<p style="display: block; width: 100%; margin: 0; font-size: 12px; line-height: 1.2; text-align: center;">ADIC / Distribution Officer</p>' +
+                                                '</div>' +
+                                                '<div style="display: inline; width:200px; border-top: 1px solid #000000;">' +
+                                                    '<p style="display: block; width: 100%; margin: 0; font-size: 12px; line-height: 1.2; text-align: center;">Authorissed by</p>' +
+                                                    '<p style="display: block; width: 100%; margin: 0; font-size: 12px; line-height: 1.2; text-align: center;">DIC / Executive Distribution</p>' +
+                                                '</div>' +
+                                            '</div>' +
+                                            // Row 2
+                                            '<div class="row" style="display: flex; justify-content: space-around; width: 100%; margin-top: 40px;">' +
+                                                '<div style="display: inline; width:200px; border-top: 1px solid #000000;">' +
+                                                    '<p style="display: block; width: 100%; margin: 0; font-size: 12px; line-height: 1.2; text-align: center;">Goods Issued by</p>' +
+                                                    '<p style="display: block; width: 100%; margin: 0; font-size: 12px; line-height: 1.2; text-align: center;">Store In-Charge/Store Officer</p>' +
+                                                '</div>' +
+                                                '<div style="display: inline; width:200px; border-top: 1px solid #000000;">' +
+                                                    '<p style="display: block; width: 100%; margin: 0; font-size: 12px; line-height: 1.2; text-align: center;">Goods Delivered by</p>' +
+                                                    '<p style="display: block; width: 100%; margin: 0; font-size: 12px; line-height: 1.2; text-align: center;">Name....................</p>' +
+                                                '</div>' +
+                                                '<div style="display: inline; width:200px; border-top: 1px solid #000000;">' +
+                                                    '<p style="display: block; width: 100%; margin: 0; font-size: 12px; line-height: 1.2; text-align: center;">Signature of Security</p>' +
+                                                    '<p style="display: block; width: 100%; margin: 0; font-size: 12px; line-height: 1.2; text-align: center;">Name....................</p>' +
+                                                '</div>' +
+                                            '</div>' +
                                         '</div>' +
-                                        '' +
-                                        '' +
-                                        '' +
-                                        '' +
-                                        '' +
-                                        '' +
-                                        '' +
-                                        '' +
-                                        '' +
-                                        '' +
-                                        '' +
-                                        '' +
-                                        '' +
-                                        '' +
-                                        '' +
-                                        '' +
                                     '</body>' +
                                 '</html>' 
                 )
@@ -131,11 +156,19 @@ export default class SDR_023 {
     }
 
     create_table_body_data(data) {
+        let user_details = ''
+        user_details += '' +
+                        '<tr>' +
+                            '<th colspan="7">' +
+                                '<p style="display: block; width: 100%; margin: 0; font-size: 14px; line-height: 1.7; text-align: left;">DHK202, Shohidul Islam, Territory: North Badda, Number of Invoice: 6</p>' +
+                            '</th>' +
+                        '</tr>'
+
         let table_data = ''
         for(let i=0; i < data.length; i++) {
             table_data += '' +
                             '<tr>' +
-                                '<td>' + i + '</td>' +
+                                '<td>' + (i + 1) + '</td>' +
                                 '<td style="width: 10%;">' + data[i].invoice_no + '</td>' +
                                 '<td style="width: 10%;">' + data[i].date + '</td>' +
                                 '<td style="width: 10%;">' + data[i].cust_code + '</td>' +
@@ -144,6 +177,19 @@ export default class SDR_023 {
                                 '<td style="width: 15%; text-align: right;">' + data[i].invoice_amount + '</td>' +
                             '</tr>' 
         }
-        return table_data
+
+        let sub_total = ''
+        sub_total += '' +
+                        '<tr>' +
+                            '<td style="border: none;"></td>' +
+                            '<td style="width: 10%; border: none;"></td>' +
+                            '<td style="width: 10%; border: none;"></td>' +
+                            '<td style="width: 10%; border: none;"></td>' +
+                            '<td style="width: 25%; border: none; text-align: left; "></td>' +
+                            '<td style="width: 25%; border: none; border-bottom: 1px solid #000000; text-align: left;">Sub Total</td>' +
+                            '<td style="width: 15%; border: none; border-bottom: 1px solid #000000; text-align: right;">XXXX</td>' +
+                        '</tr>'
+        return (user_details + table_data + sub_total) + (user_details + table_data + sub_total) + (user_details + table_data + sub_total) + (user_details + table_data + sub_total)
+        // return (user_details + table_data + sub_total)
     }
 }
