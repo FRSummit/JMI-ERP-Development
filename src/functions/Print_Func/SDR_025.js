@@ -48,17 +48,32 @@ export default class SDR_025 {
                                     // Body
                                     '<body>' +
                                         // Sheet Name
-                                        '<div class="sheet-name-section" style="display: block; width: 100%; overflow: hidden; position: relative;">' +
+                                        '<div class="sheet-name-section" style="display: block; width: 100%; overflow: hidden; position: relative; margin-bottom: 10px;">' +
                                             '<p style="margin: 0; line-height: 1.7; text-align: center; font-weight: 600;">Collection Memo</p>' +
                                             '' +
                                         '</div>' +
                                         //----------------------------------------------------------------------------------------------------------------------------------------------
                                         // TOP SECTION
-                                        '<div class="summery-section" style="display: block; width: 100%; overflow: hidden; position: relative; margin-bottom: 20px;">' +
-                                            '<div style="display: block; width: 100%; margin-bottom: 20px;">' +
+                                        '<div class="summery-section" style="display: block; width: 100%; padding: 0 2px; overflow: hidden; position: relative; margin-bottom: 20px;">' +
+                                            '<div style="display: block; width: 98%; margin: 0 auto 20px; padding: 0 2px; border: 1px solid #000000;">' +
                                                 '<div style="display: block; width: 100%;">' +
-                                                    '<div style="display: inline-block; width: 50%;"><span style="width: 100px;">Remit No.</span>:</div>' +
-                                                    '<div style="display: inline-block; width: 50%;"><span style="width: 100px;">Remit No.</span>:</div>' +
+                                                    '<div style="display: inline-block; width: 50%;"><span style="width: 100px; line-height: 1.2;">Remit No.</span>:</div>' +
+                                                    '<div style="display: inline-block; width: 50%;"><span style="width: 130px; line-height: 1.2;">MIO ID & Name</span>:</div>' +
+                                                '</div>' +
+                                                '<div style="display: block; width: 100%;">' +
+                                                    '<div style="display: inline-block; width: 50%;"><span style="width: 100px; line-height: 1.2;">Remit Date.</span>:</div>' +
+                                                    '<div style="display: inline-block; width: 50%;"><span style="width: 130px; line-height: 1.2;">AM ID & Name</span>:</div>' +
+                                                '</div>' +
+                                                '<div style="display: block; width: 100%;">' +
+                                                    '<div style="display: inline-block; width: 50%;"><span style="width: 100px; line-height: 1.2;">Depot</span>:</div>' +
+                                                    '<div style="display: inline-block; width: 50%;"><span style="width: 130px; line-height: 1.2;">RSM ID & Name</span>:</div>' +
+                                                '</div>' +
+                                                '<div style="display: block; width: 100%;">' +
+                                                    '<div style="display: inline-block; width: 50%;"><span style="width: 100px; line-height: 1.2;">Terrytory</span>:</div>' +
+                                                    '<div style="display: inline-block; width: 50%;"><span style="width: 130px; line-height: 1.2;">ASM ID & Name</span>:</div>' +
+                                                '</div>' +
+                                                '<div style="display: block; width: 100%;">' +
+                                                    '<div style="display: inline-block; width: 50%;"><span style="width: 100px; line-height: 1.2;">Collection By</span>:</div>' +
                                                 '</div>' +
                                             '</div>' +
                                             
@@ -89,7 +104,7 @@ export default class SDR_025 {
                                                         '<td style="width: 15%;">36649.47</td>' +
                                                     '</tr>' +
                                                     '<tr>' +
-                                                        '<td style="" colspan="6">Total: BDT Thirty six thousand five hundred twenty only</td>' +
+                                                        '<td style="text-align: left;" colspan="6">Total: BDT Thirty six thousand five hundred twenty only</td>' +
                                                         '<td style="width: 15%;">36649.47</td>' +
                                                     '</tr>' +
                                                 '</tbody>' +
