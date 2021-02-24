@@ -47,11 +47,6 @@ export default class SDR_024 {
                                     //----------------------------------------------------------------------------------------------------------------------------------------------
                                     // Body
                                     '<body>' +
-                                        // Sheet Name
-                                        '<div class="sheet-name-section" style="display: block; width: 100%; overflow: hidden; position: relative;">' +
-                                            '<p style="margin: 0; line-height: 1.7; text-align: center; font-weight: 600;">Distribution / Dispatch Sheet</p>' +
-                                            '' +
-                                        '</div>' +
                                         //----------------------------------------------------------------------------------------------------------------------------------------------
                                         // TOP SECTION
                                         '<div class="summery-section" style="display: block; width: 100%; overflow: hidden; position: relative; margin-bottom: 20px;">' +
