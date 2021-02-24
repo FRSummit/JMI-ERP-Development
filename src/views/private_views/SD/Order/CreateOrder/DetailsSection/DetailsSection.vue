@@ -70,10 +70,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <div id="progressbar" class="jmi-progressbar" v-if="!order_table_data">
+                            <div id="progressbar" class="jmi-progressbar" v-if="order_table_data.length <= 0">
                                 <v-progress-circular indeterminate color="primary"></v-progress-circular>
                             </div>
-                            <div class="table-data-rows" v-if="order_table_data">
+                            <div class="table-data-rows" v-if="order_table_data.length > 0">
                                 <!-- <tr v-for="(data, i) in (order_table_modified_data.length > 0 ? order_table_modified_data : order_table_data)" :key="i"> -->
                                 <!-- <tr v-for="(data, i) in order_table_modified_data" :key="i"> -->
                                 <tr v-for="(data, i) in order_table_data" :key="i">
@@ -296,30 +296,7 @@ export default {
             sr_add_modal: false,
             selected_sr: null,
             order_table_header: ["Name", "Unit Price", "Quantity", "Bonus", "Total Price"],
-            order_table_data: [
-                {
-                    id: 1,
-                    prod_id: "1001",
-                    prod_class: "550",
-                    base_tp: "179.91",
-                    prod_name: "Adarbi 40 Tab",
-                    quantity: 0,
-                    prod_code: "ABT2",
-                    code_id: null,
-                    element_name: null
-                },
-                {
-                    id: 2,
-                    prod_id: "1002",
-                    prod_class: "650",
-                    base_tp: "189.91",
-                    prod_name: "Ladarbi 40 Tab",
-                    quantity: 0,
-                    prod_code: "ABT3",
-                    code_id: null,
-                    element_name: null
-                },
-            ],
+            order_table_data: [],
             order_table_modified_data: [],
             auto_field_data: [],
             selected_auto_field_data: [],
@@ -517,20 +494,13 @@ export default {
             this.createSubtotalCalculation()
             // Create object for post method
             let prod_db_list = []
-            let str = '['
             for(let i=0; i<this.selected_auto_field_data.length; i++) {
                 let prod_obj = {
                     prod_id: parseInt(this.selected_auto_field_data[i].prod_id),
-                    buy_quantity: this.selected_auto_field_data[i].quantity ? this.selected_auto_field_data[i].quantity : 0
-                }
-                str += '{"prod_id" : ' + parseInt(this.selected_auto_field_data[i].prod_id) +', "buy_quantity" : ' + (this.selected_auto_field_data[i].quantity ? this.selected_auto_field_data[i].quantity : 0) + '}'
-                if(i < this.selected_auto_field_data.length - 1) {
-                    str += ', '
+                    quantity: this.selected_auto_field_data[i].quantity ? this.selected_auto_field_data[i].quantity : 0
                 }
                 prod_db_list.push(prod_obj)
             }
-            str += ']'
-            console.log(str)
             let sbu_id = parseInt(JSON.parse(localStorage.getItem("user")).user_detils.sbu_id)
             let customer_id = parseInt(this.customer_data ? this.customer_data.customer_id : 0)
             // let prod_db_data = {
@@ -539,7 +509,7 @@ export default {
             //     prod_details: prod_db_list
             // }
             // console.log(prod_db_data)
-            this.FIND_PRODUCT_OFFER__FROM_SERVICE(str, sbu_id, customer_id)
+            this.FIND_PRODUCT_OFFER__FROM_SERVICE(prod_db_list, sbu_id, customer_id)
             // this.FIND_PRODUCT_OFFER__FROM_SERVICE(prod_db_data)
             // Close Modal
             if(prod_db_list.length > 0) {
@@ -585,16 +555,16 @@ export default {
                     this.sr_list = res.data.users.da
                 })
         },
-        async FIND_PRODUCT_OFFER__FROM_SERVICE(prod_db_data_string, sbu_id, customer_id) {
+        async FIND_PRODUCT_OFFER__FROM_SERVICE(prod_db_list, sbu_id, customer_id) {
             let yyyy = new Date().getFullYear()
             let mm = (new Date().getMonth() + 1) < 10 ? ("0" + (new Date().getMonth() + 1)) : (new Date().getMonth() + 1)
             let dd = (new Date().getDate() + 1) < 10 ? ("0" + (new Date().getDate() + 1)) : (new Date().getDate() + 1) 
             let date = yyyy + '-' + mm + '-' + dd
-            console.log(prod_db_data_string + '   ' + date)
             
-            await service.getFindProductOffer_CreateOrderDetailsSection(prod_db_data_string, sbu_id, customer_id, date)
+            await service.getFindProductOffer_CreateOrderDetailsSection(prod_db_list, sbu_id, customer_id, date)
                 .then(res => {
                     console.log(res.data)
+                    this.order_table_data = res.data.data
                 })
             // let products = JSON.stringify({ prod_db_data })
             // const requestOptions = {

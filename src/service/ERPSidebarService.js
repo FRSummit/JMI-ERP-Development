@@ -298,28 +298,25 @@ export default class PostService {
   }
 
   // CREATE ORDER - SEND SELECTED PRODUCT LIST
-  getFindProductOffer_CreateOrderDetailsSection(prod_details, sbu_id, customer_id, date) {
-    console.log(prod_details)
-    // console.log(JSON.stringify(prod_details.prod_details))
-    console.log(sbu_id)
-    console.log(customer_id)
-    console.log(date)
-    // let  formdata = new FormData();
-    // formdata.append('data',JSON.stringify([{"prod_id" : 1001, "quantity" : 3}, { "prod_id" : 1020, "quantity" :  5}]));
-    // let web_menu_url = '/api/web/find-product-offer/?prod_details=' + prod_details.prod_details + '&customer_id=' + prod_details.customer_id + '&sbu_id=' + prod_details.sbu_id + '&date=' + date
-    let web_menu_url = '/api/web/find-product-offer/?prod_details=' + prod_details + '&customer_id=' + customer_id + '&sbu_id=' + sbu_id + '&date=' + date
-    console.log(web_menu_url)
+  getFindProductOffer_CreateOrderDetailsSection(prod_db_list, sbu_id, customer_id, date) {
+    let web_menu_url = '/api/web/find-product-offer'
     return axios(web_menu_url, {
       method: 'GET',
       headers: {
         'Authorization': token_type + ' ' + token
       },
-      // params: {
-      //   prod_details: formdata,
-      //   customer_id: prod_details.customer_id,
-      //   sbu_id: prod_details.sbu_id,
-      //   date: date,
-      // },
+      params: {
+        prod_details: JSON.stringify(prod_db_list),
+        customer_id: customer_id,
+        sbu_id: sbu_id,
+        date: date,
+      },
+      // paramsSerializer: params => {
+      //   return qs.stringify(params)
+      // }
+      // paramsSerializer: (params) => {
+      //   return qs.stringify(params, { arrayFormat: 'brackets' })
+      // }
       // paramsSerializer: (params) => {
       //   return qs.stringify(params, { arrayFormat: 'repeat' })
       // }
