@@ -6,8 +6,8 @@
         <div class="create-order-details-section-inner" v-if="customer_data">
             <div class="title-section">
                 <div class="row">
-                    <div class="col-lg-4 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer ID:</span><span class="id">{{ customer_data ? customer_data.customer_id : ""}}</span><span class="customer-type">{{ customer_data ? customer_data.credit_flag === "Y" ? "Credit" : "Debit" : "No Customer" }}</span></p></div>
-                    <div class="col-lg-8 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer Name:</span><span class="jmi-lvl-value">{{ customer_data ? customer_data.display_name : "" }}</span></p></div>
+                    <div class="col-lg-4 col-md-4 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer ID:</span><span class="id">{{ customer_data ? customer_data.customer_id : ""}}</span><span class="customer-type">{{ customer_data ? customer_data.credit_flag === "Y" ? "Credit" : "Debit" : "No Customer" }}</span></p></div>
+                    <div class="col-lg-8 col-md-8 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer Name:</span><span class="jmi-lvl-value">{{ customer_data ? customer_data.display_name : "" }}</span></p></div>
                 </div>
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><span class="jmi-lvl-value address">{{ customer_data ? customer_data.customer_info.customer_address !== null ? customer_data.customer_info.customer_address : "Null" : "" }}</span></p></div>                        
@@ -19,17 +19,17 @@
 
 
                     <div class="row">
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Current Outstanding:</span><span class="jmi-lvl-value url jmi-no-underline">{{ customer_data ? customer_data.current_due !== null ? customer_data.current_due : "00" : "" }}</span></p></div>
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Order Placed:</span> <span class="jmi-lvl-value">-- Dev. No Data ---</span></p></div>
-                        <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Status:</span> <span class="jmi-lvl-value">Pending</span></p></div> -->
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title">Area: <span class="jmi-lvl-value">-- Dev. No Data ---</span></p></div>
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title">Territory: <span class="jmi-lvl-value">{{ customer_data ? customer_data.customer_area_info.sales_force.get_sales_area.area_name : "" }}</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Current Outstanding:</span><span class="jmi-lvl-value url jmi-no-underline">{{ customer_data ? customer_data.current_due !== null ? customer_data.current_due : "00" : "" }}</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Order Placed:</span> <span class="jmi-lvl-value">-- Dev. No Data ---</span></p></div>
+                        <!-- <div class="col-lg-3 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Status:</span> <span class="jmi-lvl-value">Pending</span></p></div> -->
+                        <div class="col-lg-3 col-md-6 col-sm-12"><p class="jmi-title">Area: <span class="jmi-lvl-value">-- Dev. No Data ---</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-12"><p class="jmi-title">Territory: <span class="jmi-lvl-value">{{ customer_data ? customer_data.customer_area_info.sales_force.get_sales_area.area_name : "" }}</span></p></div>
                     </div>
                     <div class="row">
-                        <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title">Territory: <span class="jmi-lvl-value">{{ customer_data ? customer_data.customer_area_info.sales_force.get_sales_area.area_name : "" }}</span></p></div> -->
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="am">AM: <span class="jmi-lvl-value">{{ customer_data ? customer_data.customer_area_info.sales_force.manager_info.name : "" }}</span></p></div>
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="mio">MIO: <span class="jmi-lvl-value">{{ customer_data ? customer_data.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info.name : "" }}</span></p></div>
-                        <div class="col-lg-3 col-md-6 col-sm-6">
+                        <!-- <div class="col-lg-3 col-md-6 col-sm-12"><p class="jmi-title">Territory: <span class="jmi-lvl-value">{{ customer_data ? customer_data.customer_area_info.sales_force.get_sales_area.area_name : "" }}</span></p></div> -->
+                        <div class="col-lg-3 col-md-6 col-sm-12"><p class="am">AM: <span class="jmi-lvl-value">{{ customer_data ? customer_data.customer_area_info.sales_force.manager_info.name : "" }}</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-12"><p class="mio">MIO: <span class="jmi-lvl-value">{{ customer_data ? customer_data.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info.name : "" }}</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-12">
                             <div class="sr" style="display: table-cell; width: 33%; padding-right: 20px; padding-bottom: 0; vertical-align: middle;">
                                 <span class="jmi-lvl">SR: </span>
                                 <!-- <div class="select-options" style="display: inline-block; width: 50%; min-width: 120px; font-size: 14px;">
@@ -52,28 +52,56 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="delivery-dt"><span class="jmi-lvl">Exp D D:</span> <span class="jmi-lvl-value"><input type="date" id="expected-delivery-date" placeholder="09/12/2020"/></span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-12"><p class="delivery-dt"><span class="jmi-lvl">Exp D D:</span> <span class="jmi-lvl-value"><input type="date" id="expected-delivery-date" placeholder="09/12/2020"/></span></p></div>
                     </div>
                     <div class="row">
-                        <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="delivery-dt"><span class="jmi-lvl">Exp D D:</span> <span class="jmi-lvl-value"><input type="date" id="expected-delivery-date" placeholder="09/12/2020"/></span></p></div> -->
+                        <!-- <div class="col-lg-3 col-md-6 col-sm-12"><p class="delivery-dt"><span class="jmi-lvl">Exp D D:</span> <span class="jmi-lvl-value"><input type="date" id="expected-delivery-date" placeholder="09/12/2020"/></span></p></div> -->
                     </div>
                 </div>
             </div>
             <!-- Order Table -->
             <div class="order-table">
                 <div class="order-table-inner">
-                    <table class="table" id="order-data-table" cellspacing="0" width="100%">
+                    <!-- <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th style="border: none" v-for="(head, i) in order_table_header" :key="i">{{ head }}</th>
-                                <th style="border: none"></th>
+                                <th>Name</th>
+                                <th>Unit Price</th>
+                                <th>Quantity</th>
+                                <th>Bonus</th>
+                                <th>Total Price</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <div id="progressbar" class="jmi-progressbar" v-if="!order_table_data">
+                            <tr>
+                                <td>Aston Martin</td>
+                                <td>150</td>
+                                <td>10</td>
+                                <td>50.00</td>
+                                <td>1254.00</td>
+                                <td>Del</td>
+                            </tr>
+                        </tbody>
+                    </table> -->
+                    <table class="table jmi-order-table" id="order-data-table" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <!-- <th style="border: none" v-for="(head, i) in order_table_header" :key="i">{{ head }}</th>
+                                <th style="border: none"></th> -->
+                                <th>Name</th>
+                                <th>Unit Price<span class="with-vat">(With VAT)</span></th>
+                                <th>Quantity</th>
+                                <th>Discount</th>
+                                <th>Total Price</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <div id="progressbar" class="jmi-progressbar" v-if="order_table_data.length <= 0">
                                 <v-progress-circular indeterminate color="primary"></v-progress-circular>
                             </div>
-                            <div class="table-data-rows" v-if="order_table_data">
+                            <div class="table-data-rows" v-if="order_table_data.length > 0">
                                 <!-- <tr v-for="(data, i) in (order_table_modified_data.length > 0 ? order_table_modified_data : order_table_data)" :key="i"> -->
                                 <!-- <tr v-for="(data, i) in order_table_modified_data" :key="i"> -->
                                 <tr v-for="(data, i) in order_table_data" :key="i">
@@ -82,16 +110,16 @@
                                         <span>{{ data ? data.prod_name : "" }}</span>
                                         <span>Product Code: {{ data ? data.prod_id : "" }}</span>
                                     </td>
-                                    <td>{{ data ? data.base_tp : "" }}</td>
+                                    <td>{{ data ? data.price_now_per_qty.toFixed(2) : "" }}</td>
                                     <td>
                                         <span class="quantity-setup">
                                             <span class="qty-increase" @click="decreaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-minus"></i></span>
-                                            <span class="qty">{{ data ? data.quantity : "" }}</span>
+                                            <span class="qty">{{ data ? (data.quantity ? data.quantity : 0) : 0 }}</span>
                                             <span class="qty-decrease" @click="increaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
                                         </span>
                                     </td>
-                                    <td>{{ data ? (data.bonus ? data.bonus : "No Bonus") : "No data" }}</td>
-                                    <td class="total_price">{{ data ? (data.base_tp * data.quantity).toFixed(2) : "" }}</td>
+                                    <td>{{ data ? (data.offer ? data.offer.discount_percentage : 0) : "" }}%</td>
+                                    <td class="total_price">{{ data ? (data.price_now_per_qty * data.quantity).toFixed(2) : 0 }}</td>
                                     <td class="row-action">
                                         <!-- <span class="edit-icon hide" @click="editOrderitemClickHandler(data, i)"><i class="zmdi zmdi-edit"></i></span> -->
                                         <span class="delete-icon" @click="deleteOrderitemClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
@@ -295,31 +323,8 @@ export default {
             sr_list: [],
             sr_add_modal: false,
             selected_sr: null,
-            order_table_header: ["Name", "Unit Price", "Quantity", "Bonus", "Total Price"],
-            order_table_data: [
-                {
-                    id: 1,
-                    prod_id: "1001",
-                    prod_class: "550",
-                    base_tp: "179.91",
-                    prod_name: "Adarbi 40 Tab",
-                    quantity: 0,
-                    prod_code: "ABT2",
-                    code_id: null,
-                    element_name: null
-                },
-                {
-                    id: 2,
-                    prod_id: "1002",
-                    prod_class: "650",
-                    base_tp: "189.91",
-                    prod_name: "Ladarbi 40 Tab",
-                    quantity: 0,
-                    prod_code: "ABT3",
-                    code_id: null,
-                    element_name: null
-                },
-            ],
+            order_table_header: ["Name", "Unit Price", "Quantity", "Discount", "Total Price"],
+            order_table_data: [],
             order_table_modified_data: [],
             auto_field_data: [],
             selected_auto_field_data: [],
@@ -517,20 +522,13 @@ export default {
             this.createSubtotalCalculation()
             // Create object for post method
             let prod_db_list = []
-            let str = '['
             for(let i=0; i<this.selected_auto_field_data.length; i++) {
                 let prod_obj = {
                     prod_id: parseInt(this.selected_auto_field_data[i].prod_id),
-                    buy_quantity: this.selected_auto_field_data[i].quantity ? this.selected_auto_field_data[i].quantity : 0
-                }
-                str += '{"prod_id" : ' + parseInt(this.selected_auto_field_data[i].prod_id) +', "buy_quantity" : ' + (this.selected_auto_field_data[i].quantity ? this.selected_auto_field_data[i].quantity : 0) + '}'
-                if(i < this.selected_auto_field_data.length - 1) {
-                    str += ', '
+                    quantity: this.selected_auto_field_data[i].quantity ? this.selected_auto_field_data[i].quantity : 0
                 }
                 prod_db_list.push(prod_obj)
             }
-            str += ']'
-            console.log(str)
             let sbu_id = parseInt(JSON.parse(localStorage.getItem("user")).user_detils.sbu_id)
             let customer_id = parseInt(this.customer_data ? this.customer_data.customer_id : 0)
             // let prod_db_data = {
@@ -539,7 +537,7 @@ export default {
             //     prod_details: prod_db_list
             // }
             // console.log(prod_db_data)
-            this.FIND_PRODUCT_OFFER__FROM_SERVICE(str, sbu_id, customer_id)
+            this.FIND_PRODUCT_OFFER__FROM_SERVICE(prod_db_list, sbu_id, customer_id)
             // this.FIND_PRODUCT_OFFER__FROM_SERVICE(prod_db_data)
             // Close Modal
             if(prod_db_list.length > 0) {
@@ -585,16 +583,16 @@ export default {
                     this.sr_list = res.data.users.da
                 })
         },
-        async FIND_PRODUCT_OFFER__FROM_SERVICE(prod_db_data_string, sbu_id, customer_id) {
+        async FIND_PRODUCT_OFFER__FROM_SERVICE(prod_db_list, sbu_id, customer_id) {
             let yyyy = new Date().getFullYear()
             let mm = (new Date().getMonth() + 1) < 10 ? ("0" + (new Date().getMonth() + 1)) : (new Date().getMonth() + 1)
             let dd = (new Date().getDate() + 1) < 10 ? ("0" + (new Date().getDate() + 1)) : (new Date().getDate() + 1) 
             let date = yyyy + '-' + mm + '-' + dd
-            console.log(prod_db_data_string + '   ' + date)
             
-            await service.getFindProductOffer_CreateOrderDetailsSection(prod_db_data_string, sbu_id, customer_id, date)
+            await service.getFindProductOffer_CreateOrderDetailsSection(prod_db_list, sbu_id, customer_id, date)
                 .then(res => {
                     console.log(res.data)
+                    this.order_table_data = res.data.data
                 })
             // let products = JSON.stringify({ prod_db_data })
             // const requestOptions = {
