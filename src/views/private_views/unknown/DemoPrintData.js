@@ -506,4 +506,111 @@ export default class DemoPrintData {
 
         return data
     }
+
+    print_sdr_025_data() {
+        let data = [
+            {
+                invoice_no: "1053629",
+                dispatch_date: "28/06/2020",
+                net_sale: "6,163.66",
+                type: "Cash",
+                prev_collection: "1,000.00",
+                collection_amnt: "1,400.00",
+                return_amnt: "-",
+                balance_amnt: "3,763.66",
+            },
+            {
+                invoice_no: "1053629",
+                dispatch_date: "28/06/2020",
+                net_sale: "6,163.66",
+                type: "Cash",
+                prev_collection: "1,000.00",
+                collection_amnt: "1,400.00",
+                return_amnt: "-",
+                balance_amnt: "3,763.66",
+            },
+            {
+                invoice_no: "1053629",
+                dispatch_date: "28/06/2020",
+                net_sale: "6,163.66",
+                type: "Cash",
+                prev_collection: "1,000.00",
+                collection_amnt: "1,400.00",
+                return_amnt: "-",
+                balance_amnt: "3,763.66",
+            },
+            {
+                invoice_no: "1053629",
+                dispatch_date: "28/06/2020",
+                net_sale: "6,163.66",
+                type: "Cash",
+                prev_collection: "1,000.00",
+                collection_amnt: "1,400.00",
+                return_amnt: "-",
+                balance_amnt: "3,763.66",
+            },
+            {
+                invoice_no: "1053629",
+                dispatch_date: "28/06/2020",
+                net_sale: "6,163.66",
+                type: "Cash",
+                prev_collection: "1,000.00",
+                collection_amnt: "1,400.00",
+                return_amnt: "-",
+                balance_amnt: "3,763.66",
+            },
+            {
+                invoice_no: "1053629",
+                dispatch_date: "28/06/2020",
+                net_sale: "6,163.66",
+                type: "Cash",
+                prev_collection: "1,000.00",
+                collection_amnt: "1,400.00",
+                return_amnt: "-",
+                balance_amnt: "3,763.66",
+            },
+            {
+                invoice_no: "1053629",
+                dispatch_date: "28/06/2020",
+                net_sale: "6,163.66",
+                type: "Cash",
+                prev_collection: "1,000.00",
+                collection_amnt: "1,400.00",
+                return_amnt: "-",
+                balance_amnt: "3,763.66",
+            },
+            {
+                invoice_no: "1053629",
+                dispatch_date: "28/06/2020",
+                net_sale: "6,163.66",
+                type: "Cash",
+                prev_collection: "1,000.00",
+                collection_amnt: "1,400.00",
+                return_amnt: "-",
+                balance_amnt: "3,763.66",
+            },
+            {
+                invoice_no: "1053629",
+                dispatch_date: "28/06/2020",
+                net_sale: "6,163.66",
+                type: "Cash",
+                prev_collection: "1,000.00",
+                collection_amnt: "1,400.00",
+                return_amnt: "-",
+                balance_amnt: "3,763.66",
+            },
+            {
+                invoice_no: "1053629",
+                dispatch_date: "28/06/2020",
+                net_sale: "6,163.66",
+                type: "Cash",
+                prev_collection: "1,000.00",
+                collection_amnt: "1,400.00",
+                return_amnt: "-",
+                balance_amnt: "3,763.66",
+            },
+        ]
+
+        return data
+    }
 }
