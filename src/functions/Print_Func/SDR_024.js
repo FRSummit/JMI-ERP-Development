@@ -65,31 +65,23 @@ export default class SDR_024 {
                                                     '<span class="lvl-val" style="display: inline-block; border: 1px solid #000000; margin-left: 10px; padding: 2px 4px;">DHK153, Mamun Al Monsur</span>' +
                                                 '</p>' +
                                             '</div>' +
-                                            '<div class="right-section" style="display: inline-block; width: 20%; float: right; text-align: right;">' +
+                                            '<div class="right-section" style="display: inline-block; width: 30%; float: right; text-align: right;">' +
                                                 '<p style="display: block; width: 100%; margin: 0; font-size: 14px; line-height: 1.7;">' +
                                                     '<span class="lvl" style="display: inline-block;">Date</span>' +
-                                                    '<span class="lvl-val" style="display: inline-block; border: 1px solid #000000; margin-left: 10px; padding: 2px 4px;">30/06/2020</span>' +
+                                                    '<span class="lvl-val" style="display: inline-block; width: 100px; border: 1px solid #000000; margin-left: 10px; padding: 2px 4px;">30/06/2020</span>' +
                                                 '</p>' +
                                                 '<p style="display: block; width: 100%; margin: 4px 0 0; font-size: 14px; line-height: 1.7;">' +
                                                     '<span class="lvl" style="display: inline-block;">Pay Mode</span>' +
-                                                    '<span class="lvl-val" style="display: inline-block; border: 1px solid #000000; margin-left: 10px; padding: 2px 4px;">Cash</span>' +
+                                                    '<span class="lvl-val" style="display: inline-block; width: 100px; border: 1px solid #000000; margin-left: 10px; padding: 2px 4px;">Cash</span>' +
                                                 '</p>' +
                                             '</div>' +
                                             '<div style="display: block; width: 100%; text-align: left; overflow: hidden; padding-top: 4px;">' +
                                                 '<p style="display: block; width: 100%; margin: 0; font-size: 14px; line-height: 1.7;">' +
-                                                    '<span class="lvl" style="display: inline-block;">Description</span>' +
-                                                    '<span class="lvl-val" style="display: inline-block; width: 85%; border: 1px solid #000000; padding: 2px 4px; float: right;">30/06/2020</span>' +
+                                                    '<span class="lvl" style="display: inline-block; width: 120px;">Description</span>' +
+                                                    '<span class="lvl-val" style="display: inline-block; width: 624px; border: 1px solid #000000; padding: 2px 4px; float: right;">30/06/2020</span>' +
                                                 '</p>' +
                                             '</div>' +
                                         '</div>' +
-                                        // '<div class="summery-section" style="display: block; width: 100%; position: relative; margin-bottom: 20px;">' +
-                                        //     '<div class="left-section" style="display: inline-block; width: 100%; text-align: left;">' +
-                                        //         '<p style="display: block; width: 100%; margin: 0; font-size: 14px; line-height: 1.7;">' +
-                                        //             '<span class="lvl" style="display: inline-block;">Description</span>' +
-                                        //             '<span class="lvl-val" style="display: inline-block; border: 1px solid #000000; margin-left: 10px; padding: 2px 4px;">DHK0620117381</span>' +
-                                        //         '</p>' +
-                                        //     '</div>' +
-                                        // '</div>' +
                                         //----------------------------------------------------------------------------------------------------------------------------------------------
                                         // TABLE DATA SECTION
                                         '<div class="data-section" style="">' +
