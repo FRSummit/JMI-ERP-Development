@@ -84,11 +84,17 @@
                             </tr>
                         </tbody>
                     </table> -->
-                    <table class="table" id="order-data-table" cellspacing="0" width="100%">
+                    <table class="table jmi-order-table" id="order-data-table" cellspacing="0" width="100%">
                         <thead>
                             <tr>
-                                <th style="border: none" v-for="(head, i) in order_table_header" :key="i">{{ head }}</th>
-                                <th style="border: none"></th>
+                                <!-- <th style="border: none" v-for="(head, i) in order_table_header" :key="i">{{ head }}</th>
+                                <th style="border: none"></th> -->
+                                <th>Name</th>
+                                <th>Unit Price<span class="with-vat">(With VAT)</span></th>
+                                <th>Quantity</th>
+                                <th>Discount</th>
+                                <th>Total Price</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -104,16 +110,16 @@
                                         <span>{{ data ? data.prod_name : "" }}</span>
                                         <span>Product Code: {{ data ? data.prod_id : "" }}</span>
                                     </td>
-                                    <td>{{ data ? data.base_tp : "" }}</td>
+                                    <td>{{ data ? data.price_now_per_qty.toFixed(2) : "" }}</td>
                                     <td>
                                         <span class="quantity-setup">
                                             <span class="qty-increase" @click="decreaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-minus"></i></span>
-                                            <span class="qty">{{ data ? data.quantity : "" }}</span>
+                                            <span class="qty">{{ data ? (data.quantity ? data.quantity : 0) : 0 }}</span>
                                             <span class="qty-decrease" @click="increaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
                                         </span>
                                     </td>
-                                    <td>{{ data ? (data.bonus ? data.bonus : "No Bonus") : "No data" }}</td>
-                                    <td class="total_price">{{ data ? (data.base_tp * data.quantity).toFixed(2) : "" }}</td>
+                                    <td>{{ data ? (data.offer ? data.offer.discount_percentage : 0) : "" }}%</td>
+                                    <td class="total_price">{{ data ? (data.price_now_per_qty * data.quantity).toFixed(2) : 0 }}</td>
                                     <td class="row-action">
                                         <!-- <span class="edit-icon hide" @click="editOrderitemClickHandler(data, i)"><i class="zmdi zmdi-edit"></i></span> -->
                                         <span class="delete-icon" @click="deleteOrderitemClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
@@ -317,7 +323,7 @@ export default {
             sr_list: [],
             sr_add_modal: false,
             selected_sr: null,
-            order_table_header: ["Name", "Unit Price", "Quantity", "Bonus", "Total Price"],
+            order_table_header: ["Name", "Unit Price", "Quantity", "Discount", "Total Price"],
             order_table_data: [],
             order_table_modified_data: [],
             auto_field_data: [],
