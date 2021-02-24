@@ -627,9 +627,9 @@ input[type=number] {
 }
 .jmi-order-table thead tr th {
     color      : #026CD1;
-    font-size  : 16px;
+    font-size  : 14px;
     font-weight: 500;
-    width      : 15%;
+    width      : 13%;
     text-align : center;
 }
 .jmi-order-table tbody {}
@@ -640,7 +640,7 @@ input[type=number] {
     color         : #222223;
     font-size     : 14px;
     font-weight   : 400;
-    width         : 15%;
+    width         : 13%;
     border-top    : none;
     padding       : 4px 10px;
     text-align    : center;
