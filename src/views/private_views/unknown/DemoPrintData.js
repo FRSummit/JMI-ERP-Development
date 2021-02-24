@@ -422,4 +422,88 @@ export default class DemoPrintData {
 
         return data
     }
+
+    print_sdr_024_data() {
+        let data = [
+            {
+                invoice_no: "DHK062028680",
+                date: "28/06/2020",
+                chemist_name: "Chowdury Medical Hall",
+                invoice_type: "Cash",
+                collection_amount: "412.00",
+            },
+            {
+                invoice_no: "DHK062028680",
+                date: "28/06/2020",
+                chemist_name: "Chowdury Medical Hall",
+                invoice_type: "Cash",
+                collection_amount: "412.00",
+            },
+            {
+                invoice_no: "DHK062028680",
+                date: "28/06/2020",
+                chemist_name: "Chowdury Medical Hall",
+                invoice_type: "Cash",
+                collection_amount: "412.00",
+            },
+            {
+                invoice_no: "DHK062028680",
+                date: "28/06/2020",
+                chemist_name: "Chowdury Medical Hall",
+                invoice_type: "Cash",
+                collection_amount: "412.00",
+            },
+            {
+                invoice_no: "DHK062028680",
+                date: "28/06/2020",
+                chemist_name: "Chowdury Medical Hall",
+                invoice_type: "Cash",
+                collection_amount: "412.00",
+            },
+            {
+                invoice_no: "DHK062028680",
+                date: "28/06/2020",
+                chemist_name: "Chowdury Medical Hall",
+                invoice_type: "Cash",
+                collection_amount: "412.00",
+            },
+            {
+                invoice_no: "DHK062028680",
+                date: "28/06/2020",
+                chemist_name: "Chowdury Medical Hall",
+                invoice_type: "Cash",
+                collection_amount: "412.00",
+            },
+            {
+                invoice_no: "DHK062028680",
+                date: "28/06/2020",
+                chemist_name: "Chowdury Medical Hall",
+                invoice_type: "Cash",
+                collection_amount: "412.00",
+            },
+            {
+                invoice_no: "DHK062028680",
+                date: "28/06/2020",
+                chemist_name: "Chowdury Medical Hall",
+                invoice_type: "Cash",
+                collection_amount: "412.00",
+            },
+            {
+                invoice_no: "DHK062028680",
+                date: "28/06/2020",
+                chemist_name: "Chowdury Medical Hall",
+                invoice_type: "Cash",
+                collection_amount: "412.00",
+            },
+            {
+                invoice_no: "DHK062028680",
+                date: "28/06/2020",
+                chemist_name: "Chowdury Medical Hall",
+                invoice_type: "Cash",
+                collection_amount: "412.00",
+            },
+        ]
+
+        return data
+    }
 }
