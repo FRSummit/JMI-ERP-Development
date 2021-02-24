@@ -93,22 +93,23 @@
                                 <th>Unit Price<span class="with-vat">(With VAT)</span></th>
                                 <th>Quantity</th>
                                 <th>Discount</th>
+                                <th>Bonus</th>
                                 <th>Total Price</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <div id="progressbar" class="jmi-progressbar" v-if="order_table_data.length <= 0">
+                            <div id="progressbar" class="jmi-progressbar" v-if="ORDERED_TABLE_DATA__INIT_LIST.length <= 0">
                                 <v-progress-circular indeterminate color="primary"></v-progress-circular>
                             </div>
-                            <div class="table-data-rows" v-if="order_table_data.length > 0">
-                                <!-- <tr v-for="(data, i) in (order_table_modified_data.length > 0 ? order_table_modified_data : order_table_data)" :key="i"> -->
+                            <div class="table-data-rows" v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">
+                                <!-- <tr v-for="(data, i) in (order_table_modified_data.length > 0 ? order_table_modified_data : ORDERED_TABLE_DATA__INIT_LIST)" :key="i"> -->
                                 <!-- <tr v-for="(data, i) in order_table_modified_data" :key="i"> -->
-                                <tr v-for="(data, i) in order_table_data" :key="i">
+                                <tr v-for="(data, i) in ORDERED_TABLE_DATA__INIT_LIST" :key="i">
                                     <td>
                                         <!-- <span>{{ data ? data.product_info.prod_name : "" }}</span> -->
                                         <span>{{ data ? data.prod_name : "" }}</span>
-                                        <span>Product Code: {{ data ? data.prod_id : "" }}</span>
+                                        <span>Base Price: {{ data ? data.base_tp : "" }}</span>
                                     </td>
                                     <td>{{ data ? data.price_now_per_qty.toFixed(2) : "" }}</td>
                                     <td>
@@ -118,7 +119,8 @@
                                             <span class="qty-decrease" @click="increaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
                                         </span>
                                     </td>
-                                    <td>{{ data ? (data.offer ? data.offer.discount_percentage : 0) : "" }}%</td>
+                                    <td>{{ data ? (data.offer.discount_percentage ? data.offer.discount_percentage : 0) : 0 }}%</td>
+                                    <td>{{ data ? (data.offer.bonus ? data.offer.bonus : 0) : 0 }}</td>
                                     <td class="total_price">{{ data ? (data.price_now_per_qty * data.quantity).toFixed(2) : 0 }}</td>
                                     <td class="row-action">
                                         <!-- <span class="edit-icon hide" @click="editOrderitemClickHandler(data, i)"><i class="zmdi zmdi-edit"></i></span> -->
@@ -128,11 +130,10 @@
                             </div>
                             <!-- Bottom Total Section -->
                             <tr id="subtotal-section" class="subtotal-section" style="border-top: 1px solid #BFCFE2;">
-                                <td>
+                                <td colspan="3">
                                     <span class="add-order-section" @click="addOrderClickHandler"><i class="zmdi zmdi-plus"></i>Add Products</span>
                                     <span class="attachment-section" @click="addAttachmentClickHandler"><i class="zmdi zmdi-attachment-alt"></i>Attachment</span>
                                 </td>
-                                <td></td>
                                 <td></td>
                                 <td>
                                     <span class="subtotal">Subtotal</span>
@@ -151,6 +152,7 @@
                                 <td></td>
                             </tr>
                             <tr id="grand-total-section" class="grand-total-section" style="border-top: 1px solid #BFCFE2;">
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -240,10 +242,10 @@
                                     <td><span class="jmi-title">Total Price</span></td>
                                     <td class="row-action"></td>
                                 </tr>
-                                <div id="progressbar" class="jmi-progressbar" v-if="!selected_auto_field_data">
+                                <div id="progressbar" class="jmi-progressbar" v-if="!SELECTED_ORDERED_PRODUCTS__INIT_LIST">
                                     <v-progress-circular indeterminate color="primary"></v-progress-circular>
                                 </div>
-                                <tr v-for="(data, i) in selected_auto_field_data" :key="i">
+                                <tr v-for="(data, i) in SELECTED_ORDERED_PRODUCTS__INIT_LIST" :key="i">
                                     <td>
                                         <!-- <span>{{  data ? data.product_info.prod_name : ""  }}</span> -->
                                         <span>{{  data ? data.prod_name : ""  }}</span>
@@ -324,10 +326,14 @@ export default {
             sr_add_modal: false,
             selected_sr: null,
             order_table_header: ["Name", "Unit Price", "Quantity", "Discount", "Total Price"],
-            order_table_data: [],
+            ORDERED_TABLE_DATA__INIT_LIST: [],
+            ORDERED_TABLE_DATA__MODIFIED_LIST: [],
+            ORDERED_TABLE_DATA__CONFIRM_LIST: [],
             order_table_modified_data: [],
             auto_field_data: [],
-            selected_auto_field_data: [],
+            SELECTED_ORDERED_PRODUCTS__INIT_LIST: [],
+            SELECTED_ORDERED_PRODUCTS__STORE: [],
+            RESPONSE_ORDERED_PRODUCTS__STORE: [],
             attachment_list: [
                 {
                     name: "File Name Line Here.pdf"
@@ -407,25 +413,18 @@ export default {
         // Delete Table Row's Single Product/Order
         deleteOrderitemClickHandler(data, index) {
             console.log(data + '    ' + index)
-            if(this.order_table_data.length > 0) {
-                for (let [i, tt] of this.order_table_data.entries()) {
+            if(this.ORDERED_TABLE_DATA__INIT_LIST.length > 0) {
+                for (let [i, tt] of this.ORDERED_TABLE_DATA__INIT_LIST.entries()) {
                     if (tt.prod_id === data.prod_id) {
-                        this.order_table_data.splice(i, 1);
+                        this.ORDERED_TABLE_DATA__INIT_LIST.splice(i, 1);
                     }
                 }
             }
-            /*if(this.selected_auto_field_data.length > 0) {
-                for (let [i, tt] of this.selected_auto_field_data.entries()) {
-                    if (tt.prod_id === data.prod_id) {
-                        this.selected_auto_field_data.splice(i, 1);
-                    }
-                }
-            }*/
         },
         //------------------------------------------------------------------------------------------
         // Add Product/Order , Atachment Row
         addOrderClickHandler() {
-            this.selected_auto_field_data = []
+            this.SELECTED_ORDERED_PRODUCTS__INIT_LIST = []
             if(this.add_order_modal) {
                 this.add_order_modal = false
             } else {
@@ -486,9 +485,9 @@ export default {
                             prod_code: data.prod_code,
                             code_id: data.code_id,
                             element_name: data.element_name,
-                            quantity: null
+                            quantity: 0
                         }
-            this.selected_auto_field_data.push(product)
+            this.SELECTED_ORDERED_PRODUCTS__INIT_LIST.push(product)
             // Remove this product from all product list
             if(this.auto_field_data.length > 0) {
                 for (let [i, tt] of this.auto_field_data.entries()) {
@@ -502,11 +501,11 @@ export default {
         // Remove Added Ordered Product
         removeAddedOrderedProductClickHandler(data, index) {
             console.log('remove added ordered product: ' + data + '    ' + index)
-            // this.selected_auto_field_data.push(data)
-            if(this.selected_auto_field_data.length > 0) {
-                for (let [i, tt] of this.selected_auto_field_data.entries()) {
+            // this.SELECTED_ORDERED_PRODUCTS__INIT_LIST.push(data)
+            if(this.SELECTED_ORDERED_PRODUCTS__INIT_LIST.length > 0) {
+                for (let [i, tt] of this.SELECTED_ORDERED_PRODUCTS__INIT_LIST.entries()) {
                     if (tt.prod_id === data.prod_id) {
-                        this.selected_auto_field_data.splice(i, 1);
+                        this.SELECTED_ORDERED_PRODUCTS__INIT_LIST.splice(i, 1);
                     }
                 }
             }
@@ -518,27 +517,22 @@ export default {
         },
         addItemsFromModalClickHandler() {
             console.log('add items from modal')
-            this.order_table_modified_data = this.selected_auto_field_data
+            // this.order_table_modified_data = this.SELECTED_ORDERED_PRODUCTS__INIT_LIST
+            this.SELECTED_ORDERED_PRODUCTS__STORE = this.SELECTED_ORDERED_PRODUCTS__INIT_LIST
             this.createSubtotalCalculation()
             // Create object for post method
             let prod_db_list = []
-            for(let i=0; i<this.selected_auto_field_data.length; i++) {
+            for(let i=0; i<this.SELECTED_ORDERED_PRODUCTS__INIT_LIST.length; i++) {
                 let prod_obj = {
-                    prod_id: parseInt(this.selected_auto_field_data[i].prod_id),
-                    quantity: this.selected_auto_field_data[i].quantity ? this.selected_auto_field_data[i].quantity : 0
+                    prod_id: parseInt(this.SELECTED_ORDERED_PRODUCTS__INIT_LIST[i].prod_id),
+                    quantity: this.SELECTED_ORDERED_PRODUCTS__INIT_LIST[i].quantity ? this.SELECTED_ORDERED_PRODUCTS__INIT_LIST[i].quantity : 0
                 }
                 prod_db_list.push(prod_obj)
             }
             let sbu_id = parseInt(JSON.parse(localStorage.getItem("user")).user_detils.sbu_id)
             let customer_id = parseInt(this.customer_data ? this.customer_data.customer_id : 0)
-            // let prod_db_data = {
-            //     sbu_id: parseInt(JSON.parse(localStorage.getItem("user")).user_detils.sbu_id),
-            //     customer_id:  parseInt(this.customer_data ? this.customer_data.customer_id : 0),
-            //     prod_details: prod_db_list
-            // }
-            // console.log(prod_db_data)
+            // CALL SERVICE IMPLEMENTATION FUNCTION
             this.FIND_PRODUCT_OFFER__FROM_SERVICE(prod_db_list, sbu_id, customer_id)
-            // this.FIND_PRODUCT_OFFER__FROM_SERVICE(prod_db_data)
             // Close Modal
             if(prod_db_list.length > 0) {
                 this.add_order_modal = false
@@ -592,27 +586,19 @@ export default {
             await service.getFindProductOffer_CreateOrderDetailsSection(prod_db_list, sbu_id, customer_id, date)
                 .then(res => {
                     console.log(res.data)
-                    this.order_table_data = res.data.data
+                    // this.ORDERED_TABLE_DATA__INIT_LIST = res.data.data
+                    this.RESPONSE_ORDERED_PRODUCTS__STORE = res.data.data
+                    // console.log(this.SELECTED_ORDERED_PRODUCTS__STORE)
+                    this.GENERATE_ORDERED_PRODUCTS_DETAILS_LIST_FROM_PRODUCT_OFFER_RESPONSE()
                 })
-            // let products = JSON.stringify({ prod_db_data })
-            // const requestOptions = {
-            //     method: 'GET',
-            //     headers: { 'Content-Type': 'application/json' },
-            //     body: JSON.stringify({ prod_db_data })
-            // };
-            // console.log(products)
-            // await fetch(`${env.apiBaseUrl}/create_order_find_product_order`, requestOptions)
-            //     .then(res => {
-            //         console.log(res.data)
-            //     })
         },
         // ----------------------------------------------------------------------------------------------
         // Bottom Row Calculation
         // Create/initial Subtotal
         createSubtotalCalculation() {
             this.sub_total = 0
-            for(let i=0; i<this.order_table_data.length; i++) {
-                this.sub_total += this.order_table_data[i].quantity * parseFloat(this.order_table_data[i].base_tp)
+            for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST.length; i++) {
+                this.sub_total += this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity * parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].base_tp)
             }
             // this.sub_total = this.sub_total
             // this.vat = this.vat
@@ -623,7 +609,58 @@ export default {
             this.grand_total = this.sub_total - this.vat + this.discount - this.rounding_adjustment
             // this.grand_total = this.grand_total
         },
+        // -------------------------------------------------------
+        GENERATE_ORDERED_PRODUCTS_DETAILS_LIST_FROM_PRODUCT_OFFER_RESPONSE() {
+            console.log(this.SELECTED_ORDERED_PRODUCTS__STORE.length)
+            console.log(this.RESPONSE_ORDERED_PRODUCTS__STORE.length)
+            if(this.SELECTED_ORDERED_PRODUCTS__STORE.length > 0 && this.RESPONSE_ORDERED_PRODUCTS__STORE.length > 0) {
+                for (let i=0; i<this.SELECTED_ORDERED_PRODUCTS__STORE.length; i++) {
+                    for(let j=0; j<this.RESPONSE_ORDERED_PRODUCTS__STORE.length; j++) {
+                        if( parseInt(this.SELECTED_ORDERED_PRODUCTS__STORE[i].prod_id) === parseInt(this.RESPONSE_ORDERED_PRODUCTS__STORE[j].prod_id) ) {
+                            let product = {
+                                    prod_id             : this.SELECTED_ORDERED_PRODUCTS__STORE[i].prod_id,
+                                    prod_name           : this.SELECTED_ORDERED_PRODUCTS__STORE[i].prod_name,
+                                    base_tp             : this.SELECTED_ORDERED_PRODUCTS__STORE[i].base_tp,
+                                    price_now_per_qty   : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].price_now_per_qty,
+                                    base_vat            : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].base_vat,
+                                    line_total          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].line_total,
+                                    vat_total           : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].vat_total,
+                                    quantity            : this.SELECTED_ORDERED_PRODUCTS__STORE[i].quantity,
+                                    offer_type          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type,
+                                    offer: {
+                                        discount_percentage: this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer.discount_percentage,
+                                    }
+                            }
+                            console.log(product)
+                            this.ORDERED_TABLE_DATA__INIT_LIST.push(product)
+                        }
+                    }
+                }
+            }
+        },
+        test() {
+            console.log('test')
+        }
     },
+    watch: { 
+        customer_data: (newVal, oldVal) => {
+             console.log('Prop changed: ', newVal, ' | was: ', oldVal)
+             if( newVal && oldVal) {
+                if(newVal.customer_id !== oldVal.customer_id) {
+                    console.log('Prop changed: ', newVal.customer_id, ' | was: ', oldVal.customer_id)
+                    // this.ORDERED_TABLE_DATA__INIT_LIST = []
+                    // this.ORDERED_TABLE_DATA__MODIFIED_LIST = []
+                    // this.ORDERED_TABLE_DATA__CONFIRM_LIST = []
+                    // this.auto_field_data = []
+                    // this.SELECTED_ORDERED_PRODUCTS__INIT_LIST = []
+                    // this.SELECTED_ORDERED_PRODUCTS__STORE = []
+                    // this.RESPONSE_ORDERED_PRODUCTS__STORE = []
+                    this.test()
+                }
+            }
+        },
+        deep: true
+    }
 }
 </script>
 

@@ -370,47 +370,26 @@
 
                 table {
                     border-top: none;
-
-                    // th {
-                    //     border: none;
-                    //     padding: 4px 10px;
-
-                    //     span {
-                    //         display: block;
-                    //         font-size: 8px;
-                    //     }
-                    // }
-
-                    // All Rows
-                    // tr {
-
-                    //     display: table;
-                    //     width  : 100%;
-                    // }
-
-                    // Table Head
                     thead {
-                        // border-bottom: 1px solid #BFCFE2;
 
                         tr {
-                            // border-bottom: none;
 
                             th {
-                                // color      : #026CD1;
-                                // font-size  : 16px;
-                                // font-weight: 500;
-                                // width      : 15%;
-                                // text-align : center;
                             }
 
                             th:first-child {
-                                width     : 25%;
+                                width     : 20%;
                                 text-align: left;
                             }
 
-                            th:nth-child(5),
-                            th:last-child {
+                            th:nth-child(3) {
+                                width     : 18%;
+                            }
+                            th:nth-child(6) {
                                 text-align: right;
+                            }
+                            th:last-child {
+                                width     : 10%;
                             }
                         }
                     }
@@ -447,21 +426,12 @@
                         }
 
                         tr {
-                            // border-bottom: none;
 
                             td {
-                                // color         : #222223;
-                                // font-size     : 14px;
-                                // font-weight   : 400;
-                                // width         : 15%;
-                                // border-top    : none;
-                                // padding       : 4px 10px;
-                                // text-align    : center;
-                                // vertical-align: middle;
                             }
 
                             td:first-child {
-                                width: 25%;
+                                width: 20%;
 
                                 span {
                                     display   : block;
@@ -475,25 +445,57 @@
                                 }
                             }
 
-                            td:nth-child(5),
-                            td:last-child {
+                            td:nth-child(3) {
+                                width     : 18%;
+                            }
+                            td:nth-child(6) {
                                 text-align: right;
+                            }
+                            td:last-child {
+                                width     : 10%;
                             }
 
                             // QUantity Column
                             td {
+                                // span.quantity-setup {
+
+                                //     span.qty-increase {
+                                //         display: none;
+                                //     }
+
+                                //     span.qty {
+                                //         margin: 0 10px;
+                                //     }
+
+                                //     span.qty-decrease {
+                                //         display: none;
+                                //     }
+                                // }
                                 span.quantity-setup {
+                                    border       : 1px solid #026CD1;
+                                    padding      : 2px 8px;
+                                    border-radius: 2px;
+                                    background   : #FFFFFF;
 
                                     span.qty-increase {
-                                        display: none;
+                                        display  : inline-block;
+                                        color    : #026CD1;
+                                        font-size: 16px;
+                                        cursor   : pointer;
+                                        padding  : 4px;
                                     }
 
                                     span.qty {
                                         margin: 0 10px;
+                                        color : #026CD1;
                                     }
 
                                     span.qty-decrease {
-                                        display: none;
+                                        display  : inline-block;
+                                        color    : #AAC0D9;
+                                        font-size: 16px;
+                                        cursor   : pointer;
+                                        padding  : 4px;
                                     }
                                 }
                             }
@@ -502,8 +504,38 @@
                             td.row-action {
 
                                 span {
-                                    display: none;
+                                    display      : inline-block;
+                                    background   : #FFFFFF;
+                                    padding      : 4px 8px;
+                                    border-radius: 50%;
+                                    margin       : 0 10px;
+                                    cursor       : pointer;
+
+                                    &:hover {
+                                        background   : #FFFFFF;
+                                        padding      : 4px 8px;
+                                        border-radius: 50%;
+                                    }
                                 }
+
+                                span.delete-icon {
+                                    cursor: pointer;
+
+                                    i {
+                                        color    : #DF2A43;
+                                        font-size: 16px;
+                                    }
+
+                                    svg {
+                                        color : #DF2A43;
+                                        width : 14px;
+                                        height: 14px;
+                                    }
+                                }
+
+                                // span {
+                                //     display: none;
+                                // }
                             }
 
                             &:hover {
@@ -511,74 +543,67 @@
 
                                 // Quantity Column
                                 td {
-                                    span.quantity-setup {
-                                        border       : 1px solid #026CD1;
-                                        padding      : 2px 8px;
-                                        border-radius: 2px;
-                                        background   : #FFFFFF;
+                                    // span.quantity-setup {
+                                    //     border       : 1px solid #026CD1;
+                                    //     padding      : 2px 8px;
+                                    //     border-radius: 2px;
+                                    //     background   : #FFFFFF;
 
-                                        span.qty-increase {
-                                            display  : inline-block;
-                                            color    : #026CD1;
-                                            font-size: 16px;
-                                            cursor   : pointer;
-                                            padding  : 4px;
-                                        }
+                                    //     span.qty-increase {
+                                    //         display  : inline-block;
+                                    //         color    : #026CD1;
+                                    //         font-size: 16px;
+                                    //         cursor   : pointer;
+                                    //         padding  : 4px;
+                                    //     }
 
-                                        span.qty {
-                                            margin: 0 10px;
-                                            color : #026CD1;
-                                        }
+                                    //     span.qty {
+                                    //         margin: 0 10px;
+                                    //         color : #026CD1;
+                                    //     }
 
-                                        span.qty-decrease {
-                                            display  : inline-block;
-                                            color    : #AAC0D9;
-                                            font-size: 16px;
-                                            cursor   : pointer;
-                                            padding  : 4px;
-                                        }
-                                    }
+                                    //     span.qty-decrease {
+                                    //         display  : inline-block;
+                                    //         color    : #AAC0D9;
+                                    //         font-size: 16px;
+                                    //         cursor   : pointer;
+                                    //         padding  : 4px;
+                                    //     }
+                                    // }
                                 }
 
                                 // Row Action Column
                                 td.row-action {
 
-                                    span {
-                                        display      : inline-block;
-                                        background   : #FFFFFF;
-                                        padding      : 4px 8px;
-                                        border-radius: 50%;
-                                        margin       : 0 10px;
-                                        cursor       : pointer;
+                                    // span {
+                                    //     display      : inline-block;
+                                    //     background   : #FFFFFF;
+                                    //     padding      : 4px 8px;
+                                    //     border-radius: 50%;
+                                    //     margin       : 0 10px;
+                                    //     cursor       : pointer;
 
-                                        &:hover {
-                                            background   : #FFFFFF;
-                                            padding      : 4px 8px;
-                                            border-radius: 50%;
-                                        }
-                                    }
+                                    //     &:hover {
+                                    //         background   : #FFFFFF;
+                                    //         padding      : 4px 8px;
+                                    //         border-radius: 50%;
+                                    //     }
+                                    // }
 
-                                    span.edit-icon {
-                                        i {
-                                            color    : #026CD1;
-                                            font-size: 16px;
-                                        }
-                                    }
+                                    // span.delete-icon {
+                                    //     cursor: pointer;
 
-                                    span.delete-icon {
-                                        cursor: pointer;
+                                    //     i {
+                                    //         color    : #DF2A43;
+                                    //         font-size: 16px;
+                                    //     }
 
-                                        i {
-                                            color    : #DF2A43;
-                                            font-size: 16px;
-                                        }
-
-                                        svg {
-                                            color : #DF2A43;
-                                            width : 14px;
-                                            height: 14px;
-                                        }
-                                    }
+                                    //     svg {
+                                    //         color : #DF2A43;
+                                    //         width : 14px;
+                                    //         height: 14px;
+                                    //     }
+                                    // }
                                 }
                             }
                         }
@@ -1538,7 +1563,8 @@
     }
 
     #create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody tr#subtotal-section td:nth-child(5) {
-        padding-right: 18px;
+        // padding-right: 18px;
+        padding: 0;
     }
     #create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr.header-row td:first-child .jmi-title,
     #create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr.header-row .jmi-title,
@@ -1630,17 +1656,20 @@
     #create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr td {
         font-size: 14px;
     }
+    
+    #create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody tr td span.quantity-setup {
+        padding: 2px;
+    }
 
     #create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody tr:hover td span.quantity-setup {
-        padding: 2px;
+        // padding: 2px;
 
         span {
-            padding     : 0 2px !important;
-            margin      : 0 2px !important;
-            // font-size: 12px !important;
+            // padding     : 0 2px !important;
+            // margin      : 0 2px !important;
 
             i {
-                font-size: 12px;
+                // font-size: 12px;
             }
         }
     }
