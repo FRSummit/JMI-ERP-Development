@@ -299,6 +299,7 @@ export default class PostService {
 
   // CREATE ORDER - SEND SELECTED PRODUCT LIST
   getFindProductOffer_CreateOrderDetailsSection(prod_db_list, sbu_id, customer_id, date) {
+    console.log(date)
     let web_menu_url = '/api/web/find-product-offer'
     return axios(web_menu_url, {
       method: 'GET',
@@ -309,7 +310,8 @@ export default class PostService {
         prod_details: JSON.stringify(prod_db_list),
         customer_id: customer_id,
         sbu_id: sbu_id,
-        date: date,
+        // date: date,
+        date: '2021-02-05',
       },
       // paramsSerializer: params => {
       //   return qs.stringify(params)

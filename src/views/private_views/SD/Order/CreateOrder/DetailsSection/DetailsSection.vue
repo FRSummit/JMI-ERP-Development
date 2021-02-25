@@ -105,26 +105,39 @@
                             <div class="table-data-rows" v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">
                                 <!-- <tr v-for="(data, i) in (order_table_modified_data.length > 0 ? order_table_modified_data : ORDERED_TABLE_DATA__INIT_LIST)" :key="i"> -->
                                 <!-- <tr v-for="(data, i) in order_table_modified_data" :key="i"> -->
-                                <tr v-for="(data, i) in ORDERED_TABLE_DATA__INIT_LIST" :key="i">
+                                <tr v-for="(data, i) in ORDERED_TABLE_DATA__INIT_LIST" :key="i" :class="data.row_class ? data.row_class : ''">
                                     <td>
                                         <!-- <span>{{ data ? data.product_info.prod_name : "" }}</span> -->
                                         <span>{{ data ? data.prod_name : "" }}</span>
-                                        <span>Base Price: {{ data ? data.base_tp : "" }}</span>
+                                        <span v-if="!data.row_class">Base Price: {{ data ? data.base_tp : "" }}</span>
+                                        <span v-if="data.row_class" :class="data.row_class">Free Product</span>
                                     </td>
-                                    <td>{{ data ? data.price_now_per_qty.toFixed(2) : "" }}</td>
+                                    <!-- <td>{{ data ? data.price_now_per_qty.toFixed(2) : "" }}</td> -->
                                     <td>
-                                        <span class="quantity-setup">
+                                        <span v-if="!data.row_class">{{ data ? data.price_now_per_qty : 0 }}</span>
+                                        <span v-if="data.row_class"></span>
+                                    </td>
+                                    <td>
+                                        <span class="quantity-setup" v-if="!data.row_class">
                                             <span class="qty-increase" @click="decreaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-minus"></i></span>
                                             <span class="qty">{{ data ? (data.quantity ? data.quantity : 0) : 0 }}</span>
                                             <span class="qty-decrease" @click="increaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
                                         </span>
                                     </td>
-                                    <td>{{ data ? (data.offer.discount_percentage ? data.offer.discount_percentage : 0) : 0 }}%</td>
-                                    <td>{{ data ? (data.offer.bonus ? data.offer.bonus : 0) : 0 }}</td>
-                                    <td class="total_price">{{ data ? (data.price_now_per_qty * data.quantity).toFixed(2) : 0 }}</td>
+                                    <td>
+                                        <span v-if="!data.row_class">{{ data ? (data.offer.discount_percentage ? data.offer.discount_percentage : 0) : 0 }}%</span>
+                                        <span v-if="data.row_class"></span>
+                                    </td>
+                                    <td>
+                                        <span v-if="!data.row_class">{{ data ? (data.offer.bonus_qty ? parseInt(data.quantity / data.offer.bonus_on) : 0) : 0 }}</span>
+                                        <span v-if="data.row_class">{{ data ? (data.offer.free_prod_qty ? parseInt(data.quantity / data.offer.free_req_qty) : 0) : 0 }}</span>
+                                    </td>
+                                    <td class="total_price">
+                                        <span v-if="!data.row_class">{{ data ? (data.price_now_per_qty * data.quantity).toFixed(2) : 0 }}</span>
+                                        <span v-if="data.row_class"></span>
+                                    </td>
                                     <td class="row-action">
-                                        <!-- <span class="edit-icon hide" @click="editOrderitemClickHandler(data, i)"><i class="zmdi zmdi-edit"></i></span> -->
-                                        <span class="delete-icon" @click="deleteOrderitemClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
+                                        <span v-if="!data.row_class" class="delete-icon" @click="deleteOrderitemClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
                                     </td>
                                 </tr>
                             </div>
@@ -627,16 +640,33 @@ export default {
                                     vat_total           : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].vat_total,
                                     quantity            : this.SELECTED_ORDERED_PRODUCTS__STORE[i].quantity,
                                     offer_type          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type,
-                                    offer: {
-                                        discount_percentage: this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer.discount_percentage,
-                                    }
+                                    offer               : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer,
+                                    row_class           : ''
                             }
-                            console.log(product)
                             this.ORDERED_TABLE_DATA__INIT_LIST.push(product)
+
+                            // FOR FREE PRODUCT ENTRY
+                            if(this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type === "free") {
+                                let ferr_product = {
+                                        prod_id             : this.SELECTED_ORDERED_PRODUCTS__STORE[i].prod_id,
+                                        prod_name           : this.SELECTED_ORDERED_PRODUCTS__STORE[i].prod_name,
+                                        base_tp             : this.SELECTED_ORDERED_PRODUCTS__STORE[i].base_tp,
+                                        price_now_per_qty   : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].price_now_per_qty,
+                                        base_vat            : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].base_vat,
+                                        line_total          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].line_total,
+                                        vat_total           : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].vat_total,
+                                        quantity            : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].quantity,
+                                        offer_type          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type,
+                                        offer               : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer,
+                                        row_class           : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type
+                                }
+                                this.ORDERED_TABLE_DATA__INIT_LIST.push(ferr_product)
+                            }
                         }
                     }
                 }
             }
+            console.log(this.ORDERED_TABLE_DATA__INIT_LIST)
         },
         test() {
             console.log('test')
