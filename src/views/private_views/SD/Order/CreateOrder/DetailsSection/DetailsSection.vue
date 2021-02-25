@@ -736,6 +736,7 @@ export default {
         }
     },
     watch: { 
+        // Garbase
         // customer_data: (newVal, oldVal) => {
         //      console.log('Prop changed: ', newVal, ' | was: ', oldVal)
         //      if( newVal && oldVal) {
