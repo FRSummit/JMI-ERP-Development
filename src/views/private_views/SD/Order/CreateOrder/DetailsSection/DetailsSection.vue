@@ -554,9 +554,17 @@ export default {
             this.add_order_modal = false
         },
         addItemsFromModalClickHandler() {
-            console.log('add items from modal')
+            // console.log(this.SELECTED_ORDERED_PRODUCTS__STORE)
             // this.order_table_modified_data = this.SELECTED_ORDERED_PRODUCTS__INIT_LIST
-            this.SELECTED_ORDERED_PRODUCTS__STORE = this.SELECTED_ORDERED_PRODUCTS__INIT_LIST
+            if(this.SELECTED_ORDERED_PRODUCTS__STORE.length > 0) {
+                for(let i=0; i<this.SELECTED_ORDERED_PRODUCTS__INIT_LIST.length; i++) {
+                    this.SELECTED_ORDERED_PRODUCTS__STORE.push(this.SELECTED_ORDERED_PRODUCTS__INIT_LIST[i])
+                    // console.log(this.SELECTED_ORDERED_PRODUCTS__INIT_LIST[i])
+                    // console.log(this.SELECTED_ORDERED_PRODUCTS__STORE)
+                }
+            } else {
+                this.SELECTED_ORDERED_PRODUCTS__STORE = this.SELECTED_ORDERED_PRODUCTS__INIT_LIST
+            }
             this.createSubtotalCalculation()
             // Create object for post method
             let prod_db_list = []
@@ -604,6 +612,19 @@ export default {
                 .then(res => {
                     console.log(res.data)
                     this.auto_field_data = res.data.product_list
+                    console.log(this.SELECTED_ORDERED_PRODUCTS__STORE.length)
+                    console.log(this.auto_field_data.length)
+                    console.log(this.SELECTED_ORDERED_PRODUCTS__STORE)
+                    if(this.SELECTED_ORDERED_PRODUCTS__STORE.length > 0) {
+                        for(let i=0; i<this.auto_field_data.length; i++) {
+                            for(let j=0; j<this.SELECTED_ORDERED_PRODUCTS__STORE.length; j++) {
+                                if(this.auto_field_data[i].prod_id === this.SELECTED_ORDERED_PRODUCTS__STORE[j].prod_id) {
+                                    this.auto_field_data.splice(i, 1)
+                                    console.log(this.auto_field_data[i].prod_id + '    ' + this.SELECTED_ORDERED_PRODUCTS__STORE[j].prod_id)
+                                }
+                            }
+                        }
+                    }
                 })
         },
         async DIC_WISE_USERS__FROM_SERVICE() {
@@ -650,20 +671,20 @@ export default {
         },
         // -------------------------------------------------------
         GENERATE_ORDERED_PRODUCTS_DETAILS_LIST_FROM_PRODUCT_OFFER_RESPONSE() {
-            this.ORDERED_TABLE_DATA__INIT_LIST = []
+            // this.ORDERED_TABLE_DATA__INIT_LIST = []
             if(this.SELECTED_ORDERED_PRODUCTS__STORE.length > 0 && this.RESPONSE_ORDERED_PRODUCTS__STORE.length > 0) {
                 for (let i=0; i<this.SELECTED_ORDERED_PRODUCTS__STORE.length; i++) {
                     for(let j=0; j<this.RESPONSE_ORDERED_PRODUCTS__STORE.length; j++) {
                         if( parseInt(this.SELECTED_ORDERED_PRODUCTS__STORE[i].prod_id) === parseInt(this.RESPONSE_ORDERED_PRODUCTS__STORE[j].prod_id) ) {
                             let product = {
-                                    prod_id             : this.RESPONSE_ORDERED_PRODUCTS__STORE[i].prod_id,
+                                    prod_id             : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].prod_id,
                                     prod_name           : this.SELECTED_ORDERED_PRODUCTS__STORE[i].prod_name,
-                                    base_tp             : this.RESPONSE_ORDERED_PRODUCTS__STORE[i].base_tp,
+                                    base_tp             : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].base_tp,
                                     price_now_per_qty   : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].price_now_per_qty,
                                     base_vat            : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].base_vat,
                                     line_total          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].line_total,
                                     vat_total           : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].vat_total,
-                                    quantity            : this.RESPONSE_ORDERED_PRODUCTS__STORE[i].quantity,
+                                    quantity            : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].quantity,
                                     offer_type          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type,
                                     offer               : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer,
                                     row_class           : ''
