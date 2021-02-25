@@ -410,6 +410,10 @@ export default {
             console.log(data + '    ' + index)
             data.quantity++
             this.createSubtotalCalculation()
+            // Free Product row quantity increase
+            if(data.offer_type === "free") {
+                this.ORDERED_TABLE_DATA__INIT_LIST[index + 1].quantity++
+            }
         },
         // Decrease Table Row's Single Product/Order
         decreaseOrderedItemClickHandler(data, index) {
@@ -418,10 +422,10 @@ export default {
                 data.quantity--
                 this.createSubtotalCalculation()
             }
-        },
-        // Edit Table Row's Single Product/Order
-        editOrderitemClickHandler(data, index) {
-            console.log(data + '    ' + index)
+            // Free Product row quantity decrease
+            if(data.offer_type === "free") {
+                this.ORDERED_TABLE_DATA__INIT_LIST[index + 1].quantity--
+            }
         },
         // Delete Table Row's Single Product/Order
         deleteOrderitemClickHandler(data, index) {
@@ -430,6 +434,10 @@ export default {
                 for (let [i, tt] of this.ORDERED_TABLE_DATA__INIT_LIST.entries()) {
                     if (tt.prod_id === data.prod_id) {
                         this.ORDERED_TABLE_DATA__INIT_LIST.splice(i, 1);
+                        // Free Product row delete
+                        if(data.offer_type === "free") {
+                            this.ORDERED_TABLE_DATA__INIT_LIST.splice(i, 1);
+                        }
                     }
                 }
             }
