@@ -143,10 +143,12 @@
                             </div>
                             <!-- Bottom Total Section -->
                             <tr id="subtotal-section" class="subtotal-section" style="border-top: 1px solid #BFCFE2;">
-                                <td colspan="3">
+                                <td>
                                     <span class="add-order-section" @click="addOrderClickHandler"><i class="zmdi zmdi-plus"></i>Add Products</span>
                                     <span class="attachment-section" @click="addAttachmentClickHandler"><i class="zmdi zmdi-attachment-alt"></i>Attachment</span>
                                 </td>
+                                <td></td>
+                                <td></td>
                                 <td></td>
                                 <td>
                                     <span class="subtotal">Subtotal</span>
