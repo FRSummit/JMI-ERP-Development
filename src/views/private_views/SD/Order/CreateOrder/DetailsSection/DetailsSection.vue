@@ -348,6 +348,7 @@ export default {
             SELECTED_ORDERED_PRODUCTS__INIT_LIST: [],
             SELECTED_ORDERED_PRODUCTS__STORE: [],
             RESPONSE_ORDERED_PRODUCTS__STORE: [],
+            DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST: [],
             attachment_list: [
                 {
                     name: "File Name Line Here.pdf"
@@ -380,6 +381,7 @@ export default {
             gross_total: 0.00,
             rounding_adjustment: 0.00,
             grand_total: 0.00,
+            UPDATE_ORDER_CLICKED: false,
         }
     },
     created() {},
@@ -435,6 +437,7 @@ export default {
                 for (let [i, tt] of this.ORDERED_TABLE_DATA__INIT_LIST.entries()) {
                     if (tt.prod_id === data.prod_id) {
                         this.ORDERED_TABLE_DATA__INIT_LIST.splice(i, 1);
+                        this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.push(data)
                         // Free Product row delete
                         if(data.offer_type === "free") {
                             this.ORDERED_TABLE_DATA__INIT_LIST.splice(i, 1);
@@ -467,8 +470,7 @@ export default {
             this.defaultAllThisComponentData()
         },
         updateOrderClickHandler() {
-            console.log(this.ORDERED_TABLE_DATA__INIT_LIST)
-            
+            this.UPDATE_ORDER_CLICKED = true
             let prod_db_list = []
             for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST.length; i++) {
                 let prod_obj = {
@@ -625,6 +627,12 @@ export default {
                             }
                         }
                     }
+                    // Add deleted product
+                    if(this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.length > 0) {
+                        for(let i=0; i<this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.length; i++) {
+                            this.auto_field_data.push(this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST[i])
+                        }
+                    }
                 })
         },
         async DIC_WISE_USERS__FROM_SERVICE() {
@@ -671,7 +679,10 @@ export default {
         },
         // -------------------------------------------------------
         GENERATE_ORDERED_PRODUCTS_DETAILS_LIST_FROM_PRODUCT_OFFER_RESPONSE() {
-            // this.ORDERED_TABLE_DATA__INIT_LIST = []
+            if(this.UPDATE_ORDER_CLICKED) {
+                this.ORDERED_TABLE_DATA__INIT_LIST = []
+                this.UPDATE_ORDER_CLICKED = false
+            }
             if(this.SELECTED_ORDERED_PRODUCTS__STORE.length > 0 && this.RESPONSE_ORDERED_PRODUCTS__STORE.length > 0) {
                 for (let i=0; i<this.SELECTED_ORDERED_PRODUCTS__STORE.length; i++) {
                     for(let j=0; j<this.RESPONSE_ORDERED_PRODUCTS__STORE.length; j++) {
