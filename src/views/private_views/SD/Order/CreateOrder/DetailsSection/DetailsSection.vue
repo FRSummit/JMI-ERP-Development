@@ -506,7 +506,7 @@ export default {
                             prod_code: data.prod_code,
                             code_id: data.code_id,
                             element_name: data.element_name,
-                            quantity: 0
+                            quantity: 1
                         }
             this.SELECTED_ORDERED_PRODUCTS__INIT_LIST.push(product)
             // Remove this product from all product list
@@ -676,28 +676,54 @@ export default {
             }
             console.log(this.ORDERED_TABLE_DATA__INIT_LIST)
         },
-        test() {
-            console.log('test')
+        defaultAllThisComponentData() {
+                this.ORDERED_TABLE_DATA__INIT_LIST = []
+                this.ORDERED_TABLE_DATA__MODIFIED_LIST = []
+                this.ORDERED_TABLE_DATA__CONFIRM_LIST = []
+                this.auto_field_data = []
+                this.SELECTED_ORDERED_PRODUCTS__INIT_LIST = []
+                this.SELECTED_ORDERED_PRODUCTS__STORE = []
+                this.RESPONSE_ORDERED_PRODUCTS__STORE = []
         }
     },
     watch: { 
-        customer_data: (newVal, oldVal) => {
-             console.log('Prop changed: ', newVal, ' | was: ', oldVal)
-             if( newVal && oldVal) {
+        // customer_data: (newVal, oldVal) => {
+        //      console.log('Prop changed: ', newVal, ' | was: ', oldVal)
+        //      if( newVal && oldVal) {
+        //         if(newVal.customer_id !== oldVal.customer_id) {
+        //             console.log('Prop changed: ', newVal.customer_id, ' | was: ', oldVal.customer_id)
+        //             // this.ORDERED_TABLE_DATA__INIT_LIST = []
+        //             // this.ORDERED_TABLE_DATA__MODIFIED_LIST = []
+        //             // this.ORDERED_TABLE_DATA__CONFIRM_LIST = []
+        //             // this.auto_field_data = []
+        //             // this.SELECTED_ORDERED_PRODUCTS__INIT_LIST = []
+        //             // this.SELECTED_ORDERED_PRODUCTS__STORE = []
+        //             // this.RESPONSE_ORDERED_PRODUCTS__STORE = []
+        //             this.test()
+        //         }
+        //     }
+        // },
+        // deep: true
+        
+        // customer_data: {
+        //     handler: (newVal, oldVal) => {
+        //         if( newVal && oldVal) {
+        //             if(newVal.customer_id !== oldVal.customer_id) {
+        //                 // this.test(newVal, oldVal)
+        //             }
+        //         }
+        //     },
+        //     deep: true,
+        //     immediate: true,
+        // }
+
+        customer_data(newVal, oldVal){
+            if( newVal && oldVal) {
                 if(newVal.customer_id !== oldVal.customer_id) {
-                    console.log('Prop changed: ', newVal.customer_id, ' | was: ', oldVal.customer_id)
-                    // this.ORDERED_TABLE_DATA__INIT_LIST = []
-                    // this.ORDERED_TABLE_DATA__MODIFIED_LIST = []
-                    // this.ORDERED_TABLE_DATA__CONFIRM_LIST = []
-                    // this.auto_field_data = []
-                    // this.SELECTED_ORDERED_PRODUCTS__INIT_LIST = []
-                    // this.SELECTED_ORDERED_PRODUCTS__STORE = []
-                    // this.RESPONSE_ORDERED_PRODUCTS__STORE = []
-                    this.test()
+                    this.defaultAllThisComponentData()
                 }
             }
-        },
-        deep: true
+        }
     }
 }
 </script>
