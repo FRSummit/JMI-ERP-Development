@@ -185,6 +185,7 @@
             <div class="submit-section">
                 <div class="submit-section-inner">
                     <span class="cancel-order" @click="cancelOrderClickHandler">Cancel Order</span>
+                    <span class="update-order" @click="updateOrderClickHandler">Update Order</span>
                     <span class="proceed-order" @click="proceedOrderClickHandler">Proceed Order</span>
                 </div>
             </div>
@@ -463,7 +464,23 @@ export default {
         //------------------------------------------------------------------------------------------
         // Order Submition Actions
         cancelOrderClickHandler() {
-            console.log('cancel order')
+            this.defaultAllThisComponentData()
+        },
+        updateOrderClickHandler() {
+            console.log(this.ORDERED_TABLE_DATA__INIT_LIST)
+            
+            let prod_db_list = []
+            for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST.length; i++) {
+                let prod_obj = {
+                    prod_id: parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].prod_id),
+                    quantity: this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity ? this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity : 0
+                }
+                if(this.ORDERED_TABLE_DATA__INIT_LIST[i].row_class !== "free") {
+                    prod_db_list.push(prod_obj)
+                }
+            }
+            // CALL SERVICE IMPLEMENTATION FUNCTION
+            this.FIND_PRODUCT_OFFER__FROM_SERVICE(prod_db_list)
         },
         proceedOrderClickHandler() {
             console.log('proceed order')
@@ -550,10 +567,8 @@ export default {
                 }
                 prod_db_list.push(prod_obj)
             }
-            let sbu_id = parseInt(JSON.parse(localStorage.getItem("user")).user_detils.sbu_id)
-            let customer_id = parseInt(this.customer_data ? this.customer_data.customer_id : 0)
             // CALL SERVICE IMPLEMENTATION FUNCTION
-            this.FIND_PRODUCT_OFFER__FROM_SERVICE(prod_db_list, sbu_id, customer_id)
+            this.FIND_PRODUCT_OFFER__FROM_SERVICE(prod_db_list)
             // Close Modal
             if(prod_db_list.length > 0) {
                 this.add_order_modal = false
@@ -598,7 +613,9 @@ export default {
                     this.sr_list = res.data.users.da
                 })
         },
-        async FIND_PRODUCT_OFFER__FROM_SERVICE(prod_db_list, sbu_id, customer_id) {
+        async FIND_PRODUCT_OFFER__FROM_SERVICE(prod_db_list) {
+            let sbu_id = parseInt(JSON.parse(localStorage.getItem("user")).user_detils.sbu_id)
+            let customer_id = parseInt(this.customer_data ? this.customer_data.customer_id : 0)
             let yyyy = new Date().getFullYear()
             let mm = (new Date().getMonth() + 1) < 10 ? ("0" + (new Date().getMonth() + 1)) : (new Date().getMonth() + 1)
             let dd = (new Date().getDate() + 1) < 10 ? ("0" + (new Date().getDate() + 1)) : (new Date().getDate() + 1) 
@@ -607,6 +624,7 @@ export default {
             await service.getFindProductOffer_CreateOrderDetailsSection(prod_db_list, sbu_id, customer_id, date)
                 .then(res => {
                     console.log(res.data)
+                    this.RESPONSE_ORDERED_PRODUCTS__STORE = []
                     // this.ORDERED_TABLE_DATA__INIT_LIST = res.data.data
                     this.RESPONSE_ORDERED_PRODUCTS__STORE = res.data.data
                     // console.log(this.SELECTED_ORDERED_PRODUCTS__STORE)
@@ -632,21 +650,20 @@ export default {
         },
         // -------------------------------------------------------
         GENERATE_ORDERED_PRODUCTS_DETAILS_LIST_FROM_PRODUCT_OFFER_RESPONSE() {
-            console.log(this.SELECTED_ORDERED_PRODUCTS__STORE.length)
-            console.log(this.RESPONSE_ORDERED_PRODUCTS__STORE.length)
+            this.ORDERED_TABLE_DATA__INIT_LIST = []
             if(this.SELECTED_ORDERED_PRODUCTS__STORE.length > 0 && this.RESPONSE_ORDERED_PRODUCTS__STORE.length > 0) {
                 for (let i=0; i<this.SELECTED_ORDERED_PRODUCTS__STORE.length; i++) {
                     for(let j=0; j<this.RESPONSE_ORDERED_PRODUCTS__STORE.length; j++) {
                         if( parseInt(this.SELECTED_ORDERED_PRODUCTS__STORE[i].prod_id) === parseInt(this.RESPONSE_ORDERED_PRODUCTS__STORE[j].prod_id) ) {
                             let product = {
-                                    prod_id             : this.SELECTED_ORDERED_PRODUCTS__STORE[i].prod_id,
+                                    prod_id             : this.RESPONSE_ORDERED_PRODUCTS__STORE[i].prod_id,
                                     prod_name           : this.SELECTED_ORDERED_PRODUCTS__STORE[i].prod_name,
-                                    base_tp             : this.SELECTED_ORDERED_PRODUCTS__STORE[i].base_tp,
+                                    base_tp             : this.RESPONSE_ORDERED_PRODUCTS__STORE[i].base_tp,
                                     price_now_per_qty   : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].price_now_per_qty,
                                     base_vat            : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].base_vat,
                                     line_total          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].line_total,
                                     vat_total           : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].vat_total,
-                                    quantity            : this.SELECTED_ORDERED_PRODUCTS__STORE[i].quantity,
+                                    quantity            : this.RESPONSE_ORDERED_PRODUCTS__STORE[i].quantity,
                                     offer_type          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type,
                                     offer               : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer,
                                     row_class           : ''
@@ -656,9 +673,9 @@ export default {
                             // FOR FREE PRODUCT ENTRY
                             if(this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type === "free") {
                                 let ferr_product = {
-                                        prod_id             : this.SELECTED_ORDERED_PRODUCTS__STORE[i].prod_id,
+                                        prod_id             : this.RESPONSE_ORDERED_PRODUCTS__STORE[i].prod_id,
                                         prod_name           : this.SELECTED_ORDERED_PRODUCTS__STORE[i].prod_name,
-                                        base_tp             : this.SELECTED_ORDERED_PRODUCTS__STORE[i].base_tp,
+                                        base_tp             : this.RESPONSE_ORDERED_PRODUCTS__STORE[i].base_tp,
                                         price_now_per_qty   : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].price_now_per_qty,
                                         base_vat            : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].base_vat,
                                         line_total          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].line_total,
