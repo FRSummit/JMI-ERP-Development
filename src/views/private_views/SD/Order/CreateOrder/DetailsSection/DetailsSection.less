@@ -382,11 +382,24 @@
                                 text-align: left;
                             }
 
+                            th:nth-child(2) {
+                                width: 18%;
+                            }
+
                             th:nth-child(3) {
                                 width: 18%;
                             }
 
+                            th:nth-child(4) {
+                                width: 10%;
+                            }
+
+                            th:nth-child(5) {
+                                width: 10%;
+                            }
+
                             th:nth-child(6) {
+                                width     : 14%;
                                 text-align: right;
                             }
 
@@ -432,7 +445,6 @@
                             td {}
 
                             td:first-child {
-                                width: 20%;
 
                                 span {
                                     display   : block;
@@ -446,11 +458,29 @@
                                 }
                             }
 
+                            td:first-child {
+                                width     : 20%;
+                                text-align: left;
+                            }
+
+                            td:nth-child(2) {
+                                width: 18%;
+                            }
+
                             td:nth-child(3) {
                                 width: 18%;
                             }
 
+                            td:nth-child(4) {
+                                width: 10%;
+                            }
+
+                            td:nth-child(5) {
+                                width: 10%;
+                            }
+
                             td:nth-child(6) {
+                                width     : 14%;
                                 text-align: right;
                             }
 
@@ -496,12 +526,12 @@
                                     }
 
                                     span.qty-decrease {
-                                        display  : inline-block;
-                                        color    : #026CD1;
+                                        display     : inline-block;
+                                        color       : #026CD1;
                                         // color    : #AAC0D9;
-                                        font-size: 16px;
-                                        cursor   : pointer;
-                                        padding  : 4px;
+                                        font-size   : 16px;
+                                        cursor      : pointer;
+                                        padding     : 4px;
                                     }
                                 }
                             }
@@ -628,13 +658,8 @@
                                 }
                             }
 
-                            td:nth-child(4) {
-                                span {
-                                    color: #8D979F;
-                                }
-                            }
-
                             td:first-child {
+
                                 span {
                                     margin-top: 10px;
                                     text-align: left;
@@ -658,6 +683,42 @@
                                 }
                             }
 
+                            td:nth-child(4) {
+                                span {
+                                    color: #8D979F;
+                                }
+                            }
+
+                            td:first-child {
+                                width     : 20%;
+                                text-align: left;
+                            }
+
+                            td:nth-child(2) {
+                                width: 18%;
+                            }
+
+                            td:nth-child(3) {
+                                width: 18%;
+                            }
+
+                            td:nth-child(4) {
+                                width: 10%;
+                            }
+
+                            td:nth-child(5) {
+                                width: 10%;
+                            }
+
+                            td:nth-child(6) {
+                                width     : 14%;
+                                text-align: right;
+                            }
+
+                            td:last-child {
+                                width: 10%;
+                            }
+
                             &:hover {
                                 background: none;
                             }
@@ -665,6 +726,7 @@
 
                         tr#grand-total-section {
                             td {
+                                padding: 0;
                                 span {
                                     width      : auto;
                                     text-align : right;
@@ -672,6 +734,36 @@
                                     font-size  : 14px;
                                     font-weight: 500;
                                 }
+                            }
+
+                            td:first-child {
+                                width     : 20%;
+                                text-align: left;
+                            }
+
+                            td:nth-child(2) {
+                                width: 18%;
+                            }
+
+                            td:nth-child(3) {
+                                width: 18%;
+                            }
+
+                            td:nth-child(4) {
+                                width: 10%;
+                            }
+
+                            td:nth-child(5) {
+                                width: 10%;
+                            }
+
+                            td:nth-child(6) {
+                                width     : 14%;
+                                text-align: right;
+                            }
+
+                            td:last-child {
+                                width: 10%;
                             }
 
                             &:hover {
@@ -1060,12 +1152,12 @@
                                                     }
 
                                                     span.qty-decrease {
-                                                        display  : inline-block;
+                                                        display     : inline-block;
                                                         // color    : #AAC0D9;
-                                                        color    : #026CD1;
-                                                        font-size: 16px;
-                                                        cursor   : pointer;
-                                                        padding  : 4px;
+                                                        color       : #026CD1;
+                                                        font-size   : 16px;
+                                                        cursor      : pointer;
+                                                        padding     : 4px;
                                                     }
                                                 }
                                             }
@@ -1222,12 +1314,12 @@
                                         }
 
                                         span.qty-decrease {
-                                            display  : inline-block;
+                                            display     : inline-block;
                                             // color    : #AAC0D9;
-                                            color    : #026CD1;
-                                            font-size: 16px;
-                                            cursor   : pointer;
-                                            padding  : 4px;
+                                            color       : #026CD1;
+                                            font-size   : 16px;
+                                            cursor      : pointer;
+                                            padding     : 4px;
                                         }
                                     }
                                 }
@@ -1293,12 +1385,12 @@
                                             }
 
                                             span.qty-decrease {
-                                                display  : inline-block;
+                                                display     : inline-block;
                                                 // color    : #AAC0D9;
-                                                color    : #026CD1;
-                                                font-size: 16px;
-                                                cursor   : pointer;
-                                                padding  : 4px;
+                                                color       : #026CD1;
+                                                font-size   : 16px;
+                                                cursor      : pointer;
+                                                padding     : 4px;
                                             }
                                         }
                                     }
@@ -1651,7 +1743,7 @@
     }
 
     #create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody tr#subtotal-section td:nth-child(5) {
-        padding-right: 34px;
+        // padding-right: 34px;
     }
 
     #create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody tr#grand-total-section td span {
@@ -1705,9 +1797,20 @@
     #create-order-details-section.create-order-details-section .create-order-details-section-inner .submit-section .submit-section-inner span.update-order {
         font-size     : 12px;
         padding       : 4px 10px;
-        height        : 30px;
+        height        : 26px;
         display       : inline-block;
         vertical-align: middle;
+    }
+
+    #create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .submit-section .submit-section-inner span.cancel-order,
+    #create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .submit-section .submit-section-inner span.proceed-order {
+        display       : inline-block;
+        padding       : 0;
+        width         : 120px;
+        text-align    : center;
+        height        : 26px;
+        vertical-align: middle;
+        line-height   : 2;
     }
 }
 
