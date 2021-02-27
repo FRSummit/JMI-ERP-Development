@@ -676,9 +676,9 @@ export default {
             console.log(value.key)
             let v = document.querySelector('#create-order-add-product').value
             if(isNaN(v)) {
-                jmiFilter.searchByName_Details_Section(filter, list, txt_selector)
+                jmiFilter.searchByID_Name_Details_Section(filter, list, txt_selector)
             } else {
-                jmiFilter.searchByID_Details_Section(filter, list, id_selector)
+                jmiFilter.searchByID_Name_Details_Section(filter, list, id_selector)
             }
         },
         // ------------------------------------------------------------------------------------------
