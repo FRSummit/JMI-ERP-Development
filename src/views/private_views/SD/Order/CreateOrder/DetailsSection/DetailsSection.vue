@@ -186,9 +186,9 @@
             <!-- Bottom Subtotal & Attachment Section -->
             <div class="submit-section">
                 <div class="submit-section-inner">
-                    <span class="cancel-order" @click="cancelOrderClickHandler">Cancel Order</span>
+                    <span class="cancel-order" @click="cancelOrderClickHandler" v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">Cancel Order</span>
                     <span class="update-order" @click="updateOrderClickHandler" v-if="UPDATE_BTN_TRUE">Update Order</span>
-                    <span class="proceed-order" @click="proceedOrderClickHandler">Proceed Order</span>
+                    <span class="proceed-order" @click="proceedOrderClickHandler" v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">Proceed Order</span>
                 </div>
             </div>
             <!-- Add Product Modal -->
@@ -712,6 +712,16 @@ export default {
                     this.GENERATE_ORDERED_PRODUCTS_DETAILS_LIST_FROM_PRODUCT_OFFER_RESPONSE()
                 })
         },
+        async CREATE_OFFER__FROM_SERVICE(prod_db_list) {
+            let sbu_id = parseInt(JSON.parse(localStorage.getItem("user")).user_detils.sbu_id)
+            let customer_id = parseInt(this.customer_data ? this.customer_data.customer_id : 0)
+
+            await service.getCreateOrder_CreateOrderDetailsSection(prod_db_list, sbu_id, customer_id, this.createYYYYDDMM())
+                .then(res => {
+                    console.log(res.data)
+                    this.$router.push('/features/local_sales/order_approval')
+                })
+        },
         // ----------------------------------------------------------------------------------------------
         // Bottom Row Calculation
         // Create/initial Subtotal
@@ -792,7 +802,22 @@ export default {
             this.proceed_modal_popup = false
         },
         proceedOrderModalClickHandler() {
-            console.log('confirm order')
+            // console.log('confirm order')
+            // console.log(this.ORDERED_TABLE_DATA__INIT_LIST)
+
+            // this.createSubtotalCalculation()
+            // Create object for post method
+            let prod_db_list = []
+            for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST.length; i++) {
+                let prod_obj = {
+                    prod_id: parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].prod_id),
+                    quantity: this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity
+                }
+                prod_db_list.push(prod_obj)
+            }
+            console.log(prod_db_list)
+            // CALL SERVICE IMPLEMENTATION FUNCTION
+            this.CREATE_OFFER__FROM_SERVICE(prod_db_list)
         },
         // -------------------------------------------------------------------------------------------------
         // Default Functionality
@@ -812,7 +837,14 @@ export default {
                 this.rounding_adjustment = 0.00
                 this.grand_total = 0.00
 
-        }
+        },
+        createYYYYDDMM() {
+            let yyyy = new Date().getFullYear()
+            let mm = (new Date().getMonth() + 1) < 10 ? ("0" + (new Date().getMonth() + 1)) : (new Date().getMonth() + 1)
+            let dd = (new Date().getDate() + 1) < 10 ? ("0" + (new Date().getDate() + 1)) : (new Date().getDate() + 1) 
+            let date = yyyy + '-' + mm + '-' + dd
+            return date
+        },
     },
     watch: { 
         // Garbase
