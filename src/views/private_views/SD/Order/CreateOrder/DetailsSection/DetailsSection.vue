@@ -270,7 +270,7 @@
                                     <td>
                                         <span class="quantity-setup">
                                             <span class="qty-increase" @click="decreaseProductInAutofieldProductClickHandler(data, i)"><i class="zmdi zmdi-minus" :class="data.quantity <= 1 ? 'jmi-deactive-btn' : ''"></i></span>
-                                            <input :id="'order-add-modal-qty-' + i" class="qty" type="number" placeholder="00" :value="data.quantity ? data.quantity : 1" v-on:keyup="quantityKeyUp_modal(data, $event, i)" min="1" step="1" v-on:keydown="quantityKeyDown_modal()">
+                                            <input :id="'order-add-modal-qty-' + i" class="qty" type="number" placeholder="00" :value="data.quantity ? data.quantity : 1" v-on:keyup="quantityKeyUp_modal(data, $event, i)" min="1" step="1" v-on:keydown="quantityKeyDown_modal($event, i)">
                                             <!-- <input class="qty" type="number" placeholder="00" v-model="add_order_modal_data_quantity" v-on:keyup="quantityKeyUp_modal(data.quantity)"> -->
                                             <span class="qty-decrease" @click="increaseProductInAutofieldProductClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
                                         </span>
@@ -325,7 +325,7 @@
             <div class="modal-popup-section-inner order-proceed-modal-inner">
                 <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
                 <p class="popup-text">Are you sure?</p>
-                <p class="popup-desc">You wan to proceed the order.</p>
+                <p class="popup-desc">You want to proceed the order.</p>
                 <span class="divider"></span>
                 <div class="popup-submit-section">
                 <div class="popup-cancel-btn-section">
@@ -540,12 +540,24 @@ export default {
         quantityKeyUp_modal(data, value, i) {
             console.log(value.key)
             let selector = document.querySelector('#order-add-modal-qty-' + i)
+            // if(value.keyCode === 110) {
+            //     console.log('point')
+            //     // console.log(document.querySelector('#order-add-modal-qty-' + i).innerHTML)
+            //     document.querySelector('#order-add-modal-qty-' + i).value = document.querySelector('#order-add-modal-qty-' + i).value.replace(/[^0-9]*/g,"")
+
+            // }
             console.log(selector.value)
             data.quantity = selector.value
         },
-        // quantityKeyDown_modal(value) {
-        //     console.log(value.key)
-        // },
+        quantityKeyDown_modal(value, i) {
+            // let prev_value = document.querySelector('#order-add-modal-qty-' + i).value
+            console.log(value.key)
+            console.log(value.keyCode)
+            console.log(document.querySelector('#order-add-modal-qty-' + i).value)
+            if(value.keyCode >= 96 && value.keyCode <= 105) {
+                return true
+            }
+        },
         // Add Selected Ordered Product
         addProductFromAutofieldResponseClickHandler(data, index) {
             console.log('added ordered product from auto field: ' + data + '    ' + index)
