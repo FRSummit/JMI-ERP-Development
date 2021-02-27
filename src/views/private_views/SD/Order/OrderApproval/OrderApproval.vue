@@ -7,7 +7,7 @@
           v-on:filter_modal="filterModalToggle"
           v-on:select_order_by_order_id="selectOrderByOrderId" />
         <DetailsSection 
-          :style="filter_modal_toggle === true ? 'z-index: -1;' : 'z-index: 9;'"
+          :style="filter_modal_toggle === true ? 'z-index: -1;' : 'z-index: 5;'"
           :pending_order_list_by_id="pending_order_list_by_id" />
       </div>
     </div>
