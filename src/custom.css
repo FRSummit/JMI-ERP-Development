@@ -695,6 +695,102 @@ input[type=number] {
     color: #AAC0D9;
 }
 
+/* POPUP MODALS */
+.modal-popup-section {
+    position        : fixed;
+    left            : calc((100vw / 2) - 200px);
+    z-index         : 9999;
+    width           : 100%;
+    height          : 100%;
+    left            : 0;
+    top             : 0;
+    background-color: rgb(0 18 35 / 86%);
+}
+
+.modal-popup-section .modal-popup-section-inner {
+    padding      : 20px;
+    text-align   : center;
+    width        : 400px;
+    background   : #FFFFFF;
+    position     : absolute;
+    top          : calc((100vh / 2) - 100px);
+    left         : calc((100vw / 2) - 200px);
+    opacity      : 1;
+    z-index      : 9999;
+    border-radius: 2px;
+}
+
+.modal-popup-section .modal-popup-section-inner span.proceed-popup-icon,
+.modal-popup-section .modal-popup-section-inner span.delete-popup-icon {
+    margin-bottom: 20px;
+    display      : block;
+}
+
+.modal-popup-section .modal-popup-section-inner span.delete-popup-icon svg {
+    color : #C11616;
+    width : 24px;
+    height: 28px;
+}
+
+.modal-popup-section .modal-popup-section-inner span.proceed-popup-icon i {
+    font-size: 28px;
+    color    : #026CD1;
+}
+
+.modal-popup-section .modal-popup-section-inner .popup-text {
+    font-size    : 24px;
+    margin       : 0;
+    line-height  : 1;
+    margin-bottom: 10px;
+    display      : block;
+    color        : #C11616;
+}
+
+.modal-popup-section .modal-popup-section-inner .popup-desc {
+    font-size    : 20px;
+    margin       : 0;
+    line-height  : 1;
+    margin-bottom: 30px;
+    display      : block;
+    color        : #36454F;
+}
+
+.modal-popup-section .modal-popup-section-inner span.divider {
+    background   : #C11616;
+    width        : 100%;
+    height       : 1px;
+    display      : block;
+    margin-bottom: 10px;
+    display      : block;
+}
+
+.modal-popup-section .modal-popup-section-inner .popup-submit-section {
+    text-transform: uppercase;
+    display       : block;
+}
+
+.modal-popup-section .modal-popup-section-inner .popup-submit-section .popup-confirm-btn-section {
+    display: inline-block;
+    width  : 50%;
+}
+
+.modal-popup-section .modal-popup-section-inner .popup-submit-section .popup-confirm-btn-section span {
+    outline: 0;
+    cursor : pointer;
+    color  : #36454F;
+}
+
+.modal-popup-section .modal-popup-section-inner .popup-submit-section .popup-cancel-btn-section {
+    display: inline-block;
+    width  : 50%;
+}
+
+.modal-popup-section .modal-popup-section-inner .popup-submit-section .popup-cancel-btn-section span {
+    outline: 0;
+    cursor : pointer;
+    color  : #C11616;
+}
+
 /* --------------------------------------------------------------------------------------- */
 
 @media only screen and (max-width: 992px) {

@@ -114,7 +114,7 @@
                                     </td>
                                     <!-- <td>{{ data ? data.price_now_per_qty.toFixed(2) : "" }}</td> -->
                                     <td>
-                                        <span v-if="!data.row_class">{{ data ? data.price_now_per_qty : 0 }}</span>
+                                        <span v-if="!data.row_class">{{ data ? Number(data.price_now_per_qty).toFixed(2) : 0 }}</span>
                                         <span v-if="data.row_class"></span>
                                     </td>
                                     <td>
@@ -134,50 +134,50 @@
                                     </td>
                                     <td class="total_price">
                                         <span v-if="!data.row_class">{{ data ? (data.price_now_per_qty * data.quantity).toFixed(2) : 0 }}</span>
+                                        <!-- <span v-if="!data.row_class">{{ data ? Number(data.line_total).toFixed(2) : 0 }}</span> -->
                                         <span v-if="data.row_class"></span>
                                     </td>
-                                    <td class="row-action">
+                                    <td class="row-action" style="min-width: 70px;">
                                         <span v-if="!data.row_class" class="delete-icon" @click="deleteOrderitemClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
                                     </td>
                                 </tr>
                             </div>
                             <!-- Bottom Total Section -->
-                            <tr id="subtotal-section" class="subtotal-section" style="border-top: 1px solid #BFCFE2;">
-                                <td>
-                                    <span class="add-order-section" @click="addOrderClickHandler"><i class="zmdi zmdi-plus"></i>Add Products</span>
-                                    <span class="attachment-section" @click="addAttachmentClickHandler"><i class="zmdi zmdi-attachment-alt"></i>Attachment</span>
-                                </td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <span class="subtotal">Subtotal</span>
-                                    <span class="vat">(+) Vat</span>
-                                    <span class="discount">(-) Discount</span>
-                                    <span class="gross-tatal">Gross Total</span>
-                                    <span class="atjustment" style="">Adjustment</span>
-                                </td>
-                                <td>
-                                    <span class="subtotal">{{ sub_total.toFixed(2) }}</span>
-                                    <span class="vat">{{ vat.toFixed(2) }}</span>
-                                    <span class="discount">{{ discount.toFixed(2) }}</span>
-                                    <span class="gross-tatal">{{ gross_total.toFixed(2) }}</span>
-                                    <span class="atjustment">{{ rounding_adjustment.toFixed(2) }}</span>
-                                </td>
-                                <td></td>
+                            <tr class="subtotal bottom-total" style="border-top: 1px solid #BFCFE2;">
+                                <td style="width: 50%;"><span class="add-order-attachment-section add-order" @click="addOrderClickHandler"><i class="zmdi zmdi-plus"></i>Add Products</span></td>
+                                <td style="width: 25%;"><span v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">Subtotal</span></td>
+                                <td style="width: 15%;"><span v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">{{ Number(sub_total).toFixed(2) }}</span></td>
+                                <td style="width: 10%; min-width: 70px;"></td>
                             </tr>
-                            <tr id="grand-total-section" class="grand-total-section" style="border-top: 1px solid #BFCFE2;">
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td style="text-align: right;">
-                                    <span class="grand-total">G. Total</span>
-                                </td>
-                                <td>
-                                    <span class="grand-total">{{ grand_total.toFixed(2) }}</span>
-                                </td>
-                                <td></td>
+                            <tr class="subtotal bottom-total" v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">
+                                <td style="width: 50%;"></td>
+                                <td style="width: 25%;">(+) Vat</td>
+                                <td style="width: 15%;">{{ Number(vat_total).toFixed(2) }}</td>
+                                <td style="width: 10%; min-width: 70px;"></td>
+                            </tr>
+                            <tr class="subtotal bottom-total" v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">
+                                <td style="width: 50%;"></td>
+                                <td style="width: 25%;">(-) Discount</td>
+                                <td style="width: 15%;">{{ Number(discount_total).toFixed(2) }}</td>
+                                <td style="width: 10%; min-width: 70px;"></td>
+                            </tr>
+                            <tr class="subtotal bottom-total" v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">
+                                <td style="width: 50%;"><span class="add-order-attachment-section add-attachment" @click="addAttachmentClickHandler"><i class="zmdi zmdi-attachment-alt"></i>Attachment</span></td>
+                                <td style="width: 25%;">Gross Total</td>
+                                <td style="width: 15%;">{{ Number(gross_total).toFixed(2) }}</td>
+                                <td style="width: 10%; min-width: 70px;"></td>
+                            </tr>
+                            <!-- <tr class="subtotal bottom-total">
+                                <td style="width: 50%;"></td>
+                                <td style="width: 25%;">(+/-) Rounding Adjustment</td>
+                                <td style="width: 15%;">{{ Number(rounding_adjustment).toFixed(2) }}</td>
+                                <td style="width: 10%; min-width: 70px;"></td>
+                            </tr> -->
+                            <tr class="grand-total bottom-total" style="border-top: 1px solid #BFCFE2;" v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">
+                                <td style="width: 50%;"></td>
+                                <td style="width: 25%;">Grand Total</td>
+                                <td style="width: 15%;">{{ Number(grand_total).toFixed(2) }}</td>
+                                <td style="width: 10%; min-width: 70px;"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -186,9 +186,9 @@
             <!-- Bottom Subtotal & Attachment Section -->
             <div class="submit-section">
                 <div class="submit-section-inner">
-                    <span class="cancel-order" @click="cancelOrderClickHandler">Cancel Order</span>
-                    <span class="update-order" @click="updateOrderClickHandler">Update Order</span>
-                    <span class="proceed-order" @click="proceedOrderClickHandler">Proceed Order</span>
+                    <span class="cancel-order" @click="cancelOrderClickHandler" v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">Cancel Order</span>
+                    <span class="update-order" @click="updateOrderClickHandler" v-if="UPDATE_BTN_TRUE">Update Order</span>
+                    <span class="proceed-order" @click="proceedOrderClickHandler" v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">Proceed Order</span>
                 </div>
             </div>
             <!-- Add Product Modal -->
@@ -218,7 +218,7 @@
                             <div class="autofield-show-section">
                                 <div class="autofield-show-section-inner">
                                     <div class="header">
-                                        <input id="create-order-add-product" class="jmi-auto-filter-input" type="text" placeholder="Search By Batch Number" v-on:keyup="searchKeyUpAddProductHandler" />
+                                        <input id="create-order-add-product" class="jmi-auto-filter-input" type="text" placeholder="Search By Name or Product ID" v-on:keyup="searchKeyUpAddProductHandler" />
                                     </div>
                                     <div class="response-body">
                                         <div id="progressbar" class="jmi-progressbar" v-if="!auto_field_data">
@@ -228,7 +228,7 @@
                                             <td>
                                                 <!-- <span class="responer-body-filter-tag">{{ data ? data.product_info.prod_name : "" }}</span> -->
                                                 <span class="responer-body-filter-tag">{{ data ? data.prod_name : "" }}</span>
-                                                <span>Product Code: {{ data ? data.prod_id : "" }}</span>
+                                                <span class="responer-body-filter-tag-id">Product ID: {{ data ? data.prod_id : "" }}</span>
                                             </td>
                                             <td>
                                                 <span class="quantity-setup">
@@ -270,7 +270,7 @@
                                     <td>
                                         <span class="quantity-setup">
                                             <span class="qty-increase" @click="decreaseProductInAutofieldProductClickHandler(data, i)"><i class="zmdi zmdi-minus" :class="data.quantity <= 1 ? 'jmi-deactive-btn' : ''"></i></span>
-                                            <input :id="'order-add-modal-qty-' + i" class="qty" type="number" placeholder="00" :value="data.quantity ? data.quantity : 0" v-on:keyup="quantityKeyUp_modal(data, $event, i)">
+                                            <input :id="'order-add-modal-qty-' + i" class="qty" type="number" placeholder="00" :value="data.quantity ? data.quantity : 1" v-on:keyup="quantityKeyUp_modal(data, $event, i)" min="1" step="1" v-on:keydown="quantityKeyDown_modal($event, i)" pattern="[0-9]*">
                                             <!-- <input class="qty" type="number" placeholder="00" v-model="add_order_modal_data_quantity" v-on:keyup="quantityKeyUp_modal(data.quantity)"> -->
                                             <span class="qty-decrease" @click="increaseProductInAutofieldProductClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
                                         </span>
@@ -317,6 +317,23 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+        <!-- Proceed Modal -->
+        <div class="modal-popup-section order-proceed-modal" v-if="proceed_modal_popup">
+            <div class="modal-popup-section-inner order-proceed-modal-inner">
+                <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
+                <p class="popup-text">Are you sure?</p>
+                <p class="popup-desc">You want to proceed the order.</p>
+                <span class="divider"></span>
+                <div class="popup-submit-section">
+                <div class="popup-cancel-btn-section">
+                    <span @click="cancelOrderModalClickHandler">Cancel</span>
+                </div>
+                <div class="popup-confirm-btn-section">
+                    <span @click="proceedOrderModalClickHandler">Proceed</span>
+                </div>
                 </div>
             </div>
         </div>
@@ -378,12 +395,15 @@ export default {
                 { label: 'label2', value: 'value2' }
             ],
             sub_total: 0.00,
-            vat: 0.00,
-            discount: 0.00,
+            vat_total: 0.00,
+            discount_total: 0.00,
             gross_total: 0.00,
             rounding_adjustment: 0.00,
             grand_total: 0.00,
+            UPDATE_BTN_TRUE: false,
             UPDATE_ORDER_CLICKED: false,
+            // Modal-Popup
+            proceed_modal_popup: false,
         }
     },
     created() {},
@@ -414,6 +434,7 @@ export default {
         increaseOrderedItemClickHandler(data, index) {
             console.log(data + '    ' + index)
             data.quantity++
+            this.UPDATE_BTN_TRUE = true
             this.createSubtotalCalculation()
             // Free Product row quantity increase
             if(data.offer_type === "free") {
@@ -425,6 +446,7 @@ export default {
             console.log(data + '    ' + index)
             if(data.quantity > 1) {
                 data.quantity--
+                this.UPDATE_BTN_TRUE = true
                 this.createSubtotalCalculation()
             }
             // Free Product row quantity decrease
@@ -447,6 +469,7 @@ export default {
                     }
                 }
             }
+            this.createSubtotalCalculation()
         },
         //------------------------------------------------------------------------------------------
         // Add Product/Order , Atachment Row
@@ -487,7 +510,11 @@ export default {
             this.FIND_PRODUCT_OFFER__FROM_SERVICE(prod_db_list)
         },
         proceedOrderClickHandler() {
-            console.log('proceed order')
+            if(this.proceed_modal_popup) {
+                this.proceed_modal_popup = false
+            } else {
+                this.proceed_modal_popup = true
+            }
         },
         //------------------------------------------------------------------------------------------
         // Order Modal Functions
@@ -513,8 +540,23 @@ export default {
         quantityKeyUp_modal(data, value, i) {
             console.log(value.key)
             let selector = document.querySelector('#order-add-modal-qty-' + i)
+            // if(value.keyCode === 110) {
+            //     console.log('point')
+            //     // console.log(document.querySelector('#order-add-modal-qty-' + i).innerHTML)
+            //     document.querySelector('#order-add-modal-qty-' + i).value = document.querySelector('#order-add-modal-qty-' + i).value.replace(/[^0-9]*/g,"")
+
+            // }
             console.log(selector.value)
             data.quantity = selector.value
+        },
+        quantityKeyDown_modal(value, i) {
+            // let prev_value = document.querySelector('#order-add-modal-qty-' + i).value
+            console.log(value.key)
+            console.log(value.keyCode)
+            console.log(document.querySelector('#order-add-modal-qty-' + i).value)
+            // if(value.keyCode >= 96 && value.keyCode <= 105) {
+            //     return true
+            // }
         },
         // Add Selected Ordered Product
         addProductFromAutofieldResponseClickHandler(data, index) {
@@ -602,13 +644,20 @@ export default {
             console.log(arr)
         },
         // Filter
-        searchKeyUpAddProductHandler() {
+        searchKeyUpAddProductHandler(value) {
             let input = document.getElementById("create-order-add-product");
             let filter = input.value.toUpperCase();
             let list = document.querySelectorAll('.responer-body-filter-output')
             let txt_selector = "responer-body-filter-tag"
+            let id_selector = "responer-body-filter-tag-id"
 
-            jmiFilter.searchById_LeftSidebar(filter, list, txt_selector)
+            console.log(value.key)
+            let v = document.querySelector('#create-order-add-product').value
+            if(isNaN(v)) {
+                jmiFilter.searchByID_Name_Details_Section(filter, list, txt_selector)
+            } else {
+                jmiFilter.searchByID_Name_Details_Section(filter, list, id_selector)
+            }
         },
         // ------------------------------------------------------------------------------------------
         // Service Implementation
@@ -663,21 +712,38 @@ export default {
                     this.GENERATE_ORDERED_PRODUCTS_DETAILS_LIST_FROM_PRODUCT_OFFER_RESPONSE()
                 })
         },
+        async CREATE_OFFER__FROM_SERVICE(prod_db_list) {
+            let sbu_id = parseInt(JSON.parse(localStorage.getItem("user")).user_detils.sbu_id)
+            let customer_id = parseInt(this.customer_data ? this.customer_data.customer_id : 0)
+
+            await service.getCreateOrder_CreateOrderDetailsSection(prod_db_list, sbu_id, customer_id, this.createYYYYDDMM())
+                .then(res => {
+                    console.log(res.data)
+                    this.$router.push('/features/local_sales/order_approval')
+                })
+        },
         // ----------------------------------------------------------------------------------------------
         // Bottom Row Calculation
         // Create/initial Subtotal
         createSubtotalCalculation() {
             this.sub_total = 0
+            this.vat_total = 0
+            this.discount_total = 0
+            this.gross_total = 0
+            this.grand_total = 0
             for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST.length; i++) {
-                this.sub_total += this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity * parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].base_tp)
+                this.sub_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].price_now_per_qty) * this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity
+                this.vat_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].vat_total)
+                this.discount_total += parseFloat((this.ORDERED_TABLE_DATA__INIT_LIST[i].base_tp * this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity) - this.ORDERED_TABLE_DATA__INIT_LIST[i].line_total)
             }
+            console.log(this.sub_total)
             // this.sub_total = this.sub_total
             // this.vat = this.vat
             // this.vat = this.discount
-            this.gross_total = this.sub_total - this.vat + this.discount
+            this.gross_total = this.sub_total + this.vat_total - this.discount_total
             // this.gross_total = this.gross_total
             // this.rounding_adjustment = this.rounding_adjustment
-            this.grand_total = this.sub_total - this.vat + this.discount - this.rounding_adjustment
+            this.grand_total = this.sub_total + this.vat_total - this.discount_total
             // this.grand_total = this.grand_total
         },
         // -------------------------------------------------------
@@ -727,7 +793,34 @@ export default {
                 }
             }
             console.log(this.ORDERED_TABLE_DATA__INIT_LIST)
+            this.UPDATE_BTN_TRUE = false
+            this.createSubtotalCalculation()
         },
+        // -------------------------------------------------------------------------------------------------
+        // Modal Popup Click Handler
+        cancelOrderModalClickHandler() {
+            this.proceed_modal_popup = false
+        },
+        proceedOrderModalClickHandler() {
+            // console.log('confirm order')
+            // console.log(this.ORDERED_TABLE_DATA__INIT_LIST)
+
+            // this.createSubtotalCalculation()
+            // Create object for post method
+            let prod_db_list = []
+            for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST.length; i++) {
+                let prod_obj = {
+                    prod_id: parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].prod_id),
+                    quantity: this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity
+                }
+                prod_db_list.push(prod_obj)
+            }
+            console.log(prod_db_list)
+            // CALL SERVICE IMPLEMENTATION FUNCTION
+            this.CREATE_OFFER__FROM_SERVICE(prod_db_list)
+        },
+        // -------------------------------------------------------------------------------------------------
+        // Default Functionality
         defaultAllThisComponentData() {
                 this.ORDERED_TABLE_DATA__INIT_LIST = []
                 this.ORDERED_TABLE_DATA__MODIFIED_LIST = []
@@ -736,7 +829,22 @@ export default {
                 this.SELECTED_ORDERED_PRODUCTS__INIT_LIST = []
                 this.SELECTED_ORDERED_PRODUCTS__STORE = []
                 this.RESPONSE_ORDERED_PRODUCTS__STORE = []
-        }
+                
+                this.sub_total = 0.00
+                this.vat_total = 0.00
+                this.discount_total = 0.00
+                this.gross_total = 0.00
+                this.rounding_adjustment = 0.00
+                this.grand_total = 0.00
+
+        },
+        createYYYYDDMM() {
+            let yyyy = new Date().getFullYear()
+            let mm = (new Date().getMonth() + 1) < 10 ? ("0" + (new Date().getMonth() + 1)) : (new Date().getMonth() + 1)
+            let dd = (new Date().getDate() + 1) < 10 ? ("0" + (new Date().getDate() + 1)) : (new Date().getDate() + 1) 
+            let date = yyyy + '-' + mm + '-' + dd
+            return date
+        },
     },
     watch: { 
         // Garbase
@@ -776,7 +884,17 @@ export default {
                     this.defaultAllThisComponentData()
                 }
             }
-        }
+        },
+        // ORDERED_TABLE_DATA__INIT_LIST(newVal, oldVal) {
+        //     // console.log(newVal)
+        //     // console.log(oldVal)
+        //     if( newVal && oldVal) {
+        //         // if(newVal.customer_id !== oldVal.customer_id) {
+        //         //     this.defaultAllThisComponentData()
+        //         // }
+        //         console.log('changes')
+        //     }
+        // }
     }
 }
 </script>

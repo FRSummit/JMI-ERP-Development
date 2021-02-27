@@ -8,7 +8,7 @@
           v-on:filter_modal="filterModalToggle"
           v-on:select_customer_by_customer_code="selectCustomerByCustomerCode" />
         <DetailsSection 
-        :style="filter_modal_toggle === true ? 'z-index: -1;' : 'z-index: 9;'"
+        :style="filter_modal_toggle === true ? 'z-index: -1;' : 'z-index: 5;'"
         :customer_data="customer_data" />
       </div>
     </div>
