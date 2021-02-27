@@ -565,28 +565,49 @@
     color  : #026CD1;
 }
 
-.col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-8, .col-lg-10, .col-lg-12,
-.col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-8, .col-md-10, .col-md-12,
-.col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-8, .col-sm-10, .col-sm-12 {
+.col-lg-2,
+.col-lg-3,
+.col-lg-4,
+.col-lg-5,
+.col-lg-6,
+.col-lg-8,
+.col-lg-10,
+.col-lg-12,
+.col-md-2,
+.col-md-3,
+.col-md-4,
+.col-md-5,
+.col-md-6,
+.col-md-8,
+.col-md-10,
+.col-md-12,
+.col-sm-2,
+.col-sm-3,
+.col-sm-4,
+.col-sm-5,
+.col-sm-6,
+.col-sm-8,
+.col-sm-10,
+.col-sm-12 {
     padding: 0;
 }
 
 .jmi-title {
     /* padding    : 0 20px; */
-    font-size  : 14px;
-    color      : #2F2F30;
-    margin     : 0;
-    line-height: 1.7;
+    font-size     : 14px;
+    color         : #2F2F30;
+    margin        : 0;
+    line-height   : 1.7;
     /* font-weight: 500; */
 }
 
 .jmi-auto-filter-input {
-    box-sizing: border-box;
-    border: 1px solid #AAC0D9;
+    box-sizing   : border-box;
+    border       : 1px solid #AAC0D9;
     border-radius: 4px;
-    font-size: 16px;
-    padding: 12px 14px;
-    height: auto;
+    font-size    : 16px;
+    padding      : 12px 14px;
+    height       : auto;
 }
 
 .jmi-auto-filter-input:focus {
@@ -607,24 +628,27 @@
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin            : 0;
 }
 
 /* Firefox */
 input[type=number] {
-  -moz-appearance: textfield;
+    -moz-appearance: textfield;
 }
 
 /* --------------------------------------------------------------------------------------- */
 /* Order Page Table - Order Create & Approve */
 .jmi-order-table {}
+
 .jmi-order-table thead {
     border-bottom: 1px solid #BFCFE2;
 }
+
 .jmi-order-table thead tr {
     border-bottom: none;
 }
+
 .jmi-order-table thead tr th {
     color      : #026CD1;
     font-size  : 14px;
@@ -632,10 +656,13 @@ input[type=number] {
     width      : 13%;
     text-align : center;
 }
+
 .jmi-order-table tbody {}
+
 .jmi-order-table tbody tr {
     border-bottom: none;
 }
+
 .jmi-order-table tbody tr td {
     color         : #222223;
     font-size     : 14px;
@@ -646,19 +673,28 @@ input[type=number] {
     text-align    : center;
     vertical-align: middle;
 }
+
 .jmi-order-table tr {
     display: table;
     width  : 100%;
 }
+
 .jmi-order-table tr th {
-    border: none;
+    border : none;
     padding: 4px 10px;
 }
+
 .jmi-order-table tr td {}
-.jmi-order-table tr th span.with-vat{
-    display: block;
+
+.jmi-order-table tr th span.with-vat {
+    display  : block;
     font-size: 8px;
 }
+
+.jmi-deactive-btn {
+    color: #AAC0D9;
+}
+
 /* --------------------------------------------------------------------------------------- */
 
 @media only screen and (max-width: 992px) {

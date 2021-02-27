@@ -119,7 +119,7 @@
                                     </td>
                                     <td>
                                         <span class="quantity-setup" v-if="!data.row_class">
-                                            <span class="qty-increase" @click="decreaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-minus"></i></span>
+                                            <span class="qty-increase" @click="decreaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-minus" :class="data.quantity <= 1 ? 'jmi-deactive-btn' : ''"></i></span>
                                             <span class="qty">{{ data ? (data.quantity ? data.quantity : 0) : 0 }}</span>
                                             <span class="qty-decrease" @click="increaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
                                         </span>
@@ -143,17 +143,19 @@
                             </div>
                             <!-- Bottom Total Section -->
                             <tr id="subtotal-section" class="subtotal-section" style="border-top: 1px solid #BFCFE2;">
-                                <td colspan="3">
+                                <td>
                                     <span class="add-order-section" @click="addOrderClickHandler"><i class="zmdi zmdi-plus"></i>Add Products</span>
                                     <span class="attachment-section" @click="addAttachmentClickHandler"><i class="zmdi zmdi-attachment-alt"></i>Attachment</span>
                                 </td>
+                                <td></td>
+                                <td></td>
                                 <td></td>
                                 <td>
                                     <span class="subtotal">Subtotal</span>
                                     <span class="vat">(+) Vat</span>
                                     <span class="discount">(-) Discount</span>
                                     <span class="gross-tatal">Gross Total</span>
-                                    <span class="atjustment" style="width: 142px; float: right;">(+/-) Rounding Adjustment</span>
+                                    <span class="atjustment" style="">Adjustment</span>
                                 </td>
                                 <td>
                                     <span class="subtotal">{{ sub_total.toFixed(2) }}</span>
@@ -170,7 +172,7 @@
                                 <td></td>
                                 <td></td>
                                 <td style="text-align: right;">
-                                    <span class="grand-total">Grand Total</span>
+                                    <span class="grand-total">G. Total</span>
                                 </td>
                                 <td>
                                     <span class="grand-total">{{ grand_total.toFixed(2) }}</span>
@@ -267,7 +269,7 @@
                                     </td>
                                     <td>
                                         <span class="quantity-setup">
-                                            <span class="qty-increase" @click="decreaseProductInAutofieldProductClickHandler(data, i)"><i class="zmdi zmdi-minus"></i></span>
+                                            <span class="qty-increase" @click="decreaseProductInAutofieldProductClickHandler(data, i)"><i class="zmdi zmdi-minus" :class="data.quantity <= 1 ? 'jmi-deactive-btn' : ''"></i></span>
                                             <input :id="'order-add-modal-qty-' + i" class="qty" type="number" placeholder="00" :value="data.quantity ? data.quantity : 0" v-on:keyup="quantityKeyUp_modal(data, $event, i)">
                                             <!-- <input class="qty" type="number" placeholder="00" v-model="add_order_modal_data_quantity" v-on:keyup="quantityKeyUp_modal(data.quantity)"> -->
                                             <span class="qty-decrease" @click="increaseProductInAutofieldProductClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
@@ -421,7 +423,7 @@ export default {
         // Decrease Table Row's Single Product/Order
         decreaseOrderedItemClickHandler(data, index) {
             console.log(data + '    ' + index)
-            if(data.quantity > 0) {
+            if(data.quantity > 1) {
                 data.quantity--
                 this.createSubtotalCalculation()
             }
@@ -502,7 +504,7 @@ export default {
         // Decrease Autofield Selected Ordered Product
         decreaseProductInAutofieldProductClickHandler(data, index) {
             console.log('decrease autofield selected product: ' + data + '    ' + index)
-            if(data.quantity > 0) {
+            if(data.quantity > 1) {
                 data.quantity--
             }
         },
