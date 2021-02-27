@@ -114,7 +114,7 @@
                                     </td>
                                     <!-- <td>{{ data ? data.price_now_per_qty.toFixed(2) : "" }}</td> -->
                                     <td>
-                                        <span v-if="!data.row_class">{{ data ? data.price_now_per_qty : 0 }}</span>
+                                        <span v-if="!data.row_class">{{ data ? Number(data.price_now_per_qty).toFixed(2) : 0 }}</span>
                                         <span v-if="data.row_class"></span>
                                     </td>
                                     <td>
@@ -134,6 +134,7 @@
                                     </td>
                                     <td class="total_price">
                                         <span v-if="!data.row_class">{{ data ? (data.price_now_per_qty * data.quantity).toFixed(2) : 0 }}</span>
+                                        <!-- <span v-if="!data.row_class">{{ data ? Number(data.line_total).toFixed(2) : 0 }}</span> -->
                                         <span v-if="data.row_class"></span>
                                     </td>
                                     <td class="row-action" style="min-width: 70px;">
@@ -145,77 +146,39 @@
                             <tr class="subtotal bottom-total" style="border-top: 1px solid #BFCFE2;">
                                 <td style="width: 50%;"><span class="add-order-attachment-section add-order" @click="addOrderClickHandler"><i class="zmdi zmdi-plus"></i>Add Products</span></td>
                                 <td style="width: 25%;">Subtotal</td>
-                                <td style="width: 15%;">{{ sub_total.toFixed(2) }}</td>
+                                <td style="width: 15%;">{{ Number(sub_total).toFixed(2) }}</td>
                                 <td style="width: 10%; min-width: 70px;"></td>
                             </tr>
                             <tr class="subtotal bottom-total">
                                 <td style="width: 50%;"></td>
                                 <td style="width: 25%;">(+) Vat</td>
-                                <td style="width: 15%;">{{ vat_total.toFixed(2) }}</td>
+                                <td style="width: 15%;">{{ Number(vat_total).toFixed(2) }}</td>
                                 <td style="width: 10%; min-width: 70px;"></td>
                             </tr>
                             <tr class="subtotal bottom-total">
                                 <td style="width: 50%;"></td>
                                 <td style="width: 25%;">(-) Discount</td>
-                                <td style="width: 15%;">{{ discount_total.toFixed(2) }}</td>
-                                <td style="width: 10%; min-width: 70px;"></td>
-                            </tr>
-                            <tr class="subtotal bottom-total">
-                                <td style="width: 50%;"></td>
-                                <td style="width: 25%;">Gross Total</td>
-                                <td style="width: 15%;">{{ gross_total.toFixed(2) }}</td>
+                                <td style="width: 15%;">{{ Number(discount_total).toFixed(2) }}</td>
                                 <td style="width: 10%; min-width: 70px;"></td>
                             </tr>
                             <tr class="subtotal bottom-total">
                                 <td style="width: 50%;"><span class="add-order-attachment-section add-attachment" @click="addAttachmentClickHandler"><i class="zmdi zmdi-attachment-alt"></i>Attachment</span></td>
-                                <td style="width: 25%;">(+/-) Rounding Adjustment</td>
-                                <td style="width: 15%;">{{ rounding_adjustment.toFixed(2) }}</td>
+                                <td style="width: 25%;">Gross Total</td>
+                                <td style="width: 15%;">{{ Number(gross_total).toFixed(2) }}</td>
                                 <td style="width: 10%; min-width: 70px;"></td>
                             </tr>
+                            <!-- <tr class="subtotal bottom-total">
+                                <td style="width: 50%;"></td>
+                                <td style="width: 25%;">(+/-) Rounding Adjustment</td>
+                                <td style="width: 15%;">{{ Number(rounding_adjustment).toFixed(2) }}</td>
+                                <td style="width: 10%; min-width: 70px;"></td>
+                            </tr> -->
                             <tr class="grand-total bottom-total" style="border-top: 1px solid #BFCFE2;">
                                 <td style="width: 50%;"></td>
                                 <td style="width: 25%;">Grand Total</td>
-                                <td style="width: 15%;">{{ grand_total.toFixed(2) }}</td>
+                                <td style="width: 15%;">{{ Number(grand_total).toFixed(2) }}</td>
                                 <td style="width: 10%; min-width: 70px;"></td>
                             </tr>
-
-                            <!-- <tr id="subtotal-section" class="subtotal-section" style="border-top: 1px solid #BFCFE2;">
-                                <td>
-                                    <span class="add-order-section" @click="addOrderClickHandler"><i class="zmdi zmdi-plus"></i>Add Products</span>
-                                    <span class="attachment-section" @click="addAttachmentClickHandler"><i class="zmdi zmdi-attachment-alt"></i>Attachment</span>
-                                </td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <span class="subtotal">Subtotal</span>
-                                    <span class="vat">(+) Vat</span>
-                                    <span class="discount">(-) Discount</span>
-                                    <span class="gross-tatal">Gross Total</span>
-                                    <span class="atjustment" style="">Adjustment</span>
-                                </td>
-                                <td>
-                                    <span class="subtotal">{{ sub_total.toFixed(2) }}</span>
-                                    <span class="vat">{{ vat.toFixed(2) }}</span>
-                                    <span class="discount">{{ discount.toFixed(2) }}</span>
-                                    <span class="gross-tatal">{{ gross_total.toFixed(2) }}</span>
-                                    <span class="atjustment">{{ rounding_adjustment.toFixed(2) }}</span>
-                                </td>
-                                <td></td>
-                            </tr> -->
-                            <!-- <tr id="grand-total-section" class="grand-total-section" style="border-top: 1px solid #BFCFE2;">
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td style="text-align: right;">
-                                    <span class="grand-total">G. Total</span>
-                                </td>
-                                <td>
-                                    <span class="grand-total">{{ grand_total.toFixed(2) }}</span>
-                                </td>
-                                <td></td>
-                            </tr> -->
                         </tbody>
                     </table>
                 </div>
@@ -307,7 +270,7 @@
                                     <td>
                                         <span class="quantity-setup">
                                             <span class="qty-increase" @click="decreaseProductInAutofieldProductClickHandler(data, i)"><i class="zmdi zmdi-minus" :class="data.quantity <= 1 ? 'jmi-deactive-btn' : ''"></i></span>
-                                            <input :id="'order-add-modal-qty-' + i" class="qty" type="number" placeholder="00" :value="data.quantity ? data.quantity : 1" v-on:keyup="quantityKeyUp_modal(data, $event, i)" min="1">
+                                            <input :id="'order-add-modal-qty-' + i" class="qty" type="number" placeholder="00" :value="data.quantity ? data.quantity : 1" v-on:keyup="quantityKeyUp_modal(data, $event, i)" min="1" step="1" v-on:keydown="quantityKeyDown_modal()">
                                             <!-- <input class="qty" type="number" placeholder="00" v-model="add_order_modal_data_quantity" v-on:keyup="quantityKeyUp_modal(data.quantity)"> -->
                                             <span class="qty-decrease" @click="increaseProductInAutofieldProductClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
                                         </span>
@@ -580,6 +543,9 @@ export default {
             console.log(selector.value)
             data.quantity = selector.value
         },
+        // quantityKeyDown_modal(value) {
+        //     console.log(value.key)
+        // },
         // Add Selected Ordered Product
         addProductFromAutofieldResponseClickHandler(data, index) {
             console.log('added ordered product from auto field: ' + data + '    ' + index)
@@ -739,18 +705,23 @@ export default {
         // Create/initial Subtotal
         createSubtotalCalculation() {
             this.sub_total = 0
+            this.vat_total = 0
+            this.discount_total = 0
+            this.gross_total = 0
+            this.grand_total = 0
             for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST.length; i++) {
-                this.sub_total += this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity * parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].base_tp)
-                this.vat_total += this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity * (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.discount_percentage) / 100)
-                this.discount_total += this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity * parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].vat_total)
+                this.sub_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].price_now_per_qty) * this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity
+                this.vat_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].vat_total)
+                this.discount_total += parseFloat((this.ORDERED_TABLE_DATA__INIT_LIST[i].base_tp * this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity) - this.ORDERED_TABLE_DATA__INIT_LIST[i].line_total)
             }
+            console.log(this.sub_total)
             // this.sub_total = this.sub_total
             // this.vat = this.vat
             // this.vat = this.discount
-            this.gross_total = this.sub_total - this.vat_total + this.discount_total
+            this.gross_total = this.sub_total + this.vat_total - this.discount_total
             // this.gross_total = this.gross_total
             // this.rounding_adjustment = this.rounding_adjustment
-            this.grand_total = this.sub_total - this.vat_total + this.discount_total - this.rounding_adjustment
+            this.grand_total = this.sub_total + this.vat_total - this.discount_total
             // this.grand_total = this.grand_total
         },
         // -------------------------------------------------------
@@ -821,6 +792,14 @@ export default {
                 this.SELECTED_ORDERED_PRODUCTS__INIT_LIST = []
                 this.SELECTED_ORDERED_PRODUCTS__STORE = []
                 this.RESPONSE_ORDERED_PRODUCTS__STORE = []
+                
+                this.sub_total = 0.00
+                this.vat_total = 0.00
+                this.discount_total = 0.00
+                this.gross_total = 0.00
+                this.rounding_adjustment = 0.00
+                this.grand_total = 0.00
+
         }
     },
     watch: { 
