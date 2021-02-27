@@ -3,11 +3,12 @@
         <div class="order-approval-details-section-inner">
             <div class="title-section">
                 <div class="row">
-                    <div class="col-lg-4 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Order ID:</span><span class="id">JMI-2231225</span><span class="customer-type">Credit</span></p></div>
-                    <div class="col-lg-8 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer:</span><span class="jmi-lvl-value id url" @click="customerDetailsClickHandler">ABI Pharmacy and Diagnostic Center</span></p></div>
+                    <div class="col-lg-4 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Order ID:</span><span class="id">{{ pending_order_list_by_id ? (pending_order_list_by_id.order_info ? pending_order_list_by_id.order_info .order_no: 0) : "000" }}</span><span class="customer-type">Dummy: Cash</span></p></div>
+                    <div class="col-lg-8 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer:</span><span class="jmi-lvl-value id url" @click="customerDetailsClickHandler">{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info ? pending_order_list_by_id.sbu_customer_info.display_name : 0) : 'Dummy: Name' }}</span></p></div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><span class="jmi-lvl-value address">House:100, Road: 11,Block:C,Dhaka 1213</span></p></div>
+                    <!-- <div class="col-lg-12 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><span class="jmi-lvl-value address">{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info.customer_info.customer_address ? pending_order_list_by_id.sbu_customer_info.customer_info.customer_address : 'Null') : 'Dummy: Address' }}</span></p></div> -->
+                    <div class="col-lg-12 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><span class="jmi-lvl-value address">{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info ? (pending_order_list_by_id.sbu_customer_info.customer_address ? pending_order_list_by_id.sbu_customer_info.customer_address : 'Address Not Found') : 'sbu not found') : 'Dummy: Address' }}</span></p></div>
                     
                 </div>
             </div>
@@ -16,7 +17,7 @@
                 <div class="header-summery-section-inner">
                 <!-- <div class="container"> -->
                     <div class="row">
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Current Outstanding:</span><span class="jmi-lvl-value url" @click="currentOutstandingClickHandler">200500</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Current Outstanding:</span><span class="jmi-lvl-value url" @click="currentOutstandingClickHandler">Dummy: 200500</span></p></div>
                         <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Order Placed:</span> <span class="jmi-lvl-value">Placed</span></p></div>
                         <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Status:</span> <span class="jmi-lvl-value">Pending</span></p></div>
                         <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title">Area: <span class="jmi-lvl-value">DHK0300-Dhanmondi</span></p></div>
@@ -58,21 +59,22 @@
                         </thead>
                         <tbody>
                             <div class="table-data-rows">
-                                <tr v-for="(data, i) in order_table_data" :key="i">
+                                <!-- <tr v-for="(data, i) in order_table_data" :key="i"> -->
+                                <tr v-for="(data, i) in pending_order_list_by_id ? pending_order_list_by_id.order_details : order_table_data" :key="i">
                                     <td>
-                                        <span>{{ data.name }}</span>
-                                        <span>{{ data.stock }}</span>
+                                        <span>{{ data.product_id }}</span>
+                                        <span>Product Id: {{ data.product_id }}</span>
                                     </td>
-                                    <td>{{ data.unit_price }}</td>
+                                    <td>{{ data.unit_tp }}</td>
                                     <td>
                                         <span class="quantity-setup">
-                                            <span class="qty-increase" @click="increaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-minus"></i></span>
-                                            <span class="qty">{{ data.quantity }}</span>
-                                            <span class="qty-decrease" @click="decreaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
+                                            <!-- <span class="qty-increase" @click="increaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-minus"></i></span> -->
+                                            <span class="qty">{{ data.qty }}</span>
+                                            <!-- <span class="qty-decrease" @click="decreaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span> -->
                                         </span>
                                     </td>
-                                    <td>{{ data.bonus }}</td>
-                                    <td>{{ data.total_price }}</td>
+                                    <td>{{ data.bonus_qty }}</td>
+                                    <td>{{ data.tp }}</td>
                                     <td class="row-action">
                                         <span class="edit-icon" @click="editOrderitemClickHandler(data, i)"><i class="zmdi zmdi-edit"></i></span>
                                         <span class="delete-icon" @click="deleteOrderitemClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
@@ -80,7 +82,43 @@
                                 </tr>
                             </div>
                             <!-- Bottom Total Section -->
-                            <tr id="subtotal-section" class="subtotal-section" style="border-top   : 1px solid #BFCFE2;">
+                            <!-- <tr class="subtotal bottom-total" style="border-top: 1px solid #BFCFE2;">
+                                <td style="width: 50%;"><span class="add-order-attachment-section add-order" @click="addOrderClickHandler"><i class="zmdi zmdi-plus"></i>Add Products</span></td>
+                                <td style="width: 25%;"><span v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">Subtotal</span></td>
+                                <td style="width: 15%;"><span v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">{{ Number(sub_total).toFixed(2) }}</span></td>
+                                <td style="width: 10%; min-width: 70px;"></td>
+                            </tr>
+                            <tr class="subtotal bottom-total" v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">
+                                <td style="width: 50%;"></td>
+                                <td style="width: 25%;">(+) Vat</td>
+                                <td style="width: 15%;">{{ Number(vat_total).toFixed(2) }}</td>
+                                <td style="width: 10%; min-width: 70px;"></td>
+                            </tr>
+                            <tr class="subtotal bottom-total" v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">
+                                <td style="width: 50%;"></td>
+                                <td style="width: 25%;">(-) Discount</td>
+                                <td style="width: 15%;">{{ Number(discount_total).toFixed(2) }}</td>
+                                <td style="width: 10%; min-width: 70px;"></td>
+                            </tr>
+                            <tr class="subtotal bottom-total" v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">
+                                <td style="width: 50%;"><span class="add-order-attachment-section add-attachment" @click="addAttachmentClickHandler"><i class="zmdi zmdi-attachment-alt"></i>Attachment</span></td>
+                                <td style="width: 25%;">Gross Total</td>
+                                <td style="width: 15%;">{{ Number(gross_total).toFixed(2) }}</td>
+                                <td style="width: 10%; min-width: 70px;"></td>
+                            </tr> -->
+                            <!-- <tr class="subtotal bottom-total">
+                                <td style="width: 50%;"></td>
+                                <td style="width: 25%;">(+/-) Rounding Adjustment</td>
+                                <td style="width: 15%;">{{ Number(rounding_adjustment).toFixed(2) }}</td>
+                                <td style="width: 10%; min-width: 70px;"></td>
+                            </tr> -->
+                            <!-- <tr class="grand-total bottom-total" style="border-top: 1px solid #BFCFE2;" v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">
+                                <td style="width: 50%;"></td>
+                                <td style="width: 25%;">Grand Total</td>
+                                <td style="width: 15%;">{{ Number(grand_total).toFixed(2) }}</td>
+                                <td style="width: 10%; min-width: 70px;"></td>
+                            </tr> -->
+                            <!-- <tr id="subtotal-section" class="subtotal-section" style="border-top   : 1px solid #BFCFE2;">
                                 <td>
                                     <span class="add-order-section" @click="addOrderClickHandler"><i class="zmdi zmdi-plus"></i>Add Products</span>
                                     <span class="attachment-section" @click="addAttachmentClickHandler"><i class="zmdi zmdi-attachment-alt"></i>Attachment</span>
@@ -117,7 +155,7 @@
                                     <span class="grand-total">{{ grand_total.toFixed(2) }}</span>
                                 </td>
                                 <td></td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
                 </div>
@@ -463,6 +501,7 @@ import JMIFilter from '.././../../../../../functions/JMIFIlter'
 const jmiFilter = new JMIFilter()
 
 export default {
+    props: ["pending_order_list_by_id"],
     components: {
         // AdvancedSearch 
     },

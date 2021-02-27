@@ -32,34 +32,36 @@
                 <div id="progressbar" class="progressbar" v-if="!customer_list">
                     <v-progress-circular indeterminate color="primary"></v-progress-circular>
                 </div>
-                <div :id="'customer-section-list-' + c" class="customer-section-list" v-for="(customer, c) in customer_list" :key="c" @click="customerClickHandlerFromList(customer, c)">
+                <!-- <div :id="'customer-section-list-' + c" class="customer-section-list" v-for="(customer, c) in customer_list" :key="c" @click="customerClickHandlerFromList(customer, c)"> -->
+                <div :id="'customer-section-list-' + c" class="customer-section-list" v-for="(customer, c) in ALL_PENDING_ORDERS_CUSTOMER_LIST" :key="c" @click="customerClickHandlerFromList(customer, c)">
                     <div :id="'customer-section-list-inner-' + c" class="customer-section-list-inner">
                         <div class="customer-id-type-section">
                             <div class="customer-id-type-section-inner">
                                 <div class="id-section">
-                                    <p class="customer-id">{{ customer.customer_id }}</p>
+                                    <p class="customer-id">{{ customer ? customer.customer_id : "XXXXXX" }}</p>
                                 </div>
                                 <div class="type-section">
-                                    <p class="customer-type"><span class="type">{{ customer.order_date }}</span></p>
+                                    <p class="customer-type"><span class="type">{{ customer ? customer.order_info.order_date : "DD/MM/YYYY" }}</span></p>
                                 </div>
                             </div>
                         </div>
                         <div class="customer-name-section">
                             <div class="customer-name-section-inner">
                                 <div class="name-section">
-                                    <p class="customer-name">{{ customer.order_address }}</p>
+                                    <p class="customer-name">{{ customer ? customer.customer_info.customer_address : "" }}</p>
                                 </div>
                                 <div class="status-section">
-                                    <p class="status" :class="customer.order_status"><span class="status-icon" :class="customer.order_status"></span>{{ customer.order_status }}</p>
+                                    <!-- <p class="status" :class="customer.order_status"><span class="status-icon" :class="customer.order_status"></span>{{ customer ? (customer.order_status ? customer.order_status : "Pending") : "Pending" }}</p> -->
+                                    <p class="status" :class="'Pending'"><span class="status-icon" :class="'Pending'"></span>{{ customer ? (customer.order_status ? customer.order_status : "Pending") : "Pending" }}</p>
                                 </div>
                             </div>
                         </div>
                         <div class="customer-address-section">
                             <div class="customer-address-section-inner">
                                 <div class="address-section">
-                                    <p class="customer-address"><span>Order ID: {{ customer.order_id }}</span>|<span>Total Bill: {{ customer.order_bill }}</span></p>
+                                    <p class="customer-address"><span>Order ID: {{ customer ? customer.order_info.id : 'XXXX' }}</span>|<span>Total Bill: {{ customer ? customer.order_info.net_total : '00.00' }}</span></p>
                                     <span class="checkbox">
-                                        <input type="checkbox" :id="'order-approval-checkbox-' + c" :name="customer.customer_id" :value="customer.customer_id">
+                                        <input type="checkbox" :id="'order-approval-checkbox-' + c" :name="customer ? customer.customer_id : 0" :value="customer ? customer.customer_id : 0">
                                     </span>
                                 </div>
                             </div>
@@ -119,12 +121,15 @@
 </template>
 
 <script>
+import ERPService from '../../../../../../service/ERPSidebarService'
+const service = new ERPService()
 import JMIFilter from '.././../../../../../functions/JMIFIlter'
 const jmiFilter = new JMIFilter()
 
 export default {
     data() {
         return {
+            ALL_PENDING_ORDERS_CUSTOMER_LIST: [],
             customer_list: [
                 {
                     customer_id: "DHK0301",
@@ -287,7 +292,9 @@ export default {
         }
     },
     created() {},
-    mounted() {},
+    async mounted() {
+        await this.ALL_PENDING_ORDERS_CUSTOMER_LIST__FROM_SERVICE()
+    },
     methods: {
         filterClick() {
             if(this.filter_modal) {
@@ -304,6 +311,22 @@ export default {
         },
         onChangeStatusDropdown() {
             console.log('onChangeStatusDropdown: ' + this.on_change_status)
+            switch(this.on_change_status) {
+                case 'Select All':
+                    console.log('Select All')
+                    break
+                case 'Approved Selected':
+                    console.log('Approved Selected')
+                    break
+                case 'Reject Selected':
+                    console.log('Reject Selected')
+                    break
+                case 'Delivery Date Shift':
+                    console.log('Delivery Date Shift')
+                    break
+                default:
+                    break
+            }
         },
         onChangeSortBy() {
             console.log('onChangeSortBy: ' + this.on_change_sort_by)
@@ -336,7 +359,7 @@ export default {
             } else {
                 document.querySelector('#customer-section-list-' + c).className = 'customer-section-list'
             }
-            // this.$emit("select_customer_by_customer_code", customer.customer_info.id)
+            this.$emit("select_order_by_order_id", customer.customer_info.id)
         },
         searchKeyUpHandler(value) {
             console.log(value.key)
@@ -346,6 +369,13 @@ export default {
             let txt_selector = "customer-id"
 
             jmiFilter.searchById_LeftSidebar(filter, list, txt_selector)
+        },
+        async ALL_PENDING_ORDERS_CUSTOMER_LIST__FROM_SERVICE() {
+            await service.getAllPendingOrdersCustomerList_OrderApprovalLeftSide()
+                .then(res => {
+                    console.log(res.data)
+                    this.ALL_PENDING_ORDERS_CUSTOMER_LIST = res.data.sbu_customers
+                })
         }
     }
 }

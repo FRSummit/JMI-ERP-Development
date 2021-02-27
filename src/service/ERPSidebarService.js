@@ -333,6 +333,28 @@ export default class PostService {
     })
   }
 
+  // -------------------------------------------------------------------------------
+  // Order Approval - SUBMIT ORDER TO CREATE - SEND SELECTED PRODUCT LIST
+  getAllPendingOrdersCustomerList_OrderApprovalLeftSide() {
+    let web_menu_url = '/api/web/all-pending-orders-customer-list'
+    return axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
+  // Order Approval - SUBMIT ORDER TO CREATE - SEND SELECTED PRODUCT LIST
+  getSelectedPendingOrderById_OrderApproval(order_id) {
+    let web_menu_url = '/api/web/pending-order-details/' + order_id
+    return axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
+
   // // CREATE ORDER - SR LIST LOAD
   // getSearchProductDataList_CreateOrderDetailsSection() {
   //   let web_menu_url = '/api/web/dic-wise-users'
