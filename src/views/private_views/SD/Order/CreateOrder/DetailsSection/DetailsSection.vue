@@ -224,7 +224,7 @@
             <div class="submit-section">
                 <div class="submit-section-inner">
                     <span class="cancel-order" @click="cancelOrderClickHandler">Cancel Order</span>
-                    <span class="update-order" @click="updateOrderClickHandler">Update Order</span>
+                    <span class="update-order" @click="updateOrderClickHandler" v-if="UPDATE_BTN_TRUE">Update Order</span>
                     <span class="proceed-order" @click="proceedOrderClickHandler">Proceed Order</span>
                 </div>
             </div>
@@ -307,7 +307,7 @@
                                     <td>
                                         <span class="quantity-setup">
                                             <span class="qty-increase" @click="decreaseProductInAutofieldProductClickHandler(data, i)"><i class="zmdi zmdi-minus" :class="data.quantity <= 1 ? 'jmi-deactive-btn' : ''"></i></span>
-                                            <input :id="'order-add-modal-qty-' + i" class="qty" type="number" placeholder="00" :value="data.quantity ? data.quantity : 0" v-on:keyup="quantityKeyUp_modal(data, $event, i)">
+                                            <input :id="'order-add-modal-qty-' + i" class="qty" type="number" placeholder="00" :value="data.quantity ? data.quantity : 0" v-on:keyup="quantityKeyUp_modal(data, $event, i)" min="1">
                                             <!-- <input class="qty" type="number" placeholder="00" v-model="add_order_modal_data_quantity" v-on:keyup="quantityKeyUp_modal(data.quantity)"> -->
                                             <span class="qty-decrease" @click="increaseProductInAutofieldProductClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
                                         </span>
@@ -354,6 +354,23 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+        <!-- Proceed Modal -->
+        <div class="modal-popup-section order-proceed-modal" v-if="proceed_modal_popup">
+            <div class="modal-popup-section-inner order-proceed-modal-inner">
+                <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
+                <p class="popup-text">Are you sure?</p>
+                <p class="popup-desc">You wan to proceed the order.</p>
+                <span class="divider"></span>
+                <div class="popup-submit-section">
+                <div class="popup-cancel-btn-section">
+                    <span @click="cancelOrderModalClickHandler">Cancel</span>
+                </div>
+                <div class="popup-confirm-btn-section">
+                    <span @click="proceedOrderModalClickHandler">Proceed</span>
+                </div>
                 </div>
             </div>
         </div>
@@ -420,7 +437,10 @@ export default {
             gross_total: 0.00,
             rounding_adjustment: 0.00,
             grand_total: 0.00,
+            UPDATE_BTN_TRUE: false,
             UPDATE_ORDER_CLICKED: false,
+            // Modal-Popup
+            proceed_modal_popup: false,
         }
     },
     created() {},
@@ -451,6 +471,7 @@ export default {
         increaseOrderedItemClickHandler(data, index) {
             console.log(data + '    ' + index)
             data.quantity++
+            this.UPDATE_BTN_TRUE = true
             this.createSubtotalCalculation()
             // Free Product row quantity increase
             if(data.offer_type === "free") {
@@ -462,6 +483,7 @@ export default {
             console.log(data + '    ' + index)
             if(data.quantity > 1) {
                 data.quantity--
+                this.UPDATE_BTN_TRUE = true
                 this.createSubtotalCalculation()
             }
             // Free Product row quantity decrease
@@ -525,7 +547,11 @@ export default {
             this.FIND_PRODUCT_OFFER__FROM_SERVICE(prod_db_list)
         },
         proceedOrderClickHandler() {
-            console.log('proceed order')
+            if(this.proceed_modal_popup) {
+                this.proceed_modal_popup = false
+            } else {
+                this.proceed_modal_popup = true
+            }
         },
         //------------------------------------------------------------------------------------------
         // Order Modal Functions
@@ -767,8 +793,19 @@ export default {
                 }
             }
             console.log(this.ORDERED_TABLE_DATA__INIT_LIST)
+            this.UPDATE_BTN_TRUE = false
             this.createSubtotalCalculation()
         },
+        // -------------------------------------------------------------------------------------------------
+        // Modal Popup Click Handler
+        cancelOrderModalClickHandler() {
+            this.proceed_modal_popup = false
+        },
+        proceedOrderModalClickHandler() {
+            console.log('confirm order')
+        },
+        // -------------------------------------------------------------------------------------------------
+        // Default Functionality
         defaultAllThisComponentData() {
                 this.ORDERED_TABLE_DATA__INIT_LIST = []
                 this.ORDERED_TABLE_DATA__MODIFIED_LIST = []
@@ -817,7 +854,17 @@ export default {
                     this.defaultAllThisComponentData()
                 }
             }
-        }
+        },
+        // ORDERED_TABLE_DATA__INIT_LIST(newVal, oldVal) {
+        //     // console.log(newVal)
+        //     // console.log(oldVal)
+        //     if( newVal && oldVal) {
+        //         // if(newVal.customer_id !== oldVal.customer_id) {
+        //         //     this.defaultAllThisComponentData()
+        //         // }
+        //         console.log('changes')
+        //     }
+        // }
     }
 }
 </script>
