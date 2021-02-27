@@ -255,7 +255,7 @@
                             <div class="autofield-show-section">
                                 <div class="autofield-show-section-inner">
                                     <div class="header">
-                                        <input id="create-order-add-product" class="jmi-auto-filter-input" type="text" placeholder="Search By Batch Number" v-on:keyup="searchKeyUpAddProductHandler" />
+                                        <input id="create-order-add-product" class="jmi-auto-filter-input" type="text" placeholder="Search By Name or Product ID" v-on:keyup="searchKeyUpAddProductHandler" />
                                     </div>
                                     <div class="response-body">
                                         <div id="progressbar" class="jmi-progressbar" v-if="!auto_field_data">
@@ -265,7 +265,7 @@
                                             <td>
                                                 <!-- <span class="responer-body-filter-tag">{{ data ? data.product_info.prod_name : "" }}</span> -->
                                                 <span class="responer-body-filter-tag">{{ data ? data.prod_name : "" }}</span>
-                                                <span>Product Code: {{ data ? data.prod_id : "" }}</span>
+                                                <span class="responer-body-filter-tag-id">Product ID: {{ data ? data.prod_id : "" }}</span>
                                             </td>
                                             <td>
                                                 <span class="quantity-setup">
@@ -307,7 +307,7 @@
                                     <td>
                                         <span class="quantity-setup">
                                             <span class="qty-increase" @click="decreaseProductInAutofieldProductClickHandler(data, i)"><i class="zmdi zmdi-minus" :class="data.quantity <= 1 ? 'jmi-deactive-btn' : ''"></i></span>
-                                            <input :id="'order-add-modal-qty-' + i" class="qty" type="number" placeholder="00" :value="data.quantity ? data.quantity : 0" v-on:keyup="quantityKeyUp_modal(data, $event, i)" min="1">
+                                            <input :id="'order-add-modal-qty-' + i" class="qty" type="number" placeholder="00" :value="data.quantity ? data.quantity : 1" v-on:keyup="quantityKeyUp_modal(data, $event, i)" min="1">
                                             <!-- <input class="qty" type="number" placeholder="00" v-model="add_order_modal_data_quantity" v-on:keyup="quantityKeyUp_modal(data.quantity)"> -->
                                             <span class="qty-decrease" @click="increaseProductInAutofieldProductClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
                                         </span>
@@ -666,13 +666,20 @@ export default {
             console.log(arr)
         },
         // Filter
-        searchKeyUpAddProductHandler() {
+        searchKeyUpAddProductHandler(value) {
             let input = document.getElementById("create-order-add-product");
             let filter = input.value.toUpperCase();
             let list = document.querySelectorAll('.responer-body-filter-output')
             let txt_selector = "responer-body-filter-tag"
+            let id_selector = "responer-body-filter-tag-id"
 
-            jmiFilter.searchById_LeftSidebar(filter, list, txt_selector)
+            console.log(value.key)
+            let v = document.querySelector('#create-order-add-product').value
+            if(isNaN(v)) {
+                jmiFilter.searchByName_Details_Section(filter, list, txt_selector)
+            } else {
+                jmiFilter.searchByID_Details_Section(filter, list, id_selector)
+            }
         },
         // ------------------------------------------------------------------------------------------
         // Service Implementation
