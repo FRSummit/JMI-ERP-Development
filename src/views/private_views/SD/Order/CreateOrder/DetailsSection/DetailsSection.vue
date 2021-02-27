@@ -151,13 +151,13 @@
                             <tr class="subtotal bottom-total">
                                 <td style="width: 50%;"></td>
                                 <td style="width: 25%;">(+) Vat</td>
-                                <td style="width: 15%;">{{ vat.toFixed(2) }}</td>
+                                <td style="width: 15%;">{{ vat_total.toFixed(2) }}</td>
                                 <td style="width: 10%; min-width: 70px;"></td>
                             </tr>
                             <tr class="subtotal bottom-total">
                                 <td style="width: 50%;"></td>
                                 <td style="width: 25%;">(-) Discount</td>
-                                <td style="width: 15%;">{{ discount.toFixed(2) }}</td>
+                                <td style="width: 15%;">{{ discount_total.toFixed(2) }}</td>
                                 <td style="width: 10%; min-width: 70px;"></td>
                             </tr>
                             <tr class="subtotal bottom-total">
@@ -415,8 +415,8 @@ export default {
                 { label: 'label2', value: 'value2' }
             ],
             sub_total: 0.00,
-            vat: 0.00,
-            discount: 0.00,
+            vat_total: 0.00,
+            discount_total: 0.00,
             gross_total: 0.00,
             rounding_adjustment: 0.00,
             grand_total: 0.00,
@@ -484,6 +484,7 @@ export default {
                     }
                 }
             }
+            this.createSubtotalCalculation()
         },
         //------------------------------------------------------------------------------------------
         // Add Product/Order , Atachment Row
@@ -707,14 +708,16 @@ export default {
             this.sub_total = 0
             for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST.length; i++) {
                 this.sub_total += this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity * parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].base_tp)
+                this.vat_total += this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity * (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.discount_percentage) / 100)
+                this.discount_total += this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity * parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].vat_total)
             }
             // this.sub_total = this.sub_total
             // this.vat = this.vat
             // this.vat = this.discount
-            this.gross_total = this.sub_total - this.vat + this.discount
+            this.gross_total = this.sub_total - this.vat_total + this.discount_total
             // this.gross_total = this.gross_total
             // this.rounding_adjustment = this.rounding_adjustment
-            this.grand_total = this.sub_total - this.vat + this.discount - this.rounding_adjustment
+            this.grand_total = this.sub_total - this.vat_total + this.discount_total - this.rounding_adjustment
             // this.grand_total = this.grand_total
         },
         // -------------------------------------------------------
@@ -764,6 +767,7 @@ export default {
                 }
             }
             console.log(this.ORDERED_TABLE_DATA__INIT_LIST)
+            this.createSubtotalCalculation()
         },
         defaultAllThisComponentData() {
                 this.ORDERED_TABLE_DATA__INIT_LIST = []
