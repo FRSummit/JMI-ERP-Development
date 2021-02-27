@@ -648,128 +648,176 @@
                             background: #FFF7E3;
                         }
 
-                        tr#subtotal-section {
-                            td {
-                                span {
-                                    display   : block;
-                                    text-align: right;
-                                    color     : #111213;
-                                    font-size : 12px;
-                                }
+                        tr.bottom-total {
+                            &:hover {
+                                background: none;
                             }
+                        }
 
-                            td:first-child {
+                        tr.subtotal.bottom-total {
+                            td {
+                                text-align: right;
+                                color     : #111213;
+                                font-size : 12px;
+                                padding   : 0 10px;
 
-                                span {
-                                    margin-top: 10px;
+                                span.add-order-attachment-section {
                                     text-align: left;
-                                    font-size : 14px;
+                                    font-size : 12px;
                                     color     : #026CD1;
                                     cursor    : pointer;
+                                    width     : max-content;
 
                                     i {
-                                        font-size   : 18px;
+                                        font-size   : 12px;
                                         margin-right: 6px;
                                     }
                                 }
 
-                                span:last-child {
-                                    margin-top: 30px;
-                                    color     : #8D979F;
+                                span.add-attachment {
+                                    color: #8D979F;
 
                                     i {
                                         transform: rotate(40deg);
                                     }
                                 }
                             }
-
-                            td:nth-child(4) {
-                                span {
-                                    color: #8D979F;
-                                }
-                            }
-
-                            td:first-child {
-                                width     : 20%;
-                                text-align: left;
-                            }
-
-                            td:nth-child(2) {
-                                width: 18%;
-                            }
-
-                            td:nth-child(3) {
-                                width: 18%;
-                            }
-
-                            td:nth-child(4) {
-                                width: 10%;
-                            }
-
-                            td:nth-child(5) {
-                                width: 10%;
-                            }
-
-                            td:nth-child(6) {
-                                width     : 14%;
-                                text-align: right;
-                            }
-
-                            td:last-child {
-                                width: 10%;
-                            }
-
-                            &:hover {
-                                background: none;
-                            }
                         }
 
-                        tr#grand-total-section {
+                        tr.grand-total.bottom-total {
                             td {
-                                padding: 0;
-                                span {
-                                    width      : auto;
-                                    text-align : right;
-                                    color      : #026CD1;
-                                    font-size  : 14px;
-                                    font-weight: 500;
-                                }
-                            }
-
-                            td:first-child {
-                                width     : 20%;
-                                text-align: left;
-                            }
-
-                            td:nth-child(2) {
-                                width: 18%;
-                            }
-
-                            td:nth-child(3) {
-                                width: 18%;
-                            }
-
-                            td:nth-child(4) {
-                                width: 10%;
-                            }
-
-                            td:nth-child(5) {
-                                width: 10%;
-                            }
-
-                            td:nth-child(6) {
-                                width     : 14%;
-                                text-align: right;
-                            }
-
-                            td:last-child {
-                                width: 10%;
-                            }
-
-                            &:hover {
-                                background: none;
+                                width      : auto;
+                                text-align : right;
+                                color      : #026CD1;
+                                font-size  : 14px;
+                                font-weight: 500;
+                                padding    : 0 10px;
                             }
                         }
+
+                        // tr#subtotal-section {
+                        //     td {
+                        //         span {
+                        //             display   : block;
+                        //             text-align: right;
+                        //             color     : #111213;
+                        //             font-size : 12px;
+                        //         }
+                        //     }
+
+                        //     td:first-child {
+
+                        //         span {
+                        //             margin-top: 10px;
+                        //             text-align: left;
+                        //             font-size : 14px;
+                        //             color     : #026CD1;
+                        //             cursor    : pointer;
+
+                        //             i {
+                        //                 font-size   : 18px;
+                        //                 margin-right: 6px;
+                        //             }
+                        //         }
+
+                        //         span:last-child {
+                        //             margin-top: 30px;
+                        //             color     : #8D979F;
+
+                        //             i {
+                        //                 transform: rotate(40deg);
+                        //             }
+                        //         }
+                        //     }
+
+                        //     td:nth-child(4) {
+                        //         span {
+                        //             color: #8D979F;
+                        //         }
+                        //     }
+
+                        //     td:first-child {
+                        //         width     : 20%;
+                        //         text-align: left;
+                        //     }
+
+                        //     td:nth-child(2) {
+                        //         width: 18%;
+                        //     }
+
+                        //     td:nth-child(3) {
+                        //         width: 18%;
+                        //     }
+
+                        //     td:nth-child(4) {
+                        //         width: 10%;
+                        //     }
+
+                        //     td:nth-child(5) {
+                        //         width: 10%;
+                        //     }
+
+                        //     td:nth-child(6) {
+                        //         width     : 14%;
+                        //         text-align: right;
+                        //     }
+
+                        //     td:last-child {
+                        //         width: 10%;
+                        //     }
+
+                        //     &:hover {
+                        //         background: none;
+                        //     }
+                        // }
+
+                        // tr#grand-total-section {
+                        //     td {
+                        //         padding: 0;
+
+                        //         span {
+                        //             width      : auto;
+                        //             text-align : right;
+                        //             color      : #026CD1;
+                        //             font-size  : 14px;
+                        //             font-weight: 500;
+                        //         }
+                        //     }
+
+                        //     td:first-child {
+                        //         width     : 20%;
+                        //         text-align: left;
+                        //     }
+
+                        //     td:nth-child(2) {
+                        //         width: 18%;
+                        //     }
+
+                        //     td:nth-child(3) {
+                        //         width: 18%;
+                        //     }
+
+                        //     td:nth-child(4) {
+                        //         width: 10%;
+                        //     }
+
+                        //     td:nth-child(5) {
+                        //         width: 10%;
+                        //     }
+
+                        //     td:nth-child(6) {
+                        //         width     : 14%;
+                        //         text-align: right;
+                        //     }
+
+                        //     td:last-child {
+                        //         width: 10%;
+                        //     }
+
+                        //     &:hover {
+                        //         background: none;
+                        //     }
+                        // }
                     }
                 }
             }

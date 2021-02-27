@@ -136,13 +136,50 @@
                                         <span v-if="!data.row_class">{{ data ? (data.price_now_per_qty * data.quantity).toFixed(2) : 0 }}</span>
                                         <span v-if="data.row_class"></span>
                                     </td>
-                                    <td class="row-action">
+                                    <td class="row-action" style="min-width: 70px;">
                                         <span v-if="!data.row_class" class="delete-icon" @click="deleteOrderitemClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
                                     </td>
                                 </tr>
                             </div>
                             <!-- Bottom Total Section -->
-                            <tr id="subtotal-section" class="subtotal-section" style="border-top: 1px solid #BFCFE2;">
+                            <tr class="subtotal bottom-total" style="border-top: 1px solid #BFCFE2;">
+                                <td style="width: 50%;"><span class="add-order-attachment-section add-order" @click="addOrderClickHandler"><i class="zmdi zmdi-plus"></i>Add Products</span></td>
+                                <td style="width: 25%;">Subtotal</td>
+                                <td style="width: 15%;">{{ sub_total.toFixed(2) }}</td>
+                                <td style="width: 10%; min-width: 70px;"></td>
+                            </tr>
+                            <tr class="subtotal bottom-total">
+                                <td style="width: 50%;"></td>
+                                <td style="width: 25%;">(+) Vat</td>
+                                <td style="width: 15%;">{{ vat.toFixed(2) }}</td>
+                                <td style="width: 10%; min-width: 70px;"></td>
+                            </tr>
+                            <tr class="subtotal bottom-total">
+                                <td style="width: 50%;"></td>
+                                <td style="width: 25%;">(-) Discount</td>
+                                <td style="width: 15%;">{{ discount.toFixed(2) }}</td>
+                                <td style="width: 10%; min-width: 70px;"></td>
+                            </tr>
+                            <tr class="subtotal bottom-total">
+                                <td style="width: 50%;"></td>
+                                <td style="width: 25%;">Gross Total</td>
+                                <td style="width: 15%;">{{ gross_total.toFixed(2) }}</td>
+                                <td style="width: 10%; min-width: 70px;"></td>
+                            </tr>
+                            <tr class="subtotal bottom-total">
+                                <td style="width: 50%;"><span class="add-order-attachment-section add-attachment" @click="addAttachmentClickHandler"><i class="zmdi zmdi-attachment-alt"></i>Attachment</span></td>
+                                <td style="width: 25%;">(+/-) Rounding Adjustment</td>
+                                <td style="width: 15%;">{{ rounding_adjustment.toFixed(2) }}</td>
+                                <td style="width: 10%; min-width: 70px;"></td>
+                            </tr>
+                            <tr class="grand-total bottom-total" style="border-top: 1px solid #BFCFE2;">
+                                <td style="width: 50%;"></td>
+                                <td style="width: 25%;">Grand Total</td>
+                                <td style="width: 15%;">{{ grand_total.toFixed(2) }}</td>
+                                <td style="width: 10%; min-width: 70px;"></td>
+                            </tr>
+
+                            <!-- <tr id="subtotal-section" class="subtotal-section" style="border-top: 1px solid #BFCFE2;">
                                 <td>
                                     <span class="add-order-section" @click="addOrderClickHandler"><i class="zmdi zmdi-plus"></i>Add Products</span>
                                     <span class="attachment-section" @click="addAttachmentClickHandler"><i class="zmdi zmdi-attachment-alt"></i>Attachment</span>
@@ -165,8 +202,8 @@
                                     <span class="atjustment">{{ rounding_adjustment.toFixed(2) }}</span>
                                 </td>
                                 <td></td>
-                            </tr>
-                            <tr id="grand-total-section" class="grand-total-section" style="border-top: 1px solid #BFCFE2;">
+                            </tr> -->
+                            <!-- <tr id="grand-total-section" class="grand-total-section" style="border-top: 1px solid #BFCFE2;">
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -178,7 +215,7 @@
                                     <span class="grand-total">{{ grand_total.toFixed(2) }}</span>
                                 </td>
                                 <td></td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
                 </div>
