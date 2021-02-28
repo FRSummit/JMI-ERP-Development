@@ -6,7 +6,8 @@
         <div class="create-order-details-section-inner" v-if="customer_data">
             <div class="title-section">
                 <div class="row">
-                    <div class="col-lg-4 col-md-4 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer ID:</span><span class="id">{{ customer_data ? customer_data.customer_id : ""}}</span><span class="customer-type">{{ customer_data ? customer_data.credit_flag === "Y" ? "Credit" : "Cash" : "No Customer" }}</span></p></div>
+                    <!-- <div class="col-lg-4 col-md-4 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer ID:</span><span class="id">{{ customer_data ? customer_data.customer_id : ""}}</span><span class="customer-type">{{ customer_data ? customer_data.credit_flag === "Y" ? "Credit" : "Cash" : "No Customer" }}</span></p></div> -->
+                    <div class="col-lg-4 col-md-4 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer ID:</span><span class="id">{{ customer_data ? customer_data.display_code : ""}}</span><span class="customer-type">{{ customer_data ? customer_data.credit_flag === "Y" ? "Credit" : "Cash" : "No Customer" }}</span></p></div>
                     <div class="col-lg-8 col-md-8 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer Name:</span><span class="jmi-lvl-value">{{ customer_data ? customer_data.display_name : "" }}</span></p></div>
                 </div>
                 <div class="row">
@@ -22,22 +23,16 @@
                         <div class="col-lg-3 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Current Outstanding:</span><span class="jmi-lvl-value url jmi-no-underline">{{ customer_data ? customer_data.current_due !== null ? customer_data.current_due : "00" : "" }}</span></p></div>
                         <div class="col-lg-3 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Order Placed:</span> <span class="jmi-lvl-value">-- Dev. No Data ---</span></p></div>
                         <!-- <div class="col-lg-3 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Status:</span> <span class="jmi-lvl-value">Pending</span></p></div> -->
-                        <div class="col-lg-3 col-md-6 col-sm-12"><p class="jmi-title">Area: <span class="jmi-lvl-value">-- Dev. No Data ---</span></p></div>
-                        <div class="col-lg-3 col-md-6 col-sm-12"><p class="jmi-title">Territory: <span class="jmi-lvl-value">{{ customer_data ? customer_data.customer_area_info.sales_force.get_sales_area.area_name : "" }}</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-12"><p class="jmi-title">Area: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">-- Dev. No Data ---</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-12"><p class="jmi-title">Territory: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_70">{{ customer_data ? customer_data.customer_area_info.sales_force.get_sales_area.area_name : "" }}</span></p></div>
                     </div>
                     <div class="row">
                         <!-- <div class="col-lg-3 col-md-6 col-sm-12"><p class="jmi-title">Territory: <span class="jmi-lvl-value">{{ customer_data ? customer_data.customer_area_info.sales_force.get_sales_area.area_name : "" }}</span></p></div> -->
-                        <div class="col-lg-3 col-md-6 col-sm-12"><p class="am">AM: <span class="jmi-lvl-value">{{ customer_data ? customer_data.customer_area_info.sales_force.manager_info.name : "" }}</span></p></div>
-                        <div class="col-lg-3 col-md-6 col-sm-12"><p class="mio">MIO: <span class="jmi-lvl-value">{{ customer_data ? customer_data.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info.name : "" }}</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-12"><p class="am">AM: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ customer_data ? customer_data.customer_area_info.sales_force.manager_info.name : "" }}</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-12"><p class="mio">MIO: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ customer_data ? customer_data.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info.name : "" }}</span></p></div>
                         <div class="col-lg-3 col-md-6 col-sm-12">
                             <div class="sr" style="display: table-cell; width: 33%; padding-right: 20px; padding-bottom: 0; vertical-align: middle;">
                                 <span class="jmi-lvl">SR: </span>
-                                <!-- <div class="select-options" style="display: inline-block; width: 50%; min-width: 120px; font-size: 14px;">
-                                    <span class="right-icon"><i class="fas fa-chevron-right"></i></span>
-                                    <select title="Pick a customer" class="selectpicker" v-model="on_change_SR_dropdown" @change="onChangeSRDropdown()">
-                                        <option v-for="(sr, m) in sr_list" :key="m"><span>{{ sr.name }}</span></option>
-                                    </select>
-                                </div> -->
                                 <p class="selectpicker-pera"> 
                                     <span class="jmi-lvl-value">{{ selected_sr }}</span>
                                     <span class="sr-add-icon" @click="srAddIconClickHandler"><i class="zmdi zmdi-plus"></i></span>
@@ -90,12 +85,12 @@
                                 <!-- <th style="border: none" v-for="(head, i) in order_table_header" :key="i">{{ head }}</th>
                                 <th style="border: none"></th> -->
                                 <th>Name</th>
-                                <th>Unit Price<span class="with-vat">(With VAT)</span></th>
+                                <th>Trade Price<span class="with-vat">(With VAT)</span></th>
                                 <th>Quantity</th>
                                 <th>Discount</th>
                                 <th>Bonus</th>
                                 <th>Total Price</th>
-                                <th></th>
+                                <th style="min-width: 70px;"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -109,12 +104,12 @@
                                     <td>
                                         <!-- <span>{{ data ? data.product_info.prod_name : "" }}</span> -->
                                         <span>{{ data ? data.prod_name : "" }}</span>
-                                        <span v-if="!data.row_class">Base Price: {{ data ? data.base_tp : "" }}</span>
+                                        <span v-if="!data.row_class">Unit Price: {{ data ? data.base_tp : "" }}</span>
                                         <span v-if="data.row_class" :class="data.row_class">Free Product</span>
                                     </td>
                                     <!-- <td>{{ data ? data.price_now_per_qty.toFixed(2) : "" }}</td> -->
                                     <td>
-                                        <span v-if="!data.row_class">{{ data ? Number(data.price_now_per_qty).toFixed(2) : 0 }}</span>
+                                        <span v-if="!data.row_class">{{ data ? Number(parseFloat(data.base_tp) + parseFloat(data.base_vat)).toFixed(2) : 0 }}</span>
                                         <span v-if="data.row_class"></span>
                                     </td>
                                     <td>
@@ -204,8 +199,8 @@
                                 <img src="../../../../../../assets/icons/user.png" alt="logo">
                             </div>
                             <div class="title-section">
-                                <p class="name">ABI Pharmacy and Diagnostic Center<span class="tik-icon"><i class="zmdi zmdi-check"></i></span></p>
-                                <p class="id">JMI-2231225</p>
+                                <p class="name">{{ customer_data ? (customer_data.display_name) : 'Not Found' }}<span class="tik-icon"><i class="zmdi zmdi-check"></i></span></p>
+                                <p class="id">{{ customer_data ? (customer_data.display_code) : 'Not Found' }}</p>
                             </div>
                         </div>
                     </div>
@@ -228,7 +223,7 @@
                                             <td>
                                                 <!-- <span class="responer-body-filter-tag">{{ data ? data.product_info.prod_name : "" }}</span> -->
                                                 <span class="responer-body-filter-tag">{{ data ? data.prod_name : "" }}</span>
-                                                <span class="responer-body-filter-tag-id">Product ID: {{ data ? data.prod_id : "" }}</span>
+                                                <span>{{ data ? (data.display_code ? ('Code: ' + data.display_code) : '') : "" }} {{ data ? (data.offer ? ('| ' + data.offer) : '') : "" }}<span class="responer-body-filter-tag-id" style="display: inline-block; margin-left: 2px;">{{ data ? (data.prod_id ? (' | ID: ' + data.prod_id) : '') : "" }}</span></span>
                                             </td>
                                             <td>
                                                 <span class="quantity-setup">
@@ -265,7 +260,7 @@
                                     <td>
                                         <!-- <span>{{  data ? data.product_info.prod_name : ""  }}</span> -->
                                         <span>{{  data ? data.prod_name : ""  }}</span>
-                                        <span>Product Code: {{ data ? data.prod_id : "" }}</span>
+                                        <span>Code: {{ data ? (data.display_code ? data.display_code : data.prod_id) : "" }}<span class="responer-body-filter-tag-id" style="display: inline-block; margin-left: 2px;"> | ID: {{ data ? (data.prod_id ? (data.prod_id) : '') : "" }}</span></span>
                                     </td>
                                     <td>
                                         <span class="quantity-setup">
@@ -570,6 +565,7 @@ export default {
                             prod_code: data.prod_code,
                             code_id: data.code_id,
                             element_name: data.element_name,
+                            display_code: data.display_code,
                             quantity: 1
                         }
             this.SELECTED_ORDERED_PRODUCTS__INIT_LIST.push(product)
@@ -581,7 +577,6 @@ export default {
                     }
                 }
             }
-             
         },
         // Remove Added Ordered Product
         removeAddedOrderedProductClickHandler(data, index) {
@@ -733,8 +728,8 @@ export default {
             this.grand_total = 0
             for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST.length; i++) {
                 this.sub_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].price_now_per_qty) * this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity
-                this.vat_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].vat_total)
-                this.discount_total += parseFloat((this.ORDERED_TABLE_DATA__INIT_LIST[i].base_tp * this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity) - this.ORDERED_TABLE_DATA__INIT_LIST[i].line_total)
+                this.vat_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].base_vat) * this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity
+                this.discount_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].base_tp * this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity) - (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].price_now_per_qty) * this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity)
             }
             console.log(this.sub_total)
             // this.sub_total = this.sub_total
@@ -781,6 +776,10 @@ export default {
                                         base_vat            : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].base_vat,
                                         line_total          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].line_total,
                                         vat_total           : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].vat_total,
+                                        // price_now_per_qty   : 0,
+                                        // base_vat            : 0,
+                                        // line_total          : 0,
+                                        // vat_total           : 0,
                                         quantity            : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].quantity,
                                         offer_type          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type,
                                         offer               : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer,

@@ -18,7 +18,7 @@
         </div>
         <!-- Customer Counter -->
         <div class="title-count">
-            <p class="total-customer">Total Customer (<span class="count">250</span>)</p>
+            <p class="total-customer">Total Customer (<span class="count">{{ customer_data_list.length }}</span>)</p>
         </div>
         <!-- Customer List -->
         <div class="customer-list-section">
@@ -31,7 +31,8 @@
                         <div class="customer-id-type-section">
                             <div class="customer-id-type-section-inner">
                                 <div class="id-section">
-                                    <p class="customer-id">{{ customer.customer_id }}</p>
+                                    <!-- <p class="customer-id">{{ customer.customer_id }}</p> -->
+                                    <p class="customer-id">{{ customer.display_code }}</p>
                                 </div>
                                 <div class="type-section">
                                     <p class="customer-type">Customer Type: <span class="type" :class="customer.credit_flag === 'Y' ? 'Credit' : 'Debit'">{{ customer.credit_flag === "Y" ? "Credit" : "Cash" }}</span></p>

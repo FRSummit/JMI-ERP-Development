@@ -10,7 +10,7 @@
               type="text"
               class="form-control"
               id="search-filter"
-              placeholder="Search by Name, ID No"
+              placeholder="Search by ID No"
               v-on:keyup="searchKeyUpHandler"
             />
           </div>
@@ -18,7 +18,7 @@
         </div>
         <!-- Customer Counter -->
         <div class="title-count">
-            <p class="total-customer">Pending Orders (<span class="count">250</span>)</p>
+            <p class="total-customer">Pending Orders (<span class="count">{{ ALL_PENDING_ORDERS_CUSTOMER_LIST.length }}</span>)</p>
             <div class="select-options">
                 <span class="right-icon"><i class="fas fa-chevron-right"></i></span>
                     <select title="Pick a customer" class="selectpicker" v-model="on_change_status" @change="onChangeStatusDropdown()">
@@ -38,17 +38,18 @@
                         <div class="customer-id-type-section">
                             <div class="customer-id-type-section-inner">
                                 <div class="id-section">
-                                    <p class="customer-id">{{ customer ? customer.customer_id : "XXXXXX" }}</p>
+                                    <p class="customer-id">{{ customer ? (customer.order_no ? (customer.order_no) : '' ) : "" }}</p>
                                 </div>
                                 <div class="type-section">
-                                    <p class="customer-type"><span class="type">{{ customer ? customer.order_info.order_date : "DD/MM/YYYY" }}</span></p>
+                                    <p class="customer-type"><span class="type">{{ customer ? (customer.order_date).split(' ')[0] : "" }}</span></p>
                                 </div>
                             </div>
                         </div>
                         <div class="customer-name-section">
                             <div class="customer-name-section-inner">
                                 <div class="name-section">
-                                    <p class="customer-name">{{ customer ? customer.customer_info.customer_address : "" }}</p>
+                                    <!-- <p class="customer-name">{{ customer ? customer.customer_info.customer_address : "" }}</p> -->
+                                    <p class="customer-name">{{ customer ? (customer.sbu_customer_info ? customer.sbu_customer_info.display_name : '') : "" }}</p>
                                 </div>
                                 <div class="status-section">
                                     <!-- <p class="status" :class="customer.order_status"><span class="status-icon" :class="customer.order_status"></span>{{ customer ? (customer.order_status ? customer.order_status : "Pending") : "Pending" }}</p> -->
@@ -59,10 +60,10 @@
                         <div class="customer-address-section">
                             <div class="customer-address-section-inner">
                                 <div class="address-section">
-                                    <p class="customer-address"><span>Order ID: {{ customer ? customer.order_info.id : 'XXXX' }}</span>|<span>Total Bill: {{ customer ? customer.order_info.net_total : '00.00' }}</span></p>
-                                    <span class="checkbox">
+                                    <p class="customer-address"><span>Order ID: {{ customer ? customer.id : 'XXXX' }}</span>|<span>Total Bill: {{ customer ? customer.net_total : '00.00' }}</span></p>
+                                    <!-- <span class="checkbox">
                                         <input type="checkbox" :id="'order-approval-checkbox-' + c" :name="customer ? customer.customer_id : 0" :value="customer ? customer.customer_id : 0">
-                                    </span>
+                                    </span> -->
                                 </div>
                             </div>
                         </div>
@@ -359,7 +360,7 @@ export default {
             } else {
                 document.querySelector('#customer-section-list-' + c).className = 'customer-section-list'
             }
-            this.$emit("select_order_by_order_id", customer.customer_info.id)
+            this.$emit("select_order_by_order_id", customer.id)
         },
         searchKeyUpHandler(value) {
             console.log(value.key)
@@ -374,7 +375,7 @@ export default {
             await service.getAllPendingOrdersCustomerList_OrderApprovalLeftSide()
                 .then(res => {
                     console.log(res.data)
-                    this.ALL_PENDING_ORDERS_CUSTOMER_LIST = res.data.sbu_customers
+                    this.ALL_PENDING_ORDERS_CUSTOMER_LIST = res.data.orders_info
                 })
         }
     }

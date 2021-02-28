@@ -362,6 +362,7 @@
             }
         }
 
+        // DETAILS PAGE MAIN TABLE
         .order-table {
             margin-bottom: 20px;
 
@@ -374,16 +375,14 @@
                     thead {
 
                         tr {
-
-                            th {}
-
                             th:first-child {
                                 width     : 20%;
                                 text-align: left;
                             }
 
                             th:nth-child(2) {
-                                width: 18%;
+                                width     : 18%;
+                                text-align: right;
                             }
 
                             th:nth-child(3) {
@@ -441,9 +440,6 @@
                         }
 
                         tr {
-
-                            td {}
-
                             td:first-child {
 
                                 span {
@@ -464,7 +460,8 @@
                             }
 
                             td:nth-child(2) {
-                                width: 18%;
+                                width     : 18%;
+                                text-align: right;
                             }
 
                             td:nth-child(3) {
@@ -490,20 +487,6 @@
 
                             // QUantity Column
                             td {
-                                // span.quantity-setup {
-
-                                //     span.qty-increase {
-                                //         display: none;
-                                //     }
-
-                                //     span.qty {
-                                //         margin: 0 10px;
-                                //     }
-
-                                //     span.qty-decrease {
-                                //         display: none;
-                                //     }
-                                // }
                                 span.quantity-setup {
                                     border       : 1px solid #026CD1;
                                     padding      : 2px 8px;
@@ -534,6 +517,21 @@
                                         padding     : 4px;
                                     }
                                 }
+
+                                // span.quantity-setup {
+
+                                //     span.qty-increase {
+                                //         display: none;
+                                //     }
+
+                                //     span.qty {
+                                //         margin: 0 10px;
+                                //     }
+
+                                //     span.qty-decrease {
+                                //         display: none;
+                                //     }
+                                // }
                             }
 
                             // Row Action Column
@@ -568,10 +566,6 @@
                                         height: 14px;
                                     }
                                 }
-
-                                // span {
-                                //     display: none;
-                                // }
                             }
 
                             &:hover {
@@ -1865,6 +1859,11 @@
         height        : 26px;
         vertical-align: middle;
         line-height   : 2;
+    }
+
+    #create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .submit-section .submit-section-inner span.cancel-order,
+    #create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .submit-section .submit-section-inner span.proceed-order {
+        padding: 0;
     }
 }
 
