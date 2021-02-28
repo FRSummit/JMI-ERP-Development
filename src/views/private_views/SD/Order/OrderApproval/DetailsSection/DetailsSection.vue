@@ -95,9 +95,9 @@
                                     <tr v-for="(data, i) in ORDERED_TABLE_DATA__INIT_LIST" :key="i">
                                         <td>
                                             <span>{{ data.product_info ? data.product_info.prod_name : '' }}</span>
-                                            <span>Unit Total Price: {{ data.unit_tp }}</span>
+                                            <span>Unit Price: {{ data.unit_tp }}</span>
                                         </td>
-                                        <td>{{ Number(data.tp).toFixed(2) }}</td>
+                                        <td>{{ Number(parseFloat(data.unit_tp) + parseFloat(data.unit_vat)).toFixed(2) }}</td>
                                         <td>
                                             <span class="quantity-setup">
                                                 <!-- <span class="qty-increase" @click="increaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-minus"></i></span> -->
