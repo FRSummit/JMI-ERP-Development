@@ -727,7 +727,7 @@ export default {
             this.gross_total = 0
             this.grand_total = 0
             for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST.length; i++) {
-                this.sub_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].price_now_per_qty) * this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity
+                this.sub_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].base_tp) * this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity
                 this.vat_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].base_vat) * this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity
                 this.discount_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].base_tp * this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity) - (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].price_now_per_qty) * this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity)
             }
