@@ -156,7 +156,7 @@
                                 <!-- -------- IF ANY PRODUCT ADDED -------- -->
                             </div>
                             <!-- Bottom Total Section -->
-                            <div v-if="pending_order_list_by_id ? (pending_order_list_by_id.order_details ? (pending_order_list_by_id.order_details.length > 0) : false) : false">
+                            <div v-if="ORDERED_TABLE_DATA__INIT_LIST">
                                 <tr class="subtotal bottom-total" style="border-top: 1px solid #BFCFE2;">
                                     <td style="width: 50%;"><span class="add-order-attachment-section add-order" @click="addOrderClickHandler"><i class="zmdi zmdi-plus"></i>Add Products</span></td>
                                     <td style="width: 25%;"><span>Subtotal</span></td>
@@ -202,8 +202,9 @@
                 </div>
             </div>
             <!-- Bottom Subtotal & Attachment Section -->
-            <div class="submit-section" v-if="pending_order_list_by_id ? (pending_order_list_by_id.order_details ? (pending_order_list_by_id.order_details.length > 0) : false) : false">
+            <div class="submit-section" v-if="ORDERED_TABLE_DATA__INIT_LIST">
                 <div class="submit-section-inner">
+                    <span class="proceed-order" @click="updateOrderClickHandler" style="margin-right: 20px;" v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length > 0">Update Order</span>
                     <span class="proceed-order" @click="proceedOrderClickHandler">Approve Order</span>
                 </div>
             </div>
@@ -239,7 +240,7 @@
                                         <tr class="responer-body-filter-output" v-for="(data, i) in PRODUCT_MODAL_DATA_LIST" :key="i">
                                             <td>
                                                 <span class="responer-body-filter-tag">{{  data ? data.prod_name : "" }}</span>
-                                                <span>Code: {{ data ? (data.display_code ? data.display_code : data.prod_id) : "" }} {{ data ? (data.offer ? ('| ' + data.offer) : '') : "" }}<span class="responer-body-filter-tag-id" style="display: inline-block; margin-left: 2px;"> | ID: {{ data ? (data.prod_id ? (data.prod_id) : '') : "" }}</span></span>
+                                                <span>{{ data ? (data.display_code ? ('Code: ' + data.display_code) : '') : "" }} {{ data ? (data.offer ? ('| ' + data.offer) : '') : "" }}<span class="responer-body-filter-tag-id" style="display: inline-block; margin-left: 2px;">{{ data ? (data.prod_id ? (' | ID: ' + data.prod_id) : '') : "" }}</span></span>
                                             </td>
                                             <td>
                                                 <span class="quantity-setup">
@@ -1134,6 +1135,10 @@ export default {
         orderRejectClickHandler() {
             console.log('orderRejectClickHandler')
         },
+        updateOrderClickHandler() {
+            console.log('update order')
+            console.log(this.ORDERED_TABLE_DATA__INIT_LIST_2)
+        },
         proceedOrderClickHandler() {
             console.log('proceed order')
         },
@@ -1494,6 +1499,7 @@ export default {
         // Default Functionality
         defaultAllThisComponentData() {
                 this.ORDERED_TABLE_DATA__INIT_LIST = []
+                this.ORDERED_TABLE_DATA__INIT_LIST_2 = []
                 // this.ORDERED_TABLE_DATA__MODIFIED_LIST = []
                 // this.ORDERED_TABLE_DATA__CONFIRM_LIST = []
                 this.PRODUCT_MODAL_DATA_LIST = []
