@@ -87,7 +87,7 @@
                         <tbody>
                             <div class="table-data-rows">
                                 <!-- <tr v-for="(data, i) in order_table_data" :key="i"> -->
-                                <tr v-for="(data, i) in pending_order_list_by_id ? pending_order_list_by_id.order_details : order_table_data" :key="i">
+                                <tr v-for="(data, i) in pending_order_list_by_id ? pending_order_list_by_id.order_details : null" :key="i">
                                     <td>
                                         <span>{{ data.product_info ? data.product_info.prod_name : '' }}</span>
                                         <span>Unit Total Price: {{ data.unit_tp }}</span>
@@ -166,7 +166,10 @@
             </div>
             <!-- Add Product Modal -->
             <div class="add-order-modal-section" v-if="add_order_modal">
-                <div class="add-order-modal-section-inner" v-click-outside="addOrderModalOutsideClick">
+                <div class="add-order-modal-section-inner">
+                    <div class="close-icon">
+                        <span class="icon" @click="addOrderModalOutsideClick"><i class="zmdi zmdi-close"></i></span>
+                    </div>
                     <div class="top-section">
                         <div class="top-section-inner">
                             <div class="logo">
@@ -521,120 +524,6 @@ export default {
                 },
             ],
             order_table_header: ["Name", "Unit Price", "Quantity", "Bonus", "Total Price"],
-            order_table_data: [
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-            ],
             auto_field_data: [
                 {
                     name: "Altrip. Almotriptan",

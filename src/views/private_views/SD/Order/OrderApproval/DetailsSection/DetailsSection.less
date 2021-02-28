@@ -292,6 +292,7 @@
                                 }
                             }
                         }
+
                         // .select-options {
                         //     display : inline-block;
                         //     width   : 100%;
@@ -377,6 +378,7 @@
                             th:last-child {
                                 width: 10%;
                             }
+
                             // border-bottom: none;
 
                             // th {
@@ -474,6 +476,7 @@
                             td:last-child {
                                 width: 10%;
                             }
+
                             // border-bottom: none;
 
                             // td {
@@ -511,8 +514,8 @@
                             td {
                                 span.quantity-setup {
                                     // border       : 1px solid #026CD1;
-                                    padding      : 2px 8px;
-                                    border-radius: 2px;
+                                    padding         : 2px 8px;
+                                    border-radius   : 2px;
                                     // background   : #FFFFFF;
 
                                     // span.qty-increase {
@@ -524,10 +527,10 @@
                                     // }
 
                                     span.qty {
-                                        margin   : 0 10px;
+                                        margin      : 0 10px;
                                         // color    : #026CD1;
-                                        display  : inline-block;
-                                        min-width: 16px;
+                                        display     : inline-block;
+                                        min-width   : 16px;
                                     }
 
                                     // span.qty-decrease {
@@ -539,6 +542,7 @@
                                     //     padding     : 4px;
                                     // }
                                 }
+
                                 // span.quantity-setup {
 
                                 //     span.qty-increase {
@@ -736,9 +740,7 @@
                                 }
                             }
 
-                            td:first-child {
-                                
-                            }
+                            td:first-child {}
                         }
 
                         // tr#subtotal-section {
@@ -833,6 +835,7 @@
                 }
             }
         }
+
         // DETAILS PAGE MAIN TABLE - START
 
         .submit-section {
@@ -901,6 +904,21 @@
 
                 &::-webkit-scrollbar-thumb:hover {
                     background: #004e98;
+                }
+
+                .close-icon {
+                    position: absolute;
+                    top     : 20px;
+                    right   : 20px;
+
+                    span.icon {
+                        cursor: pointer;
+
+                        i {
+                            font-size  : 20px;
+                            font-weight: 500;
+                        }
+                    }
                 }
 
                 .top-section {
@@ -1269,7 +1287,8 @@
                                 }
 
                                 td:nth-child(2) {
-                                    width: 20%;
+                                    width    : 20%;
+                                    min-width: 114px;
                                 }
 
                                 td:first-child {
@@ -1295,6 +1314,7 @@
                                     font-size     : 14px;
                                     font-weight   : 400;
                                     width         : 20%;
+                                    min-width     : 114px;
                                     border-top    : none;
                                     padding       : 4px 10px;
                                     text-align    : center;
@@ -1642,7 +1662,7 @@
                 background   : #FFFFFF;
                 position     : absolute;
                 top          : calc((100vh / 2) - 200px);
-                left         : calc((100vw / 2) - 300px);
+                left         : calc((100vw / 2) - 210px);
                 opacity      : 1;
                 z-index      : 9999;
                 border-radius: 2px;
@@ -2372,7 +2392,14 @@
     }
 
     #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .order-table .order-table-inner table tbody tr#subtotal-section td:nth-child(5) {
-        padding-right: 18px;
+        // padding-right: 18px;
+        padding: 0;
+    }
+
+    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr.header-row td:first-child .jmi-title,
+    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr.header-row .jmi-title,
+    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr td {
+        font-size: 14px;
     }
 }
 
@@ -2439,7 +2466,7 @@
     }
 
     #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .order-table .order-table-inner table tbody tr#subtotal-section td:nth-child(5) {
-        padding-right: 34px;
+        // padding-right: 34px;
     }
 
     #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .order-table .order-table-inner table tbody tr#grand-total-section td span {
@@ -2452,16 +2479,30 @@
         width    : 80px;
     }
 
+    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .add-order-modal-section .add-order-modal-section-inner {
+        left: calc((100vw / 2) - 300px);
+    }
+
+    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr.header-row td:first-child .jmi-title,
+    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr.header-row .jmi-title,
+    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr td {
+        font-size: 14px;
+    }
+
+    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .order-table .order-table-inner table tbody tr td span.quantity-setup {
+        padding: 2px;
+    }
+
     #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .order-table .order-table-inner table tbody tr:hover td span.quantity-setup {
         padding: 2px;
 
         span {
-            padding     : 0 2px !important;
-            margin      : 0 2px !important;
+            // padding     : 0 2px !important;
+            // margin      : 0 2px !important;
             // font-size: 12px !important;
 
             i {
-                font-size: 12px;
+                // font-size: 12px;
             }
         }
     }
@@ -2473,6 +2514,32 @@
         i {
             font-size: 10px;
         }
+    }
+
+    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .submit-section .submit-section-inner span.cancel-order,
+    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .submit-section .submit-section-inner span.proceed-order,
+    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .submit-section .submit-section-inner span.update-order {
+        font-size     : 12px;
+        padding       : 4px 10px;
+        height        : 26px;
+        display       : inline-block;
+        vertical-align: middle;
+    }
+
+    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .add-order-modal-section .submit-section .submit-section-inner span.cancel-order,
+    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .add-order-modal-section .submit-section .submit-section-inner span.proceed-order {
+        display       : inline-block;
+        padding       : 0;
+        width         : 120px;
+        text-align    : center;
+        height        : 26px;
+        vertical-align: middle;
+        line-height   : 2;
+    }
+
+    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .add-order-modal-section .add-order-modal-section-inner .submit-section .submit-section-inner span.cancel-order,
+    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .add-order-modal-section .add-order-modal-section-inner .submit-section .submit-section-inner span.proceed-order {
+        padding: 0;
     }
 }
 
