@@ -223,7 +223,7 @@
                                             <td>
                                                 <!-- <span class="responer-body-filter-tag">{{ data ? data.product_info.prod_name : "" }}</span> -->
                                                 <span class="responer-body-filter-tag">{{ data ? data.prod_name : "" }}</span>
-                                                <span class="responer-body-filter-tag-id">Product ID: {{ data ? data.prod_id : "" }}</span>
+                                                <span class="responer-body-filter-tag-id">Product ID: {{ data ? data.display_code : "" }}</span>
                                             </td>
                                             <td>
                                                 <span class="quantity-setup">
@@ -260,7 +260,7 @@
                                     <td>
                                         <!-- <span>{{  data ? data.product_info.prod_name : ""  }}</span> -->
                                         <span>{{  data ? data.prod_name : ""  }}</span>
-                                        <span>Product Code: {{ data ? data.prod_id : "" }}</span>
+                                        <span>Product Code: {{ data ? data.display_code : "" }}</span>
                                     </td>
                                     <td>
                                         <span class="quantity-setup">
@@ -565,6 +565,7 @@ export default {
                             prod_code: data.prod_code,
                             code_id: data.code_id,
                             element_name: data.element_name,
+                            display_code: data.display_code,
                             quantity: 1
                         }
             this.SELECTED_ORDERED_PRODUCTS__INIT_LIST.push(product)
@@ -775,6 +776,10 @@ export default {
                                         base_vat            : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].base_vat,
                                         line_total          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].line_total,
                                         vat_total           : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].vat_total,
+                                        // price_now_per_qty   : 0,
+                                        // base_vat            : 0,
+                                        // line_total          : 0,
+                                        // vat_total           : 0,
                                         quantity            : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].quantity,
                                         offer_type          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type,
                                         offer               : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer,

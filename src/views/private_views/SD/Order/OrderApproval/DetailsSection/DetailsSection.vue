@@ -111,14 +111,14 @@
                                         </td>
                                         <td>{{ data.bonus_qty }}</td>
                                         <td>{{ Number(data.tp).toFixed(2) }}</td>
-                                        <td class="row-action">
+                                        <td class="row-action" style="min-width: 70px;">
                                             <!-- <span class="edit-icon" @click="editOrderitemClickHandler(data, i)"><i class="zmdi zmdi-edit"></i></span> -->
                                             <span class="delete-icon" @click="deleteOrderitemClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
                                         </td>
                                     </tr>
                                 </div>
                                 <!-- -------- IF ANY PRODUCT ADDED -------- -->
-                                <tr v-for="(data, i) in SELECTED_ORDERED_PRODUCTS__INIT_LIST" :key="i">
+                                <tr v-for="(data, i) in ORDERED_TABLE_DATA__INIT_LIST_2" :key="i">
                                     <td>
                                         <span>{{ data ? data.prod_name : '' }}</span>
                                         <span>Unit Price: {{ data.base_tp }}</span>
@@ -131,19 +131,26 @@
                                     <td>
                                         <span class="quantity-setup">
                                             <!-- <span class="qty-increase" @click="increaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-minus"></i></span> -->
-                                            <span class="qty">{{ data.qty }}</span>
+                                            <span class="qty">{{ data ? (data.quantity ? data.quantity : 0) : 0 }}</span>
                                             <!-- <span class="qty-decrease" @click="decreaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span> -->
                                         </span>
                                     </td>
                                     <td>
-                                        <span v-if="!data.row_class">{{ data ? (data.discount ? Number(data.discount).toFixed(2) : 0) : 0 }}</span>
+                                        <span v-if="!data.row_class">{{ data ? (data.offer.discount_percentage ? data.offer.discount_percentage : 0) : 0 }}%</span>
                                         <span v-if="data.row_class"></span>
                                     </td>
-                                    <td>{{ data.bonus_qty }}</td>
-                                    <td>{{ Number(data.tp).toFixed(2) }}</td>
-                                    <td class="row-action">
+                                    <td>
+                                        <span v-if="!data.row_class">{{ data ? (data.offer.bonus_qty ? parseInt(data.quantity / data.offer.bonus_on) : 0) : 0 }}</span>
+                                        <span v-if="data.row_class">{{ data ? (data.offer.free_prod_qty ? parseInt(data.quantity / data.offer.free_req_qty) : 0) : 0 }}</span>
+                                    </td>
+                                    <td>
+                                        <span v-if="!data.row_class">{{ data ? (data.price_now_per_qty * data.quantity).toFixed(2) : 0 }}</span>
+                                        <!-- <span v-if="!data.row_class">{{ data ? Number(data.line_total).toFixed(2) : 0 }}</span> -->
+                                        <span v-if="data.row_class"></span>
+                                    </td>
+                                    <td class="row-action" style="min-width: 70px;">
                                         <!-- <span class="edit-icon" @click="editOrderitemClickHandler(data, i)"><i class="zmdi zmdi-edit"></i></span> -->
-                                        <span class="delete-icon" @click="deleteOrderitemClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
+                                        <span class="delete-icon" @click="deleteOrderitemClickHandler_2(data, i)"><i class="fas fa-trash-alt"></i></span>
                                     </td>
                                 </tr>
                                 <!-- -------- IF ANY PRODUCT ADDED -------- -->
@@ -232,7 +239,7 @@
                                         <tr class="responer-body-filter-output" v-for="(data, i) in PRODUCT_MODAL_DATA_LIST" :key="i">
                                             <td>
                                                 <span class="responer-body-filter-tag">{{  data ? data.prod_name : "" }}</span>
-                                                <span class="responer-body-filter-tag-id">Product ID: {{ data ? data.prod_id : "" }}</span>
+                                                <span class="responer-body-filter-tag-id">Product ID: {{ data ? data.display_code : "" }}</span>
                                             </td>
                                             <td>
                                                 <span class="quantity-setup">
@@ -268,7 +275,7 @@
                                 <tr v-for="(data, i) in SELECTED_ORDERED_PRODUCTS__INIT_LIST" :key="i">
                                     <td>
                                         <span>{{  data ? data.prod_name : ""  }}</span>
-                                        <span>Product Code: {{ data ? data.prod_id : "" }}</span>
+                                        <span>Product Code: {{ data ? data.display_code : "" }}</span>
                                     </td>
                                     <td>
                                         <span class="quantity-setup">
@@ -1015,7 +1022,10 @@ export default {
             selected_sr: null,
             SELECTED_ORDERED_PRODUCTS__INIT_LIST: [],
             SELECTED_ORDERED_PRODUCTS__STORE: [],
+            RESPONSE_ORDERED_PRODUCTS__STORE: [],
+            DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST: [],
             ORDERED_TABLE_DATA__INIT_LIST: this.pending_order_list_by_id.order_details,
+            ORDERED_TABLE_DATA__INIT_LIST_2: [],
         }
     },
     created() {
@@ -1064,6 +1074,9 @@ export default {
         },*/
         // Delete Table Row's Single Product/Order
         deleteOrderitemClickHandler(data, index) {
+            console.log(data + '    ' + index)
+        },
+        deleteOrderitemClickHandler_2(data, index) {
             console.log(data + '    ' + index)
         },
         //------------------------------------------------------------------------------------------
@@ -1151,6 +1164,7 @@ export default {
                             prod_code: data.prod_code,
                             code_id: data.code_id,
                             element_name: data.element_name,
+                            display_code: data.display_code,
                             quantity: 1
                         }
             this.SELECTED_ORDERED_PRODUCTS__INIT_LIST.push(product)
@@ -1181,8 +1195,31 @@ export default {
             this.add_order_modal = false
         },
         addItemsFromModalClickHandler() {
-            console.log('add items from modal')
-            console.log(this.SELECTED_ORDERED_PRODUCTS__INIT_LIST)
+            // console.log('add items from modal')
+            // console.log(this.SELECTED_ORDERED_PRODUCTS__INIT_LIST)
+            // this.SELECTED_ORDERED_PRODUCTS__STORE = this.SELECTED_ORDERED_PRODUCTS__INIT_LIST
+            if(this.SELECTED_ORDERED_PRODUCTS__STORE.length > 0) {
+                for(let i=0; i<this.SELECTED_ORDERED_PRODUCTS__INIT_LIST.length; i++) {
+                    this.SELECTED_ORDERED_PRODUCTS__STORE.push(this.SELECTED_ORDERED_PRODUCTS__INIT_LIST[i])
+                }
+            } else {
+                this.SELECTED_ORDERED_PRODUCTS__STORE = this.SELECTED_ORDERED_PRODUCTS__INIT_LIST
+            }
+            // Create object for post method
+            let prod_db_list = []
+            for(let i=0; i<this.SELECTED_ORDERED_PRODUCTS__INIT_LIST.length; i++) {
+                let prod_obj = {
+                    prod_id: parseInt(this.SELECTED_ORDERED_PRODUCTS__INIT_LIST[i].prod_id),
+                    quantity: this.SELECTED_ORDERED_PRODUCTS__INIT_LIST[i].quantity ? this.SELECTED_ORDERED_PRODUCTS__INIT_LIST[i].quantity : 0
+                }
+                prod_db_list.push(prod_obj)
+            }
+            // CALL SERVICE IMPLEMENTATION FUNCTION
+            this.FIND_PRODUCT_OFFER__FROM_SERVICE(prod_db_list)
+            // Close Modal
+            if(prod_db_list.length > 0) {
+                this.add_order_modal = false
+            }
         },
         //------------------------------------------------------------------------------------------
         // Attachment Modal
@@ -1335,7 +1372,6 @@ export default {
                             for(let j=0; j<this.SELECTED_ORDERED_PRODUCTS__STORE.length; j++) {
                                 if(this.PRODUCT_MODAL_DATA_LIST[i].prod_id === this.SELECTED_ORDERED_PRODUCTS__STORE[j].prod_id) {
                                     this.PRODUCT_MODAL_DATA_LIST.splice(i, 1)
-                                    // console.log(this.PRODUCT_MODAL_DATA_LIST[i].prod_id + '    ' + this.SELECTED_ORDERED_PRODUCTS__STORE[j].prod_id)
                                 }
                             }
                         }
@@ -1346,7 +1382,82 @@ export default {
                     //         this.PRODUCT_MODAL_DATA_LIST.push(this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST[i])
                     //     }
                     // }
+                    // Remove Product Which are already in ORDERED
+                    if(this.ORDERED_TABLE_DATA__INIT_LIST.length > 0) {
+                        for(let i=0; i<this.PRODUCT_MODAL_DATA_LIST.length; i++) {
+                            for(let j=0; j<this.ORDERED_TABLE_DATA__INIT_LIST.length; j++) {
+                                if(this.PRODUCT_MODAL_DATA_LIST[i].prod_id === this.ORDERED_TABLE_DATA__INIT_LIST[j].product_id) {
+                                    this.PRODUCT_MODAL_DATA_LIST.splice(i, 1)
+                                }
+                            }
+                        }
+                    }
                 })
+        },
+        async FIND_PRODUCT_OFFER__FROM_SERVICE(prod_db_list) {
+            let sbu_id = parseInt(JSON.parse(localStorage.getItem("user")).user_detils.sbu_id)
+            let customer_id = parseInt(this.customer_data ? this.customer_data.customer_id : 0)
+            
+            await service.getFindProductOffer_CreateOrderDetailsSection(prod_db_list, sbu_id, customer_id, this.createYYYYDDMM())
+                .then(res => {
+                    console.log(res.data)
+                    this.RESPONSE_ORDERED_PRODUCTS__STORE = []
+                    this.RESPONSE_ORDERED_PRODUCTS__STORE = res.data.data
+                    this.GENERATE_ORDERED_PRODUCTS_DETAILS_LIST_FROM_PRODUCT_OFFER_RESPONSE()
+                })
+        },
+        // -----------------------------------------------------------------------------------------------
+        GENERATE_ORDERED_PRODUCTS_DETAILS_LIST_FROM_PRODUCT_OFFER_RESPONSE() {
+            // if(this.UPDATE_ORDER_CLICKED) {
+            //     this.ORDERED_TABLE_DATA__INIT_LIST = []
+            //     this.UPDATE_ORDER_CLICKED = false
+            // }
+            if(this.SELECTED_ORDERED_PRODUCTS__STORE.length > 0 && this.RESPONSE_ORDERED_PRODUCTS__STORE.length > 0) {
+                for (let i=0; i<this.SELECTED_ORDERED_PRODUCTS__STORE.length; i++) {
+                    for(let j=0; j<this.RESPONSE_ORDERED_PRODUCTS__STORE.length; j++) {
+                        if( parseInt(this.SELECTED_ORDERED_PRODUCTS__STORE[i].prod_id) === parseInt(this.RESPONSE_ORDERED_PRODUCTS__STORE[j].prod_id) ) {
+                            let product = {
+                                    prod_id             : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].prod_id,
+                                    prod_name           : this.SELECTED_ORDERED_PRODUCTS__STORE[i].prod_name,
+                                    base_tp             : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].base_tp,
+                                    price_now_per_qty   : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].price_now_per_qty,
+                                    base_vat            : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].base_vat,
+                                    line_total          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].line_total,
+                                    vat_total           : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].vat_total,
+                                    quantity            : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].quantity,
+                                    offer_type          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type,
+                                    offer               : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer,
+                                    row_class           : ''
+                            }
+                            this.ORDERED_TABLE_DATA__INIT_LIST_2.push(product)
+
+                            // FOR FREE PRODUCT ENTRY
+                            if(this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type === "free") {
+                                let ferr_product = {
+                                        prod_id             : this.RESPONSE_ORDERED_PRODUCTS__STORE[i].prod_id,
+                                        prod_name           : this.SELECTED_ORDERED_PRODUCTS__STORE[i].prod_name,
+                                        base_tp             : this.RESPONSE_ORDERED_PRODUCTS__STORE[i].base_tp,
+                                        price_now_per_qty   : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].price_now_per_qty,
+                                        base_vat            : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].base_vat,
+                                        line_total          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].line_total,
+                                        vat_total           : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].vat_total,
+                                        // price_now_per_qty   : 0,
+                                        // base_vat            : 0,
+                                        // line_total          : 0,
+                                        // vat_total           : 0,
+                                        quantity            : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].quantity,
+                                        offer_type          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type,
+                                        offer               : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer,
+                                        row_class           : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type
+                                }
+                                this.ORDERED_TABLE_DATA__INIT_LIST_2.push(ferr_product)
+                            }
+                        }
+                    }
+                }
+            }
+            console.log(this.ORDERED_TABLE_DATA__INIT_LIST_2)
+            this.UPDATE_BTN_TRUE = false
         },
         // -------------------------------------------------------------------------------------------------
         // Default Functionality
@@ -1357,7 +1468,7 @@ export default {
                 this.PRODUCT_MODAL_DATA_LIST = []
                 this.SELECTED_ORDERED_PRODUCTS__INIT_LIST = []
                 this.SELECTED_ORDERED_PRODUCTS__STORE = []
-                // this.RESPONSE_ORDERED_PRODUCTS__STORE = []
+                this.RESPONSE_ORDERED_PRODUCTS__STORE = []
                 console.log('default component')
                 console.log(this.ORDERED_TABLE_DATA__INIT_LIST.length)
 
