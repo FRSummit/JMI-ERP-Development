@@ -190,14 +190,17 @@
                                         <input id="order-approval-add-product" class="jmi-auto-filter-input" type="text" placeholder="Search By Batch Number" v-on:keyup="searchKeyUpAddProductHandler" />
                                     </div>
                                     <div class="response-body">
-                                        <tr class="responer-body-filter-output" v-for="(data, i) in auto_field_data" :key="i">
+                                        <div id="progressbar" class="jmi-progressbar" v-if="!PRODUCT_MODAL_DATA_LIST">
+                                            <v-progress-circular indeterminate color="primary"></v-progress-circular>
+                                        </div>
+                                        <tr class="responer-body-filter-output" v-for="(data, i) in PRODUCT_MODAL_DATA_LIST" :key="i">
                                             <td>
-                                                <span class="responer-body-filter-tag">{{ data.name }}</span>
-                                                <span class="responer-body-filter-tag-id">{{ data.stock }}</span>
+                                                <span class="responer-body-filter-tag">{{  data ? data.prod_name : "" }}</span>
+                                                <span class="responer-body-filter-tag-id">Product ID: {{ data ? data.prod_id : "" }}</span>
                                             </td>
                                             <td>
                                                 <span class="quantity-setup">
-                                                    <span class="qty">{{ data.quantity }}</span>
+                                                    <span class="qty">{{ data ? data.base_tp : "" }}</span>
                                                 </span>
                                             </td>
                                             <td></td>
@@ -223,19 +226,22 @@
                                     <td><span class="jmi-title">Total Price</span></td>
                                     <td class="row-action"></td>
                                 </tr>
-                                <tr v-for="(data, i) in selected_auto_field_data" :key="i">
+                                <div id="progressbar" class="jmi-progressbar" v-if="!SELECTED_ORDERED_PRODUCTS__INIT_LIST">
+                                    <v-progress-circular indeterminate color="primary"></v-progress-circular>
+                                </div>
+                                <tr v-for="(data, i) in SELECTED_ORDERED_PRODUCTS__INIT_LIST" :key="i">
                                     <td>
-                                        <span>{{ data.name }}</span>
-                                        <span>{{ data.stock }}</span>
+                                        <span>{{  data ? data.prod_name : ""  }}</span>
+                                        <span>Product Code: {{ data ? data.prod_id : "" }}</span>
                                     </td>
                                     <td>
                                         <span class="quantity-setup">
-                                            <span class="qty-increase" @click="decreaseProductInAutofieldProductClickHandler(data, i)"><i class="zmdi zmdi-minus"></i></span>
-                                            <input class="qty" type="text" placeholder="00" :value="data.quantity">
+                                            <span class="qty-increase" @click="decreaseProductInAutofieldProductClickHandler(data, i)"><i class="zmdi zmdi-minus" :class="data.quantity <= 1 ? 'jmi-deactive-btn' : ''"></i></span>
+                                            <input :id="'order-add-modal-qty-' + i" class="qty" type="number" placeholder="00" :value="data.quantity ? data.quantity : 1" v-on:keyup="quantityKeyUp_modal(data, $event, i)" min="1" step="1" v-on:keydown="quantityKeyDown_modal($event, i)" pattern="[0-9]*">
                                             <span class="qty-decrease" @click="increaseProductInAutofieldProductClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
                                         </span>
                                     </td>
-                                    <td>{{ data.total_price }}</td>
+                                    <td>{{ data ? (data.quantity * data.base_tp).toFixed(2) : "" }}</td>
                                     <td class="row-action">
                                         <span class="delete-icon" @click="removeAddedOrderedProductClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
                                     </td>
@@ -501,6 +507,9 @@ import * as VueGoogleMaps from 'vue2-google-maps'
 import JMIFilter from '.././../../../../../functions/JMIFIlter'
 const jmiFilter = new JMIFilter()
 
+import ERPService from '../../../../../../service/ERPSidebarService'
+const service = new ERPService()
+
 export default {
     props: ["pending_order_list_by_id"],
     components: {
@@ -524,7 +533,7 @@ export default {
                 },
             ],
             order_table_header: ["Name", "Unit Price", "Quantity", "Bonus", "Total Price"],
-            auto_field_data: [
+            PRODUCT_MODAL_DATA_LIST: [
                 {
                     name: "Altrip. Almotriptan",
                     stock: "Stock: 1000 I UoM: Box",
@@ -964,8 +973,12 @@ export default {
             directionsRenderer: null,
             InfoWindow: VueGoogleMaps.InfoWindow,
             Map: VueGoogleMaps.Map,
+
+            // This Component Dynamic Data Starts here
             sr_add_modal: false,
             selected_sr: null,
+            SELECTED_ORDERED_PRODUCTS__INIT_LIST: [],
+            SELECTED_ORDERED_PRODUCTS__STORE: [],
         }
     },
     created() {},
@@ -1017,10 +1030,12 @@ export default {
         //------------------------------------------------------------------------------------------
         // Add Product/Order , Atachment Row
         addOrderClickHandler() {
+            this.SELECTED_ORDERED_PRODUCTS__INIT_LIST = []
             if(this.add_order_modal) {
                 this.add_order_modal = false
             } else {
                 this.add_order_modal = true
+                this.ADD_PRODUCTS_DATA_LIST__FROM_SERVICE()
             }
         },
         addAttachmentClickHandler() {
@@ -1058,13 +1073,66 @@ export default {
         decreaseProductInAutofieldProductClickHandler(data, index) {
             console.log('decrease autofield selected product: ' + data + '    ' + index)
         },
+        // 
+        // Increase or decrease quantity
+        quantityKeyUp_modal(data, value, i) {
+            console.log(value.key)
+            let selector = document.querySelector('#order-add-modal-qty-' + i)
+            // if(value.keyCode === 110) {
+            //     console.log('point')
+            //     // console.log(document.querySelector('#order-add-modal-qty-' + i).innerHTML)
+            //     document.querySelector('#order-add-modal-qty-' + i).value = document.querySelector('#order-add-modal-qty-' + i).value.replace(/[^0-9]*/g,"")
+
+            // }
+            console.log(selector.value)
+            data.quantity = selector.value
+        },
+        quantityKeyDown_modal(value, i) {
+            // let prev_value = document.querySelector('#order-add-modal-qty-' + i).value
+            console.log(value.key)
+            console.log(value.keyCode)
+            console.log(document.querySelector('#order-add-modal-qty-' + i).value)
+            // if(value.keyCode >= 96 && value.keyCode <= 105) {
+            //     return true
+            // }
+        },
         // Add Selected Ordered Product
         addProductFromAutofieldResponseClickHandler(data, index) {
             console.log('added ordered product from auto field: ' + data + '    ' + index)
+            let product = {
+                            id: data.id,
+                            prod_id: data.prod_id,
+                            prod_class: data.prod_class,
+                            base_tp: data.base_tp,
+                            prod_name: data.prod_name,
+                            prod_code: data.prod_code,
+                            code_id: data.code_id,
+                            element_name: data.element_name,
+                            quantity: 1
+                        }
+            this.SELECTED_ORDERED_PRODUCTS__INIT_LIST.push(product)
+            // Remove this product from all product list
+            if(this.PRODUCT_MODAL_DATA_LIST.length > 0) {
+                for (let [i, tt] of this.PRODUCT_MODAL_DATA_LIST.entries()) {
+                    if (tt.prod_id === data.prod_id) {
+                        this.PRODUCT_MODAL_DATA_LIST.splice(i, 1);
+                    }
+                }
+            }
         },
         // Remove Added Ordered Product
         removeAddedOrderedProductClickHandler(data, index) {
             console.log('remove added ordered product: ' + data + '    ' + index)
+            // this.SELECTED_ORDERED_PRODUCTS__INIT_LIST.push(data)
+            if(this.SELECTED_ORDERED_PRODUCTS__INIT_LIST.length > 0) {
+                for (let [i, tt] of this.SELECTED_ORDERED_PRODUCTS__INIT_LIST.entries()) {
+                    if (tt.prod_id === data.prod_id) {
+                        this.SELECTED_ORDERED_PRODUCTS__INIT_LIST.splice(i, 1);
+                    }
+                }
+            }
+            // Adding removed product to all product list
+            this.PRODUCT_MODAL_DATA_LIST.push(data)
         },
         cancelOrderFromModalClickHandler() {
             this.add_order_modal = false
@@ -1208,6 +1276,34 @@ export default {
                 jmiFilter.searchByID_Name_Details_Section(filter, list, id_selector)
             }
         }, 
+        // ------------------------------------------------------------------------------------------
+        // Service Implementation
+        async ADD_PRODUCTS_DATA_LIST__FROM_SERVICE() {
+            await service.getSearchProductDataList_CreateOrderDetailsSection()
+                .then(res => {
+                    console.log(res.data)
+                    this.PRODUCT_MODAL_DATA_LIST = res.data.product_list
+                    // console.log(this.SELECTED_ORDERED_PRODUCTS__STORE.length)
+                    // console.log(this.PRODUCT_MODAL_DATA_LIST.length)
+                    // console.log(this.SELECTED_ORDERED_PRODUCTS__STORE)
+                    if(this.SELECTED_ORDERED_PRODUCTS__STORE.length > 0) {
+                        for(let i=0; i<this.PRODUCT_MODAL_DATA_LIST.length; i++) {
+                            for(let j=0; j<this.SELECTED_ORDERED_PRODUCTS__STORE.length; j++) {
+                                if(this.PRODUCT_MODAL_DATA_LIST[i].prod_id === this.SELECTED_ORDERED_PRODUCTS__STORE[j].prod_id) {
+                                    this.PRODUCT_MODAL_DATA_LIST.splice(i, 1)
+                                    // console.log(this.PRODUCT_MODAL_DATA_LIST[i].prod_id + '    ' + this.SELECTED_ORDERED_PRODUCTS__STORE[j].prod_id)
+                                }
+                            }
+                        }
+                    }
+                    // Add deleted product
+                    // if(this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.length > 0) {
+                    //     for(let i=0; i<this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.length; i++) {
+                    //         this.PRODUCT_MODAL_DATA_LIST.push(this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST[i])
+                    //     }
+                    // }
+                })
+        },
     }
 }
 </script>

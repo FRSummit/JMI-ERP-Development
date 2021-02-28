@@ -576,7 +576,6 @@ export default {
                     }
                 }
             }
-             
         },
         // Remove Added Ordered Product
         removeAddedOrderedProductClickHandler(data, index) {
