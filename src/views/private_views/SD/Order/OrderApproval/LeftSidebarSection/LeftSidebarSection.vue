@@ -38,10 +38,10 @@
                         <div class="customer-id-type-section">
                             <div class="customer-id-type-section-inner">
                                 <div class="id-section">
-                                    <p class="customer-id">{{ customer ? (customer.order_no ? (customer.order_no) : 'No Order Found / Null' ) : "Not Found" }}</p>
+                                    <p class="customer-id">{{ customer ? (customer.order_no ? (customer.order_no) : '' ) : "" }}</p>
                                 </div>
                                 <div class="type-section">
-                                    <p class="customer-type"><span class="type">{{ customer ? (customer.order_date).split(' ')[0] : "DD/MM/YYYY" }}</span></p>
+                                    <p class="customer-type"><span class="type">{{ customer ? (customer.order_date).split(' ')[0] : "" }}</span></p>
                                 </div>
                             </div>
                         </div>
@@ -49,7 +49,7 @@
                             <div class="customer-name-section-inner">
                                 <div class="name-section">
                                     <!-- <p class="customer-name">{{ customer ? customer.customer_info.customer_address : "" }}</p> -->
-                                    <p class="customer-name">{{ customer ? (customer.sbu_customer_info ? customer.sbu_customer_info.display_name : 'SBU Not Found') : "" }}</p>
+                                    <p class="customer-name">{{ customer ? (customer.sbu_customer_info ? customer.sbu_customer_info.display_name : '') : "" }}</p>
                                 </div>
                                 <div class="status-section">
                                     <!-- <p class="status" :class="customer.order_status"><span class="status-icon" :class="customer.order_status"></span>{{ customer ? (customer.order_status ? customer.order_status : "Pending") : "Pending" }}</p> -->

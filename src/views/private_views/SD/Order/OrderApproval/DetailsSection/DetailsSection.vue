@@ -3,7 +3,7 @@
         <div class="order-approval-details-section-inner">
             <div class="title-section">
                 <div class="row">
-                    <div class="col-lg-4 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Order ID:</span><span class="id">{{ pending_order_list_by_id ? pending_order_list_by_id.id : "000" }}</span><span class="customer-type">Dummy: Cash</span></p></div>
+                    <div class="col-lg-4 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Order ID:</span><span class="id">{{ pending_order_list_by_id ? pending_order_list_by_id.order_no : "000" }}</span><span class="customer-type">Dummy: Cash</span></p></div>
                     <div class="col-lg-8 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer:</span><span class="jmi-lvl-value id url" @click="customerDetailsClickHandler">{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info ? pending_order_list_by_id.sbu_customer_info.display_name : 0) : 'Not Found' }}</span></p></div>
                 </div>
                 <div class="row">
@@ -87,30 +87,36 @@
                         <tbody>
                             <div class="table-data-rows">
                                 <!-- <tr v-for="(data, i) in order_table_data" :key="i"> -->
-                                <tr v-for="(data, i) in pending_order_list_by_id ? pending_order_list_by_id.order_details : null" :key="i">
-                                    <td>
-                                        <span>{{ data.product_info ? data.product_info.prod_name : '' }}</span>
-                                        <span>Unit Total Price: {{ data.unit_tp }}</span>
-                                    </td>
-                                    <td>{{ Number(data.tp).toFixed(2) }}</td>
-                                    <td>
-                                        <span class="quantity-setup">
-                                            <!-- <span class="qty-increase" @click="increaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-minus"></i></span> -->
-                                            <span class="qty">{{ data.qty }}</span>
-                                            <!-- <span class="qty-decrease" @click="decreaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span> -->
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span v-if="!data.row_class">{{ data ? (data.discount ? Number(data.discount).toFixed(2) : 0) : 0 }}</span>
-                                        <span v-if="data.row_class"></span>
-                                    </td>
-                                    <td>{{ data.bonus_qty }}</td>
-                                    <td>{{ Number(data.tp).toFixed(2) }}</td>
-                                    <td class="row-action">
-                                        <!-- <span class="edit-icon" @click="editOrderitemClickHandler(data, i)"><i class="zmdi zmdi-edit"></i></span> -->
-                                        <span class="delete-icon" @click="deleteOrderitemClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
-                                    </td>
-                                </tr>
+                                <!-- <tr v-for="(data, i) in pending_order_list_by_id ? pending_order_list_by_id.order_details : null" :key="i"> -->
+                                <div id="progressbar" class="jmi-progressbar" v-if="!ORDERED_TABLE_DATA__INIT_LIST">
+                                    <v-progress-circular indeterminate color="primary"></v-progress-circular>
+                                </div>
+                                <div v-if="ORDERED_TABLE_DATA__INIT_LIST">
+                                    <tr v-for="(data, i) in ORDERED_TABLE_DATA__INIT_LIST" :key="i">
+                                        <td>
+                                            <span>{{ data.product_info ? data.product_info.prod_name : '' }}</span>
+                                            <span>Unit Total Price: {{ data.unit_tp }}</span>
+                                        </td>
+                                        <td>{{ Number(data.tp).toFixed(2) }}</td>
+                                        <td>
+                                            <span class="quantity-setup">
+                                                <!-- <span class="qty-increase" @click="increaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-minus"></i></span> -->
+                                                <span class="qty">{{ data.qty }}</span>
+                                                <!-- <span class="qty-decrease" @click="decreaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span> -->
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span v-if="!data.row_class">{{ data ? (data.discount ? Number(data.discount).toFixed(2) : 0) : 0 }}</span>
+                                            <span v-if="data.row_class"></span>
+                                        </td>
+                                        <td>{{ data.bonus_qty }}</td>
+                                        <td>{{ Number(data.tp).toFixed(2) }}</td>
+                                        <td class="row-action">
+                                            <!-- <span class="edit-icon" @click="editOrderitemClickHandler(data, i)"><i class="zmdi zmdi-edit"></i></span> -->
+                                            <span class="delete-icon" @click="deleteOrderitemClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
+                                        </td>
+                                    </tr>
+                                </div>
                                 <!-- -------- IF ANY PRODUCT ADDED -------- -->
                                 <tr v-for="(data, i) in SELECTED_ORDERED_PRODUCTS__INIT_LIST" :key="i">
                                     <td>
@@ -1009,9 +1015,12 @@ export default {
             selected_sr: null,
             SELECTED_ORDERED_PRODUCTS__INIT_LIST: [],
             SELECTED_ORDERED_PRODUCTS__STORE: [],
+            ORDERED_TABLE_DATA__INIT_LIST: this.pending_order_list_by_id.order_details,
         }
     },
-    created() {},
+    created() {
+        // console.log(this.pending_order_list_by_id)
+    },
     mounted() {
         this.$getLocation({})
         .then( coordinates => {
@@ -1342,14 +1351,40 @@ export default {
         // -------------------------------------------------------------------------------------------------
         // Default Functionality
         defaultAllThisComponentData() {
-                // this.ORDERED_TABLE_DATA__INIT_LIST = []
+                this.ORDERED_TABLE_DATA__INIT_LIST = []
                 // this.ORDERED_TABLE_DATA__MODIFIED_LIST = []
                 // this.ORDERED_TABLE_DATA__CONFIRM_LIST = []
                 this.PRODUCT_MODAL_DATA_LIST = []
                 this.SELECTED_ORDERED_PRODUCTS__INIT_LIST = []
                 this.SELECTED_ORDERED_PRODUCTS__STORE = []
                 // this.RESPONSE_ORDERED_PRODUCTS__STORE = []
+                console.log('default component')
+                console.log(this.ORDERED_TABLE_DATA__INIT_LIST.length)
 
+        },
+        createYYYYDDMM() {
+            let yyyy = new Date().getFullYear()
+            let mm = (new Date().getMonth() + 1) < 10 ? ("0" + (new Date().getMonth() + 1)) : (new Date().getMonth() + 1)
+            let dd = (new Date().getDate() + 1) < 10 ? ("0" + (new Date().getDate() + 1)) : (new Date().getDate() + 1) 
+            let date = yyyy + '-' + mm + '-' + dd
+            return date
+        },
+    },
+    watch: { 
+        async pending_order_list_by_id(newVal, oldVal){
+            console.log('changes' + newVal)
+            console.log('changes' + oldVal)
+            // console.log(this.pending_order_list_by_id.order_details)
+            await this.defaultAllThisComponentData()
+            setTimeout( () => {
+                this.ORDERED_TABLE_DATA__INIT_LIST = this.pending_order_list_by_id.order_details
+            }, 1000)
+            // if( newVal && oldVal) {
+            //     if(newVal.customer_id !== oldVal.customer_id) {
+            //         this.defaultAllThisComponentData()
+            //         console.log(this.pending_order_list_by_id.order_details)
+            //     }
+            // }
         },
     }
 }
