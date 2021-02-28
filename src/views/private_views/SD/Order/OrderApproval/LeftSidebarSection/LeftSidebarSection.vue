@@ -10,7 +10,7 @@
               type="text"
               class="form-control"
               id="search-filter"
-              placeholder="Search by Name, ID No"
+              placeholder="Search by ID No"
               v-on:keyup="searchKeyUpHandler"
             />
           </div>
@@ -38,10 +38,10 @@
                         <div class="customer-id-type-section">
                             <div class="customer-id-type-section-inner">
                                 <div class="id-section">
-                                    <p class="customer-id">{{ customer ? (customer.order_info ? (customer.order_info.order_no ? (customer.order_info.order_no) : 'No Order Found') : 'Order Not Found') : "Not Found" }}</p>
+                                    <p class="customer-id">{{ customer ? (customer.order_info ? (customer.order_info.order_no ? (customer.order_info.order_no) : 'No Order Found / Null') : 'Order Not Found') : "Not Found" }}</p>
                                 </div>
                                 <div class="type-section">
-                                    <p class="customer-type"><span class="type">{{ customer ? customer.order_info.order_date : "DD/MM/YYYY" }}</span></p>
+                                    <p class="customer-type"><span class="type">{{ customer ? (customer.order_info.order_date).split(' ')[0] : "DD/MM/YYYY" }}</span></p>
                                 </div>
                             </div>
                         </div>
