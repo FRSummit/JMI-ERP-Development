@@ -4,7 +4,7 @@
             <div class="title-section">
                 <div class="row">
                     <div class="col-lg-4 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Order ID:</span><span class="id">{{ pending_order_list_by_id ? pending_order_list_by_id.id : "000" }}</span><span class="customer-type">Dummy: Cash</span></p></div>
-                    <div class="col-lg-8 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer:</span><span class="jmi-lvl-value id url" @click="customerDetailsClickHandler">{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info ? pending_order_list_by_id.sbu_customer_info.display_name : 0) : 'Dummy: Name' }}</span></p></div>
+                    <div class="col-lg-8 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer:</span><span class="jmi-lvl-value id url" @click="customerDetailsClickHandler">{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info ? pending_order_list_by_id.sbu_customer_info.display_name : 0) : 'Not Found' }}</span></p></div>
                 </div>
                 <div class="row">
                     <!-- <div class="col-lg-12 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><span class="jmi-lvl-value address">{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info.customer_info.customer_address ? pending_order_list_by_id.sbu_customer_info.customer_info.customer_address : 'Null') : 'Dummy: Address' }}</span></p></div> -->
@@ -111,6 +111,36 @@
                                         <span class="delete-icon" @click="deleteOrderitemClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
                                     </td>
                                 </tr>
+                                <!-- -------- IF ANY PRODUCT ADDED -------- -->
+                                <tr v-for="(data, i) in SELECTED_ORDERED_PRODUCTS__INIT_LIST" :key="i">
+                                    <td>
+                                        <span>{{ data ? data.prod_name : '' }}</span>
+                                        <span>Unit Price: {{ data.base_tp }}</span>
+                                        <span v-if="data.row_class" :class="data.row_class">Free Product</span>
+                                    </td>
+                                    <td>
+                                        <span v-if="!data.row_class">{{ data ? Number(parseFloat(data.base_tp) + parseFloat(data.base_vat)).toFixed(2) : 0 }}</span>
+                                        <span v-if="data.row_class"></span>
+                                    </td>
+                                    <td>
+                                        <span class="quantity-setup">
+                                            <!-- <span class="qty-increase" @click="increaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-minus"></i></span> -->
+                                            <span class="qty">{{ data.qty }}</span>
+                                            <!-- <span class="qty-decrease" @click="decreaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span> -->
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span v-if="!data.row_class">{{ data ? (data.discount ? Number(data.discount).toFixed(2) : 0) : 0 }}</span>
+                                        <span v-if="data.row_class"></span>
+                                    </td>
+                                    <td>{{ data.bonus_qty }}</td>
+                                    <td>{{ Number(data.tp).toFixed(2) }}</td>
+                                    <td class="row-action">
+                                        <!-- <span class="edit-icon" @click="editOrderitemClickHandler(data, i)"><i class="zmdi zmdi-edit"></i></span> -->
+                                        <span class="delete-icon" @click="deleteOrderitemClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
+                                    </td>
+                                </tr>
+                                <!-- -------- IF ANY PRODUCT ADDED -------- -->
                             </div>
                             <!-- Bottom Total Section -->
                             <div v-if="pending_order_list_by_id ? (pending_order_list_by_id.order_details ? (pending_order_list_by_id.order_details.length > 0) : false) : false">
@@ -176,8 +206,8 @@
                                 <img src="../../../../../../assets/icons/user.png" alt="logo">
                             </div>
                             <div class="title-section">
-                                <p class="name">ABI Pharmacy and Diagnostic Center<span class="tik-icon"><i class="zmdi zmdi-check"></i></span></p>
-                                <p class="id">JMI-2231225</p>
+                                <p class="name">{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info ? pending_order_list_by_id.sbu_customer_info.display_name : 0) : 'Not Found' }}<span class="tik-icon"><i class="zmdi zmdi-check"></i></span></p>
+                                <p class="id">{{ pending_order_list_by_id ? (pending_order_list_by_id.order_no) : 'Not Found' }}</p>
                             </div>
                         </div>
                     </div>
@@ -1068,10 +1098,14 @@ export default {
         // Increase Autofield Selected Ordered Product
         increaseProductInAutofieldProductClickHandler(data, index) {
             console.log('increase autofield selected product: ' + data + '    ' + index)
+            data.quantity++
         },
         // Decrease Autofield Selected Ordered Product
         decreaseProductInAutofieldProductClickHandler(data, index) {
             console.log('decrease autofield selected product: ' + data + '    ' + index)
+            if(data.quantity > 1) {
+                data.quantity--
+            }
         },
         // 
         // Increase or decrease quantity
@@ -1139,6 +1173,7 @@ export default {
         },
         addItemsFromModalClickHandler() {
             console.log('add items from modal')
+            console.log(this.SELECTED_ORDERED_PRODUCTS__INIT_LIST)
         },
         //------------------------------------------------------------------------------------------
         // Attachment Modal
@@ -1303,6 +1338,18 @@ export default {
                     //     }
                     // }
                 })
+        },
+        // -------------------------------------------------------------------------------------------------
+        // Default Functionality
+        defaultAllThisComponentData() {
+                // this.ORDERED_TABLE_DATA__INIT_LIST = []
+                // this.ORDERED_TABLE_DATA__MODIFIED_LIST = []
+                // this.ORDERED_TABLE_DATA__CONFIRM_LIST = []
+                this.PRODUCT_MODAL_DATA_LIST = []
+                this.SELECTED_ORDERED_PRODUCTS__INIT_LIST = []
+                this.SELECTED_ORDERED_PRODUCTS__STORE = []
+                // this.RESPONSE_ORDERED_PRODUCTS__STORE = []
+
         },
     }
 }

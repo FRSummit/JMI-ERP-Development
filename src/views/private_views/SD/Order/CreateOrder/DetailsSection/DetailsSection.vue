@@ -199,8 +199,8 @@
                                 <img src="../../../../../../assets/icons/user.png" alt="logo">
                             </div>
                             <div class="title-section">
-                                <p class="name">ABI Pharmacy and Diagnostic Center<span class="tik-icon"><i class="zmdi zmdi-check"></i></span></p>
-                                <p class="id">JMI-2231225</p>
+                                <p class="name">{{ customer_data ? (customer_data.display_name) : 'Not Found' }}<span class="tik-icon"><i class="zmdi zmdi-check"></i></span></p>
+                                <p class="id">{{ customer_data ? (customer_data.display_code) : 'Not Found' }}</p>
                             </div>
                         </div>
                     </div>

@@ -18,7 +18,7 @@
         </div>
         <!-- Customer Counter -->
         <div class="title-count">
-            <p class="total-customer">Total Customer (<span class="count">250</span>)</p>
+            <p class="total-customer">Total Customer (<span class="count">{{ customer_data_list.length }}</span>)</p>
         </div>
         <!-- Customer List -->
         <div class="customer-list-section">

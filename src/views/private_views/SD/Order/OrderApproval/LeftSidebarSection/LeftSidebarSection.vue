@@ -18,7 +18,7 @@
         </div>
         <!-- Customer Counter -->
         <div class="title-count">
-            <p class="total-customer">Pending Orders (<span class="count">250</span>)</p>
+            <p class="total-customer">Pending Orders (<span class="count">{{ ALL_PENDING_ORDERS_CUSTOMER_LIST.length }}</span>)</p>
             <div class="select-options">
                 <span class="right-icon"><i class="fas fa-chevron-right"></i></span>
                     <select title="Pick a customer" class="selectpicker" v-model="on_change_status" @change="onChangeStatusDropdown()">
@@ -38,10 +38,10 @@
                         <div class="customer-id-type-section">
                             <div class="customer-id-type-section-inner">
                                 <div class="id-section">
-                                    <p class="customer-id">{{ customer ? (customer.order_info ? (customer.order_info.order_no ? (customer.order_info.order_no) : 'No Order Found / Null') : 'Order Not Found') : "Not Found" }}</p>
+                                    <p class="customer-id">{{ customer ? (customer.order_no ? (customer.order_no) : 'No Order Found / Null' ) : "Not Found" }}</p>
                                 </div>
                                 <div class="type-section">
-                                    <p class="customer-type"><span class="type">{{ customer ? (customer.order_info.order_date).split(' ')[0] : "DD/MM/YYYY" }}</span></p>
+                                    <p class="customer-type"><span class="type">{{ customer ? (customer.order_date).split(' ')[0] : "DD/MM/YYYY" }}</span></p>
                                 </div>
                             </div>
                         </div>
@@ -49,7 +49,7 @@
                             <div class="customer-name-section-inner">
                                 <div class="name-section">
                                     <!-- <p class="customer-name">{{ customer ? customer.customer_info.customer_address : "" }}</p> -->
-                                    <p class="customer-name">{{ customer ? customer.display_name : "" }}</p>
+                                    <p class="customer-name">{{ customer ? (customer.sbu_customer_info ? customer.sbu_customer_info.display_name : 'SBU Not Found') : "" }}</p>
                                 </div>
                                 <div class="status-section">
                                     <!-- <p class="status" :class="customer.order_status"><span class="status-icon" :class="customer.order_status"></span>{{ customer ? (customer.order_status ? customer.order_status : "Pending") : "Pending" }}</p> -->
@@ -60,7 +60,7 @@
                         <div class="customer-address-section">
                             <div class="customer-address-section-inner">
                                 <div class="address-section">
-                                    <p class="customer-address"><span>Order ID: {{ customer ? customer.order_info.id : 'XXXX' }}</span>|<span>Total Bill: {{ customer ? customer.order_info.net_total : '00.00' }}</span></p>
+                                    <p class="customer-address"><span>Order ID: {{ customer ? customer.id : 'XXXX' }}</span>|<span>Total Bill: {{ customer ? customer.net_total : '00.00' }}</span></p>
                                     <!-- <span class="checkbox">
                                         <input type="checkbox" :id="'order-approval-checkbox-' + c" :name="customer ? customer.customer_id : 0" :value="customer ? customer.customer_id : 0">
                                     </span> -->
@@ -360,7 +360,7 @@ export default {
             } else {
                 document.querySelector('#customer-section-list-' + c).className = 'customer-section-list'
             }
-            this.$emit("select_order_by_order_id", customer.order_info.id)
+            this.$emit("select_order_by_order_id", customer.id)
         },
         searchKeyUpHandler(value) {
             console.log(value.key)
@@ -375,7 +375,7 @@ export default {
             await service.getAllPendingOrdersCustomerList_OrderApprovalLeftSide()
                 .then(res => {
                     console.log(res.data)
-                    this.ALL_PENDING_ORDERS_CUSTOMER_LIST = res.data.sbu_customers
+                    this.ALL_PENDING_ORDERS_CUSTOMER_LIST = res.data.orders_info
                 })
         }
     }
