@@ -60,7 +60,7 @@
                             </div>
                         </div>
                         <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="delivery-dt"><span class="jmi-lvl">Exp D D:</span> <span class="jmi-lvl-value"><input type="date" id="expected-delivery-date" placeholder="09/12/2020"/></span></p></div> -->
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="delivery-dt"><span class="jmi-lvl">Exp D D:</span> <span class="jmi-lvl-value">{{ pending_order_list_by_id ? (pending_order_list_by_id.order_date).split(' ')[0] : 'Not Found' }}</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="delivery-dt"><span class="jmi-lvl">Exp D D:</span> <span class="jmi-lvl-value">{{ pending_order_list_by_id ? (pending_order_list_by_id.order_date ? (pending_order_list_by_id.order_date).split(' ')[0] : 'Date Not Found') : 'Not Found' }}</span></p></div>
                     </div>
                     <!-- <div class="row">
                         <div class="col-lg-3 col-md-6 col-sm-6"><p class="delivery-dt"><span class="jmi-lvl">Exp D D:</span> <span class="jmi-lvl-value"><input type="date" id="expected-delivery-date" placeholder="09/12/2020"/></span></p></div>
@@ -217,7 +217,7 @@
                                         <tr class="responer-body-filter-output" v-for="(data, i) in auto_field_data" :key="i">
                                             <td>
                                                 <span class="responer-body-filter-tag">{{ data.name }}</span>
-                                                <span>{{ data.stock }}</span>
+                                                <span class="responer-body-filter-tag-id">{{ data.stock }}</span>
                                             </td>
                                             <td>
                                                 <span class="quantity-setup">
@@ -688,7 +688,7 @@ export default {
                     total_price: "300.00"
                 },
                 {
-                    name: "Altrip. Almotriptan",
+                    name: "FRS",
                     stock: "Stock: 1000 I UoM: Box",
                     unit_price: "300.00",
                     quantity: "5",
@@ -697,7 +697,7 @@ export default {
                 },
                 {
                     name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
+                    stock: "1050",
                     unit_price: "300.00",
                     quantity: "5",
                     bonus: "0",
@@ -779,7 +779,7 @@ export default {
                 },
                 {
                     name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
+                    stock: "Stock: 1050 I UoM: Box",
                     unit_price: "300.00",
                     quantity: "5",
                     bonus: "0",
@@ -1336,8 +1336,15 @@ export default {
             let filter = input.value.toUpperCase();
             let list = document.querySelectorAll('.responer-body-filter-output')
             let txt_selector = "responer-body-filter-tag"
+            let id_selector = "responer-body-filter-tag-id"
 
-            jmiFilter.searchById_LeftSidebar(filter, list, txt_selector)
+            // console.log(value.key)
+            let v = document.querySelector('#order-approval-add-product').value
+            if(isNaN(v)) {
+                jmiFilter.searchByID_Name_Details_Section(filter, list, txt_selector)
+            } else {
+                jmiFilter.searchByID_Name_Details_Section(filter, list, id_selector)
+            }
         }, 
     }
 }
