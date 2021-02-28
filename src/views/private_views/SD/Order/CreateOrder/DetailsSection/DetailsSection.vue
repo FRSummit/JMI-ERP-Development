@@ -32,12 +32,6 @@
                         <div class="col-lg-3 col-md-6 col-sm-12">
                             <div class="sr" style="display: table-cell; width: 33%; padding-right: 20px; padding-bottom: 0; vertical-align: middle;">
                                 <span class="jmi-lvl">SR: </span>
-                                <!-- <div class="select-options" style="display: inline-block; width: 50%; min-width: 120px; font-size: 14px;">
-                                    <span class="right-icon"><i class="fas fa-chevron-right"></i></span>
-                                    <select title="Pick a customer" class="selectpicker" v-model="on_change_SR_dropdown" @change="onChangeSRDropdown()">
-                                        <option v-for="(sr, m) in sr_list" :key="m"><span>{{ sr.name }}</span></option>
-                                    </select>
-                                </div> -->
                                 <p class="selectpicker-pera"> 
                                     <span class="jmi-lvl-value">{{ selected_sr }}</span>
                                     <span class="sr-add-icon" @click="srAddIconClickHandler"><i class="zmdi zmdi-plus"></i></span>

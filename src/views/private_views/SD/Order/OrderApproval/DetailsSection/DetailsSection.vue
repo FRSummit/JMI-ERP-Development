@@ -17,17 +17,19 @@
                 <div class="header-summery-section-inner">
                 <!-- <div class="container"> -->
                     <div class="row">
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Current Outstanding:</span><span class="jmi-lvl-value url" @click="currentOutstandingClickHandler">Dummy: 200500</span></p></div>
+                        <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Current Outstanding:</span><span class="jmi-lvl-value url" @click="currentOutstandingClickHandler">Dummy: 200500</span></p></div> -->
                         <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Order Placed:</span> <span class="jmi-lvl-value">Placed</span></p></div>
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Status:</span> <span class="jmi-lvl-value">Pending</span></p></div>
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title">Area: <span class="jmi-lvl-value">DHK0300-Dhanmondi</span></p></div>
+                        <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Status:</span> <span class="jmi-lvl-value">Pending</span></p></div> -->
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Status:</span> <span class="jmi-lvl-value">{{ pending_order_list_by_id ? (pending_order_list_by_id.is_approved === 'N' ? 'Pending' : '') : 'Not Found' }}</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title">Area: <span class="jmi-lvl-value">{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.get_sales_area ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.get_sales_area.area_name) : 'Sales Force Not Found') : 'Force Not Found') : 'Area Not Found') : 'SBU Not Found') : 'Not Found' }}</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title">Territory ID: <span class="jmi-lvl-value">{{ pending_order_list_by_id ? pending_order_list_by_id.territory_id : 'Not Found' }}</span></p></div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title">Territory: <span class="jmi-lvl-value">DHK0301-Dhanmondi 32</span></p></div>
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="am">AM: <span class="jmi-lvl-value">Atik Faysal Soumitro</span></p></div>
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="mio">MIO: <span class="jmi-lvl-value">Mehedi Hassan</span></p></div>
+                        <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title">Territory: <span class="jmi-lvl-value">DHK0301-Dhanmondi 32</span></p></div> -->
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="am">AM: <span class="jmi-lvl-value">{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info.name) : 'Manager Not Found') : 'Force Not Found') : 'Customer Not Found') : 'SBU Not Found') : 'Not Found' }}</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="mio">MIO: <span class="jmi-lvl-value">{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info.name) : 'Manager Info Not Found') : 'RSM Not Found') : 'Manager Not Found') : 'Force Not Found') : 'Customer Not Found') : 'SBU Not Found') : 'Not Found' }}</span></p></div>
                         <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="sr" style="display: table-cell; width: 33%; padding-right: 20px; padding-bottom: 0; vertical-align: middle;">
+                            <!-- <div class="sr" style="display: table-cell; width: 33%; padding-right: 20px; padding-bottom: 0; vertical-align: middle;">
                                 <span style="display: inline-block; width: 15%; font-size: 14px; float: left; line-height:1; padding-top: 6px;">SR: </span>
                                 <div class="select-options" style="display: inline-block; width: 50%; min-width: 120px; font-size: 14px;">
                                     <span class="right-icon"
@@ -39,12 +41,30 @@
                                         </option>
                                     </select>
                                 </div>
+                            </div> -->
+                            <div class="sr" style="display: table-cell; width: 33%; padding-right: 20px; padding-bottom: 0; vertical-align: middle;">
+                                <span class="jmi-lvl">SR: </span>
+                                <p class="selectpicker-pera"> 
+                                    <span class="jmi-lvl-value">{{ selected_sr }}</span>
+                                    <!-- <span class="jmi-lvl-value">{{ selected_sr }}</span>
+                                    <span class="sr-add-icon" @click="srAddIconClickHandler"><i class="zmdi zmdi-plus"></i></span>
+                                    <span class="sr-modal" v-if="sr_add_modal">
+                                        <span class="sr-modal-inner" v-click-outside="srModalSectionOutsideClick">
+                                            <span class="jmi-title">Select SR</span>
+                                            <span class="sr-loop" v-for="(sr, m) in sr_list" :key="m">
+                                                <span  class="sr-name" @click="selectedSRClickHandler(sr.name)">{{ sr.name }}</span>
+                                            </span>
+                                        </span>
+                                    </span> -->
+                                </p>
                             </div>
                         </div>
+                        <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="delivery-dt"><span class="jmi-lvl">Exp D D:</span> <span class="jmi-lvl-value"><input type="date" id="expected-delivery-date" placeholder="09/12/2020"/></span></p></div> -->
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="delivery-dt"><span class="jmi-lvl">Exp D D:</span> <span class="jmi-lvl-value">{{ pending_order_list_by_id ? (pending_order_list_by_id.order_date).split(' ')[0] : 'Not Found' }}</span></p></div>
                     </div>
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-lg-3 col-md-6 col-sm-6"><p class="delivery-dt"><span class="jmi-lvl">Exp D D:</span> <span class="jmi-lvl-value"><input type="date" id="expected-delivery-date" placeholder="09/12/2020"/></span></p></div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <!-- Order Table -->
@@ -86,7 +106,7 @@
                                 <tr class="subtotal bottom-total" style="border-top: 1px solid #BFCFE2;">
                                     <td style="width: 50%;"><span class="add-order-attachment-section add-order" @click="addOrderClickHandler"><i class="zmdi zmdi-plus"></i>Add Products</span></td>
                                     <td style="width: 25%;"><span>Subtotal</span></td>
-                                    <td style="width: 15%;"><span>{{ ( Number(pending_order_list_by_id ? pending_order_list_by_id.net_total : 0).toFixed(2) ) }}</span></td>
+                                    <td style="width: 15%;"><span>{{ ( Number(pending_order_list_by_id ? pending_order_list_by_id.gross_tp : 0).toFixed(2) ) }}</span></td>
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
                                 <tr class="subtotal bottom-total">
@@ -97,14 +117,14 @@
                                 </tr>
                                 <tr class="subtotal bottom-total">
                                     <td style="width: 50%;"></td>
-                                    <td style="width: 25%;">(-) Discount</td>
-                                    <td style="width: 15%;">{{ Number(pending_order_list_by_id ? pending_order_list_by_id.total_discount : 0).toFixed(2) }}</td>
+                                    <td style="width: 25%;">Gross Total</td>
+                                    <td style="width: 15%;">{{ Number(pending_order_list_by_id ? pending_order_list_by_id.gross_total : 0).toFixed(2) }}</td>
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
                                 <tr class="subtotal bottom-total">
                                     <td style="width: 50%;"><span class="add-order-attachment-section add-attachment" @click="addAttachmentClickHandler"><i class="zmdi zmdi-attachment-alt"></i>Attachment</span></td>
-                                    <td style="width: 25%;">Gross Total</td>
-                                    <td style="width: 15%;">{{ Number(pending_order_list_by_id ? pending_order_list_by_id.gross_tp : 0).toFixed(2) }}</td>
+                                    <td style="width: 25%;">(-) Discount</td>
+                                    <td style="width: 15%;">{{ Number(pending_order_list_by_id ? pending_order_list_by_id.total_discount : 0).toFixed(2) }}</td>
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
                                 <!-- <tr class="subtotal bottom-total">
@@ -119,7 +139,7 @@
                                         <span class="order-reject" @click="orderRejectClickHandler">Reject Order</span>
                                     </td>
                                     <td style="width: 25%;">Grand Total</td>
-                                    <td style="width: 15%;">{{ Number(pending_order_list_by_id ? pending_order_list_by_id.gross_total : 0).toFixed(2) }}</td>
+                                    <td style="width: 15%;">{{ Number(pending_order_list_by_id ? pending_order_list_by_id.net_total : 0).toFixed(2) }}</td>
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
                             </div>
@@ -1082,6 +1102,8 @@ export default {
             directionsRenderer: null,
             InfoWindow: VueGoogleMaps.InfoWindow,
             Map: VueGoogleMaps.Map,
+            sr_add_modal: false,
+            selected_sr: null,
         }
     },
     created() {},
@@ -1094,6 +1116,20 @@ export default {
     methods: {
         onChangeSRDropdown() {
             console.log(this.on_change_SR_dropdown)
+        },
+        srAddIconClickHandler() {
+            if(this.sr_add_modal) {
+                this.sr_add_modal = false
+            } else {
+                this.sr_add_modal = true
+            }
+        },
+        srModalSectionOutsideClick() {
+            this.sr_add_modal = false
+        },
+        selectedSRClickHandler(value) {
+            this.selected_sr = value
+            this.sr_add_modal = false
         },
         expectedDateCalendarClick() {
             console.log('expectedDateCalendarClick')

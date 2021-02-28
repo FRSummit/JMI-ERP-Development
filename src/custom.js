@@ -27,17 +27,17 @@ $(document).ready(function () {
     // LockScreen functionality
 
     // Prevent Dot from CREATE_ORDER add product modal
-    $('#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr td span.quantity-setup input.qty').live('keypress', () => {
-        preventDot(event)
-    });
+    // $('#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr td span.quantity-setup input.qty').live('keypress', () => {
+    //     preventDot(event)
+    // });
 
-    function preventDot(event) {
-        alert(0);
-        //var test = document.getElementById("#age");
-        var key = event.charCode ? event.charCode : event.keyCode;
-        $("#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr td span.quantity-setup input.qty").innerHTML = key;
-        if (key == 46) {
-            return false;
-        }
-    }
+    // function preventDot(event) {
+    //     alert(0);
+    //     //var test = document.getElementById("#age");
+    //     var key = event.charCode ? event.charCode : event.keyCode;
+    //     $("#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr td span.quantity-setup input.qty").innerHTML = key;
+    //     if (key == 46) {
+    //         return false;
+    //     }
+    // }
 });
