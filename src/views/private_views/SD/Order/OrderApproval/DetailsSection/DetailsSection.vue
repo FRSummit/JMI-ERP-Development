@@ -70,11 +70,18 @@
             <!-- Order Table -->
             <div class="order-table">
                 <div class="order-table-inner">
-                    <table class="table" id="order-data-table" cellspacing="0" width="100%">
+                    <table class="table jmi-order-table" id="order-data-table" cellspacing="0" width="100%">
                         <thead>
                             <tr>
-                                <th style="border: none" v-for="(head, i) in order_table_header" :key="i">{{ head }}</th>
-                                <th style="border: none"></th>
+                                <!-- <th style="border: none" v-for="(head, i) in order_table_header" :key="i">{{ head }}</th>
+                                <th style="border: none"></th> -->
+                                <th>Name</th>
+                                <th>Trade Price<span class="with-vat">(With VAT)</span></th>
+                                <th>Quantity</th>
+                                <th>Discount</th>
+                                <th>Bonus</th>
+                                <th>Total Price</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -92,6 +99,10 @@
                                             <span class="qty">{{ data.qty }}</span>
                                             <!-- <span class="qty-decrease" @click="decreaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span> -->
                                         </span>
+                                    </td>
+                                    <td>
+                                        <span v-if="!data.row_class">{{ data ? (data.discount ? Number(data.discount).toFixed(2) : 0) : 0 }}</span>
+                                        <span v-if="data.row_class"></span>
                                     </td>
                                     <td>{{ data.bonus_qty }}</td>
                                     <td>{{ Number(data.tp).toFixed(2) }}</td>

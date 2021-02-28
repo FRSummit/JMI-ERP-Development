@@ -326,6 +326,7 @@
             }
         }
 
+        // DETAILS PAGE MAIN TABLE
         .order-table {
             margin-top: 20px;
 
@@ -344,28 +345,57 @@
 
                     // Table Head
                     thead {
-                        border-bottom: 1px solid #BFCFE2;
+                        // border-bottom: 1px solid #BFCFE2;
 
                         tr {
-                            border-bottom: none;
-
-                            th {
-                                color      : #026CD1;
-                                font-size  : 16px;
-                                font-weight: 500;
-                                width      : 15%;
-                                text-align : center;
-                            }
-
                             th:first-child {
-                                width     : 25%;
+                                width     : 20%;
                                 text-align: left;
                             }
 
-                            th:nth-child(5),
-                            th:last-child {
+                            th:nth-child(2) {
+                                width: 18%;
+                            }
+
+                            th:nth-child(3) {
+                                width: 18%;
+                            }
+
+                            th:nth-child(4) {
+                                width: 10%;
+                            }
+
+                            th:nth-child(5) {
+                                width: 10%;
+                            }
+
+                            th:nth-child(6) {
+                                width     : 14%;
                                 text-align: right;
                             }
+
+                            th:last-child {
+                                width: 10%;
+                            }
+                            // border-bottom: none;
+
+                            // th {
+                            //     color      : #026CD1;
+                            //     font-size  : 16px;
+                            //     font-weight: 500;
+                            //     width      : 15%;
+                            //     text-align : center;
+                            // }
+
+                            // th:first-child {
+                            //     width     : 25%;
+                            //     text-align: left;
+                            // }
+
+                            // th:nth-child(5),
+                            // th:last-child {
+                            //     text-align: right;
+                            // }
                         }
                     }
 
@@ -401,21 +431,7 @@
                         }
 
                         tr {
-                            border-bottom: none;
-
-                            td {
-                                color         : #222223;
-                                font-size     : 14px;
-                                font-weight   : 400;
-                                width         : 15%;
-                                border-top    : none;
-                                padding       : 4px 10px;
-                                text-align    : center;
-                                vertical-align: middle;
-                            }
-
                             td:first-child {
-                                width: 25%;
 
                                 span {
                                     display   : block;
@@ -429,27 +445,114 @@
                                 }
                             }
 
-                            td:nth-child(5),
-                            td:last-child {
+                            td:first-child {
+                                width     : 20%;
+                                text-align: left;
+                            }
+
+                            td:nth-child(2) {
+                                width: 18%;
+                            }
+
+                            td:nth-child(3) {
+                                width: 18%;
+                            }
+
+                            td:nth-child(4) {
+                                width: 10%;
+                            }
+
+                            td:nth-child(5) {
+                                width: 10%;
+                            }
+
+                            td:nth-child(6) {
+                                width     : 14%;
                                 text-align: right;
                             }
+
+                            td:last-child {
+                                width: 10%;
+                            }
+                            // border-bottom: none;
+
+                            // td {
+                            //     color         : #222223;
+                            //     font-size     : 14px;
+                            //     font-weight   : 400;
+                            //     width         : 15%;
+                            //     border-top    : none;
+                            //     padding       : 4px 10px;
+                            //     text-align    : center;
+                            //     vertical-align: middle;
+                            // }
+
+                            // td:first-child {
+                            //     width: 25%;
+
+                            //     span {
+                            //         display   : block;
+                            //         text-align: left;
+                            //     }
+
+                            //     span:last-child {
+                            //         font-size : 10px;
+                            //         text-align: left;
+                            //         color     : #8e8e8e;
+                            //     }
+                            // }
+
+                            // td:nth-child(5),
+                            // td:last-child {
+                            //     text-align: right;
+                            // }
 
                             // QUantity Column
                             td {
                                 span.quantity-setup {
+                                    border       : 1px solid #026CD1;
+                                    padding      : 2px 8px;
+                                    border-radius: 2px;
+                                    background   : #FFFFFF;
 
                                     span.qty-increase {
-                                        display: none;
+                                        display  : inline-block;
+                                        color    : #026CD1;
+                                        font-size: 16px;
+                                        cursor   : pointer;
+                                        padding  : 4px;
                                     }
 
                                     span.qty {
-                                        margin: 0 10px;
+                                        margin   : 0 10px;
+                                        color    : #026CD1;
+                                        display  : inline-block;
+                                        min-width: 16px;
                                     }
 
                                     span.qty-decrease {
-                                        display: none;
+                                        display     : inline-block;
+                                        color       : #026CD1;
+                                        // color    : #AAC0D9;
+                                        font-size   : 16px;
+                                        cursor      : pointer;
+                                        padding     : 4px;
                                     }
                                 }
+                                // span.quantity-setup {
+
+                                //     span.qty-increase {
+                                //         display: none;
+                                //     }
+
+                                //     span.qty {
+                                //         margin: 0 10px;
+                                //     }
+
+                                //     span.qty-decrease {
+                                //         display: none;
+                                //     }
+                                // }
                             }
 
                             // Row Action Column

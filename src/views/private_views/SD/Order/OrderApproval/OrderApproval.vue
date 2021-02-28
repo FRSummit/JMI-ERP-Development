@@ -66,8 +66,8 @@ export default {
     // Service call from left sidebar section
     async PENDING_ORDER_DETAILS__FROM_SERVICE(order_id) {
       console.log(order_id)
-      await service.getSelectedPendingOrderById_OrderApproval(1111)
-      // await service.getSelectedPendingOrderById_OrderApproval(order_id)
+      // await service.getSelectedPendingOrderById_OrderApproval(1111)
+      await service.getSelectedPendingOrderById_OrderApproval(order_id)
         .then(res => {
           console.log(res.data)
           console.log(res.data.order_info.sbu_customer_info)

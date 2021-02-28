@@ -38,7 +38,7 @@
                         <div class="customer-id-type-section">
                             <div class="customer-id-type-section-inner">
                                 <div class="id-section">
-                                    <p class="customer-id">{{ customer ? customer.display_code : "XXXXXX" }}</p>
+                                    <p class="customer-id">{{ customer ? (customer.order_info ? (customer.order_info.order_no ? (customer.order_info.order_no) : 'No Order Found') : 'Order Not Found') : "Not Found" }}</p>
                                 </div>
                                 <div class="type-section">
                                     <p class="customer-type"><span class="type">{{ customer ? customer.order_info.order_date : "DD/MM/YYYY" }}</span></p>
@@ -360,7 +360,7 @@ export default {
             } else {
                 document.querySelector('#customer-section-list-' + c).className = 'customer-section-list'
             }
-            this.$emit("select_order_by_order_id", customer.customer_info.id)
+            this.$emit("select_order_by_order_id", customer.order_info.id)
         },
         searchKeyUpHandler(value) {
             console.log(value.key)
