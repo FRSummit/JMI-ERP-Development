@@ -81,7 +81,7 @@
                                 <th>Discount</th>
                                 <th>Bonus</th>
                                 <th>Total Price</th>
-                                <th></th>
+                                <th style="min-width: 70px;"></th>
                             </tr>
                         </thead>
                         <tbody>
