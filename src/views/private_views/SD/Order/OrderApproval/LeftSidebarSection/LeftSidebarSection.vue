@@ -38,7 +38,7 @@
                         <div class="customer-id-type-section">
                             <div class="customer-id-type-section-inner">
                                 <div class="id-section">
-                                    <p class="customer-id">{{ customer ? customer.customer_id : "XXXXXX" }}</p>
+                                    <p class="customer-id">{{ customer ? customer.display_code : "XXXXXX" }}</p>
                                 </div>
                                 <div class="type-section">
                                     <p class="customer-type"><span class="type">{{ customer ? customer.order_info.order_date : "DD/MM/YYYY" }}</span></p>
@@ -48,7 +48,8 @@
                         <div class="customer-name-section">
                             <div class="customer-name-section-inner">
                                 <div class="name-section">
-                                    <p class="customer-name">{{ customer ? customer.customer_info.customer_address : "" }}</p>
+                                    <!-- <p class="customer-name">{{ customer ? customer.customer_info.customer_address : "" }}</p> -->
+                                    <p class="customer-name">{{ customer ? customer.display_name : "" }}</p>
                                 </div>
                                 <div class="status-section">
                                     <!-- <p class="status" :class="customer.order_status"><span class="status-icon" :class="customer.order_status"></span>{{ customer ? (customer.order_status ? customer.order_status : "Pending") : "Pending" }}</p> -->
@@ -60,9 +61,9 @@
                             <div class="customer-address-section-inner">
                                 <div class="address-section">
                                     <p class="customer-address"><span>Order ID: {{ customer ? customer.order_info.id : 'XXXX' }}</span>|<span>Total Bill: {{ customer ? customer.order_info.net_total : '00.00' }}</span></p>
-                                    <span class="checkbox">
+                                    <!-- <span class="checkbox">
                                         <input type="checkbox" :id="'order-approval-checkbox-' + c" :name="customer ? customer.customer_id : 0" :value="customer ? customer.customer_id : 0">
-                                    </span>
+                                    </span> -->
                                 </div>
                             </div>
                         </div>

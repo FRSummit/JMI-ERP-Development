@@ -6,7 +6,8 @@
         <div class="create-order-details-section-inner" v-if="customer_data">
             <div class="title-section">
                 <div class="row">
-                    <div class="col-lg-4 col-md-4 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer ID:</span><span class="id">{{ customer_data ? customer_data.customer_id : ""}}</span><span class="customer-type">{{ customer_data ? customer_data.credit_flag === "Y" ? "Credit" : "Cash" : "No Customer" }}</span></p></div>
+                    <!-- <div class="col-lg-4 col-md-4 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer ID:</span><span class="id">{{ customer_data ? customer_data.customer_id : ""}}</span><span class="customer-type">{{ customer_data ? customer_data.credit_flag === "Y" ? "Credit" : "Cash" : "No Customer" }}</span></p></div> -->
+                    <div class="col-lg-4 col-md-4 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer ID:</span><span class="id">{{ customer_data ? customer_data.display_code : ""}}</span><span class="customer-type">{{ customer_data ? customer_data.credit_flag === "Y" ? "Credit" : "Cash" : "No Customer" }}</span></p></div>
                     <div class="col-lg-8 col-md-8 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer Name:</span><span class="jmi-lvl-value">{{ customer_data ? customer_data.display_name : "" }}</span></p></div>
                 </div>
                 <div class="row">
@@ -84,7 +85,7 @@
                                 <!-- <th style="border: none" v-for="(head, i) in order_table_header" :key="i">{{ head }}</th>
                                 <th style="border: none"></th> -->
                                 <th>Name</th>
-                                <th>Unit Price<span class="with-vat">(With VAT)</span></th>
+                                <th>Trade Price<span class="with-vat">(With VAT)</span></th>
                                 <th>Quantity</th>
                                 <th>Discount</th>
                                 <th>Bonus</th>
@@ -103,12 +104,12 @@
                                     <td>
                                         <!-- <span>{{ data ? data.product_info.prod_name : "" }}</span> -->
                                         <span>{{ data ? data.prod_name : "" }}</span>
-                                        <span v-if="!data.row_class">Base Price: {{ data ? data.base_tp : "" }}</span>
+                                        <span v-if="!data.row_class">Unit Price: {{ data ? data.base_tp : "" }}</span>
                                         <span v-if="data.row_class" :class="data.row_class">Free Product</span>
                                     </td>
                                     <!-- <td>{{ data ? data.price_now_per_qty.toFixed(2) : "" }}</td> -->
                                     <td>
-                                        <span v-if="!data.row_class">{{ data ? Number(data.price_now_per_qty).toFixed(2) : 0 }}</span>
+                                        <span v-if="!data.row_class">{{ data ? Number(parseFloat(data.base_tp) + parseFloat(data.base_vat)).toFixed(2) : 0 }}</span>
                                         <span v-if="data.row_class"></span>
                                     </td>
                                     <td>
@@ -727,8 +728,8 @@ export default {
             this.grand_total = 0
             for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST.length; i++) {
                 this.sub_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].price_now_per_qty) * this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity
-                this.vat_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].vat_total)
-                this.discount_total += parseFloat((this.ORDERED_TABLE_DATA__INIT_LIST[i].base_tp * this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity) - this.ORDERED_TABLE_DATA__INIT_LIST[i].line_total)
+                this.vat_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].base_vat) * this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity
+                this.discount_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].base_tp * this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity) - (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].price_now_per_qty) * this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity)
             }
             console.log(this.sub_total)
             // this.sub_total = this.sub_total
