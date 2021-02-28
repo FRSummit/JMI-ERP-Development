@@ -21,13 +21,13 @@
                         <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Order Placed:</span> <span class="jmi-lvl-value">Placed</span></p></div>
                         <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Status:</span> <span class="jmi-lvl-value">Pending</span></p></div> -->
                         <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Status:</span> <span class="jmi-lvl-value">{{ pending_order_list_by_id ? (pending_order_list_by_id.is_approved === 'N' ? 'Pending' : '') : 'Not Found' }}</span></p></div>
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title">Area: <span class="jmi-lvl-value">{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.get_sales_area ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.get_sales_area.area_name) : 'Sales Force Not Found') : 'Force Not Found') : 'Area Not Found') : 'SBU Not Found') : 'Not Found' }}</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title">Area: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80" >{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.get_sales_area ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.get_sales_area.area_name) : 'Sales Force Not Found') : 'Force Not Found') : 'Area Not Found') : 'SBU Not Found') : 'Not Found' }}</span></p></div>
                         <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title">Territory ID: <span class="jmi-lvl-value">{{ pending_order_list_by_id ? pending_order_list_by_id.territory_id : 'Not Found' }}</span></p></div>
                     </div>
                     <div class="row">
                         <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title">Territory: <span class="jmi-lvl-value">DHK0301-Dhanmondi 32</span></p></div> -->
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="am">AM: <span class="jmi-lvl-value">{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info.name) : 'Manager Not Found') : 'Force Not Found') : 'Customer Not Found') : 'SBU Not Found') : 'Not Found' }}</span></p></div>
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="mio">MIO: <span class="jmi-lvl-value">{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info.name) : 'Manager Info Not Found') : 'RSM Not Found') : 'Manager Not Found') : 'Force Not Found') : 'Customer Not Found') : 'SBU Not Found') : 'Not Found' }}</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="am">AM: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info.name) : 'Manager Not Found') : 'Force Not Found') : 'Customer Not Found') : 'SBU Not Found') : 'Not Found' }}</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="mio">MIO: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info.name) : 'Manager Info Not Found') : 'RSM Not Found') : 'Manager Not Found') : 'Force Not Found') : 'Customer Not Found') : 'SBU Not Found') : 'Not Found' }}</span></p></div>
                         <div class="col-lg-3 col-md-6 col-sm-6">
                             <!-- <div class="sr" style="display: table-cell; width: 33%; padding-right: 20px; padding-bottom: 0; vertical-align: middle;">
                                 <span style="display: inline-block; width: 15%; font-size: 14px; float: left; line-height:1; padding-top: 6px;">SR: </span>
@@ -90,9 +90,9 @@
                                 <tr v-for="(data, i) in pending_order_list_by_id ? pending_order_list_by_id.order_details : order_table_data" :key="i">
                                     <td>
                                         <span>{{ data.product_info ? data.product_info.prod_name : '' }}</span>
-                                        <span>Product Id: {{ data.product_id }}</span>
+                                        <span>Unit Total Price: {{ data.unit_tp }}</span>
                                     </td>
-                                    <td>{{ Number(data.unit_tp).toFixed(2) }}</td>
+                                    <td>{{ Number(data.tp).toFixed(2) }}</td>
                                     <td>
                                         <span class="quantity-setup">
                                             <!-- <span class="qty-increase" @click="increaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-minus"></i></span> -->
@@ -154,44 +154,6 @@
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
                             </div>
-                            <!-- <tr id="subtotal-section" class="subtotal-section" style="border-top   : 1px solid #BFCFE2;">
-                                <td>
-                                    <span class="add-order-section" @click="addOrderClickHandler"><i class="zmdi zmdi-plus"></i>Add Products</span>
-                                    <span class="attachment-section" @click="addAttachmentClickHandler"><i class="zmdi zmdi-attachment-alt"></i>Attachment</span>
-                                </td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <span class="subtotal">Subtotal</span>
-                                    <span class="vat">(+) Vat</span>
-                                    <span class="discount">(-) Discount</span>
-                                    <span class="gross-tatal">Gross Total</span>
-                                    <span class="atjustment" style="width: 142px; float: right;">(+/-) Rounding Adjustment</span>
-                                </td>
-                                <td>
-                                    <span class="subtotal">{{ sub_total.toFixed(2) }}</span>
-                                    <span class="vat">{{ vat.toFixed(2) }}</span>
-                                    <span class="discount">{{ discount.toFixed(2) }}</span>
-                                    <span class="gross-tatal">{{ gross_total.toFixed(2) }}</span>
-                                    <span class="atjustment">{{ rounding_adjustment.toFixed(2) }}</span>
-                                </td>
-                                <td></td>
-                            </tr>
-                            <tr id="grand-total-section" class="grand-total-section" style="border-top   : 1px solid #BFCFE2;">
-                                <td>
-                                    <span class="order-forward" @click="orderForwardClickHandler"><i class="zmdi zmdi-fast-forward"></i>Order Forward</span>
-                                    <span class="order-reject" @click="orderRejectClickHandler">Reject Order</span>
-                                </td>
-                                <td></td>
-                                <td></td>
-                                <td style="text-align: right;">
-                                    <span class="grand-total">Grand Total</span>
-                                </td>
-                                <td>
-                                    <span class="grand-total">{{ grand_total.toFixed(2) }}</span>
-                                </td>
-                                <td></td>
-                            </tr> -->
                         </tbody>
                     </table>
                 </div>
@@ -1148,17 +1110,17 @@ export default {
         //------------------------------------------------------------------------------------------
         // Table List Actions
         // Increase Table Row's Single Product/Order
-        increaseOrderedItemClickHandler(data, index) {
+        /*increaseOrderedItemClickHandler(data, index) {
             console.log(data + '    ' + index)
         },
         // Decrease Table Row's Single Product/Order
         decreaseOrderedItemClickHandler(data, index) {
             console.log(data + '    ' + index)
-        },
+        },*/
         // Edit Table Row's Single Product/Order
-        editOrderitemClickHandler(data, index) {
+        /*editOrderitemClickHandler(data, index) {
             console.log(data + '    ' + index)
-        },
+        },*/
         // Delete Table Row's Single Product/Order
         deleteOrderitemClickHandler(data, index) {
             console.log(data + '    ' + index)

@@ -695,6 +695,44 @@ input[type=number] {
     color: #AAC0D9;
 }
 
+/* jmi-txt-nowrap-ellipsis-middle */
+.jmi-txt-nowrap-ellipsis-middle_50 {
+    width: 50%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+}
+.jmi-txt-nowrap-ellipsis-middle_60 {
+    width: 60%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+}
+.jmi-txt-nowrap-ellipsis-middle_70 {
+    width: 70%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+}
+.jmi-txt-nowrap-ellipsis-middle_80 {
+    width: 80%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+}
+.jmi-txt-nowrap-ellipsis-middle_100 {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+}
+/* jmi-txt-nowrap-ellipsis-middle */
+
 /* POPUP MODALS */
 .modal-popup-section {
     position        : fixed;

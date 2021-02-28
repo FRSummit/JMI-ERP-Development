@@ -326,7 +326,7 @@
             }
         }
 
-        // DETAILS PAGE MAIN TABLE
+        // DETAILS PAGE MAIN TABLE - START
         .order-table {
             margin-top: 20px;
 
@@ -510,34 +510,34 @@
                             // QUantity Column
                             td {
                                 span.quantity-setup {
-                                    border       : 1px solid #026CD1;
+                                    // border       : 1px solid #026CD1;
                                     padding      : 2px 8px;
                                     border-radius: 2px;
-                                    background   : #FFFFFF;
+                                    // background   : #FFFFFF;
 
-                                    span.qty-increase {
-                                        display  : inline-block;
-                                        color    : #026CD1;
-                                        font-size: 16px;
-                                        cursor   : pointer;
-                                        padding  : 4px;
-                                    }
+                                    // span.qty-increase {
+                                    //     display  : inline-block;
+                                    //     color    : #026CD1;
+                                    //     font-size: 16px;
+                                    //     cursor   : pointer;
+                                    //     padding  : 4px;
+                                    // }
 
                                     span.qty {
                                         margin   : 0 10px;
-                                        color    : #026CD1;
+                                        // color    : #026CD1;
                                         display  : inline-block;
                                         min-width: 16px;
                                     }
 
-                                    span.qty-decrease {
-                                        display     : inline-block;
-                                        color       : #026CD1;
-                                        // color    : #AAC0D9;
-                                        font-size   : 16px;
-                                        cursor      : pointer;
-                                        padding     : 4px;
-                                    }
+                                    // span.qty-decrease {
+                                    //     display     : inline-block;
+                                    //     color       : #026CD1;
+                                    //     // color    : #AAC0D9;
+                                    //     font-size   : 16px;
+                                    //     cursor      : pointer;
+                                    //     padding     : 4px;
+                                    // }
                                 }
                                 // span.quantity-setup {
 
@@ -559,7 +559,33 @@
                             td.row-action {
 
                                 span {
-                                    display: none;
+                                    display      : inline-block;
+                                    background   : #FFFFFF;
+                                    padding      : 4px 8px;
+                                    border-radius: 50%;
+                                    margin       : 0 10px;
+                                    cursor       : pointer;
+
+                                    &:hover {
+                                        background   : #FFFFFF;
+                                        padding      : 4px 8px;
+                                        border-radius: 50%;
+                                    }
+                                }
+
+                                span.delete-icon {
+                                    cursor: pointer;
+
+                                    i {
+                                        color    : #DF2A43;
+                                        font-size: 16px;
+                                    }
+
+                                    svg {
+                                        color : #DF2A43;
+                                        width : 14px;
+                                        height: 14px;
+                                    }
                                 }
                             }
 
@@ -600,37 +626,37 @@
                                 // Row Action Column
                                 td.row-action {
 
-                                    span {
-                                        display      : inline-block;
-                                        background   : #FFFFFF;
-                                        padding      : 4px 8px;
-                                        border-radius: 50%;
-                                        margin       : 0 10px;
-                                        cursor       : pointer;
+                                    // span {
+                                    //     display      : inline-block;
+                                    //     background   : #FFFFFF;
+                                    //     padding      : 4px 8px;
+                                    //     border-radius: 50%;
+                                    //     margin       : 0 10px;
+                                    //     cursor       : pointer;
 
-                                        &:hover {
-                                            background   : #FFFFFF;
-                                            padding      : 4px 8px;
-                                            border-radius: 50%;
-                                        }
-                                    }
+                                    //     &:hover {
+                                    //         background   : #FFFFFF;
+                                    //         padding      : 4px 8px;
+                                    //         border-radius: 50%;
+                                    //     }
+                                    // }
 
-                                    span.edit-icon {
-                                        i {
-                                            color    : #026CD1;
-                                            font-size: 16px;
-                                        }
-                                    }
+                                    // span.edit-icon {
+                                    //     i {
+                                    //         color    : #026CD1;
+                                    //         font-size: 16px;
+                                    //     }
+                                    // }
 
-                                    span.delete-icon {
-                                        cursor: pointer;
+                                    // span.delete-icon {
+                                    //     cursor: pointer;
 
-                                        svg {
-                                            color : #DF2A43;
-                                            width : 14px;
-                                            height: 14px;
-                                        }
-                                    }
+                                    //     svg {
+                                    //         color : #DF2A43;
+                                    //         width : 14px;
+                                    //         height: 14px;
+                                    //     }
+                                    // }
                                 }
                             }
                         }
@@ -807,6 +833,7 @@
                 }
             }
         }
+        // DETAILS PAGE MAIN TABLE - START
 
         .submit-section {
             .submit-section-inner {
