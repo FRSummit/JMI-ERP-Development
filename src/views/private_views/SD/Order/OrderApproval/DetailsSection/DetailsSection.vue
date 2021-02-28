@@ -239,7 +239,7 @@
                                         <tr class="responer-body-filter-output" v-for="(data, i) in PRODUCT_MODAL_DATA_LIST" :key="i">
                                             <td>
                                                 <span class="responer-body-filter-tag">{{  data ? data.prod_name : "" }}</span>
-                                                <span class="responer-body-filter-tag-id">Product ID: {{ data ? data.display_code : "" }}</span>
+                                                <span>Code: {{ data ? (data.display_code ? data.display_code : data.prod_id) : "" }} {{ data ? (data.offer ? ('| ' + data.offer) : '') : "" }}<span class="responer-body-filter-tag-id" style="display: inline-block; margin-left: 2px;"> | ID: {{ data ? (data.prod_id ? (data.prod_id) : '') : "" }}</span></span>
                                             </td>
                                             <td>
                                                 <span class="quantity-setup">
@@ -275,7 +275,7 @@
                                 <tr v-for="(data, i) in SELECTED_ORDERED_PRODUCTS__INIT_LIST" :key="i">
                                     <td>
                                         <span>{{  data ? data.prod_name : ""  }}</span>
-                                        <span>Product Code: {{ data ? data.display_code : "" }}</span>
+                                        <span>Code: {{ data ? (data.display_code ? data.display_code : data.prod_id) : "" }}<span class="responer-body-filter-tag-id" style="display: inline-block; margin-left: 2px;"> | ID: {{ data ? (data.prod_id ? (data.prod_id) : '') : "" }}</span></span>
                                     </td>
                                     <td>
                                         <span class="quantity-setup">
@@ -1024,6 +1024,7 @@ export default {
             SELECTED_ORDERED_PRODUCTS__STORE: [],
             RESPONSE_ORDERED_PRODUCTS__STORE: [],
             DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST: [],
+            DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST_2: [],
             ORDERED_TABLE_DATA__INIT_LIST: this.pending_order_list_by_id.order_details,
             ORDERED_TABLE_DATA__INIT_LIST_2: [],
         }
@@ -1075,9 +1076,33 @@ export default {
         // Delete Table Row's Single Product/Order
         deleteOrderitemClickHandler(data, index) {
             console.log(data + '    ' + index)
+            if(this.ORDERED_TABLE_DATA__INIT_LIST.length > 0) {
+                for (let [i, tt] of this.ORDERED_TABLE_DATA__INIT_LIST.entries()) {
+                    if (tt.prod_id === data.prod_id) {
+                        this.ORDERED_TABLE_DATA__INIT_LIST.splice(i, 1);
+                        this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.push(data)
+                        // Free Product row delete
+                        // if(data.offer_type === "free") {
+                        //     this.ORDERED_TABLE_DATA__INIT_LIST.splice(i, 1);
+                        // }
+                    }
+                }
+            }
         },
         deleteOrderitemClickHandler_2(data, index) {
             console.log(data + '    ' + index)
+            if(this.ORDERED_TABLE_DATA__INIT_LIST_2.length > 0) {
+                for (let [i, tt] of this.ORDERED_TABLE_DATA__INIT_LIST_2.entries()) {
+                    if (tt.prod_id === data.prod_id) {
+                        this.ORDERED_TABLE_DATA__INIT_LIST_2.splice(i, 1);
+                        this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST_2.push(data)
+                        // Free Product row delete
+                        if(data.offer_type === "free") {
+                            this.ORDERED_TABLE_DATA__INIT_LIST_2.splice(i, 1);
+                        }
+                    }
+                }
+            }
         },
         //------------------------------------------------------------------------------------------
         // Add Product/Order , Atachment Row
@@ -1377,16 +1402,22 @@ export default {
                         }
                     }
                     // Add deleted product
-                    // if(this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.length > 0) {
-                    //     for(let i=0; i<this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.length; i++) {
-                    //         this.PRODUCT_MODAL_DATA_LIST.push(this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST[i])
-                    //     }
-                    // }
+                    if(this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.length > 0) {
+                        for(let i=0; i<this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.length; i++) {
+                            this.PRODUCT_MODAL_DATA_LIST.push(this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST[i])
+                        }
+                    }
+                    if(this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST_2.length > 0) {
+                        for(let i=0; i<this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST_2.length; i++) {
+                            this.PRODUCT_MODAL_DATA_LIST.push(this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST_2[i])
+                        }
+                    }
                     // Remove Product Which are already in ORDERED
                     if(this.ORDERED_TABLE_DATA__INIT_LIST.length > 0) {
                         for(let i=0; i<this.PRODUCT_MODAL_DATA_LIST.length; i++) {
                             for(let j=0; j<this.ORDERED_TABLE_DATA__INIT_LIST.length; j++) {
                                 if(this.PRODUCT_MODAL_DATA_LIST[i].prod_id === this.ORDERED_TABLE_DATA__INIT_LIST[j].product_id) {
+                                    console.log('matched : ' + this.ORDERED_TABLE_DATA__INIT_LIST[j].product_id)
                                     this.PRODUCT_MODAL_DATA_LIST.splice(i, 1)
                                 }
                             }
