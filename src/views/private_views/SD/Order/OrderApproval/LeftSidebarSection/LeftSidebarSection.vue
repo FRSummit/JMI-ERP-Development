@@ -60,7 +60,7 @@
                         <div class="customer-address-section">
                             <div class="customer-address-section-inner">
                                 <div class="address-section">
-                                    <p class="customer-address"><span>Order ID: {{ customer ? customer.id : 'XXXX' }}</span>|<span>Total Bill: {{ customer ? customer.net_total : '00.00' }}</span></p>
+                                    <p class="customer-address"><span>Order No: {{ customer ? customer.id : 'XXXX' }}</span>|<span>Total Bill: {{ customer ? customer.net_total : '00.00' }}</span></p>
                                     <!-- <span class="checkbox">
                                         <input type="checkbox" :id="'order-approval-checkbox-' + c" :name="customer ? customer.customer_id : 0" :value="customer ? customer.customer_id : 0">
                                     </span> -->
