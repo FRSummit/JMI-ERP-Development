@@ -2,6 +2,7 @@
     <div id="create-order-details-section" class="create-order-details-section">
         <div id="progressbar" class="jmi-progressbar" v-if="!customer_data">
             <v-progress-circular indeterminate color="primary"></v-progress-circular>
+            <p>Please select a customer</p>
         </div>
         <div class="create-order-details-section-inner" v-if="customer_data">
             <div class="title-section">
@@ -96,7 +97,7 @@
                         <tbody>
                             <div id="progressbar" class="jmi-progressbar" v-if="ORDERED_TABLE_DATA__INIT_LIST.length <= 0">
                                 <v-progress-circular indeterminate color="primary"></v-progress-circular>
-                                    <p>Please select a customer from left</p>
+                                    <p>Please add a product</p>
                             </div>
                             <div class="table-data-rows" v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">
                                 <!-- <tr v-for="(data, i) in (order_table_modified_data.length > 0 ? order_table_modified_data : ORDERED_TABLE_DATA__INIT_LIST)" :key="i"> -->
