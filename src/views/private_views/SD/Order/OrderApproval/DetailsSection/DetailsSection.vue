@@ -162,24 +162,40 @@
                                     <td style="width: 50%;"><span class="add-order-attachment-section add-order" @click="addOrderClickHandler"><i class="zmdi zmdi-plus"></i>Add Products</span></td>
                                     <td style="width: 25%;"><span>Subtotal</span></td>
                                     <td style="width: 15%;"><span>{{ ( Number(pending_order_list_by_id ? pending_order_list_by_id.gross_tp : 0).toFixed(2) ) }}</span></td>
+                                    <!-- <td style="width: 15%;">
+                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length === 0">{{ ( Number(pending_order_list_by_id ? pending_order_list_by_id.gross_tp : 0).toFixed(2) ) }}</span>
+                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length > 0">{{  Number( parseFloat( Number(pending_order_list_by_id ? (pending_order_list_by_id.gross_tp) : 0).toFixed(2) ) + parseFloat(sub_total) ).toFixed(2) }}</span>
+                                    </td> -->
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
                                 <tr class="subtotal bottom-total">
                                     <td style="width: 50%;"></td>
                                     <td style="width: 25%;">(+) Vat</td>
                                     <td style="width: 15%;">{{ Number(pending_order_list_by_id ? pending_order_list_by_id.total_vat : 0).toFixed(2) }}</td>
+                                    <!-- <td style="width: 15%;">
+                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length === 0">{{ Number(pending_order_list_by_id ? pending_order_list_by_id.total_vat : 0).toFixed(2) }}</span>
+                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length > 0">{{  Number( parseFloat( Number(pending_order_list_by_id ? (pending_order_list_by_id.total_vat) : 0).toFixed(2) ) + parseFloat(vat_total) ).toFixed(2) }}</span>
+                                    </td> -->
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
                                 <tr class="subtotal bottom-total">
                                     <td style="width: 50%;"></td>
                                     <td style="width: 25%;">Gross Total</td>
                                     <td style="width: 15%;">{{ Number(pending_order_list_by_id ? pending_order_list_by_id.gross_total : 0).toFixed(2) }}</td>
+                                    <!-- <td style="width: 15%;">
+                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length === 0">{{ Number(pending_order_list_by_id ? pending_order_list_by_id.gross_total : 0).toFixed(2) }}</span>
+                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length > 0">{{ Number( parseFloat( Number(pending_order_list_by_id ? (pending_order_list_by_id.gross_total) : 0).toFixed(2) ) + parseFloat(vat_total) ).toFixed(2) }}</span>
+                                    </td> -->
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
                                 <tr class="subtotal bottom-total">
                                     <td style="width: 50%;"><span class="add-order-attachment-section add-attachment" @click="addAttachmentClickHandler"><i class="zmdi zmdi-attachment-alt"></i>Attachment</span></td>
                                     <td style="width: 25%;">(-) Discount</td>
                                     <td style="width: 15%;">{{ Number(pending_order_list_by_id ? pending_order_list_by_id.total_discount : 0).toFixed(2) }}</td>
+                                    <!-- <td style="width: 15%;">
+                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length === 0">{{ Number(pending_order_list_by_id ? pending_order_list_by_id.total_discount : 0).toFixed(2) }}</span>
+                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length > 0">{{ Number( parseFloat( Number(pending_order_list_by_id ? (pending_order_list_by_id.total_discount) : 0).toFixed(2) ) + parseFloat(vat_total) ).toFixed(2) }}</span>
+                                    </td> -->
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
                                 <!-- <tr class="subtotal bottom-total">
@@ -195,6 +211,10 @@
                                     </td>
                                     <td style="width: 25%;">Grand Total</td>
                                     <td style="width: 15%;">{{ Number(pending_order_list_by_id ? pending_order_list_by_id.net_total : 0).toFixed(2) }}</td>
+                                    <!-- <td style="width: 15%;">
+                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length === 0">{{ Number(pending_order_list_by_id ? pending_order_list_by_id.net_total : 0).toFixed(2) }}</span>
+                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length > 0">{{ Number( parseFloat( Number(pending_order_list_by_id ? (pending_order_list_by_id.net_total) : 0).toFixed(2) ) + parseFloat(vat_total) ).toFixed(2) }}</span>
+                                    </td> -->
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
                             </div>
@@ -1449,6 +1469,24 @@ export default {
                     this.GENERATE_ORDERED_PRODUCTS_DETAILS_LIST_FROM_PRODUCT_OFFER_RESPONSE()
                 })
         },
+        // ----------------------------------------------------------------------------------------------
+        // Bottom Row Calculation
+        // Create Secondary Subtotal
+        createSubtotalCalculation() {
+            this.sub_total = 0
+            this.vat_total = 0
+            this.discount_total = 0
+            this.gross_total = 0
+            this.grand_total = 0
+            for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST_2.length; i++) {
+                this.sub_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST_2[i].base_tp) * this.ORDERED_TABLE_DATA__INIT_LIST_2[i].quantity
+                this.vat_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST_2[i].base_vat) * this.ORDERED_TABLE_DATA__INIT_LIST_2[i].quantity
+                this.discount_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST_2[i].base_tp * this.ORDERED_TABLE_DATA__INIT_LIST_2[i].quantity) - (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST_2[i].price_now_per_qty) * this.ORDERED_TABLE_DATA__INIT_LIST_2[i].quantity)
+            }
+            console.log(this.sub_total)
+            this.gross_total = this.sub_total + this.vat_total
+            this.grand_total = this.sub_total + this.vat_total - this.discount_total
+        },
         // -----------------------------------------------------------------------------------------------
         GENERATE_ORDERED_PRODUCTS_DETAILS_LIST_FROM_PRODUCT_OFFER_RESPONSE() {
             // if(this.UPDATE_ORDER_CLICKED) {
@@ -1499,6 +1537,7 @@ export default {
                     }
                 }
             }
+            this.createSubtotalCalculation()
             console.log(this.ORDERED_TABLE_DATA__INIT_LIST_2)
             this.UPDATE_BTN_TRUE = false
         },
