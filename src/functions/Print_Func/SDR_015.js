@@ -10,26 +10,33 @@ export default class SDR_015 {
                             +               this.addStylePrint_3()
                             +         '</style>'
                             +     '</head>'
-                            // +     '<body style="margin: 30px 0px 30px 0px">'
                             +     '<body style="font-family: sans-serif;">'
-                            // +         '<div class="print-header-section" style="position: fixed; top: 0; height: 60px;">'
-                            // +             '<p style="margin: 0;">Header Section</p>'
-                            // +             '<p style="margin: 0;">Header Section</p>'
-                            // +             '<p style="margin: 0;">Header Section</p>'
-                            // +         '</div>'
-                            // +         this.create_header()
-                            // +         '<div class="print-section" style="position: sticky; top: 60px; bottom: 60px; height: 60px;">'
                             +         '<div class="print-section" style="">'
                             +             '<div class="print-section-inner">'
-                            +                 this.create_summery_section_data()
-                            // +                 '<table style="width: 100%; height: 80vh; table-layout: fixed; margin-top: 10vh;">'
-                            // +                 '<table style="width: 100%; height: 80vh; table-layout: fixed;">'
+                            +                 this.create_apendix(data.doc_apendix[0])
+                            +                 this.create_summery_section_data(data.invoice_header_data[0])
                             +                 '<table style="">'
                             +                     '<thead>'
-                            +                         this.create_table_head_data()
+                            // +                         this.create_table_head_data()
+                            +                         '<tr>'
+                            +                             '<th>SN</th>'
+                            +                             '<th style="width: 20%;">Product Name</th>'
+                            +                             '<th>Pack Size</th>'
+                            +                             '<th>Batch No</th>'
+                            +                             '<th>MFG Date</th>'
+                            +                             '<th>EXP Date</th>'
+                            +                             '<th>Unit Price TP/SP</th>'
+                            +                             '<th>Unit VAT</th>'
+                            +                             '<th>Unit Price with VAT</th>'
+                            +                             '<th>Qty</th>'
+                            +                             '<th>Bonus</th>'
+                            +                             '<th>Total VAT</th>'
+                            +                             '<th>Total TP/SP</th>'
+                            +                         '</tr>'
                             +                     '</thead>'
                             +                     '<tbody>'
-                            +                         this.create_table_body_data(data)
+                            // +                         this.create_table_body_data(data.table_data)
+                            +                         this.create_multiple_person_table_body_data(data.table_data)
                             +                         this.create_subtotal_data()
                             +                         this.create_gross_TP_data()
                             +                         this.create_discount_data()
@@ -38,8 +45,8 @@ export default class SDR_015 {
                             +                         this.create_net_payable_data()
                             +                     '</tbody>'
                             +                 '</table>'
-                            +                 '<div class="status-section" style=" margin-top: 60px;">'
-                            +                     '<table style="width: 50%; margin-left: 10%;">'
+                            +                 '<div class="status-section" style=" margin-top: 20px;">'
+                            +                     '<table style="width: 50%; margin-left: 0%;">'
                             +                         '<tr>'
                             +                             '<td colspan="4"><p style="text-align: left; font-size: 16px; font-weight: 500;">Present Credit Status:</p></td>'
                             +                         '</tr>'
@@ -89,7 +96,7 @@ export default class SDR_015 {
         style += ''
               + '@page {'
               +     'size: 8.5in 11in;'
-              +     'margin: 25mm 0mm 15mm 0mm; border: 1px solid #000000'
+              +     'margin: 25mm 10mm 15mm 15mm; border: 1px solid #000000'
               + '}'
               // + '@page:last {'
               // +     '.footer {'
@@ -105,34 +112,17 @@ export default class SDR_015 {
             //      A4 => margin: 30mm 45mm 30mm 45mm;
               +
               + '@media print {'
-            /*  +     '@page {'
-              +          'size: A4;'
-              // +          'margin: 20mm 0 20mm 0;'
-              +     '}'
-              +     'body {'
-              +         'width: 21cm;'
-              +         'height: 29.7cm;'
-              // +         'margin: 30mm 45mm 30mm 45mm;'
-              +     '}' */
               +     'p {'
               +         'margin: 0px;'
               +         'font-family: sans-serif'
               +     '}'
-              /*--- Header ---*/
-              // +     '.header {'
-              // +         'position: static;'
-              // +         'bottom: 20px;'
-              // +         'left: 0px;'
-              // +         'width: 100%;'
-              // +         'background: gray;'
-              // +     '}'
               /*--- initial-data-section ---*/
               +     '.initial-data-section {'
               +         'display: block;'
               +         'width: 100%;'
               +         'overflow: hidden;'
               +         'position: relative;'
-              +         'padding-bottom: 20px;'
+            //   +         'padding-bottom: 20px;'
               +         'margin-bottom: 10px;'
               +     '}'
               +     '.left-section {'
@@ -146,15 +136,18 @@ export default class SDR_015 {
               +         'float: right'
               +     '}'
               +     '.initial-data-section p {'
-              +         'font-size: 14px;'
+              +         'font-size: 12px;'
               +         'line-height: 1;'
               +         'font-weight: 600;'
               +         'padding: 2px 0;'
               +         'margin: 2px 0;'
               +     '}'
               +     '.initial-data-section p span.label {'
+              +         'display: inline-block;'
+              +         'width: 95px;'
               +     '}'
               +     '.initial-data-section p span.label-value {'
+              +         'display: inline-block;'
               +     '}'
               +     '.initial-data-section p.order-no {'
               +         'margin: 0 auto;'
@@ -176,56 +169,14 @@ export default class SDR_015 {
               +         'border: 1px solid #000000; display: table-header-group;'
               +     '}'
               +     'tr {'
-              // +         'page-break-inside:avoid; page-break-after: auto;'
               +     '}'
               +     'thead tr th{'
               +         'border: 1px solid #000000'
               +     '}'
-              +     'tbody { display: table-header-group;'
-            //   +         'border: 1px solid #000000'
+              +     'tbody {'
+              +         'display: table-header-group;'
               +     '}'
-
-            //   +     'thead tr th, tbody tr td {'
-            //   +         'width: 5%'
-            //   +     '}'
-              // +     'thead tr th:nth-child(2),'
-              // +     'tbody tr td:nth-child(2) {'
-              // +         'width: 20%'
-              // +     '}'
-            //   +     'thead tr th:nth-child(7),'
-            //   +     'tbody tr td:nth-child(7) {'
-            //   +         'width: 10%'
-            //   +     '}'
-            //   +     'thead tr th:nth-child(9),'
-            //   +     'tbody tr td:nth-child(9) {'
-            //   +         'width: 10%'
-            //   +     '}'
-            //   +     'thead tr th:nth-child(12),'
-              // +     'tbody tr td:nth-child(12) {'
-            //   +         'width: 10%'
-              // +         'text-align: right;'
-              // +     '}'
-            //   +     'thead tr th:nth-child(13),'
-              // +     'tbody tr td:nth-child(13) {'
-            //   +         'width: 10%'
-              // +         'text-align: right;'
-              +     '}'
-              // +     '.footer {'
-              // +         'position: fixed;'
-              // +         'bottom: 20px;'
-              // +         'left: 0px;'
-              // +         'width: 100%;'
-              // +         'background: gray;'
-              // +     '}'
               + '}'
-
-              + '/*Page break class*/'
-              + '/*.page-break {'
-              +     'height: 0;'
-              +      'page-break-before: always;'
-              +     'margin: 0;'
-              +     'border-top: none;'
-              + '}*/'
         return style
     }
 
@@ -242,70 +193,81 @@ export default class SDR_015 {
       return header
     }
 
-    create_summery_section_data() {
-        let custoemrCode = 'DHK34105'
-        let custoemrName = 'LABAID CARDIAC HOSPITAL'
-        let address      = 'HOUSE-01, RAOD-04, DHANMONDI'
-        let moi_name     = 'SHAHIDUL ISLAM'
-        let sr_name      = 'RAMJAN ALI'
+    create_apendix(apendix_data) {
+        let apendix = ''
+        apendix += ''
+                + '<div style="width: 100%;">'
+                +     '<p style="text-align: left; font-size: 12px; line-height: 1.7; margin: 0;"><span style="display: inline-block; width: 50px;">Apendix</span><span>: ' + apendix_data.apendix + '</span></p>'
+                +     '<p style="text-align: left; font-size: 12px; line-height: 1.7; margin: 0;"><span style="display: inline-block; width: 50px;">Doc. No</span><span>: ' + apendix_data.doc_no + '</p>'
+                +     '<p style="text-align: left; font-size: 12px; line-height: 1.7; margin: 0;"><span style="display: inline-block; width: 50px;">Form No</span><span>: ' + apendix_data.form_no + '</p>'
+                + '</div>'
+        return apendix
+    }
 
-        let invoice_number = 'DHK081920086'
-        let invoice_date   = '30/09/2019'
-        let depot          = 'Dhaka Depot'
-        let t_code         = 'DHK341'
-        let date           = '29.09.2019'
+    create_summery_section_data(header_data) {
+        // let custoemrCode = 'DHK34105'
+        // let custoemrName = 'LABAID CARDIAC HOSPITAL'
+        // let address      = 'HOUSE-01, RAOD-04, DHANMONDI'
+        // let moi_name     = 'SHAHIDUL ISLAM'
+        // let sr_name      = 'RAMJAN ALI'
 
-        let order_no = '000380864-0601'
+        // let invoice_number = 'DHK081920086'
+        // let invoice_date   = '30/09/2019'
+        // let depot          = 'Dhaka Depot'
+        // let t_code         = 'DHK341'
+        // let date           = '29.09.2019'
+
+        // let order_no = '000380864-0601'
 
         let result = ''
                     + '<div class="initial-data-section">'
                     +     '<div class="left-section">'
                     +         '<p>'
                     +             '<span class="label">Customer Code</span>'
-                    +             '<span class="label-value">: ' + custoemrCode + '</span>'
+                    +             '<span class="label-value">: ' + header_data.customer_code + '</span>'
                     +         '</p>'
                     +         '<p>'
                     +             '<span class="label">Customer Name</span>'
-                    +             '<span class="label-value">: ' + custoemrName + '</span>'
+                    +             '<span class="label-value">: ' + header_data.customer_name + '</span>'
                     +         '</p>'
                     +         '<p>'
                     +             '<span class="label">Address</span>'
-                    +             '<span class="label-value">: ' + address + '</span>'
+                    +             '<span class="label-value">: ' + header_data.address + '</span>'
                     +         '</p>'
                     +         '<p>'
                     +             '<span class="label">MIO Name</span>'
-                    +             '<span class="label-value">: ' + moi_name + '</span>'
+                    +             '<span class="label-value">: ' + header_data.MIO_name + '</span>'
                     +         '</p>'
                     +         '<p>'
                     +             '<span class="label">S.R Name</span>'
-                    +             '<span class="label-value">: ' + sr_name + '</span>'
+                    +             '<span class="label-value">: ' + header_data.SR_name + '</span>'
                     +         '</p>'
                     +     '</div>'
                     +     '<div class="right-section">'
                     +         '<p>'
                     +             '<span class="label">Invoice No</span>'
-                    +             '<span class="label-value">: ' + invoice_number + '</span>'
+                    +             '<span class="label-value">: ' + header_data.invoice_no + '</span>'
                     +         '</p>'
                     +         '<p>'
                     +             '<span class="label">Invoice Date</span>'
-                    +             '<span class="label-value">: ' + invoice_date + '</span>'
+                    +             '<span class="label-value">: ' + header_data.invoice_date + '</span>'
                     +         '</p>'
                     +         '<p>'
                     +             '<span class="label">Depot</span>'
-                    +             '<span class="label-value">: ' + depot + '</span>'
+                    +             '<span class="label-value">: ' + header_data.depot + '</span>'
                     +         '</p>'
                     +         '<p>'
                     +             '<span class="label">T. Code</span>'
-                    +             '<span class="label-value">: ' + t_code + '</span>'
+                    +             '<span class="label-value">: ' + header_data.t_code + '</span>'
                     +         '</p>'
                     +         '<p>'
                     +             '<span class="label">Date</span>'
-                    +             '<span class="label-value">: ' + date + '</span>'
+                    +             '<span class="label-value">: ' + header_data.date + '</span>'
                     +         '</p>'
                     +     '</div>'
                     +     '<p class="order-no">'
                     +         '<span class="label">Order No:</span>'
-                    +         '<span class="label-value">' + order_no + '</span>'
+                    +         '<span class="label-value">' + header_data.order_no + '</span>'
                     +     '</p>'
                     + '</div>'
         return result
@@ -331,29 +293,46 @@ export default class SDR_015 {
                 +     '</tr>'
         return header
     }
+
+    create_multiple_person_table_body_data(data) {
+        let multiple_person_data = ''
+        for(let i=0; i<10; i++) {
+            multiple_person_data += this.create_table_body_data(data)
+        }
+        return multiple_person_data
+    }
     
     create_table_body_data(data) {
+        let deal_type = ''
+            deal_type += '' +
+                            '<tr>' +
+                                '<td colspan="13">' +
+                                    '<p style="font-size: 12px; font-weight: 600; line-height: 1.5; text-align: left; border-bottom: 1px solid #000000; margin: 0; width: 150px;">Product Type: ' + 'Regular' + '</p>' +
+                                '</td>' +
+                            '</tr>'
+        
         let result = ''
         for(let i=0; i<data.length; i++) {
             result +=   ''
                     +   '<tr style="page-break-before: always;">'
-                    +       '<td>' + data[i].sn + '</td>'
-                    +       '<td style="width: 20%;">' + data[i].product_name + '</td>'
-                    +       '<td>' + data[i].pack_size + '</td>'
-                    +       '<td>' + data[i].batch_no + '</td>'
-                    +       '<td>' + data[i].mfg_date + '</td>'
-                    +       '<td>' + data[i].eXP_date + '</td>'
-                    +       '<td>' + data[i].unit_price_TP_SP + '</td>'
-                    +       '<td>' + data[i].unit_VAT + '</td>'
-                    +       '<td>' + data[i].unit_price_with_VAT + '</td>'
-                    +       '<td>' + data[i].qty + '</td>'
-                    +       '<td>' + data[i].bonus + '</td>'
-                    +       '<td>' + data[i].total_VAT + '</td>'
-                    +       '<td>' + data[i].total_TP_SP + '</td>'
+                    +       '<td style="border: 1px solid #000000;">' + (i + 1) + '</td>'
+                    +       '<td style="border: 1px solid #000000; width: 20%; text-align: left;">' + data[i].product_name + '</td>'
+                    +       '<td style="border: 1px solid #000000;">' + data[i].pack_size + '</td>'
+                    +       '<td style="border: 1px solid #000000;">' + data[i].batch_no + '</td>'
+                    +       '<td style="border: 1px solid #000000;">' + data[i].mfg_date + '</td>'
+                    +       '<td style="border: 1px solid #000000;">' + data[i].eXP_date + '</td>'
+                    +       '<td style="border: 1px solid #000000; text-align: right;">' + data[i].unit_price_TP_SP + '</td>'
+                    +       '<td style="border: 1px solid #000000; text-align: right;">' + data[i].unit_VAT + '</td>'
+                    +       '<td style="border: 1px solid #000000; text-align: right;">' + data[i].unit_price_with_VAT + '</td>'
+                    +       '<td style="border: 1px solid #000000;">' + data[i].qty + '</td>'
+                    +       '<td style="border: 1px solid #000000;">' + data[i].bonus + '</td>'
+                    +       '<td style="border: 1px solid #000000; text-align: right;">' + data[i].total_VAT + '</td>'
+                    +       '<td style="border: 1px solid #000000; text-align: right;">' + data[i].total_TP_SP + '</td>'
                     +   '</tr>'
         }
         // return result + result + result + result + result + result + result + result + result+ result + result + result + result + result + result + result
-        return result + result + result
+        // return deal_type + result + deal_type + result +deal_type + result
+        return deal_type + result
     }
 
     create_subtotal_data() {
@@ -367,8 +346,8 @@ export default class SDR_015 {
                     +       '<td>' + '' + '</td>'
                     +       '<td>' + '' + '</td>'
                     +       '<td colspan="5" style="text-align: right;">' + 'Sub Total :' + '</td>'
-                    +       '<td style="text-align: right; border-top: 1px solid #000000;">' + '16,806.27' + '</td>'
-                    +       '<td style="text-align: right; border-top: 1px solid #000000;">' + '96,587.77' + '</td>'
+                    +       '<td style="text-align: right; border: 1px solid #000000;">' + '16,806.27' + '</td>'
+                    +       '<td style="text-align: right; border: 1px solid #000000;">' + '96,587.77' + '</td>'
                     +   '</tr>'
         return subtotal
     }
@@ -384,8 +363,8 @@ export default class SDR_015 {
                     // +       '<td>' + '' + '</td>'
                     // +       '<td>' + '' + '</td>'
                     +       '<td colspan="2" style="text-align: right;">' + 'Gross TP :' + '</td>'
-                    +       '<td style="text-align: right; border-top: 1px solid #000000;">' + '16,806.27' + '</td>'
-                    +       '<td style="text-align: right; border-top: 1px solid #000000;">' + '96,587.77' + '</td>'
+                    +       '<td style="text-align: right; border: 1px solid #000000;">' + '16,806.27' + '</td>'
+                    +       '<td style="text-align: right; border: 1px solid #000000;">' + '96,587.77' + '</td>'
                     +   '</tr>'
         return gross_tp
     }
@@ -401,8 +380,8 @@ export default class SDR_015 {
                     +       '<td>' + '' + '</td>'
                     +       '<td>' + '' + '</td>'
                     +       '<td colspan="5" style="text-align: right;">' + 'Less discount 5% on TP :' + '</td>'
-                    +       '<td style="text-align: right; border-top: 1px solid #000000;">' + '16,806.27' + '</td>'
-                    +       '<td style="text-align: right; border-top: 1px solid #000000;">' + '96,587.77' + '</td>'
+                    +       '<td style="text-align: right; border: 1px solid #000000;">' + '16,806.27' + '</td>'
+                    +       '<td style="text-align: right; border: 1px solid #000000;">' + '96,587.77' + '</td>'
                     +   '</tr>'
         return discount
     }
@@ -418,8 +397,8 @@ export default class SDR_015 {
                     +       '<td>' + '' + '</td>'
                     +       '<td>' + '' + '</td>'
                     +       '<td colspan="5" style="text-align: right;">' + 'Add VAT on TP :' + '</td>'
-                    +       '<td style="text-align: right; border-top: 1px solid #000000;">' + '16,806.27' + '</td>'
-                    +       '<td style="text-align: right; border-top: 1px solid #000000;">' + '96,587.77' + '</td>'
+                    +       '<td style="text-align: right; border: 1px solid #000000;">' + '16,806.27' + '</td>'
+                    +       '<td style="text-align: right; border: 1px solid #000000;">' + '96,587.77' + '</td>'
                     +   '</tr>'
         return vat
     }
@@ -435,8 +414,8 @@ export default class SDR_015 {
                     +       '<td>' + '' + '</td>'
                     +       '<td>' + '' + '</td>'
                     +       '<td colspan="5" style="text-align: right;">' + 'Rounding Adjustment :' + '</td>'
-                    +       '<td style="text-align: right; border-top: 1px solid #000000;">' + '16,806.27' + '</td>'
-                    +       '<td style="text-align: right; border-top: 1px solid #000000;">' + '96,587.77' + '</td>'
+                    +       '<td style="text-align: right; border: 1px solid #000000;">' + '16,806.27' + '</td>'
+                    +       '<td style="text-align: right; border: 1px solid #000000;">' + '96,587.77' + '</td>'
                     +   '</tr>'
         return rounding_adjustment
     }
@@ -452,8 +431,8 @@ export default class SDR_015 {
                     +       '<td>' + '' + '</td>'
                     +       '<td>' + '' + '</td>'
                     +       '<td colspan="5" style="text-align: right;">' + 'Net Payable :' + '</td>'
-                    +       '<td style="text-align: right; border-top: 1px solid #000000; border-bottom: 1px solid #000000;">' + '16,806.27' + '</td>'
-                    +       '<td style="text-align: right; border-top: 1px solid #000000; border-bottom: 1px solid #000000;">' + '96,587.77' + '</td>'
+                    +       '<td style="text-align: right; border: 1px solid #000000; border-bottom: 1px solid #000000;">' + '16,806.27' + '</td>'
+                    +       '<td style="text-align: right; border: 1px solid #000000; border-bottom: 1px solid #000000;">' + '96,587.77' + '</td>'
                     +   '</tr>'
         return net_payable
     }

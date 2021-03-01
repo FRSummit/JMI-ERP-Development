@@ -60,7 +60,8 @@
                         <div class="customer-address-section">
                             <div class="customer-address-section-inner">
                                 <div class="address-section">
-                                    <p class="customer-address"><span>Order ID: {{ customer ? customer.id : 'XXXX' }}</span>|<span>Total Bill: {{ customer ? customer.net_total : '00.00' }}</span></p>
+                                    <!-- <p class="customer-address"><span>Order No: {{ customer ? customer.id : 'XXXX' }}</span>|<span>Total Bill: {{ customer ? customer.net_total : '00.00' }}</span></p> -->
+                                    <p class="customer-address"><span>Total Bill: {{ customer ? customer.net_total : '00.00' }}</span></p>
                                     <!-- <span class="checkbox">
                                         <input type="checkbox" :id="'order-approval-checkbox-' + c" :name="customer ? customer.customer_id : 0" :value="customer ? customer.customer_id : 0">
                                     </span> -->
@@ -77,7 +78,7 @@
                 <p class="sort-text">Sort by</p>
                 <div class="sort-section">
                     <div class="sort-section-inner">
-                        <div class="input-section">
+                        <!-- <div class="input-section">
                             <div class="select-options">
                                 <span class="right-icon"
                                     ><i class="fas fa-chevron-right"></i
@@ -88,7 +89,7 @@
                                     </option>
                                 </select>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="assending-desending-sort">
                             <form class="input-btns">
                                 <p><input type="radio" checked="checked" name="serialRange" value="a_to_z" @change="onChange('a_to_z')" /> <span :class="radioSpanDefaultClass">A-Z</span></p>
@@ -97,7 +98,7 @@
                         </div>
                     </div>
                 </div>
-                <p class="filter-text">Filter by</p>
+                <!-- <p class="filter-text">Filter by</p>
                 <div class="filter-section">
                     <div class="filter-section-inner">
                         <p class="type">Customer Type</p>
@@ -112,7 +113,7 @@
                             </select>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
         <!--  -->
@@ -337,10 +338,12 @@ export default {
                 case 'a_to_z':
                     this.radioSpanDefaultClass = 'active'
                     this.radioSpanCustomClass = ''
+                    this.ALL_PENDING_ORDERS_CUSTOMER_LIST.sort()
                     break
                 case 'z_to_a':
                     this.radioSpanDefaultClass = ''
                     this.radioSpanCustomClass = 'active'
+                    this.ALL_PENDING_ORDERS_CUSTOMER_LIST.sort().reverse()
                     break
                 default:
                     break

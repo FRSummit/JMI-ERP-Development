@@ -2,6 +2,7 @@
     <div id="create-order-details-section" class="create-order-details-section">
         <div id="progressbar" class="jmi-progressbar" v-if="!customer_data">
             <v-progress-circular indeterminate color="primary"></v-progress-circular>
+            <p>Please select a customer</p>
         </div>
         <div class="create-order-details-section-inner" v-if="customer_data">
             <div class="title-section">
@@ -96,6 +97,7 @@
                         <tbody>
                             <div id="progressbar" class="jmi-progressbar" v-if="ORDERED_TABLE_DATA__INIT_LIST.length <= 0">
                                 <v-progress-circular indeterminate color="primary"></v-progress-circular>
+                                    <p>Please add a product</p>
                             </div>
                             <div class="table-data-rows" v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">
                                 <!-- <tr v-for="(data, i) in (order_table_modified_data.length > 0 ? order_table_modified_data : ORDERED_TABLE_DATA__INIT_LIST)" :key="i"> -->
@@ -152,14 +154,14 @@
                             </tr>
                             <tr class="subtotal bottom-total" v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">
                                 <td style="width: 50%;"></td>
-                                <td style="width: 25%;">(-) Discount</td>
-                                <td style="width: 15%;">{{ Number(discount_total).toFixed(2) }}</td>
+                                <td style="width: 25%;">Gross Total</td>
+                                <td style="width: 15%;">{{ Number(gross_total).toFixed(2) }}</td>
                                 <td style="width: 10%; min-width: 70px;"></td>
                             </tr>
                             <tr class="subtotal bottom-total" v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">
                                 <td style="width: 50%;"><span class="add-order-attachment-section add-attachment" @click="addAttachmentClickHandler"><i class="zmdi zmdi-attachment-alt"></i>Attachment</span></td>
-                                <td style="width: 25%;">Gross Total</td>
-                                <td style="width: 15%;">{{ Number(gross_total).toFixed(2) }}</td>
+                                <td style="width: 25%;">(-) Discount</td>
+                                <td style="width: 15%;">{{ Number(discount_total).toFixed(2) }}</td>
                                 <td style="width: 10%; min-width: 70px;"></td>
                             </tr>
                             <!-- <tr class="subtotal bottom-total">
@@ -214,6 +216,12 @@
                                 <div class="autofield-show-section-inner">
                                     <div class="header">
                                         <input id="create-order-add-product" class="jmi-auto-filter-input" type="text" placeholder="Search By Name or Product ID" v-on:keyup="searchKeyUpAddProductHandler" />
+                                        <tr class="jmi-add-product-autofill-header-row">
+                                            <td><span class="td-span-title">Name</span></td>
+                                            <td><span class="td-span-title">Quantity</span></td>
+                                            <td></td>
+                                            <td><span class="td-span-title">Option</span></td>
+                                        </tr>
                                     </div>
                                     <div class="response-body">
                                         <div id="progressbar" class="jmi-progressbar" v-if="!auto_field_data">
@@ -223,7 +231,7 @@
                                             <td>
                                                 <!-- <span class="responer-body-filter-tag">{{ data ? data.product_info.prod_name : "" }}</span> -->
                                                 <span class="responer-body-filter-tag">{{ data ? data.prod_name : "" }}</span>
-                                                <span>{{ data ? (data.display_code ? ('Code: ' + data.display_code) : '') : "" }} {{ data ? (data.offer ? ('| ' + data.offer) : '') : "" }}<span class="responer-body-filter-tag-id" style="display: inline-block; margin-left: 2px;">{{ data ? (data.prod_id ? (' | ID: ' + data.prod_id) : '') : "" }}</span></span>
+                                                <span>{{ data ? (data.display_code ? ('Code: ' + data.display_code) : '') : "" }} {{ data ? (data.offer ? ('| ' + data.offer) : '') : "" }}<span class="responer-body-filter-tag-id hide" style="display: inline-block; margin-left: 2px;">{{ data ? (data.prod_id ? (' | ID: ' + data.prod_id) : '') : "" }}</span></span>
                                             </td>
                                             <td>
                                                 <span class="quantity-setup">
@@ -260,7 +268,7 @@
                                     <td>
                                         <!-- <span>{{  data ? data.product_info.prod_name : ""  }}</span> -->
                                         <span>{{  data ? data.prod_name : ""  }}</span>
-                                        <span>Code: {{ data ? (data.display_code ? data.display_code : data.prod_id) : "" }}<span class="responer-body-filter-tag-id" style="display: inline-block; margin-left: 2px;"> | ID: {{ data ? (data.prod_id ? (data.prod_id) : '') : "" }}</span></span>
+                                        <span>Code: {{ data ? (data.display_code ? data.display_code : data.prod_id) : "" }}<span class="responer-body-filter-tag-id hide" style="display: inline-block; margin-left: 2px;"> | ID: {{ data ? (data.prod_id ? (data.prod_id) : '') : "" }}</span></span>
                                     </td>
                                     <td>
                                         <span class="quantity-setup">
@@ -735,7 +743,7 @@ export default {
             // this.sub_total = this.sub_total
             // this.vat = this.vat
             // this.vat = this.discount
-            this.gross_total = this.sub_total + this.vat_total - this.discount_total
+            this.gross_total = this.sub_total + this.vat_total
             // this.gross_total = this.gross_total
             // this.rounding_adjustment = this.rounding_adjustment
             this.grand_total = this.sub_total + this.vat_total - this.discount_total

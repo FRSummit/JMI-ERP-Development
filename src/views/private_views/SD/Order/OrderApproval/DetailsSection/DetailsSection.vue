@@ -1,6 +1,10 @@
 <template>
     <div id="order-approval-details-section" class="order-approval-details-section">
-        <div class="order-approval-details-section-inner">
+        <div id="progressbar" class="jmi-progressbar" v-if="!ORDERED_TABLE_DATA__INIT_LIST">
+            <v-progress-circular indeterminate color="primary"></v-progress-circular>
+            <p>Please select an order</p>
+        </div>
+        <div class="order-approval-details-section-inner" v-if="ORDERED_TABLE_DATA__INIT_LIST">
             <div class="title-section">
                 <div class="row">
                     <div class="col-lg-4 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Order ID:</span><span class="id">{{ pending_order_list_by_id ? pending_order_list_by_id.order_no : "000" }}</span><span class="customer-type">Dummy: Cash</span></p></div>
@@ -45,22 +49,22 @@
                             <div class="sr" style="display: table-cell; width: 33%; padding-right: 20px; padding-bottom: 0; vertical-align: middle;">
                                 <span class="jmi-lvl">SR: </span>
                                 <p class="selectpicker-pera"> 
-                                    <span class="jmi-lvl-value">{{ selected_sr }}</span>
-                                    <!-- <span class="jmi-lvl-value">{{ selected_sr }}</span>
-                                    <span class="sr-add-icon" @click="srAddIconClickHandler"><i class="zmdi zmdi-plus"></i></span>
+                                    <!-- <span class="jmi-lvl-value">{{ selected_sr }}</span> -->
+                                    <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ selected_sr }}</span>
                                     <span class="sr-modal" v-if="sr_add_modal">
                                         <span class="sr-modal-inner" v-click-outside="srModalSectionOutsideClick">
                                             <span class="jmi-title">Select SR</span>
-                                            <span class="sr-loop" v-for="(sr, m) in sr_list" :key="m">
+                                            <span class="sr-loop" v-for="(sr, m) in SR_LIST__DA" :key="m">
                                                 <span  class="sr-name" @click="selectedSRClickHandler(sr.name)">{{ sr.name }}</span>
                                             </span>
                                         </span>
-                                    </span> -->
+                                    </span>
                                 </p>
+                                <span class="sr-add-icon" @click="srAddIconClickHandler"><i class="zmdi zmdi-plus"></i></span>
                             </div>
                         </div>
-                        <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="delivery-dt"><span class="jmi-lvl">Exp D D:</span> <span class="jmi-lvl-value"><input type="date" id="expected-delivery-date" placeholder="09/12/2020"/></span></p></div> -->
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="delivery-dt"><span class="jmi-lvl">Exp D D:</span> <span class="jmi-lvl-value">{{ pending_order_list_by_id ? (pending_order_list_by_id.order_date ? (pending_order_list_by_id.order_date).split(' ')[0] : 'Date Not Found') : 'Not Found' }}</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="delivery-dt"><span class="jmi-lvl">Exp D D:</span> <span class="jmi-lvl-value"><input type="date" v-model="header_date" id="expected-delivery-date" placeholder="09/12/2020" /></span></p></div>
+                        <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="delivery-dt"><span class="jmi-lvl">Exp D D:</span> <span class="jmi-lvl-value">{{ pending_order_list_by_id ? (pending_order_list_by_id.order_date ? (pending_order_list_by_id.order_date).split(' ')[0] : 'Date Not Found') : 'Not Found' }}</span></p></div> -->
                     </div>
                     <!-- <div class="row">
                         <div class="col-lg-3 col-md-6 col-sm-6"><p class="delivery-dt"><span class="jmi-lvl">Exp D D:</span> <span class="jmi-lvl-value"><input type="date" id="expected-delivery-date" placeholder="09/12/2020"/></span></p></div>
@@ -90,6 +94,7 @@
                                 <!-- <tr v-for="(data, i) in pending_order_list_by_id ? pending_order_list_by_id.order_details : null" :key="i"> -->
                                 <div id="progressbar" class="jmi-progressbar" v-if="!ORDERED_TABLE_DATA__INIT_LIST">
                                     <v-progress-circular indeterminate color="primary"></v-progress-circular>
+                                    <p>Please select an order</p>
                                 </div>
                                 <div v-if="ORDERED_TABLE_DATA__INIT_LIST">
                                     <tr v-for="(data, i) in ORDERED_TABLE_DATA__INIT_LIST" :key="i">
@@ -161,24 +166,40 @@
                                     <td style="width: 50%;"><span class="add-order-attachment-section add-order" @click="addOrderClickHandler"><i class="zmdi zmdi-plus"></i>Add Products</span></td>
                                     <td style="width: 25%;"><span>Subtotal</span></td>
                                     <td style="width: 15%;"><span>{{ ( Number(pending_order_list_by_id ? pending_order_list_by_id.gross_tp : 0).toFixed(2) ) }}</span></td>
+                                    <!-- <td style="width: 15%;">
+                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length === 0">{{ ( Number(pending_order_list_by_id ? pending_order_list_by_id.gross_tp : 0).toFixed(2) ) }}</span>
+                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length > 0">{{  Number( parseFloat( Number(pending_order_list_by_id ? (pending_order_list_by_id.gross_tp) : 0).toFixed(2) ) + parseFloat(sub_total) ).toFixed(2) }}</span>
+                                    </td> -->
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
                                 <tr class="subtotal bottom-total">
                                     <td style="width: 50%;"></td>
                                     <td style="width: 25%;">(+) Vat</td>
                                     <td style="width: 15%;">{{ Number(pending_order_list_by_id ? pending_order_list_by_id.total_vat : 0).toFixed(2) }}</td>
+                                    <!-- <td style="width: 15%;">
+                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length === 0">{{ Number(pending_order_list_by_id ? pending_order_list_by_id.total_vat : 0).toFixed(2) }}</span>
+                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length > 0">{{  Number( parseFloat( Number(pending_order_list_by_id ? (pending_order_list_by_id.total_vat) : 0).toFixed(2) ) + parseFloat(vat_total) ).toFixed(2) }}</span>
+                                    </td> -->
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
                                 <tr class="subtotal bottom-total">
                                     <td style="width: 50%;"></td>
                                     <td style="width: 25%;">Gross Total</td>
                                     <td style="width: 15%;">{{ Number(pending_order_list_by_id ? pending_order_list_by_id.gross_total : 0).toFixed(2) }}</td>
+                                    <!-- <td style="width: 15%;">
+                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length === 0">{{ Number(pending_order_list_by_id ? pending_order_list_by_id.gross_total : 0).toFixed(2) }}</span>
+                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length > 0">{{ Number( parseFloat( Number(pending_order_list_by_id ? (pending_order_list_by_id.gross_total) : 0).toFixed(2) ) + parseFloat(vat_total) ).toFixed(2) }}</span>
+                                    </td> -->
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
                                 <tr class="subtotal bottom-total">
                                     <td style="width: 50%;"><span class="add-order-attachment-section add-attachment" @click="addAttachmentClickHandler"><i class="zmdi zmdi-attachment-alt"></i>Attachment</span></td>
                                     <td style="width: 25%;">(-) Discount</td>
                                     <td style="width: 15%;">{{ Number(pending_order_list_by_id ? pending_order_list_by_id.total_discount : 0).toFixed(2) }}</td>
+                                    <!-- <td style="width: 15%;">
+                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length === 0">{{ Number(pending_order_list_by_id ? pending_order_list_by_id.total_discount : 0).toFixed(2) }}</span>
+                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length > 0">{{ Number( parseFloat( Number(pending_order_list_by_id ? (pending_order_list_by_id.total_discount) : 0).toFixed(2) ) + parseFloat(vat_total) ).toFixed(2) }}</span>
+                                    </td> -->
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
                                 <!-- <tr class="subtotal bottom-total">
@@ -194,6 +215,10 @@
                                     </td>
                                     <td style="width: 25%;">Grand Total</td>
                                     <td style="width: 15%;">{{ Number(pending_order_list_by_id ? pending_order_list_by_id.net_total : 0).toFixed(2) }}</td>
+                                    <!-- <td style="width: 15%;">
+                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length === 0">{{ Number(pending_order_list_by_id ? pending_order_list_by_id.net_total : 0).toFixed(2) }}</span>
+                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length > 0">{{ Number( parseFloat( Number(pending_order_list_by_id ? (pending_order_list_by_id.net_total) : 0).toFixed(2) ) + parseFloat(vat_total) ).toFixed(2) }}</span>
+                                    </td> -->
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
                             </div>
@@ -232,6 +257,12 @@
                                 <div class="autofield-show-section-inner">
                                     <div class="header">
                                         <input id="order-approval-add-product" class="jmi-auto-filter-input" type="text" placeholder="Search By Batch Number" v-on:keyup="searchKeyUpAddProductHandler" />
+                                        <tr class="jmi-add-product-autofill-header-row">
+                                            <td><span class="td-span-title">Name</span></td>
+                                            <td><span class="td-span-title">Quantity</span></td>
+                                            <td></td>
+                                            <td><span class="td-span-title">Option</span></td>
+                                        </tr>
                                     </div>
                                     <div class="response-body">
                                         <div id="progressbar" class="jmi-progressbar" v-if="!PRODUCT_MODAL_DATA_LIST">
@@ -240,7 +271,7 @@
                                         <tr class="responer-body-filter-output" v-for="(data, i) in PRODUCT_MODAL_DATA_LIST" :key="i">
                                             <td>
                                                 <span class="responer-body-filter-tag">{{  data ? data.prod_name : "" }}</span>
-                                                <span>{{ data ? (data.display_code ? ('Code: ' + data.display_code) : '') : "" }} {{ data ? (data.offer ? ('| ' + data.offer) : '') : "" }}<span class="responer-body-filter-tag-id" style="display: inline-block; margin-left: 2px;">{{ data ? (data.prod_id ? (' | ID: ' + data.prod_id) : '') : "" }}</span></span>
+                                                <span>{{ data ? (data.display_code ? ('Code: ' + data.display_code) : '') : "" }} {{ data ? (data.offer ? ('| ' + data.offer) : '') : "" }}<span class="responer-body-filter-tag-id hide" style="display: inline-block; margin-left: 2px;">{{ data ? (data.prod_id ? (' | ID: ' + data.prod_id) : '') : "" }}</span></span>
                                             </td>
                                             <td>
                                                 <span class="quantity-setup">
@@ -276,7 +307,7 @@
                                 <tr v-for="(data, i) in SELECTED_ORDERED_PRODUCTS__INIT_LIST" :key="i">
                                     <td>
                                         <span>{{  data ? data.prod_name : ""  }}</span>
-                                        <span>Code: {{ data ? (data.display_code ? data.display_code : data.prod_id) : "" }}<span class="responer-body-filter-tag-id" style="display: inline-block; margin-left: 2px;"> | ID: {{ data ? (data.prod_id ? (data.prod_id) : '') : "" }}</span></span>
+                                        <span>Code: {{ data ? (data.display_code ? data.display_code : data.prod_id) : "" }}<span class="responer-body-filter-tag-id hide" style="display: inline-block; margin-left: 2px;"> | ID: {{ data ? (data.prod_id ? (data.prod_id) : '') : "" }}</span></span>
                                     </td>
                                     <td>
                                         <span class="quantity-setup">
@@ -432,8 +463,8 @@
                                 <img src="../../../../../../assets/icons/user.png" alt="logo">
                             </div>
                             <div class="title-section">
-                                <p class="name">ABI Pharmacy and Diagnostic Center<span class="tik-icon"><i class="zmdi zmdi-check"></i></span></p>
-                                <p class="id">JMI-2231225</p>
+                                <p class="name">{{ SHOW_CUSTOMER_PROFILE ? SHOW_CUSTOMER_PROFILE.display_name : '' }}<span class="tik-icon"><i class="zmdi zmdi-check"></i></span></p>
+                                <p class="id">{{ pending_order_list_by_id ? (pending_order_list_by_id.order_no) : '' }}</p>
                             </div>
                             <div class="tab-section">
                                 <div class="tab-section-inner">
@@ -441,15 +472,15 @@
                                         <b-tab title="Basic" active>
                                             <div class="basic-section">
                                                 <div class="basic-section-inner">
-                                                    <p class="basic-data"><span class="lvl">Customer Name:</span><span class="lvl-value">New Gulshan Pharma</span></p>
-                                                    <p class="basic-data"><span class="lvl">Contact Number:</span><span class="lvl-value">+8801847417317</span></p>
-                                                    <p class="basic-data"><span class="lvl">Email Address:</span><span class="lvl-value">kollolpharma336@gmail.com</span></p>
-                                                    <p class="basic-data"><span class="lvl">Address:</span><span class="lvl-value">15 Genda, Dhaka-Aricha Hwy, Savar Union, Dhaka 1212</span></p>
-                                                    <p class="basic-data"><span class="lvl">Customer Type:</span><span class="lvl-value">Chemist</span></p>
-                                                    <p class="basic-data"><span class="lvl">Sales Area:</span><span class="lvl-value">Savar Bazar</span></p>
-                                                    <p class="basic-data"><span class="lvl">Sales Center:</span><span class="lvl-value">Savar Bazar</span></p>
-                                                    <p class="basic-data"><span class="lvl">Credit Limit:</span><span class="lvl-value">2,00,000</span></p>
-                                                    <p class="basic-data"><span class="lvl">Type of Payment:</span><span class="lvl-value">Cash</span></p>
+                                                    <p class="basic-data"><span class="lvl">Customer Name:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? SHOW_CUSTOMER_PROFILE.display_name : '' }}</span></p>
+                                                    <p class="basic-data"><span class="lvl">Contact Number:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_info ? (SHOW_CUSTOMER_PROFILE.customer_info.person_info ? (SHOW_CUSTOMER_PROFILE.customer_info.person_info.phone ? (SHOW_CUSTOMER_PROFILE.customer_info.person_info.phone) : '') : '') : '') : '' }}</span></p>
+                                                    <p class="basic-data"><span class="lvl">Email Address:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_info ? (SHOW_CUSTOMER_PROFILE.customer_info.person_info ? (SHOW_CUSTOMER_PROFILE.customer_info.person_info.email ? (SHOW_CUSTOMER_PROFILE.customer_info.person_info.email) : '') : '') : '') : '' }}</span></p>
+                                                    <p class="basic-data"><span class="lvl">Address:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_info ? (SHOW_CUSTOMER_PROFILE.customer_info.person_info ? (SHOW_CUSTOMER_PROFILE.customer_info.person_info.address ? (SHOW_CUSTOMER_PROFILE.customer_info.person_info.address) : '') : '') : '') : '' }}</span></p>
+                                                    <p class="basic-data"><span class="lvl">Customer Type:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_info ? (SHOW_CUSTOMER_PROFILE.customer_info.customer_type ? (SHOW_CUSTOMER_PROFILE.customer_info.customer_type.description) : '') : '') : '' }}</span></p>
+                                                    <p class="basic-data"><span class="lvl">Sales Area:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_area_info ? (SHOW_CUSTOMER_PROFILE.customer_area_info.sales_area ? (SHOW_CUSTOMER_PROFILE.customer_area_info.sales_area.area_name ? (SHOW_CUSTOMER_PROFILE.customer_area_info.sales_area.area_name) : '') : '') : '') : '' }}</span></p>
+                                                    <p class="basic-data"><span class="lvl">Sales Center:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_area_info ? (SHOW_CUSTOMER_PROFILE.customer_area_info.sales_area ? (SHOW_CUSTOMER_PROFILE.customer_area_info.sales_area.area_name ? (SHOW_CUSTOMER_PROFILE.customer_area_info.sales_area.area_name) : '') : '') : '') : '' }}</span></p>
+                                                    <!-- <p class="basic-data"><span class="lvl">Credit Limit:</span><span class="lvl-value">2,00,000</span></p> -->
+                                                    <p class="basic-data"><span class="lvl">Type of Payment:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.credit_flag === 'Y' ? 'Cash' : 'Credit') : '' }}</span></p>
                                                 </div>
                                             </div>
                                         </b-tab>
@@ -457,14 +488,14 @@
                                             <div class="account-section">
                                                 <div class="account-section-inner">
                                                     <div class="jmi-row">
-                                                        <p class="jmi-col_33"><span class="jmi-lvl">Total Order:</span><span class="jmi-lvl-value">00</span></p>
-                                                        <p class="jmi-col_33"><span class="jmi-lvl">Total Invoice:</span><span class="jmi-lvl-value">00</span></p>
-                                                        <p class="jmi-col_33"><span class="jmi-lvl">In Transit:</span><span class="jmi-lvl-value">00</span></p>
+                                                        <p class="jmi-col_33"><span class="jmi-lvl">Total Order:</span><span class="jmi-lvl-value">{{ SHOW_CUSTOMER_PROFILE ? SHOW_CUSTOMER_PROFILE.total_order : '' }}</span></p>
+                                                        <p class="jmi-col_33"><span class="jmi-lvl">Total Invoice:</span><span class="jmi-lvl-value">{{ SHOW_CUSTOMER_PROFILE ? SHOW_CUSTOMER_PROFILE.total_invoice : '' }}</span></p>
+                                                        <p class="jmi-col_33"><span class="jmi-lvl">In Transit:</span><span class="jmi-lvl-value">{{ SHOW_CUSTOMER_PROFILE ? SHOW_CUSTOMER_PROFILE.total_order : '' }}</span></p>
                                                     </div>
                                                     <div class="jmi-row">
-                                                        <p class="jmi-col_33"><span class="jmi-lvl">Credit Limit:</span><span class="jmi-lvl-value">00</span></p>
-                                                        <p class="jmi-col_33"><span class="jmi-lvl">Current Outstanding:</span><span class="jmi-lvl-value">00</span></p>
-                                                        <p class="jmi-col_33"><span class="jmi-lvl">Available Limit:</span><span class="jmi-lvl-value">00</span></p>
+                                                        <p class="jmi-col_33"><span class="jmi-lvl">Credit Limit:</span><span class="jmi-lvl-value">{{ SHOW_CUSTOMER_PROFILE ? SHOW_CUSTOMER_PROFILE.total_order : '' }}</span></p>
+                                                        <p class="jmi-col_33"><span class="jmi-lvl">Current Outstanding:</span><span class="jmi-lvl-value">{{ SHOW_CUSTOMER_PROFILE ? SHOW_CUSTOMER_PROFILE.total_order : '' }}</span></p>
+                                                        <p class="jmi-col_33"><span class="jmi-lvl">Available Limit:</span><span class="jmi-lvl-value">{{ SHOW_CUSTOMER_PROFILE ? SHOW_CUSTOMER_PROFILE.total_order : '' }}</span></p>
                                                     </div>
                                                     <div class="jmi-row">
                                                         <p class="jmi-col_33"><span class="jmi-lvl">Transactions History</span></p>
@@ -501,11 +532,11 @@
                                         <b-tab title="Business">
                                             <div class="business-section">
                                                 <div class="business-section-inner">
-                                                    <p class="business-data"><span class="lvl">Vat Registration Number:</span><span class="lvl-value">223558 663 12158</span></p>
-                                                    <p class="business-data"><span class="lvl">Trade License:</span><span class="lvl-value">223558 663 12158</span></p>
-                                                    <p class="business-data"><span class="lvl">VIN:</span><span class="lvl-value">223558 663 12158</span></p>
-                                                    <p class="business-data"><span class="lvl">TIN:</span><span class="lvl-value">223558 663 12158</span></p>
-                                                    <p class="business-data"><span class="lvl">BIN:</span><span class="lvl-value">223558 663 12158</span></p>
+                                                    <p class="business-data"><span class="lvl">Vat Registration Number:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_info ? (SHOW_CUSTOMER_PROFILE.customer_info.vat_reg_no ? SHOW_CUSTOMER_PROFILE.customer_info.vat_reg_no : '') : '') : '' }}</span></p>
+                                                    <p class="business-data"><span class="lvl">Trade License:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_info ? (SHOW_CUSTOMER_PROFILE.customer_info.trade_licence_no ? SHOW_CUSTOMER_PROFILE.customer_info.trade_licence_no : '') : '') : '' }}</span></p>
+                                                    <p class="business-data"><span class="lvl">VIN:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_info ? (SHOW_CUSTOMER_PROFILE.customer_info.vin_no ? SHOW_CUSTOMER_PROFILE.customer_info.vin_no : '') : '') : '' }}</span></p>
+                                                    <p class="business-data"><span class="lvl">TIN:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_info ? (SHOW_CUSTOMER_PROFILE.customer_info.tin_no ? SHOW_CUSTOMER_PROFILE.customer_info.tin_no : '') : '') : '' }}</span></p>
+                                                    <p class="business-data"><span class="lvl">BIN:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_info ? (SHOW_CUSTOMER_PROFILE.customer_info.bin_no ? SHOW_CUSTOMER_PROFILE.customer_info.bin_no : '') : '') : '' }}</span></p>
                                                 </div>
                                             </div>
                                         </b-tab>
@@ -528,8 +559,8 @@
                                                             <div v-html="infoContent"></div>
                                                         </gmap-info-window>
                                                     </gmap-map>
-                                                    <p class="location-details"><span class="icon"><i class="zmdi zmdi-pin"></i></span>63/C Lake Circus, West Panthapath, Dhaka 1205</p>
-                                                    <p class="union-type"><span>Micro Union</span></p>
+                                                    <p class="location-details"><span class="icon"><i class="zmdi zmdi-pin"></i></span>{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_info ? (SHOW_CUSTOMER_PROFILE.customer_info.person_info ? (SHOW_CUSTOMER_PROFILE.customer_info.person_info.address ? (SHOW_CUSTOMER_PROFILE.customer_info.person_info.address) : '') : '') : '') : '' }}</p>
+                                                    <p class="union-type"><span>Dummy: Micro Union</span></p>
                                                 </div>
                                             </div>
                                         </b-tab>
@@ -562,6 +593,8 @@ export default {
     data() {
         return {
             on_change_SR_dropdown: null,
+            SR_LIST__DA: [],
+            header_date: null,
             sr_list: [
                 {
                     name: "SR 1"
@@ -1028,16 +1061,18 @@ export default {
             DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST_2: [],
             ORDERED_TABLE_DATA__INIT_LIST: this.pending_order_list_by_id.order_details,
             ORDERED_TABLE_DATA__INIT_LIST_2: [],
+            SHOW_CUSTOMER_PROFILE: [],
         }
     },
     created() {
         // console.log(this.pending_order_list_by_id)
     },
-    mounted() {
+    async mounted() {
         this.$getLocation({})
         .then( coordinates => {
             console.log(coordinates)
         })
+        await this.DIC_WISE_USERS__FROM_SERVICE()
     },
     methods: {
         onChangeSRDropdown() {
@@ -1137,6 +1172,7 @@ export default {
         },
         updateOrderClickHandler() {
             console.log('update order')
+            console.log(this.ORDERED_TABLE_DATA__INIT_LIST)
             console.log(this.ORDERED_TABLE_DATA__INIT_LIST_2)
         },
         proceedOrderClickHandler() {
@@ -1295,6 +1331,7 @@ export default {
                 this.customer_details_modal = false
             } else {
                 this.customer_details_modal = true
+                this.SHOW_CUSTOMER_PROFILE__FROM_SERVICE(this.pending_order_list_by_id.customer_id)
             }
         },
         customerDetailsModalOutsideClick() {
@@ -1389,6 +1426,13 @@ export default {
         }, 
         // ------------------------------------------------------------------------------------------
         // Service Implementation
+        async DIC_WISE_USERS__FROM_SERVICE() {
+            await service.getDICWiseUsers_MonthlyDeliveryPlan()
+                .then(res => {
+                    console.log(res.data)
+                    this.SR_LIST__DA = res.data.users.da
+                })
+        },
         async ADD_PRODUCTS_DATA_LIST__FROM_SERVICE() {
             await service.getSearchProductDataList_CreateOrderDetailsSection()
                 .then(res => {
@@ -1442,6 +1486,31 @@ export default {
                     this.GENERATE_ORDERED_PRODUCTS_DETAILS_LIST_FROM_PRODUCT_OFFER_RESPONSE()
                 })
         },
+        async SHOW_CUSTOMER_PROFILE__FROM_SERVICE(customer_id) {
+            await service.geShowCustomerProfile_OrderApproval(customer_id)
+                .then(res => {
+                    // console.log(res.data.customer_info)
+                    this.SHOW_CUSTOMER_PROFILE = res.data.customer_info
+                })
+        },
+        // ----------------------------------------------------------------------------------------------
+        // Bottom Row Calculation
+        // Create Secondary Subtotal
+        createSubtotalCalculation() {
+            this.sub_total = 0
+            this.vat_total = 0
+            this.discount_total = 0
+            this.gross_total = 0
+            this.grand_total = 0
+            for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST_2.length; i++) {
+                this.sub_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST_2[i].base_tp) * this.ORDERED_TABLE_DATA__INIT_LIST_2[i].quantity
+                this.vat_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST_2[i].base_vat) * this.ORDERED_TABLE_DATA__INIT_LIST_2[i].quantity
+                this.discount_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST_2[i].base_tp * this.ORDERED_TABLE_DATA__INIT_LIST_2[i].quantity) - (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST_2[i].price_now_per_qty) * this.ORDERED_TABLE_DATA__INIT_LIST_2[i].quantity)
+            }
+            console.log(this.sub_total)
+            this.gross_total = this.sub_total + this.vat_total
+            this.grand_total = this.sub_total + this.vat_total - this.discount_total
+        },
         // -----------------------------------------------------------------------------------------------
         GENERATE_ORDERED_PRODUCTS_DETAILS_LIST_FROM_PRODUCT_OFFER_RESPONSE() {
             // if(this.UPDATE_ORDER_CLICKED) {
@@ -1492,6 +1561,7 @@ export default {
                     }
                 }
             }
+            this.createSubtotalCalculation()
             console.log(this.ORDERED_TABLE_DATA__INIT_LIST_2)
             this.UPDATE_BTN_TRUE = false
         },
@@ -1517,15 +1587,34 @@ export default {
             let date = yyyy + '-' + mm + '-' + dd
             return date
         },
+        set_Or_Change_SR(da_id) {
+            for(let i=0; i<this.SR_LIST__DA.length; i++) {
+                if(this.SR_LIST__DA[i].id === parseInt(da_id)) {
+                    this.selected_sr = this.SR_LIST__DA[i].name
+                }
+            }
+        },
+        set_Or_Change_Date(da_date) {
+            // for(let i=0; i<this.SR_LIST__DA.length; i++) {
+            //     if(this.SR_LIST__DA[i].id === parseInt(da_id)) {
+            //         this.selected_sr = this.SR_LIST__DA[i].name
+            //     }
+            // }
+            console.log(da_date)
+        }
     },
     watch: { 
         async pending_order_list_by_id(newVal, oldVal){
             console.log('changes' + newVal)
             console.log('changes' + oldVal)
+            console.log('SR DA ID ' + this.pending_order_list_by_id.da_id)
             // console.log(this.pending_order_list_by_id.order_details)
             await this.defaultAllThisComponentData()
             setTimeout( () => {
                 this.ORDERED_TABLE_DATA__INIT_LIST = this.pending_order_list_by_id.order_details
+                this.set_Or_Change_SR(this.pending_order_list_by_id.da_id)
+                this.set_Or_Change_Date(this.pending_order_list_by_id.order_date)
+                // this.header_date = this.pending_order_list_by_id.order_date
             }, 1000)
             // if( newVal && oldVal) {
             //     if(newVal.customer_id !== oldVal.customer_id) {
