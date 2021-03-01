@@ -468,15 +468,15 @@
                                         <b-tab title="Basic" active>
                                             <div class="basic-section">
                                                 <div class="basic-section-inner">
-                                                    <p class="basic-data"><span class="lvl">Customer Name:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE }}</span></p>
-                                                    <p class="basic-data"><span class="lvl">Contact Number:</span><span class="lvl-value">+8801847417317</span></p>
-                                                    <p class="basic-data"><span class="lvl">Email Address:</span><span class="lvl-value">kollolpharma336@gmail.com</span></p>
-                                                    <p class="basic-data"><span class="lvl">Address:</span><span class="lvl-value">15 Genda, Dhaka-Aricha Hwy, Savar Union, Dhaka 1212</span></p>
-                                                    <p class="basic-data"><span class="lvl">Customer Type:</span><span class="lvl-value">Chemist</span></p>
-                                                    <p class="basic-data"><span class="lvl">Sales Area:</span><span class="lvl-value">Savar Bazar</span></p>
-                                                    <p class="basic-data"><span class="lvl">Sales Center:</span><span class="lvl-value">Savar Bazar</span></p>
-                                                    <p class="basic-data"><span class="lvl">Credit Limit:</span><span class="lvl-value">2,00,000</span></p>
-                                                    <p class="basic-data"><span class="lvl">Type of Payment:</span><span class="lvl-value">Cash</span></p>
+                                                    <p class="basic-data"><span class="lvl">Customer Name:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? SHOW_CUSTOMER_PROFILE.display_name : '' }}</span></p>
+                                                    <p class="basic-data"><span class="lvl">Contact Number:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_info ? (SHOW_CUSTOMER_PROFILE.customer_info.person_info ? (SHOW_CUSTOMER_PROFILE.customer_info.person_info.phone ? (SHOW_CUSTOMER_PROFILE.customer_info.person_info.phone) : '') : '') : '') : '' }}</span></p>
+                                                    <p class="basic-data"><span class="lvl">Email Address:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_info ? (SHOW_CUSTOMER_PROFILE.customer_info.person_info ? (SHOW_CUSTOMER_PROFILE.customer_info.person_info.email ? (SHOW_CUSTOMER_PROFILE.customer_info.person_info.email) : '') : '') : '') : '' }}</span></p>
+                                                    <p class="basic-data"><span class="lvl">Address:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_info ? (SHOW_CUSTOMER_PROFILE.customer_info.person_info ? (SHOW_CUSTOMER_PROFILE.customer_info.person_info.address ? (SHOW_CUSTOMER_PROFILE.customer_info.person_info.address) : '') : '') : '') : '' }}</span></p>
+                                                    <p class="basic-data"><span class="lvl">Customer Type:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_info ? (SHOW_CUSTOMER_PROFILE.customer_info.customer_type) : '') : '' }}</span></p>
+                                                    <p class="basic-data"><span class="lvl">Sales Area:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_area_info ? (SHOW_CUSTOMER_PROFILE.customer_area_info.sales_area ? (SHOW_CUSTOMER_PROFILE.customer_area_info.sales_area.area_name ? (SHOW_CUSTOMER_PROFILE.customer_area_info.sales_area.area_name) : '') : '') : '') : '' }}</span></p>
+                                                    <p class="basic-data"><span class="lvl">Sales Center:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_area_info ? (SHOW_CUSTOMER_PROFILE.customer_area_info.sales_area ? (SHOW_CUSTOMER_PROFILE.customer_area_info.sales_area.area_name ? (SHOW_CUSTOMER_PROFILE.customer_area_info.sales_area.area_name) : '') : '') : '') : '' }}</span></p>
+                                                    <!-- <p class="basic-data"><span class="lvl">Credit Limit:</span><span class="lvl-value">2,00,000</span></p> -->
+                                                    <p class="basic-data"><span class="lvl">Type of Payment:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.credit_flag === 'Y' ? 'Cash' : 'Credit') : '' }}</span></p>
                                                 </div>
                                             </div>
                                         </b-tab>
@@ -484,14 +484,14 @@
                                             <div class="account-section">
                                                 <div class="account-section-inner">
                                                     <div class="jmi-row">
-                                                        <p class="jmi-col_33"><span class="jmi-lvl">Total Order:</span><span class="jmi-lvl-value">00</span></p>
-                                                        <p class="jmi-col_33"><span class="jmi-lvl">Total Invoice:</span><span class="jmi-lvl-value">00</span></p>
-                                                        <p class="jmi-col_33"><span class="jmi-lvl">In Transit:</span><span class="jmi-lvl-value">00</span></p>
+                                                        <p class="jmi-col_33"><span class="jmi-lvl">Total Order:</span><span class="jmi-lvl-value">{{ SHOW_CUSTOMER_PROFILE ? SHOW_CUSTOMER_PROFILE.total_order : '' }}</span></p>
+                                                        <p class="jmi-col_33"><span class="jmi-lvl">Total Invoice:</span><span class="jmi-lvl-value">{{ SHOW_CUSTOMER_PROFILE ? SHOW_CUSTOMER_PROFILE.total_invoice : '' }}</span></p>
+                                                        <p class="jmi-col_33"><span class="jmi-lvl">In Transit:</span><span class="jmi-lvl-value">{{ SHOW_CUSTOMER_PROFILE ? SHOW_CUSTOMER_PROFILE.total_order : '' }}</span></p>
                                                     </div>
                                                     <div class="jmi-row">
-                                                        <p class="jmi-col_33"><span class="jmi-lvl">Credit Limit:</span><span class="jmi-lvl-value">00</span></p>
-                                                        <p class="jmi-col_33"><span class="jmi-lvl">Current Outstanding:</span><span class="jmi-lvl-value">00</span></p>
-                                                        <p class="jmi-col_33"><span class="jmi-lvl">Available Limit:</span><span class="jmi-lvl-value">00</span></p>
+                                                        <p class="jmi-col_33"><span class="jmi-lvl">Credit Limit:</span><span class="jmi-lvl-value">{{ SHOW_CUSTOMER_PROFILE ? SHOW_CUSTOMER_PROFILE.total_order : '' }}</span></p>
+                                                        <p class="jmi-col_33"><span class="jmi-lvl">Current Outstanding:</span><span class="jmi-lvl-value">{{ SHOW_CUSTOMER_PROFILE ? SHOW_CUSTOMER_PROFILE.total_order : '' }}</span></p>
+                                                        <p class="jmi-col_33"><span class="jmi-lvl">Available Limit:</span><span class="jmi-lvl-value">{{ SHOW_CUSTOMER_PROFILE ? SHOW_CUSTOMER_PROFILE.total_order : '' }}</span></p>
                                                     </div>
                                                     <div class="jmi-row">
                                                         <p class="jmi-col_33"><span class="jmi-lvl">Transactions History</span></p>
@@ -528,11 +528,11 @@
                                         <b-tab title="Business">
                                             <div class="business-section">
                                                 <div class="business-section-inner">
-                                                    <p class="business-data"><span class="lvl">Vat Registration Number:</span><span class="lvl-value">223558 663 12158</span></p>
-                                                    <p class="business-data"><span class="lvl">Trade License:</span><span class="lvl-value">223558 663 12158</span></p>
-                                                    <p class="business-data"><span class="lvl">VIN:</span><span class="lvl-value">223558 663 12158</span></p>
-                                                    <p class="business-data"><span class="lvl">TIN:</span><span class="lvl-value">223558 663 12158</span></p>
-                                                    <p class="business-data"><span class="lvl">BIN:</span><span class="lvl-value">223558 663 12158</span></p>
+                                                    <p class="business-data"><span class="lvl">Vat Registration Number:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_info ? (SHOW_CUSTOMER_PROFILE.customer_info.vat_reg_no ? SHOW_CUSTOMER_PROFILE.customer_info.vat_reg_no : '') : '') : '' }}</span></p>
+                                                    <p class="business-data"><span class="lvl">Trade License:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_info ? (SHOW_CUSTOMER_PROFILE.customer_info.trade_licence_no ? SHOW_CUSTOMER_PROFILE.customer_info.trade_licence_no : '') : '') : '' }}</span></p>
+                                                    <p class="business-data"><span class="lvl">VIN:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_info ? (SHOW_CUSTOMER_PROFILE.customer_info.vin_no ? SHOW_CUSTOMER_PROFILE.customer_info.vin_no : '') : '') : '' }}</span></p>
+                                                    <p class="business-data"><span class="lvl">TIN:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_info ? (SHOW_CUSTOMER_PROFILE.customer_info.tin_no ? SHOW_CUSTOMER_PROFILE.customer_info.tin_no : '') : '') : '' }}</span></p>
+                                                    <p class="business-data"><span class="lvl">BIN:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_info ? (SHOW_CUSTOMER_PROFILE.customer_info.bin_no ? SHOW_CUSTOMER_PROFILE.customer_info.bin_no : '') : '') : '' }}</span></p>
                                                 </div>
                                             </div>
                                         </b-tab>
@@ -555,8 +555,8 @@
                                                             <div v-html="infoContent"></div>
                                                         </gmap-info-window>
                                                     </gmap-map>
-                                                    <p class="location-details"><span class="icon"><i class="zmdi zmdi-pin"></i></span>63/C Lake Circus, West Panthapath, Dhaka 1205</p>
-                                                    <p class="union-type"><span>Micro Union</span></p>
+                                                    <p class="location-details"><span class="icon"><i class="zmdi zmdi-pin"></i></span>{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_info ? (SHOW_CUSTOMER_PROFILE.customer_info.person_info ? (SHOW_CUSTOMER_PROFILE.customer_info.person_info.address ? (SHOW_CUSTOMER_PROFILE.customer_info.person_info.address) : '') : '') : '') : '' }}</p>
+                                                    <p class="union-type"><span>Dummy: Micro Union</span></p>
                                                 </div>
                                             </div>
                                         </b-tab>
