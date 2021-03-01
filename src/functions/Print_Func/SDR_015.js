@@ -35,7 +35,8 @@ export default class SDR_015 {
                             +                         '</tr>'
                             +                     '</thead>'
                             +                     '<tbody>'
-                            +                         this.create_table_body_data(data.table_data)
+                            // +                         this.create_table_body_data(data.table_data)
+                            +                         this.create_multiple_person_table_body_data(data.table_data)
                             +                         this.create_subtotal_data()
                             +                         this.create_gross_TP_data()
                             +                         this.create_discount_data()
@@ -292,8 +293,24 @@ export default class SDR_015 {
                 +     '</tr>'
         return header
     }
+
+    create_multiple_person_table_body_data(data) {
+        let multiple_person_data = ''
+        for(let i=0; i<10; i++) {
+            multiple_person_data += this.create_table_body_data(data)
+        }
+        return multiple_person_data
+    }
     
     create_table_body_data(data) {
+        let deal_type = ''
+            deal_type += '' +
+                            '<tr>' +
+                                '<td colspan="13">' +
+                                    '<p style="font-size: 12px; font-weight: 600; line-height: 1.5; text-align: left; border-bottom: 1px solid #000000; margin: 0; width: 150px;">Product Type: ' + 'Regular' + '</p>' +
+                                '</td>' +
+                            '</tr>'
+        
         let result = ''
         for(let i=0; i<data.length; i++) {
             result +=   ''
@@ -314,7 +331,8 @@ export default class SDR_015 {
                     +   '</tr>'
         }
         // return result + result + result + result + result + result + result + result + result+ result + result + result + result + result + result + result
-        return result + result + result
+        // return deal_type + result + deal_type + result +deal_type + result
+        return deal_type + result
     }
 
     create_subtotal_data() {

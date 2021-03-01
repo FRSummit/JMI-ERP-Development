@@ -459,8 +459,8 @@
                                 <img src="../../../../../../assets/icons/user.png" alt="logo">
                             </div>
                             <div class="title-section">
-                                <p class="name">ABI Pharmacy and Diagnostic Center<span class="tik-icon"><i class="zmdi zmdi-check"></i></span></p>
-                                <p class="id">JMI-2231225</p>
+                                <p class="name">{{ SHOW_CUSTOMER_PROFILE ? SHOW_CUSTOMER_PROFILE.display_name : '' }}<span class="tik-icon"><i class="zmdi zmdi-check"></i></span></p>
+                                <p class="id">{{ pending_order_list_by_id ? (pending_order_list_by_id.order_no) : '' }}</p>
                             </div>
                             <div class="tab-section">
                                 <div class="tab-section-inner">
@@ -468,7 +468,7 @@
                                         <b-tab title="Basic" active>
                                             <div class="basic-section">
                                                 <div class="basic-section-inner">
-                                                    <p class="basic-data"><span class="lvl">Customer Name:</span><span class="lvl-value">New Gulshan Pharma</span></p>
+                                                    <p class="basic-data"><span class="lvl">Customer Name:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE }}</span></p>
                                                     <p class="basic-data"><span class="lvl">Contact Number:</span><span class="lvl-value">+8801847417317</span></p>
                                                     <p class="basic-data"><span class="lvl">Email Address:</span><span class="lvl-value">kollolpharma336@gmail.com</span></p>
                                                     <p class="basic-data"><span class="lvl">Address:</span><span class="lvl-value">15 Genda, Dhaka-Aricha Hwy, Savar Union, Dhaka 1212</span></p>
@@ -1055,6 +1055,7 @@ export default {
             DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST_2: [],
             ORDERED_TABLE_DATA__INIT_LIST: this.pending_order_list_by_id.order_details,
             ORDERED_TABLE_DATA__INIT_LIST_2: [],
+            SHOW_CUSTOMER_PROFILE: [],
         }
     },
     created() {
@@ -1164,6 +1165,7 @@ export default {
         },
         updateOrderClickHandler() {
             console.log('update order')
+            console.log(this.ORDERED_TABLE_DATA__INIT_LIST)
             console.log(this.ORDERED_TABLE_DATA__INIT_LIST_2)
         },
         proceedOrderClickHandler() {
@@ -1322,6 +1324,7 @@ export default {
                 this.customer_details_modal = false
             } else {
                 this.customer_details_modal = true
+                this.SHOW_CUSTOMER_PROFILE__FROM_SERVICE(this.pending_order_list_by_id.customer_id)
             }
         },
         customerDetailsModalOutsideClick() {
@@ -1467,6 +1470,13 @@ export default {
                     this.RESPONSE_ORDERED_PRODUCTS__STORE = []
                     this.RESPONSE_ORDERED_PRODUCTS__STORE = res.data.data
                     this.GENERATE_ORDERED_PRODUCTS_DETAILS_LIST_FROM_PRODUCT_OFFER_RESPONSE()
+                })
+        },
+        async SHOW_CUSTOMER_PROFILE__FROM_SERVICE(customer_id) {
+            await service.geShowCustomerProfile_OrderApproval(customer_id)
+                .then(res => {
+                    // console.log(res.data.customer_info)
+                    this.SHOW_CUSTOMER_PROFILE = res.data.customer_info
                 })
         },
         // ----------------------------------------------------------------------------------------------
