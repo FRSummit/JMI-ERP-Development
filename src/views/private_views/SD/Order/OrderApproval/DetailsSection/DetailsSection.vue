@@ -90,6 +90,7 @@
                                 <!-- <tr v-for="(data, i) in pending_order_list_by_id ? pending_order_list_by_id.order_details : null" :key="i"> -->
                                 <div id="progressbar" class="jmi-progressbar" v-if="!ORDERED_TABLE_DATA__INIT_LIST">
                                     <v-progress-circular indeterminate color="primary"></v-progress-circular>
+                                    <p>Please select an order from left</p>
                                 </div>
                                 <div v-if="ORDERED_TABLE_DATA__INIT_LIST">
                                     <tr v-for="(data, i) in ORDERED_TABLE_DATA__INIT_LIST" :key="i">
