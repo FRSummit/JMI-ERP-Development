@@ -1,6 +1,10 @@
 <template>
     <div id="order-approval-details-section" class="order-approval-details-section">
-        <div class="order-approval-details-section-inner">
+        <div id="progressbar" class="jmi-progressbar" v-if="!ORDERED_TABLE_DATA__INIT_LIST">
+            <v-progress-circular indeterminate color="primary"></v-progress-circular>
+            <p>Please select an order</p>
+        </div>
+        <div class="order-approval-details-section-inner" v-if="ORDERED_TABLE_DATA__INIT_LIST">
             <div class="title-section">
                 <div class="row">
                     <div class="col-lg-4 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Order ID:</span><span class="id">{{ pending_order_list_by_id ? pending_order_list_by_id.order_no : "000" }}</span><span class="customer-type">Dummy: Cash</span></p></div>
@@ -45,22 +49,22 @@
                             <div class="sr" style="display: table-cell; width: 33%; padding-right: 20px; padding-bottom: 0; vertical-align: middle;">
                                 <span class="jmi-lvl">SR: </span>
                                 <p class="selectpicker-pera"> 
-                                    <span class="jmi-lvl-value">{{ selected_sr }}</span>
-                                    <!-- <span class="jmi-lvl-value">{{ selected_sr }}</span>
-                                    <span class="sr-add-icon" @click="srAddIconClickHandler"><i class="zmdi zmdi-plus"></i></span>
+                                    <!-- <span class="jmi-lvl-value">{{ selected_sr }}</span> -->
+                                    <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ selected_sr }}</span>
                                     <span class="sr-modal" v-if="sr_add_modal">
                                         <span class="sr-modal-inner" v-click-outside="srModalSectionOutsideClick">
                                             <span class="jmi-title">Select SR</span>
-                                            <span class="sr-loop" v-for="(sr, m) in sr_list" :key="m">
+                                            <span class="sr-loop" v-for="(sr, m) in SR_LIST__DA" :key="m">
                                                 <span  class="sr-name" @click="selectedSRClickHandler(sr.name)">{{ sr.name }}</span>
                                             </span>
                                         </span>
-                                    </span> -->
+                                    </span>
                                 </p>
+                                <span class="sr-add-icon" @click="srAddIconClickHandler"><i class="zmdi zmdi-plus"></i></span>
                             </div>
                         </div>
-                        <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="delivery-dt"><span class="jmi-lvl">Exp D D:</span> <span class="jmi-lvl-value"><input type="date" id="expected-delivery-date" placeholder="09/12/2020"/></span></p></div> -->
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="delivery-dt"><span class="jmi-lvl">Exp D D:</span> <span class="jmi-lvl-value">{{ pending_order_list_by_id ? (pending_order_list_by_id.order_date ? (pending_order_list_by_id.order_date).split(' ')[0] : 'Date Not Found') : 'Not Found' }}</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="delivery-dt"><span class="jmi-lvl">Exp D D:</span> <span class="jmi-lvl-value"><input type="date" v-model="header_date" id="expected-delivery-date" placeholder="09/12/2020" /></span></p></div>
+                        <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="delivery-dt"><span class="jmi-lvl">Exp D D:</span> <span class="jmi-lvl-value">{{ pending_order_list_by_id ? (pending_order_list_by_id.order_date ? (pending_order_list_by_id.order_date).split(' ')[0] : 'Date Not Found') : 'Not Found' }}</span></p></div> -->
                     </div>
                     <!-- <div class="row">
                         <div class="col-lg-3 col-md-6 col-sm-6"><p class="delivery-dt"><span class="jmi-lvl">Exp D D:</span> <span class="jmi-lvl-value"><input type="date" id="expected-delivery-date" placeholder="09/12/2020"/></span></p></div>
@@ -472,7 +476,7 @@
                                                     <p class="basic-data"><span class="lvl">Contact Number:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_info ? (SHOW_CUSTOMER_PROFILE.customer_info.person_info ? (SHOW_CUSTOMER_PROFILE.customer_info.person_info.phone ? (SHOW_CUSTOMER_PROFILE.customer_info.person_info.phone) : '') : '') : '') : '' }}</span></p>
                                                     <p class="basic-data"><span class="lvl">Email Address:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_info ? (SHOW_CUSTOMER_PROFILE.customer_info.person_info ? (SHOW_CUSTOMER_PROFILE.customer_info.person_info.email ? (SHOW_CUSTOMER_PROFILE.customer_info.person_info.email) : '') : '') : '') : '' }}</span></p>
                                                     <p class="basic-data"><span class="lvl">Address:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_info ? (SHOW_CUSTOMER_PROFILE.customer_info.person_info ? (SHOW_CUSTOMER_PROFILE.customer_info.person_info.address ? (SHOW_CUSTOMER_PROFILE.customer_info.person_info.address) : '') : '') : '') : '' }}</span></p>
-                                                    <p class="basic-data"><span class="lvl">Customer Type:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_info ? (SHOW_CUSTOMER_PROFILE.customer_info.customer_type) : '') : '' }}</span></p>
+                                                    <p class="basic-data"><span class="lvl">Customer Type:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_info ? (SHOW_CUSTOMER_PROFILE.customer_info.customer_type ? (SHOW_CUSTOMER_PROFILE.customer_info.customer_type.description) : '') : '') : '' }}</span></p>
                                                     <p class="basic-data"><span class="lvl">Sales Area:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_area_info ? (SHOW_CUSTOMER_PROFILE.customer_area_info.sales_area ? (SHOW_CUSTOMER_PROFILE.customer_area_info.sales_area.area_name ? (SHOW_CUSTOMER_PROFILE.customer_area_info.sales_area.area_name) : '') : '') : '') : '' }}</span></p>
                                                     <p class="basic-data"><span class="lvl">Sales Center:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_area_info ? (SHOW_CUSTOMER_PROFILE.customer_area_info.sales_area ? (SHOW_CUSTOMER_PROFILE.customer_area_info.sales_area.area_name ? (SHOW_CUSTOMER_PROFILE.customer_area_info.sales_area.area_name) : '') : '') : '') : '' }}</span></p>
                                                     <!-- <p class="basic-data"><span class="lvl">Credit Limit:</span><span class="lvl-value">2,00,000</span></p> -->
@@ -589,6 +593,8 @@ export default {
     data() {
         return {
             on_change_SR_dropdown: null,
+            SR_LIST__DA: [],
+            header_date: null,
             sr_list: [
                 {
                     name: "SR 1"
@@ -1061,11 +1067,12 @@ export default {
     created() {
         // console.log(this.pending_order_list_by_id)
     },
-    mounted() {
+    async mounted() {
         this.$getLocation({})
         .then( coordinates => {
             console.log(coordinates)
         })
+        await this.DIC_WISE_USERS__FROM_SERVICE()
     },
     methods: {
         onChangeSRDropdown() {
@@ -1419,6 +1426,13 @@ export default {
         }, 
         // ------------------------------------------------------------------------------------------
         // Service Implementation
+        async DIC_WISE_USERS__FROM_SERVICE() {
+            await service.getDICWiseUsers_MonthlyDeliveryPlan()
+                .then(res => {
+                    console.log(res.data)
+                    this.SR_LIST__DA = res.data.users.da
+                })
+        },
         async ADD_PRODUCTS_DATA_LIST__FROM_SERVICE() {
             await service.getSearchProductDataList_CreateOrderDetailsSection()
                 .then(res => {
@@ -1573,15 +1587,27 @@ export default {
             let date = yyyy + '-' + mm + '-' + dd
             return date
         },
+        setSR(da_id) {
+            console.log(this.SR_LIST__DA)
+            for(let i=0; i<this.SR_LIST__DA.length; i++) {
+                console.log(this.SR_LIST__DA[i].id)
+                if(this.SR_LIST__DA[i].id === parseInt(da_id)) {
+                    this.selected_sr = this.SR_LIST__DA[i].name
+                }
+            }
+        }
     },
     watch: { 
         async pending_order_list_by_id(newVal, oldVal){
             console.log('changes' + newVal)
             console.log('changes' + oldVal)
+            console.log('SR DA ID ' + this.pending_order_list_by_id.da_id)
             // console.log(this.pending_order_list_by_id.order_details)
             await this.defaultAllThisComponentData()
             setTimeout( () => {
                 this.ORDERED_TABLE_DATA__INIT_LIST = this.pending_order_list_by_id.order_details
+                this.setSR(this.pending_order_list_by_id.da_id)
+                this.header_date = this.pending_order_list_by_id.order_date
             }, 1000)
             // if( newVal && oldVal) {
             //     if(newVal.customer_id !== oldVal.customer_id) {
