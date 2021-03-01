@@ -237,6 +237,12 @@
                                         <div id="progressbar" class="jmi-progressbar" v-if="!PRODUCT_MODAL_DATA_LIST">
                                             <v-progress-circular indeterminate color="primary"></v-progress-circular>
                                         </div>
+                                        <tr class="jmi-add-product-autofill-header-row">
+                                            <td><span class="td-span-title">Name</span></td>
+                                            <td><span class="td-span-title">Quantity</span></td>
+                                            <td></td>
+                                            <td><span class="td-span-title">Option</span></td>
+                                        </tr>
                                         <tr class="responer-body-filter-output" v-for="(data, i) in PRODUCT_MODAL_DATA_LIST" :key="i">
                                             <td>
                                                 <span class="responer-body-filter-tag">{{  data ? data.prod_name : "" }}</span>

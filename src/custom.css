@@ -741,6 +741,17 @@ input[type=number] {
 
 /* jmi-txt-nowrap-ellipsis-middle */
 
+/* ADD PRODUCT MODAL */
+.jmi-add-product-autofill-header-row {
+}
+.jmi-add-product-autofill-header-row .td-span-title {
+    font-size     : 14px !important;
+    color         : #2F2F30;
+    margin        : 0;
+    line-height   : 1.7;
+}
+/* ADD PRODUCT MODAL */
+
 /* POPUP MODALS */
 .modal-popup-section {
     position        : fixed;

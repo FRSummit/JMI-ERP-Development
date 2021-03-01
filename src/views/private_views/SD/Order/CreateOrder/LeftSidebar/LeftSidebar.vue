@@ -63,7 +63,7 @@
                 <p class="sort-text">Sort by</p>
                 <div class="sort-section">
                     <div class="sort-section-inner">
-                        <div class="input-section">
+                        <!-- <div class="input-section">
                             <div class="select-options">
                                 <span class="right-icon"
                                     ><i class="fas fa-chevron-right"></i
@@ -74,7 +74,7 @@
                                     </option>
                                 </select>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="assending-desending-sort">
                             <form class="input-btns">
                                 <p><input type="radio" checked="checked" name="serialRange" value="a_to_z" @change="onChange('a_to_z')" /> <span :class="radioSpanDefaultClass">A-Z</span></p>
@@ -83,7 +83,7 @@
                         </div>
                     </div>
                 </div>
-                <p class="filter-text">Filter by</p>
+                <!-- <p class="filter-text">Filter by</p>
                 <div class="filter-section">
                     <div class="filter-section-inner">
                         <p class="type">Customer Type</p>
@@ -98,7 +98,7 @@
                             </select>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
         <!--  -->
@@ -157,10 +157,14 @@ export default {
                 case 'a_to_z':
                     this.radioSpanDefaultClass = 'active'
                     this.radioSpanCustomClass = ''
+                    this.customer_data_list.sort()
+                    console.log('a to z')
                     break
                 case 'z_to_a':
                     this.radioSpanDefaultClass = ''
                     this.radioSpanCustomClass = 'active'
+                    this.customer_data_list.sort().reverse()
+                    console.log('z to a')
                     break
                 default:
                     break
