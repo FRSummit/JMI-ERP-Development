@@ -1587,14 +1587,20 @@ export default {
             let date = yyyy + '-' + mm + '-' + dd
             return date
         },
-        setSR(da_id) {
-            console.log(this.SR_LIST__DA)
+        set_Or_Change_SR(da_id) {
             for(let i=0; i<this.SR_LIST__DA.length; i++) {
-                console.log(this.SR_LIST__DA[i].id)
                 if(this.SR_LIST__DA[i].id === parseInt(da_id)) {
                     this.selected_sr = this.SR_LIST__DA[i].name
                 }
             }
+        },
+        set_Or_Change_Date(da_date) {
+            // for(let i=0; i<this.SR_LIST__DA.length; i++) {
+            //     if(this.SR_LIST__DA[i].id === parseInt(da_id)) {
+            //         this.selected_sr = this.SR_LIST__DA[i].name
+            //     }
+            // }
+            console.log(da_date)
         }
     },
     watch: { 
@@ -1606,8 +1612,9 @@ export default {
             await this.defaultAllThisComponentData()
             setTimeout( () => {
                 this.ORDERED_TABLE_DATA__INIT_LIST = this.pending_order_list_by_id.order_details
-                this.setSR(this.pending_order_list_by_id.da_id)
-                this.header_date = this.pending_order_list_by_id.order_date
+                this.set_Or_Change_SR(this.pending_order_list_by_id.da_id)
+                this.set_Or_Change_Date(this.pending_order_list_by_id.order_date)
+                // this.header_date = this.pending_order_list_by_id.order_date
             }, 1000)
             // if( newVal && oldVal) {
             //     if(newVal.customer_id !== oldVal.customer_id) {
