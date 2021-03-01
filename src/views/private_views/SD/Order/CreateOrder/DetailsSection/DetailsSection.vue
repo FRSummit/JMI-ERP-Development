@@ -216,17 +216,17 @@
                                 <div class="autofield-show-section-inner">
                                     <div class="header">
                                         <input id="create-order-add-product" class="jmi-auto-filter-input" type="text" placeholder="Search By Name or Product ID" v-on:keyup="searchKeyUpAddProductHandler" />
-                                    </div>
-                                    <div class="response-body">
-                                        <div id="progressbar" class="jmi-progressbar" v-if="!auto_field_data">
-                                            <v-progress-circular indeterminate color="primary"></v-progress-circular>
-                                        </div>
                                         <tr class="jmi-add-product-autofill-header-row">
                                             <td><span class="td-span-title">Name</span></td>
                                             <td><span class="td-span-title">Quantity</span></td>
                                             <td></td>
                                             <td><span class="td-span-title">Option</span></td>
                                         </tr>
+                                    </div>
+                                    <div class="response-body">
+                                        <div id="progressbar" class="jmi-progressbar" v-if="!auto_field_data">
+                                            <v-progress-circular indeterminate color="primary"></v-progress-circular>
+                                        </div>
                                         <tr class="responer-body-filter-output" v-for="(data, i) in auto_field_data" :key="i">
                                             <td>
                                                 <!-- <span class="responer-body-filter-tag">{{ data ? data.product_info.prod_name : "" }}</span> -->
