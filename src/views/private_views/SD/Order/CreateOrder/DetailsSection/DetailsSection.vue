@@ -152,14 +152,14 @@
                             </tr>
                             <tr class="subtotal bottom-total" v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">
                                 <td style="width: 50%;"></td>
-                                <td style="width: 25%;">(-) Discount</td>
-                                <td style="width: 15%;">{{ Number(discount_total).toFixed(2) }}</td>
+                                <td style="width: 25%;">Gross Total</td>
+                                <td style="width: 15%;">{{ Number(gross_total).toFixed(2) }}</td>
                                 <td style="width: 10%; min-width: 70px;"></td>
                             </tr>
                             <tr class="subtotal bottom-total" v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">
                                 <td style="width: 50%;"><span class="add-order-attachment-section add-attachment" @click="addAttachmentClickHandler"><i class="zmdi zmdi-attachment-alt"></i>Attachment</span></td>
-                                <td style="width: 25%;">Gross Total</td>
-                                <td style="width: 15%;">{{ Number(gross_total).toFixed(2) }}</td>
+                                <td style="width: 25%;">(-) Discount</td>
+                                <td style="width: 15%;">{{ Number(discount_total).toFixed(2) }}</td>
                                 <td style="width: 10%; min-width: 70px;"></td>
                             </tr>
                             <!-- <tr class="subtotal bottom-total">

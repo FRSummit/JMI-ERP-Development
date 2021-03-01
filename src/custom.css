@@ -680,11 +680,14 @@ input[type=number] {
 }
 
 .jmi-order-table tr th {
-    border : none;
-    padding: 4px 10px;
+    border   : none;
+    padding  : 4px 10px;
+    /* min-width: 75px; */
 }
 
-.jmi-order-table tr td {}
+.jmi-order-table tr td {
+    /* min-width: 75px; */
+}
 
 .jmi-order-table tr th span.with-vat {
     display  : block;
@@ -697,40 +700,45 @@ input[type=number] {
 
 /* jmi-txt-nowrap-ellipsis-middle */
 .jmi-txt-nowrap-ellipsis-middle_50 {
-    width: 50%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    width         : 50%;
+    white-space   : nowrap;
+    overflow      : hidden;
+    text-overflow : ellipsis;
     vertical-align: middle;
 }
+
 .jmi-txt-nowrap-ellipsis-middle_60 {
-    width: 60%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    width         : 60%;
+    white-space   : nowrap;
+    overflow      : hidden;
+    text-overflow : ellipsis;
     vertical-align: middle;
 }
+
 .jmi-txt-nowrap-ellipsis-middle_70 {
-    width: 70%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    width         : 70%;
+    white-space   : nowrap;
+    overflow      : hidden;
+    text-overflow : ellipsis;
     vertical-align: middle;
 }
+
 .jmi-txt-nowrap-ellipsis-middle_80 {
-    width: 80%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    width         : 80%;
+    white-space   : nowrap;
+    overflow      : hidden;
+    text-overflow : ellipsis;
     vertical-align: middle;
 }
+
 .jmi-txt-nowrap-ellipsis-middle_100 {
-    width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    width         : 100%;
+    white-space   : nowrap;
+    overflow      : hidden;
+    text-overflow : ellipsis;
     vertical-align: middle;
 }
+
 /* jmi-txt-nowrap-ellipsis-middle */
 
 /* POPUP MODALS */
@@ -834,5 +842,11 @@ input[type=number] {
 @media only screen and (max-width: 992px) {
     .tabs.mt-3 {
         display: block;
+    }
+}
+
+@media only screen and (min-width: 890px) {
+    .with-vat {
+        margin-right: 14px;
     }
 }
