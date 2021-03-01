@@ -743,7 +743,7 @@ export default {
             // this.sub_total = this.sub_total
             // this.vat = this.vat
             // this.vat = this.discount
-            this.gross_total = this.sub_total + this.vat_total - this.discount_total
+            this.gross_total = this.sub_total + this.vat_total
             // this.gross_total = this.gross_total
             // this.rounding_adjustment = this.rounding_adjustment
             this.grand_total = this.sub_total + this.vat_total - this.discount_total
