@@ -160,7 +160,7 @@
                 <div class="submit-section-inner">
                     <span class="cancel-order" @click="cancelOrderClickHandler" v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">Cancel Order</span>
                     <span class="update-order" @click="updateOrderClickHandler" v-if="UPDATE_BTN_TRUE">Update Order</span>
-                    <span class="proceed-order" @click="proceedOrderClickHandler" v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">Proceed Order</span>
+                    <span class="proceed-order" @click="proceedOrderClickHandler" v-if="!UPDATE_BTN_TRUE && ORDERED_TABLE_DATA__INIT_LIST.length > 0">Proceed Order</span>
                 </div>
             </div>
             <!-- Add Product Modal -->
@@ -442,6 +442,7 @@ export default {
                 selector.value = 1
             }
             data.quantity = selector.value
+            this.UPDATE_BTN_TRUE = true
             this.createSubtotalCalculation()
         },
         quantityKeyDown_ordered_table(value, i) {
