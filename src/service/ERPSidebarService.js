@@ -336,7 +336,8 @@ export default class PostService {
   // -------------------------------------------------------------------------------
   // Order Approval - SUBMIT ORDER TO CREATE - SEND SELECTED PRODUCT LIST
   getAllPendingOrdersCustomerList_OrderApprovalLeftSide() {
-    let web_menu_url = '/api/web/all-pending-orders-customer-list'
+    // let web_menu_url = '/api/web/all-pending-orders-customer-list'
+    let web_menu_url = '/api/web/all-pending-approval-orders-customer-list'
     return axios(web_menu_url, {
       method: 'GET',
       headers: {

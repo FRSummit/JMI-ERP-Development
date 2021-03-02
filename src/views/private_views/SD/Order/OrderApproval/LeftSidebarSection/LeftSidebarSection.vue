@@ -62,9 +62,9 @@
                                 <div class="address-section">
                                     <!-- <p class="customer-address"><span>Order No: {{ customer ? customer.id : 'XXXX' }}</span>|<span>Total Bill: {{ customer ? customer.net_total : '00.00' }}</span></p> -->
                                     <p class="customer-address"><span>Total Bill: {{ customer ? customer.net_total : '00.00' }}</span></p>
-                                    <!-- <span class="checkbox">
-                                        <input type="checkbox" :id="'order-approval-checkbox-' + c" :name="customer ? customer.customer_id : 0" :value="customer ? customer.customer_id : 0">
-                                    </span> -->
+                                    <span class="checkbox">
+                                        <input type="checkbox" :id="'order-approval-checkbox-' + c" :name="customer ? customer.customer_id : 0" :value="customer ? customer.customer_id : 0" @change="checkboxOnChangeHandler(customer, c)">
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -291,6 +291,8 @@ export default {
             on_change_status: null,
             on_change_sort_by: null,
             on_change_filter_by: null,
+            SELECT_OPTION__CUSTOMER_ID_LIST: [],
+            SELECT_OPTION__ORDER_ID_LIST: [],
         }
     },
     created() {},
@@ -311,17 +313,63 @@ export default {
             this.filter_modal = false
             this.$emit('filter_modal', this.filter_modal)
         },
+        checkboxOnChangeHandler(order, selector_id) {
+            console.log('change : ' + selector_id)
+            let radio_selector = document.querySelector('#order-approval-left-sidebar #order-approval-checkbox-' + selector_id)
+            if(radio_selector.checked === true) {
+                console.log('checked true')
+            } else {
+                // radio_selector.checked = false
+                console.log('checked false')
+                // if(this.ALL_PENDING_ORDERS_CUSTOMER_LIST.length > 0) {
+                //     for (let [i, tt] of this.ALL_PENDING_ORDERS_CUSTOMER_LIST.entries()) {
+                //         if (tt.id === order.id) {
+                //             // this.SELECTED_ORDERED_PRODUCTS__INIT_LIST.splice(i, 1);
+                //             console.log('matched : ' + i)
+                //         }
+                //     }
+                // }
+            }
+        },
         onChangeStatusDropdown() {
             console.log('onChangeStatusDropdown: ' + this.on_change_status)
             switch(this.on_change_status) {
                 case 'Select All':
-                    console.log('Select All')
+                    this.SELECT_OPTION__CUSTOMER_ID_LIST = []
+                    this.SELECT_OPTION__ORDER_ID_LIST = []
+                    for(let i=0; i<this.ALL_PENDING_ORDERS_CUSTOMER_LIST.length; i++) {
+                        let radio_selector = document.querySelector('#order-approval-left-sidebar #order-approval-checkbox-' + i)
+                        radio_selector.checked = true
+                        this.SELECT_OPTION__CUSTOMER_ID_LIST.push(parseInt(this.ALL_PENDING_ORDERS_CUSTOMER_LIST[i].customer_id))
+                        this.SELECT_OPTION__ORDER_ID_LIST.push(parseInt(this.ALL_PENDING_ORDERS_CUSTOMER_LIST[i].id))
+                    }
+                    alert(this.SELECT_OPTION__CUSTOMER_ID_LIST)
+                    alert(this.SELECT_OPTION__ORDER_ID_LIST)
                     break
                 case 'Approved Selected':
-                    console.log('Approved Selected')
+                    // console.log('Approved Selected')
+                    if(this.SELECT_OPTION__CUSTOMER_ID_LIST.length > 0 && this.SELECT_OPTION__ORDER_ID_LIST.length > 0) {
+                        this.APPROVE_ALL_SELECTED_ORDER__FROM_SERVICE()
+                    } else {
+                        alert('Please select all order')
+                        this.on_change_status = ''
+                    }
                     break
                 case 'Reject Selected':
-                    console.log('Reject Selected')
+                    // console.log('Reject Selected')
+                    // for(let i=0; i<this.ALL_PENDING_ORDERS_CUSTOMER_LIST.length; i++) {
+                    //     let radio_selector = document.querySelector('#order-approval-left-sidebar #order-approval-checkbox-' + i)
+                    //     if(radio_selector.checked === true) {
+                    //         this.SELECT_OPTION__CUSTOMER_ID_LIST.push(parseInt(this.ALL_PENDING_ORDERS_CUSTOMER_LIST[i].customer_id))
+                    //         this.SELECT_OPTION__ORDER_ID_LIST.push(parseInt(this.ALL_PENDING_ORDERS_CUSTOMER_LIST[i].id))
+                    //     }
+                    // }
+                    if(this.SELECT_OPTION__CUSTOMER_ID_LIST.length > 0 && this.SELECT_OPTION__ORDER_ID_LIST.length > 0) {
+                        this.REJECT_ALL_SELECTED_ORDER__FROM_SERVICE()
+                    } else {
+                        alert('Please select at least one order')
+                        this.on_change_status = ''
+                    }
                     break
                 case 'Delivery Date Shift':
                     console.log('Delivery Date Shift')
@@ -374,12 +422,39 @@ export default {
 
             jmiFilter.searchById_LeftSidebar(filter, list, txt_selector)
         },
+        // ------------------------------------------------------------------------------------------
+        // Service Implementation
         async ALL_PENDING_ORDERS_CUSTOMER_LIST__FROM_SERVICE() {
             await service.getAllPendingOrdersCustomerList_OrderApprovalLeftSide()
                 .then(res => {
                     console.log(res.data)
                     this.ALL_PENDING_ORDERS_CUSTOMER_LIST = res.data.orders_info
                 })
+        },
+        async APPROVE_ALL_SELECTED_ORDER__FROM_SERVICE() {
+            console.log(this.SELECT_OPTION__CUSTOMER_ID_LIST)
+            console.log(this.SELECT_OPTION__ORDER_ID_LIST)
+            this.defaultAllThisComponentData()
+            this.deselectAllSelectedOrder()
+        },
+        async REJECT_ALL_SELECTED_ORDER__FROM_SERVICE() {
+            console.log(this.SELECT_OPTION__CUSTOMER_ID_LIST)
+            console.log(this.SELECT_OPTION__ORDER_ID_LIST)
+            this.defaultAllThisComponentData()
+            this.deselectAllSelectedOrder()
+        },
+        // -------------------------------------------------------------------------------------------
+        // Default All
+        defaultAllThisComponentData() {
+            this.SELECT_OPTION__CUSTOMER_ID_LIST = []
+            this.SELECT_OPTION__ORDER_ID_LIST = []
+        },
+        // -------------------------------------------------------------------------------------------
+        deselectAllSelectedOrder() {
+            for(let i=0; i<this.ALL_PENDING_ORDERS_CUSTOMER_LIST.length; i++) {
+                let radio_selector = document.querySelector('#order-approval-left-sidebar #order-approval-checkbox-' + i)
+                radio_selector.checked = false
+            }
         }
     }
 }

@@ -1,14 +1,10 @@
 <template>
     <div id="create-order-details-section" class="create-order-details-section">
-        <div id="progressbar" class="jmi-progressbar" v-if="!customer_data">
-            <v-progress-circular indeterminate color="primary"></v-progress-circular>
-            <p>Please select a customer</p>
-        </div>
-        <div class="create-order-details-section-inner" v-if="customer_data">
+        <div class="create-order-details-section-inner">
             <div class="title-section">
                 <div class="row">
                     <!-- <div class="col-lg-4 col-md-4 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer ID:</span><span class="id">{{ customer_data ? customer_data.customer_id : ""}}</span><span class="customer-type">{{ customer_data ? customer_data.credit_flag === "Y" ? "Credit" : "Cash" : "No Customer" }}</span></p></div> -->
-                    <div class="col-lg-4 col-md-4 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer ID:</span><span class="id">{{ customer_data ? customer_data.display_code : ""}}</span><span class="customer-type">{{ customer_data ? customer_data.credit_flag === "Y" ? "Credit" : "Cash" : "No Customer" }}</span></p></div>
+                    <div class="col-lg-4 col-md-4 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer ID:</span><span class="id">{{ customer_data ? customer_data.display_code : ""}}</span><span class="customer-type" v-if="customer_data">{{ customer_data ? customer_data.credit_flag === "Y" ? "Credit" : "Cash" : "" }}</span></p></div>
                     <div class="col-lg-8 col-md-8 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer Name:</span><span class="jmi-lvl-value">{{ customer_data ? customer_data.display_name : "" }}</span></p></div>
                 </div>
                 <div class="row">
@@ -22,10 +18,10 @@
 
                     <div class="row">
                         <div class="col-lg-3 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Current Outstanding:</span><span class="jmi-lvl-value url jmi-no-underline">{{ customer_data ? customer_data.current_due !== null ? customer_data.current_due : "00" : "" }}</span></p></div>
-                        <div class="col-lg-3 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Order Placed:</span> <span class="jmi-lvl-value">-- Dev. No Data ---</span></p></div>
+                        <!-- <div class="col-lg-3 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Order Placed:</span> <span class="jmi-lvl-value"></span></p></div> -->
                         <!-- <div class="col-lg-3 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Status:</span> <span class="jmi-lvl-value">Pending</span></p></div> -->
-                        <div class="col-lg-3 col-md-6 col-sm-12"><p class="jmi-title">Area: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">-- Dev. No Data ---</span></p></div>
-                        <div class="col-lg-3 col-md-6 col-sm-12"><p class="jmi-title">Territory: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_70">{{ customer_data ? customer_data.customer_area_info.sales_force.get_sales_area.area_name : "" }}</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-12"><p class="jmi-title">Area: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80"></span></p></div>
+                        <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title">Territory: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_70">{{ customer_data ? customer_data.customer_area_info.sales_force.get_sales_area.area_name : "" }}</span></p></div>
                     </div>
                     <div class="row">
                         <!-- <div class="col-lg-3 col-md-6 col-sm-12"><p class="jmi-title">Territory: <span class="jmi-lvl-value">{{ customer_data ? customer_data.customer_area_info.sales_force.get_sales_area.area_name : "" }}</span></p></div> -->
@@ -35,8 +31,7 @@
                             <div class="sr" style="display: table-cell; width: 33%; padding-right: 20px; padding-bottom: 0; vertical-align: middle;">
                                 <span class="jmi-lvl">SR: </span>
                                 <p class="selectpicker-pera"> 
-                                    <span class="jmi-lvl-value">{{ selected_sr }}</span>
-                                    <span class="sr-add-icon" @click="srAddIconClickHandler"><i class="zmdi zmdi-plus"></i></span>
+                                    <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ selected_sr }}</span>
                                     <span class="sr-modal" v-if="sr_add_modal">
                                         <span class="sr-modal-inner" v-click-outside="srModalSectionOutsideClick">
                                             <span class="jmi-title">Select SR</span>
@@ -46,6 +41,7 @@
                                         </span>
                                     </span>
                                 </p>
+                                <span class="sr-add-icon" @click="srAddIconClickHandler"><i class="zmdi zmdi-plus"></i></span>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-12"><p class="delivery-dt"><span class="jmi-lvl">Exp D D:</span> <span class="jmi-lvl-value"><input type="date" id="expected-delivery-date" placeholder="09/12/2020"/></span></p></div>
@@ -58,33 +54,9 @@
             <!-- Order Table -->
             <div class="order-table">
                 <div class="order-table-inner">
-                    <!-- <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Unit Price</th>
-                                <th>Quantity</th>
-                                <th>Bonus</th>
-                                <th>Total Price</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Aston Martin</td>
-                                <td>150</td>
-                                <td>10</td>
-                                <td>50.00</td>
-                                <td>1254.00</td>
-                                <td>Del</td>
-                            </tr>
-                        </tbody>
-                    </table> -->
                     <table class="table jmi-order-table" id="order-data-table" cellspacing="0" width="100%">
                         <thead>
                             <tr>
-                                <!-- <th style="border: none" v-for="(head, i) in order_table_header" :key="i">{{ head }}</th>
-                                <th style="border: none"></th> -->
                                 <th>Name</th>
                                 <th>Trade Price<span class="with-vat">(With VAT)</span></th>
                                 <th>Quantity</th>
@@ -96,52 +68,54 @@
                         </thead>
                         <tbody>
                             <div id="progressbar" class="jmi-progressbar" v-if="ORDERED_TABLE_DATA__INIT_LIST.length <= 0">
-                                <v-progress-circular indeterminate color="primary"></v-progress-circular>
-                                    <p>Please add a product</p>
+                                <!-- <v-progress-circular indeterminate color="primary"></v-progress-circular> -->
+                                    <p v-if="!customer_data">Please select a customer</p>
+                                    <p v-if="customer_data && !ORDERED_TABLE_DATA__INIT_LIST.length">Please add a product</p>
                             </div>
                             <div class="table-data-rows" v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">
-                                <!-- <tr v-for="(data, i) in (order_table_modified_data.length > 0 ? order_table_modified_data : ORDERED_TABLE_DATA__INIT_LIST)" :key="i"> -->
-                                <!-- <tr v-for="(data, i) in order_table_modified_data" :key="i"> -->
                                 <tr v-for="(data, i) in ORDERED_TABLE_DATA__INIT_LIST" :key="i" :class="data.row_class ? data.row_class : ''">
+                                    <!-- Name Column -->
                                     <td>
-                                        <!-- <span>{{ data ? data.product_info.prod_name : "" }}</span> -->
                                         <span>{{ data ? data.prod_name : "" }}</span>
                                         <span v-if="!data.row_class">Unit Price: {{ data ? data.base_tp : "" }}</span>
                                         <span v-if="data.row_class" :class="data.row_class">Free Product</span>
                                     </td>
-                                    <!-- <td>{{ data ? data.price_now_per_qty.toFixed(2) : "" }}</td> -->
+                                    <!-- Trade Price Column -->
                                     <td>
                                         <span v-if="!data.row_class">{{ data ? Number(parseFloat(data.base_tp) + parseFloat(data.base_vat)).toFixed(2) : 0 }}</span>
                                         <span v-if="data.row_class"></span>
                                     </td>
+                                    <!-- Quantity Column -->
                                     <td>
                                         <span class="quantity-setup" v-if="!data.row_class">
                                             <span class="qty-increase" @click="decreaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-minus" :class="data.quantity <= 1 ? 'jmi-deactive-btn' : ''"></i></span>
-                                            <span class="qty">{{ data ? (data.quantity ? data.quantity : 0) : 0 }}</span>
+                                            <input :id="'ordered-add-modal-qty-' + i" class="qty jmi-tr-td-input-qty" type="number" placeholder="00" :value="data ? (data.quantity ? data.quantity : 0) : 0" v-on:keyup="quantityKeyUp_ordered_table(data, $event, i)" min="1" step="1" v-on:keydown="quantityKeyDown_ordered_table($event, i)" pattern="[0-9]*">
                                             <span class="qty-decrease" @click="increaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
                                         </span>
                                     </td>
+                                    <!-- Discount Column -->
                                     <td>
                                         <span v-if="!data.row_class">{{ data ? (data.offer.discount_percentage ? data.offer.discount_percentage : 0) : 0 }}%</span>
                                         <span v-if="data.row_class"></span>
                                     </td>
+                                    <!-- BOnus Column -->
                                     <td>
                                         <span v-if="!data.row_class">{{ data ? (data.offer.bonus_qty ? parseInt(data.quantity / data.offer.bonus_on) : 0) : 0 }}</span>
                                         <span v-if="data.row_class">{{ data ? (data.offer.free_prod_qty ? parseInt(data.quantity / data.offer.free_req_qty) : 0) : 0 }}</span>
                                     </td>
+                                    <!-- Total Price Column -->
                                     <td class="total_price">
                                         <span v-if="!data.row_class">{{ data ? (data.base_tp * data.quantity).toFixed(2) : 0 }}</span>
-                                        <!-- <span v-if="!data.row_class">{{ data ? Number(data.line_total).toFixed(2) : 0 }}</span> -->
                                         <span v-if="data.row_class"></span>
                                     </td>
-                                    <td class="row-action" style="min-width: 70px;">
-                                        <span v-if="!data.row_class" class="delete-icon" @click="deleteOrderitemClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
+                                    <td class="row-action jmi-tr-td-option" style="min-width: 70px;">
+                                        <span v-if="!data.row_class" class="icon delete-icon" @click="deleteOrderitemClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
                                     </td>
                                 </tr>
                             </div>
                             <!-- Bottom Total Section -->
                             <tr class="subtotal bottom-total" style="border-top: 1px solid #BFCFE2;">
-                                <td style="width: 50%;"><span class="add-order-attachment-section add-order" @click="addOrderClickHandler"><i class="zmdi zmdi-plus"></i>Add Products</span></td>
+                                <td style="width: 50%;"><span class="add-order-attachment-section add-order" @click="addOrderClickHandler" v-if="customer_data"><i class="zmdi zmdi-plus"></i>Add Products</span></td>
                                 <td style="width: 25%;"><span v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">Subtotal</span></td>
                                 <td style="width: 15%;"><span v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">{{ Number(sub_total).toFixed(2) }}</span></td>
                                 <td style="width: 10%; min-width: 70px;"></td>
@@ -185,7 +159,7 @@
                 <div class="submit-section-inner">
                     <span class="cancel-order" @click="cancelOrderClickHandler" v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">Cancel Order</span>
                     <span class="update-order" @click="updateOrderClickHandler" v-if="UPDATE_BTN_TRUE">Update Order</span>
-                    <span class="proceed-order" @click="proceedOrderClickHandler" v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">Proceed Order</span>
+                    <span class="proceed-order" @click="proceedOrderClickHandler" v-if="!UPDATE_BTN_TRUE && ORDERED_TABLE_DATA__INIT_LIST.length > 0">Proceed Order</span>
                 </div>
             </div>
             <!-- Add Product Modal -->
@@ -457,6 +431,25 @@ export default {
                 this.ORDERED_TABLE_DATA__INIT_LIST[index + 1].quantity--
             }
         },
+        // Ordered Table Quantity input keyup & keydown
+        quantityKeyUp_ordered_table(data, value, i) {
+            console.log(value.keyCode)
+            let selector = document.querySelector('#order-data-table #ordered-add-modal-qty-' + i)
+            if(parseInt(selector.value) === 0) {
+                selector.value = 1
+            } else if((selector.value).toString() === '') {
+                selector.value = 1
+            }
+            data.quantity = selector.value
+            this.UPDATE_BTN_TRUE = true
+            this.createSubtotalCalculation()
+        },
+        quantityKeyDown_ordered_table(value, i) {
+            console.log(document.querySelector('#order-data-table #ordered-add-modal-qty-' + i).value)
+            if(value.keyCode === 190 || value.keyCode === 110) {
+                value.preventDefault()
+            }
+        },
         // Delete Table Row's Single Product/Order
         deleteOrderitemClickHandler(data, index) {
             console.log(data + '    ' + index)
@@ -473,6 +466,7 @@ export default {
                 }
             }
             this.createSubtotalCalculation()
+            this.UPDATE_BTN_TRUE = true
         },
         //------------------------------------------------------------------------------------------
         // Add Product/Order , Atachment Row
@@ -541,25 +535,20 @@ export default {
         // 
         // Increase or decrease quantity
         quantityKeyUp_modal(data, value, i) {
-            console.log(value.key)
+            console.log(value.keyCode)
             let selector = document.querySelector('#order-add-modal-qty-' + i)
-            // if(value.keyCode === 110) {
-            //     console.log('point')
-            //     // console.log(document.querySelector('#order-add-modal-qty-' + i).innerHTML)
-            //     document.querySelector('#order-add-modal-qty-' + i).value = document.querySelector('#order-add-modal-qty-' + i).value.replace(/[^0-9]*/g,"")
-
-            // }
-            console.log(selector.value)
+            if(parseInt(selector.value) === 0) {
+                selector.value = 1
+            } else if((selector.value).toString() === '') {
+                selector.value = 1
+            }
             data.quantity = selector.value
         },
         quantityKeyDown_modal(value, i) {
-            // let prev_value = document.querySelector('#order-add-modal-qty-' + i).value
-            console.log(value.key)
-            console.log(value.keyCode)
             console.log(document.querySelector('#order-add-modal-qty-' + i).value)
-            // if(value.keyCode >= 96 && value.keyCode <= 105) {
-            //     return true
-            // }
+            if(value.keyCode === 190 || value.keyCode === 110) {
+                value.preventDefault()
+            }
         },
         // Add Selected Ordered Product
         addProductFromAutofieldResponseClickHandler(data, index) {
@@ -604,13 +593,10 @@ export default {
             this.add_order_modal = false
         },
         addItemsFromModalClickHandler() {
-            // console.log(this.SELECTED_ORDERED_PRODUCTS__STORE)
-            // this.order_table_modified_data = this.SELECTED_ORDERED_PRODUCTS__INIT_LIST
             if(this.SELECTED_ORDERED_PRODUCTS__STORE.length > 0) {
                 for(let i=0; i<this.SELECTED_ORDERED_PRODUCTS__INIT_LIST.length; i++) {
                     this.SELECTED_ORDERED_PRODUCTS__STORE.push(this.SELECTED_ORDERED_PRODUCTS__INIT_LIST[i])
-                    // console.log(this.SELECTED_ORDERED_PRODUCTS__INIT_LIST[i])
-                    // console.log(this.SELECTED_ORDERED_PRODUCTS__STORE)
+                    this.UPDATE_BTN_TRUE = true
                 }
             } else {
                 this.SELECTED_ORDERED_PRODUCTS__STORE = this.SELECTED_ORDERED_PRODUCTS__INIT_LIST
@@ -739,15 +725,8 @@ export default {
                 this.vat_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].base_vat) * this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity
                 this.discount_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].base_tp * this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity) - (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].price_now_per_qty) * this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity)
             }
-            console.log(this.sub_total)
-            // this.sub_total = this.sub_total
-            // this.vat = this.vat
-            // this.vat = this.discount
             this.gross_total = this.sub_total + this.vat_total
-            // this.gross_total = this.gross_total
-            // this.rounding_adjustment = this.rounding_adjustment
             this.grand_total = this.sub_total + this.vat_total - this.discount_total
-            // this.grand_total = this.grand_total
         },
         // -------------------------------------------------------
         GENERATE_ORDERED_PRODUCTS_DETAILS_LIST_FROM_PRODUCT_OFFER_RESPONSE() {
@@ -837,6 +816,7 @@ export default {
                 this.SELECTED_ORDERED_PRODUCTS__STORE = []
                 this.RESPONSE_ORDERED_PRODUCTS__STORE = []
                 
+                this.selected_sr = null
                 this.sub_total = 0.00
                 this.vat_total = 0.00
                 this.discount_total = 0.00

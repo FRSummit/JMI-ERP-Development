@@ -686,9 +686,10 @@ input[type=number] {
 }
 
 .jmi-order-table tr th {
-    border      : none;
-    padding     : 4px 10px;
-    /* min-width: 75px; */
+    border        : none;
+    padding       : 4px 10px;
+    /* min-width  : 75px; */
+    vertical-align: middle;
 }
 
 .jmi-order-table tr td {
@@ -698,6 +699,44 @@ input[type=number] {
 .jmi-order-table tr th span.with-vat {
     display  : block;
     font-size: 8px;
+}
+
+#order-data-table .jmi-tr-td-input-qty {
+    font-size : 14px;
+    width     : 40px;
+    height    : auto;
+    border    : none;
+    text-align: center;
+    margin: 0;
+}
+
+.jmi-tr-td-option span.icon {
+    display       : inline-block;
+    background    : #FFFFFF;
+    padding       : 4px 8px;
+    border-radius : 50%;
+    margin        : 0 2px;
+    cursor        : pointer;
+    width         : 29px;
+    height        : 29px;
+    text-align    : center;
+    vertical-align: middle;
+}
+
+.jmi-tr-td-option span.icon i {
+    font-size  : 14px;
+    font-weight: 800;
+    color: #026CD1;
+}
+
+.jmi-tr-td-option span.icon svg {
+    color : #DF2A43;
+    width : 13px;
+    height: 13px;
+}
+
+.jmi-tr-td-option span.icon:hover {
+    background: #FFFFFF;
 }
 
 .jmi-deactive-btn {
@@ -752,19 +791,27 @@ input[type=number] {
     display: block;
     width  : 100%;
 }
+
 .jmi-add-product-autofill-header-row td {
-    padding: 0 10px;
-    display: inline-block;
+    padding   : 0 10px;
+    display   : inline-block;
     text-align: center;
 }
+
 #create-order-details-section .jmi-add-product-autofill-header-row td:first-child,
 #order-approval-details-section .jmi-add-product-autofill-header-row td:first-child {
-    width: 40%;
+    width     : 40%;
     text-align: left;
 }
+
 #create-order-details-section .jmi-add-product-autofill-header-row td,
 #order-approval-details-section .jmi-add-product-autofill-header-row td {
     width: 20%;
+}
+
+#create-order-details-section .jmi-add-product-autofill-header-row td:last-child,
+#order-approval-details-section .jmi-add-product-autofill-header-row td:last-child {
+    text-align: right;
 }
 
 .jmi-add-product-autofill-header-row .td-span-title {
@@ -873,6 +920,30 @@ input[type=number] {
 }
 
 /* --------------------------------------------------------------------------------------- */
+
+@media only screen and (max-width: 1290px) {
+
+    .jmi-tr-td-option span.icon {
+        padding       : 0px;
+        margin        : 2px;
+        width         : 24px;
+        height        : 24px;
+        vertical-align: middle;
+    }
+    
+    .jmi-tr-td-option span.icon i {
+        font-size  : 12px;
+        font-weight: 800;
+        margin-top: 6px;
+    }
+    
+    .jmi-tr-td-option span.icon svg {
+        color : #DF2A43;
+        margin-top: 6px;
+        width : 12px;
+        height: 12px;
+    }
+}
 
 @media only screen and (max-width: 992px) {
     .tabs.mt-3 {

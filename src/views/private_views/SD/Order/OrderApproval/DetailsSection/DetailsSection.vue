@@ -1,18 +1,19 @@
 <template>
     <div id="order-approval-details-section" class="order-approval-details-section">
-        <div id="progressbar" class="jmi-progressbar" v-if="!ORDERED_TABLE_DATA__INIT_LIST">
+        <!-- <div id="progressbar" class="jmi-progressbar" v-if="!ORDERED_TABLE_DATA__INIT_LIST">
             <v-progress-circular indeterminate color="primary"></v-progress-circular>
             <p>Please select an order</p>
-        </div>
-        <div class="order-approval-details-section-inner" v-if="ORDERED_TABLE_DATA__INIT_LIST">
+        </div> -->
+        <div class="order-approval-details-section-inner">
             <div class="title-section">
                 <div class="row">
-                    <div class="col-lg-4 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Order ID:</span><span class="id">{{ pending_order_list_by_id ? pending_order_list_by_id.order_no : "000" }}</span><span class="customer-type">Dummy: Cash</span></p></div>
-                    <div class="col-lg-8 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer:</span><span class="jmi-lvl-value id url" @click="customerDetailsClickHandler">{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info ? pending_order_list_by_id.sbu_customer_info.display_name : 0) : 'Not Found' }}</span></p></div>
+                    <!-- <div class="col-lg-4 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Order ID:</span><span class="id">{{ pending_order_list_by_id ? pending_order_list_by_id.order_no : "000" }}</span><span class="customer-type" v-if="ORDERED_TABLE_DATA__INIT_LIST"></span></p></div> -->
+                    <div class="col-lg-4 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Order ID:</span><span class="id">{{ pending_order_list_by_id ? pending_order_list_by_id.order_no : "000" }}</span></p></div>
+                    <div class="col-lg-8 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer:</span><span class="jmi-lvl-value id url" @click="customerDetailsClickHandler">{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info ? pending_order_list_by_id.sbu_customer_info.display_name : '') : '' }}</span></p></div>
                 </div>
                 <div class="row">
                     <!-- <div class="col-lg-12 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><span class="jmi-lvl-value address">{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info.customer_info.customer_address ? pending_order_list_by_id.sbu_customer_info.customer_info.customer_address : 'Null') : 'Dummy: Address' }}</span></p></div> -->
-                    <div class="col-lg-12 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><span class="jmi-lvl-value address">{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info ? (pending_order_list_by_id.sbu_customer_info.customer_address ? pending_order_list_by_id.sbu_customer_info.customer_address : 'Address Not Found') : 'sbu not found') : 'Dummy: Address' }}</span></p></div>
+                    <div class="col-lg-12 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><span class="jmi-lvl-value address">{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info ? (pending_order_list_by_id.sbu_customer_info.customer_address ? pending_order_list_by_id.sbu_customer_info.customer_address : '') : '') : '' }}</span></p></div>
                     
                 </div>
             </div>
@@ -22,16 +23,16 @@
                 <!-- <div class="container"> -->
                     <div class="row">
                         <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Current Outstanding:</span><span class="jmi-lvl-value url" @click="currentOutstandingClickHandler">Dummy: 200500</span></p></div> -->
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Order Placed:</span> <span class="jmi-lvl-value">Placed</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Order Placed:</span> <span class="jmi-lvl-value"></span></p></div>
                         <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Status:</span> <span class="jmi-lvl-value">Pending</span></p></div> -->
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Status:</span> <span class="jmi-lvl-value">{{ pending_order_list_by_id ? (pending_order_list_by_id.is_approved === 'N' ? 'Pending' : '') : 'Not Found' }}</span></p></div>
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title">Area: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80" >{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.get_sales_area ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.get_sales_area.area_name) : 'Sales Force Not Found') : 'Force Not Found') : 'Area Not Found') : 'SBU Not Found') : 'Not Found' }}</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Status:</span> <span class="jmi-lvl-value">{{ pending_order_list_by_id ? (pending_order_list_by_id.is_approved === 'N' ? 'Pending' : '') : '' }}</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title">Area: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80" >{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.get_sales_area ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.get_sales_area.area_name) : '') : '') : '') : '') : '' }}</span></p></div>
                         <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title">Territory ID: <span class="jmi-lvl-value">{{ pending_order_list_by_id ? pending_order_list_by_id.territory_id : 'Not Found' }}</span></p></div>
                     </div>
                     <div class="row">
                         <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title">Territory: <span class="jmi-lvl-value">DHK0301-Dhanmondi 32</span></p></div> -->
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="am">AM: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info.name) : 'Manager Not Found') : 'Force Not Found') : 'Customer Not Found') : 'SBU Not Found') : 'Not Found' }}</span></p></div>
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="mio">MIO: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info.name) : 'Manager Info Not Found') : 'RSM Not Found') : 'Manager Not Found') : 'Force Not Found') : 'Customer Not Found') : 'SBU Not Found') : 'Not Found' }}</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="am">AM: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info.name) : '') : '') : '') : '') : '' }}</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="mio">MIO: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info.name) : '') : '') : '') : '') : '') : '') : '' }}</span></p></div>
                         <div class="col-lg-3 col-md-6 col-sm-6">
                             <!-- <div class="sr" style="display: table-cell; width: 33%; padding-right: 20px; padding-bottom: 0; vertical-align: middle;">
                                 <span style="display: inline-block; width: 15%; font-size: 14px; float: left; line-height:1; padding-top: 6px;">SR: </span>
@@ -93,69 +94,87 @@
                                 <!-- <tr v-for="(data, i) in order_table_data" :key="i"> -->
                                 <!-- <tr v-for="(data, i) in pending_order_list_by_id ? pending_order_list_by_id.order_details : null" :key="i"> -->
                                 <div id="progressbar" class="jmi-progressbar" v-if="!ORDERED_TABLE_DATA__INIT_LIST">
-                                    <v-progress-circular indeterminate color="primary"></v-progress-circular>
+                                    <!-- <v-progress-circular indeterminate color="primary"></v-progress-circular> -->
                                     <p>Please select an order</p>
                                 </div>
                                 <div v-if="ORDERED_TABLE_DATA__INIT_LIST">
                                     <tr v-for="(data, i) in ORDERED_TABLE_DATA__INIT_LIST" :key="i">
+                                        <!-- Name Column -->
                                         <td>
                                             <span>{{ data.product_info ? data.product_info.prod_name : '' }}</span>
                                             <span>Unit Price: {{ data.unit_tp }}</span>
                                         </td>
+                                        <!-- Trade Price Column -->
                                         <td>{{ Number(parseFloat(data.unit_tp) + parseFloat(data.unit_vat)).toFixed(2) }}</td>
+                                        <!-- Quantity Column -->
                                         <td>
                                             <span class="quantity-setup">
-                                                <!-- <span class="qty-increase" @click="increaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-minus"></i></span> -->
                                                 <span class="qty">{{ data.qty }}</span>
-                                                <!-- <span class="qty-decrease" @click="decreaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span> -->
+                                            </span>
+                                            <span class="quantity-setup hide" style="border: 1px solid #026CD1;">
+                                                <span class="qty-increase" @click="increaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-minus"></i></span>
+                                                <!-- <span class="qty">{{ data.qty }}</span> -->
+                                                <input :id="'ordered-add-modal-qty-' + i" class="qty jmi-tr-td-input-qty" type="number" placeholder="00" :value="data ? (data.qty ? data.qty : 0) : 0" v-on:keyup="quantityKeyUp_ordered_table(data, $event, i)" min="1" step="1" v-on:keydown="quantityKeyDown_ordered_table($event, i)" pattern="[0-9]*">
+                                                <span class="qty-decrease" @click="decreaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
                                             </span>
                                         </td>
+                                        <!-- Discount Column -->
                                         <td>
                                             <span v-if="!data.row_class">{{ data ? (data.discount ? Number(data.discount).toFixed(2) : 0) : 0 }}</span>
                                             <span v-if="data.row_class"></span>
                                         </td>
+                                        <!-- Bonus Column -->
                                         <td>{{ data.bonus_qty }}</td>
+                                        <!-- Total Price Column -->
                                         <td>{{ Number(data.tp).toFixed(2) }}</td>
-                                        <td class="row-action" style="min-width: 70px;">
-                                            <!-- <span class="edit-icon" @click="editOrderitemClickHandler(data, i)"><i class="zmdi zmdi-edit"></i></span> -->
-                                            <span class="delete-icon" @click="deleteOrderitemClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
+                                        <!-- Option Column -->
+                                        <td class="row-action jmi-tr-td-option" style="min-width: 70px; text-align: right;">
+                                            <span class="icon edit-icon" @click="editOrderitemClickHandler(data, i)"><i class="zmdi zmdi-edit"></i></span>
+                                            <span class="icon delete-icon" @click="deleteOrderitemClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
                                         </td>
                                     </tr>
                                 </div>
                                 <!-- -------- IF ANY PRODUCT ADDED -------- -->
                                 <tr v-for="(data, i) in ORDERED_TABLE_DATA__INIT_LIST_2" :key="i">
+                                    <!-- Name Column -->
                                     <td>
                                         <span>{{ data ? data.prod_name : '' }}</span>
                                         <span>Unit Price: {{ data.base_tp }}</span>
                                         <span v-if="data.row_class" :class="data.row_class">Free Product</span>
                                     </td>
+                                    <!-- Trade Price Column -->
                                     <td>
                                         <span v-if="!data.row_class">{{ data ? Number(parseFloat(data.base_tp) + parseFloat(data.base_vat)).toFixed(2) : 0 }}</span>
                                         <span v-if="data.row_class"></span>
                                     </td>
+                                    <!-- Quantity Column -->
                                     <td>
                                         <span class="quantity-setup">
-                                            <!-- <span class="qty-increase" @click="increaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-minus"></i></span> -->
+                                            <span class="qty-increase" @click="increaseOrderedItemClickHandler_2(data, i)"><i class="zmdi zmdi-minus"></i></span>
                                             <span class="qty">{{ data ? (data.quantity ? data.quantity : 0) : 0 }}</span>
-                                            <!-- <span class="qty-decrease" @click="decreaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span> -->
+                                            <span class="qty-decrease" @click="decreaseOrderedItemClickHandler_2(data, i)"><i class="zmdi zmdi-plus"></i></span>
                                         </span>
                                     </td>
+                                    <!-- Discount Column -->
                                     <td>
                                         <span v-if="!data.row_class">{{ data ? (data.offer.discount_percentage ? data.offer.discount_percentage : 0) : 0 }}%</span>
                                         <span v-if="data.row_class"></span>
                                     </td>
+                                    <!-- Bonus Column -->
                                     <td>
                                         <span v-if="!data.row_class">{{ data ? (data.offer.bonus_qty ? parseInt(data.quantity / data.offer.bonus_on) : 0) : 0 }}</span>
                                         <span v-if="data.row_class">{{ data ? (data.offer.free_prod_qty ? parseInt(data.quantity / data.offer.free_req_qty) : 0) : 0 }}</span>
                                     </td>
+                                    <!-- Total Price Column -->
                                     <td>
                                         <span v-if="!data.row_class">{{ data ? (data.price_now_per_qty * data.quantity).toFixed(2) : 0 }}</span>
                                         <!-- <span v-if="!data.row_class">{{ data ? Number(data.line_total).toFixed(2) : 0 }}</span> -->
                                         <span v-if="data.row_class"></span>
                                     </td>
-                                    <td class="row-action" style="min-width: 70px;">
-                                        <!-- <span class="edit-icon" @click="editOrderitemClickHandler(data, i)"><i class="zmdi zmdi-edit"></i></span> -->
-                                        <span class="delete-icon" @click="deleteOrderitemClickHandler_2(data, i)"><i class="fas fa-trash-alt"></i></span>
+                                    <!-- Option Column -->
+                                    <td class="row-action jmi-tr-td-option" style="min-width: 70px; text-align: right;">
+                                        <span class="icon edit-icon" @click="editOrderitemClickHandler_2(data, i)"><i class="zmdi zmdi-edit"></i></span>
+                                        <span class="icon delete-icon" @click="deleteOrderitemClickHandler_2(data, i)"><i class="fas fa-trash-alt"></i></span>
                                     </td>
                                 </tr>
                                 <!-- -------- IF ANY PRODUCT ADDED -------- -->
@@ -595,20 +614,6 @@ export default {
             on_change_SR_dropdown: null,
             SR_LIST__DA: [],
             header_date: null,
-            sr_list: [
-                {
-                    name: "SR 1"
-                },
-                {
-                    name: "SR 2"
-                },
-                {
-                    name: "SR 3"
-                },
-                {
-                    name: "SR 4"
-                },
-            ],
             order_table_header: ["Name", "Unit Price", "Quantity", "Bonus", "Total Price"],
             PRODUCT_MODAL_DATA_LIST: [
                 {
@@ -1062,6 +1067,8 @@ export default {
             ORDERED_TABLE_DATA__INIT_LIST: this.pending_order_list_by_id.order_details,
             ORDERED_TABLE_DATA__INIT_LIST_2: [],
             SHOW_CUSTOMER_PROFILE: [],
+            ORDERED_PRODUCT_TABLE_ROW_IS_EDITABLE: false,
+            ORDERED_PRODUCT_TABLE_2_ROW_IS_EDITABLE: false,
         }
     },
     created() {
@@ -1098,17 +1105,48 @@ export default {
         //------------------------------------------------------------------------------------------
         // Table List Actions
         // Increase Table Row's Single Product/Order
-        /*increaseOrderedItemClickHandler(data, index) {
+        increaseOrderedItemClickHandler(data, index) {
             console.log(data + '    ' + index)
         },
         // Decrease Table Row's Single Product/Order
         decreaseOrderedItemClickHandler(data, index) {
             console.log(data + '    ' + index)
-        },*/
-        // Edit Table Row's Single Product/Order
-        /*editOrderitemClickHandler(data, index) {
+        },
+        // Increase Table Row's Single Product/Order
+        increaseOrderedItemClickHandler_2(data, index) {
             console.log(data + '    ' + index)
-        },*/
+        },
+        // Decrease Table Row's Single Product/Order
+        decreaseOrderedItemClickHandler_2(data, index) {
+            console.log(data + '    ' + index)
+        },
+        // Ordered Table Quantity input keyup & keydown
+        quantityKeyUp_ordered_table(data, value, i) {
+            console.log(value.keyCode)
+            let selector = document.querySelector('#order-data-table #ordered-add-modal-qty-' + i)
+            if(parseInt(selector.value) === 0) {
+                selector.value = 1
+            } else if((selector.value).toString() === '') {
+                selector.value = 1
+            }
+            data.qty = selector.value
+            // this.UPDATE_BTN_TRUE = true
+            this.createSubtotalCalculation()
+        },
+        quantityKeyDown_ordered_table(value, i) {
+            console.log(document.querySelector('#order-data-table #ordered-add-modal-qty-' + i).value)
+            if(value.keyCode === 190 || value.keyCode === 110) {
+                value.preventDefault()
+            }
+        },
+        // Edit Table Row's Single Product/Order
+        editOrderitemClickHandler(data, index) {
+            console.log(data + '    ' + index)
+            // this.ORDERED_PRODUCT_TABLE_ROW_IS_EDITABLE = true
+        },
+        editOrderitemClickHandler_2(data, index) {
+            console.log(data + '    ' + index)
+        },
         // Delete Table Row's Single Product/Order
         deleteOrderitemClickHandler(data, index) {
             console.log(data + '    ' + index)
@@ -1200,23 +1238,18 @@ export default {
         quantityKeyUp_modal(data, value, i) {
             console.log(value.key)
             let selector = document.querySelector('#order-add-modal-qty-' + i)
-            // if(value.keyCode === 110) {
-            //     console.log('point')
-            //     // console.log(document.querySelector('#order-add-modal-qty-' + i).innerHTML)
-            //     document.querySelector('#order-add-modal-qty-' + i).value = document.querySelector('#order-add-modal-qty-' + i).value.replace(/[^0-9]*/g,"")
-
-            // }
-            console.log(selector.value)
+            if(parseInt(selector.value) === 0) {
+                selector.value = 1
+            } else if((selector.value).toString() === '') {
+                selector.value = 1
+            }
             data.quantity = selector.value
         },
         quantityKeyDown_modal(value, i) {
-            // let prev_value = document.querySelector('#order-add-modal-qty-' + i).value
-            console.log(value.key)
-            console.log(value.keyCode)
             console.log(document.querySelector('#order-add-modal-qty-' + i).value)
-            // if(value.keyCode >= 96 && value.keyCode <= 105) {
-            //     return true
-            // }
+            if(value.keyCode === 190 || value.keyCode === 110) {
+                value.preventDefault()
+            }
         },
         // Add Selected Ordered Product
         addProductFromAutofieldResponseClickHandler(data, index) {
@@ -1588,6 +1621,7 @@ export default {
             return date
         },
         set_Or_Change_SR(da_id) {
+            console.log(da_id)
             for(let i=0; i<this.SR_LIST__DA.length; i++) {
                 if(this.SR_LIST__DA[i].id === parseInt(da_id)) {
                     this.selected_sr = this.SR_LIST__DA[i].name
