@@ -927,18 +927,20 @@ input[type=number] {
         margin        : 2px;
         width         : 24px;
         height        : 24px;
+        vertical-align: middle;
     }
     
     .jmi-tr-td-option span.icon i {
         font-size  : 12px;
         font-weight: 800;
+        margin-top: 6px;
     }
     
     .jmi-tr-td-option span.icon svg {
         color : #DF2A43;
+        margin-top: 6px;
         width : 12px;
         height: 12px;
-        vertical-align: middle;
     }
 }
 
