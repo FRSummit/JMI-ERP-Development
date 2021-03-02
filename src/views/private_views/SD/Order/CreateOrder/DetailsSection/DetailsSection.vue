@@ -593,13 +593,10 @@ export default {
             this.add_order_modal = false
         },
         addItemsFromModalClickHandler() {
-            // console.log(this.SELECTED_ORDERED_PRODUCTS__STORE)
-            // this.order_table_modified_data = this.SELECTED_ORDERED_PRODUCTS__INIT_LIST
             if(this.SELECTED_ORDERED_PRODUCTS__STORE.length > 0) {
                 for(let i=0; i<this.SELECTED_ORDERED_PRODUCTS__INIT_LIST.length; i++) {
                     this.SELECTED_ORDERED_PRODUCTS__STORE.push(this.SELECTED_ORDERED_PRODUCTS__INIT_LIST[i])
-                    // console.log(this.SELECTED_ORDERED_PRODUCTS__INIT_LIST[i])
-                    // console.log(this.SELECTED_ORDERED_PRODUCTS__STORE)
+                    this.UPDATE_BTN_TRUE = true
                 }
             } else {
                 this.SELECTED_ORDERED_PRODUCTS__STORE = this.SELECTED_ORDERED_PRODUCTS__INIT_LIST
@@ -728,15 +725,8 @@ export default {
                 this.vat_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].base_vat) * this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity
                 this.discount_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].base_tp * this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity) - (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].price_now_per_qty) * this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity)
             }
-            console.log(this.sub_total)
-            // this.sub_total = this.sub_total
-            // this.vat = this.vat
-            // this.vat = this.discount
             this.gross_total = this.sub_total + this.vat_total
-            // this.gross_total = this.gross_total
-            // this.rounding_adjustment = this.rounding_adjustment
             this.grand_total = this.sub_total + this.vat_total - this.discount_total
-            // this.grand_total = this.grand_total
         },
         // -------------------------------------------------------
         GENERATE_ORDERED_PRODUCTS_DETAILS_LIST_FROM_PRODUCT_OFFER_RESPONSE() {
