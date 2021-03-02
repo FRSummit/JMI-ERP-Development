@@ -129,7 +129,7 @@
                                         <td>{{ Number(data.tp).toFixed(2) }}</td>
                                         <!-- Option Column -->
                                         <td class="row-action jmi-tr-td-option" style="min-width: 70px; text-align: right;">
-                                            <span class="icon edit-icon" @click="editOrderitemClickHandler(data, i)" v-if="!ORDERED_PRODUCT_TABLE_ROW_IS_EDITABLE"><i class="zmdi zmdi-edit"></i></span>
+                                            <span class="icon edit-icon" @click="editOrderitemClickHandler(data, i)"><i class="zmdi zmdi-edit"></i></span>
                                             <span class="icon delete-icon" @click="deleteOrderitemClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
                                         </td>
                                     </tr>
@@ -1142,7 +1142,7 @@ export default {
         // Edit Table Row's Single Product/Order
         editOrderitemClickHandler(data, index) {
             console.log(data + '    ' + index)
-            this.ORDERED_PRODUCT_TABLE_ROW_IS_EDITABLE = true
+            // this.ORDERED_PRODUCT_TABLE_ROW_IS_EDITABLE = true
         },
         editOrderitemClickHandler_2(data, index) {
             console.log(data + '    ' + index)
