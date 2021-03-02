@@ -543,25 +543,19 @@ export default {
         // 
         // Increase or decrease quantity
         quantityKeyUp_modal(data, value, i) {
-            console.log(value.key)
+            console.log(value.keyCode)
             let selector = document.querySelector('#order-add-modal-qty-' + i)
-            // if(value.keyCode === 110) {
-            //     console.log('point')
-            //     // console.log(document.querySelector('#order-add-modal-qty-' + i).innerHTML)
-            //     document.querySelector('#order-add-modal-qty-' + i).value = document.querySelector('#order-add-modal-qty-' + i).value.replace(/[^0-9]*/g,"")
-
-            // }
-            console.log(selector.value)
+            if(parseInt(selector.value) === 0) {
+                console.log('it is 0')
+                selector.value = 1
+            }
             data.quantity = selector.value
         },
         quantityKeyDown_modal(value, i) {
-            // let prev_value = document.querySelector('#order-add-modal-qty-' + i).value
-            console.log(value.key)
-            console.log(value.keyCode)
             console.log(document.querySelector('#order-add-modal-qty-' + i).value)
-            // if(value.keyCode >= 96 && value.keyCode <= 105) {
-            //     return true
-            // }
+            if(value.keyCode === 190 || value.keyCode === 110) {
+                value.preventDefault()
+            }
         },
         // Add Selected Ordered Product
         addProductFromAutofieldResponseClickHandler(data, index) {
