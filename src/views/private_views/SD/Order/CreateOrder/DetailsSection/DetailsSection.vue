@@ -18,10 +18,10 @@
 
                     <div class="row">
                         <div class="col-lg-3 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Current Outstanding:</span><span class="jmi-lvl-value url jmi-no-underline">{{ customer_data ? customer_data.current_due !== null ? customer_data.current_due : "00" : "" }}</span></p></div>
-                        <div class="col-lg-3 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Order Placed:</span> <span class="jmi-lvl-value"></span></p></div>
+                        <!-- <div class="col-lg-3 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Order Placed:</span> <span class="jmi-lvl-value"></span></p></div> -->
                         <!-- <div class="col-lg-3 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Status:</span> <span class="jmi-lvl-value">Pending</span></p></div> -->
                         <div class="col-lg-3 col-md-6 col-sm-12"><p class="jmi-title">Area: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80"></span></p></div>
-                        <div class="col-lg-3 col-md-6 col-sm-12"><p class="jmi-title">Territory: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_70">{{ customer_data ? customer_data.customer_area_info.sales_force.get_sales_area.area_name : "" }}</span></p></div>
+                        <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title">Territory: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_70">{{ customer_data ? customer_data.customer_area_info.sales_force.get_sales_area.area_name : "" }}</span></p></div>
                     </div>
                     <div class="row">
                         <!-- <div class="col-lg-3 col-md-6 col-sm-12"><p class="jmi-title">Territory: <span class="jmi-lvl-value">{{ customer_data ? customer_data.customer_area_info.sales_force.get_sales_area.area_name : "" }}</span></p></div> -->
