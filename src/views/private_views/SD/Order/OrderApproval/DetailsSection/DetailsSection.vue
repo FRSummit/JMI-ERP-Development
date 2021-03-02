@@ -108,10 +108,14 @@
                                         <td>{{ Number(parseFloat(data.unit_tp) + parseFloat(data.unit_vat)).toFixed(2) }}</td>
                                         <!-- Quantity Column -->
                                         <td>
-                                            <span class="quantity-setup">
-                                                <!-- <span class="qty-increase" @click="increaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-minus"></i></span> -->
+                                            <span class="quantity-setup" v-if="!ORDERED_PRODUCT_TABLE_ROW_IS_EDITABLE">
                                                 <span class="qty">{{ data.qty }}</span>
-                                                <!-- <span class="qty-decrease" @click="decreaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span> -->
+                                            </span>
+                                            <span class="quantity-setup" v-if="ORDERED_PRODUCT_TABLE_ROW_IS_EDITABLE" style="border: 1px solid #026CD1;">
+                                                <span class="qty-increase" @click="increaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-minus"></i></span>
+                                                <!-- <span class="qty">{{ data.qty }}</span> -->
+                                                <input :id="'ordered-add-modal-qty-' + i" class="qty jmi-tr-td-input-qty" type="number" placeholder="00" :value="data ? (data.qty ? data.qty : 0) : 0" v-on:keyup="quantityKeyUp_ordered_table(data, $event, i)" min="1" step="1" v-on:keydown="quantityKeyDown_ordered_table($event, i)" pattern="[0-9]*">
+                                                <span class="qty-decrease" @click="decreaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
                                             </span>
                                         </td>
                                         <!-- Discount Column -->
@@ -125,7 +129,7 @@
                                         <td>{{ Number(data.tp).toFixed(2) }}</td>
                                         <!-- Option Column -->
                                         <td class="row-action jmi-tr-td-option" style="min-width: 70px; text-align: right;">
-                                            <span class="icon edit-icon" @click="editOrderitemClickHandler(data, i)"><i class="zmdi zmdi-edit"></i></span>
+                                            <span class="icon edit-icon" @click="editOrderitemClickHandler(data, i)" v-if="!ORDERED_PRODUCT_TABLE_ROW_IS_EDITABLE"><i class="zmdi zmdi-edit"></i></span>
                                             <span class="icon delete-icon" @click="deleteOrderitemClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
                                         </td>
                                     </tr>
@@ -146,9 +150,9 @@
                                     <!-- Quantity Column -->
                                     <td>
                                         <span class="quantity-setup">
-                                            <!-- <span class="qty-increase" @click="increaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-minus"></i></span> -->
+                                            <span class="qty-increase" @click="increaseOrderedItemClickHandler_2(data, i)"><i class="zmdi zmdi-minus"></i></span>
                                             <span class="qty">{{ data ? (data.quantity ? data.quantity : 0) : 0 }}</span>
-                                            <!-- <span class="qty-decrease" @click="decreaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span> -->
+                                            <span class="qty-decrease" @click="decreaseOrderedItemClickHandler_2(data, i)"><i class="zmdi zmdi-plus"></i></span>
                                         </span>
                                     </td>
                                     <!-- Discount Column -->
@@ -169,7 +173,7 @@
                                     </td>
                                     <!-- Option Column -->
                                     <td class="row-action jmi-tr-td-option" style="min-width: 70px; text-align: right;">
-                                        <span class="icon edit-icon" @click="editOrderitemClickHandler(data, i)"><i class="zmdi zmdi-edit"></i></span>
+                                        <span class="icon edit-icon" @click="editOrderitemClickHandler_2(data, i)"><i class="zmdi zmdi-edit"></i></span>
                                         <span class="icon delete-icon" @click="deleteOrderitemClickHandler_2(data, i)"><i class="fas fa-trash-alt"></i></span>
                                     </td>
                                 </tr>
@@ -610,20 +614,6 @@ export default {
             on_change_SR_dropdown: null,
             SR_LIST__DA: [],
             header_date: null,
-            sr_list: [
-                {
-                    name: "SR 1"
-                },
-                {
-                    name: "SR 2"
-                },
-                {
-                    name: "SR 3"
-                },
-                {
-                    name: "SR 4"
-                },
-            ],
             order_table_header: ["Name", "Unit Price", "Quantity", "Bonus", "Total Price"],
             PRODUCT_MODAL_DATA_LIST: [
                 {
@@ -1077,6 +1067,8 @@ export default {
             ORDERED_TABLE_DATA__INIT_LIST: this.pending_order_list_by_id.order_details,
             ORDERED_TABLE_DATA__INIT_LIST_2: [],
             SHOW_CUSTOMER_PROFILE: [],
+            ORDERED_PRODUCT_TABLE_ROW_IS_EDITABLE: false,
+            ORDERED_PRODUCT_TABLE_2_ROW_IS_EDITABLE: false,
         }
     },
     created() {
@@ -1113,17 +1105,48 @@ export default {
         //------------------------------------------------------------------------------------------
         // Table List Actions
         // Increase Table Row's Single Product/Order
-        /*increaseOrderedItemClickHandler(data, index) {
+        increaseOrderedItemClickHandler(data, index) {
             console.log(data + '    ' + index)
         },
         // Decrease Table Row's Single Product/Order
         decreaseOrderedItemClickHandler(data, index) {
             console.log(data + '    ' + index)
-        },*/
-        // Edit Table Row's Single Product/Order
-        /*editOrderitemClickHandler(data, index) {
+        },
+        // Increase Table Row's Single Product/Order
+        increaseOrderedItemClickHandler_2(data, index) {
             console.log(data + '    ' + index)
-        },*/
+        },
+        // Decrease Table Row's Single Product/Order
+        decreaseOrderedItemClickHandler_2(data, index) {
+            console.log(data + '    ' + index)
+        },
+        // Ordered Table Quantity input keyup & keydown
+        quantityKeyUp_ordered_table(data, value, i) {
+            console.log(value.keyCode)
+            let selector = document.querySelector('#order-data-table #ordered-add-modal-qty-' + i)
+            if(parseInt(selector.value) === 0) {
+                selector.value = 1
+            } else if((selector.value).toString() === '') {
+                selector.value = 1
+            }
+            data.qty = selector.value
+            // this.UPDATE_BTN_TRUE = true
+            this.createSubtotalCalculation()
+        },
+        quantityKeyDown_ordered_table(value, i) {
+            console.log(document.querySelector('#order-data-table #ordered-add-modal-qty-' + i).value)
+            if(value.keyCode === 190 || value.keyCode === 110) {
+                value.preventDefault()
+            }
+        },
+        // Edit Table Row's Single Product/Order
+        editOrderitemClickHandler(data, index) {
+            console.log(data + '    ' + index)
+            this.ORDERED_PRODUCT_TABLE_ROW_IS_EDITABLE = true
+        },
+        editOrderitemClickHandler_2(data, index) {
+            console.log(data + '    ' + index)
+        },
         // Delete Table Row's Single Product/Order
         deleteOrderitemClickHandler(data, index) {
             console.log(data + '    ' + index)

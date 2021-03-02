@@ -33,9 +33,9 @@
     }
 
     .order-approval-details-section-inner {
-        box-shadow        : 0px 0px 8px #026CD11A;
-        border-radius     : 8px;
-        padding           : 20px 0;
+        box-shadow   : 0px 0px 8px #026CD11A;
+        border-radius: 8px;
+        padding      : 20px 0;
 
         .title-section {
             padding: 0 20px 10px;
@@ -99,8 +99,8 @@
 
             .header-summery-section-inner {
                 .row {
-                    padding   : 4px 0;
-                    margin    : 0;
+                    padding: 4px 0;
+                    margin : 0;
 
 
                     p {
@@ -166,7 +166,7 @@
                             font-size     : 14px;
                             display       : inline-block;
                             vertical-align: middle;
-                            width: 70%;
+                            width         : 70%;
 
                             span.sr-modal {
                                 position        : fixed;
@@ -396,19 +396,51 @@
 
                             td:last-child {
                                 width: 10%;
+
+                                span {
+                                    display: none;
+                                }
                             }
 
                             // QUantity Column
                             td {
                                 span.quantity-setup {
-                                    padding         : 2px 8px;
-                                    border-radius   : 2px;
+                                    // border       : 1px solid #026CD1;
+                                    padding      : 2px 8px;
+                                    border-radius: 2px;
+
+                                    span.qty-increase {
+                                        // display     : none;
+                                        display  : inline-block;
+                                        color    : #026CD1;
+                                        font-size: 16px;
+                                        cursor   : pointer;
+                                        padding  : 4px;
+                                    }
 
                                     span.qty {
-                                        margin      : 0 10px;
+                                        margin   : 0 10px;
                                         // color    : #026CD1;
+                                        display  : inline-block;
+                                        min-width: 16px;
+                                    }
+
+                                    input.qty {
+                                        font-size : 14px;
+                                        width     : 40px;
+                                        height    : auto;
+                                        border    : none;
+                                        text-align: center;
+                                    }
+
+                                    span.qty-decrease {
+                                        // display        : none;
                                         display     : inline-block;
-                                        min-width   : 16px;
+                                        // color    : #AAC0D9;
+                                        color       : #026CD1;
+                                        font-size   : 16px;
+                                        cursor      : pointer;
+                                        padding     : 4px;
                                     }
                                 }
                             }
@@ -418,6 +450,49 @@
 
                                 // Quantity Column
                                 td {
+                                    /*span.quantity-setup {
+                                        // border       : 1px solid #026CD1;
+                                        // padding      : 2px 8px;
+                                        // border-radius: 2px;
+
+                                        span.qty-increase {
+                                            display  : inline-block;
+                                            // color    : #026CD1;
+                                            // font-size: 16px;
+                                            // cursor   : pointer;
+                                            // padding  : 4px;
+                                        }
+
+                                        // span.qty {
+                                        //     margin   : 0 10px;
+                                        //     color    : #026CD1;
+                                        //     display  : inline-block;
+                                        //     min-width: 16px;
+                                        // }
+
+                                        input.qty {
+                                            // font-size : 14px;
+                                            // width     : 40px;
+                                            // height    : auto;
+                                            // border    : none;
+                                            // text-align: center;
+                                        }
+
+                                        span.qty-decrease {
+                                            display     : inline-block;
+                                            // color    : #AAC0D9;
+                                            // color       : #026CD1;
+                                            // font-size   : 16px;
+                                            // cursor      : pointer;
+                                            // padding     : 4px;
+                                        }
+                                    }*/
+                                }
+
+                                td:last-child {
+                                    span {
+                                        display: inline-block;
+                                    }
                                 }
                             }
                         }
@@ -499,95 +574,6 @@
 
                             td:first-child {}
                         }
-
-                        // tr#subtotal-section {
-                        //     td {
-                        //         span {
-                        //             display   : block;
-                        //             text-align: right;
-                        //             color     : #111213;
-                        //             font-size : 12px;
-                        //         }
-                        //     }
-
-                        //     td:nth-child(4) {
-                        //         span {
-                        //             color: #8D979F;
-                        //         }
-                        //     }
-
-                        //     td:first-child {
-                        //         span {
-                        //             margin-top: 10px;
-                        //             text-align: left;
-                        //             font-size : 14px;
-                        //             color     : #026CD1;
-                        //             cursor    : pointer;
-
-                        //             i {
-                        //                 font-size   : 18px;
-                        //                 margin-right: 6px;
-                        //             }
-                        //         }
-
-                        //         span:last-child {
-                        //             margin-top: 30px;
-                        //             color     : #8D979F;
-
-                        //             i {
-                        //                 transform: rotate(40deg);
-                        //             }
-                        //         }
-                        //     }
-
-                        //     &:hover {
-                        //         background: none;
-                        //     }
-                        // }
-
-                        // tr#grand-total-section {
-                        //     td:first-child {
-                        //         display: block;
-                        //         width  : 100%;
-
-                        //         span {
-                        //             display    : inline-block;
-                        //             font-size  : 14px;
-                        //             line-height: 1;
-                        //             cursor     : pointer;
-                        //         }
-
-                        //         span.order-forward {
-                        //             width       : 110px;
-                        //             margin-right: 30px;
-
-                        //             i {
-                        //                 font-size   : 16px;
-                        //                 margin-right: 6px;
-                        //                 line-height : 1;
-                        //             }
-                        //         }
-
-                        //         span.order-reject {
-                        //             width: 80px;
-                        //             color: #DF2A43;
-                        //         }
-                        //     }
-
-                        //     td {
-                        //         span {
-                        //             width      : auto;
-                        //             text-align : right;
-                        //             color      : #026CD1;
-                        //             font-size  : 14px;
-                        //             font-weight: 500;
-                        //         }
-                        //     }
-
-                        //     &:hover {
-                        //         background: none;
-                        //     }
-                        // }
                     }
                 }
             }
