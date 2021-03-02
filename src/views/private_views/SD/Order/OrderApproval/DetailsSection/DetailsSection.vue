@@ -1569,7 +1569,6 @@ export default {
         // -------------------------------------------------------------------------------------------------
         // Default Functionality
         defaultAllThisComponentData() {
-                this.selected_sr = null
                 this.ORDERED_TABLE_DATA__INIT_LIST = []
                 this.ORDERED_TABLE_DATA__INIT_LIST_2 = []
                 // this.ORDERED_TABLE_DATA__MODIFIED_LIST = []
@@ -1590,6 +1589,7 @@ export default {
             return date
         },
         set_Or_Change_SR(da_id) {
+            console.log(da_id)
             for(let i=0; i<this.SR_LIST__DA.length; i++) {
                 if(this.SR_LIST__DA[i].id === parseInt(da_id)) {
                     this.selected_sr = this.SR_LIST__DA[i].name
