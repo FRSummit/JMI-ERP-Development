@@ -108,10 +108,10 @@
                                         <td>{{ Number(parseFloat(data.unit_tp) + parseFloat(data.unit_vat)).toFixed(2) }}</td>
                                         <!-- Quantity Column -->
                                         <td>
-                                            <span class="quantity-setup" v-if="!ORDERED_PRODUCT_TABLE_ROW_IS_EDITABLE">
+                                            <span class="quantity-setup">
                                                 <span class="qty">{{ data.qty }}</span>
                                             </span>
-                                            <span class="quantity-setup" v-if="ORDERED_PRODUCT_TABLE_ROW_IS_EDITABLE" style="border: 1px solid #026CD1;">
+                                            <span class="quantity-setup hide" style="border: 1px solid #026CD1;">
                                                 <span class="qty-increase" @click="increaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-minus"></i></span>
                                                 <!-- <span class="qty">{{ data.qty }}</span> -->
                                                 <input :id="'ordered-add-modal-qty-' + i" class="qty jmi-tr-td-input-qty" type="number" placeholder="00" :value="data ? (data.qty ? data.qty : 0) : 0" v-on:keyup="quantityKeyUp_ordered_table(data, $event, i)" min="1" step="1" v-on:keydown="quantityKeyDown_ordered_table($event, i)" pattern="[0-9]*">
