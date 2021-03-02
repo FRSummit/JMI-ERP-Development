@@ -1202,7 +1202,8 @@ export default {
             console.log(value.key)
             let selector = document.querySelector('#order-add-modal-qty-' + i)
             if(parseInt(selector.value) === 0) {
-                console.log('it is 0')
+                selector.value = 1
+            } else if((selector.value).toString() === '') {
                 selector.value = 1
             }
             data.quantity = selector.value

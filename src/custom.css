@@ -701,6 +701,14 @@ input[type=number] {
     font-size: 8px;
 }
 
+#order-data-table .jmi-tr-td-input-qty {
+    font-size : 14px;
+    width     : 40px;
+    height    : auto;
+    border    : none;
+    text-align: center;
+}
+
 .jmi-deactive-btn {
     color: #AAC0D9;
 }

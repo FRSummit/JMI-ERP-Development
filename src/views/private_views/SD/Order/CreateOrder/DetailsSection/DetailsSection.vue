@@ -1,10 +1,5 @@
 <template>
     <div id="create-order-details-section" class="create-order-details-section">
-        <!-- <div id="progressbar" class="jmi-progressbar" v-if="!customer_data">
-            <v-progress-circular indeterminate color="primary"></v-progress-circular>
-            <p>Please select a customer</p>
-        </div> -->
-        <!-- <div class="create-order-details-section-inner" v-if="customer_data"> -->
         <div class="create-order-details-section-inner">
             <div class="title-section">
                 <div class="row">
@@ -59,33 +54,9 @@
             <!-- Order Table -->
             <div class="order-table">
                 <div class="order-table-inner">
-                    <!-- <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Unit Price</th>
-                                <th>Quantity</th>
-                                <th>Bonus</th>
-                                <th>Total Price</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Aston Martin</td>
-                                <td>150</td>
-                                <td>10</td>
-                                <td>50.00</td>
-                                <td>1254.00</td>
-                                <td>Del</td>
-                            </tr>
-                        </tbody>
-                    </table> -->
                     <table class="table jmi-order-table" id="order-data-table" cellspacing="0" width="100%">
                         <thead>
                             <tr>
-                                <!-- <th style="border: none" v-for="(head, i) in order_table_header" :key="i">{{ head }}</th>
-                                <th style="border: none"></th> -->
                                 <th>Name</th>
                                 <th>Trade Price<span class="with-vat">(With VAT)</span></th>
                                 <th>Quantity</th>
@@ -102,38 +73,40 @@
                                     <p v-if="customer_data && !ORDERED_TABLE_DATA__INIT_LIST.length">Please add a product</p>
                             </div>
                             <div class="table-data-rows" v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">
-                                <!-- <tr v-for="(data, i) in (order_table_modified_data.length > 0 ? order_table_modified_data : ORDERED_TABLE_DATA__INIT_LIST)" :key="i"> -->
-                                <!-- <tr v-for="(data, i) in order_table_modified_data" :key="i"> -->
                                 <tr v-for="(data, i) in ORDERED_TABLE_DATA__INIT_LIST" :key="i" :class="data.row_class ? data.row_class : ''">
+                                    <!-- Name Column -->
                                     <td>
-                                        <!-- <span>{{ data ? data.product_info.prod_name : "" }}</span> -->
                                         <span>{{ data ? data.prod_name : "" }}</span>
                                         <span v-if="!data.row_class">Unit Price: {{ data ? data.base_tp : "" }}</span>
                                         <span v-if="data.row_class" :class="data.row_class">Free Product</span>
                                     </td>
-                                    <!-- <td>{{ data ? data.price_now_per_qty.toFixed(2) : "" }}</td> -->
+                                    <!-- Trade Price Column -->
                                     <td>
                                         <span v-if="!data.row_class">{{ data ? Number(parseFloat(data.base_tp) + parseFloat(data.base_vat)).toFixed(2) : 0 }}</span>
                                         <span v-if="data.row_class"></span>
                                     </td>
+                                    <!-- Quantity Column -->
                                     <td>
                                         <span class="quantity-setup" v-if="!data.row_class">
                                             <span class="qty-increase" @click="decreaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-minus" :class="data.quantity <= 1 ? 'jmi-deactive-btn' : ''"></i></span>
-                                            <span class="qty">{{ data ? (data.quantity ? data.quantity : 0) : 0 }}</span>
+                                            <!-- <span class="qty">{{ data ? (data.quantity ? data.quantity : 0) : 0 }}</span> -->
+                                            <input :id="'ordered-add-modal-qty-' + i" class="qty jmi-tr-td-input-qty" type="number" placeholder="00" :value="data ? (data.quantity ? data.quantity : 0) : 0" v-on:keyup="quantityKeyUp_ordered_table(data, $event, i)" min="1" step="1" v-on:keydown="quantityKeyDown_ordered_table($event, i)" pattern="[0-9]*">
                                             <span class="qty-decrease" @click="increaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
                                         </span>
                                     </td>
+                                    <!-- Discount Column -->
                                     <td>
                                         <span v-if="!data.row_class">{{ data ? (data.offer.discount_percentage ? data.offer.discount_percentage : 0) : 0 }}%</span>
                                         <span v-if="data.row_class"></span>
                                     </td>
+                                    <!-- BOnus Column -->
                                     <td>
                                         <span v-if="!data.row_class">{{ data ? (data.offer.bonus_qty ? parseInt(data.quantity / data.offer.bonus_on) : 0) : 0 }}</span>
                                         <span v-if="data.row_class">{{ data ? (data.offer.free_prod_qty ? parseInt(data.quantity / data.offer.free_req_qty) : 0) : 0 }}</span>
                                     </td>
+                                    <!-- Total Price Column -->
                                     <td class="total_price">
                                         <span v-if="!data.row_class">{{ data ? (data.base_tp * data.quantity).toFixed(2) : 0 }}</span>
-                                        <!-- <span v-if="!data.row_class">{{ data ? Number(data.line_total).toFixed(2) : 0 }}</span> -->
                                         <span v-if="data.row_class"></span>
                                     </td>
                                     <td class="row-action" style="min-width: 70px;">
@@ -459,6 +432,24 @@ export default {
                 this.ORDERED_TABLE_DATA__INIT_LIST[index + 1].quantity--
             }
         },
+        // Ordered Table Quantity input keyup & keydown
+        quantityKeyUp_ordered_table(data, value, i) {
+            console.log(value.keyCode)
+            let selector = document.querySelector('#order-data-table #ordered-add-modal-qty-' + i)
+            if(parseInt(selector.value) === 0) {
+                selector.value = 1
+            } else if((selector.value).toString() === '') {
+                selector.value = 1
+            }
+            data.quantity = selector.value
+            this.createSubtotalCalculation()
+        },
+        quantityKeyDown_ordered_table(value, i) {
+            console.log(document.querySelector('#order-data-table #ordered-add-modal-qty-' + i).value)
+            if(value.keyCode === 190 || value.keyCode === 110) {
+                value.preventDefault()
+            }
+        },
         // Delete Table Row's Single Product/Order
         deleteOrderitemClickHandler(data, index) {
             console.log(data + '    ' + index)
@@ -546,7 +537,8 @@ export default {
             console.log(value.keyCode)
             let selector = document.querySelector('#order-add-modal-qty-' + i)
             if(parseInt(selector.value) === 0) {
-                console.log('it is 0')
+                selector.value = 1
+            } else if((selector.value).toString() === '') {
                 selector.value = 1
             }
             data.quantity = selector.value
