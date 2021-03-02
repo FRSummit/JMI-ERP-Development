@@ -106,7 +106,7 @@
                                         </td>
                                         <!-- Trade Price Column -->
                                         <td>{{ Number(parseFloat(data.unit_tp) + parseFloat(data.unit_vat)).toFixed(2) }}</td>
-                                        <!-- QUantity Column -->
+                                        <!-- Quantity Column -->
                                         <td>
                                             <span class="quantity-setup">
                                                 <!-- <span class="qty-increase" @click="increaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-minus"></i></span> -->
@@ -124,23 +124,26 @@
                                         <!-- Total Price Column -->
                                         <td>{{ Number(data.tp).toFixed(2) }}</td>
                                         <!-- Option Column -->
-                                        <td class="row-action" style="min-width: 70px;">
-                                            <!-- <span class="edit-icon" @click="editOrderitemClickHandler(data, i)"><i class="zmdi zmdi-edit"></i></span> -->
-                                            <span class="delete-icon" @click="deleteOrderitemClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
+                                        <td class="row-action jmi-tr-td-option" style="min-width: 70px; text-align: right;">
+                                            <span class="icon edit-icon" @click="editOrderitemClickHandler(data, i)"><i class="zmdi zmdi-edit"></i></span>
+                                            <span class="icon delete-icon" @click="deleteOrderitemClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
                                         </td>
                                     </tr>
                                 </div>
                                 <!-- -------- IF ANY PRODUCT ADDED -------- -->
                                 <tr v-for="(data, i) in ORDERED_TABLE_DATA__INIT_LIST_2" :key="i">
+                                    <!-- Name Column -->
                                     <td>
                                         <span>{{ data ? data.prod_name : '' }}</span>
                                         <span>Unit Price: {{ data.base_tp }}</span>
                                         <span v-if="data.row_class" :class="data.row_class">Free Product</span>
                                     </td>
+                                    <!-- Trade Price Column -->
                                     <td>
                                         <span v-if="!data.row_class">{{ data ? Number(parseFloat(data.base_tp) + parseFloat(data.base_vat)).toFixed(2) : 0 }}</span>
                                         <span v-if="data.row_class"></span>
                                     </td>
+                                    <!-- Quantity Column -->
                                     <td>
                                         <span class="quantity-setup">
                                             <!-- <span class="qty-increase" @click="increaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-minus"></i></span> -->
@@ -148,22 +151,26 @@
                                             <!-- <span class="qty-decrease" @click="decreaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span> -->
                                         </span>
                                     </td>
+                                    <!-- Discount Column -->
                                     <td>
                                         <span v-if="!data.row_class">{{ data ? (data.offer.discount_percentage ? data.offer.discount_percentage : 0) : 0 }}%</span>
                                         <span v-if="data.row_class"></span>
                                     </td>
+                                    <!-- Bonus Column -->
                                     <td>
                                         <span v-if="!data.row_class">{{ data ? (data.offer.bonus_qty ? parseInt(data.quantity / data.offer.bonus_on) : 0) : 0 }}</span>
                                         <span v-if="data.row_class">{{ data ? (data.offer.free_prod_qty ? parseInt(data.quantity / data.offer.free_req_qty) : 0) : 0 }}</span>
                                     </td>
+                                    <!-- Total Price Column -->
                                     <td>
                                         <span v-if="!data.row_class">{{ data ? (data.price_now_per_qty * data.quantity).toFixed(2) : 0 }}</span>
                                         <!-- <span v-if="!data.row_class">{{ data ? Number(data.line_total).toFixed(2) : 0 }}</span> -->
                                         <span v-if="data.row_class"></span>
                                     </td>
-                                    <td class="row-action" style="min-width: 70px;">
-                                        <!-- <span class="edit-icon" @click="editOrderitemClickHandler(data, i)"><i class="zmdi zmdi-edit"></i></span> -->
-                                        <span class="delete-icon" @click="deleteOrderitemClickHandler_2(data, i)"><i class="fas fa-trash-alt"></i></span>
+                                    <!-- Option Column -->
+                                    <td class="row-action jmi-tr-td-option" style="min-width: 70px; text-align: right;">
+                                        <span class="icon edit-icon" @click="editOrderitemClickHandler(data, i)"><i class="zmdi zmdi-edit"></i></span>
+                                        <span class="icon delete-icon" @click="deleteOrderitemClickHandler_2(data, i)"><i class="fas fa-trash-alt"></i></span>
                                     </td>
                                 </tr>
                                 <!-- -------- IF ANY PRODUCT ADDED -------- -->

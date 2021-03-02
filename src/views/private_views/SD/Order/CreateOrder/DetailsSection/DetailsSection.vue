@@ -109,8 +109,8 @@
                                         <span v-if="!data.row_class">{{ data ? (data.base_tp * data.quantity).toFixed(2) : 0 }}</span>
                                         <span v-if="data.row_class"></span>
                                     </td>
-                                    <td class="row-action" style="min-width: 70px;">
-                                        <span v-if="!data.row_class" class="delete-icon" @click="deleteOrderitemClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
+                                    <td class="row-action jmi-tr-td-option" style="min-width: 70px;">
+                                        <span v-if="!data.row_class" class="icon delete-icon" @click="deleteOrderitemClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
                                     </td>
                                 </tr>
                             </div>
