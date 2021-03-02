@@ -62,9 +62,9 @@
                                 <div class="address-section">
                                     <!-- <p class="customer-address"><span>Order No: {{ customer ? customer.id : 'XXXX' }}</span>|<span>Total Bill: {{ customer ? customer.net_total : '00.00' }}</span></p> -->
                                     <p class="customer-address"><span>Total Bill: {{ customer ? customer.net_total : '00.00' }}</span></p>
-                                    <!-- <span class="checkbox">
+                                    <span class="checkbox">
                                         <input type="checkbox" :id="'order-approval-checkbox-' + c" :name="customer ? customer.customer_id : 0" :value="customer ? customer.customer_id : 0">
-                                    </span> -->
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -291,6 +291,8 @@ export default {
             on_change_status: null,
             on_change_sort_by: null,
             on_change_filter_by: null,
+            SELECT_OPTION__CUSTOMER_ID_LIST: [],
+            SELECT_OPTION__ORDER_ID_LIST: [],
         }
     },
     created() {},
@@ -315,10 +317,27 @@ export default {
             console.log('onChangeStatusDropdown: ' + this.on_change_status)
             switch(this.on_change_status) {
                 case 'Select All':
-                    console.log('Select All')
+                    // console.log('Select All')
+                    // console.log(this.ALL_PENDING_ORDERS_CUSTOMER_LIST.length)
+                    for(let i=0; i<this.ALL_PENDING_ORDERS_CUSTOMER_LIST.length; i++) {
+                        let radio_selector = document.querySelector('#order-approval-left-sidebar #order-approval-checkbox-' + i)
+                        radio_selector.checked = true
+                        this.SELECT_OPTION__CUSTOMER_ID_LIST.push(parseInt(this.ALL_PENDING_ORDERS_CUSTOMER_LIST[i].customer_id))
+                        this.SELECT_OPTION__ORDER_ID_LIST.push(parseInt(this.ALL_PENDING_ORDERS_CUSTOMER_LIST[i].id))
+                        // console.log(parseInt(this.ALL_PENDING_ORDERS_CUSTOMER_LIST[i].customer_id))
+                        // console.log(parseInt(this.ALL_PENDING_ORDERS_CUSTOMER_LIST[i].id))
+                    }
+                    alert(this.SELECT_OPTION__CUSTOMER_ID_LIST)
+                    alert(this.SELECT_OPTION__ORDER_ID_LIST)
                     break
                 case 'Approved Selected':
-                    console.log('Approved Selected')
+                    // console.log('Approved Selected')
+                    if(this.SELECT_OPTION__CUSTOMER_ID_LIST.length > 0 && this.SELECT_OPTION__ORDER_ID_LIST.length > 0) {
+                        this.APPROVE_ALL_SELECTED_ORDER__FROM_SERVICE()
+                    } else {
+                        alert('Please Select all order')
+                        this.on_change_status = ''
+                    }
                     break
                 case 'Reject Selected':
                     console.log('Reject Selected')
@@ -374,12 +393,18 @@ export default {
 
             jmiFilter.searchById_LeftSidebar(filter, list, txt_selector)
         },
+        // ------------------------------------------------------------------------------------------
+        // Service Implementation
         async ALL_PENDING_ORDERS_CUSTOMER_LIST__FROM_SERVICE() {
             await service.getAllPendingOrdersCustomerList_OrderApprovalLeftSide()
                 .then(res => {
                     console.log(res.data)
                     this.ALL_PENDING_ORDERS_CUSTOMER_LIST = res.data.orders_info
                 })
+        },
+        async APPROVE_ALL_SELECTED_ORDER__FROM_SERVICE() {
+            console.log(this.SELECT_OPTION__CUSTOMER_ID_LIST)
+            console.log(this.SELECT_OPTION__ORDER_ID_LIST)
         }
     }
 }
