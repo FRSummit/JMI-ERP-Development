@@ -1,18 +1,19 @@
 <template>
     <div id="order-approval-details-section" class="order-approval-details-section">
-        <div id="progressbar" class="jmi-progressbar" v-if="!ORDERED_TABLE_DATA__INIT_LIST">
+        <!-- <div id="progressbar" class="jmi-progressbar" v-if="!ORDERED_TABLE_DATA__INIT_LIST">
             <v-progress-circular indeterminate color="primary"></v-progress-circular>
             <p>Please select an order</p>
-        </div>
-        <div class="order-approval-details-section-inner" v-if="ORDERED_TABLE_DATA__INIT_LIST">
+        </div> -->
+        <div class="order-approval-details-section-inner">
             <div class="title-section">
                 <div class="row">
-                    <div class="col-lg-4 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Order ID:</span><span class="id">{{ pending_order_list_by_id ? pending_order_list_by_id.order_no : "000" }}</span><span class="customer-type">Dummy: Cash</span></p></div>
-                    <div class="col-lg-8 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer:</span><span class="jmi-lvl-value id url" @click="customerDetailsClickHandler">{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info ? pending_order_list_by_id.sbu_customer_info.display_name : 0) : 'Not Found' }}</span></p></div>
+                    <!-- <div class="col-lg-4 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Order ID:</span><span class="id">{{ pending_order_list_by_id ? pending_order_list_by_id.order_no : "000" }}</span><span class="customer-type" v-if="ORDERED_TABLE_DATA__INIT_LIST"></span></p></div> -->
+                    <div class="col-lg-4 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Order ID:</span><span class="id">{{ pending_order_list_by_id ? pending_order_list_by_id.order_no : "000" }}</span></p></div>
+                    <div class="col-lg-8 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer:</span><span class="jmi-lvl-value id url" @click="customerDetailsClickHandler">{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info ? pending_order_list_by_id.sbu_customer_info.display_name : '') : '' }}</span></p></div>
                 </div>
                 <div class="row">
                     <!-- <div class="col-lg-12 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><span class="jmi-lvl-value address">{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info.customer_info.customer_address ? pending_order_list_by_id.sbu_customer_info.customer_info.customer_address : 'Null') : 'Dummy: Address' }}</span></p></div> -->
-                    <div class="col-lg-12 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><span class="jmi-lvl-value address">{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info ? (pending_order_list_by_id.sbu_customer_info.customer_address ? pending_order_list_by_id.sbu_customer_info.customer_address : 'Address Not Found') : 'sbu not found') : 'Dummy: Address' }}</span></p></div>
+                    <div class="col-lg-12 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><span class="jmi-lvl-value address">{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info ? (pending_order_list_by_id.sbu_customer_info.customer_address ? pending_order_list_by_id.sbu_customer_info.customer_address : '') : '') : '' }}</span></p></div>
                     
                 </div>
             </div>
@@ -22,16 +23,16 @@
                 <!-- <div class="container"> -->
                     <div class="row">
                         <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Current Outstanding:</span><span class="jmi-lvl-value url" @click="currentOutstandingClickHandler">Dummy: 200500</span></p></div> -->
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Order Placed:</span> <span class="jmi-lvl-value">Placed</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Order Placed:</span> <span class="jmi-lvl-value"></span></p></div>
                         <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Status:</span> <span class="jmi-lvl-value">Pending</span></p></div> -->
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Status:</span> <span class="jmi-lvl-value">{{ pending_order_list_by_id ? (pending_order_list_by_id.is_approved === 'N' ? 'Pending' : '') : 'Not Found' }}</span></p></div>
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title">Area: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80" >{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.get_sales_area ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.get_sales_area.area_name) : 'Sales Force Not Found') : 'Force Not Found') : 'Area Not Found') : 'SBU Not Found') : 'Not Found' }}</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Status:</span> <span class="jmi-lvl-value">{{ pending_order_list_by_id ? (pending_order_list_by_id.is_approved === 'N' ? 'Pending' : '') : '' }}</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title">Area: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80" >{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.get_sales_area ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.get_sales_area.area_name) : '') : '') : '') : '') : '' }}</span></p></div>
                         <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title">Territory ID: <span class="jmi-lvl-value">{{ pending_order_list_by_id ? pending_order_list_by_id.territory_id : 'Not Found' }}</span></p></div>
                     </div>
                     <div class="row">
                         <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title">Territory: <span class="jmi-lvl-value">DHK0301-Dhanmondi 32</span></p></div> -->
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="am">AM: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info.name) : 'Manager Not Found') : 'Force Not Found') : 'Customer Not Found') : 'SBU Not Found') : 'Not Found' }}</span></p></div>
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="mio">MIO: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info.name) : 'Manager Info Not Found') : 'RSM Not Found') : 'Manager Not Found') : 'Force Not Found') : 'Customer Not Found') : 'SBU Not Found') : 'Not Found' }}</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="am">AM: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info.name) : '') : '') : '') : '') : '' }}</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="mio">MIO: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info.name) : '') : '') : '') : '') : '') : '') : '' }}</span></p></div>
                         <div class="col-lg-3 col-md-6 col-sm-6">
                             <!-- <div class="sr" style="display: table-cell; width: 33%; padding-right: 20px; padding-bottom: 0; vertical-align: middle;">
                                 <span style="display: inline-block; width: 15%; font-size: 14px; float: left; line-height:1; padding-top: 6px;">SR: </span>
@@ -93,7 +94,7 @@
                                 <!-- <tr v-for="(data, i) in order_table_data" :key="i"> -->
                                 <!-- <tr v-for="(data, i) in pending_order_list_by_id ? pending_order_list_by_id.order_details : null" :key="i"> -->
                                 <div id="progressbar" class="jmi-progressbar" v-if="!ORDERED_TABLE_DATA__INIT_LIST">
-                                    <v-progress-circular indeterminate color="primary"></v-progress-circular>
+                                    <!-- <v-progress-circular indeterminate color="primary"></v-progress-circular> -->
                                     <p>Please select an order</p>
                                 </div>
                                 <div v-if="ORDERED_TABLE_DATA__INIT_LIST">
@@ -1568,6 +1569,7 @@ export default {
         // -------------------------------------------------------------------------------------------------
         // Default Functionality
         defaultAllThisComponentData() {
+                this.selected_sr = null
                 this.ORDERED_TABLE_DATA__INIT_LIST = []
                 this.ORDERED_TABLE_DATA__INIT_LIST_2 = []
                 // this.ORDERED_TABLE_DATA__MODIFIED_LIST = []

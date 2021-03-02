@@ -9,7 +9,7 @@
             <div class="title-section">
                 <div class="row">
                     <!-- <div class="col-lg-4 col-md-4 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer ID:</span><span class="id">{{ customer_data ? customer_data.customer_id : ""}}</span><span class="customer-type">{{ customer_data ? customer_data.credit_flag === "Y" ? "Credit" : "Cash" : "No Customer" }}</span></p></div> -->
-                    <div class="col-lg-4 col-md-4 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer ID:</span><span class="id">{{ customer_data ? customer_data.display_code : ""}}</span><span class="customer-type">{{ customer_data ? customer_data.credit_flag === "Y" ? "Credit" : "Cash" : "No Customer Selected" }}</span></p></div>
+                    <div class="col-lg-4 col-md-4 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer ID:</span><span class="id">{{ customer_data ? customer_data.display_code : ""}}</span><span class="customer-type" v-if="customer_data">{{ customer_data ? customer_data.credit_flag === "Y" ? "Credit" : "Cash" : "" }}</span></p></div>
                     <div class="col-lg-8 col-md-8 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer Name:</span><span class="jmi-lvl-value">{{ customer_data ? customer_data.display_name : "" }}</span></p></div>
                 </div>
                 <div class="row">
@@ -23,9 +23,9 @@
 
                     <div class="row">
                         <div class="col-lg-3 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Current Outstanding:</span><span class="jmi-lvl-value url jmi-no-underline">{{ customer_data ? customer_data.current_due !== null ? customer_data.current_due : "00" : "" }}</span></p></div>
-                        <div class="col-lg-3 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Order Placed:</span> <span class="jmi-lvl-value">-- Dev. No Data ---</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Order Placed:</span> <span class="jmi-lvl-value"></span></p></div>
                         <!-- <div class="col-lg-3 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Status:</span> <span class="jmi-lvl-value">Pending</span></p></div> -->
-                        <div class="col-lg-3 col-md-6 col-sm-12"><p class="jmi-title">Area: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">-- Dev. No Data ---</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-12"><p class="jmi-title">Area: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80"></span></p></div>
                         <div class="col-lg-3 col-md-6 col-sm-12"><p class="jmi-title">Territory: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_70">{{ customer_data ? customer_data.customer_area_info.sales_force.get_sales_area.area_name : "" }}</span></p></div>
                     </div>
                     <div class="row">
@@ -97,7 +97,7 @@
                         </thead>
                         <tbody>
                             <div id="progressbar" class="jmi-progressbar" v-if="ORDERED_TABLE_DATA__INIT_LIST.length <= 0">
-                                <v-progress-circular indeterminate color="primary"></v-progress-circular>
+                                <!-- <v-progress-circular indeterminate color="primary"></v-progress-circular> -->
                                     <p>Please add a product</p>
                             </div>
                             <div class="table-data-rows" v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">
@@ -142,7 +142,7 @@
                             </div>
                             <!-- Bottom Total Section -->
                             <tr class="subtotal bottom-total" style="border-top: 1px solid #BFCFE2;">
-                                <td style="width: 50%;"><span class="add-order-attachment-section add-order" @click="addOrderClickHandler"><i class="zmdi zmdi-plus"></i>Add Products</span></td>
+                                <td style="width: 50%;"><span class="add-order-attachment-section add-order" @click="addOrderClickHandler" v-if="customer_data"><i class="zmdi zmdi-plus"></i>Add Products</span></td>
                                 <td style="width: 25%;"><span v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">Subtotal</span></td>
                                 <td style="width: 15%;"><span v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">{{ Number(sub_total).toFixed(2) }}</span></td>
                                 <td style="width: 10%; min-width: 70px;"></td>
