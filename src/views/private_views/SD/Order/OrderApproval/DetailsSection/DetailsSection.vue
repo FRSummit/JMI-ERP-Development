@@ -99,11 +99,14 @@
                                 </div>
                                 <div v-if="ORDERED_TABLE_DATA__INIT_LIST">
                                     <tr v-for="(data, i) in ORDERED_TABLE_DATA__INIT_LIST" :key="i">
+                                        <!-- Name Column -->
                                         <td>
                                             <span>{{ data.product_info ? data.product_info.prod_name : '' }}</span>
                                             <span>Unit Price: {{ data.unit_tp }}</span>
                                         </td>
+                                        <!-- Trade Price Column -->
                                         <td>{{ Number(parseFloat(data.unit_tp) + parseFloat(data.unit_vat)).toFixed(2) }}</td>
+                                        <!-- QUantity Column -->
                                         <td>
                                             <span class="quantity-setup">
                                                 <!-- <span class="qty-increase" @click="increaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-minus"></i></span> -->
@@ -111,12 +114,16 @@
                                                 <!-- <span class="qty-decrease" @click="decreaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span> -->
                                             </span>
                                         </td>
+                                        <!-- Discount Column -->
                                         <td>
                                             <span v-if="!data.row_class">{{ data ? (data.discount ? Number(data.discount).toFixed(2) : 0) : 0 }}</span>
                                             <span v-if="data.row_class"></span>
                                         </td>
+                                        <!-- Bonus Column -->
                                         <td>{{ data.bonus_qty }}</td>
+                                        <!-- Total Price Column -->
                                         <td>{{ Number(data.tp).toFixed(2) }}</td>
+                                        <!-- Option Column -->
                                         <td class="row-action" style="min-width: 70px;">
                                             <!-- <span class="edit-icon" @click="editOrderitemClickHandler(data, i)"><i class="zmdi zmdi-edit"></i></span> -->
                                             <span class="delete-icon" @click="deleteOrderitemClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>

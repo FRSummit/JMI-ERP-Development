@@ -775,6 +775,10 @@ input[type=number] {
 #order-approval-details-section .jmi-add-product-autofill-header-row td {
     width: 20%;
 }
+#create-order-details-section .jmi-add-product-autofill-header-row td:last-child,
+#order-approval-details-section .jmi-add-product-autofill-header-row td:last-child  {
+    text-align: right;
+}
 
 .jmi-add-product-autofill-header-row .td-span-title {
     font-size  : 14px !important;
