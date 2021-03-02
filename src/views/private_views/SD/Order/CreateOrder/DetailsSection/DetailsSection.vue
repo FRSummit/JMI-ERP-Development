@@ -1,14 +1,15 @@
 <template>
     <div id="create-order-details-section" class="create-order-details-section">
-        <div id="progressbar" class="jmi-progressbar" v-if="!customer_data">
+        <!-- <div id="progressbar" class="jmi-progressbar" v-if="!customer_data">
             <v-progress-circular indeterminate color="primary"></v-progress-circular>
             <p>Please select a customer</p>
-        </div>
-        <div class="create-order-details-section-inner" v-if="customer_data">
+        </div> -->
+        <!-- <div class="create-order-details-section-inner" v-if="customer_data"> -->
+        <div class="create-order-details-section-inner">
             <div class="title-section">
                 <div class="row">
                     <!-- <div class="col-lg-4 col-md-4 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer ID:</span><span class="id">{{ customer_data ? customer_data.customer_id : ""}}</span><span class="customer-type">{{ customer_data ? customer_data.credit_flag === "Y" ? "Credit" : "Cash" : "No Customer" }}</span></p></div> -->
-                    <div class="col-lg-4 col-md-4 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer ID:</span><span class="id">{{ customer_data ? customer_data.display_code : ""}}</span><span class="customer-type">{{ customer_data ? customer_data.credit_flag === "Y" ? "Credit" : "Cash" : "No Customer" }}</span></p></div>
+                    <div class="col-lg-4 col-md-4 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer ID:</span><span class="id">{{ customer_data ? customer_data.display_code : ""}}</span><span class="customer-type">{{ customer_data ? customer_data.credit_flag === "Y" ? "Credit" : "Cash" : "No Customer Selected" }}</span></p></div>
                     <div class="col-lg-8 col-md-8 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer Name:</span><span class="jmi-lvl-value">{{ customer_data ? customer_data.display_name : "" }}</span></p></div>
                 </div>
                 <div class="row">
@@ -35,8 +36,7 @@
                             <div class="sr" style="display: table-cell; width: 33%; padding-right: 20px; padding-bottom: 0; vertical-align: middle;">
                                 <span class="jmi-lvl">SR: </span>
                                 <p class="selectpicker-pera"> 
-                                    <span class="jmi-lvl-value">{{ selected_sr }}</span>
-                                    <span class="sr-add-icon" @click="srAddIconClickHandler"><i class="zmdi zmdi-plus"></i></span>
+                                    <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ selected_sr }}</span>
                                     <span class="sr-modal" v-if="sr_add_modal">
                                         <span class="sr-modal-inner" v-click-outside="srModalSectionOutsideClick">
                                             <span class="jmi-title">Select SR</span>
@@ -46,6 +46,7 @@
                                         </span>
                                     </span>
                                 </p>
+                                <span class="sr-add-icon" @click="srAddIconClickHandler"><i class="zmdi zmdi-plus"></i></span>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-12"><p class="delivery-dt"><span class="jmi-lvl">Exp D D:</span> <span class="jmi-lvl-value"><input type="date" id="expected-delivery-date" placeholder="09/12/2020"/></span></p></div>
@@ -837,6 +838,7 @@ export default {
                 this.SELECTED_ORDERED_PRODUCTS__STORE = []
                 this.RESPONSE_ORDERED_PRODUCTS__STORE = []
                 
+                this.selected_sr = null
                 this.sub_total = 0.00
                 this.vat_total = 0.00
                 this.discount_total = 0.00
