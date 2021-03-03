@@ -185,7 +185,7 @@
                             <!-- Bottom Total Section -->
                             <div v-if="PENDING_ORDER_DATA_BY_ID && ORDERED_TABLE_DATA__INIT_LIST">
                                 <tr class="subtotal bottom-total" style="border-top: 1px solid #BFCFE2;">
-                                    <td style="width: 50%;"><span class="add-order-attachment-section add-order" @click="addOrderClickHandler" v-if="ORDER_APPROVED_BY === '111'"><i class="zmdi zmdi-plus"></i>Add Products</span></td>
+                                    <td style="width: 50%;"><span class="add-order-attachment-section add-order" @click="addOrderClickHandler" v-if="parseInt(ORDER_CREATED_BY) === parseInt(ORDER_AUTH_USER)"><i class="zmdi zmdi-plus"></i>Add Products</span></td>
                                     <td style="width: 25%;"><span>Subtotal</span></td>
                                     <td style="width: 15%;"><span>{{ ( Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.gross_tp : 0).toFixed(2) ) }}</span></td>
                                     <!-- <td style="width: 15%;">
@@ -970,7 +970,8 @@ export default {
             UPDATE_BTN_ENABLE: false,
             UPDATE_QUANTITY_ENABLE_1: false,
             UPDATE_QUANTITY_ENABLE_2: false,
-            ORDER_APPROVED_BY: null,
+            ORDER_CREATED_BY: null,
+            ORDER_AUTH_USER: null,
             reject_order_modal_popup: false,
             DIC_OR_MIO_OR_AM_USER_QTY_COUNT: null,
         }
@@ -1011,8 +1012,13 @@ export default {
         // Increase Table Row's Single Product/Order
         increaseOrderedItemClickHandler(data, index) {
             console.log(data + '    ' + index)
-            if(this.ORDER_APPROVED_BY !== '111' && data.qty <= this.DIC_OR_MIO_OR_AM_USER_QTY_COUNT) {
+            if(parseInt(this.ORDER_CREATED_BY) !== parseInt(this.ORDER_AUTH_USER)) {
+                // data.qty
+                console.log('difference')
                 data.qty++
+                if(data.qty > this.DIC_OR_MIO_OR_AM_USER_QTY_COUNT) {
+                    data.qty--
+                }
             } else {
                 data.qty++
             }
@@ -1089,7 +1095,8 @@ export default {
         editOrderitemClickHandler(data, index) {
             this.DIC_OR_MIO_OR_AM_USER_QTY_COUNT = data.qty
             // this.UPDATE_QUANTITY_ENABLE_1 = true
-            console.log(data + '    ' + index + '    approved by : ' + this.ORDER_APPROVED_BY)
+            console.log(this.DIC_OR_MIO_OR_AM_USER_QTY_COUNT)
+            console.log(data + '    ' + index + '    auth-created: ' + this.ORDER_CREATED_BY + '  ' + this.ORDER_AUTH_USER)
             // console.log(data.qty)
             let selector_qty_1 = document.querySelector('#order-data-table-tr-' + index + ' #order-data-table-tr-td-' + index + ' .single_qty')
             let selector_qty_2 = document.querySelector('#order-data-table-tr-' + index + ' #order-data-table-tr-td-' + index + ' .qty_editable')
@@ -1601,7 +1608,8 @@ export default {
                 this.UPDATE_BTN_ENABLE = false
                 this.UPDATE_QUANTITY_ENABLE_1 = false
                 this.UPDATE_QUANTITY_ENABLE_2 = false
-                this.ORDER_APPROVED_BY = null
+                this.ORDER_CREATED_BY = null
+                this.ORDER_AUTH_USER = null
                 this.selected_sr = null
                 this.header_date = null
                 this.reject_order_modal_popup = false
@@ -1640,7 +1648,9 @@ export default {
                 this.ORDERED_TABLE_DATA__INIT_LIST = this.pending_order_list_by_id.order_details
                 this.set_Or_Change_SR(this.pending_order_list_by_id.da_id)
                 this.set_Or_Change_Date(this.pending_order_list_by_id.order_date)
-                this.ORDER_APPROVED_BY = this.pending_order_list_by_id.approved_by
+                // this.ORDER_CREATED_BY = 101
+                this.ORDER_CREATED_BY = this.pending_order_list_by_id.created_by
+                this.ORDER_AUTH_USER = this.pending_order_list_by_id.auth_user
             }, 1000)
             // if( newVal && oldVal) {
             //     if(newVal.customer_id !== oldVal.customer_id) {
