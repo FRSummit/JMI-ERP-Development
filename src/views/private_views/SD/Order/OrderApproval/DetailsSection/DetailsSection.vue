@@ -620,10 +620,10 @@
                 <span class="divider"></span>
                 <div class="popup-submit-section">
                 <div class="popup-cancel-btn-section">
-                    <span @click="cancelRejectionOrderModalClickHandler">Cancel</span>
+                    <span @click="cancelRemovingProductFromTableClickHandler">Cancel</span>
                 </div>
                 <div class="popup-confirm-btn-section">
-                    <span @click="proceedRejectionOrderModalClickHandler">Proceed</span>
+                    <span @click="confirmRemovingProductFromTableClickHandler">Confirm</span>
                 </div>
                 </div>
             </div>
