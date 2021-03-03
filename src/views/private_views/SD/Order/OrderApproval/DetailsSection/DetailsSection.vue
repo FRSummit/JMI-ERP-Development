@@ -185,7 +185,7 @@
                             <!-- Bottom Total Section -->
                             <div v-if="ORDERED_TABLE_DATA__INIT_LIST">
                                 <tr class="subtotal bottom-total" style="border-top: 1px solid #BFCFE2;">
-                                    <td style="width: 50%;"><span class="add-order-attachment-section add-order" @click="addOrderClickHandler"><i class="zmdi zmdi-plus"></i>Add Products</span></td>
+                                    <td style="width: 50%;"><span class="add-order-attachment-section add-order" @click="addOrderClickHandler" v-if="ORDER_APPROVED_BY === '111'"><i class="zmdi zmdi-plus"></i>Add Products</span></td>
                                     <td style="width: 25%;"><span>Subtotal</span></td>
                                     <td style="width: 15%;"><span>{{ ( Number(pending_order_list_by_id ? pending_order_list_by_id.gross_tp : 0).toFixed(2) ) }}</span></td>
                                     <!-- <td style="width: 15%;">
@@ -232,7 +232,7 @@
                                 </tr> -->
                                 <tr class="grand-total bottom-total" style="border-top: 1px solid #BFCFE2;">
                                     <td style="width: 50%; text-align: left;">
-                                        <span class="order-forward" @click="orderForwardClickHandler"><i class="zmdi zmdi-fast-forward"></i>Order Forward</span>
+                                        <span class="order-forward hide" @click="orderForwardClickHandler"><i class="zmdi zmdi-fast-forward"></i>Order Forward</span>
                                         <span class="order-reject" @click="orderRejectClickHandler">Reject Order</span>
                                     </td>
                                     <td style="width: 25%;">Grand Total</td>
@@ -952,9 +952,10 @@ export default {
             UPDATE_BTN_ENABLE: false,
             UPDATE_QUANTITY_ENABLE_1: false,
             UPDATE_QUANTITY_ENABLE_2: false,
+            ORDER_APPROVED_BY: null,
         }
     },
-    created() {
+    async created() {
         // console.log(this.pending_order_list_by_id)
     },
     async mounted() {
@@ -1111,13 +1112,13 @@ export default {
         },
         //------------------------------------------------------------------------------------------
         // Add Product/Order , Atachment Row
-        addOrderClickHandler() {
+        async addOrderClickHandler() {
             this.SELECTED_ORDERED_PRODUCTS__INIT_LIST = []
             if(this.add_order_modal) {
                 this.add_order_modal = false
             } else {
                 this.add_order_modal = true
-                this.ADD_PRODUCTS_DATA_LIST__FROM_SERVICE()
+                await this.ADD_PRODUCTS_DATA_LIST__FROM_SERVICE()
             }
         },
         addAttachmentClickHandler() {
@@ -1136,10 +1137,11 @@ export default {
                 this.order_forward_modal = true
             }
         },
-        orderRejectClickHandler() {
-            console.log('orderRejectClickHandler')
+        async orderRejectClickHandler() {
+            console.log(this.ORDERED_TABLE_DATA__INIT_LIST[0].order_id)
+            await this.CANCEL_ORDER_BY_ORDER_ID__FROM_SERVICE(this.ORDERED_TABLE_DATA__INIT_LIST[0].order_id)
         },
-        updateOrderClickHandler() {
+        async updateOrderClickHandler() {
             this.UPDATE_BTN_ENABLE = false
             console.log('update order')
             console.log(this.ORDERED_TABLE_DATA__INIT_LIST)
@@ -1147,7 +1149,7 @@ export default {
             // this.UPDATE_QUANTITY_ENABLE_1 = false
             // this.UPDATE_QUANTITY_ENABLE_2 = false
         },
-        proceedOrderClickHandler() {
+        async proceedOrderClickHandler() {
             console.log('proceed order')
         },
         //------------------------------------------------------------------------------------------
@@ -1227,7 +1229,7 @@ export default {
         cancelOrderFromModalClickHandler() {
             this.add_order_modal = false
         },
-        addItemsFromModalClickHandler() {
+        async addItemsFromModalClickHandler() {
             // console.log('add items from modal')
             // console.log(this.SELECTED_ORDERED_PRODUCTS__INIT_LIST)
             // this.SELECTED_ORDERED_PRODUCTS__STORE = this.SELECTED_ORDERED_PRODUCTS__INIT_LIST
@@ -1248,7 +1250,7 @@ export default {
                 prod_db_list.push(prod_obj)
             }
             // CALL SERVICE IMPLEMENTATION FUNCTION
-            this.FIND_PRODUCT_OFFER__FROM_SERVICE(prod_db_list)
+            await this.FIND_PRODUCT_OFFER__FROM_SERVICE(prod_db_list)
             // Close Modal
             if(prod_db_list.length > 0) {
                 this.add_order_modal = false
@@ -1276,7 +1278,7 @@ export default {
         cancelOrderForwardClickHandler() {
             console.log('cancelOrderForwardClickHandler')
         },
-        sendOrderForwardClickHandler() {
+        async sendOrderForwardClickHandler() {
             console.log('sendOrderForwardClickHandler')
         },
         //------------------------------------------------------------------------------------------
@@ -1293,12 +1295,12 @@ export default {
         },
         //------------------------------------------------------------------------------------------
         // Customer Details Modal
-        customerDetailsClickHandler() {
+        async customerDetailsClickHandler() {
             if(this.customer_details_modal) {
                 this.customer_details_modal = false
             } else {
                 this.customer_details_modal = true
-                this.SHOW_CUSTOMER_PROFILE__FROM_SERVICE(this.pending_order_list_by_id.customer_id)
+                await this.SHOW_CUSTOMER_PROFILE__FROM_SERVICE(this.pending_order_list_by_id.customer_id)
             }
         },
         customerDetailsModalOutsideClick() {
@@ -1307,8 +1309,8 @@ export default {
         //------------------------------------------------------------------------------------------
         // Customer Details Modal - Location
         centerClick(marker, index) {
-        console.log(marker.position.lat + '    ' + marker.position.lng + '    ' + index)
-        // VueGoogleMaps.InfoWindow.open(this.Map, m);
+            console.log(marker.position.lat + '    ' + marker.position.lng + '    ' + index)
+            // VueGoogleMaps.InfoWindow.open(this.Map, m);
             this.infoWindowPos = marker.position;
             this.infoContent = this.getInfoWindowContent(marker);
             console.log(this.currentMidx + '    ' + index)
@@ -1326,53 +1328,53 @@ export default {
             console.log(this.currentMidx + '    ' + index)
         },
         getInfoWindowContent(marker) {
-        console.log(marker)
-        return (`<div class="card" style="visibility: visible; margin: 0; border: none; box-shadow: none;">
-            <!--<div class="card-image">
-            <figure class="image is-4by3">
-                <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
-            </figure>
-            </div> -->
-            <div class="card-content" style="padding: 10px;">
-            <div class="media">
-                <div class="media-content">
-                <!--<p class="title is-4" style="font-size:14px; color: #026CD1; font-weight: 500;">Location Name: ${marker.name}</p>-->
-                <p class="title is-4" style="font-size:14px; color: #026CD1; font-weight: 500; margin-bottom: 4px;">OID102131</p>
+            console.log(marker)
+            return (`<div class="card" style="visibility: visible; margin: 0; border: none; box-shadow: none;">
+                <!--<div class="card-image">
+                <figure class="image is-4by3">
+                    <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+                </figure>
+                </div> -->
+                <div class="card-content" style="padding: 10px;">
+                <div class="media">
+                    <div class="media-content">
+                    <!--<p class="title is-4" style="font-size:14px; color: #026CD1; font-weight: 500;">Location Name: ${marker.name}</p>-->
+                    <p class="title is-4" style="font-size:14px; color: #026CD1; font-weight: 500; margin-bottom: 4px;">OID102131</p>
+                    </div>
                 </div>
-            </div>
-            <div class="content" style="font-size: 12px; color: #111213">
-                New Gulshan Pharma
-                </br>
-                <time datetime="2016-1-1" style="font-size: 12px; color: #707070; margin-top: 4px; display: block;">
-                F R Summit (0168788300),
-                </br>
-                ${marker.description},
-                </br>
-                ${marker.date_build}
-                </time>
-            </div>
-            </div>
-        </div>`);
+                <div class="content" style="font-size: 12px; color: #111213">
+                    New Gulshan Pharma
+                    </br>
+                    <time datetime="2016-1-1" style="font-size: 12px; color: #707070; margin-top: 4px; display: block;">
+                    F R Summit (0168788300),
+                    </br>
+                    ${marker.description},
+                    </br>
+                    ${marker.date_build}
+                    </time>
+                </div>
+                </div>
+            </div>`);
         },
         geolocate() {
-        console.log("here");
-        navigator.geolocation.getCurrentPosition((position) => {
-            console.log("here 2");
-            console.log(this.markers);
-            this.center = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-            };
-            // this.addCurrentLocation(position)
-            // this.markers.push(this.center)
-        });
-        this.markers.push({
-            position: {
-            lat: this.center.lat,
-            lng: this.center.lng
-            }
-        })
-        console.log(this.markers)
+            console.log("here");
+            navigator.geolocation.getCurrentPosition((position) => {
+                console.log("here 2");
+                console.log(this.markers);
+                this.center = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude,
+                };
+                // this.addCurrentLocation(position)
+                // this.markers.push(this.center)
+            });
+            this.markers.push({
+                position: {
+                    lat: this.center.lat,
+                    lng: this.center.lng
+                }
+            })
+            console.log(this.markers)
         },
         // --------------------------------------------------------------------------------------------
         // Filter - Order Approval add product modal
@@ -1460,6 +1462,12 @@ export default {
                     this.SHOW_CUSTOMER_PROFILE = res.data.customer_info
                 })
         },
+        async CANCEL_ORDER_BY_ORDER_ID__FROM_SERVICE(order_id) {
+            await service.geCancelOrderByOrderId_OrderApproval(order_id)
+                .then(res => {
+                    console.log(res.data)
+                })
+        },
         // ----------------------------------------------------------------------------------------------
         // Bottom Row Calculation
         // Create Secondary Subtotal
@@ -1479,7 +1487,7 @@ export default {
             this.grand_total = this.sub_total + this.vat_total - this.discount_total
         },
         // -----------------------------------------------------------------------------------------------
-        GENERATE_ORDERED_PRODUCTS_DETAILS_LIST_FROM_PRODUCT_OFFER_RESPONSE() {
+        async GENERATE_ORDERED_PRODUCTS_DETAILS_LIST_FROM_PRODUCT_OFFER_RESPONSE() {
             // if(this.UPDATE_ORDER_CLICKED) {
             //     this.ORDERED_TABLE_DATA__INIT_LIST = []
             //     this.UPDATE_ORDER_CLICKED = false
@@ -1546,6 +1554,7 @@ export default {
                 this.UPDATE_BTN_ENABLE = false
                 this.UPDATE_QUANTITY_ENABLE_1 = false
                 this.UPDATE_QUANTITY_ENABLE_2 = false
+                this.ORDER_APPROVED_BY = null
                 console.log('default component')
                 console.log(this.ORDERED_TABLE_DATA__INIT_LIST.length)
 
@@ -1585,6 +1594,7 @@ export default {
                 this.ORDERED_TABLE_DATA__INIT_LIST = this.pending_order_list_by_id.order_details
                 this.set_Or_Change_SR(this.pending_order_list_by_id.da_id)
                 this.set_Or_Change_Date(this.pending_order_list_by_id.order_date)
+                this.ORDER_APPROVED_BY = this.pending_order_list_by_id.approved_by
                 // this.header_date = this.pending_order_list_by_id.order_date
             }, 1000)
             // if( newVal && oldVal) {
