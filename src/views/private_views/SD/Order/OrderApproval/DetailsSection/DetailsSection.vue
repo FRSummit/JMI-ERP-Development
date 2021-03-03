@@ -1609,12 +1609,7 @@ export default {
             }
         },
         set_Or_Change_Date(da_date) {
-            // for(let i=0; i<this.SR_LIST__DA.length; i++) {
-            //     if(this.SR_LIST__DA[i].id === parseInt(da_id)) {
-            //         this.selected_sr = this.SR_LIST__DA[i].name
-            //     }
-            // }
-            console.log(da_date)
+            this.header_date = da_date.toString().split(' ')[0]
         }
     },
     watch: { 
@@ -1630,7 +1625,6 @@ export default {
                 this.set_Or_Change_SR(this.pending_order_list_by_id.da_id)
                 this.set_Or_Change_Date(this.pending_order_list_by_id.order_date)
                 this.ORDER_APPROVED_BY = this.pending_order_list_by_id.approved_by
-                // this.header_date = this.pending_order_list_by_id.order_date
             }, 1000)
             // if( newVal && oldVal) {
             //     if(newVal.customer_id !== oldVal.customer_id) {
