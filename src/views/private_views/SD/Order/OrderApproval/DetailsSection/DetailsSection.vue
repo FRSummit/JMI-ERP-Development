@@ -1099,11 +1099,11 @@ export default {
             selector_qty_2.className = 'qty_editable quantity-setup'
         },
         // Delete Table Row's Single Product/Order
-        deleteOrderitemClickHandler(data, index) {
+        async deleteOrderitemClickHandler(data, index) {
             console.log(data + '    ' + index)
-            if(this.ORDERED_TABLE_DATA__INIT_LIST.length > 0) {
+            if(this.ORDERED_TABLE_DATA__INIT_LIST.length > 1) {
                 for (let [i, tt] of this.ORDERED_TABLE_DATA__INIT_LIST.entries()) {
-                    if (tt.prod_id === data.prod_id) {
+                    if (tt.product_id === data.product_id) {
                         this.ORDERED_TABLE_DATA__INIT_LIST.splice(i, 1);
                         this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.push(data)
                         // Free Product row delete
@@ -1112,6 +1112,7 @@ export default {
                         // }
                     }
                 }
+                await this.DESTROY_ORDER_DETAILS_BY_ID__FROM_SERVICE(data.id)
             }
         },
         deleteOrderitemClickHandler_2(data, index) {
@@ -1486,17 +1487,24 @@ export default {
                 })
         },
         async SHOW_CUSTOMER_PROFILE__FROM_SERVICE(customer_id) {
-            await service.geShowCustomerProfile_OrderApproval(customer_id)
+            await service.getShowCustomerProfile_OrderApproval(customer_id)
                 .then(res => {
                     // console.log(res.data.customer_info)
                     this.SHOW_CUSTOMER_PROFILE = res.data.customer_info
                 })
         },
         async CANCEL_ORDER_BY_ORDER_ID__FROM_SERVICE(order_id) {
-            await service.geCancelOrderByOrderId_OrderApproval(order_id)
+            await service.getCancelOrderByOrderId_OrderApproval(order_id)
                 .then(res => {
                     console.log(res.data)
                     this.$emit('remove_rejected_order_id_from_left_list', order_id)
+                })
+        },
+        async DESTROY_ORDER_DETAILS_BY_ID__FROM_SERVICE(id){
+            console.log(id)
+            await service.getDestroyOrderDetailsById_OrderApproval(id)
+                .then(res => {
+                    console.log(res.data)
                 })
         },
         // ----------------------------------------------------------------------------------------------
