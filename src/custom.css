@@ -618,6 +618,10 @@
     padding: 0;
 }
 
+#expected-delivery-date {
+    color: #026CD1;
+}
+
 .jmi-title {
     /* padding    : 0 20px; */
     font-size     : 14px;

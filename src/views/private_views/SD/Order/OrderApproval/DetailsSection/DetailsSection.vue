@@ -251,8 +251,8 @@
             <!-- Bottom Subtotal & Attachment Section -->
             <div class="submit-section" v-if="ORDERED_TABLE_DATA__INIT_LIST">
                 <div class="submit-section-inner">
-                    <span class="proceed-order" @click="updateOrderClickHandler" style="margin-right: 20px;" v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length > 0">Update Order</span>
-                    <span class="proceed-order" @click="proceedOrderClickHandler" v-if="!ORDERED_TABLE_DATA__INIT_LIST_2.length > 0">Approve Order</span>
+                    <span class="proceed-order" @click="updateOrderClickHandler" style="margin-right: 20px;" v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length > 0 || UPDATE_BTN_ENABLE">Update Order</span>
+                    <span class="proceed-order" @click="proceedOrderClickHandler" v-if="!ORDERED_TABLE_DATA__INIT_LIST_2.length > 0 || !UPDATE_BTN_ENABLE">Approve Order</span>
                 </div>
             </div>
             <!-- Add Product Modal -->
@@ -1588,6 +1588,7 @@ export default {
                 this.UPDATE_QUANTITY_ENABLE_2 = false
                 this.ORDER_APPROVED_BY = null
                 this.selected_sr = null
+                this.header_date = null
                 this.reject_order_modal_popup = false
                 console.log('default component')
                 console.log(this.ORDERED_TABLE_DATA__INIT_LIST.length)
