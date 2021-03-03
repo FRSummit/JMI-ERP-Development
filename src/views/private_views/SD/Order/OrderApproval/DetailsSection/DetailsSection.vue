@@ -98,7 +98,7 @@
                                     <p>Please select an order</p>
                                 </div>
                                 <div v-if="ORDERED_TABLE_DATA__INIT_LIST">
-                                    <tr v-for="(data, i) in ORDERED_TABLE_DATA__INIT_LIST" :key="i">
+                                    <tr :id="'order-data-table-tr-' + i" v-for="(data, i) in ORDERED_TABLE_DATA__INIT_LIST" :key="i">
                                         <!-- Name Column -->
                                         <td>
                                             <span>{{ data.product_info ? data.product_info.prod_name : '' }}</span>
@@ -107,11 +107,11 @@
                                         <!-- Trade Price Column -->
                                         <td>{{ Number(parseFloat(data.unit_tp) + parseFloat(data.unit_vat)).toFixed(2) }}</td>
                                         <!-- Quantity Column -->
-                                        <td>
-                                            <span class="quantity-setup">
+                                        <td :id="'order-data-table-tr-td-' + i">
+                                            <span class="single_qty quantity-setup">
                                                 <span class="qty">{{ data.qty }}</span>
                                             </span>
-                                            <span class="quantity-setup hide" style="border: 1px solid #026CD1;">
+                                            <span class="qty_editable quantity-setup hide" style="border: 1px solid #026CD1;">
                                                 <span class="qty-increase" @click="increaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-minus"></i></span>
                                                 <!-- <span class="qty">{{ data.qty }}</span> -->
                                                 <input :id="'ordered-add-modal-qty-' + i" class="qty jmi-tr-td-input-qty" type="number" placeholder="00" :value="data ? (data.qty ? data.qty : 0) : 0" v-on:keyup="quantityKeyUp_ordered_table(data, $event, i)" min="1" step="1" v-on:keydown="quantityKeyDown_ordered_table($event, i)" pattern="[0-9]*">
@@ -135,7 +135,7 @@
                                     </tr>
                                 </div>
                                 <!-- -------- IF ANY PRODUCT ADDED -------- -->
-                                <tr v-for="(data, i) in ORDERED_TABLE_DATA__INIT_LIST_2" :key="i">
+                                <tr :id="'order-data-table-tr_2-' + i" v-for="(data, i) in ORDERED_TABLE_DATA__INIT_LIST_2" :key="i">
                                     <!-- Name Column -->
                                     <td>
                                         <span>{{ data ? data.prod_name : '' }}</span>
@@ -148,8 +148,11 @@
                                         <span v-if="data.row_class"></span>
                                     </td>
                                     <!-- Quantity Column -->
-                                    <td>
-                                        <span class="quantity-setup">
+                                    <td :id="'order-data-table-tr-td_2-' + i">
+                                        <span class="single_qty quantity-setup">
+                                            <span class="qty">{{ data.quantity }}</span>
+                                        </span>
+                                        <span class="qty_editable quantity-setup hide" style="border: 1px solid #026CD1;">
                                             <span class="qty-increase" @click="increaseOrderedItemClickHandler_2(data, i)"><i class="zmdi zmdi-minus"></i></span>
                                             <span class="qty">{{ data ? (data.quantity ? data.quantity : 0) : 0 }}</span>
                                             <span class="qty-decrease" @click="decreaseOrderedItemClickHandler_2(data, i)"><i class="zmdi zmdi-plus"></i></span>
@@ -249,7 +252,7 @@
             <div class="submit-section" v-if="ORDERED_TABLE_DATA__INIT_LIST">
                 <div class="submit-section-inner">
                     <span class="proceed-order" @click="updateOrderClickHandler" style="margin-right: 20px;" v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length > 0">Update Order</span>
-                    <span class="proceed-order" @click="proceedOrderClickHandler">Approve Order</span>
+                    <span class="proceed-order" @click="proceedOrderClickHandler" v-if="!ORDERED_TABLE_DATA__INIT_LIST_2.length > 0">Approve Order</span>
                 </div>
             </div>
             <!-- Add Product Modal -->
@@ -1069,6 +1072,7 @@ export default {
             SHOW_CUSTOMER_PROFILE: [],
             ORDERED_PRODUCT_TABLE_ROW_IS_EDITABLE: false,
             ORDERED_PRODUCT_TABLE_2_ROW_IS_EDITABLE: false,
+            UPDATE_BTN_ENABLE: false,
         }
     },
     created() {
@@ -1142,10 +1146,18 @@ export default {
         // Edit Table Row's Single Product/Order
         editOrderitemClickHandler(data, index) {
             console.log(data + '    ' + index)
-            // this.ORDERED_PRODUCT_TABLE_ROW_IS_EDITABLE = true
+            let selector_qty_1 = document.querySelector('#order-data-table-tr-' + index + ' #order-data-table-tr-td-' + index + ' .single_qty')
+            let selector_qty_2 = document.querySelector('#order-data-table-tr-' + index + ' #order-data-table-tr-td-' + index + ' .qty_editable')
+            selector_qty_1.className = 'single_qty quantity-setup hide '
+            selector_qty_2.className = 'qty_editable quantity-setup'
         },
         editOrderitemClickHandler_2(data, index) {
             console.log(data + '    ' + index)
+            console.log(data + '    ' + index)
+            let selector_qty_1 = document.querySelector('#order-data-table-tr_2-' + index + ' #order-data-table-tr-td_2-' + index + ' .single_qty')
+            let selector_qty_2 = document.querySelector('#order-data-table-tr_2-' + index + ' #order-data-table-tr-td_2-' + index + ' .qty_editable')
+            selector_qty_1.className = 'single_qty quantity-setup hide '
+            selector_qty_2.className = 'qty_editable quantity-setup'
         },
         // Delete Table Row's Single Product/Order
         deleteOrderitemClickHandler(data, index) {
@@ -1609,6 +1621,7 @@ export default {
                 this.SELECTED_ORDERED_PRODUCTS__INIT_LIST = []
                 this.SELECTED_ORDERED_PRODUCTS__STORE = []
                 this.RESPONSE_ORDERED_PRODUCTS__STORE = []
+                this.UPDATE_BTN_ENABLE = false
                 console.log('default component')
                 console.log(this.ORDERED_TABLE_DATA__INIT_LIST.length)
 
