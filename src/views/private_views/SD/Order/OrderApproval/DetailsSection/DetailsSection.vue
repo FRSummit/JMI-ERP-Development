@@ -7,13 +7,13 @@
         <div class="order-approval-details-section-inner">
             <div class="title-section">
                 <div class="row">
-                    <!-- <div class="col-lg-4 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Order ID:</span><span class="id">{{ pending_order_list_by_id ? pending_order_list_by_id.order_no : "000" }}</span><span class="customer-type" v-if="ORDERED_TABLE_DATA__INIT_LIST"></span></p></div> -->
-                    <div class="col-lg-4 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Order ID:</span><span class="id">{{ pending_order_list_by_id ? pending_order_list_by_id.order_no : "000" }}</span></p></div>
-                    <div class="col-lg-8 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer:</span><span class="jmi-lvl-value id url" @click="customerDetailsClickHandler">{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info ? pending_order_list_by_id.sbu_customer_info.display_name : '') : '' }}</span></p></div>
+                    <!-- <div class="col-lg-4 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Order ID:</span><span class="id">{{ PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.order_no : "000" }}</span><span class="customer-type" v-if="ORDERED_TABLE_DATA__INIT_LIST"></span></p></div> -->
+                    <div class="col-lg-4 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Order ID:</span><span class="id">{{ PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.order_no : "" }}</span></p></div>
+                    <div class="col-lg-8 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer:</span><span class="jmi-lvl-value id url" @click="customerDetailsClickHandler">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? PENDING_ORDER_DATA_BY_ID.sbu_customer_info.display_name : '') : '' }}</span></p></div>
                 </div>
                 <div class="row">
-                    <!-- <div class="col-lg-12 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><span class="jmi-lvl-value address">{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info.customer_info.customer_address ? pending_order_list_by_id.sbu_customer_info.customer_info.customer_address : 'Null') : 'Dummy: Address' }}</span></p></div> -->
-                    <div class="col-lg-12 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><span class="jmi-lvl-value address">{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info ? (pending_order_list_by_id.sbu_customer_info.customer_address ? pending_order_list_by_id.sbu_customer_info.customer_address : '') : '') : '' }}</span></p></div>
+                    <!-- <div class="col-lg-12 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><span class="jmi-lvl-value address">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_info.customer_address ? PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_info.customer_address : 'Null') : 'Dummy: Address' }}</span></p></div> -->
+                    <div class="col-lg-12 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><span class="jmi-lvl-value address">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_address ? PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_address : '') : '') : '' }}</span></p></div>
                     
                 </div>
             </div>
@@ -25,14 +25,14 @@
                         <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Current Outstanding:</span><span class="jmi-lvl-value url" @click="currentOutstandingClickHandler">Dummy: 200500</span></p></div> -->
                         <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Order Placed:</span> <span class="jmi-lvl-value"></span></p></div>
                         <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Status:</span> <span class="jmi-lvl-value">Pending</span></p></div> -->
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Status:</span> <span class="jmi-lvl-value">{{ pending_order_list_by_id ? (pending_order_list_by_id.is_approved === 'N' ? 'Pending' : '') : '' }}</span></p></div>
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title">Area: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80" >{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.get_sales_area ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.get_sales_area.area_name) : '') : '') : '') : '') : '' }}</span></p></div>
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title">Territory ID: <span class="jmi-lvl-value">{{ pending_order_list_by_id ? pending_order_list_by_id.territory_id : 'Not Found' }}</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Status:</span> <span class="jmi-lvl-value">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.is_approved === 'N' ? 'Pending' : '') : '' }}</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title">Area: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80" >{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.get_sales_area ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.get_sales_area.area_name) : '') : '') : '') : '') : '' }}</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title">Territory ID: <span class="jmi-lvl-value">{{ PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.territory_id : 'Not Found' }}</span></p></div>
                     </div>
                     <div class="row">
                         <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title">Territory: <span class="jmi-lvl-value">DHK0301-Dhanmondi 32</span></p></div> -->
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="am">AM: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info.name) : '') : '') : '') : '') : '' }}</span></p></div>
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="mio">MIO: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info ? (pending_order_list_by_id.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info.name) : '') : '') : '') : '') : '') : '') : '' }}</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="am">AM: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info.name) : '') : '') : '') : '') : '' }}</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="mio">MIO: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info.name) : '') : '') : '') : '') : '') : '') : '' }}</span></p></div>
                         <div class="col-lg-3 col-md-6 col-sm-6">
                             <!-- <div class="sr" style="display: table-cell; width: 33%; padding-right: 20px; padding-bottom: 0; vertical-align: middle;">
                                 <span style="display: inline-block; width: 15%; font-size: 14px; float: left; line-height:1; padding-top: 6px;">SR: </span>
@@ -65,7 +65,7 @@
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6"><p class="delivery-dt"><span class="jmi-lvl">Exp D D:</span> <span class="jmi-lvl-value"><input type="date" v-model="header_date" id="expected-delivery-date" placeholder="09/12/2020" /></span></p></div>
-                        <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="delivery-dt"><span class="jmi-lvl">Exp D D:</span> <span class="jmi-lvl-value">{{ pending_order_list_by_id ? (pending_order_list_by_id.order_date ? (pending_order_list_by_id.order_date).split(' ')[0] : 'Date Not Found') : 'Not Found' }}</span></p></div> -->
+                        <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="delivery-dt"><span class="jmi-lvl">Exp D D:</span> <span class="jmi-lvl-value">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.order_date ? (PENDING_ORDER_DATA_BY_ID.order_date).split(' ')[0] : 'Date Not Found') : 'Not Found' }}</span></p></div> -->
                     </div>
                     <!-- <div class="row">
                         <div class="col-lg-3 col-md-6 col-sm-6"><p class="delivery-dt"><span class="jmi-lvl">Exp D D:</span> <span class="jmi-lvl-value"><input type="date" id="expected-delivery-date" placeholder="09/12/2020"/></span></p></div>
@@ -92,7 +92,7 @@
                         <tbody>
                             <div class="table-data-rows">
                                 <!-- <tr v-for="(data, i) in order_table_data" :key="i"> -->
-                                <!-- <tr v-for="(data, i) in pending_order_list_by_id ? pending_order_list_by_id.order_details : null" :key="i"> -->
+                                <!-- <tr v-for="(data, i) in PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.order_details : null" :key="i"> -->
                                 <div id="progressbar" class="jmi-progressbar" v-if="!ORDERED_TABLE_DATA__INIT_LIST">
                                     <!-- <v-progress-circular indeterminate color="primary"></v-progress-circular> -->
                                     <p>Please select an order</p>
@@ -187,40 +187,40 @@
                                 <tr class="subtotal bottom-total" style="border-top: 1px solid #BFCFE2;">
                                     <td style="width: 50%;"><span class="add-order-attachment-section add-order" @click="addOrderClickHandler" v-if="ORDER_APPROVED_BY === '111'"><i class="zmdi zmdi-plus"></i>Add Products</span></td>
                                     <td style="width: 25%;"><span>Subtotal</span></td>
-                                    <td style="width: 15%;"><span>{{ ( Number(pending_order_list_by_id ? pending_order_list_by_id.gross_tp : 0).toFixed(2) ) }}</span></td>
+                                    <td style="width: 15%;"><span>{{ ( Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.gross_tp : 0).toFixed(2) ) }}</span></td>
                                     <!-- <td style="width: 15%;">
-                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length === 0">{{ ( Number(pending_order_list_by_id ? pending_order_list_by_id.gross_tp : 0).toFixed(2) ) }}</span>
-                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length > 0">{{  Number( parseFloat( Number(pending_order_list_by_id ? (pending_order_list_by_id.gross_tp) : 0).toFixed(2) ) + parseFloat(sub_total) ).toFixed(2) }}</span>
+                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length === 0">{{ ( Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.gross_tp : 0).toFixed(2) ) }}</span>
+                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length > 0">{{  Number( parseFloat( Number(PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.gross_tp) : 0).toFixed(2) ) + parseFloat(sub_total) ).toFixed(2) }}</span>
                                     </td> -->
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
                                 <tr class="subtotal bottom-total">
                                     <td style="width: 50%;"></td>
                                     <td style="width: 25%;">(+) Vat</td>
-                                    <td style="width: 15%;">{{ Number(pending_order_list_by_id ? pending_order_list_by_id.total_vat : 0).toFixed(2) }}</td>
+                                    <td style="width: 15%;">{{ Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.total_vat : 0).toFixed(2) }}</td>
                                     <!-- <td style="width: 15%;">
-                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length === 0">{{ Number(pending_order_list_by_id ? pending_order_list_by_id.total_vat : 0).toFixed(2) }}</span>
-                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length > 0">{{  Number( parseFloat( Number(pending_order_list_by_id ? (pending_order_list_by_id.total_vat) : 0).toFixed(2) ) + parseFloat(vat_total) ).toFixed(2) }}</span>
+                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length === 0">{{ Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.total_vat : 0).toFixed(2) }}</span>
+                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length > 0">{{  Number( parseFloat( Number(PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.total_vat) : 0).toFixed(2) ) + parseFloat(vat_total) ).toFixed(2) }}</span>
                                     </td> -->
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
                                 <tr class="subtotal bottom-total">
                                     <td style="width: 50%;"></td>
                                     <td style="width: 25%;">Gross Total</td>
-                                    <td style="width: 15%;">{{ Number(pending_order_list_by_id ? pending_order_list_by_id.gross_total : 0).toFixed(2) }}</td>
+                                    <td style="width: 15%;">{{ Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.gross_total : 0).toFixed(2) }}</td>
                                     <!-- <td style="width: 15%;">
-                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length === 0">{{ Number(pending_order_list_by_id ? pending_order_list_by_id.gross_total : 0).toFixed(2) }}</span>
-                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length > 0">{{ Number( parseFloat( Number(pending_order_list_by_id ? (pending_order_list_by_id.gross_total) : 0).toFixed(2) ) + parseFloat(vat_total) ).toFixed(2) }}</span>
+                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length === 0">{{ Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.gross_total : 0).toFixed(2) }}</span>
+                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length > 0">{{ Number( parseFloat( Number(PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.gross_total) : 0).toFixed(2) ) + parseFloat(vat_total) ).toFixed(2) }}</span>
                                     </td> -->
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
                                 <tr class="subtotal bottom-total">
                                     <td style="width: 50%;"><span class="add-order-attachment-section add-attachment" @click="addAttachmentClickHandler"><i class="zmdi zmdi-attachment-alt"></i>Attachment</span></td>
                                     <td style="width: 25%;">(-) Discount</td>
-                                    <td style="width: 15%;">{{ Number(pending_order_list_by_id ? pending_order_list_by_id.total_discount : 0).toFixed(2) }}</td>
+                                    <td style="width: 15%;">{{ Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.total_discount : 0).toFixed(2) }}</td>
                                     <!-- <td style="width: 15%;">
-                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length === 0">{{ Number(pending_order_list_by_id ? pending_order_list_by_id.total_discount : 0).toFixed(2) }}</span>
-                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length > 0">{{ Number( parseFloat( Number(pending_order_list_by_id ? (pending_order_list_by_id.total_discount) : 0).toFixed(2) ) + parseFloat(vat_total) ).toFixed(2) }}</span>
+                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length === 0">{{ Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.total_discount : 0).toFixed(2) }}</span>
+                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length > 0">{{ Number( parseFloat( Number(PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.total_discount) : 0).toFixed(2) ) + parseFloat(vat_total) ).toFixed(2) }}</span>
                                     </td> -->
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
@@ -236,10 +236,10 @@
                                         <span class="order-reject" @click="orderRejectClickHandler">Reject Order</span>
                                     </td>
                                     <td style="width: 25%;">Grand Total</td>
-                                    <td style="width: 15%;">{{ Number(pending_order_list_by_id ? pending_order_list_by_id.net_total : 0).toFixed(2) }}</td>
+                                    <td style="width: 15%;">{{ Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.net_total : 0).toFixed(2) }}</td>
                                     <!-- <td style="width: 15%;">
-                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length === 0">{{ Number(pending_order_list_by_id ? pending_order_list_by_id.net_total : 0).toFixed(2) }}</span>
-                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length > 0">{{ Number( parseFloat( Number(pending_order_list_by_id ? (pending_order_list_by_id.net_total) : 0).toFixed(2) ) + parseFloat(vat_total) ).toFixed(2) }}</span>
+                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length === 0">{{ Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.net_total : 0).toFixed(2) }}</span>
+                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length > 0">{{ Number( parseFloat( Number(PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.net_total) : 0).toFixed(2) ) + parseFloat(vat_total) ).toFixed(2) }}</span>
                                     </td> -->
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
@@ -267,8 +267,8 @@
                                 <img src="../../../../../../assets/icons/user.png" alt="logo">
                             </div>
                             <div class="title-section">
-                                <p class="name">{{ pending_order_list_by_id ? (pending_order_list_by_id.sbu_customer_info ? pending_order_list_by_id.sbu_customer_info.display_name : 0) : 'Not Found' }}<span class="tik-icon"><i class="zmdi zmdi-check"></i></span></p>
-                                <p class="id">{{ pending_order_list_by_id ? (pending_order_list_by_id.order_no) : 'Not Found' }}</p>
+                                <p class="name">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? PENDING_ORDER_DATA_BY_ID.sbu_customer_info.display_name : 0) : 'Not Found' }}<span class="tik-icon"><i class="zmdi zmdi-check"></i></span></p>
+                                <p class="id">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.order_no) : 'Not Found' }}</p>
                             </div>
                         </div>
                     </div>
@@ -486,7 +486,7 @@
                             </div>
                             <div class="title-section">
                                 <p class="name">{{ SHOW_CUSTOMER_PROFILE ? SHOW_CUSTOMER_PROFILE.display_name : '' }}<span class="tik-icon"><i class="zmdi zmdi-check"></i></span></p>
-                                <p class="id">{{ pending_order_list_by_id ? (pending_order_list_by_id.order_no) : '' }}</p>
+                                <p class="id">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.order_no) : '' }}</p>
                             </div>
                             <div class="tab-section">
                                 <div class="tab-section-inner">
@@ -591,6 +591,23 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+        <!-- Reject Order Modal -->
+        <div class="modal-popup-section order-proceed-modal" v-if="reject_order_modal_popup">
+            <div class="modal-popup-section-inner order-proceed-modal-inner">
+                <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
+                <p class="popup-text">Are you sure?</p>
+                <p class="popup-desc">You want to reject the order.</p>
+                <span class="divider"></span>
+                <div class="popup-submit-section">
+                <div class="popup-cancel-btn-section">
+                    <span @click="cancelRejectionOrderModalClickHandler">Cancel</span>
+                </div>
+                <div class="popup-confirm-btn-section">
+                    <span @click="proceedRejectionOrderModalClickHandler">Proceed</span>
+                </div>
                 </div>
             </div>
         </div>
@@ -939,6 +956,7 @@ export default {
             // This Component Dynamic Data Starts here
             sr_add_modal: false,
             selected_sr: null,
+            PENDING_ORDER_DATA_BY_ID: null,
             SELECTED_ORDERED_PRODUCTS__INIT_LIST: [],
             SELECTED_ORDERED_PRODUCTS__STORE: [],
             RESPONSE_ORDERED_PRODUCTS__STORE: [],
@@ -953,6 +971,7 @@ export default {
             UPDATE_QUANTITY_ENABLE_1: false,
             UPDATE_QUANTITY_ENABLE_2: false,
             ORDER_APPROVED_BY: null,
+            reject_order_modal_popup: false,
         }
     },
     async created() {
@@ -1137,9 +1156,21 @@ export default {
                 this.order_forward_modal = true
             }
         },
-        async orderRejectClickHandler() {
+        orderRejectClickHandler() {
             console.log(this.ORDERED_TABLE_DATA__INIT_LIST[0].order_id)
+            if(this.reject_order_modal_popup) {
+                this.reject_order_modal_popup = false
+            } else {
+                this.reject_order_modal_popup = true
+            }
+            // await this.CANCEL_ORDER_BY_ORDER_ID__FROM_SERVICE(this.ORDERED_TABLE_DATA__INIT_LIST[0].order_id)
+        },
+        cancelRejectionOrderModalClickHandler() {
+            this.reject_order_modal_popup = false
+        },
+        async proceedRejectionOrderModalClickHandler() {
             await this.CANCEL_ORDER_BY_ORDER_ID__FROM_SERVICE(this.ORDERED_TABLE_DATA__INIT_LIST[0].order_id)
+            this.defaultAllThisComponentData()
         },
         async updateOrderClickHandler() {
             this.UPDATE_BTN_ENABLE = false
@@ -1300,7 +1331,7 @@ export default {
                 this.customer_details_modal = false
             } else {
                 this.customer_details_modal = true
-                await this.SHOW_CUSTOMER_PROFILE__FROM_SERVICE(this.pending_order_list_by_id.customer_id)
+                await this.SHOW_CUSTOMER_PROFILE__FROM_SERVICE(this.PENDING_ORDER_DATA_BY_ID.customer_id)
             }
         },
         customerDetailsModalOutsideClick() {
@@ -1466,6 +1497,7 @@ export default {
             await service.geCancelOrderByOrderId_OrderApproval(order_id)
                 .then(res => {
                     console.log(res.data)
+                    this.$emit('remove_rejected_order_id_from_left_list', order_id)
                 })
         },
         // ----------------------------------------------------------------------------------------------
@@ -1543,6 +1575,7 @@ export default {
         // -------------------------------------------------------------------------------------------------
         // Default Functionality
         defaultAllThisComponentData() {
+                this.PENDING_ORDER_DATA_BY_ID = null
                 this.ORDERED_TABLE_DATA__INIT_LIST = []
                 this.ORDERED_TABLE_DATA__INIT_LIST_2 = []
                 // this.ORDERED_TABLE_DATA__MODIFIED_LIST = []
@@ -1555,6 +1588,7 @@ export default {
                 this.UPDATE_QUANTITY_ENABLE_1 = false
                 this.UPDATE_QUANTITY_ENABLE_2 = false
                 this.ORDER_APPROVED_BY = null
+                this.reject_order_modal_popup = false
                 console.log('default component')
                 console.log(this.ORDERED_TABLE_DATA__INIT_LIST.length)
 
@@ -1591,6 +1625,7 @@ export default {
             // console.log(this.pending_order_list_by_id.order_details)
             await this.defaultAllThisComponentData()
             setTimeout( () => {
+                this.PENDING_ORDER_DATA_BY_ID = this.pending_order_list_by_id
                 this.ORDERED_TABLE_DATA__INIT_LIST = this.pending_order_list_by_id.order_details
                 this.set_Or_Change_SR(this.pending_order_list_by_id.da_id)
                 this.set_Or_Change_Date(this.pending_order_list_by_id.order_date)

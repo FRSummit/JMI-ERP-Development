@@ -8,7 +8,8 @@
           v-on:select_order_by_order_id="selectOrderByOrderId" />
         <DetailsSection 
           :style="filter_modal_toggle === true ? 'z-index: -1;' : 'z-index: 5;'"
-          :pending_order_list_by_id="pending_order_list_by_id" />
+          :pending_order_list_by_id="pending_order_list_by_id"
+          v-on:remove_rejected_order_id_from_left_list="removeRejectedOrderFromLeft" />
       </div>
     </div>
   </div>
@@ -38,7 +39,8 @@ export default {
       pathName: [],
       filter_modal_toggle: false,
       pending_order_list_by_id: [],
-      details_section_header_info: []
+      details_section_header_info: [],
+      rejected_order_id: null,
     };
   },
   created() {
@@ -58,9 +60,20 @@ export default {
     filterModalToggle(value) {
       this.filter_modal_toggle = value
     },
+    // ---------------------------------------------------------------------------------------------------
+    // From Left Section Methods
     selectOrderByOrderId(order_id) {
       // console.log(value)
       this.PENDING_ORDER_DETAILS__FROM_SERVICE(order_id)
+    },
+    // ---------------------------------------------------------------------------------------------------
+    // From Details Section Methods
+    removeRejectedOrderFromLeft(value) {
+      console.log(value)
+      this.rejected_order_id = value
+      setTimeout( () => {
+        this.rejected_order_id = null
+      })
     },
     // ---------------------------------------------------------------------------------------------------
     // Service call from left sidebar section
