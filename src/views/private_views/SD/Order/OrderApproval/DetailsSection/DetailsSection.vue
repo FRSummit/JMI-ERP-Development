@@ -93,11 +93,11 @@
                             <div class="table-data-rows">
                                 <!-- <tr v-for="(data, i) in order_table_data" :key="i"> -->
                                 <!-- <tr v-for="(data, i) in PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.order_details : null" :key="i"> -->
-                                <div id="progressbar" class="jmi-progressbar" v-if="!ORDERED_TABLE_DATA__INIT_LIST">
+                                <div id="progressbar" class="jmi-progressbar" v-if="!ORDERED_TABLE_DATA__INIT_LIST || !PENDING_ORDER_DATA_BY_ID">
                                     <!-- <v-progress-circular indeterminate color="primary"></v-progress-circular> -->
                                     <p>Please select an order</p>
                                 </div>
-                                <div v-if="ORDERED_TABLE_DATA__INIT_LIST">
+                                <div v-if="PENDING_ORDER_DATA_BY_ID && ORDERED_TABLE_DATA__INIT_LIST">
                                     <tr :id="'order-data-table-tr-' + i" v-for="(data, i) in ORDERED_TABLE_DATA__INIT_LIST" :key="i">
                                         <!-- Name Column -->
                                         <td>
@@ -183,7 +183,7 @@
                                 <!-- -------- IF ANY PRODUCT ADDED -------- -->
                             </div>
                             <!-- Bottom Total Section -->
-                            <div v-if="ORDERED_TABLE_DATA__INIT_LIST">
+                            <div v-if="PENDING_ORDER_DATA_BY_ID && ORDERED_TABLE_DATA__INIT_LIST">
                                 <tr class="subtotal bottom-total" style="border-top: 1px solid #BFCFE2;">
                                     <td style="width: 50%;"><span class="add-order-attachment-section add-order" @click="addOrderClickHandler" v-if="ORDER_APPROVED_BY === '111'"><i class="zmdi zmdi-plus"></i>Add Products</span></td>
                                     <td style="width: 25%;"><span>Subtotal</span></td>
@@ -249,7 +249,7 @@
                 </div>
             </div>
             <!-- Bottom Subtotal & Attachment Section -->
-            <div class="submit-section" v-if="ORDERED_TABLE_DATA__INIT_LIST">
+            <div class="submit-section" v-if="ORDERED_TABLE_DATA__INIT_LIST && PENDING_ORDER_DATA_BY_ID">
                 <div class="submit-section-inner">
                     <span class="proceed-order" @click="updateOrderClickHandler" style="margin-right: 20px;" v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length > 0 || UPDATE_BTN_ENABLE">Update Order</span>
                     <span class="proceed-order" @click="proceedOrderClickHandler" v-if="!ORDERED_TABLE_DATA__INIT_LIST_2.length > 0 || !UPDATE_BTN_ENABLE">Approve Order</span>
