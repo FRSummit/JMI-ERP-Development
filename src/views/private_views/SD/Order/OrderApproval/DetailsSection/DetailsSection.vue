@@ -112,10 +112,10 @@
                                                 <span class="qty">{{ data.qty }}</span>
                                             </span>
                                             <span class="qty_editable quantity-setup hide" style="border: 1px solid #026CD1;">
-                                                <span class="qty-increase" @click="increaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-minus"></i></span>
+                                                <span class="qty-increase" @click="decreaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-minus" :class="data.qty < 2 ? 'jmi-deactive-btn' : ''"></i></span>
                                                 <!-- <span class="qty">{{ data.qty }}</span> -->
                                                 <input :id="'ordered-add-modal-qty-' + i" class="qty jmi-tr-td-input-qty" type="number" placeholder="00" :value="data ? (data.qty ? data.qty : 0) : 0" v-on:keyup="quantityKeyUp_ordered_table(data, $event, i)" min="1" step="1" v-on:keydown="quantityKeyDown_ordered_table($event, i)" pattern="[0-9]*">
-                                                <span class="qty-decrease" @click="decreaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
+                                                <span class="qty-decrease" @click="increaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
                                             </span>
                                         </td>
                                         <!-- Discount Column -->
@@ -153,9 +153,9 @@
                                             <span class="qty">{{ data.quantity }}</span>
                                         </span>
                                         <span class="qty_editable quantity-setup hide" style="border: 1px solid #026CD1;">
-                                            <span class="qty-increase" @click="increaseOrderedItemClickHandler_2(data, i)"><i class="zmdi zmdi-minus"></i></span>
+                                            <span class="qty-increase" @click="decreaseOrderedItemClickHandler_2(data, i)"><i class="zmdi zmdi-minus" :class="data.quantity < 2 ? 'jmi-deactive-btn' : ''"></i></span>
                                             <span class="qty">{{ data ? (data.quantity ? data.quantity : 0) : 0 }}</span>
-                                            <span class="qty-decrease" @click="decreaseOrderedItemClickHandler_2(data, i)"><i class="zmdi zmdi-plus"></i></span>
+                                            <span class="qty-decrease" @click="increaseOrderedItemClickHandler_2(data, i)"><i class="zmdi zmdi-plus"></i></span>
                                         </span>
                                     </td>
                                     <!-- Discount Column -->
@@ -618,130 +618,7 @@ export default {
             SR_LIST__DA: [],
             header_date: null,
             order_table_header: ["Name", "Unit Price", "Quantity", "Bonus", "Total Price"],
-            PRODUCT_MODAL_DATA_LIST: [
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "FRS",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "1050",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-            ],
-            selected_auto_field_data: [
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "200",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "200",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "200",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1000 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-                {
-                    name: "Altrip. Almotriptan",
-                    stock: "Stock: 1050 I UoM: Box",
-                    unit_price: "300.00",
-                    quantity: "5",
-                    bonus: "0",
-                    total_price: "300.00"
-                },
-            ],
+            PRODUCT_MODAL_DATA_LIST: [],
             attachment_list: [
                 {
                     name: "File Name Line Here.pdf"
@@ -1073,6 +950,8 @@ export default {
             ORDERED_PRODUCT_TABLE_ROW_IS_EDITABLE: false,
             ORDERED_PRODUCT_TABLE_2_ROW_IS_EDITABLE: false,
             UPDATE_BTN_ENABLE: false,
+            UPDATE_QUANTITY_ENABLE_1: false,
+            UPDATE_QUANTITY_ENABLE_2: false,
         }
     },
     created() {
@@ -1111,18 +990,55 @@ export default {
         // Increase Table Row's Single Product/Order
         increaseOrderedItemClickHandler(data, index) {
             console.log(data + '    ' + index)
+            data.qty++
+            this.UPDATE_BTN_ENABLE = true
+            // this.UPDATE_BTN_TRUE = true
+            // this.createSubtotalCalculation()
+            // Free Product row quantity increase
+            // if(data.offer_type === "free") {
+            //     this.ORDERED_TABLE_DATA__INIT_LIST[index + 1].quantity++
+            // }
         },
         // Decrease Table Row's Single Product/Order
         decreaseOrderedItemClickHandler(data, index) {
             console.log(data + '    ' + index)
+            console.log(data)
+            if(data.qty > 1) {
+                data.qty--
+                this.UPDATE_BTN_ENABLE = true
+                // this.UPDATE_BTN_TRUE = true
+                // this.createSubtotalCalculation()
+            }
+            // Free Product row quantity decrease
+            // if(data.offer_type === "free") {
+            //     this.ORDERED_TABLE_DATA__INIT_LIST[index + 1].quantity--
+            // }
         },
         // Increase Table Row's Single Product/Order
         increaseOrderedItemClickHandler_2(data, index) {
             console.log(data + '    ' + index)
+            data.quantity++
+            this.UPDATE_BTN_ENABLE = true
+            // this.UPDATE_BTN_TRUE = true
+            // this.createSubtotalCalculation()
+            // Free Product row quantity increase
+            // if(data.offer_type === "free") {
+            //     this.ORDERED_TABLE_DATA__INIT_LIST[index + 1].quantity++
+            // }
         },
         // Decrease Table Row's Single Product/Order
         decreaseOrderedItemClickHandler_2(data, index) {
             console.log(data + '    ' + index)
+            if(data.quantity > 1) {
+                data.quantity--
+                this.UPDATE_BTN_ENABLE = true
+                // this.UPDATE_BTN_TRUE = true
+                // this.createSubtotalCalculation()
+            }
+            // Free Product row quantity decrease
+            // if(data.offer_type === "free") {
+            //     this.ORDERED_TABLE_DATA__INIT_LIST[index + 1].quantity--
+            // }
         },
         // Ordered Table Quantity input keyup & keydown
         quantityKeyUp_ordered_table(data, value, i) {
@@ -1134,6 +1050,7 @@ export default {
                 selector.value = 1
             }
             data.qty = selector.value
+            this.UPDATE_BTN_ENABLE = true
             // this.UPDATE_BTN_TRUE = true
             this.createSubtotalCalculation()
         },
@@ -1145,6 +1062,7 @@ export default {
         },
         // Edit Table Row's Single Product/Order
         editOrderitemClickHandler(data, index) {
+            // this.UPDATE_QUANTITY_ENABLE_1 = true
             console.log(data + '    ' + index)
             let selector_qty_1 = document.querySelector('#order-data-table-tr-' + index + ' #order-data-table-tr-td-' + index + ' .single_qty')
             let selector_qty_2 = document.querySelector('#order-data-table-tr-' + index + ' #order-data-table-tr-td-' + index + ' .qty_editable')
@@ -1152,6 +1070,7 @@ export default {
             selector_qty_2.className = 'qty_editable quantity-setup'
         },
         editOrderitemClickHandler_2(data, index) {
+            // this.UPDATE_QUANTITY_ENABLE_2 = true
             console.log(data + '    ' + index)
             console.log(data + '    ' + index)
             let selector_qty_1 = document.querySelector('#order-data-table-tr_2-' + index + ' #order-data-table-tr-td_2-' + index + ' .single_qty')
@@ -1221,9 +1140,12 @@ export default {
             console.log('orderRejectClickHandler')
         },
         updateOrderClickHandler() {
+            this.UPDATE_BTN_ENABLE = false
             console.log('update order')
             console.log(this.ORDERED_TABLE_DATA__INIT_LIST)
             console.log(this.ORDERED_TABLE_DATA__INIT_LIST_2)
+            // this.UPDATE_QUANTITY_ENABLE_1 = false
+            // this.UPDATE_QUANTITY_ENABLE_2 = false
         },
         proceedOrderClickHandler() {
             console.log('proceed order')
@@ -1622,6 +1544,8 @@ export default {
                 this.SELECTED_ORDERED_PRODUCTS__STORE = []
                 this.RESPONSE_ORDERED_PRODUCTS__STORE = []
                 this.UPDATE_BTN_ENABLE = false
+                this.UPDATE_QUANTITY_ENABLE_1 = false
+                this.UPDATE_QUANTITY_ENABLE_2 = false
                 console.log('default component')
                 console.log(this.ORDERED_TABLE_DATA__INIT_LIST.length)
 
