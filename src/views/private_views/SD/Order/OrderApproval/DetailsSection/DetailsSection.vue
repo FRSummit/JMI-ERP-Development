@@ -972,6 +972,7 @@ export default {
             UPDATE_QUANTITY_ENABLE_2: false,
             ORDER_APPROVED_BY: null,
             reject_order_modal_popup: false,
+            DIC_OR_MIO_OR_AM_USER_QTY_COUNT: null,
         }
     },
     async created() {
@@ -1010,7 +1011,11 @@ export default {
         // Increase Table Row's Single Product/Order
         increaseOrderedItemClickHandler(data, index) {
             console.log(data + '    ' + index)
-            data.qty++
+            if(this.ORDER_APPROVED_BY !== '111' && data.qty <= this.DIC_OR_MIO_OR_AM_USER_QTY_COUNT) {
+                data.qty++
+            } else {
+                data.qty++
+            }
             this.UPDATE_BTN_ENABLE = true
             // this.UPDATE_BTN_TRUE = true
             // this.createSubtotalCalculation()
@@ -1082,8 +1087,10 @@ export default {
         },
         // Edit Table Row's Single Product/Order
         editOrderitemClickHandler(data, index) {
+            this.DIC_OR_MIO_OR_AM_USER_QTY_COUNT = data.qty
             // this.UPDATE_QUANTITY_ENABLE_1 = true
-            console.log(data + '    ' + index)
+            console.log(data + '    ' + index + '    approved by : ' + this.ORDER_APPROVED_BY)
+            // console.log(data.qty)
             let selector_qty_1 = document.querySelector('#order-data-table-tr-' + index + ' #order-data-table-tr-td-' + index + ' .single_qty')
             let selector_qty_2 = document.querySelector('#order-data-table-tr-' + index + ' #order-data-table-tr-td-' + index + ' .qty_editable')
             selector_qty_1.className = 'single_qty quantity-setup hide '
