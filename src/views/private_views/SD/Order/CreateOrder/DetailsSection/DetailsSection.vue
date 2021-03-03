@@ -192,7 +192,7 @@
                                         <input id="create-order-add-product" class="jmi-auto-filter-input" type="text" placeholder="Search By Name or Product ID" v-on:keyup="searchKeyUpAddProductHandler" />
                                         <tr class="jmi-add-product-autofill-header-row">
                                             <td><span class="td-span-title">Name</span></td>
-                                            <td><span class="td-span-title">Quantity</span></td>
+                                            <td><span class="td-span-title">Price</span></td>
                                             <td></td>
                                             <td><span class="td-span-title">Option</span></td>
                                         </tr>
@@ -383,7 +383,7 @@ export default {
             proceed_modal_popup: false,
         }
     },
-    created() {},
+    async created() {},
     async mounted() {
         await this.DIC_WISE_USERS__FROM_SERVICE()
     },
@@ -470,13 +470,13 @@ export default {
         },
         //------------------------------------------------------------------------------------------
         // Add Product/Order , Atachment Row
-        addOrderClickHandler() {
+        async addOrderClickHandler() {
             this.SELECTED_ORDERED_PRODUCTS__INIT_LIST = []
             if(this.add_order_modal) {
                 this.add_order_modal = false
             } else {
                 this.add_order_modal = true
-                this.ADD_PRODUCTS_DATA_LIST__FROM_SERVICE()
+                await this.ADD_PRODUCTS_DATA_LIST__FROM_SERVICE()
             }
         },
         addAttachmentClickHandler() {
@@ -491,7 +491,7 @@ export default {
         cancelOrderClickHandler() {
             this.defaultAllThisComponentData()
         },
-        updateOrderClickHandler() {
+        async updateOrderClickHandler() {
             this.UPDATE_ORDER_CLICKED = true
             let prod_db_list = []
             for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST.length; i++) {
@@ -504,7 +504,7 @@ export default {
                 }
             }
             // CALL SERVICE IMPLEMENTATION FUNCTION
-            this.FIND_PRODUCT_OFFER__FROM_SERVICE(prod_db_list)
+            await this.FIND_PRODUCT_OFFER__FROM_SERVICE(prod_db_list)
         },
         proceedOrderClickHandler() {
             if(this.proceed_modal_popup) {
@@ -592,7 +592,7 @@ export default {
         cancelOrderFromModalClickHandler() {
             this.add_order_modal = false
         },
-        addItemsFromModalClickHandler() {
+        async addItemsFromModalClickHandler() {
             if(this.SELECTED_ORDERED_PRODUCTS__STORE.length > 0) {
                 for(let i=0; i<this.SELECTED_ORDERED_PRODUCTS__INIT_LIST.length; i++) {
                     this.SELECTED_ORDERED_PRODUCTS__STORE.push(this.SELECTED_ORDERED_PRODUCTS__INIT_LIST[i])
@@ -612,7 +612,7 @@ export default {
                 prod_db_list.push(prod_obj)
             }
             // CALL SERVICE IMPLEMENTATION FUNCTION
-            this.FIND_PRODUCT_OFFER__FROM_SERVICE(prod_db_list)
+            await this.FIND_PRODUCT_OFFER__FROM_SERVICE(prod_db_list)
             // Close Modal
             if(prod_db_list.length > 0) {
                 this.add_order_modal = false
@@ -787,7 +787,7 @@ export default {
         cancelOrderModalClickHandler() {
             this.proceed_modal_popup = false
         },
-        proceedOrderModalClickHandler() {
+        async proceedOrderModalClickHandler() {
             // console.log('confirm order')
             // console.log(this.ORDERED_TABLE_DATA__INIT_LIST)
 
@@ -803,7 +803,7 @@ export default {
             }
             console.log(prod_db_list)
             // CALL SERVICE IMPLEMENTATION FUNCTION
-            this.CREATE_OFFER__FROM_SERVICE(prod_db_list)
+            await this.CREATE_OFFER__FROM_SERVICE(prod_db_list)
         },
         // -------------------------------------------------------------------------------------------------
         // Default Functionality

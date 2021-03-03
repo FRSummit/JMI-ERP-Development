@@ -249,8 +249,34 @@
     padding      : 4px 8px;
 }
 
+.mx-calendar.mx-calendar-panel-date {
+    text-align: center;
+}
+
 .mx-calendar.mx-calendar-panel-date:nth-child(1) {
-    margin-right: 20px;
+    /* margin-right: 20px; */
+}
+.mx-calendar.mx-calendar-panel-date:nth-child(2) {
+    display: none;
+}
+
+.mx-btn.mx-btn-text.mx-btn-icon-left,
+.mx-btn.mx-btn-text.mx-btn-icon-right {
+    display: inline-block;
+    background-color: transparent;
+    background: transparent;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    top: 20px;
+}
+.mx-btn.mx-btn-text.mx-btn-icon-left {
+    background-image: url('./assets//icons/arrow_left.svg');
+    left: 20px;
+}
+.mx-btn.mx-btn-text.mx-btn-icon-right {
+    background-image: url('./assets//icons/arrow_right.svg');
+    right: 20px;
 }
 
 #delivery-scheduling-left-list .mx-input-wrapper,
@@ -592,6 +618,10 @@
     padding: 0;
 }
 
+#expected-delivery-date {
+    color: #026CD1;
+}
+
 .jmi-title {
     /* padding    : 0 20px; */
     font-size     : 14px;
@@ -707,7 +737,7 @@ input[type=number] {
     height    : auto;
     border    : none;
     text-align: center;
-    margin: 0;
+    margin    : 0;
 }
 
 .jmi-tr-td-option span.icon {
@@ -726,7 +756,7 @@ input[type=number] {
 .jmi-tr-td-option span.icon i {
     font-size  : 14px;
     font-weight: 800;
-    color: #026CD1;
+    color      : #026CD1;
 }
 
 .jmi-tr-td-option span.icon svg {
@@ -930,18 +960,18 @@ input[type=number] {
         height        : 24px;
         vertical-align: middle;
     }
-    
+
     .jmi-tr-td-option span.icon i {
         font-size  : 12px;
         font-weight: 800;
-        margin-top: 6px;
+        margin-top : 6px;
     }
-    
+
     .jmi-tr-td-option span.icon svg {
-        color : #DF2A43;
+        color     : #DF2A43;
         margin-top: 6px;
-        width : 12px;
-        height: 12px;
+        width     : 12px;
+        height    : 12px;
     }
 }
 

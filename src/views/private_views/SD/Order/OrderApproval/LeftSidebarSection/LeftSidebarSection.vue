@@ -129,6 +129,7 @@ import JMIFilter from '.././../../../../../functions/JMIFIlter'
 const jmiFilter = new JMIFilter()
 
 export default {
+    props: ["rejected_order_id"],
     data() {
         return {
             ALL_PENDING_ORDERS_CUSTOMER_LIST: [],
@@ -454,6 +455,17 @@ export default {
             for(let i=0; i<this.ALL_PENDING_ORDERS_CUSTOMER_LIST.length; i++) {
                 let radio_selector = document.querySelector('#order-approval-left-sidebar #order-approval-checkbox-' + i)
                 radio_selector.checked = false
+            }
+        }
+    },
+    watch: {
+        async rejected_order_id(newVal, oldVal) {
+            if(newVal !== oldVal) {
+                await this.ALL_PENDING_ORDERS_CUSTOMER_LIST__FROM_SERVICE()
+                let length = document.getElementsByClassName('customer-section-list').length
+                for(let i=0; i<length; i++) {
+                    document.querySelector('#customer-section-list-' + i).className = 'customer-section-list'
+                }
             }
         }
     }

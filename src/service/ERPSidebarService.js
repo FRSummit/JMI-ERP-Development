@@ -299,7 +299,8 @@ export default class PostService {
 
   // CREATE ORDER - SEND SELECTED PRODUCT LIST
   getFindProductOffer_CreateOrderDetailsSection(prod_db_list, sbu_id, customer_id, date) {
-    console.log(prod_db_list)
+    console.log(JSON.stringify(prod_db_list))
+    console.log(date)
     let web_menu_url = '/api/web/find-product-offer'
     return axios(web_menu_url, {
       method: 'GET',
@@ -317,7 +318,7 @@ export default class PostService {
 
   // CREATE ORDER - SUBMIT ORDER TO CREATE - SEND SELECTED PRODUCT LIST
   getCreateOrder_CreateOrderDetailsSection(prod_db_list, sbu_id, customer_id, date) {
-    console.log(prod_db_list)
+    console.log(JSON.stringify(prod_db_list))
     let web_menu_url = '/api/mobile/create-order'
     return axios(web_menu_url, {
       method: 'POST',
@@ -358,10 +359,32 @@ export default class PostService {
   }
 
   // Order Approval - SHOW CUSTOMER PROFILE
-  geShowCustomerProfile_OrderApproval(customer_id) {
+  getShowCustomerProfile_OrderApproval(customer_id) {
     let web_menu_url = '/api/common/show-customer-profile/' + customer_id
     return axios(web_menu_url, {
       method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
+
+  // Order Approval - CANCEL ORDER BY ORDER ID
+  getCancelOrderByOrderId_OrderApproval(order_id) {
+    let web_menu_url = '/api/web/cancel-order/' + order_id
+    return axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
+
+  // Order Approval - CANCEL ORDER BY ORDER ID
+  getDestroyOrderDetailsById_OrderApproval(id) {
+    let web_menu_url = '/api/mobile/destroy-order-details/' + id
+    return axios(web_menu_url, {
+      method: 'PUT',
       headers: {
         'Authorization': token_type + ' ' + token
       }
