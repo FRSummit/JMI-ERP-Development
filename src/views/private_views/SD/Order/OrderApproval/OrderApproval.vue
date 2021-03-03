@@ -10,6 +10,7 @@
         <DetailsSection 
           :style="filter_modal_toggle === true ? 'z-index: -1;' : 'z-index: 5;'"
           :pending_order_list_by_id="pending_order_list_by_id"
+          :order_id_from_left_side="order_id_from_left_side"
           v-on:remove_rejected_order_id_from_left_list="removeRejectedOrderFromLeft" />
       </div>
     </div>
@@ -42,6 +43,7 @@ export default {
       pending_order_list_by_id: [],
       details_section_header_info: [],
       rejected_order_id: null,
+      order_id_from_left_side: null,
     };
   },
   created() {
@@ -80,7 +82,7 @@ export default {
     // ---------------------------------------------------------------------------------------------------
     // Service call from left sidebar section
     async PENDING_ORDER_DETAILS__FROM_SERVICE(order_id) {
-      console.log(order_id)
+      this.order_id_from_left_side = order_id
       // await service.getSelectedPendingOrderById_OrderApproval(1111)
       await service.getSelectedPendingOrderById_OrderApproval(order_id)
         .then(res => {

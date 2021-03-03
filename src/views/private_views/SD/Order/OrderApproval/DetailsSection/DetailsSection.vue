@@ -281,7 +281,7 @@
                                         <input id="order-approval-add-product" class="jmi-auto-filter-input" type="text" placeholder="Search By Batch Number" v-on:keyup="searchKeyUpAddProductHandler" />
                                         <tr class="jmi-add-product-autofill-header-row">
                                             <td><span class="td-span-title">Name</span></td>
-                                            <td><span class="td-span-title">Quantity</span></td>
+                                            <td><span class="td-span-title">Price</span></td>
                                             <td></td>
                                             <td><span class="td-span-title">Option</span></td>
                                         </tr>
@@ -611,6 +611,23 @@
                 </div>
             </div>
         </div>
+        <!-- Delete Product From Main Table Modal -->
+        <div class="modal-popup-section order-proceed-modal" v-if="delete_product_from_table_popup_modal">
+            <div class="modal-popup-section-inner order-proceed-modal-inner">
+                <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
+                <p class="popup-text">Are you sure?</p>
+                <p class="popup-desc">You want to reject the order.</p>
+                <span class="divider"></span>
+                <div class="popup-submit-section">
+                <div class="popup-cancel-btn-section">
+                    <span @click="cancelRejectionOrderModalClickHandler">Cancel</span>
+                </div>
+                <div class="popup-confirm-btn-section">
+                    <span @click="proceedRejectionOrderModalClickHandler">Proceed</span>
+                </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -625,7 +642,7 @@ import ERPService from '../../../../../../service/ERPSidebarService'
 const service = new ERPService()
 
 export default {
-    props: ["pending_order_list_by_id"],
+    props: ["pending_order_list_by_id", "order_id_from_left_side"],
     components: {
         // AdvancedSearch 
     },
@@ -974,6 +991,7 @@ export default {
             ORDER_AUTH_USER: null,
             reject_order_modal_popup: false,
             DIC_OR_MIO_OR_AM_USER_QTY_COUNT: null,
+            delete_product_from_table_popup_modal: false,
         }
     },
     async created() {
@@ -1495,9 +1513,10 @@ export default {
             await service.getFindProductOffer_CreateOrderDetailsSection(prod_db_list, sbu_id, customer_id, this.createYYYYDDMM())
                 .then(res => {
                     console.log(res.data)
-                    this.RESPONSE_ORDERED_PRODUCTS__STORE = []
-                    this.RESPONSE_ORDERED_PRODUCTS__STORE = res.data.data
-                    this.GENERATE_ORDERED_PRODUCTS_DETAILS_LIST_FROM_PRODUCT_OFFER_RESPONSE()
+                    // this.RESPONSE_ORDERED_PRODUCTS__STORE = []
+                    // this.RESPONSE_ORDERED_PRODUCTS__STORE = res.data.data
+                    // this.GENERATE_ORDERED_PRODUCTS_DETAILS_LIST_FROM_PRODUCT_OFFER_RESPONSE()
+                    this.ADD_PRODUCT_FROM_AUTOFILL_SECOND_FULL_PERAM(res.data.data)
                 })
         },
         async SHOW_CUSTOMER_PROFILE__FROM_SERVICE(customer_id) {
@@ -1520,6 +1539,20 @@ export default {
                 .then(res => {
                     console.log(res.data)
                 })
+        },
+        async ADD_PRODUCT_FROM_AUTOFILL_SECOND_FULL_PERAM(data){
+            let prod_list = []
+            for(let i=0; i<data.length; i++) {
+                console.log(data[i].prod_id + '    ' + data[i].quantity)
+                let prod_obj = {
+                    prod_id: parseInt(data[i].prod_id),
+                    quantity: data[i].quantity ? data[i].quantity : 0
+                }
+                prod_list.push(prod_obj)
+            }
+            console.log(prod_list)
+            console.log(JSON.stringify(prod_list))
+            console.log(this.order_id_from_left_side)
         },
         // ----------------------------------------------------------------------------------------------
         // Bottom Row Calculation

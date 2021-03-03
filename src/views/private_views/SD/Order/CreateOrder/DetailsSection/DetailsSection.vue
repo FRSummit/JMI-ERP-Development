@@ -192,7 +192,7 @@
                                         <input id="create-order-add-product" class="jmi-auto-filter-input" type="text" placeholder="Search By Name or Product ID" v-on:keyup="searchKeyUpAddProductHandler" />
                                         <tr class="jmi-add-product-autofill-header-row">
                                             <td><span class="td-span-title">Name</span></td>
-                                            <td><span class="td-span-title">Quantity</span></td>
+                                            <td><span class="td-span-title">Price</span></td>
                                             <td></td>
                                             <td><span class="td-span-title">Option</span></td>
                                         </tr>
