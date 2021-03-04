@@ -989,6 +989,10 @@ input[type=number] {
     color      : #36454F;
 }
 
+.modal-popup-section_type_2 .modal-popup-section_type_2-inner p.blue-title span {
+    color: #026CD1;
+}
+
 .modal-popup-section_type_2 .modal-popup-section_type_2-inner .input-section {
     margin-top: 10px;
     padding   : 0 10px;
@@ -1043,7 +1047,9 @@ input[type=number] {
     margin-top: 20px;
 }
 
-.modal-popup-section_type_2 .modal-popup-section_type_2-inner .list-section-inner {}
+.modal-popup-section_type_2 .modal-popup-section_type_2-inner .list-section-inner {
+    visibility: visible !important;
+}
 
 .modal-popup-section_type_2 .modal-popup-section_type_2-inner .list-section-inner p.list-item {
     margin       : 0;
@@ -1053,6 +1059,8 @@ input[type=number] {
     text-align   : left;
     color        : #36454F;
     border-bottom: 1px solid #E1E2E3;
+    visibility   : visible !important;
+    cursor       : pointer;
 }
 
 .modal-popup-section_type_2 .modal-popup-section_type_2-inner .list-section-inner p.list-item:hover {

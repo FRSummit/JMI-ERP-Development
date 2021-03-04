@@ -120,7 +120,8 @@
         <div class="modal-popup-section_type_2" v-if="approve_selected_with_da_popup_modal">
             <div class="modal-popup-section_type_2-inner" v-click-outside="approveSelectedWithDA_PopupModalOutsideClick">
                 <p class="title">Approve Selected With DA</p>
-                <div class="input-section">
+                <p class="title blue-title">DA Name: <span>{{ selected_da_for_approve }}</span></p>
+                <!-- <div class="input-section">
                     <div class="form-group has-search">
                         <span class="fa fa-search form-control-feedback"></span>
                         <input
@@ -130,14 +131,10 @@
                         placeholder="Search by Name, ID No"
                         />
                     </div>
-                </div>
+                </div> -->
                 <div class="list-section">
                     <div class="list-section-inner">
-                        <p class="list-item">Fayazur Rahman Summit</p>
-                        <p class="list-item">Fayazur Rahman Summit</p>
-                        <p class="list-item">Fayazur Rahman Summit</p>
-                        <p class="list-item">Fayazur Rahman Summit</p>
-                        <p class="list-item">Fayazur Rahman Summit</p>
+                        <p class="list-item" v-for="(da, i) in DA_LIST_FOR_APPROVE" :key="i" @click="daNameClickHandler(da)">{{ da.name }}</p>
                     </div>
                 </div>
                 <div class="submit-section">
@@ -323,6 +320,17 @@ export default {
             SELECT_OPTION__CUSTOMER_ID_LIST: [],
             SELECT_OPTION__ORDER_ID_LIST: [],
             approve_selected_with_da_popup_modal: false,
+            DA_LIST_FOR_APPROVE: [
+                {name: "DA 1"},
+                {name: "DA 2"},
+                {name: "DA 3"},
+                {name: "DA 4"},
+                {name: "DA 5"},
+                {name: "DA 6"},
+                {name: "DA 7"},
+                {name: "DA 8"},
+            ],
+            selected_da_for_approve: null,
         }
     },
     created() {},
@@ -472,11 +480,19 @@ export default {
 
             jmiFilter.searchById_LeftSidebar(filter, list, txt_selector)
         },
+        daNameClickHandler(da) {
+            console.log(da.name)
+            this.selected_da_for_approve = da.name
+        },
         cancelClickHandlerFromApproveDA_Modal() {
             console.log('cancel clicked from Approve DA modal')
+            this.approve_selected_with_da_popup_modal = false
         },
         confirmClickHandlerFromApproveDA_Modal() {
             console.log('confirm clicked from Approve DA modal')
+            console.log(this.selected_da_for_approve)
+            this.selected_da_for_approve = null
+            this.approve_selected_with_da_popup_modal = false
         },
         // ------------------------------------------------------------------------------------------
         // Service Implementation
