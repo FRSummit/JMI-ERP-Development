@@ -1616,6 +1616,7 @@ export default {
                     console.log(res.data)
                     this.delete_product_from_table_popup_modal_data = null
                     this.delete_product_from_table_popup_modal = false
+                    this.$emit('product_remove_from_table', this.order_id_from_left_side)
                 })
         },
         async ADD_PRODUCT_FROM_AUTOFILL_SECOND_FULL_PERAM(prod_db_list){

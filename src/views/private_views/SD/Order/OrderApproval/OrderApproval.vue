@@ -15,7 +15,8 @@
           :pending_order_list_by_id="pending_order_list_by_id"
           :order_id_from_left_side="order_id_from_left_side"
           v-on:remove_rejected_order_id_from_left_list="removeRejectedOrderFromLeft"
-          v-on:single_order_approved="singleOrderApprovedHandler" />
+          v-on:single_order_approved="singleOrderApprovedHandler"
+          v-on:product_remove_from_table="productRemoveFromTable" />
       </div>
     </div>
   </div>
@@ -92,6 +93,9 @@ export default {
       // setTimeout( () => {
       //   this.rejected_order_id = null
       // })
+    },
+    productRemoveFromTable(value) {
+      this.PENDING_ORDER_DETAILS__FROM_SERVICE(value)
     },
     singleOrderApprovedHandler(order_id) {
       this.approved_order_id = order_id

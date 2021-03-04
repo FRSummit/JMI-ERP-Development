@@ -677,7 +677,7 @@ export default {
                     document.querySelector('#customer-section-list-' + i).className = 'customer-section-list'
                 }
             }
-        }
+        },
     }
 }
 </script>
