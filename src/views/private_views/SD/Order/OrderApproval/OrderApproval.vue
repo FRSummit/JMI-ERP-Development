@@ -16,7 +16,7 @@
           :order_id_from_left_side="order_id_from_left_side"
           v-on:remove_rejected_order_id_from_left_list="removeRejectedOrderFromLeft"
           v-on:single_order_approved="singleOrderApprovedHandler"
-          v-on:product_remove_from_table="productRemoveFromTable" />
+          v-on:reload_this_order="reloadThisOrder" />
       </div>
     </div>
   </div>
@@ -94,7 +94,7 @@ export default {
       //   this.rejected_order_id = null
       // })
     },
-    productRemoveFromTable(value) {
+    reloadThisOrder(value) {
       this.PENDING_ORDER_DETAILS__FROM_SERVICE(value)
     },
     singleOrderApprovedHandler(order_id) {

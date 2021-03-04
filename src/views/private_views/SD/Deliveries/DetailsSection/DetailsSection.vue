@@ -33,8 +33,6 @@
                     <table class="table jmi-order-table" id="order-data-table" cellspacing="0" width="100%">
                         <thead>
                             <tr>
-                                <!-- <th style="border: none" v-for="(head, i) in order_table_header" :key="i">{{ head }}</th>
-                                <th style="border: none"></th> -->
                                 <th>Name</th>
                                 <th>Trade Price<span class="with-vat">(With VAT)</span></th>
                                 <th>Quantity</th>
@@ -46,10 +44,7 @@
                         </thead>
                         <tbody>
                             <div class="table-data-rows">
-                                <!-- <tr v-for="(data, i) in order_table_data" :key="i"> -->
-                                <!-- <tr v-for="(data, i) in PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.order_details : null" :key="i"> -->
                                 <div id="progressbar" class="jmi-progressbar" v-if="!ORDERED_TABLE_DATA__INIT_LIST || !PENDING_ORDER_DATA_BY_ID">
-                                    <!-- <v-progress-circular indeterminate color="primary"></v-progress-circular> -->
                                     <p>Please select an order</p>
                                 </div>
                                 <div v-if="PENDING_ORDER_DATA_BY_ID && ORDERED_TABLE_DATA__INIT_LIST">
@@ -90,93 +85,37 @@
                                     </tr>
                                 </div>
                                 <!-- -------- IF ANY PRODUCT ADDED -------- -->
-                                <tr :id="'order-data-table-tr_2-' + i" v-for="(data, i) in ORDERED_TABLE_DATA__INIT_LIST_2" :key="i">
-                                    <!-- Name Column -->
-                                    <td>
-                                        <span>{{ data ? data.prod_name : '' }}</span>
-                                        <span>Unit Price: {{ data.base_tp }}</span>
-                                        <span v-if="data.row_class" :class="data.row_class">Free Product</span>
-                                    </td>
-                                    <!-- Trade Price Column -->
-                                    <td>
-                                        <span v-if="!data.row_class">{{ data ? Number(parseFloat(data.base_tp) + parseFloat(data.base_vat)).toFixed(2) : 0 }}</span>
-                                        <span v-if="data.row_class"></span>
-                                    </td>
-                                    <!-- Quantity Column -->
-                                    <td :id="'order-data-table-tr-td_2-' + i">
-                                        <span class="single_qty quantity-setup">
-                                            <span class="qty">{{ data.quantity }}</span>
-                                        </span>
-                                        <span class="qty_editable quantity-setup hide" style="border: 1px solid #026CD1;">
-                                            <span class="qty-increase" @click="decreaseOrderedItemClickHandler_2(data, i)"><i class="zmdi zmdi-minus" :class="data.quantity < 2 ? 'jmi-deactive-btn' : ''"></i></span>
-                                            <span class="qty">{{ data ? (data.quantity ? data.quantity : 0) : 0 }}</span>
-                                            <span class="qty-decrease" @click="increaseOrderedItemClickHandler_2(data, i)"><i class="zmdi zmdi-plus"></i></span>
-                                        </span>
-                                    </td>
-                                    <!-- Discount Column -->
-                                    <td>
-                                        <span v-if="!data.row_class">{{ data ? (data.offer.discount_percentage ? data.offer.discount_percentage : 0) : 0 }}%</span>
-                                        <span v-if="data.row_class"></span>
-                                    </td>
-                                    <!-- Bonus Column -->
-                                    <td>
-                                        <span v-if="!data.row_class">{{ data ? (data.offer.bonus_qty ? parseInt(data.quantity / data.offer.bonus_on) : 0) : 0 }}</span>
-                                        <span v-if="data.row_class">{{ data ? (data.offer.free_prod_qty ? parseInt(data.quantity / data.offer.free_req_qty) : 0) : 0 }}</span>
-                                    </td>
-                                    <!-- Total Price Column -->
-                                    <td>
-                                        <span v-if="!data.row_class">{{ data ? (data.price_now_per_qty * data.quantity).toFixed(2) : 0 }}</span>
-                                        <!-- <span v-if="!data.row_class">{{ data ? Number(data.line_total).toFixed(2) : 0 }}</span> -->
-                                        <span v-if="data.row_class"></span>
-                                    </td>
-                                    <!-- Option Column -->
-                                    <td class="row-action jmi-tr-td-option" style="min-width: 70px; text-align: right;">
-                                        <span class="icon edit-icon" @click="editOrderitemClickHandler_2(data, i)"><i class="zmdi zmdi-edit"></i></span>
-                                        <span class="icon delete-icon" @click="deleteOrderitemClickHandler_2(data, i)"><i class="fas fa-trash-alt"></i></span>
-                                    </td>
-                                </tr>
-                                <!-- -------- IF ANY PRODUCT ADDED -------- -->
                             </div>
                             <!-- Bottom Total Section -->
                             <div v-if="PENDING_ORDER_DATA_BY_ID && ORDERED_TABLE_DATA__INIT_LIST">
                                 <tr class="subtotal bottom-total" style="border-top: 1px solid #BFCFE2;">
-                                    <td style="width: 50%;"><span class="add-order-attachment-section add-order" @click="addOrderClickHandler" v-if="parseInt(ORDER_CREATED_BY) === parseInt(ORDER_AUTH_USER)"><i class="zmdi zmdi-plus"></i>Add Products</span></td>
+                                    <td style="width: 50%;"></td>
                                     <td style="width: 25%;"><span>Subtotal</span></td>
                                     <td style="width: 15%;"><span>{{ ( Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.gross_tp : 0).toFixed(2) ) }}</span></td>
-                                    <!-- <td style="width: 15%;">
-                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length === 0">{{ ( Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.gross_tp : 0).toFixed(2) ) }}</span>
-                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length > 0">{{  Number( parseFloat( Number(PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.gross_tp) : 0).toFixed(2) ) + parseFloat(sub_total) ).toFixed(2) }}</span>
-                                    </td> -->
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
                                 <tr class="subtotal bottom-total">
                                     <td style="width: 50%;"></td>
                                     <td style="width: 25%;">(+) Vat</td>
                                     <td style="width: 15%;">{{ Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.total_vat : 0).toFixed(2) }}</td>
-                                    <!-- <td style="width: 15%;">
-                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length === 0">{{ Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.total_vat : 0).toFixed(2) }}</span>
-                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length > 0">{{  Number( parseFloat( Number(PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.total_vat) : 0).toFixed(2) ) + parseFloat(vat_total) ).toFixed(2) }}</span>
-                                    </td> -->
+                                    <td style="width: 10%; min-width: 70px;"></td>
+                                </tr>
+                                <tr class="subtotal bottom-total">
+                                    <td style="width: 50%;"></td>
+                                    <td style="width: 25%;">(-) Discount</td>
+                                    <td style="width: 15%;">{{ Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.total_discount : 0).toFixed(2) }}</td>
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
                                 <tr class="subtotal bottom-total">
                                     <td style="width: 50%;"></td>
                                     <td style="width: 25%;">Gross Total</td>
                                     <td style="width: 15%;">{{ Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.gross_total : 0).toFixed(2) }}</td>
-                                    <!-- <td style="width: 15%;">
-                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length === 0">{{ Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.gross_total : 0).toFixed(2) }}</span>
-                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length > 0">{{ Number( parseFloat( Number(PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.gross_total) : 0).toFixed(2) ) + parseFloat(vat_total) ).toFixed(2) }}</span>
-                                    </td> -->
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
                                 <tr class="subtotal bottom-total">
-                                    <td style="width: 50%;"><span class="add-order-attachment-section add-attachment" @click="addAttachmentClickHandler"><i class="zmdi zmdi-attachment-alt"></i>Attachment</span></td>
-                                    <td style="width: 25%;">(-) Discount</td>
-                                    <td style="width: 15%;">{{ Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.total_discount : 0).toFixed(2) }}</td>
-                                    <!-- <td style="width: 15%;">
-                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length === 0">{{ Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.total_discount : 0).toFixed(2) }}</span>
-                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length > 0">{{ Number( parseFloat( Number(PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.total_discount) : 0).toFixed(2) ) + parseFloat(vat_total) ).toFixed(2) }}</span>
-                                    </td> -->
+                                    <td style="width: 50%;"></td>
+                                    <td style="width: 25%;">(+/-) Rounding Adjustment</td>
+                                    <td style="width: 15%;">{{ Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.gross_total : 0).toFixed(2) }}</td>
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
                                 <!-- <tr class="subtotal bottom-total">
@@ -191,11 +130,6 @@
                                         <span class="order-reject" @click="orderRejectClickHandler">Reject Order</span>
                                     </td>
                                     <td style="width: 25%;">Grand Total</td>
-                                    <td style="width: 15%;">{{ Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.net_total : 0).toFixed(2) }}</td>
-                                    <!-- <td style="width: 15%;">
-                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length === 0">{{ Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.net_total : 0).toFixed(2) }}</span>
-                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length > 0">{{ Number( parseFloat( Number(PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.net_total) : 0).toFixed(2) ) + parseFloat(vat_total) ).toFixed(2) }}</span>
-                                    </td> -->
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
                             </div>
@@ -206,8 +140,8 @@
             <!-- Bottom Subtotal & Attachment Section -->
             <div class="submit-section" v-if="ORDERED_TABLE_DATA__INIT_LIST && PENDING_ORDER_DATA_BY_ID">
                 <div class="submit-section-inner">
-                    <span class="proceed-order" @click="updateOrderClickHandler" style="margin-right: 20px;" v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length > 0 || UPDATE_BTN_ENABLE">Update Order</span>
-                    <span class="proceed-order" @click="proceedOrderClickHandler" v-if="!ORDERED_TABLE_DATA__INIT_LIST_2.length > 0 || !UPDATE_BTN_ENABLE">Approve Order</span>
+                    <span class="proceed-order" @click="updateOrderClickHandler" style="margin-right: 20px;">Update Order</span>
+                    <span class="proceed-order" @click="proceedOrderClickHandler">Approve Order</span>
                 </div>
             </div>
             <!-- Add Product Modal -->

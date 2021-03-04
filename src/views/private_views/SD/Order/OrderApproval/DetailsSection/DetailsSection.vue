@@ -1616,7 +1616,7 @@ export default {
                     console.log(res.data)
                     this.delete_product_from_table_popup_modal_data = null
                     this.delete_product_from_table_popup_modal = false
-                    this.$emit('product_remove_from_table', this.order_id_from_left_side)
+                    this.$emit('reload_this_order', this.order_id_from_left_side)
                 })
         },
         async ADD_PRODUCT_FROM_AUTOFILL_SECOND_FULL_PERAM(prod_db_list){
@@ -1627,6 +1627,7 @@ export default {
                     console.log(res.data)
                     this.ORDERED_TABLE_DATA__INIT_LIST = []
                     this.ORDERED_TABLE_DATA__INIT_LIST = res.data.order.order_details
+                    this.$emit('reload_this_order', this.order_id_from_left_side)
                 })
         },
         async UPDATE_ORDER__FROM_SERVICE(prod_list) {
@@ -1636,6 +1637,7 @@ export default {
                     if(res.data.response_code === 200) {
                         this.UPDATE_BTN_ENABLE = false
                         this.product_update_successfully_modal = true
+                        this.$emit('reload_this_order', this.order_id_from_left_side)
                         setTimeout( () => {
                             this.product_update_successfully_modal = false
                         }, 2000)
