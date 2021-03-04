@@ -251,8 +251,8 @@
             <!-- Bottom Subtotal & Attachment Section -->
             <div class="submit-section" v-if="ORDERED_TABLE_DATA__INIT_LIST && PENDING_ORDER_DATA_BY_ID">
                 <div class="submit-section-inner">
-                    <span class="proceed-order" @click="updateOrderClickHandler" style="margin-right: 20px;" v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length > 0 || UPDATE_BTN_ENABLE">Update Order</span>
-                    <span class="proceed-order" @click="proceedOrderClickHandler" v-if="!ORDERED_TABLE_DATA__INIT_LIST_2.length > 0 || !UPDATE_BTN_ENABLE">Approve Order</span>
+                    <span class="proceed-order" @click="updateOrderClickHandler" style="margin-right: 20px;" v-if="UPDATE_BTN_ENABLE">Update Order</span>
+                    <span class="proceed-order" @click="proceedOrderClickHandler" v-if="!UPDATE_BTN_ENABLE">Approve Order</span>
                 </div>
             </div>
             <!-- Add Product Modal -->
@@ -635,6 +635,30 @@
                 <p class="popup-text">Product Update Successfully</p>
             </div>
         </div>
+        <!-- Approve Product Confirmation -->
+        <div class="modal-popup-section order-proceed-modal" v-if="approve_product_confirmation_popup_modal">
+            <div class="modal-popup-section-inner order-proceed-modal-inner">
+                <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
+                <p class="popup-text">Are you sure?</p>
+                <p class="popup-desc">You want to approve the order.</p>
+                <span class="divider"></span>
+                <div class="popup-submit-section">
+                <div class="popup-cancel-btn-section">
+                    <span @click="cancelApprovingSingleOrderClickHandler">Cancel</span>
+                </div>
+                <div class="popup-confirm-btn-section">
+                    <span @click="confirmApprovingSingleOrderClickHandler">Confirm</span>
+                </div>
+                </div>
+            </div>
+        </div>
+        <!-- Order Approved Message -->
+        <div id="update-successfully-modal" class="modal-popup-section update-successfully-modal" v-if="approved_single_order_modal">
+            <div class="modal-popup-section-inner update-successfully-modal-inner">
+                <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
+                <p class="popup-text">Order Approved Successfully</p>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -1001,6 +1025,8 @@ export default {
             delete_product_from_table_popup_modal: false,
             delete_product_from_table_popup_modal_data: null,
             product_update_successfully_modal: false,
+            approve_product_confirmation_popup_modal: false,
+            approved_single_order_modal: false,
         }
     },
     async created() {
@@ -1230,7 +1256,6 @@ export default {
             this.defaultAllThisComponentData()
         },
         async updateOrderClickHandler() {
-            this.UPDATE_BTN_ENABLE = false
             console.log('update order')
             console.log(this.ORDERED_TABLE_DATA__INIT_LIST)
             console.log(this.ORDERED_TABLE_DATA__INIT_LIST_2)
@@ -1255,8 +1280,14 @@ export default {
             }
             // this.defaultAllThisComponentData()
         },
-        async proceedOrderClickHandler() {
-            console.log('proceed order')
+        proceedOrderClickHandler() {
+            this.approve_product_confirmation_popup_modal = true
+        },
+        cancelApprovingSingleOrderClickHandler() {
+            this.approve_product_confirmation_popup_modal = false
+        },
+        async confirmApprovingSingleOrderClickHandler() {
+            await this.APPROVE_SINGLE_ORDER__FROM_SERVICE()
         },
         //------------------------------------------------------------------------------------------
         // Order Modal Functions
@@ -1590,22 +1621,6 @@ export default {
         async ADD_PRODUCT_FROM_AUTOFILL_SECOND_FULL_PERAM(prod_db_list){
             console.log(this.order_id_from_left_side)
             console.log(prod_db_list)
-            /*let prod_list = []
-            for(let i=0; i<data.length; i++) {
-                console.log(data[i].prod_id + '    ' + data[i].quantity)
-                let prod_obj = {
-                    prod_id: parseInt(data[i].prod_id),
-                    quantity: data[i].quantity ? data[i].quantity : 0
-                }
-                prod_list.push(prod_obj)
-            }
-            console.log(prod_list)
-            console.log(JSON.stringify(prod_list))
-            console.log(this.order_id_from_left_side)*/
-            
-            // let sbu_id = parseInt(JSON.parse(localStorage.getItem("user")).user_detils.sbu_id)
-            // let customer_id = parseInt(this.customer_data ? this.customer_data.customer_id : 0)
-            
             await service.getAddNewProdOnExistOrderByOrderId_OrderApproval(this.order_id_from_left_side, prod_db_list)
                 .then(res => {
                     console.log(res.data)
@@ -1618,11 +1633,24 @@ export default {
                 .then(res => {
                     console.log(res.data)
                     if(res.data.response_code === 200) {
+                        this.UPDATE_BTN_ENABLE = false
                         this.product_update_successfully_modal = true
                         setTimeout( () => {
                             this.product_update_successfully_modal = false
                         }, 2000)
                     }
+                })
+        },
+        async APPROVE_SINGLE_ORDER__FROM_SERVICE() {
+            await service.getApproveSingleOrderByOrderId_OrderApproval(this.order_id_from_left_side)
+                .then(res => {
+                    console.log(res.data)
+                    this.approve_product_confirmation_popup_modal = false
+                    this.approved_single_order_modal = true
+                    this.$emit('single_order_approved', this.order_id_from_left_side)
+                    setTimeout( () => {
+                        this.approved_single_order_modal = false
+                    }, 2000)
                 })
         },
         // ----------------------------------------------------------------------------------------------

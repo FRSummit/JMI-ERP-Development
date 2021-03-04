@@ -425,6 +425,18 @@ export default class PostService {
     })
   }
 
+  // Order Approval - APPROVE SINGLE ORDER BY ORDER ID
+  getApproveSingleOrderByOrderId_OrderApproval(order_id) {
+    console.log(order_id)
+    let web_menu_url = '/api/web/approve-single-order/' + order_id
+    return axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+    })
+  }
+
   // // CREATE ORDER - SR LIST LOAD
   // getSearchProductDataList_CreateOrderDetailsSection() {
   //   let web_menu_url = '/api/web/dic-wise-users'

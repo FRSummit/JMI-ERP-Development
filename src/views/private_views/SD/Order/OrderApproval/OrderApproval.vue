@@ -7,12 +7,14 @@
           v-on:filter_modal="filterModalToggle"
           v-on:approve_selected_with_da_popup_modal="approveSelectedWith_DA_PopupModalToggle"
           v-on:select_order_by_order_id="selectOrderByOrderId"
-          :rejected_order_id="rejected_order_id" />
+          :rejected_order_id="rejected_order_id"
+          :approved_order_id="approved_order_id" />
         <DetailsSection 
           :style="(filter_modal_toggle === true) || (approve_selected_with_da_popup_modal_toggle === true) ? 'z-index: -1;' : 'z-index: 5;'"
           :pending_order_list_by_id="pending_order_list_by_id"
           :order_id_from_left_side="order_id_from_left_side"
-          v-on:remove_rejected_order_id_from_left_list="removeRejectedOrderFromLeft" />
+          v-on:remove_rejected_order_id_from_left_list="removeRejectedOrderFromLeft"
+          v-on:single_order_approved="singleOrderApprovedHandler" />
       </div>
     </div>
   </div>
@@ -45,6 +47,7 @@ export default {
       pending_order_list_by_id: [],
       details_section_header_info: [],
       rejected_order_id: null,
+      approved_order_id: null,
       order_id_from_left_side: null,
     };
   },
@@ -83,6 +86,9 @@ export default {
       // setTimeout( () => {
       //   this.rejected_order_id = null
       // })
+    },
+    singleOrderApprovedHandler(order_id) {
+      this.approved_order_id = order_id
     },
     // ---------------------------------------------------------------------------------------------------
     // Service call from left sidebar section

@@ -160,7 +160,7 @@ import JMIFilter from '.././../../../../../functions/JMIFIlter'
 const jmiFilter = new JMIFilter()
 
 export default {
-    props: ["rejected_order_id"],
+    props: ["rejected_order_id", "approved_order_id"],
     data() {
         return {
             ALL_PENDING_ORDERS_CUSTOMER_LIST: [],
@@ -539,6 +539,15 @@ export default {
     },
     watch: {
         async rejected_order_id(newVal, oldVal) {
+            if(newVal !== oldVal) {
+                await this.ALL_PENDING_ORDERS_CUSTOMER_LIST__FROM_SERVICE()
+                let length = document.getElementsByClassName('customer-section-list').length
+                for(let i=0; i<length; i++) {
+                    document.querySelector('#customer-section-list-' + i).className = 'customer-section-list'
+                }
+            }
+        },
+        async approved_order_id(newVal, oldVal) {
             if(newVal !== oldVal) {
                 await this.ALL_PENDING_ORDERS_CUSTOMER_LIST__FROM_SERVICE()
                 let length = document.getElementsByClassName('customer-section-list').length
