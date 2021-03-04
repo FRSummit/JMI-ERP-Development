@@ -251,8 +251,8 @@
             <!-- Bottom Subtotal & Attachment Section -->
             <div class="submit-section" v-if="ORDERED_TABLE_DATA__INIT_LIST && PENDING_ORDER_DATA_BY_ID">
                 <div class="submit-section-inner">
-                    <span class="proceed-order" @click="updateOrderClickHandler" style="margin-right: 20px;" v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length > 0 || UPDATE_BTN_ENABLE">Update Order</span>
-                    <span class="proceed-order" @click="proceedOrderClickHandler" v-if="!ORDERED_TABLE_DATA__INIT_LIST_2.length > 0 || !UPDATE_BTN_ENABLE">Approve Order</span>
+                    <span class="proceed-order" @click="updateOrderClickHandler" style="margin-right: 20px;" v-if="UPDATE_BTN_ENABLE">Update Order</span>
+                    <span class="proceed-order" @click="proceedOrderClickHandler" v-if="!UPDATE_BTN_ENABLE">Approve Order</span>
                 </div>
             </div>
             <!-- Add Product Modal -->
@@ -628,6 +628,37 @@
                 </div>
             </div>
         </div>
+        <!-- Update Message -->
+        <div id="update-successfully-modal" class="modal-popup-section update-successfully-modal" v-if="product_update_successfully_modal">
+            <div class="modal-popup-section-inner update-successfully-modal-inner">
+                <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
+                <p class="popup-text">Product Update Successfully</p>
+            </div>
+        </div>
+        <!-- Approve Product Confirmation -->
+        <div class="modal-popup-section order-proceed-modal" v-if="approve_product_confirmation_popup_modal">
+            <div class="modal-popup-section-inner order-proceed-modal-inner">
+                <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
+                <p class="popup-text">Are you sure?</p>
+                <p class="popup-desc">You want to approve the order.</p>
+                <span class="divider"></span>
+                <div class="popup-submit-section">
+                <div class="popup-cancel-btn-section">
+                    <span @click="cancelApprovingSingleOrderClickHandler">Cancel</span>
+                </div>
+                <div class="popup-confirm-btn-section">
+                    <span @click="confirmApprovingSingleOrderClickHandler">Confirm</span>
+                </div>
+                </div>
+            </div>
+        </div>
+        <!-- Order Approved Message -->
+        <div id="update-successfully-modal" class="modal-popup-section update-successfully-modal" v-if="approved_single_order_modal">
+            <div class="modal-popup-section-inner update-successfully-modal-inner">
+                <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
+                <p class="popup-text">Order Approved Successfully</p>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -993,6 +1024,9 @@ export default {
             DIC_OR_MIO_OR_AM_USER_QTY_COUNT: null,
             delete_product_from_table_popup_modal: false,
             delete_product_from_table_popup_modal_data: null,
+            product_update_successfully_modal: false,
+            approve_product_confirmation_popup_modal: false,
+            approved_single_order_modal: false,
         }
     },
     async created() {
@@ -1035,13 +1069,15 @@ export default {
                 // data.qty
                 console.log('difference')
                 data.qty++
+                this.UPDATE_BTN_ENABLE = true
                 if(data.qty > this.DIC_OR_MIO_OR_AM_USER_QTY_COUNT) {
                     data.qty--
+                    this.UPDATE_BTN_ENABLE = false
                 }
             } else {
                 data.qty++
+                this.UPDATE_BTN_ENABLE = true
             }
-            this.UPDATE_BTN_ENABLE = true
             // this.UPDATE_BTN_TRUE = true
             // this.createSubtotalCalculation()
             // Free Product row quantity increase
@@ -1220,15 +1256,38 @@ export default {
             this.defaultAllThisComponentData()
         },
         async updateOrderClickHandler() {
-            this.UPDATE_BTN_ENABLE = false
             console.log('update order')
             console.log(this.ORDERED_TABLE_DATA__INIT_LIST)
             console.log(this.ORDERED_TABLE_DATA__INIT_LIST_2)
             // this.UPDATE_QUANTITY_ENABLE_1 = false
             // this.UPDATE_QUANTITY_ENABLE_2 = false
+
+            let prod_list = []
+            for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST.length; i++) {
+                let prod_obj = {
+                    prod_id: parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].product_id),
+                    quantity: this.ORDERED_TABLE_DATA__INIT_LIST[i].qty ? this.ORDERED_TABLE_DATA__INIT_LIST[i].qty : 0
+                }
+                prod_list.push(prod_obj)
+            }
+            console.log(prod_list)
+            await this.UPDATE_ORDER__FROM_SERVICE(prod_list)
+            
+            // input qty hide and span qty displaying
+            for(let i=0; i<document.querySelectorAll('.single_qty.quantity-setup').length; i++) {
+                document.querySelectorAll('.single_qty.quantity-setup')[i].className = 'single_qty quantity-setup'
+                document.querySelectorAll('.qty_editable.quantity-setup')[i].className = 'qty_editable quantity-setup hide'
+            }
+            // this.defaultAllThisComponentData()
         },
-        async proceedOrderClickHandler() {
-            console.log('proceed order')
+        proceedOrderClickHandler() {
+            this.approve_product_confirmation_popup_modal = true
+        },
+        cancelApprovingSingleOrderClickHandler() {
+            this.approve_product_confirmation_popup_modal = false
+        },
+        async confirmApprovingSingleOrderClickHandler() {
+            await this.APPROVE_SINGLE_ORDER__FROM_SERVICE()
         },
         //------------------------------------------------------------------------------------------
         // Order Modal Functions
@@ -1327,8 +1386,10 @@ export default {
                 }
                 prod_db_list.push(prod_obj)
             }
+            console.log(prod_db_list)
             // CALL SERVICE IMPLEMENTATION FUNCTION
-            await this.FIND_PRODUCT_OFFER__FROM_SERVICE(prod_db_list)
+            // await this.FIND_PRODUCT_OFFER__FROM_SERVICE(prod_db_list)
+            await this.ADD_PRODUCT_FROM_AUTOFILL_SECOND_FULL_PERAM(prod_db_list)
             // Close Modal
             if(prod_db_list.length > 0) {
                 this.add_order_modal = false
@@ -1555,21 +1616,43 @@ export default {
                     console.log(res.data)
                     this.delete_product_from_table_popup_modal_data = null
                     this.delete_product_from_table_popup_modal = false
+                    this.$emit('product_remove_from_table', this.order_id_from_left_side)
                 })
         },
-        async ADD_PRODUCT_FROM_AUTOFILL_SECOND_FULL_PERAM(data){
-            let prod_list = []
-            for(let i=0; i<data.length; i++) {
-                console.log(data[i].prod_id + '    ' + data[i].quantity)
-                let prod_obj = {
-                    prod_id: parseInt(data[i].prod_id),
-                    quantity: data[i].quantity ? data[i].quantity : 0
-                }
-                prod_list.push(prod_obj)
-            }
-            console.log(prod_list)
-            console.log(JSON.stringify(prod_list))
+        async ADD_PRODUCT_FROM_AUTOFILL_SECOND_FULL_PERAM(prod_db_list){
             console.log(this.order_id_from_left_side)
+            console.log(prod_db_list)
+            await service.getAddNewProdOnExistOrderByOrderId_OrderApproval(this.order_id_from_left_side, prod_db_list)
+                .then(res => {
+                    console.log(res.data)
+                    this.ORDERED_TABLE_DATA__INIT_LIST = []
+                    this.ORDERED_TABLE_DATA__INIT_LIST = res.data.order.order_details
+                })
+        },
+        async UPDATE_ORDER__FROM_SERVICE(prod_list) {
+            await service.getUpdateOrderByOrderId_OrderApproval(this.order_id_from_left_side, prod_list)
+                .then(res => {
+                    console.log(res.data)
+                    if(res.data.response_code === 200) {
+                        this.UPDATE_BTN_ENABLE = false
+                        this.product_update_successfully_modal = true
+                        setTimeout( () => {
+                            this.product_update_successfully_modal = false
+                        }, 2000)
+                    }
+                })
+        },
+        async APPROVE_SINGLE_ORDER__FROM_SERVICE() {
+            await service.getApproveSingleOrderByOrderId_OrderApproval(this.order_id_from_left_side)
+                .then(res => {
+                    console.log(res.data)
+                    this.approve_product_confirmation_popup_modal = false
+                    this.approved_single_order_modal = true
+                    this.$emit('single_order_approved', this.order_id_from_left_side)
+                    setTimeout( () => {
+                        this.approved_single_order_modal = false
+                    }, 2000)
+                })
         },
         // ----------------------------------------------------------------------------------------------
         // Bottom Row Calculation
@@ -1701,6 +1784,8 @@ export default {
                 // this.ORDER_CREATED_BY = 101
                 this.ORDER_CREATED_BY = this.pending_order_list_by_id.created_by
                 this.ORDER_AUTH_USER = this.pending_order_list_by_id.auth_user
+                console.log(this.PENDING_ORDER_DATA_BY_ID.is_verified)
+                console.log(this.order_id_from_left_side)
             }, 1000)
             // if( newVal && oldVal) {
             //     if(newVal.customer_id !== oldVal.customer_id) {

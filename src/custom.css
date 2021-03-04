@@ -960,6 +960,16 @@ input[type=number] {
 
 /* ------------- POPUP MODALS TYPE 1 ----------------------------- */
 
+/* ------------- SELECT - OPTION ----------------------------- */
+select {
+    display: block !important;
+    border: 1px solid #BFCFE2;
+}
+select:focus {
+    outline: none !important;
+}
+/* ------------- SELECT - OPTION ----------------------------- */
+
 /* ------------- POPUP MODAL TYPE 2 ----------------------------- */
 .modal-popup-section_type_2 {
     position        : fixed;
@@ -994,6 +1004,10 @@ input[type=number] {
     text-align : left;
     color      : #36454F;
 }
+
+.modal-popup-section_type_2 .modal-popup-section_type_2-inner .select-option {}
+.modal-popup-section_type_2 .modal-popup-section_type_2-inner .select-option span {}
+.modal-popup-section_type_2 .modal-popup-section_type_2-inner .select-option span select {}
 
 .modal-popup-section_type_2 .modal-popup-section_type_2-inner p.blue-title span {
     color: #026CD1;
@@ -1114,6 +1128,34 @@ input[type=number] {
 }
 
 /* ------------- POPUP MODAL TYPE 2 ----------------------------- */
+#deliveries-left-sidebar .jmi-status-section_t_1 {
+    display: inline-block;
+    float  : right;
+}
+
+#deliveries-left-sidebar p.jmi-status_t_1 {
+    font-size  : 14px;
+    color      : #28a411;
+    margin     : 0;
+    line-height: 1;
+}
+
+#deliveries-left-sidebar p.jmi-status_t_1 .status-icon {
+    margin-right : 4px;
+    width        : 10px;
+    height       : 10px;
+    display      : inline-block;
+    background   : #282828;
+    border-radius: 2px;
+}
+
+#deliveries-left-sidebar p.jmi-status_t_1 .status-icon {
+    background: #28a411;
+}
+
+#update-successfully-modal p.popup-text {
+    color: #026CD1;
+}
 
 /* --------------------------------------------------------------------------------------- */
 

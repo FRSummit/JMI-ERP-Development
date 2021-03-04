@@ -18,11 +18,11 @@
         </div>
         <!-- Customer Counter -->
         <div class="title-count">
-            <p class="total-customer">Pending Orders (<span class="count">{{ ALL_PENDING_ORDERS_CUSTOMER_LIST.length }}</span>)</p>
+            <p class="total-customer">Select Month</p>
             <div class="select-options">
                 <span class="right-icon"><i class="fas fa-chevron-right"></i></span>
                     <select title="Pick a customer" class="selectpicker" v-model="on_change_status" @change="onChangeStatusDropdown()">
-                        <option v-for="(status, m) in status_list" :key="m">{{ status.status }}</option>
+                        <option v-for="(month, m) in months" :key="m">{{ month.name }}</option>
                 </select>
             </div>
         </div>
@@ -40,8 +40,9 @@
                                 <div class="id-section">
                                     <p class="customer-id">{{ customer ? (customer.order_no ? (customer.order_no) : '' ) : "" }}</p>
                                 </div>
-                                <div class="type-section">
-                                    <p class="customer-type"><span class="type">{{ customer ? (customer.order_date).split(' ')[0] : "" }}</span></p>
+                                <div class="jmi-status-section_t_1">
+                                    <!-- <p class="customer-type"><span class="type">{{ customer ? (customer.order_date).split(' ')[0] : "" }}</span></p> -->
+                                    <p class="jmi-status_t_1" :class="'Pending'"><span class="status-icon"></span>On Progress</p>
                                 </div>
                             </div>
                         </div>
@@ -53,7 +54,7 @@
                                 </div>
                                 <div class="status-section">
                                     <!-- <p class="status" :class="customer.order_status"><span class="status-icon" :class="customer.order_status"></span>{{ customer ? (customer.order_status ? customer.order_status : "Pending") : "Pending" }}</p> -->
-                                    <p class="status" :class="'Pending'"><span class="status-icon" :class="'Pending'"></span>{{ customer ? (customer.order_status ? customer.order_status : "Pending") : "Pending" }}</p>
+                                    <!-- <p class="status" :class="'Pending'"><span class="status-icon" :class="'Pending'"></span>{{ customer ? (customer.order_status ? customer.order_status : "Pending") : "Pending" }}</p> -->
                                 </div>
                             </div>
                         </div>
@@ -61,10 +62,10 @@
                             <div class="customer-address-section-inner">
                                 <div class="address-section">
                                     <!-- <p class="customer-address"><span>Order No: {{ customer ? customer.id : 'XXXX' }}</span>|<span>Total Bill: {{ customer ? customer.net_total : '00.00' }}</span></p> -->
-                                    <p class="customer-address"><span>Total Bill: {{ customer ? customer.net_total : '00.00' }}</span></p>
-                                    <span class="checkbox">
+                                    <p class="customer-address"><span>Total Bill: {{ customer ? customer.net_total : '00.00' }}</span> | <span>Payment Type: Cash</span></p>
+                                    <!-- <span class="checkbox">
                                         <input type="checkbox" :id="'deliveries-checkbox-' + c" :name="customer ? customer.customer_id : 0" :value="customer ? customer.customer_id : 0" @change="checkboxOnChangeHandler(customer, c)">
-                                    </span>
+                                    </span> -->
                                 </div>
                             </div>
                         </div>
@@ -283,22 +284,12 @@ export default {
                     order_bill: "4300",
                 },
             ],
-            status_list: [
-                {
-                    status: ""
-                },
-                {
-                    status: "Select All"
-                },
-                {
-                    status: "Approved Selected"
-                },
-                {
-                    status: "Approved Selected with DA"
-                },
-                {
-                    status: "Reject Selected"
-                },
+            months: [
+                {name: "January"},
+                {name: "February"},
+                {name: "March"},
+                {name: "April"},
+                {name: "May"},
             ],
             radioSpanDefaultClass: 'active',
             radioSpanCustomClass: null,
