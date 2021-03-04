@@ -1,8 +1,8 @@
 <template>
-  <div id="order-approval" class="order-approval">
+  <div id="deliveries" class="deliveries">
     <Heading :pathName="pathName" :routeName="routeName" />
-    <div class="order-approval-section">
-      <div class="order-approval-section-inner">
+    <div class="deliveries-section">
+      <div class="deliveries-section-inner">
         <LeftSidebarSection 
           v-on:filter_modal="filterModalToggle"
           v-on:approve_selected_with_da_popup_modal="approveSelectedWith_DA_PopupModalToggle"
@@ -19,14 +19,14 @@
 </template>
 
 <script>
-import Heading from "../../../../../components/master_layout/HeadingTitleBreadcrumb/HeadingTitleBreadcrumb";
-// import BreadcrumbFunctions from '../../../../../functions/BreadcrumbFunctions'
+import Heading from "../../../../components/master_layout/HeadingTitleBreadcrumb/HeadingTitleBreadcrumb";
+// import BreadcrumbFunctions from '../../../../functions/BreadcrumbFunctions'
 // const breadcrumbFunctions = new BreadcrumbFunctions()
 
 import LeftSidebarSection from "./LeftSidebarSection/LeftSidebarSection";
 import DetailsSection from "./DetailsSection/DetailsSection";
 
-import ERPService from '../../../../../service/ERPSidebarService'
+import ERPService from '../../../../service/ERPSidebarService'
 const service = new ERPService()
 
 export default {
@@ -102,5 +102,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import url("./OrderApproval.less");
+@import url("./Deliveries.less");
 </style>

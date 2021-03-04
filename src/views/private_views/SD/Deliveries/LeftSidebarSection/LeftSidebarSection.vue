@@ -1,7 +1,7 @@
 <template>
-  <div id="order-approval-left-sidebar" class="order-approval-left-sidebar">
-    <div class="order-approval-left-sidebar-section">
-      <div class="order-approval-left-sidebar-section-inner">
+  <div id="deliveries-left-sidebar" class="deliveries-left-sidebar">
+    <div class="deliveries-left-sidebar-section">
+      <div class="deliveries-left-sidebar-section-inner">
           <!-- Search & Filter section -->
         <div class="search-section">
           <div class="form-group has-search">
@@ -63,7 +63,7 @@
                                     <!-- <p class="customer-address"><span>Order No: {{ customer ? customer.id : 'XXXX' }}</span>|<span>Total Bill: {{ customer ? customer.net_total : '00.00' }}</span></p> -->
                                     <p class="customer-address"><span>Total Bill: {{ customer ? customer.net_total : '00.00' }}</span></p>
                                     <span class="checkbox">
-                                        <input type="checkbox" :id="'order-approval-checkbox-' + c" :name="customer ? customer.customer_id : 0" :value="customer ? customer.customer_id : 0" @change="checkboxOnChangeHandler(customer, c)">
+                                        <input type="checkbox" :id="'deliveries-checkbox-' + c" :name="customer ? customer.customer_id : 0" :value="customer ? customer.customer_id : 0" @change="checkboxOnChangeHandler(customer, c)">
                                     </span>
                                 </div>
                             </div>
@@ -151,9 +151,9 @@
 </template>
 
 <script>
-import ERPService from '../../../../../../service/ERPSidebarService'
+import ERPService from '../../../../../service/ERPSidebarService'
 const service = new ERPService()
-import JMIFilter from '.././../../../../../functions/JMIFIlter'
+import JMIFilter from '.././../../../../functions/JMIFIlter'
 const jmiFilter = new JMIFilter()
 
 export default {
@@ -357,7 +357,7 @@ export default {
         },
         checkboxOnChangeHandler(order, selector_id) {
             console.log('change : ' + selector_id)
-            let radio_selector = document.querySelector('#order-approval-left-sidebar #order-approval-checkbox-' + selector_id)
+            let radio_selector = document.querySelector('#deliveries-left-sidebar #deliveries-checkbox-' + selector_id)
             if(radio_selector.checked === true) {
                 console.log('checked true')
             } else {
@@ -380,7 +380,7 @@ export default {
                     this.SELECT_OPTION__CUSTOMER_ID_LIST = []
                     this.SELECT_OPTION__ORDER_ID_LIST = []
                     for(let i=0; i<this.ALL_PENDING_ORDERS_CUSTOMER_LIST.length; i++) {
-                        let radio_selector = document.querySelector('#order-approval-left-sidebar #order-approval-checkbox-' + i)
+                        let radio_selector = document.querySelector('#deliveries-left-sidebar #deliveries-checkbox-' + i)
                         radio_selector.checked = true
                         this.SELECT_OPTION__CUSTOMER_ID_LIST.push(parseInt(this.ALL_PENDING_ORDERS_CUSTOMER_LIST[i].customer_id))
                         this.SELECT_OPTION__ORDER_ID_LIST.push(parseInt(this.ALL_PENDING_ORDERS_CUSTOMER_LIST[i].id))
@@ -396,7 +396,7 @@ export default {
                     } else {
                         console.log('specific ids')
                         for(let i=0; i<this.ALL_PENDING_ORDERS_CUSTOMER_LIST.length; i++) {
-                            let radio_selector = document.querySelector('#order-approval-left-sidebar #order-approval-checkbox-' + i)
+                            let radio_selector = document.querySelector('#deliveries-left-sidebar #deliveries-checkbox-' + i)
                             if(radio_selector.checked === true) {
                                 console.log(this.ALL_PENDING_ORDERS_CUSTOMER_LIST[i].customer_id)
                                 console.log(this.ALL_PENDING_ORDERS_CUSTOMER_LIST[i].id)
@@ -419,7 +419,7 @@ export default {
                 case 'Reject Selected':
                     // console.log('Reject Selected')
                     // for(let i=0; i<this.ALL_PENDING_ORDERS_CUSTOMER_LIST.length; i++) {
-                    //     let radio_selector = document.querySelector('#order-approval-left-sidebar #order-approval-checkbox-' + i)
+                    //     let radio_selector = document.querySelector('#deliveries-left-sidebar #deliveries-checkbox-' + i)
                     //     if(radio_selector.checked === true) {
                     //         this.SELECT_OPTION__CUSTOMER_ID_LIST.push(parseInt(this.ALL_PENDING_ORDERS_CUSTOMER_LIST[i].customer_id))
                     //         this.SELECT_OPTION__ORDER_ID_LIST.push(parseInt(this.ALL_PENDING_ORDERS_CUSTOMER_LIST[i].id))
@@ -524,7 +524,7 @@ export default {
         // -------------------------------------------------------------------------------------------
         deselectAllSelectedOrder() {
             for(let i=0; i<this.ALL_PENDING_ORDERS_CUSTOMER_LIST.length; i++) {
-                let radio_selector = document.querySelector('#order-approval-left-sidebar #order-approval-checkbox-' + i)
+                let radio_selector = document.querySelector('#deliveries-left-sidebar #deliveries-checkbox-' + i)
                 radio_selector.checked = false
             }
         }

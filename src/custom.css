@@ -256,27 +256,30 @@
 .mx-calendar.mx-calendar-panel-date:nth-child(1) {
     /* margin-right: 20px; */
 }
+
 .mx-calendar.mx-calendar-panel-date:nth-child(2) {
     display: none;
 }
 
 .mx-btn.mx-btn-text.mx-btn-icon-left,
 .mx-btn.mx-btn-text.mx-btn-icon-right {
-    display: inline-block;
+    display         : inline-block;
     background-color: transparent;
-    background: transparent;
-    width: 25px;
-    height: 25px;
-    position: absolute;
-    top: 20px;
+    background      : transparent;
+    width           : 25px;
+    height          : 25px;
+    position        : absolute;
+    top             : 20px;
 }
+
 .mx-btn.mx-btn-text.mx-btn-icon-left {
     background-image: url('./assets//icons/arrow_left.svg');
-    left: 20px;
+    left            : 20px;
 }
+
 .mx-btn.mx-btn-text.mx-btn-icon-right {
     background-image: url('./assets//icons/arrow_right.svg');
-    right: 20px;
+    right           : 20px;
 }
 
 #delivery-scheduling-left-list .mx-input-wrapper,
@@ -481,7 +484,8 @@
 }
 
 #create-order-details-section input:focus,
-#order-approval-details-section input:focus {
+#order-approval-details-section input:focus,
+#deliveries-details-section input:focus {
     box-shadow   : none;
     border-bottom: none;
     outline      : none;
@@ -491,23 +495,27 @@
     /* display: none; */
 }
 
-#order-approval-details-section .mt-3.order-approval-customer-details {
+#order-approval-details-section .mt-3.order-approval-customer-details,
+#deliveries-details-section .mt-3.deliveries-customer-details {
     height  : auto;
     overflow: hidden;
 }
 
-#order-approval-details-section .tabs.mt-3 ul {
+#order-approval-details-section .tabs.mt-3 ul,
+#deliveries-details-section .tabs.mt-3 ul {
     border-bottom: 2px solid #E2EDFA;
     display      : table;
     width        : 100%;
 }
 
-#order-approval-details-section .tabs.mt-3 ul li {
+#order-approval-details-section .tabs.mt-3 ul li,
+#deliveries-details-section .tabs.mt-3 ul li {
     /* margin-bottom: 0; */
     display: table-cell;
 }
 
-#order-approval-details-section .tabs.mt-3 ul li a {
+#order-approval-details-section .tabs.mt-3 ul li a,
+#deliveries-details-section .tabs.mt-3 ul li a {
     border        : none;
     padding       : 8px 20px;
     color         : #000000;
@@ -515,7 +523,8 @@
     /* font-weight: 500; */
 }
 
-#order-approval-details-section .tabs.mt-3 ul li a.active {
+#order-approval-details-section .tabs.mt-3 ul li a.active,
+#deliveries-details-section .tabs.mt-3 ul li a.active {
     border-bottom: 2px solid #026CD1;
     color        : #026CD1;
 }
@@ -853,7 +862,7 @@ input[type=number] {
 
 /* ADD PRODUCT MODAL */
 
-/* POPUP MODALS */
+/* ------------- POPUP MODALS TYPE 1 ----------------------------- */
 .modal-popup-section {
     position        : fixed;
     left            : calc((100vw / 2) - 200px);
@@ -948,6 +957,163 @@ input[type=number] {
     cursor : pointer;
     color  : #C11616;
 }
+
+/* ------------- POPUP MODALS TYPE 1 ----------------------------- */
+
+/* ------------- POPUP MODAL TYPE 2 ----------------------------- */
+.modal-popup-section_type_2 {
+    position        : fixed;
+    left            : calc((100vw / 2) - 200px);
+    z-index         : 9999;
+    width           : 100%;
+    height          : 100%;
+    left            : 0;
+    top             : 0;
+    background-color: rgba(0, 18, 35, 0.1);
+}
+
+.modal-popup-section_type_2 .modal-popup-section_type_2-inner {
+    padding      : 20px 40px;
+    text-align   : center;
+    width        : 350px;
+    background   : #FFFFFF;
+    position     : absolute;
+    top          : 170px;
+    left         : 370px;
+    opacity      : 1;
+    z-index      : 9999;
+    border-radius: 2px;
+    box-shadow   : 0px 0px 20px #026cd129;
+}
+
+.modal-popup-section_type_2 .modal-popup-section_type_2-inner p.title {
+    margin     : 0;
+    font-size  : 14px;
+    font-weight: 500;
+    line-height: 1.7;
+    text-align : left;
+    color      : #36454F;
+}
+
+.modal-popup-section_type_2 .modal-popup-section_type_2-inner p.blue-title span {
+    color: #026CD1;
+}
+
+.modal-popup-section_type_2 .modal-popup-section_type_2-inner .input-section {
+    margin-top: 10px;
+    padding   : 0 10px;
+}
+
+.modal-popup-section_type_2 .modal-popup-section_type_2-inner .input-section .form-group {
+    margin        : 0;
+    position      : relative;
+    display       : inline-block;
+    vertical-align: middle;
+    width         : 100%;
+}
+
+.modal-popup-section_type_2 .modal-popup-section_type_2-inner .input-section .has-search .form-control {
+    padding-left: 2.375rem;
+}
+
+.modal-popup-section_type_2 .modal-popup-section_type_2-inner .input-section .has-search .form-control-feedback {
+    position      : absolute;
+    z-index       : 2;
+    display       : block;
+    width         : 16px;
+    height        : 16px;
+    text-align    : center;
+    pointer-events: none;
+    color         : #aaa;
+    top           : 8px;
+    left          : 12px;
+    border        : none;
+    padding       : 2px;
+}
+
+.modal-popup-section_type_2 .modal-popup-section_type_2-inner .input-section input {
+    margin       : 0;
+    border-bottom: none;
+    border       : 1px solid #BFCFE2;
+    box-sizing   : inherit;
+    font-size    : 12px;
+    height       : auto;
+    padding      : 6px 0;
+}
+
+.modal-popup-section_type_2 .modal-popup-section_type_2-inner .input-section input:focus {
+    outline           : 0;
+    outline-offset    : 0;
+    -moz-box-shadow   : none;
+    -webkit-box-shadow: none;
+    box-shadow        : none;
+}
+
+.modal-popup-section_type_2 .modal-popup-section_type_2-inner .list-section {
+    margin-top: 20px;
+}
+
+.modal-popup-section_type_2 .modal-popup-section_type_2-inner .list-section-inner {
+    visibility: visible !important;
+}
+
+.modal-popup-section_type_2 .modal-popup-section_type_2-inner .list-section-inner p.list-item {
+    margin       : 0;
+    padding      : 10px 10px 6px;
+    font-size    : 14px;
+    line-height  : 1.7;
+    text-align   : left;
+    color        : #36454F;
+    border-bottom: 1px solid #E1E2E3;
+    visibility   : visible !important;
+    cursor       : pointer;
+}
+
+.modal-popup-section_type_2 .modal-popup-section_type_2-inner .list-section-inner p.list-item:hover {
+    background: #E2EDFA;
+}
+
+.modal-popup-section_type_2 .modal-popup-section_type_2-inner .submit-section {
+    margin-top: 20px;
+}
+
+.modal-popup-section_type_2 .modal-popup-section_type_2-inner .submit-section-inner {
+    display        : flex;
+    justify-content: space-evenly;
+}
+
+.modal-popup-section_type_2 .modal-popup-section_type_2-inner .submit-section-inner button.cancel {
+    display       : inline-block;
+    font-size     : 14px;
+    padding       : 6px 10px;
+    line-height   : 1.3;
+    border        : 1px solid #C11616;
+    color         : #C11616;
+    width         : 80px;
+    height        : 34px;
+    text-align    : center;
+    vertical-align: middle;
+    border-radius : 2px;
+    background    : transparent;
+    outline       : none;
+}
+
+.modal-popup-section_type_2 .modal-popup-section_type_2-inner .submit-section-inner button.confirm {
+    display       : inline-block;
+    font-size     : 14px;
+    padding       : 6px 10px;
+    line-height   : 1.3;
+    color         : #FFFFFF;
+    width         : 80px;
+    height        : 34px;
+    text-align    : center;
+    vertical-align: middle;
+    border-radius : 2px;
+    background    : #026CD1;
+    outline       : none;
+}
+
+/* ------------- POPUP MODAL TYPE 2 ----------------------------- */
 
 /* --------------------------------------------------------------------------------------- */
 
