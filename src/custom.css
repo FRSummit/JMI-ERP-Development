@@ -484,7 +484,8 @@
 }
 
 #create-order-details-section input:focus,
-#order-approval-details-section input:focus {
+#order-approval-details-section input:focus,
+#deliveries-details-section input:focus {
     box-shadow   : none;
     border-bottom: none;
     outline      : none;
@@ -494,23 +495,27 @@
     /* display: none; */
 }
 
-#order-approval-details-section .mt-3.order-approval-customer-details {
+#order-approval-details-section .mt-3.order-approval-customer-details,
+#deliveries-details-section .mt-3.deliveries-customer-details {
     height  : auto;
     overflow: hidden;
 }
 
-#order-approval-details-section .tabs.mt-3 ul {
+#order-approval-details-section .tabs.mt-3 ul,
+#deliveries-details-section .tabs.mt-3 ul {
     border-bottom: 2px solid #E2EDFA;
     display      : table;
     width        : 100%;
 }
 
-#order-approval-details-section .tabs.mt-3 ul li {
+#order-approval-details-section .tabs.mt-3 ul li,
+#deliveries-details-section .tabs.mt-3 ul li {
     /* margin-bottom: 0; */
     display: table-cell;
 }
 
-#order-approval-details-section .tabs.mt-3 ul li a {
+#order-approval-details-section .tabs.mt-3 ul li a,
+#deliveries-details-section .tabs.mt-3 ul li a {
     border        : none;
     padding       : 8px 20px;
     color         : #000000;
@@ -518,7 +523,8 @@
     /* font-weight: 500; */
 }
 
-#order-approval-details-section .tabs.mt-3 ul li a.active {
+#order-approval-details-section .tabs.mt-3 ul li a.active,
+#deliveries-details-section .tabs.mt-3 ul li a.active {
     border-bottom: 2px solid #026CD1;
     color        : #026CD1;
 }

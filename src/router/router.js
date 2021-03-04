@@ -127,6 +127,12 @@ export const router = new VueRouter({
       name: 'Order Approval',
       component: () => import('../views/private_views/SD/Order/OrderApproval/OrderApproval.vue')
     },
+    // Deliveries
+    {
+      path: '/features/local_sales/deliveries',
+      name: 'Deliveries',
+      component: () => import('../views/private_views/SD/Deliveries/Deliveries.vue')
+    },
     // Customer Profile
     {
       path: '/features/local_sales/customer_list',
