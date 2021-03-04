@@ -8,9 +8,10 @@
           v-on:approve_selected_with_da_popup_modal="approveSelectedWith_DA_PopupModalToggle"
           v-on:select_order_by_order_id="selectOrderByOrderId"
           :rejected_order_id="rejected_order_id"
-          :approved_order_id="approved_order_id" />
+          :approved_order_id="approved_order_id"
+          v-on:approve_selection_modal="approveSelectionModal" />
         <DetailsSection 
-          :style="(filter_modal_toggle === true) || (approve_selected_with_da_popup_modal_toggle === true) ? 'z-index: -1;' : 'z-index: 5;'"
+          :style="(filter_modal_toggle === true) || (approve_selected_with_da_popup_modal_toggle === true) || (approve_selection_modal_val === true) ? 'z-index: -1;' : 'z-index: 5;'"
           :pending_order_list_by_id="pending_order_list_by_id"
           :order_id_from_left_side="order_id_from_left_side"
           v-on:remove_rejected_order_id_from_left_list="removeRejectedOrderFromLeft"
@@ -49,6 +50,7 @@ export default {
       rejected_order_id: null,
       approved_order_id: null,
       order_id_from_left_side: null,
+      approve_selection_modal_val: null,
     };
   },
   created() {
@@ -67,6 +69,10 @@ export default {
     },
     filterModalToggle(value) {
       this.filter_modal_toggle = value
+    },
+    approveSelectionModal(value) {
+      this.approve_selection_modal_val = value
+      console.log(this.approve_selection_modal_val)
     },
     approveSelectedWith_DA_PopupModalToggle(value) {
       this.approve_selected_with_da_popup_modal_toggle = value

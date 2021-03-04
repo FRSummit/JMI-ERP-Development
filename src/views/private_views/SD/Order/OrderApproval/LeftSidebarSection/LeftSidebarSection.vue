@@ -135,6 +135,7 @@
                 <div class="list-section">
                     <div class="list-section-inner">
                         <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" v-model="approve_da_modal_select_box_item" @change="onChangeApproveDAModalSelectBoc()">
+                            <option selected>ALL DA</option>
                             <option v-for="(da, i) in DA_LIST_FOR_APPROVE" :key="i">{{ da.name }}</option>
                         </select>
                         <!-- <p class="list-item" v-for="(da, i) in DA_LIST_FOR_APPROVE" :key="i" @click="daNameClickHandler(da)">{{ da.name }}</p> -->
@@ -143,9 +144,33 @@
                 <div class="submit-section" v-if="approve_da_modal_select_box_item">
                     <div class="submit-section-inner">
                         <button class="cancel" @click="cancelClickHandlerFromApproveDA_Modal">Cancel</button>
-                        <button class="confirm" @click="confirmClickHandlerFromApproveDA_Modal">Done</button>
+                        <button class="confirm" @click="confirmClickHandlerFromApproveDA_Modal">Confirm</button>
                     </div>
                 </div>
+            </div>
+        </div>
+        <!-- Approve Product Confirmation -->
+        <div class="modal-popup-section order-proceed-modal" v-if="approve_selection_modal">
+            <div class="modal-popup-section-inner order-proceed-modal-inner">
+                <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
+                <p class="popup-text">Are you sure?</p>
+                <p class="popup-desc">You want to approve the orders.</p>
+                <span class="divider"></span>
+                <div class="popup-submit-section">
+                <div class="popup-cancel-btn-section">
+                    <span @click="cancelApprovingOrdersClickHandler">Cancel</span>
+                </div>
+                <div class="popup-confirm-btn-section">
+                    <span @click="confirmApprovingOrdersClickHandler">Confirm</span>
+                </div>
+                </div>
+            </div>
+        </div>
+        <!-- Order Approved Message -->
+        <div id="update-successfully-modal" class="modal-popup-section update-successfully-modal" v-if="approved_orders_success_modal">
+            <div class="modal-popup-section-inner update-successfully-modal-inner">
+                <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
+                <p class="popup-text">Orders Approved Successfully</p>
             </div>
         </div>
       </div>
@@ -326,6 +351,8 @@ export default {
             DA_LIST_FOR_APPROVE: [],
             selected_da_for_approve: null,
             approve_da_modal_select_box_item: null,
+            approve_selection_modal: false,
+            approved_orders_success_modal: false,
         }
     },
     created() {},
@@ -368,6 +395,40 @@ export default {
                 // }
             }
         },
+        cancelApprovingOrdersClickHandler() {
+            this.approve_selection_modal = false
+            this.on_change_status = ''
+            this.$emit('approve_selection_modal', this.approve_selection_modal)
+        },
+        confirmApprovingOrdersClickHandler() {
+            console.log('confirm')
+            if(this.SELECT_OPTION__CUSTOMER_ID_LIST.length > 0 && this.SELECT_OPTION__ORDER_ID_LIST.length > 0) {
+                let orders = []
+                for(let i=0; i<this.ALL_PENDING_ORDERS_CUSTOMER_LIST.length; i++) {
+                    let order = {
+                        order_id: this.ALL_PENDING_ORDERS_CUSTOMER_LIST[i].id
+                    }
+                    orders.push(order)
+                }
+                this.APPROVE_ALL_SELECTED_ORDER__FROM_SERVICE(orders)
+            } else {
+                let orders = []
+                console.log('specific ids')
+                for(let i=0; i<this.ALL_PENDING_ORDERS_CUSTOMER_LIST.length; i++) {
+                    let radio_selector = document.querySelector('#order-approval-left-sidebar #order-approval-checkbox-' + i)
+                    if(radio_selector.checked === true) {
+                        console.log(this.ALL_PENDING_ORDERS_CUSTOMER_LIST[i].customer_id)
+                        console.log(this.ALL_PENDING_ORDERS_CUSTOMER_LIST[i].id)
+                        let order = {
+                            order_id: this.ALL_PENDING_ORDERS_CUSTOMER_LIST[i].id
+                        }
+                        orders.push(order)
+                    }
+                }
+                this.APPROVE_SPECIFIC_SELECTED_ORDER__FROM_SERVICE(orders)
+            }
+            this.on_change_status = ''
+        },
         async onChangeStatusDropdown() {
             console.log('onChangeStatusDropdown: ' + this.on_change_status)
             switch(this.on_change_status) {
@@ -380,25 +441,19 @@ export default {
                         this.SELECT_OPTION__CUSTOMER_ID_LIST.push(parseInt(this.ALL_PENDING_ORDERS_CUSTOMER_LIST[i].customer_id))
                         this.SELECT_OPTION__ORDER_ID_LIST.push(parseInt(this.ALL_PENDING_ORDERS_CUSTOMER_LIST[i].id))
                     }
-                    alert(this.SELECT_OPTION__CUSTOMER_ID_LIST)
-                    alert(this.SELECT_OPTION__ORDER_ID_LIST)
+                    // alert(this.SELECT_OPTION__CUSTOMER_ID_LIST)
+                    // alert(this.SELECT_OPTION__ORDER_ID_LIST)
                     break
                 case 'Approved Selected':
                     // console.log('Approved Selected')
-                    if(this.SELECT_OPTION__CUSTOMER_ID_LIST.length > 0 && this.SELECT_OPTION__ORDER_ID_LIST.length > 0) {
-                        console.log('array list')
-                        this.APPROVE_ALL_SELECTED_ORDER__FROM_SERVICE()
+                    if(this.approve_selection_modal) {
+                        this.approve_selection_modal = false
+                        this.on_change_status = ''
+                        this.$emit('approve_selection_modal', this.approve_selection_modal)
                     } else {
-                        console.log('specific ids')
-                        for(let i=0; i<this.ALL_PENDING_ORDERS_CUSTOMER_LIST.length; i++) {
-                            let radio_selector = document.querySelector('#order-approval-left-sidebar #order-approval-checkbox-' + i)
-                            if(radio_selector.checked === true) {
-                                console.log(this.ALL_PENDING_ORDERS_CUSTOMER_LIST[i].customer_id)
-                                console.log(this.ALL_PENDING_ORDERS_CUSTOMER_LIST[i].id)
-                            }
-                        }
+                        this.approve_selection_modal =true
+                        this.$emit('approve_selection_modal', this.approve_selection_modal)
                     }
-                    this.on_change_status = ''
                     break
                 case 'Approved Selected with DA':
                     console.log('Approved Selected with DA')
@@ -409,7 +464,8 @@ export default {
                         this.approve_selected_with_da_popup_modal = true
                         this.$emit('approve_selected_with_da_popup_modal', this.approve_selected_with_da_popup_modal)
                         await this.DIC_WISE_USERS__FROM_SERVICE()
-                        this.approve_da_modal_select_box_item = this.DA_LIST_FOR_APPROVE[0].name
+                        // this.approve_da_modal_select_box_item = this.DA_LIST_FOR_APPROVE[0].name
+                        this.approve_da_modal_select_box_item = 'ALL DA'
                         console.log(this.DA_LIST_FOR_APPROVE[0])
                     }
                     this.on_change_status = ''
@@ -489,9 +545,19 @@ export default {
             console.log('cancel clicked from Approve DA modal')
             this.approve_selected_with_da_popup_modal = false
         },
-        confirmClickHandlerFromApproveDA_Modal() {
+        async confirmClickHandlerFromApproveDA_Modal() {
             console.log('confirm clicked from Approve DA modal')
             console.log(this.approve_da_modal_select_box_item)
+            // await APPROVE_BULK_AMOUNT_OF_ORDERS()
+            if(this.approve_da_modal_select_box_item === 'ALL DA') {
+                await this.APPROVE_ALL_DA__FROM_SERVICE()
+            } else {
+                for(let i=0; i<this.DA_LIST_FOR_APPROVE.length; i++) {
+                    if(this.approve_da_modal_select_box_item === this.DA_LIST_FOR_APPROVE[i].name) {
+                        await this.APPROVE_SELECTED_DA__FROM_SERVICE(this.DA_LIST_FOR_APPROVE[i].id)
+                    }
+                }
+            }
             this.approve_da_modal_select_box_item = null
             this.approve_selected_with_da_popup_modal = false
         },
@@ -504,11 +570,46 @@ export default {
                     this.ALL_PENDING_ORDERS_CUSTOMER_LIST = res.data.orders_info
                 })
         },
-        async APPROVE_ALL_SELECTED_ORDER__FROM_SERVICE() {
-            console.log(this.SELECT_OPTION__CUSTOMER_ID_LIST)
-            console.log(this.SELECT_OPTION__ORDER_ID_LIST)
-            this.defaultAllThisComponentData()
-            this.deselectAllSelectedOrder()
+        async APPROVE_ALL_SELECTED_ORDER__FROM_SERVICE(orders) {
+            // console.log(this.SELECT_OPTION__CUSTOMER_ID_LIST)
+            // console.log(this.SELECT_OPTION__ORDER_ID_LIST)
+            // console.log(orders)
+            await service.getApproveSelectedOrders_OrderApproval(orders)
+                .then(res => {
+                    console.log(res.data)
+                    this.defaultAllThisComponentData()
+                    this.deselectAllSelectedOrder()
+                    this.approve_selection_modal = false
+                    this.approved_orders_success_modal = true
+                    this.ALL_PENDING_ORDERS_CUSTOMER_LIST__FROM_SERVICE()
+                    setTimeout( () => {
+                        this.approved_orders_success_modal = false
+                    }, 2000)
+                })
+        },
+        async APPROVE_SPECIFIC_SELECTED_ORDER__FROM_SERVICE(orders) {
+            // console.log(orders)
+            if(orders.length > 0) {
+                await service.getApproveSelectedOrders_OrderApproval(orders)
+                    .then(res => {
+                        console.log(res.data)
+                        this.defaultAllThisComponentData()
+                        this.deselectAllSelectedOrder()
+                        this.approve_selection_modal = false
+                        this.approved_orders_success_modal = true
+                        this.ALL_PENDING_ORDERS_CUSTOMER_LIST__FROM_SERVICE()
+                        setTimeout( () => {
+                            this.approved_orders_success_modal = false
+                        }, 2000)
+                    })
+            } else {
+                alert('Select at least one order')
+            }
+            // this.approve_selection_modal = false
+            // this.approved_orders_success_modal = true
+            // setTimeout( () => {
+            //     this.approved_orders_success_modal = false
+            // }, 2000)
         },
         async REJECT_ALL_SELECTED_ORDER__FROM_SERVICE() {
             console.log(this.SELECT_OPTION__CUSTOMER_ID_LIST)
@@ -521,6 +622,27 @@ export default {
                 .then(res => {
                     console.log(res.data)
                     this.DA_LIST_FOR_APPROVE = res.data.users.da
+                })
+        },
+        async APPROVE_ALL_DA__FROM_SERVICE() {
+            this.approved_orders_success_modal = true
+            let da_id = 0
+            await service.getApproveBulkOrdersByAllDA_OrderApproval(da_id)
+                .then(res => {
+                    console.log(res.data)
+                    setTimeout( () => {
+                        this.approved_orders_success_modal = false
+                    }, 2000)
+                })
+        },
+        async APPROVE_SELECTED_DA__FROM_SERVICE(da_id) {
+            this.approved_orders_success_modal = true
+            await service.getApproveBulkOrdersByAllDA_OrderApproval(da_id)
+                .then(res => {
+                    console.log(res.data)
+                    setTimeout( () => {
+                        this.approved_orders_success_modal = false
+                    }, 2000)
                 })
         },
         // -------------------------------------------------------------------------------------------

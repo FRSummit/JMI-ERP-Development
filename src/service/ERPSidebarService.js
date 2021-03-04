@@ -425,10 +425,37 @@ export default class PostService {
     })
   }
 
-  // Order Approval - APPROVE SINGLE ORDER BY ORDER ID
+  // Order Approval - APPROVE SINGLE ORDER BY ORDER ID (FINAL) - DETAILS SECTION
   getApproveSingleOrderByOrderId_OrderApproval(order_id) {
     console.log(order_id)
     let web_menu_url = '/api/web/approve-single-order/' + order_id
+    return axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+    })
+  }
+
+  // Order Approval - APPROVE SELECTED ORDERS - LEFT SECTION
+  getApproveSelectedOrders_OrderApproval(orders) {
+    console.log(orders)
+    let web_menu_url = '/api/web/approve-selected-order'
+    return axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+      params: {
+        orders: JSON.stringify(orders),
+      },
+    })
+  }
+
+  // Order Approval - APPROVE BULK ORDERS - LEFT SECTION
+  getApproveBulkOrdersByAllDA_OrderApproval(da_id) {
+    console.log(da_id)
+    let web_menu_url = '/api/web/approve-bulk-order/' + da_id
     return axios(web_menu_url, {
       method: 'GET',
       headers: {
