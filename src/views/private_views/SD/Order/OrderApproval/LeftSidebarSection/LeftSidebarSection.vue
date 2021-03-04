@@ -116,7 +116,38 @@
                 </div> -->
             </div>
         </div>
-        <!--  -->
+        <!-- Approve Selected With DA Modal -->
+        <div class="modal-popup-section_type_2" v-if="approve_selected_with_da_popup_modal">
+            <div class="modal-popup-section_type_2-inner" v-click-outside="approveSelectedWithDA_PopupModalOutsideClick">
+                <p class="title">Approve Selected With DA</p>
+                <div class="input-section">
+                    <div class="form-group has-search">
+                        <span class="fa fa-search form-control-feedback"></span>
+                        <input
+                        type="text"
+                        class="form-control"
+                        id="search-filter"
+                        placeholder="Search by Name, ID No"
+                        />
+                    </div>
+                </div>
+                <div class="list-section">
+                    <div class="list-section-inner">
+                        <p class="list-item">Fayazur Rahman Summit</p>
+                        <p class="list-item">Fayazur Rahman Summit</p>
+                        <p class="list-item">Fayazur Rahman Summit</p>
+                        <p class="list-item">Fayazur Rahman Summit</p>
+                        <p class="list-item">Fayazur Rahman Summit</p>
+                    </div>
+                </div>
+                <div class="submit-section">
+                    <div class="submit-section-inner">
+                        <button class="cancel" @click="cancelClickHandlerFromApproveDA_Modal">Cancel</button>
+                        <button class="confirm" @click="confirmClickHandlerFromApproveDA_Modal">Done</button>
+                    </div>
+                </div>
+            </div>
+        </div>
       </div>
     </div>
   </div>
@@ -266,13 +297,10 @@ export default {
                     status: "Approved Selected"
                 },
                 {
+                    status: "Approved Selected with DA"
+                },
+                {
                     status: "Reject Selected"
-                },
-                {
-                    status: "Delivery Date Shift"
-                },
-                {
-                    status: "Print Selected"
                 },
             ],
             radioSpanDefaultClass: 'active',
@@ -294,6 +322,7 @@ export default {
             on_change_filter_by: null,
             SELECT_OPTION__CUSTOMER_ID_LIST: [],
             SELECT_OPTION__ORDER_ID_LIST: [],
+            approve_selected_with_da_popup_modal: false,
         }
     },
     created() {},
@@ -313,6 +342,10 @@ export default {
         filterModalOutsideClick() {
             this.filter_modal = false
             this.$emit('filter_modal', this.filter_modal)
+        },
+        approveSelectedWithDA_PopupModalOutsideClick() {
+            this.approve_selected_with_da_popup_modal = false
+            this.$emit('approve_selected_with_da_popup_modal', this.approve_selected_with_da_popup_modal)
         },
         checkboxOnChangeHandler(order, selector_id) {
             console.log('change : ' + selector_id)
@@ -350,11 +383,30 @@ export default {
                 case 'Approved Selected':
                     // console.log('Approved Selected')
                     if(this.SELECT_OPTION__CUSTOMER_ID_LIST.length > 0 && this.SELECT_OPTION__ORDER_ID_LIST.length > 0) {
+                        console.log('array list')
                         this.APPROVE_ALL_SELECTED_ORDER__FROM_SERVICE()
                     } else {
-                        alert('Please select all order')
-                        this.on_change_status = ''
+                        console.log('specific ids')
+                        for(let i=0; i<this.ALL_PENDING_ORDERS_CUSTOMER_LIST.length; i++) {
+                            let radio_selector = document.querySelector('#order-approval-left-sidebar #order-approval-checkbox-' + i)
+                            if(radio_selector.checked === true) {
+                                console.log(this.ALL_PENDING_ORDERS_CUSTOMER_LIST[i].customer_id)
+                                console.log(this.ALL_PENDING_ORDERS_CUSTOMER_LIST[i].id)
+                            }
+                        }
                     }
+                    this.on_change_status = ''
+                    break
+                case 'Approved Selected with DA':
+                    console.log('Approved Selected with DA')
+                    if(this.approve_selected_with_da_popup_modal) {
+                        this.approve_selected_with_da_popup_modal = false
+                        this.$emit('approve_selected_with_da_popup_modal', this.approve_selected_with_da_popup_modal)
+                    } else {
+                        this.approve_selected_with_da_popup_modal = true
+                        this.$emit('approve_selected_with_da_popup_modal', this.approve_selected_with_da_popup_modal)
+                    }
+                    this.on_change_status = ''
                     break
                 case 'Reject Selected':
                     // console.log('Reject Selected')
@@ -371,9 +423,6 @@ export default {
                         alert('Please select at least one order')
                         this.on_change_status = ''
                     }
-                    break
-                case 'Delivery Date Shift':
-                    console.log('Delivery Date Shift')
                     break
                 default:
                     break
@@ -422,6 +471,12 @@ export default {
             let txt_selector = "customer-id"
 
             jmiFilter.searchById_LeftSidebar(filter, list, txt_selector)
+        },
+        cancelClickHandlerFromApproveDA_Modal() {
+            console.log('cancel clicked from Approve DA modal')
+        },
+        confirmClickHandlerFromApproveDA_Modal() {
+            console.log('confirm clicked from Approve DA modal')
         },
         // ------------------------------------------------------------------------------------------
         // Service Implementation

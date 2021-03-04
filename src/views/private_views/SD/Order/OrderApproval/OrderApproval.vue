@@ -5,10 +5,11 @@
       <div class="order-approval-section-inner">
         <LeftSidebarSection 
           v-on:filter_modal="filterModalToggle"
+          v-on:approve_selected_with_da_popup_modal="approveSelectedWith_DA_PopupModalToggle"
           v-on:select_order_by_order_id="selectOrderByOrderId"
           :rejected_order_id="rejected_order_id" />
         <DetailsSection 
-          :style="filter_modal_toggle === true ? 'z-index: -1;' : 'z-index: 5;'"
+          :style="(filter_modal_toggle === true) || (approve_selected_with_da_popup_modal_toggle === true) ? 'z-index: -1;' : 'z-index: 5;'"
           :pending_order_list_by_id="pending_order_list_by_id"
           :order_id_from_left_side="order_id_from_left_side"
           v-on:remove_rejected_order_id_from_left_list="removeRejectedOrderFromLeft" />
@@ -40,6 +41,7 @@ export default {
       parentPath: "Local Sales",
       pathName: [],
       filter_modal_toggle: false,
+      approve_selected_with_da_popup_modal_toggle: false,
       pending_order_list_by_id: [],
       details_section_header_info: [],
       rejected_order_id: null,
@@ -62,6 +64,9 @@ export default {
     },
     filterModalToggle(value) {
       this.filter_modal_toggle = value
+    },
+    approveSelectedWith_DA_PopupModalToggle(value) {
+      this.approve_selected_with_da_popup_modal_toggle = value
     },
     // ---------------------------------------------------------------------------------------------------
     // From Left Section Methods
