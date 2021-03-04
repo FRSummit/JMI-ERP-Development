@@ -137,7 +137,7 @@
                         <p class="list-item" v-for="(da, i) in DA_LIST_FOR_APPROVE" :key="i" @click="daNameClickHandler(da)">{{ da.name }}</p>
                     </div>
                 </div>
-                <div class="submit-section">
+                <div class="submit-section" v-if="selected_da_for_approve">
                     <div class="submit-section-inner">
                         <button class="cancel" @click="cancelClickHandlerFromApproveDA_Modal">Cancel</button>
                         <button class="confirm" @click="confirmClickHandlerFromApproveDA_Modal">Done</button>
