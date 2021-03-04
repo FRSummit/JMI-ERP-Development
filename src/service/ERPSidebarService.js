@@ -391,6 +391,40 @@ export default class PostService {
     })
   }
 
+  // Order Approval - ADD NEW PRODUCT ON EXIST ORDER
+  getAddNewProdOnExistOrderByOrderId_OrderApproval(order_id, order_detail) {
+    console.log(order_id)
+    console.log(JSON.stringify(order_detail))
+    let web_menu_url = '/api/mobile/add-new-prod-on-exist-order'
+    return axios(web_menu_url, {
+      method: 'POST',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+      params: {
+        order_id: order_id,
+        order_detail: JSON.stringify(order_detail),
+      },
+    })
+  }
+
+  // Order Approval - UPDATE ORDER BY ORDER ID
+  getUpdateOrderByOrderId_OrderApproval(order_id, order_detail) {
+    console.log(order_id)
+    console.log(JSON.stringify(order_detail))
+    let web_menu_url = '/api/mobile/update-order'
+    return axios(web_menu_url, {
+      method: 'PUT',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+      params: {
+        order_id: order_id,
+        order_detail: JSON.stringify(order_detail),
+      },
+    })
+  }
+
   // // CREATE ORDER - SR LIST LOAD
   // getSearchProductDataList_CreateOrderDetailsSection() {
   //   let web_menu_url = '/api/web/dic-wise-users'

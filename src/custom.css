@@ -959,6 +959,10 @@ input[type=number] {
 }
 
 /* ------------- POPUP MODALS TYPE 1 ----------------------------- */
+select {
+    display: block !important;
+    border: 1px solid #BFCFE2;
+}
 
 /* ------------- POPUP MODAL TYPE 2 ----------------------------- */
 .modal-popup-section_type_2 {
@@ -994,6 +998,10 @@ input[type=number] {
     text-align : left;
     color      : #36454F;
 }
+
+.modal-popup-section_type_2 .modal-popup-section_type_2-inner .select-option {}
+.modal-popup-section_type_2 .modal-popup-section_type_2-inner .select-option span {}
+.modal-popup-section_type_2 .modal-popup-section_type_2-inner .select-option span select {}
 
 .modal-popup-section_type_2 .modal-popup-section_type_2-inner p.blue-title span {
     color: #026CD1;

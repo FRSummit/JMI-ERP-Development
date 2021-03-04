@@ -119,8 +119,8 @@
         <!-- Approve Selected With DA Modal -->
         <div class="modal-popup-section_type_2" v-if="approve_selected_with_da_popup_modal">
             <div class="modal-popup-section_type_2-inner" v-click-outside="approveSelectedWithDA_PopupModalOutsideClick">
-                <p class="title">Approve Selected With DA</p>
-                <p class="title blue-title">DA Name: <span>{{ selected_da_for_approve }}</span></p>
+                <p class="title">Bulk Approve</p>
+                <!-- <p class="title blue-title">DA Name: <span>{{ selected_da_for_approve }}</span></p> -->
                 <!-- <div class="input-section">
                     <div class="form-group has-search">
                         <span class="fa fa-search form-control-feedback"></span>
@@ -134,10 +134,13 @@
                 </div> -->
                 <div class="list-section">
                     <div class="list-section-inner">
-                        <p class="list-item" v-for="(da, i) in DA_LIST_FOR_APPROVE" :key="i" @click="daNameClickHandler(da)">{{ da.name }}</p>
+                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" v-model="approve_da_modal_select_box_item" @change="onChangeApproveDAModalSelectBoc()">
+                            <option v-for="(da, i) in DA_LIST_FOR_APPROVE" :key="i">{{ da.name }}</option>
+                        </select>
+                        <!-- <p class="list-item" v-for="(da, i) in DA_LIST_FOR_APPROVE" :key="i" @click="daNameClickHandler(da)">{{ da.name }}</p> -->
                     </div>
                 </div>
-                <div class="submit-section" v-if="selected_da_for_approve">
+                <div class="submit-section" v-if="approve_da_modal_select_box_item">
                     <div class="submit-section-inner">
                         <button class="cancel" @click="cancelClickHandlerFromApproveDA_Modal">Cancel</button>
                         <button class="confirm" @click="confirmClickHandlerFromApproveDA_Modal">Done</button>
@@ -321,6 +324,7 @@ export default {
             SELECT_OPTION__ORDER_ID_LIST: [],
             approve_selected_with_da_popup_modal: false,
             DA_LIST_FOR_APPROVE: [
+                {name: "ALL DA"},
                 {name: "DA 1"},
                 {name: "DA 2"},
                 {name: "DA 3"},
@@ -331,6 +335,7 @@ export default {
                 {name: "DA 8"},
             ],
             selected_da_for_approve: null,
+            approve_da_modal_select_box_item: null,
         }
     },
     created() {},
@@ -413,6 +418,7 @@ export default {
                     } else {
                         this.approve_selected_with_da_popup_modal = true
                         this.$emit('approve_selected_with_da_popup_modal', this.approve_selected_with_da_popup_modal)
+                        this.approve_da_modal_select_box_item = this.DA_LIST_FOR_APPROVE[0].name
                     }
                     this.on_change_status = ''
                     break
@@ -435,6 +441,9 @@ export default {
                 default:
                     break
             }
+        },
+        onChangeApproveDAModalSelectBoc() {
+            console.log(this.approve_da_modal_select_box_item)
         },
         onChangeSortBy() {
             console.log('onChangeSortBy: ' + this.on_change_sort_by)
@@ -480,18 +489,18 @@ export default {
 
             jmiFilter.searchById_LeftSidebar(filter, list, txt_selector)
         },
-        daNameClickHandler(da) {
+        /*daNameClickHandler(da) {
             console.log(da.name)
             this.selected_da_for_approve = da.name
-        },
+        },*/
         cancelClickHandlerFromApproveDA_Modal() {
             console.log('cancel clicked from Approve DA modal')
             this.approve_selected_with_da_popup_modal = false
         },
         confirmClickHandlerFromApproveDA_Modal() {
             console.log('confirm clicked from Approve DA modal')
-            console.log(this.selected_da_for_approve)
-            this.selected_da_for_approve = null
+            console.log(this.approve_da_modal_select_box_item)
+            this.approve_da_modal_select_box_item = null
             this.approve_selected_with_da_popup_modal = false
         },
         // ------------------------------------------------------------------------------------------
