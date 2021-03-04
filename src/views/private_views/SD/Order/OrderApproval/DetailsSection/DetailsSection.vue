@@ -616,7 +616,7 @@
             <div class="modal-popup-section-inner order-proceed-modal-inner">
                 <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
                 <p class="popup-text">Are you sure?</p>
-                <p class="popup-desc">You want to reject the order.</p>
+                <p class="popup-desc">You want to remove the product.</p>
                 <span class="divider"></span>
                 <div class="popup-submit-section">
                 <div class="popup-cancel-btn-section">
@@ -992,6 +992,7 @@ export default {
             reject_order_modal_popup: false,
             DIC_OR_MIO_OR_AM_USER_QTY_COUNT: null,
             delete_product_from_table_popup_modal: false,
+            delete_product_from_table_popup_modal_data: null,
         }
     },
     async created() {
@@ -1133,19 +1134,33 @@ export default {
         // Delete Table Row's Single Product/Order
         async deleteOrderitemClickHandler(data, index) {
             console.log(data + '    ' + index)
+            if(this.delete_product_from_table_popup_modal) {
+                this.delete_product_from_table_popup_modal = false
+            } else {
+                this.delete_product_from_table_popup_modal = true
+                this.delete_product_from_table_popup_modal_data = data
+            }
+        },
+        cancelRemovingProductFromTableClickHandler() {
+            this.delete_product_from_table_popup_modal = false
+        },
+        async confirmRemovingProductFromTableClickHandler() {
             if(this.ORDERED_TABLE_DATA__INIT_LIST.length > 1) {
                 for (let [i, tt] of this.ORDERED_TABLE_DATA__INIT_LIST.entries()) {
-                    if (tt.product_id === data.product_id) {
+                    if (tt.product_id === this.delete_product_from_table_popup_modal_data.product_id) {
                         this.ORDERED_TABLE_DATA__INIT_LIST.splice(i, 1);
-                        this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.push(data)
+                        this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.push(this.delete_product_from_table_popup_modal_data)
                         // Free Product row delete
                         // if(data.offer_type === "free") {
                         //     this.ORDERED_TABLE_DATA__INIT_LIST.splice(i, 1);
                         // }
                     }
                 }
-                await this.DESTROY_ORDER_DETAILS_BY_ID__FROM_SERVICE(data.id)
+                await this.DESTROY_ORDER_DETAILS_BY_ID__FROM_SERVICE(this.delete_product_from_table_popup_modal_data.id)
             }
+            // console.log(this.delete_product_from_table_popup_modal_data)
+            // this.delete_product_from_table_popup_modal_data = null
+            // console.log(this.delete_product_from_table_popup_modal_data)
         },
         deleteOrderitemClickHandler_2(data, index) {
             console.log(data + '    ' + index)
@@ -1538,6 +1553,8 @@ export default {
             await service.getDestroyOrderDetailsById_OrderApproval(id)
                 .then(res => {
                     console.log(res.data)
+                    this.delete_product_from_table_popup_modal_data = null
+                    this.delete_product_from_table_popup_modal = false
                 })
         },
         async ADD_PRODUCT_FROM_AUTOFILL_SECOND_FULL_PERAM(data){
