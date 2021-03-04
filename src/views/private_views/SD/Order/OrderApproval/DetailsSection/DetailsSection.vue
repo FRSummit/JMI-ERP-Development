@@ -628,6 +628,13 @@
                 </div>
             </div>
         </div>
+        <!-- Update Message -->
+        <div id="update-successfully-modal" class="modal-popup-section update-successfully-modal" v-if="product_update_successfully_modal">
+            <div class="modal-popup-section-inner update-successfully-modal-inner">
+                <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
+                <p class="popup-text">Product Update Successfully</p>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -993,6 +1000,7 @@ export default {
             DIC_OR_MIO_OR_AM_USER_QTY_COUNT: null,
             delete_product_from_table_popup_modal: false,
             delete_product_from_table_popup_modal_data: null,
+            product_update_successfully_modal: false,
         }
     },
     async created() {
@@ -1601,12 +1609,20 @@ export default {
             await service.getAddNewProdOnExistOrderByOrderId_OrderApproval(this.order_id_from_left_side, prod_db_list)
                 .then(res => {
                     console.log(res.data)
+                    this.ORDERED_TABLE_DATA__INIT_LIST = []
+                    this.ORDERED_TABLE_DATA__INIT_LIST = res.data.order.order_details
                 })
         },
         async UPDATE_ORDER__FROM_SERVICE(prod_list) {
             await service.getUpdateOrderByOrderId_OrderApproval(this.order_id_from_left_side, prod_list)
                 .then(res => {
                     console.log(res.data)
+                    if(res.data.response_code === 200) {
+                        this.product_update_successfully_modal = true
+                        setTimeout( () => {
+                            this.product_update_successfully_modal = false
+                        }, 2000)
+                    }
                 })
         },
         // ----------------------------------------------------------------------------------------------

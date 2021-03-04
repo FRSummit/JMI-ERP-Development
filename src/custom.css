@@ -1153,6 +1153,10 @@ select:focus {
     background: #28a411;
 }
 
+#update-successfully-modal p.popup-text {
+    color: #026CD1;
+}
+
 /* --------------------------------------------------------------------------------------- */
 
 @media only screen and (max-width: 1290px) {
