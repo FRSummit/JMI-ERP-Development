@@ -37,7 +37,7 @@ export default {
   },
   data() {
     return {
-      routeName: "Order Approval",
+      routeName: "Deliveries",
       parentPath: "Local Sales",
       pathName: [],
       filter_modal_toggle: false,
@@ -59,7 +59,7 @@ export default {
       this.pathName = [
         { name: "Features" },
         { name: "Local Sales" },
-        { name: "Order Approval" },
+        { name: "Deliveries" },
       ];
     },
     filterModalToggle(value) {

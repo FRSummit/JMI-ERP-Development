@@ -323,17 +323,7 @@ export default {
             SELECT_OPTION__CUSTOMER_ID_LIST: [],
             SELECT_OPTION__ORDER_ID_LIST: [],
             approve_selected_with_da_popup_modal: false,
-            DA_LIST_FOR_APPROVE: [
-                {name: "ALL DA"},
-                {name: "DA 1"},
-                {name: "DA 2"},
-                {name: "DA 3"},
-                {name: "DA 4"},
-                {name: "DA 5"},
-                {name: "DA 6"},
-                {name: "DA 7"},
-                {name: "DA 8"},
-            ],
+            DA_LIST_FOR_APPROVE: [],
             selected_da_for_approve: null,
             approve_da_modal_select_box_item: null,
         }
@@ -378,7 +368,7 @@ export default {
                 // }
             }
         },
-        onChangeStatusDropdown() {
+        async onChangeStatusDropdown() {
             console.log('onChangeStatusDropdown: ' + this.on_change_status)
             switch(this.on_change_status) {
                 case 'Select All':
@@ -418,7 +408,9 @@ export default {
                     } else {
                         this.approve_selected_with_da_popup_modal = true
                         this.$emit('approve_selected_with_da_popup_modal', this.approve_selected_with_da_popup_modal)
+                        await this.DIC_WISE_USERS__FROM_SERVICE()
                         this.approve_da_modal_select_box_item = this.DA_LIST_FOR_APPROVE[0].name
+                        console.log(this.DA_LIST_FOR_APPROVE[0])
                     }
                     this.on_change_status = ''
                     break
@@ -523,6 +515,13 @@ export default {
             console.log(this.SELECT_OPTION__ORDER_ID_LIST)
             this.defaultAllThisComponentData()
             this.deselectAllSelectedOrder()
+        },
+        async DIC_WISE_USERS__FROM_SERVICE() {
+            await service.getDICWiseUsers_MonthlyDeliveryPlan()
+                .then(res => {
+                    console.log(res.data)
+                    this.DA_LIST_FOR_APPROVE = res.data.users.da
+                })
         },
         // -------------------------------------------------------------------------------------------
         // Default All

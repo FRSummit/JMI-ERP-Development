@@ -1232,13 +1232,19 @@ export default {
             let prod_list = []
             for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST.length; i++) {
                 let prod_obj = {
-                    prod_id: parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].prod_id),
+                    prod_id: parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].product_id),
                     quantity: this.ORDERED_TABLE_DATA__INIT_LIST[i].qty ? this.ORDERED_TABLE_DATA__INIT_LIST[i].qty : 0
                 }
                 prod_list.push(prod_obj)
             }
             console.log(prod_list)
             await this.UPDATE_ORDER__FROM_SERVICE(prod_list)
+            
+            // input qty hide and span qty displaying
+            for(let i=0; i<document.querySelectorAll('.single_qty.quantity-setup').length; i++) {
+                document.querySelectorAll('.single_qty.quantity-setup')[i].className = 'single_qty quantity-setup'
+                document.querySelectorAll('.qty_editable.quantity-setup')[i].className = 'qty_editable quantity-setup hide'
+            }
             // this.defaultAllThisComponentData()
         },
         async proceedOrderClickHandler() {
@@ -1341,11 +1347,10 @@ export default {
                 }
                 prod_db_list.push(prod_obj)
             }
+            console.log(prod_db_list)
             // CALL SERVICE IMPLEMENTATION FUNCTION
             // await this.FIND_PRODUCT_OFFER__FROM_SERVICE(prod_db_list)
-            if(this.PENDING_ORDER_DATA_BY_ID.is_verified === "N") {
-                await this.ADD_PRODUCT_FROM_AUTOFILL_SECOND_FULL_PERAM(prod_db_list)
-            }
+            await this.ADD_PRODUCT_FROM_AUTOFILL_SECOND_FULL_PERAM(prod_db_list)
             // Close Modal
             if(prod_db_list.length > 0) {
                 this.add_order_modal = false
@@ -1735,6 +1740,7 @@ export default {
                 this.ORDER_CREATED_BY = this.pending_order_list_by_id.created_by
                 this.ORDER_AUTH_USER = this.pending_order_list_by_id.auth_user
                 console.log(this.PENDING_ORDER_DATA_BY_ID.is_verified)
+                console.log(this.order_id_from_left_side)
             }, 1000)
             // if( newVal && oldVal) {
             //     if(newVal.customer_id !== oldVal.customer_id) {
