@@ -55,23 +55,31 @@ export default class SDR_015 {
                                         //----------------------------------------------------------------------------------------------------------------------------------------------
                                         // TOP SECTION
                                         '<div class="summery-section" style="display: block; width: 100%; overflow: hidden; position: relative; margin-bottom: 20px;">' +
-                                            '<div class="left-section" style="display: inline-block; width: 40%; float: left;">' +
+                                            '<div class="left-section" style="display: inline-block; width: 50%; float: left;">' +
                                                 '<p style="display: block; width: 100%; margin: 0; font-size: 14px; line-height: 1.7;">' +
-                                                    '<span class="lvl" style="display: inline-block; width: 120px;">Mode of Transport:</span>' +
+                                                    '<span class="lvl" style="display: inline-block; width: 130px;">Name of Customer:</span>' +
                                                     '<span class="lvl-val" style="display: inline-block; width: 150px; border-bottom: 1px solid #000000; margin-left: 10px;"></span>' +
                                                 '</p>' +
                                                 '<p style="display: block; width: 100%; margin: 0; font-size: 14px; line-height: 1.7;">' +
-                                                    '<span class="lvl" style="display: inline-block; width: 120px;">Delivery Man:</span>' +
+                                                    '<span class="lvl" style="display: inline-block; width: 130px;">Customer ID:</span>' +
+                                                    '<span class="lvl-val" style="display: inline-block; width: 150px; border-bottom: 1px solid #000000; margin-left: 10px;"></span>' +
+                                                '</p>' +
+                                                '<p style="display: block; width: 100%; margin: 0; font-size: 14px; line-height: 1.7;">' +
+                                                    '<span class="lvl" style="display: inline-block; width: 130px;">Address:</span>' +
                                                     '<span class="lvl-val" style="display: inline-block; width: 150px; border-bottom: 1px solid #000000; margin-left: 10px;"></span>' +
                                                 '</p>' +
                                             '</div>' +
-                                            '<div class="right-section" style="display: inline-block; width: 40%; float: right;">' +
+                                            '<div class="right-section" style="display: inline-block; width: 50%; float: right;">' +
                                                 '<p style="display: block; width: 100%; margin: 0; font-size: 14px; line-height: 1.7;">' +
-                                                    '<span class="lvl" style="display: inline-block; width: 100px;">Delivery Date:</span>' +
+                                                    '<span class="lvl" style="display: inline-block; width: 160px;">Order Date:</span>' +
                                                     '<span class="lvl-val" style="display: inline-block; width: 150px; border-bottom: 1px solid #000000; margin-left: 10px;"></span>' +
                                                 '</p>' +
                                                 '<p style="display: block; width: 100%; margin: 0; font-size: 14px; line-height: 1.7;">' +
-                                                    '<span class="lvl" style="display: inline-block; width: 100px;">No/s of Carton:</span>' +
+                                                    '<span class="lvl" style="display: inline-block; width: 160px;">Delivery Date:</span>' +
+                                                    '<span class="lvl-val" style="display: inline-block; width: 150px; border-bottom: 1px solid #000000; margin-left: 10px;"></span>' +
+                                                '</p>' +
+                                                '<p style="display: block; width: 100%; margin: 0; font-size: 14px; line-height: 1.7;">' +
+                                                    '<span class="lvl" style="display: inline-block; width: 160px;">Territory & Territory Code:</span>' +
                                                     '<span class="lvl-val" style="display: inline-block; width: 150px; border-bottom: 1px solid #000000; margin-left: 10px;"></span>' +
                                                 '</p>' +
                                             '</div>' +
@@ -82,64 +90,51 @@ export default class SDR_015 {
                                             '<table style="">' +
                                                 '<thead>' +
                                                     '<tr>' +
-                                                        '<th>S/N</th>' +
-                                                        '<th style="width: 10%;">Invoice No.</th>' +
-                                                        '<th style="width: 10%;">Date</th>' +
-                                                        '<th style="width: 10%;">Cust Code</th>' +
-                                                        '<th style="width: 25%; text-align: left;">Customer Name</th>' +
-                                                        '<th style="width: 25%; text-align: left;">Address</th>' +
-                                                        '<th style="width: 15%; text-align: right;">Invoice Amount</th>' +
+                                                        '<th style="">Code</th>' +
+                                                        '<th style=" text-align: left;">Brand Name</th>' +
+                                                        '<th style="">Pack Size</th>' +
+                                                        '<th style=" text-align: right;">TP</th>' +
+                                                        '<th style=" text-align: right;">TP+VAT</th>' +
+                                                        '<th style="">Quantity</th>' +
+                                                        '<th style=" text-align: right;">Line Total</th>' +
                                                     '</tr>' +
                                                 '</thead>' +
                                                 '<body>' +
                                                     '<tbody>' +
                                                         this.create_table_body_data(data) +
                                                         
-                                                        // Grand Total
-                                                        '<tr>' +
-                                                            '<td style="border: none;"></td>' +
-                                                            '<td style="width: 10%; border: none;"></td>' +
-                                                            '<td style="width: 10%; border: none;"></td>' +
-                                                            '<td style="width: 10%; border: none;"></td>' +
-                                                            '<td style="width: 25%; border: none; text-align: left; "></td>' +
-                                                            '<td style="width: 25%; border: none; border-bottom: 2px solid #000000; text-align: left;">Grand Total</td>' +
-                                                            '<td style="width: 15%; border: none; border-bottom: 2px solid #000000; text-align: right;">XXXX</td>' +
-                                                        '</tr>' +
+                                                        // // Grand Total
+                                                        // '<tr>' +
+                                                        //     '<td style="border: none;"></td>' +
+                                                        //     '<td style="width: 10%; border: none;"></td>' +
+                                                        //     '<td style="width: 10%; border: none;"></td>' +
+                                                        //     '<td style="width: 10%; border: none;"></td>' +
+                                                        //     '<td style="width: 25%; border: none; text-align: left; "></td>' +
+                                                        //     '<td style="width: 25%; border: none; border-bottom: 2px solid #000000; text-align: left;">Grand Total</td>' +
+                                                        //     '<td style="width: 15%; border: none; border-bottom: 2px solid #000000; text-align: right;">XXXX</td>' +
+                                                        // '</tr>' +
                                                     '</tbody>' +
                                                 '</body>' +
                                             '</table>' +
                                         '</div>' +
                                         //----------------------------------------------------------------------------------------------------------------------------------------------
                                         // BOTTOM SECTION
+                                        '<div style="display: block; width: 100%; margin-top: 10px">' +
+                                            '<p style="display: block; width: 100%; margin: 0; font-size: 12px; line-height: 1.2; text-align: left;">* We will abide by the terms & conditions of the company</p>' +
+                                            '<p style="display: block; width: 100%; margin: 0; font-size: 12px; line-height: 1.2; text-align: left;">* I declear that I have a valid drug Licence.</p>' +
+                                            '<p style="display: block; width: 100%; margin: 0; font-size: 12px; line-height: 1.2; text-align: left;">* Excution of order is subject to ability of stock</p>' +
+                                        '</div>' +
                                         '<div class="bottom-section" style="width: 100%; margin-top: 60px;">' +
                                             // Row 1
                                             '<div class="row" style="display: flex; justify-content: space-around; width: 100%;">' +
                                                 '<div style="display: inline; width:200px; border-top: 1px solid #000000;">' +
-                                                    '<p style="display: block; width: 100%; margin: 0; font-size: 12px; line-height: 1.2; text-align: center;">Prepared by</p>' +
-                                                    '<p style="display: block; width: 100%; margin: 0; font-size: 12px; line-height: 1.2; text-align: center;">Computer operator</p>' +
+                                                    '<p style="display: block; width: 100%; margin: 0; font-size: 12px; line-height: 1.2; text-align: center;">Customer Signature</p>' +
                                                 '</div>' +
                                                 '<div style="display: inline; width:200px; border-top: 1px solid #000000;">' +
-                                                    '<p style="display: block; width: 100%; margin: 0; font-size: 12px; line-height: 1.2; text-align: center;">Checked by</p>' +
-                                                    '<p style="display: block; width: 100%; margin: 0; font-size: 12px; line-height: 1.2; text-align: center;">ADIC / Distribution Officer</p>' +
+                                                    '<p style="display: block; width: 100%; margin: 0; font-size: 12px; line-height: 1.2; text-align: center;">Signature of MIO</p>' +
                                                 '</div>' +
                                                 '<div style="display: inline; width:200px; border-top: 1px solid #000000;">' +
-                                                    '<p style="display: block; width: 100%; margin: 0; font-size: 12px; line-height: 1.2; text-align: center;">Authorissed by</p>' +
-                                                    '<p style="display: block; width: 100%; margin: 0; font-size: 12px; line-height: 1.2; text-align: center;">DIC / Executive Distribution</p>' +
-                                                '</div>' +
-                                            '</div>' +
-                                            // Row 2
-                                            '<div class="row" style="display: flex; justify-content: space-around; width: 100%; margin-top: 40px;">' +
-                                                '<div style="display: inline; width:200px; border-top: 1px solid #000000;">' +
-                                                    '<p style="display: block; width: 100%; margin: 0; font-size: 12px; line-height: 1.2; text-align: center;">Goods Issued by</p>' +
-                                                    '<p style="display: block; width: 100%; margin: 0; font-size: 12px; line-height: 1.2; text-align: center;">Store In-Charge/Store Officer</p>' +
-                                                '</div>' +
-                                                '<div style="display: inline; width:200px; border-top: 1px solid #000000;">' +
-                                                    '<p style="display: block; width: 100%; margin: 0; font-size: 12px; line-height: 1.2; text-align: center;">Goods Delivered by</p>' +
-                                                    '<p style="display: block; width: 100%; margin: 0; font-size: 12px; line-height: 1.2; text-align: center;">Name....................</p>' +
-                                                '</div>' +
-                                                '<div style="display: inline; width:200px; border-top: 1px solid #000000;">' +
-                                                    '<p style="display: block; width: 100%; margin: 0; font-size: 12px; line-height: 1.2; text-align: center;">Signature of Security</p>' +
-                                                    '<p style="display: block; width: 100%; margin: 0; font-size: 12px; line-height: 1.2; text-align: center;">Name....................</p>' +
+                                                    '<p style="display: block; width: 100%; margin: 0; font-size: 12px; line-height: 1.2; text-align: center;">Signature of Area Manager</p>' +
                                                 '</div>' +
                                             '</div>' +
                                         '</div>' +
@@ -156,40 +151,32 @@ export default class SDR_015 {
     }
 
     create_table_body_data(data) {
-        let user_details = ''
-        user_details += '' +
-                        '<tr>' +
-                            '<th colspan="7">' +
-                                '<p style="display: block; width: 100%; margin: 0; font-size: 14px; line-height: 1.7; text-align: left;">DHK202, Shohidul Islam, Territory: North Badda, Number of Invoice: 6</p>' +
-                            '</th>' +
-                        '</tr>'
 
         let table_data = ''
         for(let i=0; i < data.length; i++) {
             table_data += '' +
                             '<tr>' +
-                                '<td>' + (i + 1) + '</td>' +
-                                '<td style="width: 10%;">' + data[i].invoice_no + '</td>' +
-                                '<td style="width: 10%;">' + data[i].date + '</td>' +
-                                '<td style="width: 10%;">' + data[i].cust_code + '</td>' +
-                                '<td style="width: 25%; text-align: left;">' + data[i].custoemrName + '</td>' +
-                                '<td style="width: 25%; text-align: left;">' + data[i].address + '</td>' +
-                                '<td style="width: 15%; text-align: right;">' + data[i].invoice_amount + '</td>' +
-                            '</tr>' 
+                                '<td style="">' + 'ABC01' + '</td>' +
+                                '<td style="text-align: left;">' + 'Name Something' + '</td>' +
+                                '<td style="">' + '20s' + '</td>' +
+                                '<td style=" text-align: right;">' + '170.00' + '</td>' +
+                                '<td style=" text-align: right;">' + '211.00' + '</td>' +
+                                '<td style="">' + '15' + '</td>' +
+                                '<td style=" text-align: right;">' + '700.00' + '</td>' +
+                            '</tr>'
         }
 
         let sub_total = ''
         sub_total += '' +
-                        '<tr>' +
-                            '<td style="border: none;"></td>' +
-                            '<td style="width: 10%; border: none;"></td>' +
-                            '<td style="width: 10%; border: none;"></td>' +
-                            '<td style="width: 10%; border: none;"></td>' +
-                            '<td style="width: 25%; border: none; text-align: left; "></td>' +
-                            '<td style="width: 25%; border: none; border-bottom: 1px solid #000000; text-align: left;">Sub Total</td>' +
-                            '<td style="width: 15%; border: none; border-bottom: 1px solid #000000; text-align: right;">XXXX</td>' +
-                        '</tr>'
-        return (user_details + table_data + sub_total) + (user_details + table_data + sub_total) + (user_details + table_data + sub_total) + (user_details + table_data + sub_total)
+                    '<tr>' +
+                        '<td style="text-align: left;" colspan="2">' + 'Order Value        Taka' + '</td>' +
+                        '<td style="">' + '' + '</td>' +
+                        '<td style=" text-align: right;">' + '' + '</td>' +
+                        '<td style=" text-align: right;">' + '' + '</td>' +
+                        '<td style="">' + '' + '</td>' +
+                        '<td style=" text-align: right;">' + '' + '</td>' +
+                    '</tr>' 
+        return (table_data + sub_total)
         // return (user_details + table_data + sub_total)
     }
 }
