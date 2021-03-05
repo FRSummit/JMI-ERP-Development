@@ -113,8 +113,8 @@
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
                                 <tr class="subtotal bottom-total">
-                                    <td style="width: 50%;"></td>
-                                    <td style="width: 25%;">(+/-) Rounding Adjustment</td>
+                                    <td style="width: 25%;"></td>
+                                    <td style="width: 50%;">(+/-) Rounding Adjustment</td>
                                     <td style="width: 15%;">{{ Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.gross_total : 0).toFixed(2) }}</td>
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
