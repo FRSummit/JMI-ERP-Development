@@ -169,7 +169,7 @@ export default class SDR_015 {
         let sub_total = ''
         sub_total += '' +
                     '<tr>' +
-                        '<td style="text-align: left;" colspan="2">' + 'Order Value        Taka' + '</td>' +
+                        '<td style="text-align: left;" colspan="2"><p style="margin: 0; padding: 0px; font-weight: 600;">' + '<span style="margin-right: 6px;">Order Value</span>Taka:' + '</p></td>' +
                         '<td style="">' + '' + '</td>' +
                         '<td style=" text-align: right;">' + '' + '</td>' +
                         '<td style=" text-align: right;">' + '' + '</td>' +
