@@ -72,7 +72,7 @@
                             <p class="title">Select Territory</p>
                             <span class="close-icon" @click="closeTerritoryModal">
                               <i class="fas fa-times"></i>
-                              <span class="tool-tip">Close Modal</span>
+                              <!-- <span class="tool-tip">Close Modal</span> -->
                             </span>
                             <div class="search-territory">
                               <div class="search-territory-inner">
@@ -81,7 +81,9 @@
                                   <input
                                     type="text"
                                     class="form-control"
-                                    placeholder="Search by Name, ID No"
+                                    id="territory-search-filter"
+                                    placeholder="Search by Territory Name"
+                                    v-on:keyup="searchKeyUpHandler"
                                   />
                                 </div>
                               </div>
@@ -89,7 +91,7 @@
                             <div class="territory-list">
                               <div class="territory-list-inner">
                                 <p class="territory-name" :class="checkIfTerritoryAreaDataListHasThisArea(t) ? 'hide': ''" v-for="(t, i) in all_territory_list_for_this_DA" :key="i" @click="territoryNameAddClick(t)">
-                                  <span>{{ t.area_name }}</span>
+                                  <span class="territory_nm">{{ t.area_name }}</span>
                                 </p>
                               </div>
                             </div>
@@ -158,20 +160,20 @@
           <p class="title">Select Territory</p>
           <span class="close-icon" @click="closeTerritoryCopyModal">
             <i class="fas fa-times"></i>
-            <span class="tool-tip">Close Modal</span>
+            <!-- <span class="tool-tip">Close Modal</span> -->
           </span>
           <div class="search-territory">
             <div class="search-territory-inner">
               <div class="form-group has-search">
                 <span class="fa fa-search form-control-feedback"></span>
-                <input type="text" class="form-control" placeholder="Search by Name, ID No"/>
+                <input type="text" class="form-control" id="territory-search-filter-copy-modal" placeholder="Search by Name, ID No" v-on:keyup="searchKeyUpHandler_2"/>
               </div>
             </div>
           </div>
           <div class="territory-list">
             <div class="territory-list-inner">
               <p class="territory-name" :class="checkIfTerritoryAreaDataListHasThisArea(t) ? 'hide': ''" v-for="(t, i) in all_territory_list_for_this_DA" :key="i" @click="territoryNameAddClickForCopy(t)">
-                <span>{{ t.area_name }}</span>
+                <span class="territory_nm">{{ t.area_name }}</span>
               </p>
             </div>
           </div>
@@ -192,6 +194,8 @@ const breadcrumbFunctions = new BreadcrumbFunctions()
 
 import ERPService from '../../../../service/ERPSidebarService'
 const service = new ERPService()
+import JMIFilter from '../../../../functions/JMIFIlter'
+const jmiFilter = new JMIFilter()
 
 export default {
   components: {
@@ -802,6 +806,24 @@ export default {
     reloadAfterFullSetCopy() {
       this.ALL_DA_INFO_MMYYYY_FROM_SERVICE(this.changed_or_selected_MMYYYY)
       this.CURRENT_MONTH_STATUS_CHECK_FOR_ALL_A_O(this.changed_or_selected_MMYYYY)
+    },
+    searchKeyUpHandler(value) {
+        console.log(value.key)
+        let input = document.getElementById("territory-search-filter");
+        let filter = input.value.toUpperCase();
+        let list = document.querySelectorAll('.territory-details-section .territory-name')
+        let txt_selector = "territory_nm"
+
+        jmiFilter.searchById_LeftSidebar(filter, list, txt_selector)
+    },
+    searchKeyUpHandler_2(value) {
+        console.log(value.key)
+        let input = document.getElementById("territory-search-filter-copy-modal");
+        let filter = input.value.toUpperCase();
+        let list = document.querySelectorAll('.copy-modal .territory-name')
+        let txt_selector = "territory_nm"
+
+        jmiFilter.searchById_LeftSidebar(filter, list, txt_selector)
     }
   },
 };
