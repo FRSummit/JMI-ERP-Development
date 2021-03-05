@@ -5,6 +5,10 @@
             <p>Please select an order</p>
         </div> -->
         <div class="order-approval-details-section-inner">
+            <div class="print-section">
+                <p class="print-text"><span class="invoice-section">Invoice No: <span class="inv_no">{{ PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.order_no : "" }}</span></span></p>
+                <span class="print-icon" @click="printInvoiceClickHandler"><i class="zmdi zmdi-print"></i></span>
+            </div>
             <div class="title-section">
                 <div class="row">
                     <!-- <div class="col-lg-4 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Order ID:</span><span class="id">{{ PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.order_no : "000" }}</span><span class="customer-type" v-if="ORDERED_TABLE_DATA__INIT_LIST"></span></p></div> -->
@@ -243,14 +247,14 @@
                                     </td> -->
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
-                                <tr class="grand-total bottom-total">
+                                <!-- <tr class="grand-total bottom-total">
                                     <td style="width: 50%; text-align: left;">
                                         <span class="ptint-inv-jmi" @click="printInvoiceClickHandler">Print Invoice</span>
                                     </td>
                                     <td style="width: 25%;"></td>
                                     <td style="width: 15%;"></td>
                                     <td style="width: 10%; min-width: 70px;"></td>
-                                </tr>
+                                </tr> -->
                             </div>
                         </tbody>
                     </table>
@@ -682,6 +686,9 @@ const service = new ERPService()
 
 import PP_Invoice_Type_1 from '../../../../../../functions/Print_Func/PP_Invoice_Type_1'
 const ppInvoice_Type_1 = new PP_Invoice_Type_1()
+
+import DemoPrintData from './DemoPrintData'
+const demoPrintData = new DemoPrintData()
 
 export default {
     props: ["pending_order_list_by_id", "order_id_from_left_side"],
@@ -1782,7 +1789,8 @@ export default {
             this.header_date = da_date.toString().split(' ')[0]
         },
         printInvoiceClickHandler() {
-            ppInvoice_Type_1.print_invoice('Data')
+            ppInvoice_Type_1.print_invoice(demoPrintData.print_sdr_023_data())
+            
         }
     },
     watch: { 
