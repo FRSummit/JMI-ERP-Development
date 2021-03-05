@@ -243,6 +243,14 @@
                                     </td> -->
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
+                                <tr class="grand-total bottom-total">
+                                    <td style="width: 50%; text-align: left;">
+                                        <span class="ptint-inv-jmi" @click="printInvoiceClickHandler">Print Invoice</span>
+                                    </td>
+                                    <td style="width: 25%;"></td>
+                                    <td style="width: 15%;"></td>
+                                    <td style="width: 10%; min-width: 70px;"></td>
+                                </tr>
                             </div>
                         </tbody>
                     </table>
@@ -671,6 +679,9 @@ const jmiFilter = new JMIFilter()
 
 import ERPService from '../../../../../../service/ERPSidebarService'
 const service = new ERPService()
+
+import PP_Invoice_Type_1 from '../../../../../../functions/Print_Func/PP_Invoice_Type_1'
+const ppInvoice_Type_1 = new PP_Invoice_Type_1()
 
 export default {
     props: ["pending_order_list_by_id", "order_id_from_left_side"],
@@ -1769,6 +1780,9 @@ export default {
         },
         set_Or_Change_Date(da_date) {
             this.header_date = da_date.toString().split(' ')[0]
+        },
+        printInvoiceClickHandler() {
+            ppInvoice_Type_1.print_invoice('Data')
         }
     },
     watch: { 

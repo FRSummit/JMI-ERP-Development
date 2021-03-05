@@ -100,7 +100,3 @@ export default {
   },
 };
 </script>
-
-<style lang="less" scoped>
-@import url("./Deliveries.less");
-</style>
