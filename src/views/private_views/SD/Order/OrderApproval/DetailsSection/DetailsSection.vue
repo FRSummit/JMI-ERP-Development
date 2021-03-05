@@ -5,8 +5,8 @@
             <p>Please select an order</p>
         </div> -->
         <div class="order-approval-details-section-inner">
-            <div class="print-section">
-                <p class="print-text"><span class="invoice-section">Invoice No: <span class="inv_no">{{ PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.order_no : "" }}</span></span></p>
+            <div class="print-section" v-if="ORDERED_TABLE_DATA__INIT_LIST ? ORDERED_TABLE_DATA__INIT_LIST.length : false">
+                <!-- <p class="print-text"><span class="invoice-section">Invoice No: <span class="inv_no">{{ PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.order_no : "" }}</span></span></p> -->
                 <span class="print-icon" @click="printInvoiceClickHandler"><i class="zmdi zmdi-print"></i></span>
             </div>
             <div class="title-section">
@@ -213,7 +213,8 @@
                                 <tr class="subtotal bottom-total">
                                     <td style="width: 50%;"><span class="add-order-attachment-section add-attachment" @click="addAttachmentClickHandler"><i class="zmdi zmdi-attachment-alt"></i>Attachment</span></td>
                                     <td style="width: 25%;">(-) Discount</td>
-                                    <td style="width: 15%;">{{ Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.total_discount : 0).toFixed(2) }}</td>
+                                    <!-- <td style="width: 15%;">{{ Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.total_discount : 0).toFixed(2) }}</td> -->
+                                    <td style="width: 15%;">{{ Number(discount_total).toFixed(2) }}</td>
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
                                 <!-- <tr class="subtotal bottom-total">
@@ -264,8 +265,8 @@
                                 <img src="../../../../../../assets/icons/user.png" alt="logo">
                             </div>
                             <div class="title-section">
-                                <p class="name">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? PENDING_ORDER_DATA_BY_ID.sbu_customer_info.display_name : 0) : 'Not Found' }}<span class="tik-icon"><i class="zmdi zmdi-check"></i></span></p>
-                                <p class="id">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.order_no) : 'Not Found' }}</p>
+                                <p class="name">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? PENDING_ORDER_DATA_BY_ID.sbu_customer_info.display_name : 0) : '' }}<span class="tik-icon"><i class="zmdi zmdi-check"></i></span></p>
+                                <p class="id">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.order_no) : '' }}</p>
                             </div>
                         </div>
                     </div>
@@ -672,8 +673,8 @@ const service = new ERPService()
 import PP_Invoice_Type_1 from '../../../../../../functions/Print_Func/PP_Invoice_Type_1'
 const ppInvoice_Type_1 = new PP_Invoice_Type_1()
 
-import DemoPrintData from './DemoPrintData'
-const demoPrintData = new DemoPrintData()
+// import DemoPrintData from './DemoPrintData'
+// const demoPrintData = new DemoPrintData()
 
 export default {
     props: ["pending_order_list_by_id", "order_id_from_left_side"],
@@ -1539,6 +1540,11 @@ export default {
                 jmiFilter.searchByID_Name_Details_Section(filter, list, id_selector)
             }
         }, 
+        async printInvoiceClickHandler() {
+            // ppInvoice_Type_1.print_invoice(demoPrintData.print_sdr_023_data())
+            await this.PRINT_THIS_ORDER_DETAILS__INVOICE__FROM_SERVICE()
+            
+        },
         // ------------------------------------------------------------------------------------------
         // Service Implementation
         async DIC_WISE_USERS__FROM_SERVICE() {
@@ -1662,6 +1668,13 @@ export default {
                     }, 2000)
                 })
         },
+        async PRINT_THIS_ORDER_DETAILS__INVOICE__FROM_SERVICE() {
+            await service.getPrintOrderDetails_OrderApproval_INVOICE(this.order_id_from_left_side)
+                .then(res => {
+                    console.log(res.data.order_info.order_details)
+                    ppInvoice_Type_1.print_invoice(res.data.order_info)
+                })
+        },
         // ----------------------------------------------------------------------------------------------
         // Bottom Row Calculation
         // Create Secondary Subtotal
@@ -1675,9 +1688,10 @@ export default {
             for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST.length; i++) {
                 this.sub_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_tp) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty
                 this.vat_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_vat) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty
-                // this.discount_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_tp * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) - (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].price_now_per_qty) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty)
+                this.discount_total += (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_tp) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) - (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.price_now_per_qty) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty)
+                // console.log(parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.price_now_per_qty) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty)
             }
-            this.discount_total = 0
+            console.log(this.discount_total)
             this.gross_total = this.sub_total + this.vat_total
             this.grand_total = this.sub_total + this.vat_total - this.discount_total
         },
@@ -1777,10 +1791,6 @@ export default {
         set_Or_Change_Date(da_date) {
             this.header_date = da_date.toString().split(' ')[0]
         },
-        printInvoiceClickHandler() {
-            ppInvoice_Type_1.print_invoice(demoPrintData.print_sdr_023_data())
-            
-        }
     },
     watch: { 
         async pending_order_list_by_id(newVal, oldVal){
@@ -1788,8 +1798,9 @@ export default {
             console.log('changes' + oldVal)
             console.log('SR DA ID ' + this.pending_order_list_by_id.da_id)
             // console.log(this.pending_order_list_by_id.order_details)
-            await this.defaultAllThisComponentData()
+            // await this.defaultAllThisComponentData()
             setTimeout( () => {
+                // console.log(this.pending_order_list_by_id)
                 this.PENDING_ORDER_DATA_BY_ID = this.pending_order_list_by_id
                 this.ORDERED_TABLE_DATA__INIT_LIST = this.pending_order_list_by_id.order_details
                 this.set_Or_Change_SR(this.pending_order_list_by_id.da_id)
@@ -1800,7 +1811,8 @@ export default {
                 console.log(this.PENDING_ORDER_DATA_BY_ID.is_verified)
                 console.log(this.order_id_from_left_side)
                 this.createSubtotalCalculation()
-            }, 1000)
+                console.log(this.ORDERED_TABLE_DATA__INIT_LIST)
+            }, 100)
             // if( newVal && oldVal) {
             //     if(newVal.customer_id !== oldVal.customer_id) {
             //         this.defaultAllThisComponentData()
