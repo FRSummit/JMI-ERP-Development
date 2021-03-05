@@ -464,6 +464,18 @@ export default class PostService {
     })
   }
 
+  // Order Approval - APPROVE BULK ORDERS - LEFT SECTION
+  getPrintOrderDetails_OrderApproval_INVOICE(order_id) {
+    console.log(order_id)
+    let web_menu_url = '/api/web/print-order-details/' + order_id
+    return axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+    })
+  }
+
   // // CREATE ORDER - SR LIST LOAD
   // getSearchProductDataList_CreateOrderDetailsSection() {
   //   let web_menu_url = '/api/web/dic-wise-users'

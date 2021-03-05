@@ -5,8 +5,8 @@
             <p>Please select an order</p>
         </div> -->
         <div class="order-approval-details-section-inner">
-            <div class="print-section">
-                <p class="print-text"><span class="invoice-section">Invoice No: <span class="inv_no">{{ PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.order_no : "" }}</span></span></p>
+            <div class="print-section" v-if="ORDERED_TABLE_DATA__INIT_LIST ? ORDERED_TABLE_DATA__INIT_LIST.length : false">
+                <!-- <p class="print-text"><span class="invoice-section">Invoice No: <span class="inv_no">{{ PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.order_no : "" }}</span></span></p> -->
                 <span class="print-icon" @click="printInvoiceClickHandler"><i class="zmdi zmdi-print"></i></span>
             </div>
             <div class="title-section">
@@ -130,7 +130,8 @@
                                         <!-- Bonus Column -->
                                         <td>{{ data.bonus_qty }}</td>
                                         <!-- Total Price Column -->
-                                        <td>{{ Number(data.tp).toFixed(2) }}</td>
+                                        <!-- <td>{{ Number(data.tp).toFixed(2) }}</td> -->
+                                        <td>{{ Number((data.unit_tp) * (data.qty)).toFixed(2) }}</td>
                                         <!-- Option Column -->
                                         <td class="row-action jmi-tr-td-option" style="min-width: 70px; text-align: right;">
                                             <span class="icon edit-icon" @click="editOrderitemClickHandler(data, i)"><i class="zmdi zmdi-edit"></i></span>
@@ -191,41 +192,29 @@
                                 <tr class="subtotal bottom-total" style="border-top: 1px solid #BFCFE2;">
                                     <td style="width: 50%;"><span class="add-order-attachment-section add-order" @click="addOrderClickHandler" v-if="parseInt(ORDER_CREATED_BY) === parseInt(ORDER_AUTH_USER)"><i class="zmdi zmdi-plus"></i>Add Products</span></td>
                                     <td style="width: 25%;"><span>Subtotal</span></td>
-                                    <td style="width: 15%;"><span>{{ ( Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.gross_tp : 0).toFixed(2) ) }}</span></td>
-                                    <!-- <td style="width: 15%;">
-                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length === 0">{{ ( Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.gross_tp : 0).toFixed(2) ) }}</span>
-                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length > 0">{{  Number( parseFloat( Number(PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.gross_tp) : 0).toFixed(2) ) + parseFloat(sub_total) ).toFixed(2) }}</span>
-                                    </td> -->
+                                    <!-- <td style="width: 15%;"><span>{{ ( Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.gross_tp : 0).toFixed(2) ) }}</span></td> -->
+                                    <td style="width: 15%;"><span>{{ Number(sub_total).toFixed(2) }}</span></td>
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
                                 <tr class="subtotal bottom-total">
                                     <td style="width: 50%;"></td>
                                     <td style="width: 25%;">(+) Vat</td>
-                                    <td style="width: 15%;">{{ Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.total_vat : 0).toFixed(2) }}</td>
-                                    <!-- <td style="width: 15%;">
-                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length === 0">{{ Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.total_vat : 0).toFixed(2) }}</span>
-                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length > 0">{{  Number( parseFloat( Number(PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.total_vat) : 0).toFixed(2) ) + parseFloat(vat_total) ).toFixed(2) }}</span>
-                                    </td> -->
+                                    <!-- <td style="width: 15%;">{{ Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.total_vat : 0).toFixed(2) }}</td> -->
+                                    <td style="width: 15%;">{{ Number(vat_total).toFixed(2) }}</td>
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
                                 <tr class="subtotal bottom-total">
                                     <td style="width: 50%;"></td>
                                     <td style="width: 25%;">Gross Total</td>
-                                    <td style="width: 15%;">{{ Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.gross_total : 0).toFixed(2) }}</td>
-                                    <!-- <td style="width: 15%;">
-                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length === 0">{{ Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.gross_total : 0).toFixed(2) }}</span>
-                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length > 0">{{ Number( parseFloat( Number(PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.gross_total) : 0).toFixed(2) ) + parseFloat(vat_total) ).toFixed(2) }}</span>
-                                    </td> -->
+                                    <!-- <td style="width: 15%;">{{ Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.gross_total : 0).toFixed(2) }}</td> -->
+                                    <td style="width: 15%;">{{ Number(gross_total).toFixed(2) }}</td>
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
                                 <tr class="subtotal bottom-total">
                                     <td style="width: 50%;"><span class="add-order-attachment-section add-attachment" @click="addAttachmentClickHandler"><i class="zmdi zmdi-attachment-alt"></i>Attachment</span></td>
                                     <td style="width: 25%;">(-) Discount</td>
-                                    <td style="width: 15%;">{{ Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.total_discount : 0).toFixed(2) }}</td>
-                                    <!-- <td style="width: 15%;">
-                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length === 0">{{ Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.total_discount : 0).toFixed(2) }}</span>
-                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length > 0">{{ Number( parseFloat( Number(PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.total_discount) : 0).toFixed(2) ) + parseFloat(vat_total) ).toFixed(2) }}</span>
-                                    </td> -->
+                                    <!-- <td style="width: 15%;">{{ Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.total_discount : 0).toFixed(2) }}</td> -->
+                                    <td style="width: 15%;">{{ Number(discount_total).toFixed(2) }}</td>
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
                                 <!-- <tr class="subtotal bottom-total">
@@ -240,11 +229,8 @@
                                         <span class="order-reject" @click="orderRejectClickHandler">Reject Order</span>
                                     </td>
                                     <td style="width: 25%;">Grand Total</td>
-                                    <td style="width: 15%;">{{ Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.net_total : 0).toFixed(2) }}</td>
-                                    <!-- <td style="width: 15%;">
-                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length === 0">{{ Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.net_total : 0).toFixed(2) }}</span>
-                                        <span v-if="ORDERED_TABLE_DATA__INIT_LIST_2.length > 0">{{ Number( parseFloat( Number(PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.net_total) : 0).toFixed(2) ) + parseFloat(vat_total) ).toFixed(2) }}</span>
-                                    </td> -->
+                                    <!-- <td style="width: 15%;">{{ Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.net_total : 0).toFixed(2) }}</td> -->
+                                    <td style="width: 15%;">{{ Number(grand_total).toFixed(2) }}</td>
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
                                 <!-- <tr class="grand-total bottom-total">
@@ -279,8 +265,8 @@
                                 <img src="../../../../../../assets/icons/user.png" alt="logo">
                             </div>
                             <div class="title-section">
-                                <p class="name">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? PENDING_ORDER_DATA_BY_ID.sbu_customer_info.display_name : 0) : 'Not Found' }}<span class="tik-icon"><i class="zmdi zmdi-check"></i></span></p>
-                                <p class="id">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.order_no) : 'Not Found' }}</p>
+                                <p class="name">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? PENDING_ORDER_DATA_BY_ID.sbu_customer_info.display_name : 0) : '' }}<span class="tik-icon"><i class="zmdi zmdi-check"></i></span></p>
+                                <p class="id">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.order_no) : '' }}</p>
                             </div>
                         </div>
                     </div>
@@ -687,8 +673,8 @@ const service = new ERPService()
 import PP_Invoice_Type_1 from '../../../../../../functions/Print_Func/PP_Invoice_Type_1'
 const ppInvoice_Type_1 = new PP_Invoice_Type_1()
 
-import DemoPrintData from './DemoPrintData'
-const demoPrintData = new DemoPrintData()
+// import DemoPrintData from './DemoPrintData'
+// const demoPrintData = new DemoPrintData()
 
 export default {
     props: ["pending_order_list_by_id", "order_id_from_left_side"],
@@ -1096,6 +1082,7 @@ export default {
                 data.qty++
                 this.UPDATE_BTN_ENABLE = true
             }
+            this.createSubtotalCalculation()
             // this.UPDATE_BTN_TRUE = true
             // this.createSubtotalCalculation()
             // Free Product row quantity increase
@@ -1111,7 +1098,7 @@ export default {
                 data.qty--
                 this.UPDATE_BTN_ENABLE = true
                 // this.UPDATE_BTN_TRUE = true
-                // this.createSubtotalCalculation()
+                this.createSubtotalCalculation()
             }
             // Free Product row quantity decrease
             // if(data.offer_type === "free") {
@@ -1211,6 +1198,7 @@ export default {
                     }
                 }
                 await this.DESTROY_ORDER_DETAILS_BY_ID__FROM_SERVICE(this.delete_product_from_table_popup_modal_data.id)
+                this.createSubtotalCalculation()
             }
             // console.log(this.delete_product_from_table_popup_modal_data)
             // this.delete_product_from_table_popup_modal_data = null
@@ -1290,6 +1278,7 @@ export default {
             }
             console.log(prod_list)
             await this.UPDATE_ORDER__FROM_SERVICE(prod_list)
+            this.createSubtotalCalculation()
             
             // input qty hide and span qty displaying
             for(let i=0; i<document.querySelectorAll('.single_qty.quantity-setup').length; i++) {
@@ -1306,6 +1295,7 @@ export default {
         },
         async confirmApprovingSingleOrderClickHandler() {
             await this.APPROVE_SINGLE_ORDER__FROM_SERVICE()
+            this.createSubtotalCalculation()
         },
         //------------------------------------------------------------------------------------------
         // Order Modal Functions
@@ -1550,6 +1540,11 @@ export default {
                 jmiFilter.searchByID_Name_Details_Section(filter, list, id_selector)
             }
         }, 
+        async printInvoiceClickHandler() {
+            // ppInvoice_Type_1.print_invoice(demoPrintData.print_sdr_023_data())
+            await this.PRINT_THIS_ORDER_DETAILS__INVOICE__FROM_SERVICE()
+            
+        },
         // ------------------------------------------------------------------------------------------
         // Service Implementation
         async DIC_WISE_USERS__FROM_SERVICE() {
@@ -1598,6 +1593,7 @@ export default {
                             }
                         }
                     }
+                    this.createSubtotalCalculation()
                 })
         },
         async FIND_PRODUCT_OFFER__FROM_SERVICE(prod_db_list) {
@@ -1607,9 +1603,6 @@ export default {
             await service.getFindProductOffer_CreateOrderDetailsSection(prod_db_list, sbu_id, customer_id, this.createYYYYDDMM())
                 .then(res => {
                     console.log(res.data)
-                    // this.RESPONSE_ORDERED_PRODUCTS__STORE = []
-                    // this.RESPONSE_ORDERED_PRODUCTS__STORE = res.data.data
-                    // this.GENERATE_ORDERED_PRODUCTS_DETAILS_LIST_FROM_PRODUCT_OFFER_RESPONSE()
                     this.ADD_PRODUCT_FROM_AUTOFILL_SECOND_FULL_PERAM(res.data.data)
                 })
         },
@@ -1645,6 +1638,7 @@ export default {
                     console.log(res.data)
                     this.ORDERED_TABLE_DATA__INIT_LIST = []
                     this.ORDERED_TABLE_DATA__INIT_LIST = res.data.order.order_details
+                    this.createSubtotalCalculation()
                     this.$emit('reload_this_order', this.order_id_from_left_side)
                 })
         },
@@ -1674,6 +1668,13 @@ export default {
                     }, 2000)
                 })
         },
+        async PRINT_THIS_ORDER_DETAILS__INVOICE__FROM_SERVICE() {
+            await service.getPrintOrderDetails_OrderApproval_INVOICE(this.order_id_from_left_side)
+                .then(res => {
+                    console.log(res.data.order_info.order_details)
+                    ppInvoice_Type_1.print_invoice(res.data.order_info)
+                })
+        },
         // ----------------------------------------------------------------------------------------------
         // Bottom Row Calculation
         // Create Secondary Subtotal
@@ -1683,12 +1684,14 @@ export default {
             this.discount_total = 0
             this.gross_total = 0
             this.grand_total = 0
-            for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST_2.length; i++) {
-                this.sub_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST_2[i].base_tp) * this.ORDERED_TABLE_DATA__INIT_LIST_2[i].quantity
-                this.vat_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST_2[i].base_vat) * this.ORDERED_TABLE_DATA__INIT_LIST_2[i].quantity
-                this.discount_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST_2[i].base_tp * this.ORDERED_TABLE_DATA__INIT_LIST_2[i].quantity) - (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST_2[i].price_now_per_qty) * this.ORDERED_TABLE_DATA__INIT_LIST_2[i].quantity)
+            console.log(this.ORDERED_TABLE_DATA__INIT_LIST[0])
+            for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST.length; i++) {
+                this.sub_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_tp) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty
+                this.vat_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_vat) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty
+                this.discount_total += (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_tp) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) - (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.price_now_per_qty) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty)
+                // console.log(parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.price_now_per_qty) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty)
             }
-            console.log(this.sub_total)
+            console.log(this.discount_total)
             this.gross_total = this.sub_total + this.vat_total
             this.grand_total = this.sub_total + this.vat_total - this.discount_total
         },
@@ -1788,10 +1791,6 @@ export default {
         set_Or_Change_Date(da_date) {
             this.header_date = da_date.toString().split(' ')[0]
         },
-        printInvoiceClickHandler() {
-            ppInvoice_Type_1.print_invoice(demoPrintData.print_sdr_023_data())
-            
-        }
     },
     watch: { 
         async pending_order_list_by_id(newVal, oldVal){
@@ -1799,8 +1798,9 @@ export default {
             console.log('changes' + oldVal)
             console.log('SR DA ID ' + this.pending_order_list_by_id.da_id)
             // console.log(this.pending_order_list_by_id.order_details)
-            await this.defaultAllThisComponentData()
+            // await this.defaultAllThisComponentData()
             setTimeout( () => {
+                // console.log(this.pending_order_list_by_id)
                 this.PENDING_ORDER_DATA_BY_ID = this.pending_order_list_by_id
                 this.ORDERED_TABLE_DATA__INIT_LIST = this.pending_order_list_by_id.order_details
                 this.set_Or_Change_SR(this.pending_order_list_by_id.da_id)
@@ -1810,7 +1810,9 @@ export default {
                 this.ORDER_AUTH_USER = this.pending_order_list_by_id.auth_user
                 console.log(this.PENDING_ORDER_DATA_BY_ID.is_verified)
                 console.log(this.order_id_from_left_side)
-            }, 1000)
+                this.createSubtotalCalculation()
+                console.log(this.ORDERED_TABLE_DATA__INIT_LIST)
+            }, 100)
             // if( newVal && oldVal) {
             //     if(newVal.customer_id !== oldVal.customer_id) {
             //         this.defaultAllThisComponentData()

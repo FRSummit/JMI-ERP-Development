@@ -11,7 +11,9 @@
             <input
               type="text"
               class="form-control"
-              placeholder="Search by Name, ID No"
+              id="search-filter"
+              placeholder="Search by DA Name"
+              v-on:keyup="searchKeyUpHandler"
             />
           </div>
           <i class="fas fa-filter"></i>
@@ -126,6 +128,8 @@
 <script>
 import ERPService from '../../../../../service/ERPSidebarService'
 const service = new ERPService()
+import JMIFilter from '../../../../../functions/JMIFIlter'
+const jmiFilter = new JMIFilter()
 
 export default {
   props: ["leftside_da_list", "all_available_or_occupied_copy", "delete_this_month_data_popup"],
@@ -289,7 +293,16 @@ export default {
             this.copy_modal_month = false
           }
         })
-    }
+    },
+    searchKeyUpHandler(value) {
+        console.log(value.key)
+        let input = document.getElementById("search-filter");
+        let filter = input.value.toUpperCase();
+        let list = document.querySelectorAll('.monthly-delivery-plan-section-list')
+        let txt_selector = "name-text"
+
+        jmiFilter.searchById_LeftSidebar(filter, list, txt_selector)
+    },
   },
 };
 </script>
