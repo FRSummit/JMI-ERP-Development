@@ -53,7 +53,7 @@
                                     </select>
                                 </div>
                             </div> -->
-                            <div class="sr" style="display: table-cell; width: 33%; padding-right: 20px; padding-bottom: 0;">
+                            <div class="sr" style="display: table-cell; width: 33%; padding-right: 20px; padding-bottom: 0; line-height: 1;">
                                 <span class="jmi-lvl">SR: </span>
                                 <p class="selectpicker-pera"> 
                                     <!-- <span class="jmi-lvl-value">{{ selected_sr }}</span> -->

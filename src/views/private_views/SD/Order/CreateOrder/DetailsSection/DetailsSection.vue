@@ -29,7 +29,7 @@
                         <div class="col-lg-3 col-md-6 col-sm-12"><p class="am">AM: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ customer_data ? customer_data.customer_area_info.sales_force.manager_info.name : "" }}</span></p></div>
                         <div class="col-lg-3 col-md-6 col-sm-12"><p class="mio">MIO: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ customer_data ? customer_data.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info.name : "" }}</span></p></div>
                         <div class="col-lg-3 col-md-6 col-sm-12">
-                            <div class="sr" style="display: table-cell; width: 33%; padding-right: 20px; padding-bottom: 0; vertical-align: middle;">
+                            <div class="sr" style="display: table-cell; width: 33%; padding-right: 20px; padding-bottom: 0px; line-height: 1;">
                                 <span class="jmi-lvl">SR: </span>
                                 <p class="selectpicker-pera"> 
                                     <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_70">{{ selected_sr }}</span>
@@ -45,7 +45,7 @@
                                 <span class="sr-add-icon" @click="srAddIconClickHandler"><i class="zmdi zmdi-plus"></i></span>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-6 col-sm-12" style="text-align: right;"><p class="delivery-dt"><span class="jmi-lvl">Delivery:</span> <span class="jmi-lvl-value"><input type="date" id="expected-delivery-date" placeholder="09/12/2020"/></span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-12" style="text-align: right;"><p class="delivery-dt"><span class="jmi-lvl" style="font-size: 15px;">Delivery:</span> <span class="jmi-lvl-value"><input type="date" id="expected-delivery-date" placeholder="09/12/2020"/></span></p></div>
                     </div>
                     <!-- <div class="row"> -->
                         <!-- <div class="col-lg-3 col-md-6 col-sm-12"><p class="delivery-dt"><span class="jmi-lvl">Exp D D:</span> <span class="jmi-lvl-value"><input type="date" id="expected-delivery-date" placeholder="09/12/2020"/></span></p></div> -->
