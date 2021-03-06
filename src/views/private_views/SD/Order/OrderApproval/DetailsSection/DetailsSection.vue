@@ -57,7 +57,7 @@
                                 <span class="jmi-lvl">SR: </span>
                                 <p class="selectpicker-pera"> 
                                     <!-- <span class="jmi-lvl-value">{{ selected_sr }}</span> -->
-                                    <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ selected_sr }}</span>
+                                    <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_70">{{ selected_sr }}</span>
                                     <span class="sr-modal" v-if="sr_add_modal">
                                         <span class="sr-modal-inner" v-click-outside="srModalSectionOutsideClick">
                                             <span class="jmi-title">Select SR</span>
@@ -649,7 +649,7 @@
         <div id="update-successfully-modal" class="modal-popup-section update-successfully-modal" v-if="approved_single_order_modal">
             <div class="modal-popup-section-inner update-successfully-modal-inner">
                 <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
-                <p class="popup-text">Order Approved Successfully</p>
+                <p class="popup-text">{{ ORDER_SUCCESS_MESSAGE }}</p>
             </div>
         </div>
     </div>
@@ -1028,6 +1028,7 @@ export default {
             approved_single_order_modal: false,
             SHOW_PRINT_ICON: false,
             ADD_PRODUCT_MODAL_SUBMITION_SECTION: true,
+            ORDER_SUCCESS_MESSAGE: null,
         }
     },
     async created() {
@@ -1661,9 +1662,12 @@ export default {
                     console.log(res.data)
                     this.approve_product_confirmation_popup_modal = false
                     this.approved_single_order_modal = true
+                    this.ORDER_SUCCESS_MESSAGE = res.data.message
                     this.$emit('single_order_approved', this.order_id_from_left_side)
+                    this.defaultAllThisComponentData()
                     setTimeout( () => {
                         this.approved_single_order_modal = false
+                        this.ORDER_SUCCESS_MESSAGE = null
                     }, 2000)
                 })
         },
