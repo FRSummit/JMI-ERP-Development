@@ -385,6 +385,7 @@ export default {
             // Modal-Popup
             proceed_modal_popup: false,
             ALL_PRODUCTS_LIST: [],
+            ALL_PRODUCTS_LIST_2: [],
         }
     },
     async created() {},
@@ -557,6 +558,7 @@ export default {
         // Add Selected Ordered Product
         addProductFromAutofieldResponseClickHandler(data, index) {
             console.log('added ordered product from auto field: ' + data + '    ' + index)
+            console.log(data)
             let product = {
                             id: data.id,
                             prod_id: data.prod_id,
@@ -565,7 +567,7 @@ export default {
                             prod_name: data.prod_name,
                             prod_code: data.prod_code,
                             code_id: data.code_id,
-                            element_name: data.element_name,
+                            element: data.element,
                             display_code: data.display_code,
                             quantity: 1
                         }
@@ -582,6 +584,7 @@ export default {
         // Remove Added Ordered Product
         removeAddedOrderedProductClickHandler(data, index) {
             console.log('remove added ordered product: ' + data + '    ' + index)
+            console.log(data)
             // this.SELECTED_ORDERED_PRODUCTS__INIT_LIST.push(data)
             if(this.SELECTED_ORDERED_PRODUCTS__INIT_LIST.length > 0) {
                 for (let [i, tt] of this.SELECTED_ORDERED_PRODUCTS__INIT_LIST.entries()) {
@@ -660,6 +663,7 @@ export default {
                     console.log(res.data)
                     this.auto_field_data = res.data.product_list
                     this.ALL_PRODUCTS_LIST = res.data.product_list
+                    this.ALL_PRODUCTS_LIST_2 = this.ALL_PRODUCTS_LIST
                     console.log(this.SELECTED_ORDERED_PRODUCTS__STORE.length)
                     console.log(this.auto_field_data.length)
                     console.log(this.ALL_PRODUCTS_LIST.length)
@@ -735,7 +739,9 @@ export default {
             this.grand_total = this.sub_total + this.vat_total - this.discount_total
         },
         // -------------------------------------------------------
-        GENERATE_ORDERED_PRODUCTS_DETAILS_LIST_FROM_PRODUCT_OFFER_RESPONSE() {
+        async GENERATE_ORDERED_PRODUCTS_DETAILS_LIST_FROM_PRODUCT_OFFER_RESPONSE() {
+            await this.ADD_PRODUCTS_DATA_LIST__FROM_SERVICE()
+            console.log(this.ALL_PRODUCTS_LIST_2.length)
             if(this.UPDATE_ORDER_CLICKED) {
                 this.ORDERED_TABLE_DATA__INIT_LIST = []
                 this.UPDATE_ORDER_CLICKED = false
@@ -762,7 +768,7 @@ export default {
                             // FOR FREE PRODUCT ENTRY
                             if(this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type === "free") {
                                 console.log(this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer.free_prod_id)
-                                console.log(this.ALL_PRODUCTS_LIST.length)
+                                console.log(this.ALL_PRODUCTS_LIST_2.length)
                                 for(let i=0; i<this.ALL_PRODUCTS_LIST.length; i++) {
                                     if(this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer.free_prod_id === this.ALL_PRODUCTS_LIST[i].prod_id) {
                                         console.log(this.ALL_PRODUCTS_LIST[i].prod_id)
