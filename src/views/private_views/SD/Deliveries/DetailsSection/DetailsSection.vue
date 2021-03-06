@@ -596,9 +596,39 @@
                                 </div>
                             </b-tab>
                             <b-tab title="Deposit Slip">
-                                Deposit Slip
+                                <div class="tab-inner cheque">
+                                    <div class="row">
+                                        <div class="imvoice-amount">
+                                            <p class="jmi-lvl">Invoice Amount:</p>
+                                            <p class="jmi-lvl-value">10000</p>
+                                        </div>
+                                        <div class="imvoice-amount">
+                                            <p class="jmi-lvl">Invoice Amount:</p>
+                                            <p class="jmi-lvl-value">10000</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="jmi-inline-block">
+                                            <p class="jmi-lvl">Select date</p>
+                                            <input type="text" v-model="receiver_amount">
+                                        </div>
+                                        <div class="jmi-inline-block right-alg">
+                                            <p class="jmi-lvl">Type Receiver Amount</p>
+                                            <input type="text" v-model="receiver_amount">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="jmi-inline-block">
+                                            <p class="jmi-lvl">Attach File (File Should be jpg, png, pdf)</p>
+                                            <input type="text" v-model="receiver_amount">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <img src="https://static6.depositphotos.com/1005979/577/i/600/depositphotos_5777799-stock-photo-blank-check-with-open-space.jpg" alt="">
+                                    </div>
+                                </div>
                             </b-tab>
-                            <b-tab title="Adjustment">
+                            <b-tab title="Adjustment"> 
                                 Adjustment
                             </b-tab>
                         </b-tabs>
