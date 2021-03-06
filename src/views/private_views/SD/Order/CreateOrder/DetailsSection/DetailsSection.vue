@@ -102,7 +102,7 @@
                                     <!-- BOnus Column -->
                                     <td>
                                         <span v-if="!data.row_class">{{ data ? (data.offer.bonus_qty ? parseInt(data.quantity / data.offer.bonus_on) : 0) : 0 }}</span>
-                                        <span v-if="data.row_class">{{ data ? (data.offer.free_prod_qty ? parseInt(data.quantity / data.offer.free_req_qty) : 0) : 0 }}</span>
+                                        <span v-if="data.row_class">{{ data ? (data.offer_2.free_prod_qty ? parseInt(data.quantity / data.offer_2.free_req_qty) : 0) : 0 }}</span>
                                     </td>
                                     <!-- Total Price Column -->
                                     <td class="total_price">
@@ -391,6 +391,7 @@ export default {
     async created() {},
     async mounted() {
         await this.DIC_WISE_USERS__FROM_SERVICE()
+        await this.getAllProduct()
     },
     methods: {
         onChangeSRDropdown() {
@@ -656,6 +657,26 @@ export default {
             }
         },
         // ------------------------------------------------------------------------------------------
+        // SPLICE PRODUCT 
+        splice_product() {
+                    if(this.SELECTED_ORDERED_PRODUCTS__STORE.length > 0) {
+                        for(let i=0; i<this.auto_field_data.length; i++) {
+                            for(let j=0; j<this.SELECTED_ORDERED_PRODUCTS__STORE.length; j++) {
+                                if(this.auto_field_data[i].prod_id === this.SELECTED_ORDERED_PRODUCTS__STORE[j].prod_id) {
+                                    this.auto_field_data.splice(i, 1)
+                                    console.log(this.auto_field_data[i].prod_id + '    ' + this.SELECTED_ORDERED_PRODUCTS__STORE[j].prod_id)
+                                }
+                            }
+                        }
+                    }
+                    // Add deleted product
+                    if(this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.length > 0) {
+                        for(let i=0; i<this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.length; i++) {
+                            this.auto_field_data.push(this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST[i])
+                        }
+                    }
+        },
+        // ------------------------------------------------------------------------------------------
         // Service Implementation
         async ADD_PRODUCTS_DATA_LIST__FROM_SERVICE() {
             await service.getSearchProductDataList_CreateOrderDetailsSection()
@@ -663,7 +684,7 @@ export default {
                     console.log(res.data)
                     this.auto_field_data = res.data.product_list
                     this.ALL_PRODUCTS_LIST = res.data.product_list
-                    this.ALL_PRODUCTS_LIST_2 = this.ALL_PRODUCTS_LIST
+                    // this.ALL_PRODUCTS_LIST_2 = this.ALL_PRODUCTS_LIST
                     console.log(this.SELECTED_ORDERED_PRODUCTS__STORE.length)
                     console.log(this.auto_field_data.length)
                     console.log(this.ALL_PRODUCTS_LIST.length)
@@ -680,8 +701,33 @@ export default {
                     }
                     // Add deleted product
                     if(this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.length > 0) {
+                        console.log('length has')
+                        console.log(this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST[0])
                         for(let i=0; i<this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.length; i++) {
-                            this.auto_field_data.push(this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST[i])
+                            // this.auto_field_data.push(this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST[i])
+                            for(let j=0; j<this.ALL_PRODUCTS_LIST_2.length; j++) {
+                                if(this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST[i].prod_id === this.ALL_PRODUCTS_LIST_2[j].prod_id) {
+                                    console.log('matched')
+                                    let product = {
+                                        base_tp: this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST[i].base_tp,
+                                        base_vat: this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST[i].base_vat,
+                                        code_id: this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST[i].code_id,
+                                        display_code: this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST[i].display_code,
+                                        element: {
+                                            code_id: this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST[i].element.code_id,
+                                            element_name: this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST[i].element.element_name,
+                                            id: this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST[i].element.id,
+                                        },
+                                        id: this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST[i].id,
+                                        offer: this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST[i].offer,
+                                        prod_class: this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST[i].prod_class,
+                                        prod_code: this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST[i].prod_code,
+                                        prod_id: this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST[i].prod_id,
+                                        prod_name: this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST[i].prod_name,
+                                    }
+                                    this.auto_field_data.push(product)
+                                }
+                            }
                         }
                     }
                 })
@@ -738,30 +784,65 @@ export default {
             this.gross_total = this.sub_total + this.vat_total
             this.grand_total = this.sub_total + this.vat_total - this.discount_total
         },
+        async getAllProduct() {
+            await service.getSearchProductDataList_CreateOrderDetailsSection()
+                .then(res => {
+                    console.log(res.data.product_list)
+                    this.ALL_PRODUCTS_LIST_2 = res.data.product_list
+                    return res.data.product_list
+                })
+        },
         // -------------------------------------------------------
         async GENERATE_ORDERED_PRODUCTS_DETAILS_LIST_FROM_PRODUCT_OFFER_RESPONSE() {
-            await this.ADD_PRODUCTS_DATA_LIST__FROM_SERVICE()
+            // await this.ADD_PRODUCTS_DATA_LIST__FROM_SERVICE()
+            // let prods = []
+            // prods = await this.getAllProduct()
             console.log(this.ALL_PRODUCTS_LIST_2.length)
+            // console.log(prods)
             if(this.UPDATE_ORDER_CLICKED) {
                 this.ORDERED_TABLE_DATA__INIT_LIST = []
                 this.UPDATE_ORDER_CLICKED = false
             }
             if(this.SELECTED_ORDERED_PRODUCTS__STORE.length > 0 && this.RESPONSE_ORDERED_PRODUCTS__STORE.length > 0) {
-                for (let i=0; i<this.SELECTED_ORDERED_PRODUCTS__STORE.length; i++) {
+                // for (let i=0; i<this.SELECTED_ORDERED_PRODUCTS__STORE.length; i++) {
+                for (let i=0; i<this.ALL_PRODUCTS_LIST_2.length; i++) {
                     for(let j=0; j<this.RESPONSE_ORDERED_PRODUCTS__STORE.length; j++) {
-                        if( parseInt(this.SELECTED_ORDERED_PRODUCTS__STORE[i].prod_id) === parseInt(this.RESPONSE_ORDERED_PRODUCTS__STORE[j].prod_id) ) {
+                        if( parseInt(this.ALL_PRODUCTS_LIST_2[i].prod_id) === parseInt(this.RESPONSE_ORDERED_PRODUCTS__STORE[j].prod_id) ) {
                             let product = {
-                                    prod_id             : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].prod_id,
-                                    prod_name           : this.SELECTED_ORDERED_PRODUCTS__STORE[i].prod_name,
-                                    base_tp             : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].base_tp,
-                                    price_now_per_qty   : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].price_now_per_qty,
-                                    base_vat            : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].base_vat,
-                                    line_total          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].line_total,
-                                    vat_total           : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].vat_total,
-                                    quantity            : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].quantity,
-                                    offer_type          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type,
-                                    offer               : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer,
-                                    row_class           : ''
+                                    // prod_id             : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].prod_id,
+                                    // prod_name           : this.SELECTED_ORDERED_PRODUCTS__STORE[i].prod_name,
+                                    // base_tp             : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].base_tp,
+                                    // price_now_per_qty   : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].price_now_per_qty,
+                                    // base_vat            : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].base_vat,
+                                    // line_total          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].line_total,
+                                    // vat_total           : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].vat_total,
+                                    // quantity            : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].quantity,
+                                    // offer_type          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type,
+                                    // offer               : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer,
+                                    // row_class           : ''
+                                    base_tp: this.ALL_PRODUCTS_LIST_2[i].base_tp,
+                                    base_vat: this.ALL_PRODUCTS_LIST_2[i].base_vat,
+                                    code_id: this.ALL_PRODUCTS_LIST_2[i].code_id,
+                                    display_code: this.ALL_PRODUCTS_LIST_2[i].display_code,
+                                    element: {
+                                        code_id: this.ALL_PRODUCTS_LIST_2[i].element.code_id,
+                                        element_name: this.ALL_PRODUCTS_LIST_2[i].element.element_name,
+                                        id: this.ALL_PRODUCTS_LIST_2[i].element.id,
+                                    },
+                                    id: this.ALL_PRODUCTS_LIST_2[i].id,
+                                    offer: this.ALL_PRODUCTS_LIST_2[i].offer,
+                                    prod_class: this.ALL_PRODUCTS_LIST_2[i].prod_class,
+                                    prod_code: this.ALL_PRODUCTS_LIST_2[i].prod_code,
+                                    prod_id: this.ALL_PRODUCTS_LIST_2[i].prod_id,
+                                    prod_name: this.ALL_PRODUCTS_LIST_2[i].prod_name,
+
+                                    price_now_per_qty: this.RESPONSE_ORDERED_PRODUCTS__STORE[j].price_now_per_qty,
+                                    line_total: this.RESPONSE_ORDERED_PRODUCTS__STORE[j].line_total,
+                                    vat_total: this.RESPONSE_ORDERED_PRODUCTS__STORE[j].vat_total,
+                                    quantity: this.RESPONSE_ORDERED_PRODUCTS__STORE[j].quantity,
+                                    offer_type: this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type,
+                                    offer_2: this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer,
+                                    row_class: '',
                             }
                             this.ORDERED_TABLE_DATA__INIT_LIST.push(product)
 
@@ -776,7 +857,7 @@ export default {
                                         console.log(this.RESPONSE_ORDERED_PRODUCTS__STORE[j].quantity)
                                         
                                         let ferr_product = {
-                                                prod_id             : this.ALL_PRODUCTS_LIST[i].prod_id,
+                                                /*prod_id             : this.ALL_PRODUCTS_LIST[i].prod_id,
                                                 prod_name           : this.ALL_PRODUCTS_LIST[i].prod_name,
                                                 // base_tp             : this.RESPONSE_ORDERED_PRODUCTS__STORE[i].base_tp,
                                                 // price_now_per_qty   : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].price_now_per_qty,
@@ -791,8 +872,32 @@ export default {
                                                 quantity            : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].quantity,
                                                 offer_type          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type,
                                                 offer               : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer,
-                                                row_class           : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type
+                                                row_class           : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type*/
+                                                base_tp: 0,
+                                                base_vat: 0,
+                                                code_id: this.ALL_PRODUCTS_LIST_2[i].code_id,
+                                                display_code: this.ALL_PRODUCTS_LIST_2[i].display_code,
+                                                element: {
+                                                    code_id: this.ALL_PRODUCTS_LIST_2[i].element.code_id,
+                                                    element_name: this.ALL_PRODUCTS_LIST_2[i].element.element_name,
+                                                    id: this.ALL_PRODUCTS_LIST_2[i].element.id,
+                                                },
+                                                id: this.ALL_PRODUCTS_LIST_2[i].id,
+                                                offer: this.ALL_PRODUCTS_LIST_2[i].offer,
+                                                prod_class: this.ALL_PRODUCTS_LIST_2[i].prod_class,
+                                                prod_code: this.ALL_PRODUCTS_LIST_2[i].prod_code,
+                                                prod_id: this.ALL_PRODUCTS_LIST_2[i].prod_id,
+                                                prod_name: this.ALL_PRODUCTS_LIST_2[i].prod_name,
+
+                                                price_now_per_qty: 0,
+                                                line_total: 0,
+                                                vat_total: 0,
+                                                quantity: this.RESPONSE_ORDERED_PRODUCTS__STORE[j].quantity,
+                                                offer_type: this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type,
+                                                offer_2: this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer,
+                                                row_class: this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type,
                                         }
+                                        console.log(ferr_product)
                                         this.ORDERED_TABLE_DATA__INIT_LIST.push(ferr_product)
                                     }
                                 }
@@ -804,6 +909,7 @@ export default {
             console.log(this.ORDERED_TABLE_DATA__INIT_LIST)
             this.UPDATE_BTN_TRUE = false
             this.createSubtotalCalculation()
+            // this.splice_product()
         },
         // -------------------------------------------------------------------------------------------------
         // Modal Popup Click Handler
