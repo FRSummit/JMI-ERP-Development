@@ -126,7 +126,8 @@
                                         </td>
                                         <!-- Discount Column -->
                                         <td>
-                                            <span v-if="!data.row_class">{{ data ? (data.discount ? Number(data.discount).toFixed(2) : 0) : 0 }}</span>
+                                            <!-- <span v-if="!data.row_class">{{ data ? (data.discount ? Number(data.discount).toFixed(2) : 0) : 0 }}</span> -->
+                                            <span v-if="!data.row_class">{{ data ? (data.offer ? (data.offer.offer ? (data.offer.offer.discount_percentage ? (data.offer.offer.discount_percentage) : 0) : 0) : 0) : 0 }}%</span>
                                             <span v-if="data.row_class"></span>
                                         </td>
                                         <!-- Bonus Column -->
@@ -142,19 +143,16 @@
                                     </tr>
                                 </div>
                                 <!-- -------- IF ANY PRODUCT ADDED -------- -->
-                                <tr :id="'order-data-table-tr_2-' + i" v-for="(data, i) in ORDERED_TABLE_DATA__INIT_LIST_2" :key="i">
-                                    <!-- Name Column -->
+                                <!-- <tr :id="'order-data-table-tr_2-' + i" v-for="(data, i) in ORDERED_TABLE_DATA__INIT_LIST_2" :key="i">
                                     <td>
                                         <span>{{ data ? data.prod_name : '' }}</span>
                                         <span>Unit Price: {{ data.base_tp }}</span>
                                         <span v-if="data.row_class" :class="data.row_class">Free Product</span>
                                     </td>
-                                    <!-- Trade Price Column -->
                                     <td>
                                         <span v-if="!data.row_class">{{ data ? Number(parseFloat(data.base_tp) + parseFloat(data.base_vat)).toFixed(2) : 0 }}</span>
                                         <span v-if="data.row_class"></span>
                                     </td>
-                                    <!-- Quantity Column -->
                                     <td :id="'order-data-table-tr-td_2-' + i">
                                         <span class="single_qty quantity-setup">
                                             <span class="qty">{{ data.quantity }}</span>
@@ -165,28 +163,23 @@
                                             <span class="qty-decrease" @click="increaseOrderedItemClickHandler_2(data, i)"><i class="zmdi zmdi-plus"></i></span>
                                         </span>
                                     </td>
-                                    <!-- Discount Column -->
                                     <td>
                                         <span v-if="!data.row_class">{{ data ? (data.offer.discount_percentage ? data.offer.discount_percentage : 0) : 0 }}%</span>
                                         <span v-if="data.row_class"></span>
                                     </td>
-                                    <!-- Bonus Column -->
                                     <td>
                                         <span v-if="!data.row_class">{{ data ? (data.offer.bonus_qty ? parseInt(data.quantity / data.offer.bonus_on) : 0) : 0 }}</span>
                                         <span v-if="data.row_class">{{ data ? (data.offer.free_prod_qty ? parseInt(data.quantity / data.offer.free_req_qty) : 0) : 0 }}</span>
                                     </td>
-                                    <!-- Total Price Column -->
                                     <td>
                                         <span v-if="!data.row_class">{{ data ? (data.price_now_per_qty * data.quantity).toFixed(2) : 0 }}</span>
-                                        <!-- <span v-if="!data.row_class">{{ data ? Number(data.line_total).toFixed(2) : 0 }}</span> -->
                                         <span v-if="data.row_class"></span>
                                     </td>
-                                    <!-- Option Column -->
                                     <td class="row-action jmi-tr-td-option" style="min-width: 70px; text-align: right;">
                                         <span class="icon edit-icon" @click="editOrderitemClickHandler_2(data, i)"><i class="zmdi zmdi-edit"></i></span>
                                         <span class="icon delete-icon" @click="deleteOrderitemClickHandler_2(data, i)"><i class="fas fa-trash-alt"></i></span>
                                     </td>
-                                </tr>
+                                </tr> -->
                                 <!-- -------- IF ANY PRODUCT ADDED -------- -->
                             </div>
                             <!-- Bottom Total Section -->
@@ -349,7 +342,7 @@
                     <div class="submit-section">
                         <div class="submit-section-inner">
                             <span class="cancel-order" @click="cancelOrderFromModalClickHandler">Cancel</span>
-                            <span class="proceed-order" @click="addItemsFromModalClickHandler">Add Items</span>
+                            <span class="proceed-order" @click="addItemsFromModalClickHandler" v-if="ADD_PRODUCT_MODAL_SUBMITION_SECTION">Add Items</span>
                         </div>
                     </div>
                 </div>
@@ -1034,6 +1027,7 @@ export default {
             approve_product_confirmation_popup_modal: false,
             approved_single_order_modal: false,
             SHOW_PRINT_ICON: false,
+            ADD_PRODUCT_MODAL_SUBMITION_SECTION: true,
         }
     },
     async created() {
@@ -1230,6 +1224,7 @@ export default {
                 this.add_order_modal = false
             } else {
                 this.add_order_modal = true
+                this.ADD_PRODUCT_MODAL_SUBMITION_SECTION = true
                 await this.ADD_PRODUCTS_DATA_LIST__FROM_SERVICE()
             }
         },
@@ -1400,10 +1395,11 @@ export default {
             console.log(prod_db_list)
             // CALL SERVICE IMPLEMENTATION FUNCTION
             // await this.FIND_PRODUCT_OFFER__FROM_SERVICE(prod_db_list)
-            await this.ADD_PRODUCT_FROM_AUTOFILL_SECOND_FULL_PERAM(prod_db_list)
+            this.ADD_PRODUCT_FROM_AUTOFILL_SECOND_FULL_PERAM(prod_db_list)
             // Close Modal
             if(prod_db_list.length > 0) {
                 this.add_order_modal = false
+                this.ADD_PRODUCT_MODAL_SUBMITION_SECTION = false
             }
         },
         //------------------------------------------------------------------------------------------
@@ -1694,7 +1690,7 @@ export default {
                 this.discount_total += (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_tp) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) - (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.price_now_per_qty) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty)
                 // console.log(parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.price_now_per_qty) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty)
             }
-            console.log(this.discount_total)
+            this.discount_total = 0
             this.gross_total = this.sub_total + this.vat_total
             this.grand_total = this.sub_total + this.vat_total - this.discount_total
         },

@@ -282,7 +282,8 @@
                         span.sr-add-icon {
                             display       : inline-block;
                             background    : #E2EDFA;
-                            padding       : 3px 7px 0px;
+                            // padding       : 3px 7px 0px;
+                            padding       : 2px 6px 1px;
                             // padding       : 1px 5px 0px;
                             border-radius : 50%;
                             margin-left   : 8px;
@@ -366,7 +367,7 @@
                             // height           : 300px;
                             // height              : 100px;
                             min-height             : 50px;
-                            max-height             : calc(100vh - ((74px + 73px + 32px) + (86px + 8px + 100px + 20px + 46px + 50px)));
+                            height             : calc(100vh - ((74px + 73px + 32px) + (86px + 8px + 100px + 20px + 46px + 50px)));
                             /* 6 or 7 rows*/
                             overflow               : auto;
                             -webkit-flex-flow      : row wrap;
@@ -545,6 +546,78 @@
                                 background: none;
                             }
                         }
+
+                        tr.subtotal.bottom-total {
+                            td {
+                                text-align: right;
+                                color     : #111213;
+                                font-size : 12px;
+                                // padding   : 2px 10px;
+                                padding   : 0px 10px;
+
+                                span.add-order-attachment-section {
+                                    text-align : left;
+                                    font-size  : 12px;
+                                    color      : #026CD1;
+                                    cursor     : pointer;
+                                    width      : max-content;
+                                    font-weight: 600;
+
+                                    i {
+                                        font-size   : 12px;
+                                        margin-right: 6px;
+                                        font-weight : 600;
+                                    }
+                                }
+
+                                span.add-attachment {
+                                    color: #8D979F;
+
+                                    i {
+                                        transform: rotate(40deg);
+                                    }
+                                }
+                            }
+                        }
+
+                        tr.grand-total.bottom-total {
+                            td {
+                                width      : auto;
+                                text-align : right;
+                                color      : #026CD1;
+                                font-size  : 14px;
+                                font-weight: 500;
+                                padding    : 0 10px;
+
+                                span {
+                                    display    : inline-block;
+                                    font-size  : 14px;
+                                    line-height: 1;
+                                    cursor     : pointer;
+                                }
+
+                                span.order-forward {
+                                    width       : 110px;
+                                    margin-right: 30px;
+
+                                    i {
+                                        font-size   : 16px;
+                                        margin-right: 6px;
+                                        line-height : 1;
+                                    }
+                                }
+
+                                span.order-reject {
+                                    width: 80px;
+                                    color: #DF2A43;
+                                }
+                            }
+
+                            td:first-child {}
+                        }
+                    }
+
+                    .jmi-table-subtotal-btm-section {
 
                         tr.subtotal.bottom-total {
                             td {
@@ -1143,6 +1216,7 @@
 
                 .submit-section {
                     margin-top: 10px;
+                    position: relative;
 
                     .submit-section-inner {
                         text-align: center;
