@@ -751,6 +751,21 @@ input[type=number] {
     font-size: 8px;
 }
 
+/* .jmi-table-subtotal-btm-section {
+    position: absolute;
+    width   : 100%;
+    bottom  : 50px;
+}
+
+.jmi-table-subtotal-btm-section tr {
+    border: none;
+}
+
+.jmi-table-subtotal-btm-section tr td {
+    border : none;
+    padding: 0;
+} */
+
 #order-data-table .jmi-tr-td-input-qty {
     font-size : 14px;
     width     : 40px;
@@ -1689,6 +1704,7 @@ select:focus {
 /* Right Section Starts */
 #deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner {
     width    : 50%;
+    top      : 200px;
     left     : 25%;
     max-width: 600px;
     min-width: 600px;
@@ -1723,29 +1739,30 @@ select:focus {
     margin-top: 10px;
 }
 
-#deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .tabs.mt-3 .tab-content .cash-tab {
+#deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .tabs.mt-3 .tab-content .tab-inner {
     padding-top: 10px;
 }
 
-#deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .tabs.mt-3 .tab-content .cash-tab .row {
-    display: list-item;
+#deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .tabs.mt-3 .tab-content .tab-inner .row {
+    display        : flex;
+    justify-content: space-between;
 }
 
-#deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .tabs.mt-3 .tab-content .cash-tab .row .imvoice-amount {
+#deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .tabs.mt-3 .tab-content .tab-inner .row .imvoice-amount {
     border : 1px solid #E1E2E3;
-    width  : 40%;
+    width  : 50%;
     display: inline-block;
     padding: 6px 0;
 }
 
-#deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .tabs.mt-3 .tab-content .cash-tab .row .imvoice-amount p.jmi-lvl {
+#deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .tabs.mt-3 .tab-content .tab-inner .row .imvoice-amount p.jmi-lvl {
     font-size  : 14px;
     line-height: 1.3;
     text-align : center;
     display    : block;
 }
 
-#deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .tabs.mt-3 .tab-content .cash-tab .row .imvoice-amount p.jmi-lvl-value {
+#deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .tabs.mt-3 .tab-content .tab-inner .row .imvoice-amount p.jmi-lvl-value {
     font-size  : 18px;
     line-height: 1.7;
     color      : #026CD1;
@@ -1753,15 +1770,15 @@ select:focus {
     display    : block;
 }
 
-#deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .tabs.mt-3 .tab-content .cash-tab .row.receiver-amount {
+#deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .tabs.mt-3 .tab-content .tab-inner .row.receiver-amount {
     padding: 0 20%;
 }
 
-#deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .tabs.mt-3 .tab-content .cash-tab .row.receiver-amount::marker {
+#deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .tabs.mt-3 .tab-content .tab-inner .row.receiver-amount::marker {
     display: none;
 }
 
-#deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .tabs.mt-3 .tab-content .cash-tab .row p.jmi-lvl {
+#deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .tabs.mt-3 .tab-content .tab-inner .row p.jmi-lvl {
     font-size  : 14px;
     line-height: 1.7;
     color      : #026CD1;
@@ -1770,7 +1787,7 @@ select:focus {
     text-align : left;
 }
 
-#deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .tabs.mt-3 .tab-content .cash-tab .row input {
+#deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .tabs.mt-3 .tab-content .tab-inner .row input {
     border     : 1px solid #E1E2E3;
     margin     : 0;
     height     : auto;
@@ -1815,6 +1832,26 @@ select:focus {
     border-radius : 2px;
     background    : #026CD1;
     outline       : none;
+}
+
+#deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .tabs.mt-3 .tab-content .tab-inner.cheque .row .jmi-inline-block {
+    display: inline-block;
+    width  : 50%;
+}
+
+#deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .tabs.mt-3 .tab-content .tab-inner.cheque .row .jmi-inline-block p,
+#deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .tabs.mt-3 .tab-content .tab-inner.cheque .row .jmi-inline-block input {
+    width: 90%;
+}
+
+#deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .tabs.mt-3 .tab-content .tab-inner.cheque .row .jmi-inline-block.right-alg p,
+#deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .tabs.mt-3 .tab-content .tab-inner.cheque .row .jmi-inline-block.right-alg input {
+    float: right;
+}
+
+#deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .tabs.mt-3 .tab-content .tab-inner.cheque .row img {
+    width : 560px;
+    /* height: 100px; */
 }
 
 .modal-popup-section span.cancel-popup-icon {
