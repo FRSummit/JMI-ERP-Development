@@ -104,41 +104,50 @@
                                     <p>Please select an order</p>
                                 </div>
                                 <div v-if="PENDING_ORDER_DATA_BY_ID && ORDERED_TABLE_DATA__INIT_LIST">
-                                    <tr :id="'order-data-table-tr-' + i" v-for="(data, i) in ORDERED_TABLE_DATA__INIT_LIST" :key="i">
+                                    <tr :id="'order-data-table-tr-' + i" v-for="(data, i) in ORDERED_TABLE_DATA__INIT_LIST" :key="i" :class="(data.deal_type === 'F' && data.net_amount === '0') ? 'free' : ''">
                                         <!-- Name Column -->
                                         <td>
                                             <span>{{ data.product_info ? data.product_info.prod_name : '' }}</span>
                                             <span>Unit Price: {{ data.unit_tp }}</span>
                                         </td>
                                         <!-- Trade Price Column -->
-                                        <td>{{ Number(parseFloat(data.unit_tp) + parseFloat(data.unit_vat)).toFixed(2) }}</td>
+                                        <td>
+                                            <span v-if="!(data.deal_type === 'F' && data.net_amount === '0')">{{ Number(parseFloat(data.unit_tp) + parseFloat(data.unit_vat)).toFixed(2) }}</span>
+                                        </td>
                                         <!-- Quantity Column -->
                                         <td :id="'order-data-table-tr-td-' + i">
-                                            <span class="single_qty quantity-setup">
-                                                <span class="qty">{{ data.qty }}</span>
-                                            </span>
-                                            <span class="qty_editable quantity-setup hide" style="border: 1px solid #026CD1;">
-                                                <span class="qty-increase" @click="decreaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-minus" :class="data.qty < 2 ? 'jmi-deactive-btn' : ''"></i></span>
-                                                <!-- <span class="qty">{{ data.qty }}</span> -->
-                                                <input :id="'ordered-add-modal-qty-' + i" class="qty jmi-tr-td-input-qty" type="number" placeholder="00" :value="data ? (data.qty ? data.qty : 0) : 0" v-on:keyup="quantityKeyUp_ordered_table(data, $event, i)" min="1" step="1" v-on:keydown="quantityKeyDown_ordered_table($event, i)" pattern="[0-9]*">
-                                                <span class="qty-decrease" @click="increaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
+                                            <span v-if="!(data.deal_type === 'F' && data.net_amount === '0')">
+                                                <span class="single_qty quantity-setup">
+                                                    <span class="qty">{{ data.qty }}</span>
+                                                </span>
+                                                <span class="qty_editable quantity-setup hide" style="border: 1px solid #026CD1;">
+                                                    <span class="qty-increase" @click="decreaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-minus" :class="data.qty < 2 ? 'jmi-deactive-btn' : ''"></i></span>
+                                                    <input :id="'ordered-add-modal-qty-' + i" class="qty jmi-tr-td-input-qty" type="number" placeholder="00" :value="data ? (data.qty ? data.qty : 0) : 0" v-on:keyup="quantityKeyUp_ordered_table(data, $event, i)" min="1" step="1" v-on:keydown="quantityKeyDown_ordered_table($event, i)" pattern="[0-9]*">
+                                                    <span class="qty-decrease" @click="increaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
+                                                </span>
                                             </span>
                                         </td>
                                         <!-- Discount Column -->
                                         <td>
-                                            <!-- <span v-if="!data.row_class">{{ data ? (data.discount ? Number(data.discount).toFixed(2) : 0) : 0 }}</span> -->
-                                            <span v-if="!data.row_class">{{ data ? (data.offer ? (data.offer.offer ? (data.offer.offer.discount_percentage ? (data.offer.offer.discount_percentage) : 0) : 0) : 0) : 0 }}%</span>
-                                            <span v-if="data.row_class"></span>
+                                            <!-- <span v-if="!data.row_class">{{ data ? (data.offer ? (data.offer.offer ? (data.offer.offer.discount_percentage ? (data.offer.offer.discount_percentage) : 0) : 0) : 0) : 0 }}%</span>
+                                            <span v-if="data.row_class"></span> -->
+                                            <span v-if="!(data.deal_type === 'F' && data.net_amount === '0')">{{ data ? (data.offer ? (data.offer.offer ? (data.offer.offer.discount_percentage ? (data.offer.offer.discount_percentage) : 0) : 0) : 0) : 0 }}%</span>
                                         </td>
                                         <!-- Bonus Column -->
-                                        <td>{{ data.bonus_qty }}</td>
+                                        <td>
+                                            <span>{{ data.bonus_qty }}</span>
+                                        </td>
                                         <!-- Total Price Column -->
                                         <!-- <td>{{ Number(data.tp).toFixed(2) }}</td> -->
-                                        <td>{{ Number((data.unit_tp) * (data.qty)).toFixed(2) }}</td>
+                                        <td>
+                                            <span v-if="!(data.deal_type === 'F' && data.net_amount === '0')">{{ Number((data.unit_tp) * (data.qty)).toFixed(2) }}</span>
+                                        </td>
                                         <!-- Option Column -->
                                         <td class="row-action jmi-tr-td-option" style="min-width: 70px; text-align: right;">
-                                            <span class="icon edit-icon" @click="editOrderitemClickHandler(data, i)"><i class="zmdi zmdi-edit"></i></span>
-                                            <span class="icon delete-icon" @click="deleteOrderitemClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
+                                            <span v-if="!(data.deal_type === 'F' && data.net_amount === '0')">
+                                                <span class="icon edit-icon" @click="editOrderitemClickHandler(data, i)"><i class="zmdi zmdi-edit"></i></span>
+                                                <span class="icon delete-icon" @click="deleteOrderitemClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
+                                            </span>
                                         </td>
                                     </tr>
                                 </div>
@@ -1084,9 +1093,12 @@ export default {
             // this.UPDATE_BTN_TRUE = true
             // this.createSubtotalCalculation()
             // Free Product row quantity increase
-            // if(data.offer_type === "free") {
-            //     this.ORDERED_TABLE_DATA__INIT_LIST[index + 1].quantity++
-            // }
+            if(data.offer.offer_type === "free") {
+                console.log(data.qty)
+                console.log(data.offer.offer.free_req_qty)
+                this.ORDERED_TABLE_DATA__INIT_LIST[index + 1].bonus_qty += parseInt(parseInt(data.qty) / parseInt(data.offer.offer.free_req_qty))
+            }
+            console.log(this.ORDERED_TABLE_DATA__INIT_LIST[index + 1].bonus_qty)
         },
         // Decrease Table Row's Single Product/Order
         decreaseOrderedItemClickHandler(data, index) {
@@ -1099,9 +1111,9 @@ export default {
                 this.createSubtotalCalculation()
             }
             // Free Product row quantity decrease
-            // if(data.offer_type === "free") {
-            //     this.ORDERED_TABLE_DATA__INIT_LIST[index + 1].quantity--
-            // }
+            if(data.offer.offer_type === "free") {
+                this.ORDERED_TABLE_DATA__INIT_LIST[index + 1].bonus_qty--
+            }
         },
         // Increase Table Row's Single Product/Order
         increaseOrderedItemClickHandler_2(data, index) {
