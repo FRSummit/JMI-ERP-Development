@@ -699,7 +699,14 @@ export default {
                 for(let i=0; i<length; i++) {
                     document.querySelector('#customer-section-list-' + i).className = 'customer-section-list'
                 }
-                console.log(this.SELECTED_ORDER_INDEX)
+                console.log(this.SELECTED_ORDER_INDEX + '    ' + length)
+                if(this.SELECTED_ORDER_INDEX >= length) {
+                    document.querySelector('#customer-section-list-' + length).click()
+                    console.log('last one')
+                } else {
+                    document.querySelector('#customer-section-list-' + this.SELECTED_ORDER_INDEX).click()
+                    console.log('there are more')
+                }
             }
         },
     }
