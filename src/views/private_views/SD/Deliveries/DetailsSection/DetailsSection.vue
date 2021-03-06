@@ -17,7 +17,7 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-3 col-md-6 col-sm-6"><p class="am">Total Bill: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_60">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info.name) : '') : '') : '') : '') : '' }}</span></p></div>
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="mio">Current Outstanding: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_50">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info.name) : '') : '') : '') : '') : '') : '') : '' }}</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="mio">C. Outstanding: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_50">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info.name) : '') : '') : '') : '') : '') : '') : '' }}</span></p></div>
                         <div class="col-lg-3 col-md-6 col-sm-6"><p class="delivery-dt"><span class="jmi-lvl">Order Placed</span> <span class="jmi-lvl-value"><input type="text" v-model="header_date" id="expected-delivery-date" placeholder="" /></span></p></div>
                         <div class="col-lg-3 col-md-6 col-sm-6"><p class="delivery-dt"><span class="jmi-lvl">Exp D D:</span> <span class="jmi-lvl-value"><input type="date" v-model="header_date" id="expected-delivery-date" placeholder="09/12/2020" /></span></p></div>
                     </div>
@@ -140,7 +140,7 @@
             <!-- Bottom Subtotal & Attachment Section -->
             <div class="submit-section" v-if="ORDERED_TABLE_DATA__INIT_LIST && PENDING_ORDER_DATA_BY_ID">
                 <div class="submit-section-inner">
-                    <span class="proceed-order" @click="updateOrderClickHandler" style="margin-right: 20px;">Update Order</span>
+                    <span class="cancel-order" @click="cancelOrderClickHandler" style="margin-right: 20px;">Cancel Order</span>
                     <span class="proceed-order" @click="proceedOrderClickHandler">Approve Order</span>
                 </div>
             </div>
@@ -517,6 +517,23 @@
                 </div>
             </div>
         </div>
+        <!-- Cancel Order Modal -->
+        <div class="modal-popup-section order-cancel-modal" v-if="CANCEL_ORDER_MODAL">
+            <div class="modal-popup-section-inner order-proceed-modal-inner">
+                <span class="cancel-popup-icon"><i class="zmdi zmdi-alert-triangle"></i></span>
+                <p class="popup-text">Are you sure?</p>
+                <p class="popup-desc">You want to cancel the order.</p>
+                <span class="divider"></span>
+                <div class="popup-submit-section">
+                <div class="popup-cancel-btn-section">
+                    <span @click="cancelOrderModalClickHandler">BACK</span>
+                </div>
+                <div class="popup-confirm-btn-section">
+                    <span @click="proceedOrderModalClickHandler">YES</span>
+                </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -882,6 +899,8 @@ export default {
             DIC_OR_MIO_OR_AM_USER_QTY_COUNT: null,
             delete_product_from_table_popup_modal: false,
             delete_product_from_table_popup_modal_data: null,
+
+            CANCEL_ORDER_MODAL: false,
         }
     },
     async created() {
@@ -1108,15 +1127,16 @@ export default {
             await this.CANCEL_ORDER_BY_ORDER_ID__FROM_SERVICE(this.ORDERED_TABLE_DATA__INIT_LIST[0].order_id)
             this.defaultAllThisComponentData()
         },
-        async updateOrderClickHandler() {
-            this.UPDATE_BTN_ENABLE = false
-            console.log('update order')
-            console.log(this.ORDERED_TABLE_DATA__INIT_LIST)
-            console.log(this.ORDERED_TABLE_DATA__INIT_LIST_2)
-            // this.UPDATE_QUANTITY_ENABLE_1 = false
-            // this.UPDATE_QUANTITY_ENABLE_2 = false
+        cancelOrderClickHandler() {
+            this.CANCEL_ORDER_MODAL = true
         },
-        async proceedOrderClickHandler() {
+        cancelOrderModalClickHandler() {
+            this.CANCEL_ORDER_MODAL = false
+        },
+        proceedOrderModalClickHandler() {
+            console.log('Proceed Confirm')
+        },
+        proceedOrderClickHandler() {
             console.log('proceed order')
         },
         //------------------------------------------------------------------------------------------
@@ -1294,6 +1314,8 @@ export default {
             }
             console.log(this.currentMidx + '    ' + index)
         },
+        // ----------------------------------------------------------------------------------------------
+        // CANCEL OR PROCEED ORDER MODAL
         getInfoWindowContent(marker) {
             console.log(marker)
             return (`<div class="card" style="visibility: visible; margin: 0; border: none; box-shadow: none;">

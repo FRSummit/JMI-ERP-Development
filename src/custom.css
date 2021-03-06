@@ -859,6 +859,7 @@ input[type=number] {
     margin     : 0;
     line-height: 1.7;
 }
+
 #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .order-table .order-table-inner table tbody tr.grand-total.bottom-total td span.ptint-inv-jmi {
     color: #026CD1 !important;
 }
@@ -1178,15 +1179,17 @@ select:focus {
     width  : 100%;
     height : 100%;
 }
+
 /* Main Vue Ends */
 /* ----------------------------------- */
 /* Left Section Starts */
 #deliveries-left-sidebar.deliveries-left-sidebar {
-    display    : table-cell;
-    width      : 300px;
-    position   : relative;
-    overflow   : hidden;
+    display : table-cell;
+    width   : 300px;
+    position: relative;
+    overflow: hidden;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section {
     position    : fixed;
     display     : inline-block;
@@ -1194,15 +1197,18 @@ select:focus {
     height      : calc(100vh - (74px + 73px + 32px + 2px));
     border-right: 2px solid #e6e6e6;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner {
     overflow: hidden;
     display : block;
     height  : 100%;
 }
+
 /* ------------search section-- */
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .search-section {
     padding: 20px 20px 10px;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .search-section .form-group {
     margin        : 0;
     position      : relative;
@@ -1210,9 +1216,11 @@ select:focus {
     vertical-align: middle;
     width         : 85%;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .search-section .has-search .form-control {
     padding-left: 2.375rem;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .search-section .has-search .form-control-feedback {
     position      : absolute;
     z-index       : 2;
@@ -1227,6 +1235,7 @@ select:focus {
     border        : none;
     padding       : 2px;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .search-section input {
     margin       : 0;
     border-bottom: none;
@@ -1236,12 +1245,15 @@ select:focus {
     height       : auto;
     padding      : 6px 0;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .search-section input:focus {
     box-shadow: none;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .search-section span {
     cursor: pointer;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .search-section span svg:last-child {
     display       : inline-block;
     vertical-align: middle;
@@ -1253,6 +1265,7 @@ select:focus {
     color         : #BFCFE2;
     border        : 1px solid #BFCFE2;
 }
+
 /* ------------title count-- */
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .title-count {
     padding : 10px 20px;
@@ -1260,6 +1273,7 @@ select:focus {
     width   : 100%;
     overflow: hidden;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .title-count p.total-customer {
     display    : inline-block;
     float      : left;
@@ -1268,16 +1282,20 @@ select:focus {
     margin     : 8px 0 0 0;
     line-height: 1;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .title-count p.total-customer span.count {
     color: #026CD1;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .title-count .select-options {
     display : inline-block;
     width   : 70%;
     float   : right;
     position: relative;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .title-count .select-options span.right-icon {}
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .title-count .select-options span.right-icon svg {
     width    : 12px;
     height   : 12px;
@@ -1287,6 +1305,7 @@ select:focus {
     color    : #BFCFE2;
     transform: rotate(90deg);
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .title-count .select-options select.selectpicker {
     display    : block;
     height     : 30px;
@@ -1295,16 +1314,19 @@ select:focus {
     border     : 1px solid #BFCFE2;
     font-size  : 12px;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .title-count .select-options select.selectpicker option {
     color        : #36454F;
     font-size    : 14px;
     border-bottom: 1px solid #d6e3f5;
 }
+
 /* ------------list section-- */
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .customer-list-section {
     position: relative;
     height  : calc(100vh - (74px + 73px + 62px + 44px + 32px));
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .customer-list-section .customer-list-section-inner {
     position       : fixed;
     overflow-y     : scroll;
@@ -1312,37 +1334,46 @@ select:focus {
     height         : calc(100vh - (74px + 73px + 62px + 44px + 32px));
     scrollbar-width: none;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .customer-list-section .customer-list-section-inner .progressbar {
     text-align: center;
     margin    : 40px 0;
     color     : #026cd1;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .customer-list-section .customer-list-section-inner .customer-section-list {
     padding      : 0;
     margin       : 0;
     border-bottom: 2px solid #026CD11A;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .customer-list-section .customer-list-section-inner .customer-section-list:last-child {
     margin-bottom: 0;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .customer-list-section .customer-list-section-inner .customer-section-list:hover {
     background: #026CD11A;
 }
-#deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .customer-list-section .customer-list-section-inner .customer-section-list .customer-section-list-inner  {
+
+#deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .customer-list-section .customer-list-section-inner .customer-section-list .customer-section-list-inner {
     padding : 12px 20px;
     cursor  : pointer;
     position: relative;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .customer-list-section .customer-list-section-inner .customer-section-list .customer-section-list-inner .customer-id-type-section {}
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .customer-list-section .customer-list-section-inner .customer-section-list .customer-section-list-inner .customer-id-type-section .customer-id-type-section-inner {
     display: block;
     width  : 100%;
     height : 16px;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .customer-list-section .customer-list-section-inner .customer-section-list .customer-section-list-inner .customer-id-type-section .customer-id-type-section-inner .id-section {
     display: inline-block;
     float  : left;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .customer-list-section .customer-list-section-inner .customer-section-list .customer-section-list-inner .customer-id-type-section .customer-id-type-section-inner .id-section p.customer-id {
     font-size  : 16px;
     font-weight: 500;
@@ -1350,34 +1381,41 @@ select:focus {
     margin     : 0;
     line-height: 1;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .customer-list-section .customer-list-section-inner .customer-section-list .customer-section-list-inner .customer-id-type-section .customer-id-type-section-inner .type-section {
     display: inline-block;
     float  : right;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .customer-list-section .customer-list-section-inner .customer-section-list .customer-section-list-inner .customer-id-type-section .customer-id-type-section-inner .type-section p.customer-type {
     font-size  : 12px;
     color      : #36454F;
     margin     : 0;
     line-height: 1;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .customer-list-section .customer-list-section-inner .customer-section-list .customer-section-list-inner .customer-id-type-section .customer-id-type-section-inner .type-section p.customer-type span.type {
     color: #222223;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .customer-list-section .customer-list-section-inner .customer-section-list .customer-section-list-inner .customer-name-section {
     display: block;
     width  : 100%;
     margin : 6px 0;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .customer-list-section .customer-list-section-inner .customer-section-list .customer-section-list-inner .customer-name-section .customer-name-section-inner {
     display : block;
     width   : 100%;
     overflow: hidden;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .customer-list-section .customer-list-section-inner .customer-section-list .customer-section-list-inner .customer-name-section .customer-name-section-inner .name-section {
     display: inline-block;
     float  : left;
     width  : 70%;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .customer-list-section .customer-list-section-inner .customer-section-list .customer-section-list-inner .customer-name-section .customer-name-section-inner .name-section p.customer-name {
     font-size    : 14px;
     color        : #36454F;
@@ -1388,16 +1426,19 @@ select:focus {
     overflow     : hidden !important;
     text-overflow: ellipsis;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .customer-list-section .customer-list-section-inner .customer-section-list .customer-section-list-inner .customer-name-section .customer-name-section-inner .status-section {
     display: inline-block;
     float  : right;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .customer-list-section .customer-list-section-inner .customer-section-list .customer-section-list-inner .customer-name-section .customer-name-section-inner .status-section p.status {
     font-size  : 14px;
     color      : #36454F;
     margin     : 0;
     line-height: 1;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .customer-list-section .customer-list-section-inner .customer-section-list .customer-section-list-inner .customer-name-section .customer-name-section-inner .status-section p.status .status-icon {
     margin-right : 4px;
     width        : 10px;
@@ -1407,34 +1448,44 @@ select:focus {
     border-radius: 2px;
 
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .customer-list-section .customer-list-section-inner .customer-section-list .customer-section-list-inner .customer-name-section .customer-name-section-inner .status-section p.status .status-icon.Approved {
     background: #28a411;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .customer-list-section .customer-list-section-inner .customer-section-list .customer-section-list-inner .customer-name-section .customer-name-section-inner .status-section p.status .status-icon.Rejected {
     background: #df2a43;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .customer-list-section .customer-list-section-inner .customer-section-list .customer-section-list-inner .customer-name-section .customer-name-section-inner .status-section p.status .status-icon.Pending {
     background: #fcc428;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .customer-list-section .customer-list-section-inner .customer-section-list .customer-section-list-inner .customer-name-section .customer-name-section-inner .status-section p.status.Approved {
     color: #28a411;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .customer-list-section .customer-list-section-inner .customer-section-list .customer-section-list-inner .customer-name-section .customer-name-section-inner .status-section p.status.Rejected {
     color: #df2a43;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .customer-list-section .customer-list-section-inner .customer-section-list .customer-section-list-inner .customer-name-section .customer-name-section-inner .status-section p.status.Pending {
     color: #fcc428;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .customer-list-section .customer-list-section-inner .customer-section-list .customer-section-list-inner .customer-address-section {
     display: block;
     width  : 100%;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .customer-list-section .customer-list-section-inner .customer-section-list .customer-section-list-inner .customer-address-section .customer-address-section-inner {}
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .customer-list-section .customer-list-section-inner .customer-section-list .customer-section-list-inner .customer-address-section .customer-address-section-inner .address-section {
     display : block;
     width   : 100%;
     overflow: hidden;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .customer-list-section .customer-list-section-inner .customer-section-list .customer-section-list-inner .customer-address-section .customer-address-section-inner .address-section p.customer-address {
     display    : inline-block;
     float      : left;
@@ -1443,12 +1494,14 @@ select:focus {
     margin     : 0;
     line-height: 1;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .customer-list-section .customer-list-section-inner .customer-section-list .customer-section-list-inner .customer-address-section .customer-address-section-inner .address-section span.checkbox {
     display    : inline-block;
     float      : right;
     font-size  : 12px;
     line-height: 1;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .customer-list-section .customer-list-section-inner .customer-section-list .customer-section-list-inner .customer-address-section .customer-address-section-inner .address-section span.checkbox input {
     position      : relative;
     opacity       : 1;
@@ -1456,9 +1509,11 @@ select:focus {
     vertical-align: middle;
     color         : #026CD1;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .customer-list-section .customer-list-section-inner .customer-section-list.active {
     background: #026CD11A;
 }
+
 /* ------------modal section - 1-- */
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .filter-sort-modal-section {
     position        : fixed;
@@ -1469,6 +1524,7 @@ select:focus {
     left            : 0;
     z-index         : 9999;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .filter-sort-modal-section .filter-sort-modal-section-inner {
     position     : fixed;
     top          : 170px;
@@ -1479,30 +1535,37 @@ select:focus {
     padding      : 20px;
     background   : #FFFFFF;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .filter-sort-modal-section .filter-sort-modal-section-inner p.sort-text {
     font-size  : 16px;
     color      : #111213;
     font-weight: 500;
     margin     : 0;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .filter-sort-modal-section .filter-sort-modal-section-inner .sort-section {}
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .filter-sort-modal-section .filter-sort-modal-section-inner .sort-section .sort-section-inner {
     display: block;
     width  : 100%;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .filter-sort-modal-section .filter-sort-modal-section-inner .sort-section .sort-section-inner .input-section {
     height        : 30px;
     display       : inline-block;
     width         : 50%;
     vertical-align: middle;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .filter-sort-modal-section .filter-sort-modal-section-inner .sort-section .sort-section-inner .input-section .select-options {
-    display    : inline-block;
-    width      : 100%;
-    float      : left;
-    position   : relative;
+    display : inline-block;
+    width   : 100%;
+    float   : left;
+    position: relative;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .filter-sort-modal-section .filter-sort-modal-section-inner .sort-section .sort-section-inner .input-section .select-options span.right-icon {}
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .filter-sort-modal-section .filter-sort-modal-section-inner .sort-section .sort-section-inner .input-section .select-options span.right-icon svg {
     position : absolute;
     right    : 8px;
@@ -1510,28 +1573,34 @@ select:focus {
     color    : #BFCFE2;
     transform: rotate(90deg);
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .filter-sort-modal-section .filter-sort-modal-section-inner .sort-section .sort-section-inner .input-section .select-options select.selectpicker {
     display     : block;
     height      : 30px;
     padding-left: 10px;
     border      : 1px solid #BFCFE2;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .filter-sort-modal-section .filter-sort-modal-section-inner .sort-section .sort-section-inner .input-section .select-options select.selectpicker option {}
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .filter-sort-modal-section .filter-sort-modal-section-inner .sort-section .sort-section-inner .assending-desending-sort {
     display       : inline-block;
     width         : 50%;
     vertical-align: middle;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .filter-sort-modal-section .filter-sort-modal-section-inner .sort-section .sort-section-inner .assending-desending-sort form.input-btns {
     display       : inline-block;
     vertical-align: middle;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .filter-sort-modal-section .filter-sort-modal-section-inner .sort-section .sort-section-inner .assending-desending-sort form.input-btns p {
     font-size  : 14px;
     margin     : 0 10px;
     line-height: 1;
     display    : inline-block;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .filter-sort-modal-section .filter-sort-modal-section-inner .sort-section .sort-section-inner .assending-desending-sort form.input-btns p input {
     display       : inline-block;
     width         : 16px;
@@ -1542,41 +1611,52 @@ select:focus {
     position      : relative;
     pointer-events: auto;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .filter-sort-modal-section .filter-sort-modal-section-inner .sort-section .sort-section-inner .assending-desending-sort form.input-btns p span {
     display       : inline-block;
     padding       : 0;
     vertical-align: bottom;
     font-weight   : 400;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .filter-sort-modal-section .filter-sort-modal-section-inner .sort-section .sort-section-inner .assending-desending-sort form.input-btns p span::before {
     display: none;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .filter-sort-modal-section .filter-sort-modal-section-inner .sort-section .sort-section-inner .assending-desending-sort form.input-btns p span::after {
     display: none;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .filter-sort-modal-section .filter-sort-modal-section-inner .sort-section .sort-section-inner .assending-desending-sort form.input-btns p span.active {
     color: #026CD1;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .filter-sort-modal-section .filter-sort-modal-section-inner p.filter-text {
     font-size  : 16px;
     color      : #111213;
     font-weight: 500;
     margin     : 20px 0 0;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .filter-sort-modal-section .filter-sort-modal-section-inner .filter-section {}
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .filter-sort-modal-section .filter-sort-modal-section-inner .filter-section .filter-section-inner {}
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .filter-sort-modal-section .filter-sort-modal-section-inner .filter-section .filter-section-inner p.type {
     margin   : 0;
     font-size: 14px;
     color    : #026CD1;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .filter-sort-modal-section .filter-sort-modal-section-inner .filter-section .filter-section-inner .select-options {
-    display    : inline-block;
-    width      : 100%;
-    float      : left;
-    position   : relative;
+    display : inline-block;
+    width   : 100%;
+    float   : left;
+    position: relative;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .filter-sort-modal-section .filter-sort-modal-section-inner p.filter-text .filter-section .filter-section-inner .select-options span.right-icon {}
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .filter-sort-modal-section .filter-sort-modal-section-inner p.filter-text .filter-section .filter-section-inner .select-options span.right-icon svg {
     position : absolute;
     right    : 8px;
@@ -1584,15 +1664,33 @@ select:focus {
     color    : #BFCFE2;
     transform: rotate(90deg);
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .filter-sort-modal-section .filter-sort-modal-section-inner p.filter-text .filter-section .filter-section-inner .select-options select.selectpicker {
     display     : block;
     height      : 30px;
     padding-left: 10px;
     border      : 1px solid #BFCFE2;
 }
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .filter-sort-modal-section .filter-sort-modal-section-inner p.filter-text .filter-section .filter-section-inner .select-options select.selectpicker option {}
+
 /* Left Section Ends */
 /* Right Section Starts */
+.modal-popup-section span.cancel-popup-icon {
+    color    : #DF2A43;
+    font-size: 24px;
+}
+
+span.cancel-order {
+    font-size    : 14px;
+    color        : #DF2A43;
+    border       : 1px solid #DF2A43;
+    background   : #FFFFFF;
+    padding      : 12px 26px 11px;
+    border-radius: 2px;
+    cursor       : pointer;
+}
+
 /* Right Section Ends */
 /* ----------- SD Deliveries Page ENDS ----------------------------------------------------- */
 
