@@ -5,7 +5,7 @@
             <p>Please select an order</p>
         </div> -->
         <div class="order-approval-details-section-inner">
-            <div class="print-section" v-if="ORDERED_TABLE_DATA__INIT_LIST ? ORDERED_TABLE_DATA__INIT_LIST.length : false">
+            <div class="print-section" v-if="SHOW_PRINT_ICON">
                 <!-- <p class="print-text"><span class="invoice-section">Invoice No: <span class="inv_no">{{ PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.order_no : "" }}</span></span></p> -->
                 <span class="print-icon" @click="printInvoiceClickHandler"><i class="zmdi zmdi-print"></i></span>
             </div>
@@ -1031,6 +1031,7 @@ export default {
             product_update_successfully_modal: false,
             approve_product_confirmation_popup_modal: false,
             approved_single_order_modal: false,
+            SHOW_PRINT_ICON: false,
         }
     },
     async created() {
@@ -1769,6 +1770,7 @@ export default {
                 this.selected_sr = null
                 this.header_date = null
                 this.reject_order_modal_popup = false
+                this.SHOW_PRINT_ICON = false
                 console.log('default component')
                 console.log(this.ORDERED_TABLE_DATA__INIT_LIST.length)
 
@@ -1801,6 +1803,7 @@ export default {
             // await this.defaultAllThisComponentData()
             setTimeout( () => {
                 // console.log(this.pending_order_list_by_id)
+                this.SHOW_PRINT_ICON = true
                 this.PENDING_ORDER_DATA_BY_ID = this.pending_order_list_by_id
                 this.ORDERED_TABLE_DATA__INIT_LIST = this.pending_order_list_by_id.order_details
                 this.set_Or_Change_SR(this.pending_order_list_by_id.da_id)
