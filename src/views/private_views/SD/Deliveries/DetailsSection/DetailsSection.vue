@@ -125,10 +125,10 @@
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr> -->
                                 <tr class="grand-total bottom-total" style="border-top: 1px solid #BFCFE2;">
-                                    <td style="width: 50%; text-align: left;">
+                                    <!-- <td style="width: 50%; text-align: left;">
                                         <span class="order-forward hide" @click="orderForwardClickHandler"><i class="zmdi zmdi-fast-forward"></i>Order Forward</span>
                                         <span class="order-reject" @click="orderRejectClickHandler">Reject Order</span>
-                                    </td>
+                                    </td> -->
                                     <td style="width: 25%;">Grand Total</td>
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
@@ -141,7 +141,7 @@
             <div class="submit-section" v-if="ORDERED_TABLE_DATA__INIT_LIST && PENDING_ORDER_DATA_BY_ID">
                 <div class="submit-section-inner">
                     <span class="cancel-order" @click="cancelOrderClickHandler" style="margin-right: 20px;">Cancel Order</span>
-                    <span class="proceed-order" @click="proceedOrderClickHandler">Approve Order</span>
+                    <span class="proceed-order" @click="proceedOrderClickHandler">Proceed</span>
                 </div>
             </div>
             <!-- Add Product Modal -->
@@ -596,9 +596,39 @@
                                 </div>
                             </b-tab>
                             <b-tab title="Deposit Slip">
-                                Deposit Slip
+                                <div class="tab-inner cheque">
+                                    <div class="row">
+                                        <div class="imvoice-amount">
+                                            <p class="jmi-lvl">Invoice Amount:</p>
+                                            <p class="jmi-lvl-value">10000</p>
+                                        </div>
+                                        <div class="imvoice-amount">
+                                            <p class="jmi-lvl">Invoice Amount:</p>
+                                            <p class="jmi-lvl-value">10000</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="jmi-inline-block">
+                                            <p class="jmi-lvl">Select date</p>
+                                            <input type="text" v-model="receiver_amount">
+                                        </div>
+                                        <div class="jmi-inline-block right-alg">
+                                            <p class="jmi-lvl">Type Receiver Amount</p>
+                                            <input type="text" v-model="receiver_amount">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="jmi-inline-block">
+                                            <p class="jmi-lvl">Attach File (File Should be jpg, png, pdf)</p>
+                                            <input type="text" v-model="receiver_amount">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <img src="https://static6.depositphotos.com/1005979/577/i/600/depositphotos_5777799-stock-photo-blank-check-with-open-space.jpg" alt="">
+                                    </div>
+                                </div>
                             </b-tab>
-                            <b-tab title="Adjustment">
+                            <b-tab title="Adjustment"> 
                                 Adjustment
                             </b-tab>
                         </b-tabs>
