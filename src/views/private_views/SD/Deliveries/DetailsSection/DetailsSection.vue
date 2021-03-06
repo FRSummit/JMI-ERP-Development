@@ -125,10 +125,10 @@
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr> -->
                                 <tr class="grand-total bottom-total" style="border-top: 1px solid #BFCFE2;">
-                                    <td style="width: 50%; text-align: left;">
+                                    <!-- <td style="width: 50%; text-align: left;">
                                         <span class="order-forward hide" @click="orderForwardClickHandler"><i class="zmdi zmdi-fast-forward"></i>Order Forward</span>
                                         <span class="order-reject" @click="orderRejectClickHandler">Reject Order</span>
-                                    </td>
+                                    </td> -->
                                     <td style="width: 25%;">Grand Total</td>
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
@@ -141,7 +141,7 @@
             <div class="submit-section" v-if="ORDERED_TABLE_DATA__INIT_LIST && PENDING_ORDER_DATA_BY_ID">
                 <div class="submit-section-inner">
                     <span class="cancel-order" @click="cancelOrderClickHandler" style="margin-right: 20px;">Cancel Order</span>
-                    <span class="proceed-order" @click="proceedOrderClickHandler">Approve Order</span>
+                    <span class="proceed-order" @click="proceedOrderClickHandler">Proceed</span>
                 </div>
             </div>
             <!-- Add Product Modal -->
