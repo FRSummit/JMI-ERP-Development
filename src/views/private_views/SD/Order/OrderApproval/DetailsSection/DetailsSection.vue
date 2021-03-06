@@ -1096,7 +1096,7 @@ export default {
             if(data.offer.offer_type === "free") {
                 console.log(data.qty)
                 console.log(data.offer.offer.free_req_qty)
-                // this.ORDERED_TABLE_DATA__INIT_LIST[index + 1].bonus_qty = parent(data.qty / data.offer.offer.free_req_qty)
+                this.ORDERED_TABLE_DATA__INIT_LIST[index + 1].bonus_qty += parseInt(parseInt(data.qty) / parseInt(data.offer.offer.free_req_qty))
             }
             console.log(this.ORDERED_TABLE_DATA__INIT_LIST[index + 1].bonus_qty)
         },

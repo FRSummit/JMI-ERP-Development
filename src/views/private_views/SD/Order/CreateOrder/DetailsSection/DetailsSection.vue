@@ -384,6 +384,7 @@ export default {
             UPDATE_ORDER_CLICKED: false,
             // Modal-Popup
             proceed_modal_popup: false,
+            ALL_PRODUCTS_LIST: [],
         }
     },
     async created() {},
@@ -658,8 +659,10 @@ export default {
                 .then(res => {
                     console.log(res.data)
                     this.auto_field_data = res.data.product_list
+                    this.ALL_PRODUCTS_LIST = res.data.product_list
                     console.log(this.SELECTED_ORDERED_PRODUCTS__STORE.length)
                     console.log(this.auto_field_data.length)
+                    console.log(this.ALL_PRODUCTS_LIST.length)
                     console.log(this.SELECTED_ORDERED_PRODUCTS__STORE)
                     if(this.SELECTED_ORDERED_PRODUCTS__STORE.length > 0) {
                         for(let i=0; i<this.auto_field_data.length; i++) {
@@ -758,24 +761,35 @@ export default {
 
                             // FOR FREE PRODUCT ENTRY
                             if(this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type === "free") {
-                                let ferr_product = {
-                                        prod_id             : this.RESPONSE_ORDERED_PRODUCTS__STORE[i].prod_id,
-                                        prod_name           : this.SELECTED_ORDERED_PRODUCTS__STORE[i].prod_name,
-                                        base_tp             : this.RESPONSE_ORDERED_PRODUCTS__STORE[i].base_tp,
-                                        price_now_per_qty   : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].price_now_per_qty,
-                                        base_vat            : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].base_vat,
-                                        line_total          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].line_total,
-                                        vat_total           : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].vat_total,
-                                        // price_now_per_qty   : 0,
-                                        // base_vat            : 0,
-                                        // line_total          : 0,
-                                        // vat_total           : 0,
-                                        quantity            : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].quantity,
-                                        offer_type          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type,
-                                        offer               : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer,
-                                        row_class           : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type
+                                console.log(this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer.free_prod_id)
+                                console.log(this.ALL_PRODUCTS_LIST.length)
+                                for(let i=0; i<this.ALL_PRODUCTS_LIST.length; i++) {
+                                    if(this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer.free_prod_id === this.ALL_PRODUCTS_LIST[i].prod_id) {
+                                        console.log(this.ALL_PRODUCTS_LIST[i].prod_id)
+                                        console.log(this.ALL_PRODUCTS_LIST[i].prod_name)
+                                        console.log(this.RESPONSE_ORDERED_PRODUCTS__STORE[j].quantity)
+                                        
+                                        let ferr_product = {
+                                                prod_id             : this.ALL_PRODUCTS_LIST[i].prod_id,
+                                                prod_name           : this.ALL_PRODUCTS_LIST[i].prod_name,
+                                                // base_tp             : this.RESPONSE_ORDERED_PRODUCTS__STORE[i].base_tp,
+                                                // price_now_per_qty   : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].price_now_per_qty,
+                                                // base_vat            : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].base_vat,
+                                                // line_total          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].line_total,
+                                                // vat_total           : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].vat_total,
+                                                base_tp             : 0,
+                                                price_now_per_qty   : 0,
+                                                base_vat            : 0,
+                                                line_total          : 0,
+                                                vat_total           : 0,
+                                                quantity            : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].quantity,
+                                                offer_type          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type,
+                                                offer               : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer,
+                                                row_class           : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type
+                                        }
+                                        this.ORDERED_TABLE_DATA__INIT_LIST.push(ferr_product)
+                                    }
                                 }
-                                this.ORDERED_TABLE_DATA__INIT_LIST.push(ferr_product)
                             }
                         }
                     }
