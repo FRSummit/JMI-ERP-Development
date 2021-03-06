@@ -170,7 +170,7 @@
         <div id="update-successfully-modal" class="modal-popup-section update-successfully-modal" v-if="approved_orders_success_modal">
             <div class="modal-popup-section-inner update-successfully-modal-inner">
                 <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
-                <p class="popup-text">Orders Approved Successfully</p>
+                <p class="popup-text">{{ ORDER_SUCCESS_MESSAGE }}</p>
             </div>
         </div>
       </div>
@@ -353,6 +353,8 @@ export default {
             approve_da_modal_select_box_item: null,
             approve_selection_modal: false,
             approved_orders_success_modal: false,
+            ORDER_SUCCESS_MESSAGE: null,
+            SELECTED_ORDER_INDEX: null,
         }
     },
     created() {},
@@ -516,6 +518,8 @@ export default {
             console.log('onChangeFilterBy: ' + this.on_change_filter_by)
         },
         customerClickHandlerFromList(customer, c) {
+            this.SELECTED_ORDER_INDEX = c
+            console.log(this.SELECTED_ORDER_INDEX)
             // console.log(c + '    ' +customer)
             let length = document.getElementsByClassName('customer-section-list').length
             for(let i=0; i<length; i++) {
@@ -577,13 +581,15 @@ export default {
             await service.getApproveSelectedOrders_OrderApproval(orders)
                 .then(res => {
                     console.log(res.data)
-                    this.defaultAllThisComponentData()
+                    this.ORDER_SUCCESS_MESSAGE = res.data.message
                     this.deselectAllSelectedOrder()
                     this.approve_selection_modal = false
                     this.approved_orders_success_modal = true
                     this.ALL_PENDING_ORDERS_CUSTOMER_LIST__FROM_SERVICE()
+                    this.defaultAllThisComponentData()
                     setTimeout( () => {
                         this.approved_orders_success_modal = false
+                        this.ORDER_SUCCESS_MESSAGE = null
                     }, 2000)
                 })
         },
@@ -593,23 +599,25 @@ export default {
                 await service.getApproveSelectedOrders_OrderApproval(orders)
                     .then(res => {
                         console.log(res.data)
-                        this.defaultAllThisComponentData()
+                        this.ORDER_SUCCESS_MESSAGE = res.data.message
                         this.deselectAllSelectedOrder()
                         this.approve_selection_modal = false
                         this.approved_orders_success_modal = true
                         this.ALL_PENDING_ORDERS_CUSTOMER_LIST__FROM_SERVICE()
+                        this.defaultAllThisComponentData()
                         setTimeout( () => {
                             this.approved_orders_success_modal = false
+                            this.ORDER_SUCCESS_MESSAGE = null
                         }, 2000)
                     })
             } else {
                 alert('Select at least one order')
+                setTimeout( () => {
+                    this.approved_orders_success_modal = false
+                }, 2000)
             }
             // this.approve_selection_modal = false
             // this.approved_orders_success_modal = true
-            // setTimeout( () => {
-            //     this.approved_orders_success_modal = false
-            // }, 2000)
         },
         async REJECT_ALL_SELECTED_ORDER__FROM_SERVICE() {
             console.log(this.SELECT_OPTION__CUSTOMER_ID_LIST)
@@ -630,8 +638,11 @@ export default {
             await service.getApproveBulkOrdersByAllDA_OrderApproval(da_id)
                 .then(res => {
                     console.log(res.data)
+                    this.ORDER_SUCCESS_MESSAGE = res.data.message
+                    this.defaultAllThisComponentData()
                     setTimeout( () => {
                         this.approved_orders_success_modal = false
+                        this.ORDER_SUCCESS_MESSAGE = null
                     }, 2000)
                 })
         },
@@ -640,16 +651,28 @@ export default {
             await service.getApproveBulkOrdersByAllDA_OrderApproval(da_id)
                 .then(res => {
                     console.log(res.data)
+                    this.ORDER_SUCCESS_MESSAGE = res.data.message
+                    this.defaultAllThisComponentData()
                     setTimeout( () => {
                         this.approved_orders_success_modal = false
+                        this.ORDER_SUCCESS_MESSAGE = null
                     }, 2000)
                 })
         },
         // -------------------------------------------------------------------------------------------
         // Default All
         defaultAllThisComponentData() {
+            console.log('I am here')
             this.SELECT_OPTION__CUSTOMER_ID_LIST = []
             this.SELECT_OPTION__ORDER_ID_LIST = []
+            this.filter_modal = false
+            this.approve_selection_modal = false
+            this. approve_selected_with_da_popup_modal = false
+            setTimeout( () => {
+                this.$emit('approve_selected_with_da_popup_modal', this.approve_selected_with_da_popup_modal)
+                this.$emit('filter_modal', this.filter_modal)
+                this.$emit('approve_selection_modal', this.approve_selection_modal)
+            }, 2010)
         },
         // -------------------------------------------------------------------------------------------
         deselectAllSelectedOrder() {
@@ -675,6 +698,14 @@ export default {
                 let length = document.getElementsByClassName('customer-section-list').length
                 for(let i=0; i<length; i++) {
                     document.querySelector('#customer-section-list-' + i).className = 'customer-section-list'
+                }
+                console.log(this.SELECTED_ORDER_INDEX + '    ' + length)
+                if(this.SELECTED_ORDER_INDEX >= length) {
+                    document.querySelector('#customer-section-list-' + length).click()
+                    console.log('last one')
+                } else {
+                    document.querySelector('#customer-section-list-' + this.SELECTED_ORDER_INDEX).click()
+                    console.log('there are more')
                 }
             }
         },

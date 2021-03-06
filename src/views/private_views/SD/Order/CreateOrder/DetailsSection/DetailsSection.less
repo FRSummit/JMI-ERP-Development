@@ -6,12 +6,12 @@
 #create-order-details-section.create-order-details-section {
     display        : table-cell;
     width          : calc(100vw - (60px + 300px));
-    padding        : 20px;
+    padding        : 10px 10px 6px;
     position       : fixed;
     overflow-x     : hidden;
     overflow-y     : scroll;
     scrollbar-width: none;
-    height         : calc(100vh - (74px + 73px + 20px + 32px));
+    height         : calc(100vh - (74px + 73px + 32px));
 
     &::-webkit-scrollbar {
         width: 2px;
@@ -32,18 +32,22 @@
     }
 
     .create-order-details-section-inner {
-        box-shadow           : 0px 0px 8px #026CD11A;
-        border-radius        : 8px;
-        padding              : 20px 0;
+        box-shadow   : 0px 0px 8px #026CD11A;
+        border-radius: 8px;
+        padding      : 10px 0;
+        position     : relative;
+        height       : 100%;
 
         .title-section {
-            padding: 0 20px 10px;
+            padding: 0 20px 0px;
 
             .row {
                 padding: 4px 0;
                 margin : 0;
 
                 p.jmi-title {
+                    line-height: 1.3;
+
                     span.jmi-lvl {
                         display     : inline-block;
                         margin-right: 10px;
@@ -65,7 +69,6 @@
                         border-radius    : 20px;
                         margin-left      : 12px;
                         vertical-align   : middle;
-                        // float         : right;
                     }
 
                     span.order-placed {
@@ -76,7 +79,6 @@
                         border-radius    : 20px;
                         margin-left      : 12px;
                         vertical-align   : middle;
-                        // float         : right;
                     }
 
                     span.url {
@@ -90,9 +92,7 @@
 
 
         .header-summery-section {
-            margin-top   : 10px;
-            margin-bottom: 10px;
-            padding      : 0 20px 10px;
+            padding      : 0 20px 0px;
             border-bottom: 1px solid #E9F1FB;
 
             .header-summery-section-inner {
@@ -103,7 +103,7 @@
 
                     p {
                         padding    : 0;
-                        line-height: 1.7;
+                        line-height: 1.3;
                         margin     : 0;
                         font-size  : 14px;
 
@@ -166,7 +166,7 @@
                             font-size     : 14px;
                             display       : inline-block;
                             vertical-align: middle;
-                            width: 70%;
+                            width         : 70%;
 
                             span.sr-modal {
                                 position        : fixed;
@@ -222,15 +222,15 @@
 
                                     span.sr-loop {
                                         span.sr-name {
-                                            display   : block;
-                                            color     : #026CD1;
-                                            cursor    : pointer;
+                                            display: block;
+                                            color  : #026CD1;
+                                            cursor : pointer;
 
-                                            padding          : 6px 20px;
-                                            text-align       : left;
-                                            letter-spacing   : 0px;
-                                            font-size        : 14px;
-                                            border-bottom    : 1px solid #E2EDFA;
+                                            padding       : 6px 20px;
+                                            text-align    : left;
+                                            letter-spacing: 0px;
+                                            font-size     : 14px;
+                                            border-bottom : 1px solid #E2EDFA;
 
                                             &:hover {
                                                 background   : #E2EDFA;
@@ -314,7 +314,9 @@
                         .table-data-rows {
                             width            : 100%;
                             display          : list-item;
-                            height           : 300px;
+                            // height           : 300px;
+                            min-height             : 50px;
+                            height                 : calc(100vh - ((74px + 73px + 32px) + (86px + 8px + 100px + 20px + 46px + 50px)));
                             /* 6 or 7 rows*/
                             overflow         : auto;
                             -webkit-flex-flow: row wrap;
@@ -408,11 +410,11 @@
                                     }
 
                                     span.qty-decrease {
-                                        display     : inline-block;
-                                        color       : #026CD1;
-                                        font-size   : 16px;
-                                        cursor      : pointer;
-                                        padding     : 4px;
+                                        display  : inline-block;
+                                        color    : #026CD1;
+                                        font-size: 16px;
+                                        cursor   : pointer;
+                                        padding  : 4px;
                                     }
                                 }
                             }
@@ -480,10 +482,16 @@
         }
 
         .submit-section {
-            padding-bottom: 20px;
+            position: absolute;
+            bottom  : 0;
+            width   : 100%;
+            height  : 50px;
+            padding : 5px 0;
 
             .submit-section-inner {
-                text-align: center;
+                text-align   : center;
+                // padding   : 12px 0;
+                height       : 40px;
 
                 span.cancel-order {
                     font-size    : 14px;
@@ -1050,6 +1058,7 @@
 
                 .submit-section {
                     margin-top: 10px;
+                    position  : relative;
 
                     .submit-section-inner {
                         text-align: center;
@@ -1329,6 +1338,19 @@
     #create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr.header-row .jmi-title,
     #create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr td {
         font-size: 14px;
+    }
+
+    #create-order-details-section.create-order-details-section .create-order-details-section-inner .submit-section {
+        height: 34px;
+    }
+
+    #create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .submit-section .submit-section-inner span.cancel-order,
+    #create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .submit-section .submit-section-inner span.proceed-order{
+        font-size     : 12px;
+        padding       : 4px 20px;
+        height        : 26px;
+        display       : inline-block;
+        vertical-align: middle;
     }
 }
 
