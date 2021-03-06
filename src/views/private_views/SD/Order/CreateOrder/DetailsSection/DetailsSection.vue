@@ -612,7 +612,7 @@ export default {
                 prod_db_list.push(prod_obj)
             }
             // CALL SERVICE IMPLEMENTATION FUNCTION
-            await this.FIND_PRODUCT_OFFER__FROM_SERVICE(prod_db_list)
+            this.FIND_PRODUCT_OFFER__FROM_SERVICE(prod_db_list)
             // Close Modal
             if(prod_db_list.length > 0) {
                 this.add_order_modal = false
