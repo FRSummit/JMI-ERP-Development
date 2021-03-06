@@ -534,6 +534,49 @@
                 </div>
             </div>
         </div>
+        <!-- Proceed Order Modal -->
+        <div class="modal-popup-section deliveries-proceed-modal" v-if="PROCEED_ORDER_MODAL">
+            <div class="modal-popup-section-inner" v-click-outside="proceed_order_ModalOutsideClick">
+                <div class="tab-section">
+                    <div class="tab-section-inner">
+                        <b-tabs class="mt-3 deliveries-customer-details">
+                            <b-tab title="Cash" active>
+                                <div class="cash-tab">
+                                    <div class="row">
+                                        <div class="imvoice-amount">
+                                            <p class="jmi-lvl">Invoice Amount:</p>
+                                            <p class="jmi-lvl-value">10000</p>
+                                        </div>
+                                        <div class="imvoice-amount">
+                                            <p class="jmi-lvl">Invoice Amount:</p>
+                                            <p class="jmi-lvl-value">10000</p>
+                                        </div>
+                                    </div>
+                                    <div class="row receiver-amount">
+                                        <p class="jmi-lvl">Type Receiver Amount</p>
+                                        <input type="text" v-model="receiver_amount">
+                                    </div>
+                                </div>
+                            </b-tab>
+                            <b-tab title="Cheque">
+                                Cheque
+                            </b-tab>
+                            <b-tab title="Deposit Slip">
+                                Deposit Slip
+                            </b-tab>
+                            <b-tab title="Adjustment">
+                                Adjustment
+                            </b-tab>
+                        </b-tabs>
+                        <div class="submit-section">
+                            <button class="cancel">Cancel</button>
+                            <button class="confirm">Proceed</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--  -->
     </div>
 </template>
 
@@ -901,6 +944,8 @@ export default {
             delete_product_from_table_popup_modal_data: null,
 
             CANCEL_ORDER_MODAL: false,
+            PROCEED_ORDER_MODAL: false,
+            receiver_amount: null,
         }
     },
     async created() {
@@ -1137,7 +1182,11 @@ export default {
             console.log('Proceed Confirm')
         },
         proceedOrderClickHandler() {
-            console.log('proceed order')
+            console.log('proceed clicked')
+            this.PROCEED_ORDER_MODAL = true
+        },
+        proceed_order_ModalOutsideClick() {
+            this.PROCEED_ORDER_MODAL = false
         },
         //------------------------------------------------------------------------------------------
         // Order Modal Functions

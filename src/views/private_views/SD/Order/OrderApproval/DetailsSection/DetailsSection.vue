@@ -12,12 +12,14 @@
             <div class="title-section">
                 <div class="row">
                     <!-- <div class="col-lg-4 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Order ID:</span><span class="id">{{ PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.order_no : "000" }}</span><span class="customer-type" v-if="ORDERED_TABLE_DATA__INIT_LIST"></span></p></div> -->
-                    <div class="col-lg-4 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Order ID:</span><span class="id">{{ PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.order_no : "" }}</span></p></div>
-                    <div class="col-lg-8 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer:</span><span class="jmi-lvl-value id url" @click="customerDetailsClickHandler">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? PENDING_ORDER_DATA_BY_ID.sbu_customer_info.display_name : '') : '' }}</span></p></div>
+                    <div class="col-lg-3 col-md-4 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Order ID:</span><span class="id">{{ PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.order_no : "" }}</span></p></div>
+                    <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer:</span><span class="jmi-lvl-value id url" @click="customerDetailsClickHandler">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? PENDING_ORDER_DATA_BY_ID.sbu_customer_info.display_name : '') : '' }}</span></p></div>
+                    <div class="col-lg-3 col-md-4 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Status:</span> <span class="jmi-lvl-value">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.is_approved === 'N' ? 'Pending' : '') : '' }}</span></p></div>
                 </div>
                 <div class="row">
                     <!-- <div class="col-lg-12 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><span class="jmi-lvl-value address">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_info.customer_address ? PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_info.customer_address : 'Null') : 'Dummy: Address' }}</span></p></div> -->
-                    <div class="col-lg-12 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><span class="jmi-lvl-value address">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_address ? PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_address : '') : '') : '' }}</span></p></div>
+                    <div class="col-lg-3 col-md-4 col-sm-12"><p class="jmi-title">Territory ID: <span class="jmi-lvl-value">{{ PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.territory_id : '' }}</span></p></div>
+                    <div class="col-lg-9 col-md-8 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><span class="jmi-lvl-value address">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_address ? PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_address : '') : '') : '' }}</span></p></div>
                     
                 </div>
             </div>
@@ -25,19 +27,19 @@
             <div class="header-summery-section">
                 <div class="header-summery-section-inner">
                 <!-- <div class="container"> -->
-                    <div class="row">
+                    <!-- <div class="row"> -->
                         <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Current Outstanding:</span><span class="jmi-lvl-value url" @click="currentOutstandingClickHandler">Dummy: 200500</span></p></div> -->
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Order Placed:</span> <span class="jmi-lvl-value"></span></p></div>
+                        <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Order Placed:</span> <span class="jmi-lvl-value"></span></p></div> -->
                         <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Status:</span> <span class="jmi-lvl-value">Pending</span></p></div> -->
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Status:</span> <span class="jmi-lvl-value">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.is_approved === 'N' ? 'Pending' : '') : '' }}</span></p></div>
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title">Area: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80" >{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.get_sales_area ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.get_sales_area.area_name) : '') : '') : '') : '') : '' }}</span></p></div>
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title">Territory ID: <span class="jmi-lvl-value">{{ PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.territory_id : '' }}</span></p></div>
-                    </div>
+                        <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Status:</span> <span class="jmi-lvl-value">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.is_approved === 'N' ? 'Pending' : '') : '' }}</span></p></div> -->
+                        <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title">Area: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80" >{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.get_sales_area ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.get_sales_area.area_name) : '') : '') : '') : '') : '' }}</span></p></div> -->
+                        <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title">Territory ID: <span class="jmi-lvl-value">{{ PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.territory_id : '' }}</span></p></div> -->
+                    <!-- </div> -->
                     <div class="row">
                         <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title">Territory: <span class="jmi-lvl-value">DHK0301-Dhanmondi 32</span></p></div> -->
                         <div class="col-lg-3 col-md-6 col-sm-6"><p class="am">AM: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info.name) : '') : '') : '') : '') : '' }}</span></p></div>
                         <div class="col-lg-3 col-md-6 col-sm-6"><p class="mio">MIO: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info.name) : '') : '') : '') : '') : '') : '') : '' }}</span></p></div>
-                        <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="col-lg-3 col-md-6 col-sm-6" style="line-height: 1;">
                             <!-- <div class="sr" style="display: table-cell; width: 33%; padding-right: 20px; padding-bottom: 0; vertical-align: middle;">
                                 <span style="display: inline-block; width: 15%; font-size: 14px; float: left; line-height:1; padding-top: 6px;">SR: </span>
                                 <div class="select-options" style="display: inline-block; width: 50%; min-width: 120px; font-size: 14px;">
@@ -51,7 +53,7 @@
                                     </select>
                                 </div>
                             </div> -->
-                            <div class="sr" style="display: table-cell; width: 33%; padding-right: 20px; padding-bottom: 0; vertical-align: middle;">
+                            <div class="sr" style="display: table-cell; width: 33%; padding-right: 20px; padding-bottom: 0;">
                                 <span class="jmi-lvl">SR: </span>
                                 <p class="selectpicker-pera"> 
                                     <!-- <span class="jmi-lvl-value">{{ selected_sr }}</span> -->
@@ -68,7 +70,7 @@
                                 <span class="sr-add-icon" @click="srAddIconClickHandler"><i class="zmdi zmdi-plus"></i></span>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="delivery-dt"><span class="jmi-lvl">Exp D D:</span> <span class="jmi-lvl-value"><input type="date" v-model="header_date" id="expected-delivery-date" placeholder="09/12/2020" /></span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="delivery-dt"><span class="jmi-lvl" style="font-size: 15px;">Delivery:</span> <span class="jmi-lvl-value"><input type="date" v-model="header_date" id="expected-delivery-date" placeholder="09/12/2020" /></span></p></div>
                         <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="delivery-dt"><span class="jmi-lvl">Exp D D:</span> <span class="jmi-lvl-value">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.order_date ? (PENDING_ORDER_DATA_BY_ID.order_date).split(' ')[0] : 'Date Not Found') : 'Not Found' }}</span></p></div> -->
                     </div>
                     <!-- <div class="row">
@@ -188,7 +190,7 @@
                                 <!-- -------- IF ANY PRODUCT ADDED -------- -->
                             </div>
                             <!-- Bottom Total Section -->
-                            <div v-if="PENDING_ORDER_DATA_BY_ID && ORDERED_TABLE_DATA__INIT_LIST">
+                            <div class="jmi-table-subtotal-btm-section" v-if="PENDING_ORDER_DATA_BY_ID && ORDERED_TABLE_DATA__INIT_LIST">
                                 <tr class="subtotal bottom-total" style="border-top: 1px solid #BFCFE2;">
                                     <td style="width: 50%;"><span class="add-order-attachment-section add-order" @click="addOrderClickHandler" v-if="parseInt(ORDER_CREATED_BY) === parseInt(ORDER_AUTH_USER)"><i class="zmdi zmdi-plus"></i>Add Products</span></td>
                                     <td style="width: 25%;"><span>Subtotal</span></td>

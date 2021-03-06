@@ -10,7 +10,17 @@
     border-bottom: 2px solid #026cd1;
 } */
 
+p {
+    margin: 0;
+}
 
+input:focus {
+    outline           : 0;
+    outline-offset    : 0;
+    -moz-box-shadow   : none;
+    -webkit-box-shadow: none;
+    box-shadow        : none;
+}
 
 /* Sidebar */
 .static-menu-section-inner.jemy-hover .static-menu-icon,
@@ -709,14 +719,15 @@ input[type=number] {
 }
 
 .jmi-order-table tbody tr td {
-    color         : #222223;
-    font-size     : 14px;
-    font-weight   : 400;
-    width         : 13%;
-    border-top    : none;
-    padding       : 4px 10px;
-    text-align    : center;
-    vertical-align: middle;
+    color            : #222223;
+    font-size        : 14px;
+    font-weight      : 400;
+    width            : 13%;
+    border-top       : none;
+    /* padding       : 4px 10px; */
+    padding          : 0px 10px;
+    text-align       : center;
+    vertical-align   : middle;
 }
 
 .jmi-order-table tr {
@@ -1676,6 +1687,136 @@ select:focus {
 
 /* Left Section Ends */
 /* Right Section Starts */
+#deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner {
+    width    : 50%;
+    left     : 25%;
+    max-width: 600px;
+    min-width: 600px;
+}
+
+#deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .tabs.mt-3 ul {
+    border: none;
+}
+
+#deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .tabs.mt-3 ul li {
+    margin    : 0 10px;
+    display   : inline-block;
+    width     : 120px;
+    text-align: center;
+}
+
+#deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .tabs.mt-3 ul li a {
+    border       : none;
+    background   : #E2EDFA;
+    color        : #000000;
+    padding      : 6px 0;
+    font-size    : 14px;
+    border-radius: 4px;
+}
+
+#deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .tabs.mt-3 ul li a.active {
+    background: #026CD1;
+    color     : #FFFFFF;
+}
+
+#deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .tabs.mt-3 .tab-content {
+    margin-top: 10px;
+}
+
+#deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .tabs.mt-3 .tab-content .cash-tab {
+    padding-top: 10px;
+}
+
+#deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .tabs.mt-3 .tab-content .cash-tab .row {
+    display: list-item;
+}
+
+#deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .tabs.mt-3 .tab-content .cash-tab .row .imvoice-amount {
+    border : 1px solid #E1E2E3;
+    width  : 40%;
+    display: inline-block;
+    padding: 6px 0;
+}
+
+#deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .tabs.mt-3 .tab-content .cash-tab .row .imvoice-amount p.jmi-lvl {
+    font-size  : 14px;
+    line-height: 1.3;
+    text-align : center;
+    display    : block;
+}
+
+#deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .tabs.mt-3 .tab-content .cash-tab .row .imvoice-amount p.jmi-lvl-value {
+    font-size  : 18px;
+    line-height: 1.7;
+    color      : #026CD1;
+    text-align : center;
+    display    : block;
+}
+
+#deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .tabs.mt-3 .tab-content .cash-tab .row.receiver-amount {
+    padding: 0 20%;
+}
+
+#deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .tabs.mt-3 .tab-content .cash-tab .row.receiver-amount::marker {
+    display: none;
+}
+
+#deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .tabs.mt-3 .tab-content .cash-tab .row p.jmi-lvl {
+    font-size  : 14px;
+    line-height: 1.7;
+    color      : #026CD1;
+    text-align : center;
+    display    : block;
+    text-align : left;
+}
+
+#deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .tabs.mt-3 .tab-content .cash-tab .row input {
+    border     : 1px solid #E1E2E3;
+    margin     : 0;
+    height     : auto;
+    font-size  : 14px;
+    line-height: 1.3;
+    padding    : 6px 10px;
+    box-sizing : inherit;
+    display    : block;
+}
+
+#deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .submit-section {
+    margin-top: 20px;
+}
+
+#deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .submit-section button.cancel {
+    display       : inline-block;
+    font-size     : 14px;
+    padding       : 6px 10px;
+    line-height   : 1.3;
+    border        : 1px solid #C11616;
+    color         : #C11616;
+    width         : 80px;
+    height        : 34px;
+    text-align    : center;
+    vertical-align: middle;
+    border-radius : 2px;
+    background    : transparent;
+    outline       : none;
+    margin-right  : 20px;
+}
+
+#deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .submit-section button.confirm {
+    display       : inline-block;
+    font-size     : 14px;
+    padding       : 6px 10px;
+    line-height   : 1.3;
+    color         : #FFFFFF;
+    width         : 80px;
+    height        : 34px;
+    text-align    : center;
+    vertical-align: middle;
+    border-radius : 2px;
+    background    : #026CD1;
+    outline       : none;
+}
+
 .modal-popup-section span.cancel-popup-icon {
     color    : #DF2A43;
     font-size: 24px;
