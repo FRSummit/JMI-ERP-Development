@@ -18,7 +18,7 @@
 
               <div class="packing-preparation-tab-section">
                 <v-card color="basil">
-                  <v-tabs v-model="tab" background-color="transparent" grow>
+                  <v-tabs class="hide" v-model="tab" background-color="transparent" grow>
                     <v-tab class="packing-tab" v-for="(status, i) in status_list" :key="i" :disabled="status.status_class !== 'done' ? '' : disabled">
                     <!-- <v-tab class="packing-tab" v-for="(status, i) in status_list" :key="i"> -->
                       <div class="tab-icon" :class="status.status_class">

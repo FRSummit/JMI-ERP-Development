@@ -5,7 +5,7 @@
         <div class="month-selection-section">
           <div class="month-selection-section-inner">
             <div class="select-option-label">
-              <p class="month-selection-label">DA:</p>
+              <p class="month-selection-label">SR:</p>
             </div>
             <div class="select-options">
               <span class="right-icon"
@@ -25,17 +25,17 @@
             </div>
           </div>
         </div>
-        <div class="date-range">
+        <div class="date-range" v-if="selectedDA">
           <div class="date-range-inner">
             <p>
               <span>Date Range</span>
-              <date-picker v-model="range" lang="en" range type="date" format="YYYY-MM-DD" width="500"></date-picker>
+              <date-picker v-model="range" lang="en" range type="date" format="YYYY-MM-DD" width="500" @change="dateRangeChange"></date-picker>
             </p>
           </div>
         </div>
-        <div class="location-title">
+        <div class="location-title" :style="selectedDA === null ? 'margin-top: 45px;' : 'margin-top: 0px;'">
           <div class="location-title-inner">
-            <p>Invoice/Challan List (<span>260</span>)</p>
+            <p>Invoice/Challan List (<span>{{ PENDING_DELIVERY_SCHEDULE_INV_LIST.length }}</span>)</p>
           </div>
         </div>
         <div class="location-list-section">
@@ -56,30 +56,27 @@
             <draggable
               class="dragArea unpublished"
               :options="{ group: { name: 'g1', put: 'g1'}, animation: 120 }"
-                v-for="(location, p) in locations_details_list"
+                v-for="(invoice, p) in PENDING_DELIVERY_SCHEDULE_INV_LIST"
                 :key="p"
-              @end="onEnd(location, p)"
+              @end="onEnd(invoice, p)"
             >
-              <div
-                class="delivery-scheduling-section-list"
-              >
-              <!-- <span>{{p + 1}}</span> -->
+              <div class="delivery-scheduling-section-list" @click="singleInvoiceClickHandler(invoice)">
                 <div class="delivery-scheduling-section-list-inner">
                   <div class="name-status-section">
                     <div class="name-section">
-                      <p class="name-text">{{ location.position }} {{p + 1}}</p>
+                      <p class="name-text">{{ invoice.invoice_no }}</p>
                     </div>
                     <div class="status-section">
                       <p class="status-text">
-                        {{ location.date }}
+                        {{ (invoice.invoice_date).split(' ')[0] }}
                       </p>
                     </div>
                   </div>
                   <div class="contact-number-section">
-                    <p class="contact-number">{{ location.location_name }} {{p + 1}}</p>
+                    <p class="contact-number">{{ invoice.sbu_customer_info ? (invoice.sbu_customer_info.display_name ? (invoice.sbu_customer_info.display_name) : '') : '' }}</p>
                   </div>
                   <div class="territory-text-section">
-                    <p class="territory-text">{{ location.territory }} {{p + 1}}</p>
+                    <p class="territory-text">{{ invoice.sbu_customer_info ? (invoice.sbu_customer_info.customer_info ? (invoice.sbu_customer_info.customer_info.customer_address ? (invoice.sbu_customer_info.customer_info.customer_address) : '') : '') : '' }}</p>
                   </div>
                 </div>
               </div>
@@ -128,19 +125,23 @@ export default {
         'Item 3',
         'Item 4',
         'Item 5'
-      ]
+      ],
+      PENDING_DELIVERY_SCHEDULE_INV_LIST: [],
     };
   },
   created() {
-    service.getDAlistForDeliverySchedule().then((res) => {
-      this.DA_list = res.data;
-    });
+    // service.getDAlistForDeliverySchedule().then((res) => {
+    //   this.DA_list = res.data;
+    // });
 
     service.getInvoiceChallanListForDeliverySchedule().then((res) => {
       this.locations_details_list = res.data;
     });
   },
-  mounted() {},
+  async mounted() {
+    await this.DIC_WISE_USERS__FROM_SERVICE()
+    await this.PENDING_DELIVERY_SCHEDULE_DELIVERY_LIST__FROM_SERVICE()
+  },
   methods: {
     onChange() {
       console.log(this.selectedDA);
@@ -155,6 +156,52 @@ export default {
     onEnd(location, index) {
       console.log('working 2 : ' + location + '    ' + index)
     },
+    async dateRangeChange() {
+      let da_id = null
+      let from_date = null
+      let to_date = null
+      console.log(this.range)
+      if(this.range[0] !== null) {
+        from_date = (this.range[0]).toString().split(' ')[2] + '-' + (this.range[0]).toString().split(' ')[1] + '-' + (this.range[0]).toString().split(' ')[3]
+        to_date = (this.range[1]).toString().split(' ')[2] + '-' + (this.range[1]).toString().split(' ')[1] + '-' + (this.range[1]).toString().split(' ')[3]
+      }
+      console.log(from_date + '    ' + to_date)
+
+      for(let i=0; i<this.DA_list.length; i++) {
+        if(this.selectedDA === this.DA_list[i].name) {
+          da_id = this.DA_list[i].id
+        }
+      }
+      await this.PENDING_DELIVERY_SCHEDULE_INVOICE_LIST_BY_DA(da_id, from_date, to_date)
+    },
+    // SIngle Invoice Click Handler
+    singleInvoiceClickHandler(invoice) {
+      console.log(invoice)
+    },
+    // -------------------------------------------------------------------------------------
+    // SERVICE CALLING
+    async DIC_WISE_USERS__FROM_SERVICE() {
+      await service.getDICWiseUsers_MonthlyDeliveryPlan()
+        .then(res => {
+          console.log(res.data)
+          this.DA_list = res.data.users.da
+        })
+    },
+    async PENDING_DELIVERY_SCHEDULE_DELIVERY_LIST__FROM_SERVICE() {
+      await service.getPendingDeliveryScheduleInvoiceList_DELIVERY_SCHEDULING()
+        .then(res => {
+          console.log(res.data)
+          this.PENDING_DELIVERY_SCHEDULE_INV_LIST = res.data.invoice_info
+        })
+    },
+    async PENDING_DELIVERY_SCHEDULE_INVOICE_LIST_BY_DA(da_id, from_date, to_date) {
+      this.PENDING_DELIVERY_SCHEDULE_INV_LIST = []
+      await service.getPendingDeliveryScheduleInvoiceLBy_DA_DELIVERY_SCHEDULING(da_id, from_date, to_date)
+        .then(res => {
+          console.log(res.data)
+          this.PENDING_DELIVERY_SCHEDULE_INV_LIST = res.data.invoice_info
+        })
+    }
   },
   computed: {
     // locations_details_list: {

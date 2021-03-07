@@ -49,9 +49,6 @@ export default {
           console.log(res.data)
           this.sbu_list = res.data.data
           this.progress = false;
-          if(this.sbu_list.length > 0) {
-            this.$emit('sbu_list_is_present', true)
-          }
         })
     }
   },
