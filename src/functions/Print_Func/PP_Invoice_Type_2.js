@@ -305,7 +305,7 @@ export default class PP_Invoice_Type_2 {
 
     create_multiple_person_table_body_data() {
         let multiple_person_data = ''
-        for(let i=0; i<4; i++) {
+        for(let i=0; i<8; i++) {
             multiple_person_data += this.create_table_body_data()
         }
         return multiple_person_data
@@ -321,7 +321,7 @@ export default class PP_Invoice_Type_2 {
                             '</tr>'
         
         let result = ''
-        for(let i=0; i<4; i++) {
+        for(let i=0; i<5; i++) {
             result +=   ''
                     +   '<tr style="page-break-before: always;">'
                     +       '<td style="">' + (i + 1) + '</td>'
