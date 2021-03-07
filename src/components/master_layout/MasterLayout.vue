@@ -19,10 +19,10 @@
             <p class="group-name">{{ sbu_name }}</p>
           </div>
           <div class="group-selection-dropdown-section" v-click-outside="groupModalOutsideClick">
-            <span class="group-selection-icon" @click="selectGroup()">
+            <span class="group-selection-icon" @click="selectGroup()" v-if="sbu_list_is_present_bol">
               <i class="fas fa-exchange-alt"></i>
             </span>
-            <GroupModal v-on:sbu_list_is_present="sbuListIsPresent" />
+            <GroupModal />
           </div>
         </div>
         <div class="right-section">
@@ -102,8 +102,8 @@ import NotificationModal from "./NotificationModal";
 import ChatModal from "./ChatModal";
 import ProfileModal from "./ProfileModal";
 
-// import ERPSidebarService from '../../service/ERPSidebarService';
-// const service = new ERPSidebarService();
+import ERPSidebarService from '../../service/ERPSidebarService';
+const service = new ERPSidebarService();
 
 export default {
   components: {
@@ -125,7 +125,8 @@ export default {
       privatePage: false,
       mouseOverTriger: true,
       sbu_name: null,
-      sbu_list_is_present: false,
+      sbu_list_is_present_bol: false,
+      sbu_list: [],
     };
   },
   created() {},
@@ -141,6 +142,9 @@ export default {
         // this.authenticated = this.$store.state.userIsAuthorized
       }, 1000)
     }
+    // setTimeout( () => {
+    //   this.WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE()
+    // }, 2000)
   },
   methods: {
     closeSideNav() {
@@ -207,6 +211,23 @@ export default {
           }
         }
       }
+
+
+      // let modals = [
+      //   { name: "group-list-section" },
+      //   { name: "chat-modal" },
+      //   { name: "notification-modal" },
+      //   { name: "profile-modal" },
+      // ];
+
+      // for (let i = 0; i < this.sbu_list.length; i++) {
+      //   let selectedSelector = document.querySelector("#" + modals[i].name);
+      //   if (currentModal !== modals[i].name) {
+      //     if (selectedSelector.className === modals[i].name) {
+      //       selectedSelector.className = modals[i].name + " hide";
+      //     }
+      //   }
+      // }
     },
     profileArrowRotation() {
       if (
@@ -264,14 +285,40 @@ export default {
         this.profileArrowRotation();
       }
     },
-    profileUserName(username, designation, sbu_name) {
+    async profileUserName(username, designation, sbu_name, token) {
       this.userName = username
       this.userDesignation = designation
       this.sbu_name = sbu_name
+      console.log(token)
+      
+      await this.WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE()
+
+      // if(username && designation && sbu_name) {
+      //   setTimeout( () => {
+      //     this.WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE()
+      //   }, 2000)
+      // }
     },
     sbuListIsPresent(flag) {
       console.log(flag)
-      this.sbu_list_is_present = flag
+      this.sbu_list_is_present_bol = flag
+      console.log(this.sbu_list_is_present_bol)
+    },
+    async WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE() {
+      // if(JSON.parse(localStorage.getItem("user")).accessToken) {
+      //   console.log(JSON.parse(localStorage.getItem("user")).accessToken)
+      //   console.log(JSON.parse(localStorage.getItem("user")).user_detils.name)
+      // }
+      console.log('I am here')
+      this.sbu_list_is_present_bol = false
+      await service.getWEB_SystemAssignedSBU()
+        .then(res => {
+          console.log(res.data)
+          this.sbu_list = res.data.data
+          if(res.data.data.length > 0) {
+            this.sbu_list_is_present_bol = true
+          }
+        })
     }
   },
   // watch: {
@@ -279,6 +326,12 @@ export default {
   //     userName: JSON.parse(localStorage.getItem("user")) ? JSON.parse(localStorage.getItem("user")).user_detils.name : "",
   //     userDesignation: JSON.parse(localStorage.getItem("user")) ? JSON.parse(localStorage.getItem("user")).user_detils.role_name : "",
   //     authenticated: this.$store.state.userIsAuthorized,
+  //   }
+  // }
+  // watch: {
+  //   username: (newVal, oldVal) => {
+  //     console.log(newVal)
+  //     console.log(oldVal)
   //   }
   // }
 };

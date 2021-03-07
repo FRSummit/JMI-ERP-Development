@@ -104,7 +104,8 @@ export default {
     let user_name = JSON.parse(localStorage.getItem("user")).user_detils.name
     let user_designation = JSON.parse(localStorage.getItem("user")).user_detils.role_name
     let sbu_name = JSON.parse(localStorage.getItem("user")).user_detils.sbu_name
-    this.$emit('profile_user_name', user_name, user_designation, sbu_name)
+    let token = JSON.parse(localStorage.getItem("user")).accessToken
+    this.$emit('profile_user_name', user_name, user_designation, sbu_name), token
   },
   methods: {
     logingOut() {
