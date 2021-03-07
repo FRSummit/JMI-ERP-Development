@@ -115,17 +115,25 @@ export default {
   },
   data() {
     return {
-      userName: JSON.parse(localStorage.getItem("user")) ? JSON.parse(localStorage.getItem("user")).user_detils.name : "Fayazur Rahman Summit",
-      userDesignation: JSON.parse(localStorage.getItem("user")) ? JSON.parse(localStorage.getItem("user")).user_detils.role_name : "Sr. Software Engineer",
-      sidenav: false,
+      // userName: null,
+      // userDesignation: null,
+      // sidenav: false,
+      // authenticated: null,
+      userName: JSON.parse(localStorage.getItem("user")) ? JSON.parse(localStorage.getItem("user")).user_detils.name : "",
+      userDesignation: JSON.parse(localStorage.getItem("user")) ? JSON.parse(localStorage.getItem("user")).user_detils.role_name : "",
       authenticated: this.$store.state.userIsAuthorized,
       privatePage: false,
       mouseOverTriger: true
     };
   },
   created() {},
-  mounted() {
+  async mounted() {
     // console.log(this.$route.name);
+    setTimeout( () => {
+      this.userName = JSON.parse(localStorage.getItem("user")) ? JSON.parse(localStorage.getItem("user")).user_detils.name : ""
+      this.userDesignation = JSON.parse(localStorage.getItem("user")) ? JSON.parse(localStorage.getItem("user")).user_detils.role_name : ""
+      this.authenticated = this.$store.state.userIsAuthorized
+    }, 1000)
   },
   methods: {
     closeSideNav() {
