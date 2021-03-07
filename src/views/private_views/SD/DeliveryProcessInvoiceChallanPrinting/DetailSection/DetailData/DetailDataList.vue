@@ -62,6 +62,12 @@
 </template>
 
 <script>
+import Service from "../../../../../../service/ERPSidebarService";
+const service = new Service();
+
+import PP_Invoice_Type_2 from '../../../../../../functions/Print_Func/PP_Invoice_Type_2'
+const ppInvoice_Type_2 = new PP_Invoice_Type_2()
+
 export default {
   props: ["tab", "data"],
   components: {},
@@ -97,9 +103,19 @@ export default {
             break
       }
     },
-    printInvoice(d, i) {
+    async printInvoice(d, i) {
       console.log('index : ' + i)
       console.log(d)
+      ppInvoice_Type_2.print_invoice()
+      await this.PRING_INVOCIE_DETAILS__FROM_SERVICE(d)
+    },
+    // ---------------------------------------------------------------
+    // SERVICE CALL
+    async PRING_INVOCIE_DETAILS__FROM_SERVICE(invoice_id) {
+      service.getPrintInvoiceDetails_INVOICE_CHALLAN_PRINTING(invoice_id)
+        .then(res => {
+          console.log(res.data)
+        })
     }
   },
 };

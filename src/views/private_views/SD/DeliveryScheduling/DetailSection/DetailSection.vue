@@ -266,7 +266,7 @@ export default {
         console.log(coordinates)
       })
   },
-  mounted() {
+  async mounted() {
     // this.directionsService = new google.maps.DirectionsService();
     // this.directionsRenderer = new google.maps.DirectionsRenderer();
     // console.log(this.directionsService)
@@ -340,6 +340,7 @@ export default {
     },
     createDeliveryScheduleClickHandler() {
       console.log('createDeliveryScheduleClickHandler')
+      this.$router.push('/sd/delivery-process--invoice-printing')
     },
     saveRoute() {
       console.log('save route')
@@ -388,6 +389,7 @@ export default {
     //   };
     //   this.markers.push({ position, title: "test" });
     // },
+
   },
 };
 </script>

@@ -497,6 +497,46 @@ export default class PostService {
   //   })
   // }
 
+  // DELIVERY SCHEDULING - PENDING DELIVERY LIST - LEFT SECTION
+  getPendingDeliveryScheduleInvoiceList_DELIVERY_SCHEDULING() {
+    let web_menu_url = '/api/web/pending-delivery-schedule-invoice-list'
+    return axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+    })
+  }
+
+  // DELIVERY SCHEDULING - PENDING DELIVERY LIST - LEFT SECTION
+  getPendingDeliveryScheduleInvoiceLBy_DA_DELIVERY_SCHEDULING(da_id, from_date, to_date) {
+    let web_menu_url = '/api/web/pending-delivery-schedule-invoice-list-by-da'
+    return axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+      params: {
+        da_id: da_id,
+        from_date: from_date,
+        to_date: to_date
+      }
+    })
+  }
+
+  // INVOICE-CHALLAN PRINTING - DETAILS SECTION
+  getPrintInvoiceDetails_INVOICE_CHALLAN_PRINTING(invoice_id) {
+    console.log(invoice_id)
+    // let web_menu_url = '/api/web/print-invoice-details/' + invoice_id
+    // return axios(web_menu_url, {
+    //   method: 'GET',
+    //   headers: {
+    //     'Authorization': token_type + ' ' + token
+    //   },
+    // })
+  }
+
+
   //////////////////////////////////////////////////////////////////////////////////////////
 
   // Get Doctors Profile

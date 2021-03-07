@@ -21,7 +21,7 @@
     <br />
     <router-link to="/sd/delivery-process--packing-preparation">SD ----> Delivery Process - Packing Preparation</router-link>
     <br />
-    <router-link to="/sd/delivery-process--invoice-rinting">SD ----> Delivery Process - Invoice Printing</router-link>
+    <router-link to="/sd/delivery-process--invoice-printing">SD ----> Delivery Process - Invoice Printing</router-link>
     <br />
     <router-link to="/sd/delivery-process--dispatch-entry">SD ----> Delivery Process - Dispatch Entry</router-link>
     <br />
