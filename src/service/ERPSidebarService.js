@@ -33,6 +33,16 @@ export default class PostService {
     })
   }
 
+  getWEB_SystemAssignedSBU() {
+    let web_menu_url = '/api/system/AssignedSBU'
+    return axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
+
   // DIC WISE USERS LIST
   getDICWiseUsers_MonthlyDeliveryPlan() {
     let web_menu_url = '/api/web/dic-wise-users'

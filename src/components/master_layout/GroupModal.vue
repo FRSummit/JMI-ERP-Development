@@ -13,8 +13,8 @@
         ></v-progress-circular>
       </div>
       <div class="comapny-list-sec">
-        <div class="comapny-sec" v-for="(comapny, i) in company_list" :key="i">
-          <p class="company-name">{{ comapny.name }}</p>
+        <div class="comapny-sec" v-for="(sbu, i) in sbu_list" :key="i">
+          <p class="company-name">{{ sbu.sbu_name }}</p>
         </div>
       </div>
     </div>
@@ -28,17 +28,33 @@ const service = new ERPSidebarService();
 export default {
   data() {
     return {
-      company_list: [],
+      sbu_list: [],
       progress: true,
     };
   },
   created() {
-    service.getAllCompanyList().then((res) => {
-      this.company_list = res.data;
-      this.progress = false;
-    });
+    // service.getAllCompanyList().then((res) => {
+    //   this.sbu_list = res.data;
+    //   this.progress = false;
+    // });
   },
-  methods: {},
+  async mounted() {
+    this.WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE()
+  },
+  methods: {
+    // SERVICE IMPLEMENTATION
+    async WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE() {
+      await service.getWEB_SystemAssignedSBU()
+        .then(res => {
+          console.log(res.data)
+          this.sbu_list = res.data.data
+          this.progress = false;
+          if(this.sbu_list.length > 0) {
+            this.$emit('sbu_list_is_present', true)
+          }
+        })
+    }
+  },
 };
 </script>
 

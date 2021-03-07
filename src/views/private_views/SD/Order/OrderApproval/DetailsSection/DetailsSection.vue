@@ -135,7 +135,7 @@
                                         </td>
                                         <!-- Bonus Column -->
                                         <td>
-                                            <span>{{ data.bonus_qty }}</span>
+                                            <span>{{ data.offer.offer_type === "bonus" ? parseInt(data.qty / (data.offer.offer.bonus_on)) : data.bonus_qty }}</span>
                                         </td>
                                         <!-- Total Price Column -->
                                         <!-- <td>{{ Number(data.tp).toFixed(2) }}</td> -->
@@ -1076,6 +1076,7 @@ export default {
         // Increase Table Row's Single Product/Order
         increaseOrderedItemClickHandler(data, index) {
             console.log(data + '    ' + index)
+            console.log(data.qty)
             if(parseInt(this.ORDER_CREATED_BY) !== parseInt(this.ORDER_AUTH_USER)) {
                 // data.qty
                 console.log('difference')
@@ -1094,11 +1095,13 @@ export default {
             // this.createSubtotalCalculation()
             // Free Product row quantity increase
             if(data.offer.offer_type === "free") {
-                console.log(data.qty)
-                console.log(data.offer.offer.free_req_qty)
-                this.ORDERED_TABLE_DATA__INIT_LIST[index + 1].bonus_qty += parseInt(parseInt(data.qty) / parseInt(data.offer.offer.free_req_qty))
+                let bonus = parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[index + 1].bonus_qty)
+                bonus = parseInt(parseInt(data.qty) / parseInt(data.offer.offer.free_req_qty))
+                this.ORDERED_TABLE_DATA__INIT_LIST[index + 1].bonus_qty = bonus
             }
+            console.log(data.offer.offer.free_req_qty)
             console.log(this.ORDERED_TABLE_DATA__INIT_LIST[index + 1].bonus_qty)
+            console.log(data.qty)
         },
         // Decrease Table Row's Single Product/Order
         decreaseOrderedItemClickHandler(data, index) {
@@ -1648,9 +1651,9 @@ export default {
             await service.getAddNewProdOnExistOrderByOrderId_OrderApproval(this.order_id_from_left_side, prod_db_list)
                 .then(res => {
                     console.log(res.data)
-                    this.ORDERED_TABLE_DATA__INIT_LIST = []
+                    /*this.ORDERED_TABLE_DATA__INIT_LIST = []
                     this.ORDERED_TABLE_DATA__INIT_LIST = res.data.order.order_details
-                    this.createSubtotalCalculation()
+                    this.createSubtotalCalculation()*/
                     this.$emit('reload_this_order', this.order_id_from_left_side)
                 })
         },
@@ -1706,7 +1709,7 @@ export default {
                 this.discount_total += (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_tp) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) - (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.price_now_per_qty) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty)
                 // console.log(parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.price_now_per_qty) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty)
             }
-            this.discount_total = 0
+            // this.discount_total = 0
             this.gross_total = this.sub_total + this.vat_total
             this.grand_total = this.sub_total + this.vat_total - this.discount_total
         },
