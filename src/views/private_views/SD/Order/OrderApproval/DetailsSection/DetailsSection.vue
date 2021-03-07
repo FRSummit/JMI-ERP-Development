@@ -1648,9 +1648,9 @@ export default {
             await service.getAddNewProdOnExistOrderByOrderId_OrderApproval(this.order_id_from_left_side, prod_db_list)
                 .then(res => {
                     console.log(res.data)
-                    this.ORDERED_TABLE_DATA__INIT_LIST = []
+                    /*this.ORDERED_TABLE_DATA__INIT_LIST = []
                     this.ORDERED_TABLE_DATA__INIT_LIST = res.data.order.order_details
-                    this.createSubtotalCalculation()
+                    this.createSubtotalCalculation()*/
                     this.$emit('reload_this_order', this.order_id_from_left_side)
                 })
         },
@@ -1706,7 +1706,7 @@ export default {
                 this.discount_total += (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_tp) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) - (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.price_now_per_qty) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty)
                 // console.log(parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.price_now_per_qty) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty)
             }
-            this.discount_total = 0
+            // this.discount_total = 0
             this.gross_total = this.sub_total + this.vat_total
             this.grand_total = this.sub_total + this.vat_total - this.discount_total
         },
