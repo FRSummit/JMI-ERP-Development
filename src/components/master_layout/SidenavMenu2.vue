@@ -213,6 +213,9 @@ export default {
     await service.getWebSideMenu().then( res => {
       this.menu_list = res.data.data;
     //   console.log(res.data.data)
+    if(JSON.parse(localStorage.getItem("user")).user_detils === null) {
+        window.locationreload()
+    }
     })
     .catch(err => {
         if(err) {

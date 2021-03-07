@@ -16,13 +16,13 @@
             />
           </div>
           <div class="group-name-section">
-            <p class="group-name">Nipro JMI Pharma</p>
+            <p class="group-name">{{ sbu_name }}</p>
           </div>
           <div class="group-selection-dropdown-section" v-click-outside="groupModalOutsideClick">
             <span class="group-selection-icon" @click="selectGroup()">
               <i class="fas fa-exchange-alt"></i>
             </span>
-            <GroupModal />
+            <GroupModal v-on:sbu_list_is_present="sbuListIsPresent" />
           </div>
         </div>
         <div class="right-section">
@@ -61,7 +61,7 @@
               </div>
               <p class="profile-designation">{{ userDesignation }}</p>
             </div>
-            <ProfileModal v-on:lock_screen_clicked="lockScreenClicked"/>
+            <ProfileModal v-on:lock_screen_clicked="lockScreenClicked" v-on:profile_user_name="profileUserName"/>
           </div>
         </div>
       </div>
@@ -115,25 +115,32 @@ export default {
   },
   data() {
     return {
-      // userName: null,
-      // userDesignation: null,
-      // sidenav: false,
+      userName: null,
+      userDesignation: null,
       // authenticated: null,
-      userName: JSON.parse(localStorage.getItem("user")) ? JSON.parse(localStorage.getItem("user")).user_detils.name : "",
-      userDesignation: JSON.parse(localStorage.getItem("user")) ? JSON.parse(localStorage.getItem("user")).user_detils.role_name : "",
+      // userName: JSON.parse(localStorage.getItem("user")) ? JSON.parse(localStorage.getItem("user")).user_detils.name : "",
+      // userDesignation: JSON.parse(localStorage.getItem("user")) ? JSON.parse(localStorage.getItem("user")).user_detils.role_name : "",
       authenticated: this.$store.state.userIsAuthorized,
+      sidenav: false,
       privatePage: false,
-      mouseOverTriger: true
+      mouseOverTriger: true,
+      sbu_name: null,
+      sbu_list_is_present: false,
     };
   },
   created() {},
-  async mounted() {
+  mounted() {
+      // this.userName = JSON.parse(localStorage.getItem("user")) ? JSON.parse(localStorage.getItem("user")).user_detils.name : ""
+      // this.userDesignation = JSON.parse(localStorage.getItem("user")) ? JSON.parse(localStorage.getItem("user")).user_detils.role_name : ""
+      // this.authenticated = this.$store.state.userIsAuthorized
     // console.log(this.$route.name);
-    setTimeout( () => {
-      this.userName = JSON.parse(localStorage.getItem("user")) ? JSON.parse(localStorage.getItem("user")).user_detils.name : ""
-      this.userDesignation = JSON.parse(localStorage.getItem("user")) ? JSON.parse(localStorage.getItem("user")).user_detils.role_name : ""
-      this.authenticated = this.$store.state.userIsAuthorized
-    }, 1000)
+    if(JSON.parse(localStorage.getItem("user"))) {
+      setTimeout( () => {
+        // this.userName = JSON.parse(localStorage.getItem("user")) ? JSON.parse(localStorage.getItem("user")).user_detils.name : ""
+        // this.userDesignation = JSON.parse(localStorage.getItem("user")) ? JSON.parse(localStorage.getItem("user")).user_detils.role_name : ""
+        // this.authenticated = this.$store.state.userIsAuthorized
+      }, 1000)
+    }
   },
   methods: {
     closeSideNav() {
@@ -256,8 +263,24 @@ export default {
         this.modalToggle("profile-modal");
         this.profileArrowRotation();
       }
+    },
+    profileUserName(username, designation, sbu_name) {
+      this.userName = username
+      this.userDesignation = designation
+      this.sbu_name = sbu_name
+    },
+    sbuListIsPresent(flag) {
+      console.log(flag)
+      this.sbu_list_is_present = flag
     }
   },
+  // watch: {
+  //   userName: {
+  //     userName: JSON.parse(localStorage.getItem("user")) ? JSON.parse(localStorage.getItem("user")).user_detils.name : "",
+  //     userDesignation: JSON.parse(localStorage.getItem("user")) ? JSON.parse(localStorage.getItem("user")).user_detils.role_name : "",
+  //     authenticated: this.$store.state.userIsAuthorized,
+  //   }
+  // }
 };
 </script>
 
