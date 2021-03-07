@@ -96,7 +96,7 @@
                                     </td>
                                     <!-- Discount Column -->
                                     <td>
-                                        <span v-if="!data.row_class">{{ data ? (data.offer.discount_percentage ? data.offer.discount_percentage : 0) : 0 }}%</span>
+                                        <span v-if="!data.row_class">{{ data ? (data.offer_2.discount_percentage ? Number(data.offer_2.discount_percentage).toFixed(2) : 0) : 0 }}%</span>
                                         <span v-if="data.row_class"></span>
                                     </td>
                                     <!-- BOnus Column -->
