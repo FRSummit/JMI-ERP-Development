@@ -1,7 +1,7 @@
 <template>
   <div id="detail-data-list" class="detail-data-list">
     <div class="detail-data-list-inner">
-      <div class="detail-data-submit-section">
+      <div class="detail-data-submit-section hide">
         <div class="detail-data-submit-section-inner">
           <div
             class="serial-range-custom-section"
@@ -36,9 +36,12 @@
           <table class="data-table" cellspacing="0" width="100%">
             <thead>
               <tr class="data-table-head-row">
-                <th v-for="(head, i) in table_header" :key="i">
-                  {{ head }}
-                </th>
+                <th>SL No</th>
+                <th>Invoice ID</th>
+                <th>Customer Type</th>
+                <th>Customer Name</th>
+                <th>Amount</th>
+                <th style="width: 10%;"></th>
               </tr>
             </thead>
             <tbody>
@@ -48,6 +51,7 @@
                 <td>{{ d.customer_type }}</td>
                 <td>{{ d.customer_name }}</td>
                 <td>{{ d.amount }}</td>
+                <td style="width: 10%;"><i class="zmdi zmdi-print" @click="printInvoice(d, i)"></i></td>
               </tr>
             </tbody>
           </table>
@@ -69,6 +73,7 @@ export default {
         "Customer Type",
         "Customer Name",
         "Amount",
+        ""
       ],
       // value: null,
       radioSpanDefaultClass: 'active',
@@ -92,6 +97,10 @@ export default {
             break
       }
     },
+    printInvoice(d, i) {
+      console.log('index : ' + i)
+      console.log(d)
+    }
   },
 };
 </script>

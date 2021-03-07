@@ -1803,10 +1803,10 @@ select:focus {
 }
 
 #deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .submit-section {
-    margin-top: 20px;
+    margin-top : 20px;
     /* position: absolute;
-    bottom  : 20px;
-    width   : 95%; */
+    bottom     : 20px;
+    width      : 95%; */
 }
 
 #deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .submit-section button.cancel {
@@ -1878,6 +1878,15 @@ span.cancel-order {
 
 /* Right Section Ends */
 /* ----------- SD Deliveries Page ENDS ----------------------------------------------------- */
+
+/* ----------- Invoice Printing & Challan Printing Page STARTS ----------------------------- */
+#detail-data-list.detail-data-list table.data-table td i {
+    color    : #026CD1;
+    font-size: 17px;
+    cursor   : pointer;
+}
+
+/* ----------- Invoice Printing & Challan Printing Page ENDS ------------------------------- */
 
 /* --------------------------------------------------------------------------------------- */
 

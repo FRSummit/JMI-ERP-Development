@@ -13,9 +13,9 @@
               </div>
             </div>
           </div>
-          <div class="start-end-point-selection-section hide">
+          <div class="start-end-point-selection-section">
             <div class="start-end-point-selection-section-inner">
-              <div class="start-point-section">
+              <div class="start-point-section hide">
                 <div class="start-point-section-inner">
                   <div class="start-point-title">
                     <p>Select Starting Point</p>
@@ -41,7 +41,7 @@
                   </div>
                 </div>
               </div>
-              <div class="location-separator">
+              <div class="location-separator hide">
                 <div class="location-separator-inner">
                   <span class="start"></span>
                   <span class="dot"></span>
@@ -52,7 +52,7 @@
                   <span><i class="fas fa-map-marker-alt"></i></span>
                 </div>
               </div>
-              <div class="end-point-section">
+              <div class="end-point-section hide">
                 <div class="end-point-section-inner">
                   <div class="end-point-title">
                     <p>Select Ending Point</p>
@@ -75,9 +75,14 @@
                   </div>
                 </div>
               </div>
-              <div class="route-finder-btn-section">
+              <div class="route-finder-btn-section hide">
                 <div class="route-finder-btn-section-inner">
                   <button @click="findRoute"><i class="fas fa-exchange-alt"></i>Find Route</button>
+                </div>
+              </div>
+              <div class="route-finder-btn-section">
+                <div class="route-finder-btn-section-inner">
+                  <button @click="createDeliveryScheduleClickHandler">Create Delivery Schedule</button>
                 </div>
               </div>
             </div>
@@ -332,6 +337,9 @@ export default {
     },
     findRoute() {
       console.log('find route')
+    },
+    createDeliveryScheduleClickHandler() {
+      console.log('createDeliveryScheduleClickHandler')
     },
     saveRoute() {
       console.log('save route')
