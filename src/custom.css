@@ -751,6 +751,10 @@ input[type=number] {
     font-size: 8px;
 }
 
+#create-order-details-section .right_side_row {
+    text-align: right;
+}
+
 /* .jmi-table-subtotal-btm-section {
     position: absolute;
     width   : 100%;
@@ -1704,7 +1708,7 @@ select:focus {
 /* Right Section Starts */
 #deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner {
     width    : 50%;
-    top      : 200px;
+    top      : 100px;
     left     : 25%;
     max-width: 600px;
     min-width: 600px;
@@ -1800,6 +1804,9 @@ select:focus {
 
 #deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .submit-section {
     margin-top: 20px;
+    /* position: absolute;
+    bottom  : 20px;
+    width   : 95%; */
 }
 
 #deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .submit-section button.cancel {
@@ -1850,7 +1857,7 @@ select:focus {
 }
 
 #deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .tabs.mt-3 .tab-content .tab-inner.cheque .row img {
-    width : 560px;
+    width    : 560px;
     /* height: 100px; */
 }
 
@@ -1895,6 +1902,14 @@ span.cancel-order {
         margin-top: 6px;
         width     : 12px;
         height    : 12px;
+    }
+}
+
+
+
+@media only screen and (max-width: 1263px) {
+    #create-order-details-section .right_side_row {
+        text-align: left;
     }
 }
 
