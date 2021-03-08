@@ -40,18 +40,18 @@
                 <th>Invoice ID</th>
                 <th>Customer Type</th>
                 <th>Customer Name</th>
-                <th>Amount</th>
+                <th style="text-align: right;">Amount</th>
                 <th style="width: 10%;"></th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(d, i) in data" :key="i" class="data-table-data-row">
+              <tr v-for="(schedule, i) in SCHEDULE_DETAILS_LIST" :key="i" class="data-table-data-row">
                 <td>{{ i + 1 }}</td>
-                <td>{{ d.invoice_id }}</td>
-                <td>{{ d.customer_type }}</td>
-                <td>{{ d.customer_name }}</td>
-                <td>{{ d.amount }}</td>
-                <td style="width: 10%;"><i class="zmdi zmdi-print" @click="printInvoice(d, i)"></i></td>
+                <td>{{ schedule.invoice_id }}</td>
+                <td>{{ schedule.customer_info ? (schedule.customer_info.customer_type ? (schedule.customer_info.customer_type) : '') : '' }}</td>
+                <td>{{ schedule.customer_info ? (schedule.customer_info.customer_name ? (schedule.customer_info.customer_name) : '') : '' }}</td>
+                <td style="text-align: right;">{{ comaSrparation(Number(schedule.invoice_amt).toFixed(2)) }}</td>
+                <td style="width: 10%;"><i class="zmdi zmdi-print" @click="printInvoice(schedule.id, i)"></i></td>
               </tr>
             </tbody>
           </table>
@@ -65,11 +65,17 @@
 import Service from "../../../../../../service/ERPSidebarService";
 const service = new Service();
 
-import PP_Invoice_Type_2 from '../../../../../../functions/Print_Func/PP_Invoice_Type_2'
-const ppInvoice_Type_2 = new PP_Invoice_Type_2()
+// import PP_Invoice_Type_2 from '../../../../../../functions/Print_Func/PP_Invoice_Type_2'
+// const ppInvoice_Type_2 = new PP_Invoice_Type_2()
+
+import PP_Invoice_Type_2_Single from '../../../../../../functions/Print_Func/PP_Invoice_Type_2_Single'
+const pp_Invoice_Type_2_Single = new PP_Invoice_Type_2_Single()
+
+import ComaSeparatedDigits from '../../../../../../functions/ComaSeparatedDigits'
+const comaSeparatedDigits = new ComaSeparatedDigits()
 
 export default {
-  props: ["tab", "data"],
+  props: ["tab", "data", "SCHEDULE_DETAILS_LIST"],
   components: {},
   data() {
     return {
@@ -103,11 +109,14 @@ export default {
             break
       }
     },
-    async printInvoice(d, i) {
+    comaSrparation(data) {
+      return comaSeparatedDigits.comaSeparate(data)
+    },
+    async printInvoice(schedule_id, i) {
       console.log('index : ' + i)
-      console.log(d)
-      ppInvoice_Type_2.print_invoice()
-      await this.PRING_INVOCIE_DETAILS__FROM_SERVICE(d)
+      console.log(schedule_id)
+      // ppInvoice_Type_2.print_invoice(schedule_id)
+      await this.PRING_INVOCIE_DETAILS__FROM_SERVICE(schedule_id)
     },
     // ---------------------------------------------------------------
     // SERVICE CALL
@@ -115,6 +124,8 @@ export default {
       service.getPrintInvoiceDetails_INVOICE_CHALLAN_PRINTING(invoice_id)
         .then(res => {
           console.log(res.data)
+          // ppInvoice_Type_2.print_invoice(res.data)
+          pp_Invoice_Type_2_Single.print_invoice(res.data.invoice_details)
         })
     }
   },

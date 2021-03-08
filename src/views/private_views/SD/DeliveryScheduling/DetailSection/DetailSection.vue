@@ -340,7 +340,8 @@ export default {
     },
     createDeliveryScheduleClickHandler() {
       console.log('createDeliveryScheduleClickHandler')
-      this.$router.push('/sd/delivery-process--invoice-printing')
+      // this.$router.push('/sd/delivery-process-invoice-printing')
+      this.$emit("CREATE_DELIVERY_SCHEDULE")
     },
     saveRoute() {
       console.log('save route')

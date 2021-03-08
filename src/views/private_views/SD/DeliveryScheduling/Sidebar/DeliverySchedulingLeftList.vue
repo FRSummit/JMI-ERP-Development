@@ -158,7 +158,16 @@ export default {
   },
   methods: {
     onChange() {
+      let da_id = null
       console.log(this.selectedDA);
+      if(this.selectedDA !== null) {
+        for(let i=0; i<this.DA_list.length; i++) {
+          if(this.selectedDA === this.DA_list[i].name) {
+            da_id = this.DA_list[i].id
+          }
+        }
+      }
+      this.$emit('SELECTED_DA_ID', da_id)
     },
     // onUnpublishedChange({ added }) {
     //   console.log('Working 1')
@@ -170,10 +179,23 @@ export default {
     onEnd(location, index) {
       console.log('working 2 : ' + location + '    ' + index)
     },
-    dateChangeHandler() {
-      console.log(this.date_data)
+    async dateChangeHandler() {
+      // let da_id = null
+
       let selected_dt = this.date_data.toString().split(' ')[2] + '-' + this.date_data.toString().split(' ')[1] + '-' + this.date_data.toString().split(' ')[3]
-      console.log(selected_dt)
+      this.$emit("SELECTED_DATE", selected_dt)
+      // if(this.selectedDA !== null) {
+      //   for(let i=0; i<this.DA_list.length; i++) {
+      //     if(this.selectedDA === this.DA_list[i].name) {
+      //       da_id = this.DA_list[i].id
+      //     }
+      //   }
+
+      //   await this.CREATE_DELIVERY_SCHEDULE_INVOICE_LIST_BY_DA(da_id, selected_dt)
+      // } else {
+      //   alert('Select a SR')
+      //   this.date_data = ''
+      // }
     },
     async dateRangeChange() {
       let da_id = null
