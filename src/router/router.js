@@ -106,7 +106,7 @@ export const router = new VueRouter({
       component: () => import('../views/private_views/SD/DeliveryProcessPackingPreparation/DeliveryProcessPackingPreparation.vue')
     },
     {
-      path: '/sd/delivery-process--invoice-printing',
+      path: '/sd/delivery-process-invoice-printing',
       name: 'Delivery Process - Invoice Printing',
       component: () => import('../views/private_views/SD/DeliveryProcessInvoiceChallanPrinting/DeliveryProcessInvoiceChallanPrinting.vue')
     },

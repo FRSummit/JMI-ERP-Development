@@ -509,6 +509,21 @@ export default class PostService {
   }
 
   // DELIVERY SCHEDULING - PENDING DELIVERY LIST - LEFT SECTION
+  getCreateDeliveryScheduleBy_DA_DELIVERY_SCHEDULING(da_id, date) {
+    let web_menu_url = '/api/web/create-delivery-schedule'
+    return axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+      params: {
+        da_id: da_id,
+        schedule_date: date
+      }
+    })
+  }
+
+  // DELIVERY SCHEDULING - PENDING DELIVERY LIST - LEFT SECTION
   getPendingDeliveryScheduleInvoiceLBy_DA_DELIVERY_SCHEDULING(da_id, from_date, to_date) {
     let web_menu_url = '/api/web/pending-delivery-schedule-invoice-list-by-da'
     return axios(web_menu_url, {
