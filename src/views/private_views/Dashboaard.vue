@@ -1,5 +1,5 @@
 <template>
-  <div class="landing-page">
+  <div id="landing-page" class="landing-page">
     <!-- Dashboard
     <router-link to="/about">About</router-link>
     <br />
@@ -14,35 +14,51 @@
     <router-link to="/sd/geo-location">SD ---- Geo Location</router-link>
     <br /> -->
     <!-- <router-link to="/sd/monthly-delivery-plan">SD ---- Monthly Delivery Plan</router-link> -->
-    <router-link to="/features/local_sales/delivery_plan">SD ----> Monthly Delivery Plan</router-link>
+    <div class="row">
+      <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
+        <router-link to="/features/local_sales/delivery_plan">Monthly Delivery Plan</router-link>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
+        <router-link to="/features/local_sales/delivery_schedule">Delivery Scheduling</router-link>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
+        <router-link to="/sd/delivery-process--packing-preparation">DS Packing Preparation</router-link>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
+        <router-link to="/sd/delivery-process--invoice-printing">DS Invoice Printing</router-link>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
+        <router-link to="/sd/delivery-process--dispatch-entry">DS Dispatch Entry</router-link>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
+        <router-link to="/features/local_sales/sales_order">Create Order</router-link>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
+        <router-link to="/features/local_sales/order_approval">Order Approval</router-link>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
+        <router-link to="/features/local_sales/customer_list">Customer List</router-link>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
+        <router-link to="/features/local_sales/create_customer">Create Customer</router-link>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
+        <router-link to="/features/local_sales/customer_profile">Customer Profile</router-link>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
+        <router-link to="/features/local_sales/doctors_list">Doctors List</router-link>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
+        <router-link to="/features/local_sales/create_doctor">Create Doctor</router-link>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
+        <router-link to="/features/local_sales/doctors_profile:1">Doctors Profile</router-link>
+      </div>
+    </div>
+    
     <br />
     <!-- <router-link to="/sd/delivery-scheduling">SD ---- Delivery Scheduling</router-link> -->
-    <router-link to="/features/local_sales/delivery_schedule">SD ----> Delivery Scheduling</router-link>
-    <br />
-    <router-link to="/sd/delivery-process--packing-preparation">SD ----> Delivery Process - Packing Preparation</router-link>
-    <br />
-    <router-link to="/sd/delivery-process--invoice-printing">SD ----> Delivery Process - Invoice Printing</router-link>
-    <br />
-    <router-link to="/sd/delivery-process--dispatch-entry">SD ----> Delivery Process - Dispatch Entry</router-link>
-    <br />
-    <br />
-    <router-link to="/features/local_sales/sales_order">SD ----> Create Order</router-link>
-    <br />
-    <router-link to="/features/local_sales/order_approval">SD ----> Order Approval</router-link>
-    <br />
-    <br />
-    <router-link to="/features/local_sales/customer_list">SD ----> Customer List</router-link>
-    <br />
-    <router-link to="/features/local_sales/create_customer">SD ----> Create Customer</router-link>
-    <br />
-    <router-link to="/features/local_sales/customer_profile">SD ----> Customer Profile</router-link>
-    <br />
-    <br />
-    <router-link to="/features/local_sales/doctors_list">SD ----> Doctors List</router-link>
-    <br />
-    <router-link to="/features/local_sales/create_doctor">SD ----> Create Doctor</router-link>
-    <br />
-    <router-link to="/features/local_sales/doctors_profile:1">SD ----> Doctors Profile</router-link>
+    
     <!-- <br />
     <br />
     <br />
