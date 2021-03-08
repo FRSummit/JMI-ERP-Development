@@ -850,11 +850,11 @@ export default {
                                     base_vat: this.ALL_PRODUCTS_LIST_2[i].base_vat,
                                     code_id: this.ALL_PRODUCTS_LIST_2[i].code_id,
                                     display_code: this.ALL_PRODUCTS_LIST_2[i].display_code,
-                                    element: {
-                                        code_id: this.ALL_PRODUCTS_LIST_2[i].element.code_id,
-                                        element_name: this.ALL_PRODUCTS_LIST_2[i].element.element_name,
-                                        id: this.ALL_PRODUCTS_LIST_2[i].element.id,
-                                    },
+                                    element: this.ALL_PRODUCTS_LIST_2[i].element ?  {
+                                        code_id: this.ALL_PRODUCTS_LIST_2[i].element ? this.ALL_PRODUCTS_LIST_2[i].element.code_id : null,
+                                        element_name: this.ALL_PRODUCTS_LIST_2[i].element ? this.ALL_PRODUCTS_LIST_2[i].element.element_name : null,
+                                        id: this.ALL_PRODUCTS_LIST_2[i].element ? this.ALL_PRODUCTS_LIST_2[i].element.id : null,
+                                    } : null,
                                     id: this.ALL_PRODUCTS_LIST_2[i].id,
                                     offer: this.ALL_PRODUCTS_LIST_2[i].offer,
                                     prod_class: this.ALL_PRODUCTS_LIST_2[i].prod_class,
