@@ -22,6 +22,27 @@ input:focus {
     box-shadow        : none;
 }
 
+/* ------------ DASHBOARD - LANDING PAGE ---------------------------------------- */
+#landing-page.landing-page .row {
+    margin : 20px;
+    display: inline-flex;
+}
+
+#landing-page.landing-page .url-sec a {
+    background   : #E2EDFA;
+    color        : #026CD1;
+    display      : block;
+    width        : 200px;
+    text-align   : center;
+    padding      : 8px 0;
+    margin       : 4px 0;
+    border-radius: 4px;
+    font-size    : 16px;
+    font-weight  : 600;
+}
+
+/* ------------ DASHBOARD - LANDING PAGE ---------------------------------------- */
+
 /* Sidebar */
 .static-menu-section-inner.jemy-hover .static-menu-icon,
 .primary-menu-section-inner.jemy-hover .primary-icon,
