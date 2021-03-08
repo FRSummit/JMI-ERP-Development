@@ -324,11 +324,11 @@ input:focus {
 #delivery-scheduling-left-list .mx-input-wrapper input,
 #delivery-packing-preparation-left-list .mx-input-wrapper input,
 #invoice-challan-printing-left-list .mx-input-wrapper input {
-    font-size   : 12px;
-    width       : 176px;
-    border      : 1px solid #E1E2E3;
-    height      : auto;
-    padding     : 6px 0 6px 2px;
+    font-size: 12px;
+    width    : 176px;
+    border   : 1px solid #E1E2E3;
+    height   : auto;
+    padding  : 6px 0 6px 2px;
 
 }
 
@@ -970,6 +970,10 @@ input[type=number] {
     margin-bottom: 10px;
     display      : block;
     color        : #C11616;
+}
+
+.modal-popup-section .modal-popup-section-inner .popup-text.info {
+    color: #026CD1;
 }
 
 .modal-popup-section .modal-popup-section-inner .popup-desc {

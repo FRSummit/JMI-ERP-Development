@@ -539,16 +539,38 @@ export default class PostService {
     })
   }
 
+  // DELIVERY SCHEDULING - PRINT INVOICE & CHALLAN - LEFT SECTION
+  getDeliveryScheduleList_DELIVERY_SCHEDULING_INVOICE_CHALLAN_PRINTING() {
+    let web_menu_url = '/api/web/delivery-schedule-list'
+    return axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
+
+  // DELIVERY SCHEDULING - PRINT INVOICE & CHALLAN - LEFT SECTION
+  getDeliveryScheduleDetails_DELIVERY_SCHEDULING_INVOICE_CHALLAN_PRINTING(schedule_id) {
+    let web_menu_url = '/api/web/delivery-schedule-details/' + schedule_id
+    return axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
+
   // INVOICE-CHALLAN PRINTING - DETAILS SECTION
   getPrintInvoiceDetails_INVOICE_CHALLAN_PRINTING(invoice_id) {
     console.log(invoice_id)
-    // let web_menu_url = '/api/web/print-invoice-details/' + invoice_id
-    // return axios(web_menu_url, {
-    //   method: 'GET',
-    //   headers: {
-    //     'Authorization': token_type + ' ' + token
-    //   },
-    // })
+    let web_menu_url = '/api/web/print-invoice-details/' + invoice_id
+    return axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+    })
   }
 
 

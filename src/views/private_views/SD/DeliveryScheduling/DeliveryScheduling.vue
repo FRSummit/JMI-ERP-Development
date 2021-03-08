@@ -73,7 +73,7 @@ export default {
       await service.getCreateDeliveryScheduleBy_DA_DELIVERY_SCHEDULING(da_id, date)
         .then(res => {
           console.log(res.data.invoice_count)
-          this.$router.push('/sd/delivery-process-invoice-printing')
+          this.$router.push('/sd/delivery-process-invoice-printing:' + res.data.invoice_count)
         })
     },
   },

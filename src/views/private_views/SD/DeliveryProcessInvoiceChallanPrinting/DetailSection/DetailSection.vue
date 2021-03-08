@@ -33,10 +33,10 @@
                   <v-tabs-items v-model="tab" class="tab-container" style="margin-top: 30px">
                     <v-tab-item v-for="(status, i) in status_list" :key="i">
                       <v-card color="basil" flat>
-                        <v-card v-if="status.status_name === 'Invoice Print'"><DetailDataList :tab="status.status_name"  :data="invoice_challan_print_data" /></v-card>
-                        <v-card v-if="status.status_name === 'Chalan Print'"><DetailDataList :tab="status.status_name"  :data="invoice_challan_print_data" /></v-card>
-                        <v-card v-if="status.status_name === 'Printing Ready'"><DetailDataList :tab="status.status_name"  :data="invoice_challan_print_data" /></v-card>
-                        <v-card v-if="status.status_name === 'Handover'"><DetailDataList :tab="status.status_name"  :data="invoice_challan_print_data" /></v-card>
+                        <v-card v-if="status.status_name === 'Invoice Print'"><DetailDataList :tab="status.status_name"  :data="invoice_challan_print_data" :SCHEDULE_DETAILS_LIST="SCHEDULE_DETAILS_LIST" /></v-card>
+                        <!-- <v-card v-if="status.status_name === 'Chalan Print'"><DetailDataList :tab="status.status_name"  :data="invoice_challan_print_data" :SCHEDULE_DETAILS_LIST="SCHEDULE_DETAILS_LIST" /></v-card>
+                        <v-card v-if="status.status_name === 'Printing Ready'"><DetailDataList :tab="status.status_name"  :data="invoice_challan_print_data" :SCHEDULE_DETAILS_LIST="SCHEDULE_DETAILS_LIST" /></v-card>
+                        <v-card v-if="status.status_name === 'Handover'"><DetailDataList :tab="status.status_name"  :data="invoice_challan_print_data" :SCHEDULE_DETAILS_LIST="SCHEDULE_DETAILS_LIST" /></v-card> -->
                       </v-card>
                     </v-tab-item>
                   </v-tabs-items>
@@ -56,6 +56,7 @@
 import DetailDataList from './DetailData/DetailDataList'
 
 export default {
+  props: ["SCHEDULE_DETAILS_LIST"],
   components: {
     DetailDataList
   },

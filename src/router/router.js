@@ -106,7 +106,7 @@ export const router = new VueRouter({
       component: () => import('../views/private_views/SD/DeliveryProcessPackingPreparation/DeliveryProcessPackingPreparation.vue')
     },
     {
-      path: '/sd/delivery-process-invoice-printing',
+      path: '/sd/delivery-process-invoice-printing:id',
       name: 'Delivery Process - Invoice Printing',
       component: () => import('../views/private_views/SD/DeliveryProcessInvoiceChallanPrinting/DeliveryProcessInvoiceChallanPrinting.vue')
     },
@@ -167,7 +167,7 @@ export const router = new VueRouter({
       component: () => import('../views/private_views/SD/Doctor/CreateDoctor/CreateDoctor.vue')
     },
     {
-      path: '/features/local_sales/doctors_profile:id',
+      path: '/features/local_sales/doctors_profile:count',
       name: 'Doctors Profile',
       component: () => import('../views/private_views/SD/Doctor/DoctorProfile/DoctorsProfile.vue')
     },
