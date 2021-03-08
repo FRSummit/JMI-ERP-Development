@@ -133,6 +133,12 @@ export const router = new VueRouter({
       name: 'Deliveries',
       component: () => import('../views/private_views/SD/Deliveries/Deliveries.vue')
     },
+    // Return
+    {
+      path: '/features/local_sales/return',
+      name: 'Return',
+      component: () => import('../views/private_views/SD/Return/Return.vue')
+    },
     // Customer Profile
     {
       path: '/features/local_sales/customer_list',
