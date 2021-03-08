@@ -12,7 +12,7 @@
               type="text"
               class="form-control"
               id="search-filter"
-              placeholder="Search by DA Name"
+              placeholder="Search by SR Name"
               v-on:keyup="searchKeyUpHandler"
             />
           </div>

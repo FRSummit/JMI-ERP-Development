@@ -25,7 +25,15 @@
             </div>
           </div>
         </div>
-        <div class="date-range" v-if="selectedDA">
+        <div class="date-range">
+          <div class="date-range-inner">
+            <p>
+              <span>Date</span>
+              <date-picker class="jmi-single-date" v-model="date_data" lang="en" type="date" format="YYYY-MM-DD" width="500" @change="dateChangeHandler"></date-picker>
+            </p>
+          </div>
+        </div>
+        <!-- <div class="date-range" v-if="selectedDA">
           <div class="date-range-inner">
             <p>
               <span>Date Range</span>
@@ -33,18 +41,23 @@
             </p>
           </div>
         </div>
-        <div class="location-title" :style="selectedDA === null ? 'margin-top: 45px;' : 'margin-top: 0px;'">
+        <div class="date-range" v-if="!selectedDA">
+          <div class="date-range-inner">
+            <p style="text-align: center;">
+              <span style="font-size: 16px; font-weight: 600;">Select SR</span>
+            </p>
+          </div>
+        </div> -->
+        <div class="location-title">
+        <!-- <div class="location-title" :style="selectedDA === null ? 'margin-top: 45px;' : 'margin-top: 0px;'"> -->
           <div class="location-title-inner">
             <p>Invoice/Challan List (<span>{{ PENDING_DELIVERY_SCHEDULE_INV_LIST.length }}</span>)</p>
           </div>
         </div>
         <div class="location-list-section">
           <div class="location-list-section-inner">
-            <div id="progressbar" class="progressbar" v-if="!locations_details_list.length" style="text-align: center; margin: 40px 0; color: #026cd1;">
-              <v-progress-circular
-                indeterminate
-                color="primary"
-              ></v-progress-circular>
+            <div id="progressbar" class="progressbar" v-if="!PENDING_DELIVERY_SCHEDULE_INV_LIST.length" style="text-align: center; margin: 40px 0; color: #026cd1;">
+              <v-progress-circular indeterminate color="primary"></v-progress-circular>
             </div>
             <!-- <draggable
               class="dragArea unpublished"
@@ -119,6 +132,7 @@ export default {
       },
       datetime: '',
       range: '',
+      date_data: '',
       exampleList: [
         'Item 1',
         'Item 2',
@@ -155,6 +169,11 @@ export default {
     // },
     onEnd(location, index) {
       console.log('working 2 : ' + location + '    ' + index)
+    },
+    dateChangeHandler() {
+      console.log(this.date_data)
+      let selected_dt = this.date_data.toString().split(' ')[2] + '-' + this.date_data.toString().split(' ')[1] + '-' + this.date_data.toString().split(' ')[3]
+      console.log(selected_dt)
     },
     async dateRangeChange() {
       let da_id = null

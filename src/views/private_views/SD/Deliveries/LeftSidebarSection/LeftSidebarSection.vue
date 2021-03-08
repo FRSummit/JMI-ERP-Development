@@ -117,11 +117,11 @@
                 </div> -->
             </div>
         </div>
-        <!-- Approve Selected With DA Modal -->
+        <!-- Approve Selected With SR Modal -->
         <div class="modal-popup-section_type_2" v-if="approve_selected_with_da_popup_modal">
             <div class="modal-popup-section_type_2-inner" v-click-outside="approveSelectedWithDA_PopupModalOutsideClick">
-                <p class="title">Approve Selected With DA</p>
-                <p class="title blue-title">DA Name: <span>{{ selected_da_for_approve }}</span></p>
+                <p class="title">Approve Selected With SR</p>
+                <p class="title blue-title">SR Name: <span>{{ selected_da_for_approve }}</span></p>
                 <!-- <div class="input-section">
                     <div class="form-group has-search">
                         <span class="fa fa-search form-control-feedback"></span>
@@ -312,14 +312,14 @@ export default {
             SELECT_OPTION__ORDER_ID_LIST: [],
             approve_selected_with_da_popup_modal: false,
             DA_LIST_FOR_APPROVE: [
-                {name: "DA 1"},
-                {name: "DA 2"},
-                {name: "DA 3"},
-                {name: "DA 4"},
-                {name: "DA 5"},
-                {name: "DA 6"},
-                {name: "DA 7"},
-                {name: "DA 8"},
+                {name: "SR 1"},
+                {name: "SR 2"},
+                {name: "SR 3"},
+                {name: "SR 4"},
+                {name: "SR 5"},
+                {name: "SR 6"},
+                {name: "SR 7"},
+                {name: "SR 8"},
             ],
             selected_da_for_approve: null,
         }
@@ -396,8 +396,8 @@ export default {
                     }
                     this.on_change_status = ''
                     break
-                case 'Approved Selected with DA':
-                    console.log('Approved Selected with DA')
+                case 'Approved Selected with SR':
+                    console.log('Approved Selected with SR')
                     if(this.approve_selected_with_da_popup_modal) {
                         this.approve_selected_with_da_popup_modal = false
                         this.$emit('approve_selected_with_da_popup_modal', this.approve_selected_with_da_popup_modal)
