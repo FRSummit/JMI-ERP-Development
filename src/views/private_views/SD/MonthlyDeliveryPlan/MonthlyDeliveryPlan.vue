@@ -49,7 +49,7 @@
                 <div class="da-name-contact-number-territory-details-section">
                   <div class="da-name-section">
                     <p class="da-name-text">
-                      <span class="default-text">DA Name:</span>
+                      <span class="default-text">SR Name:</span>
                       <span class="da-name" v-if="monthlyPlanDetailsSection && selectedSchedule">{{
                         selectedSchedule.name
                       }}</span>

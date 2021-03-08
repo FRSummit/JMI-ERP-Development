@@ -326,11 +326,14 @@ input:focus {
 #invoice-challan-printing-left-list .mx-input-wrapper input {
     font-size   : 12px;
     width       : 176px;
-    /* border   : 1px solid #9e9e9e; */
     border      : 1px solid #E1E2E3;
     height      : auto;
     padding     : 6px 0 6px 2px;
 
+}
+
+#delivery-scheduling-left-list .jmi-single-date.mx-datepicker .mx-input-wrapper input {
+    width: 200px;
 }
 
 #delivery-scheduling-left-list .mx-input-wrapper input:focus,

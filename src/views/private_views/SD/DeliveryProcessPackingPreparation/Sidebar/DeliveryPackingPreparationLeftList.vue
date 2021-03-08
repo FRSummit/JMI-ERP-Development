@@ -11,7 +11,7 @@
               <!-- <span class="right-icon"><i class="fas fa-chevron-right"></i></span> -->
               <span class="down-icon"><i class="fas fa-chevron-down"></i></span>
               <select
-                title="Pick a DA"
+                title="Pick a SR"
                 class="selectpicker"
                 v-model="selectedDA"
                 @change="onChange()"

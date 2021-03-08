@@ -135,7 +135,7 @@
                 <div class="list-section">
                     <div class="list-section-inner">
                         <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" v-model="approve_da_modal_select_box_item" @change="onChangeApproveDAModalSelectBoc()">
-                            <option selected>ALL DA</option>
+                            <option selected>ALL SR</option>
                             <option v-for="(da, i) in DA_LIST_FOR_APPROVE" :key="i">{{ da.name }}</option>
                         </select>
                         <!-- <p class="list-item" v-for="(da, i) in DA_LIST_FOR_APPROVE" :key="i" @click="daNameClickHandler(da)">{{ da.name }}</p> -->
@@ -322,7 +322,7 @@ export default {
                     status: "Approved Selected"
                 },
                 {
-                    status: "Approved Selected with DA"
+                    status: "Approved Selected with SR"
                 },
                 {
                     status: "Reject Selected"
@@ -457,8 +457,8 @@ export default {
                         this.$emit('approve_selection_modal', this.approve_selection_modal)
                     }
                     break
-                case 'Approved Selected with DA':
-                    console.log('Approved Selected with DA')
+                case 'Approved Selected with SR':
+                    console.log('Approved Selected with SR')
                     if(this.approve_selected_with_da_popup_modal) {
                         this.approve_selected_with_da_popup_modal = false
                         this.$emit('approve_selected_with_da_popup_modal', this.approve_selected_with_da_popup_modal)
@@ -467,7 +467,7 @@ export default {
                         this.$emit('approve_selected_with_da_popup_modal', this.approve_selected_with_da_popup_modal)
                         await this.DIC_WISE_USERS__FROM_SERVICE()
                         // this.approve_da_modal_select_box_item = this.DA_LIST_FOR_APPROVE[0].name
-                        this.approve_da_modal_select_box_item = 'ALL DA'
+                        this.approve_da_modal_select_box_item = 'ALL SR'
                         console.log(this.DA_LIST_FOR_APPROVE[0])
                     }
                     this.on_change_status = ''
@@ -553,7 +553,7 @@ export default {
             console.log('confirm clicked from Approve DA modal')
             console.log(this.approve_da_modal_select_box_item)
             // await APPROVE_BULK_AMOUNT_OF_ORDERS()
-            if(this.approve_da_modal_select_box_item === 'ALL DA') {
+            if(this.approve_da_modal_select_box_item === 'ALL SR') {
                 await this.APPROVE_ALL_DA__FROM_SERVICE()
             } else {
                 for(let i=0; i<this.DA_LIST_FOR_APPROVE.length; i++) {

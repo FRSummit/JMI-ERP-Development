@@ -22,12 +22,6 @@ export default class PP_Invoice_Type_2 {
                             +     '</head>'
                             +     '<body style="font-family: sans-serif;">'
                             +         this.createBody()
-                            // +         '<div class="print-footer-section" style="position: fixed; bottom: 0; height: 60px;">'
-                            // +             '<p style="margin: 0;">Footer Section</p>'
-                            // +             '<p style="margin: 0;">Footer Section</p>'
-                            // +             '<p style="margin: 0;">Footer Section</p>'
-                            // +         '</div>'
-                            // +         this.create_footer()
                 )
 
         mywindow.document.write('</body></html>');
@@ -36,16 +30,15 @@ export default class PP_Invoice_Type_2 {
         mywindow.print();
         // mywindow.close();
 
-        // return true;
+        return true;
     }
 
     createBody() {
         let inner_body = ''
         for(let i=0; i<data.length; i++) {
                 inner_body += ''
-                            +         '<div class="print-section" style="page-break-before: always">'
+                            +         '<div class="print-section" style="page-break-before: always; overflow: hidden;">'
                             +             '<div class="print-section-inner">'
-                            // +                 this.create_apendix(data.doc_apendix[0])
                             +                 this.create_summery_section_data()
                             +                 '<table style="">'
                             +                     '<thead>'
@@ -67,19 +60,11 @@ export default class PP_Invoice_Type_2 {
                             +                         '</tr>'
                             +                     '</thead>'
                             +                     '<tbody>'
-                            // +                         this.create_table_body_data()
                             +                         this.create_multiple_person_table_body_data()
-                            // +                         this.create_subtotal_data()
-                            // +                         '<span style="margin-top: 10px; border-top: 1px solid #000000"></span>'
-                            // +                         this.create_gross_TP_data()
-                            // +                         this.create_discount_data()
-                            // +                         this.create_vat_data()
-                            // +                         this.create_rounding_adjustment_data()
-                            // +                         this.create_net_payable_data()
                             +                     '</tbody>'
                             +                 '</table>'
 
-                            +                 '<table style="margin-top: 10px;">'
+                            +                 '<table style="margin-top: 10px; page-break-inside: avoid;">'
                             +                     '<tbody>'
                             +                         this.create_gross_TP_data()
                             +                         this.create_discount_data()
@@ -90,7 +75,7 @@ export default class PP_Invoice_Type_2 {
                             +                 '</table>'
 
                             +                 '<div class="status-section" style=" margin-top: 20px;">'
-                            +                     '<table style="width: 50%; margin-left: 0%;">'
+                            +                     '<table style="width: 50%; margin-left: 0%; page-break-inside: avoid;">'
                             +                         '<tr>'
                             +                             '<td colspan="4"><p style="text-align: left; font-size: 16px; font-weight: 500;">Present Credit Status:</p></td>'
                             +                         '</tr>'
@@ -113,7 +98,7 @@ export default class PP_Invoice_Type_2 {
                             +                         '</tr>'
                             +                     '</table>'
                             +                 '</div>'
-                            +                 '<div class="signature-section" style="float: right; page-break-after: always; page-break-inside: always; margin-top: 20px;">'
+                            +                 '<div class="signature-section" style="float: right; page-break-after: always; page-break-inside: avoid; margin-top: 20px;">'
                             +                     '<p style="margin: 0; text-align: center;"><span style="border-bottom: 1px solid #000000; width: 300px; display: block;">AZAHER</span><span style="width: 300px; display: block;">For NIPRO JMI Pharma Ltd.</span></p>'
                             +                 '</div>'
                             +             '</div>'
@@ -215,17 +200,6 @@ export default class PP_Invoice_Type_2 {
         return style
     }
 
-    create_apendix(apendix_data) {
-        let apendix = ''
-        apendix += ''
-                + '<div style="width: 100%;">'
-                +     '<p style="text-align: left; font-size: 12px; line-height: 1.7; margin: 0;"><span style="display: inline-block; width: 50px;">Apendix</span><span>: ' + apendix_data.apendix + '</span></p>'
-                +     '<p style="text-align: left; font-size: 12px; line-height: 1.7; margin: 0;"><span style="display: inline-block; width: 50px;">Doc. No</span><span>: ' + apendix_data.doc_no + '</p>'
-                +     '<p style="text-align: left; font-size: 12px; line-height: 1.7; margin: 0;"><span style="display: inline-block; width: 50px;">Form No</span><span>: ' + apendix_data.form_no + '</p>'
-                + '</div>'
-        return apendix
-    }
-
     create_summery_section_data() {
 
         let result = ''
@@ -305,7 +279,7 @@ export default class PP_Invoice_Type_2 {
 
     create_multiple_person_table_body_data() {
         let multiple_person_data = ''
-        for(let i=0; i<8; i++) {
+        for(let i=0; i<4; i++) {
             multiple_person_data += this.create_table_body_data()
         }
         return multiple_person_data
@@ -321,7 +295,7 @@ export default class PP_Invoice_Type_2 {
                             '</tr>'
         
         let result = ''
-        for(let i=0; i<5; i++) {
+        for(let i=0; i<8; i++) {
             result +=   ''
                     +   '<tr style="page-break-before: always;">'
                     +       '<td style="">' + (i + 1) + '</td>'
@@ -448,14 +422,6 @@ export default class PP_Invoice_Type_2 {
         return net_payable
     }
 
-    // absolute_position_tests() {
-    //     let result = ''
-    //                 + '<div class="amount-in-word">'
-    //                 +   '<p>In Word : Taka One Lac Eight Thousand Five Hundred Sixty Five only.</p>'
-    //                 + '</div>'
-    //     return result
-    // }
-
     create_footer() {
       let footer_text = ''
       footer_text += ''
@@ -483,7 +449,4 @@ export default class PP_Invoice_Type_2 {
         str += (n[5] != 0) ? ((str != '') ? 'and ' : '') + (a[Number(n[5])] || b[n[5][0]] + ' ' + a[n[5][1]]) + 'only ' : '';
         return str;
     }
-
-    // inWords (num) {
-    // }
 }

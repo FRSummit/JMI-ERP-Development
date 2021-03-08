@@ -20,7 +20,7 @@
                     </div>
                     <div class="da-sr-name">
                       <div class="da-sr-name-inner">
-                        <span class="label">DA/SR Name</span>
+                        <span class="label">SR/SR Name</span>
                         <input type="text" placeholder="Enter Name" />
                       </div>
                     </div>
@@ -57,7 +57,7 @@
                       </p>
                     </div>
                     <div class="da-sr-section">
-                      <p class="da-sr">DA: <span>Mehedi Hassan</span></p>
+                      <p class="da-sr">SR: <span>Mehedi Hassan</span></p>
                     </div>
                     <div class="dispatch-time">
                       <p class="time">Out-time: <span>08:30PM</span></p>
