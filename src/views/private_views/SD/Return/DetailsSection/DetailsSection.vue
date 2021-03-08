@@ -1,6 +1,6 @@
 <template>
-    <div id="create-order-details-section" class="create-order-details-section">
-        <div class="create-order-details-section-inner">
+    <div id="sd_return-details-section" class="sd_return-details-section">
+        <div class="sd_return-details-section-inner">
             <div class="title-section">
                 <div class="row">
                     <!-- <div class="col-lg-4 col-md-4 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer ID:</span><span class="id">{{ customer_data ? customer_data.customer_id : ""}}</span><span class="customer-type">{{ customer_data ? customer_data.credit_flag === "Y" ? "Credit" : "Cash" : "No Customer" }}</span></p></div> -->
@@ -175,7 +175,7 @@
                     <div class="top-section">
                         <div class="top-section-inner">
                             <div class="logo">
-                                <img src="../../../../../../assets/icons/user.png" alt="logo">
+                                <img src="../../../../../assets/icons/user.png" alt="logo">
                             </div>
                             <div class="title-section">
                                 <p class="name">{{ customer_data ? (customer_data.display_name) : 'Not Found' }}<span class="tik-icon"><i class="zmdi zmdi-check"></i></span></p>
@@ -192,7 +192,7 @@
                             <div class="autofield-show-section">
                                 <div class="autofield-show-section-inner">
                                     <div class="header">
-                                        <input id="create-order-add-product" class="jmi-auto-filter-input" type="text" placeholder="Search By Name or Product ID" v-on:keyup="searchKeyUpAddProductHandler" />
+                                        <input id="sd_return-add-product" class="jmi-auto-filter-input" type="text" placeholder="Search By Name or Product ID" v-on:keyup="searchKeyUpAddProductHandler" />
                                         <tr class="jmi-add-product-autofill-header-row">
                                             <td><span class="td-span-title">Name</span></td>
                                             <td><span class="td-span-title">Price</span></td>
@@ -322,9 +322,9 @@
 
 <script>
 // import AdvancedSearch from 'vue-advanced-search'
-import JMIFilter from '.././../../../../../functions/JMIFIlter'
+import JMIFilter from '../../../../../functions/JMIFIlter'
 const jmiFilter = new JMIFilter()
-import ERPService from '../../../../../../service/ERPSidebarService'
+import ERPService from '../../../../../service/ERPSidebarService'
 const service = new ERPService()
 
 export default {
@@ -642,14 +642,14 @@ export default {
         },
         // Filter
         searchKeyUpAddProductHandler(value) {
-            let input = document.getElementById("create-order-add-product");
+            let input = document.getElementById("sd_return-add-product");
             let filter = input.value.toUpperCase();
             let list = document.querySelectorAll('.responer-body-filter-output')
             let txt_selector = "responer-body-filter-tag"
             let id_selector = "responer-body-filter-tag-id"
 
             console.log(value.key)
-            let v = document.querySelector('#create-order-add-product').value
+            let v = document.querySelector('#sd_return-add-product').value
             if(isNaN(v)) {
                 jmiFilter.searchByID_Name_Details_Section(filter, list, txt_selector)
             } else {
