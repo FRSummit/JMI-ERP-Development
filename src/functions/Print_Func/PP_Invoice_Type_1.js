@@ -126,7 +126,7 @@ export default class SDR_015 {
                                         '<div style="display: block; width: 100%; margin-top: 10px">' +
                                             '<p style="display: block; width: 100%; margin: 0; font-size: 12px; line-height: 1.2; text-align: left;">* We will abide by the terms & conditions of the company</p>' +
                                             '<p style="display: block; width: 100%; margin: 0; font-size: 12px; line-height: 1.2; text-align: left;">* I declear that I have a valid drug Licence.</p>' +
-                                            '<p style="display: block; width: 100%; margin: 0; font-size: 12px; line-height: 1.2; text-align: left;">* Excution of order is subject to ability of stock</p>' +
+                                            '<p style="display: block; width: 100%; margin: 0; font-size: 12px; line-height: 1.2; text-align: left;">* Excution of the order is subject to availability of stock</p>' +
                                         '</div>' +
                                         '<div class="bottom-section" style="width: 100%; margin-top: 60px;">' +
                                             // Row 1
@@ -134,11 +134,12 @@ export default class SDR_015 {
                                                 '<div style="display: inline; width:200px; border-top: 1px solid #000000;">' +
                                                     '<p style="display: block; width: 100%; margin: 0; font-size: 12px; line-height: 1.2; text-align: center;">Customer Signature</p>' +
                                                 '</div>' +
+                                                // '<div style="display: inline; width:200px; border-top: 1px solid #000000;">' +
+                                                //     '<p style="display: block; width: 100%; margin: 0; font-size: 12px; line-height: 1.2; text-align: center;">' + data.created_by_info.name + '</p>' +
+                                                // '</div>' +
+                                                this.create_bottom_signature_section(data) +
                                                 '<div style="display: inline; width:200px; border-top: 1px solid #000000;">' +
-                                                    '<p style="display: block; width: 100%; margin: 0; font-size: 12px; line-height: 1.2; text-align: center;">Signature of MIO</p>' +
-                                                '</div>' +
-                                                '<div style="display: inline; width:200px; border-top: 1px solid #000000;">' +
-                                                    '<p style="display: block; width: 100%; margin: 0; font-size: 12px; line-height: 1.2; text-align: center;">Signature of Area Manager</p>' +
+                                                    '<p style="display: block; width: 100%; margin: 0; font-size: 12px; line-height: 1.2; text-align: center;">' + data.verified_by_info.name + '</p>' +
                                                 '</div>' +
                                             '</div>' +
                                         '</div>' +
@@ -205,6 +206,23 @@ export default class SDR_015 {
                     '</tr>' 
 
         return sub_total
+    }
+
+    create_bottom_signature_section(data) {
+        let btm_sec = ''
+        if(data.created_by_info.id !== data.verified_by_info.id) {
+            btm_sec += '' +
+            '<div style="display: inline; width:200px; border-top: 1px solid #000000;">' +
+                '<p style="display: block; width: 100%; margin: 0; font-size: 12px; line-height: 1.2; text-align: center;">' + data.created_by_info.name + '</p>' +
+            '</div>'
+        } else {
+            btm_sec += '' +
+            '<div style="display: inline; width:200px;">' +
+                '<p style="display: block; width: 100%; margin: 0; font-size: 12px; line-height: 1.2; text-align: center;">' + '' + '</p>' +
+            '</div>'
+        }
+
+        return btm_sec
     }
 
     total_tp(data) {
