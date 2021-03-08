@@ -40,7 +40,7 @@
                 <th>Invoice ID</th>
                 <th>Customer Type</th>
                 <th>Customer Name</th>
-                <th>Amount</th>
+                <th style="text-align: right;">Amount</th>
                 <th style="width: 10%;"></th>
               </tr>
             </thead>
@@ -50,7 +50,7 @@
                 <td>{{ schedule.invoice_id }}</td>
                 <td>{{ schedule.customer_info ? (schedule.customer_info.customer_type ? (schedule.customer_info.customer_type) : '') : '' }}</td>
                 <td>{{ schedule.customer_info ? (schedule.customer_info.customer_name ? (schedule.customer_info.customer_name) : '') : '' }}</td>
-                <td>{{ schedule.invoice_amt }}</td>
+                <td style="text-align: right;">{{ comaSrparation(Number(schedule.invoice_amt).toFixed(2)) }}</td>
                 <td style="width: 10%;"><i class="zmdi zmdi-print" @click="printInvoice(schedule.id, i)"></i></td>
               </tr>
             </tbody>
@@ -70,6 +70,9 @@ const service = new Service();
 
 import PP_Invoice_Type_2_Single from '../../../../../../functions/Print_Func/PP_Invoice_Type_2_Single'
 const pp_Invoice_Type_2_Single = new PP_Invoice_Type_2_Single()
+
+import ComaSeparatedDigits from '../../../../../../functions/ComaSeparatedDigits'
+const comaSeparatedDigits = new ComaSeparatedDigits()
 
 export default {
   props: ["tab", "data", "SCHEDULE_DETAILS_LIST"],
@@ -106,6 +109,9 @@ export default {
             break
       }
     },
+    comaSrparation(data) {
+      return comaSeparatedDigits.comaSeparate(data)
+    },
     async printInvoice(schedule_id, i) {
       console.log('index : ' + i)
       console.log(schedule_id)
@@ -119,7 +125,7 @@ export default {
         .then(res => {
           console.log(res.data)
           // ppInvoice_Type_2.print_invoice(res.data)
-          pp_Invoice_Type_2_Single.print_invoice(res.data)
+          pp_Invoice_Type_2_Single.print_invoice(res.data.invoice_details)
         })
     }
   },
