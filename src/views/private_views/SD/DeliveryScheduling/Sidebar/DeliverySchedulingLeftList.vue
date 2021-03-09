@@ -157,7 +157,7 @@ export default {
     await this.PENDING_DELIVERY_SCHEDULE_DELIVERY_LIST__FROM_SERVICE()
   },
   methods: {
-    onChange() {
+    async onChange() {
       let da_id = null
       console.log(this.selectedDA);
       if(this.selectedDA !== null) {
@@ -167,6 +167,7 @@ export default {
           }
         }
       }
+      await this.PENDING_DELIVERY_SCHEDULE_INVOICE_LIST_BY_DA_ID__FROM_SERVICE(da_id)
       this.$emit('SELECTED_DA_ID', da_id)
     },
     // onUnpublishedChange({ added }) {
@@ -230,6 +231,14 @@ export default {
     },
     async PENDING_DELIVERY_SCHEDULE_DELIVERY_LIST__FROM_SERVICE() {
       await service.getPendingDeliveryScheduleInvoiceList_DELIVERY_SCHEDULING()
+        .then(res => {
+          console.log(res.data)
+          this.PENDING_DELIVERY_SCHEDULE_INV_LIST = res.data.invoice_info
+        })
+    },
+    async PENDING_DELIVERY_SCHEDULE_INVOICE_LIST_BY_DA_ID__FROM_SERVICE(da_id) {
+      this.PENDING_DELIVERY_SCHEDULE_INV_LIST = []
+      await service.getPendingDeliveryScheduleInvoiceLBy_DA_ID_DELIVERY_SCHEDULING(da_id)
         .then(res => {
           console.log(res.data)
           this.PENDING_DELIVERY_SCHEDULE_INV_LIST = res.data.invoice_info

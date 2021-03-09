@@ -1909,6 +1909,36 @@ span.cancel-order {
 /* ----------- SD Deliveries Page ENDS ----------------------------------------------------- */
 
 /* ----------- Invoice Printing & Challan Printing Page STARTS ----------------------------- */
+#detail-data-list.detail-data-list .detail-data-list-inner {
+    position: relative;
+}
+
+#detail-data-list.detail-data-list span.print-all-icon {
+    position: absolute;
+    top     : -22px;
+    right   : 40px;
+}
+
+#detail-data-list.detail-data-list span.print-all-icon i {
+    color    : #026CD1;
+    font-size: 22px;
+    cursor   : pointer;
+}
+
+#detail-data-list.detail-data-list span.print-all-icon .tool-tip {
+    display  : none;
+    position : absolute;
+    top      : -20px;
+    right    : -40px;
+    color    : #026CD1;
+    font-size: 14px;
+    width    : 100px;
+}
+
+#detail-data-list.detail-data-list span.print-all-icon:hover .tool-tip {
+    display: block;
+}
+
 #detail-data-list.detail-data-list table.data-table td i {
     color    : #026CD1;
     font-size: 17px;
