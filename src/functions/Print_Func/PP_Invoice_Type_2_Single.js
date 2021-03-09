@@ -1,18 +1,11 @@
-// import Service from '../../service/ERPSidebarService'
-// const service = new Service()
-
-// let data = []
-// service.getDICWiseUsers_MonthlyDeliveryPlan()
-//     .then(res => {
-//         console.log(res.data.users.da)
-//         data = res.data.users.da
-//     })
-
 import ComaSeparatedDigits from '../ComaSeparatedDigits'
 const comaSeparatedDigits = new ComaSeparatedDigits()
 
 let NET_PAYABLE_AFTER_ADJ = 0
 let ROUNDING_ADJ = 0
+let PRODUCT_SERIAL_NO = 1
+
+var monthShortNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 export default class PP_Invoice_Type_2_Single {
     
@@ -26,7 +19,7 @@ export default class PP_Invoice_Type_2_Single {
                             +               this.addStylePrint_3()
                             +         '</style>'
                             +     '</head>'
-                            +     '<body style="font-family: sans-serif;">'
+                            +     '<body style="">'
                             +         '<div class="print-section" style="page-break-before: always; overflow: hidden;">'
                             +             '<div class="print-section-inner">'
                             // +                 this.create_summery_section_data()
@@ -216,9 +209,12 @@ export default class PP_Invoice_Type_2_Single {
               + '}'
               +
               + '@media print {'
+              +     'body {'
+              +         'margin: 0px;'
+              +         'font-family: "Calibri";'
+              +     '}'
               +     'p {'
               +         'margin: 0px;'
-              +         'font-family: sans-serif'
               +     '}'
               +     '.initial-data-section {'
               +         'display: block;'
@@ -263,7 +259,7 @@ export default class PP_Invoice_Type_2_Single {
               +         'font-size:10px;'
               +         'width: 100%; text-align: center;'
               +         'text-align: center;'
-              +         'font-family: sans-serif'
+              +         'font-family: "Calibri";'
               +         'page-break-inside: auto;'
               +     '}'
               +     'thead {'
@@ -349,6 +345,7 @@ export default class PP_Invoice_Type_2_Single {
     }
 
     create_multiple_person_table_body_data(data) {
+
         let product_details = data.invoice_details
         let multiple_person_data = ''
         let products = {
@@ -394,7 +391,7 @@ export default class PP_Invoice_Type_2_Single {
         for(let i=0; i<product_details.length; i++) {
             result +=   ''
                     +   '<tr style="page-break-before: always;">'
-                    +       '<td style="">' + (i + 1) + '.</td>'
+                    +       '<td style="">' + (PRODUCT_SERIAL_NO) + '.</td>'
                     +       '<td style=" width: 20%; text-align: left;">' + (product_details[i].product_info ? (product_details[i].product_info.prod_name ? (product_details[i].product_info.prod_name) : '') : '') + '</td>'
                     +       '<td style="">' + (product_details[i].product_info ? (product_details[i].product_info.com_pack_size ? (product_details[i].product_info.com_pack_size) : '') : '') + '</td>'
                     +       '<td style="">' + (product_details[i].batch_no ? (product_details[i].batch_no) : '') + '</td>'
@@ -408,13 +405,19 @@ export default class PP_Invoice_Type_2_Single {
                     +       '<td style=" text-align: right;">' + comaSeparatedDigits.comaSeparate(product_details[i].inv_vat ? (product_details[i].inv_vat) : '') + '</td>'
                     +       '<td style=" text-align: right;">' + comaSeparatedDigits.comaSeparate(product_details[i].inv_tp ? (product_details[i].inv_tp) : '') + '</td>'
                     +   '</tr>'
+                    PRODUCT_SERIAL_NO++
         }
         
         return deal_type + result + this.create_subtotal_data(product_details)
     }
 
+    dateFormat2(d) {
+        var t = new Date(d);
+        return monthShortNames[t.getMonth()] + ' ' + t.getFullYear().toString().slice(-2);
+    }
+
     createMFG_EXP_Date(dt) {
-        return dt.split('-')[2] + '' + dt.split('-')[0].slice(-2)
+        return this.dateFormat2(dt)
     }
 
     createUnitPriceVat(tp, vat) {
@@ -455,11 +458,6 @@ export default class PP_Invoice_Type_2_Single {
         gross_tp += ''
                     +   '<tr style=" border-top: 1px solid #000000;">'
                     +       '<td colspan="9" style="margin-top: 10px;">' + '<p style="text-align: left; margin: 0;">In Word : ' + this.convert_number_to_word(Number(NET_PAYABLE_AFTER_ADJ).toFixed(0)) + '.</p>' + '</td>'
-                    // +       '<td>' + '' + '</td>'
-                    // +       '<td>' + '' + '</td>'
-                    // +       '<td>' + '' + '</td>'
-                    // +       '<td>' + '' + '</td>'
-                    // +       '<td>' + '' + '</td>'
                     +       '<td colspan="2" style="text-align: right; margin-top: 10px;">' + 'Gross TP :' + '</td>'
                     +       '<td style="text-align: right; margin-top: 10px; border-bottom: 1px solid #000000;">' + '' + '</td>'
                     +       '<td style="text-align: right; margin-top: 10px; border-bottom: 1px solid #000000;">' + comaSeparatedDigits.comaSeparate(data.inv_tp) + '</td>'

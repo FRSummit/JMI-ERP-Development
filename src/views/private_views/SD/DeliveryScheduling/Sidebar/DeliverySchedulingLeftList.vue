@@ -230,6 +230,7 @@ export default {
         })
     },
     async PENDING_DELIVERY_SCHEDULE_DELIVERY_LIST__FROM_SERVICE() {
+      this.PENDING_DELIVERY_SCHEDULE_INV_LIST = []
       await service.getPendingDeliveryScheduleInvoiceList_DELIVERY_SCHEDULING()
         .then(res => {
           console.log(res.data)
@@ -241,7 +242,9 @@ export default {
       await service.getPendingDeliveryScheduleInvoiceLBy_DA_ID_DELIVERY_SCHEDULING(da_id)
         .then(res => {
           console.log(res.data)
-          this.PENDING_DELIVERY_SCHEDULE_INV_LIST = res.data.invoice_info
+          if(res.data.invoice_info ? res.data.invoice_info.length : false) {
+            this.PENDING_DELIVERY_SCHEDULE_INV_LIST = res.data.invoice_info
+          }
         })
     },
     async PENDING_DELIVERY_SCHEDULE_INVOICE_LIST_BY_DA(da_id, from_date, to_date) {

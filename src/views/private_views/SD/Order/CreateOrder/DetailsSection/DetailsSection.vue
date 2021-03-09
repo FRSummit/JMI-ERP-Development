@@ -9,7 +9,23 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><span class="jmi-lvl-value address">{{ customer_data ? customer_data.customer_info.customer_address !== null ? customer_data.customer_info.customer_address : "Null" : "" }}</span></p></div>
-                    <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title">Territory: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_70">{{ customer_data ? customer_data.customer_area_info.sales_force.get_sales_area.area_name : "" }}</span></p></div>                      
+                    <!-- <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title">Territory: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_70">{{ customer_data ? customer_data.customer_area_info.sales_force.get_sales_area.area_name : "" }}</span></p></div>                       -->
+                    <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title">Territory: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_70">
+                        <div class="select-options jmi-select-options-section" style="">
+                            <span class="right-icon"><i class="fas fa-chevron-right"></i></span>
+                                <select title="Pick a customer" class="selectpicker jmi-select-option" v-model="on_change_reg_area_tt" @change="onChangeRegAreaTTDropdown()" style="">
+                                    <optgroup label="DHK101" v-if="checkReagionAreaTT(REGION_AREA_TERRITORY_LIST)">
+                                        <option v-for="(rat, m) in checkReagionAreaTT(REGION_AREA_TERRITORY_LIST).reg" :key="m" :value="rat.id"><span v-if="rat.lvl === '3'">{{ rat.display_code }} - {{ rat.area_name }}</span></option>
+                                    </optgroup>
+                                    <optgroup label="DHK101">
+                                        <option v-for="(rat, m) in checkReagionAreaTT(REGION_AREA_TERRITORY_LIST).area" :key="m" :value="rat.id"><span v-if="rat.lvl === '4'">{{ rat.display_code }} - {{ rat.area_name }}</span></option>
+                                    </optgroup>
+                                    <optgroup label="DHK101">
+                                        <option v-for="(rat, m) in checkReagionAreaTT(REGION_AREA_TERRITORY_LIST).tt" :key="m" :value="rat.id"><span v-if="rat.lvl === '5'">{{ rat.display_code }} - {{ rat.area_name }}</span></option>
+                                    </optgroup>
+                            </select>
+                        </div>
+                    </span></p></div>                      
                 </div>
             </div>
 
@@ -386,12 +402,16 @@ export default {
             proceed_modal_popup: false,
             ALL_PRODUCTS_LIST: [],
             ALL_PRODUCTS_LIST_2: [],
+            REGION_AREA_TERRITORY_LIST: [],
+            on_change_reg_area_tt: null,
+            SALSE_AREA_ID: null,
         }
     },
     async created() {},
     async mounted() {
         await this.DIC_WISE_USERS__FROM_SERVICE()
         await this.getAllProduct()
+        await this.AREA_LIST_BY_USER__FROM_SERVICE()
     },
     methods: {
         onChangeSRDropdown() {
@@ -464,6 +484,7 @@ export default {
                     if (tt.prod_id === data.prod_id) {
                         this.ORDERED_TABLE_DATA__INIT_LIST.splice(i, 1);
                         this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.push(data)
+                        console.log(this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.length)
                         // Free Product row delete
                         if(data.offer_type === "free") {
                             this.ORDERED_TABLE_DATA__INIT_LIST.splice(i, 1);
@@ -792,6 +813,26 @@ export default {
                     this.$router.push('/features/local_sales/order_approval')
                 })
         },
+        async getAllProduct() {
+            await service.getSearchProductDataList_CreateOrderDetailsSection()
+                .then(res => {
+                    console.log(res.data.product_list)
+                    this.ALL_PRODUCTS_LIST_2 = res.data.product_list
+                    return res.data.product_list
+                })
+        },
+        async AREA_LIST_BY_USER__FROM_SERVICE() {
+            let customer_id = parseInt(this.customer_data ? this.customer_data.customer_id : 0)
+            console.log(customer_id)
+            await service.getAreaListByUser_CreateOrderDetailsSection(customer_id)
+                .then(res => {
+                    console.log(res.data.sales_areas)
+                    this.REGION_AREA_TERRITORY_LIST = []
+                    if(res.data.sales_areas) {
+                        this.REGION_AREA_TERRITORY_LIST = res.data.sales_areas
+                    }
+                })
+        },
         // ----------------------------------------------------------------------------------------------
         // Bottom Row Calculation
         // Create/initial Subtotal
@@ -808,14 +849,6 @@ export default {
             }
             this.gross_total = this.sub_total + this.vat_total
             this.grand_total = this.sub_total + this.vat_total - this.discount_total
-        },
-        async getAllProduct() {
-            await service.getSearchProductDataList_CreateOrderDetailsSection()
-                .then(res => {
-                    console.log(res.data.product_list)
-                    this.ALL_PRODUCTS_LIST_2 = res.data.product_list
-                    return res.data.product_list
-                })
         },
         // -------------------------------------------------------
         async GENERATE_ORDERED_PRODUCTS_DETAILS_LIST_FROM_PRODUCT_OFFER_RESPONSE() {
@@ -992,6 +1025,45 @@ export default {
             let date = yyyy + '-' + mm + '-' + dd
             return date
         },
+        checkReagionAreaTT(list) {
+            let reg_area_tt = {
+                reg: [],
+                area: [],
+                tt: []
+            }
+            for(let i=0; i<list.length; i++) {
+                if(list[i].lvl === '3') {
+                    reg_area_tt.reg.push(list[i])
+                } else if(list[i].lvl === '4') {
+                    reg_area_tt.area.push(list[i])
+                } else if(list[i].lvl === '5') {
+                    reg_area_tt.tt.push(list[i])
+                }
+            }
+            return reg_area_tt
+        },
+        onChangeRegAreaTTDropdown() {
+            // this.on_change_reg_area_tt
+            console.log(this.on_change_reg_area_tt)
+        },
+        selectREG_AREA_TT(id) {
+            console.log(id)
+            // let selector = document.querySelector('.selectpicker.jmi-select-option')
+            if(this.REGION_AREA_TERRITORY_LIST.length > 0) {
+                console.log('if')
+                for(let i=0; i<this.REGION_AREA_TERRITORY_LIST.length; i++) {
+                    if(this.REGION_AREA_TERRITORY_LIST[i].id === id) {
+                        console.log(this.REGION_AREA_TERRITORY_LIST[i].id)
+                        console.log(this.REGION_AREA_TERRITORY_LIST[i].display_code + ' - ' + this.REGION_AREA_TERRITORY_LIST[i].area_name)
+                        this.on_change_reg_area_tt = this.REGION_AREA_TERRITORY_LIST[i].display_code + ' - ' + this.REGION_AREA_TERRITORY_LIST[i].area_name
+                        // console.log(selector.option[i])
+                        // selector.options[i].selected = true
+                    }
+                }
+            } else {
+                // this.selectREG_AREA_TT(id)
+            }
+        }
     },
     watch: { 
         // Garbase
@@ -1028,6 +1100,10 @@ export default {
         customer_data(newVal, oldVal){
             if( newVal && oldVal) {
                 if(newVal.customer_id !== oldVal.customer_id) {
+                    this.SALSE_AREA_ID = newVal.customer_area_info ? (newVal.customer_area_info.sales_area_id ? (newVal.customer_area_info.sales_area_id) : null) : null
+                    console.log(this.SALSE_AREA_ID)
+                    // this.selectREG_AREA_TT(this.SALSE_AREA_ID)
+                    this.AREA_LIST_BY_USER__FROM_SERVICE(newVal.customer_id)
                     this.defaultAllThisComponentData()
                 }
             }
