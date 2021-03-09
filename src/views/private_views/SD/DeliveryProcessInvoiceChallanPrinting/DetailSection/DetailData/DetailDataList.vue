@@ -29,6 +29,7 @@
           </div>
         </div>
       </div>
+      <span class="print-all-icon"><i class="zmdi zmdi-print" @click="printAllInvoiceClickHandler"></i><span class="tool-tip">Print All Invoice</span></span>
       <div class="detail-data-list-section">
         <div class="detail-data-list-section-inner">
           <!-- {{ data }} -->
@@ -111,6 +112,9 @@ export default {
     },
     comaSrparation(data) {
       return comaSeparatedDigits.comaSeparate(data)
+    },
+    printAllInvoiceClickHandler() {
+      console.log('print ALl')
     },
     async printInvoice(schedule_id, i) {
       console.log('index : ' + i)

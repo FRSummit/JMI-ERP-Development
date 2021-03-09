@@ -79,6 +79,14 @@ export default class PP_Invoice_Type_2_Single {
                             +                     '<thead>'
                             +                         '<tr style="">'
                             +                             '<td colspan="6" style="text-align: left;">'
+                            +                                 '<p style=""></p>'
+                            +                             '</td>'
+                            +                             '<td colspan="7" style="text-align: right;">'
+                            +                                 '<p style="display: inline-block; padding: 10px 0 30px 0;"><span class="label" style="border: 1px solid #000000; border-radius: 4px; padding: 4px 4px;">' + (data.sbu_customer_info ? (data.sbu_customer_info.credit_flag === 'Y' ? 'CREDIT' : 'CASH') : '') + '</span></p>'
+                            +                             '</td>'
+                            +                         '</tr>'
+                            +                         '<tr style="">'
+                            +                             '<td colspan="6" style="text-align: left;">'
                             +                                 '<p style="padding-bottom: 30px;"><span class="label">Printing Date</span><span class="label-value">: ' + '15 Mar, 2021' + '</span></p>'
                             +                             '</td>'
                             +                             '<td colspan="7" style="text-align: right;">'
@@ -90,7 +98,7 @@ export default class PP_Invoice_Type_2_Single {
                             +                                 '<p><span class="label">Customer Code</span><span class="label-value">: ' + (data.sbu_customer_info ? (data.sbu_customer_info.display_code ? (data.sbu_customer_info.display_code) : '') : '') + '</span></p>'
                             +                             '</td>'
                             +                             '<td colspan="7" style="text-align: right;">'
-                            +                                 '<p><span class="label">Invoice No</span><span class="label-value">: ' + (data.invoice_no ? data.invoice_no : '') + '</span></p>'
+                            +                                 '<p><span class="label">Invoice No :</span><span class="label-value" style="display: inline-block; min-width: 90px;">' + (data.invoice_no ? data.invoice_no : '') + '</span></p>'
                             +                             '</td>'
                             +                         '</tr>'
                             +                         '<tr style="">'
@@ -98,7 +106,7 @@ export default class PP_Invoice_Type_2_Single {
                             +                                 '<p><span class="label">Customer Name</span><span class="label-value">: ' + (data.sbu_customer_info ? (data.sbu_customer_info.display_name ? (data.sbu_customer_info.display_name) : '') : '') + '</span></p>'
                             +                             '</td>'
                             +                             '<td colspan="7" style="text-align: right;">'
-                            +                                 '<p><span class="label">Invoice Date</span><span class="label-value">: ' + (data.invoice_date ? (data.invoice_date).split(' ')[0] : '') + '</span></p>'
+                            +                                 '<p><span class="label">Invoice Date :</span><span class="label-value" style="display: inline-block; min-width: 90px;">' + (data.invoice_date ? (data.invoice_date).split(' ')[0] : '') + '</span></p>'
                             +                             '</td>'
                             +                         '</tr>'
                             +                         '<tr style="">'
@@ -106,7 +114,7 @@ export default class PP_Invoice_Type_2_Single {
                             +                                 '<p><span class="label">Address</span><span class="label-value">: ' + (data.sbu_customer_info ? (data.sbu_customer_info.customer_info ? (data.sbu_customer_info.customer_info.customer_address ? (data.sbu_customer_info.customer_info.customer_address) : '') : '') : '') + '</span></p>'
                             +                             '</td>'
                             +                             '<td colspan="7" style="text-align: right;">'
-                            +                                 '<p><span class="label">Depot</span><span class="label-value">: ' + (data.area_info ? (data.area_info.area_name ? (data.area_info.area_name) : '') : '') + '</span></p>'
+                            +                                 '<p><span class="label">Depot :</span><span class="label-value" style="display: inline-block; min-width: 90px;">' + (data.area_info ? (data.area_info.area_name ? (data.area_info.area_name) : '') : '') + '</span></p>'
                             +                             '</td>'
                             +                         '</tr>'
                             +                         '<tr style="">'
@@ -114,7 +122,7 @@ export default class PP_Invoice_Type_2_Single {
                             +                                 '<p><span class="label">MIO Name</span><span class="label-value">: ' + (data.sbu_customer_info ? (data.sbu_customer_info.customer_area_info ? (data.sbu_customer_info.customer_area_info.sales_force ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info.name ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info.name) : '') : '') : '') : '') : '') + '</span></p>'
                             +                             '</td>'
                             +                             '<td colspan="7" style="text-align: right;">'
-                            +                                 '<p><span class="label">T.Code</span><span class="label-value">: ' + (data.sbu_customer_info ? (data.sbu_customer_info.customer_area_info ? (data.sbu_customer_info.customer_area_info.sales_force ? (data.sbu_customer_info.customer_area_info.sales_force.get_sales_area ? (data.sbu_customer_info.customer_area_info.sales_force.get_sales_area.display_code) : '') : '') : '') : '') + '</span></p>'
+                            +                                 '<p><span class="label">T.Code :</span><span class="label-value" style="display: inline-block; min-width: 90px;">' + (data.sbu_customer_info ? (data.sbu_customer_info.customer_area_info ? (data.sbu_customer_info.customer_area_info.sales_force ? (data.sbu_customer_info.customer_area_info.sales_force.get_sales_area ? (data.sbu_customer_info.customer_area_info.sales_force.get_sales_area.display_code) : '') : '') : '') : '') + '</span></p>'
                             +                             '</td>'
                             +                         '</tr>'
                             +                         '<tr style="">'
@@ -122,9 +130,9 @@ export default class PP_Invoice_Type_2_Single {
                             +                                 '<p><span class="label">S.R Name</span><span class="label-value">: ' + (data.sbu_customer_info ? (data.sbu_customer_info.customer_area_info ? (data.sbu_customer_info.customer_area_info.sales_force ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info.name) : '') : '') : '') : '') : '') : '') + '</span></p>'
                             +                             '</th>'
                             +                             '<th colspan="7" style="text-align: right;">'
-                            +                                 '<p style="display: inline-block; margin-right: 20px;"><span class="label">Order No</span><span class="label-value">: ' + (data.order_info ? (data.order_info.order_no ? (data.order_info.order_no) : '') : '') + '</span></p>'
-                            +                                 '<p style="display: inline-block; margin-right: 20px;"><span class="label">Order Date</span><span class="label-value">: ' + (data.order_info ? (data.order_info.order_date ? (data.order_info.order_date).split(' ')[0] : '') : '') + '</span></p>'
-                            +                                 '<p style="display: inline-block; padding: 10px;"><span class="label" style="border: 1px solid #000000; border-radius: 4px; padding: 4px 4px;">' + (data.sbu_customer_info ? (data.sbu_customer_info.credit_flag === 'Y' ? 'CREDIT' : 'CASH') : '') + '</span></p>'
+                            +                                 '<p style="display: inline-block; margin-right: 20px;"><span class="label">Order No :</span><span class="label-value" style="">' + (data.order_info ? (data.order_info.order_no ? (data.order_info.order_no) : '') : '') + '</span></p>'
+                            +                                 '<p style="display: inline-block;"><span class="label">Order Date :</span><span class="label-value" style="">' + (data.order_info ? (data.order_info.order_date ? (data.order_info.order_date).split(' ')[0] : '') : '') + '</span></p>'
+                            // +                                 '<p style="display: inline-block; padding: 10px;"><span class="label" style="border: 1px solid #000000; border-radius: 4px; padding: 4px 4px;">' + (data.sbu_customer_info ? (data.sbu_customer_info.credit_flag === 'Y' ? 'CREDIT' : 'CASH') : '') + '</span></p>'
                             +                             '</th>'
                             +                         '</tr>'
                             +                         '<tr>'
@@ -203,7 +211,8 @@ export default class PP_Invoice_Type_2_Single {
         style += ''
               + '@page {'
               +     'size: 8.5in 11in;'
-              +     'margin: 25mm 10mm 15mm 15mm; border: 1px solid #000000'
+            //   +     'margin: 25mm 10mm 15mm 15mm; border: 1px solid #000000'
+              +     'margin: 10mm 10mm 15mm 15mm; border: 1px solid #000000'
               + '}'
               +
               + '@media print {'
@@ -340,24 +349,48 @@ export default class PP_Invoice_Type_2_Single {
     }
 
     create_multiple_person_table_body_data(data) {
+        let product_details = data.invoice_details
         let multiple_person_data = ''
-        for(let i=0; i<5; i++) {
-            multiple_person_data += this.create_table_body_data(data)
+        let products = {
+            product_bonus: [],
+            product_flat: [],
+            product_free: [],
+            product_regular: [],
         }
+        for(let i=0; i<product_details.length; i++) {
+            if(product_details[i].deal_type === "B") {
+                products.product_bonus.push(product_details[i])
+            }
+            else if(product_details[i].deal_type === "D") {
+                products.product_flat.push(product_details[i])
+            }
+            else if(product_details[i].deal_type === "F") {
+                products.product_free.push(product_details[i])
+            }
+            else if(product_details[i].deal_type === "R") {
+                products.product_regular.push(product_details[i])
+            }
+        }
+        
+        multiple_person_data += products.product_bonus.length > 0 ? this.create_table_body_data(products.product_bonus, 'Bonus') : ''
+        multiple_person_data += products.product_flat.length > 0 ? this.create_table_body_data(products.product_flat, 'Flat') : ''
+        multiple_person_data += products.product_free.length > 0 ? this.create_table_body_data(products.product_free, 'Free') : ''
+        multiple_person_data += products.product_regular.length > 0 ? this.create_table_body_data(products.product_regular, 'Regular') : ''
+        
         return multiple_person_data
     }
     
-    create_table_body_data(data) {
+    create_table_body_data(products, product_deal_type) {
+        let product_details = products
         let deal_type = ''
             deal_type += '' +
                             '<tr>' +
                                 '<td colspan="13">' +
-                                    '<p style="font-size: 10px; font-weight: 600; line-height: 1.5; text-align: left; border-bottom: 1px solid #000000; margin: 0; width: 150px;">Product Type: ' + 'Regular' + '</p>' +
+                                    '<p style="font-size: 10px; font-weight: 600; line-height: 1.5; text-align: left; border-bottom: 1px solid #000000; margin: 0; width: 100px;">Offer Type: ' + product_deal_type + '</p>' +
                                 '</td>' +
                             '</tr>'
         
         let result = ''
-        let product_details = data.invoice_details
         for(let i=0; i<product_details.length; i++) {
             result +=   ''
                     +   '<tr style="page-break-before: always;">'
@@ -376,10 +409,7 @@ export default class PP_Invoice_Type_2_Single {
                     +       '<td style=" text-align: right;">' + comaSeparatedDigits.comaSeparate(product_details[i].inv_tp ? (product_details[i].inv_tp) : '') + '</td>'
                     +   '</tr>'
         }
-
         
-        // return result + result + result + result + result + result + result + result + result+ result + result + result + result + result + result + result
-        // return deal_type + result + deal_type + result +deal_type + result
         return deal_type + result + this.create_subtotal_data(product_details)
     }
 
