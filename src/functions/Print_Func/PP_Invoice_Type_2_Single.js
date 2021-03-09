@@ -19,7 +19,7 @@ export default class PP_Invoice_Type_2_Single {
                             +               this.addStylePrint_3()
                             +         '</style>'
                             +     '</head>'
-                            +     '<body style="font-family: sans-serif;">'
+                            +     '<body style="">'
                             +         '<div class="print-section" style="page-break-before: always; overflow: hidden;">'
                             +             '<div class="print-section-inner">'
                             // +                 this.create_summery_section_data()
@@ -209,9 +209,12 @@ export default class PP_Invoice_Type_2_Single {
               + '}'
               +
               + '@media print {'
+              +     'body {'
+              +         'margin: 0px;'
+              +         'font-family: "Calibri";'
+              +     '}'
               +     'p {'
               +         'margin: 0px;'
-              +         'font-family: sans-serif'
               +     '}'
               +     '.initial-data-section {'
               +         'display: block;'
@@ -256,7 +259,7 @@ export default class PP_Invoice_Type_2_Single {
               +         'font-size:10px;'
               +         'width: 100%; text-align: center;'
               +         'text-align: center;'
-              +         'font-family: sans-serif'
+              +         'font-family: "Calibri";'
               +         'page-break-inside: auto;'
               +     '}'
               +     'thead {'

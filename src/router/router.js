@@ -111,6 +111,11 @@ export const router = new VueRouter({
       component: () => import('../views/private_views/SD/DeliveryProcessInvoiceChallanPrinting/DeliveryProcessInvoiceChallanPrinting.vue')
     },
     {
+      path: '/sd/pending-ds-invoice-list',
+      name: 'Delivery Process - Pending Invoice List',
+      component: () => import('../views/private_views/SD/PendingDS_InvoiceList/PendingDS_InvoiceList.vue')
+    },
+    {
       path: '/sd/delivery-process--dispatch-entry',
       name: 'Delivery Process - Dispatch Entry',
       component: () => import('../views/private_views/SD/DeliveryProcessDispatchEntry/DispatchEntry.vue')

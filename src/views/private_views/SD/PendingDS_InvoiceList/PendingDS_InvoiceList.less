@@ -1,0 +1,39 @@
+@hex-triplet        : #e6e6e6;
+@black              : #000000;
+@blue               : #026CD1;
+@station-background : #026CD126;
+
+@window_height            : 100vh;
+@window_width             : 100vw;
+@header_height            : 74px;
+@sidebar_default_width    : 60px;
+@secondary_left_menu_width: 300px;
+@title_breadcrumb_height  : 73px;
+@footer_height            : 32px;
+
+#invoice-challan-printing.invoice-challan-printing {
+    position: relative;
+    // height  : calc(@window_height - (@header_height + @footer_height));
+
+    .invoice-challan-printing-section {
+        border-top: 2px solid @hex-triplet;
+
+        .invoice-challan-printing-inner {
+            display: table;
+            width  : 100%;
+
+            .invoice-challan-printing-detail-section {
+                display: table-cell;
+                padding: 20px 0 0;
+                width : calc(@window_width - (@sidebar_default_width + @secondary_left_menu_width));
+
+                .invoice-challan-printing-detail-section-inner {
+                    font-size: 14px;
+                    height   : 100%;
+
+                    
+                }
+            }
+        }
+    }
+}

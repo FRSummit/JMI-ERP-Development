@@ -20,7 +20,7 @@ export default class PP_Invoice_Type_2 {
                             +               this.addStylePrint_3()
                             +         '</style>'
                             +     '</head>'
-                            +     '<body style="font-family: sans-serif;">'
+                            +     '<body style="">'
                             +         this.createBody()
                 )
 
@@ -131,7 +131,7 @@ export default class PP_Invoice_Type_2 {
               + '@media print {'
               +     'p {'
               +         'margin: 0px;'
-              +         'font-family: sans-serif'
+              +         'font-family: "Calibri";'
               +     '}'
               /*--- initial-data-section ---*/
               +     '.initial-data-section {'

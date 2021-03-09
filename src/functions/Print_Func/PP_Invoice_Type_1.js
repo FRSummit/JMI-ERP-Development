@@ -16,7 +16,7 @@ export default class SDR_015 {
                                             '}' +
                                             '@media print {' +
                                                 'body {' +
-                                                    'font-family: sans-serif;' +
+                                                    'font-family: "Calibri";' +
                                                 '}' +
                                                 'p {' +
                                                     'margin: 0;' +
