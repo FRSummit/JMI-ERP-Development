@@ -307,6 +307,16 @@ export default class PostService {
     })
   }
 
+  getAreaListByUser_CreateOrderDetailsSection(user_id) {
+    let web_menu_url = '/api/common/area-list-by-user/' + user_id
+    return axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
+
   // CREATE ORDER - SEND SELECTED PRODUCT LIST
   getFindProductOffer_CreateOrderDetailsSection(prod_db_list, sbu_id, customer_id, date) {
     console.log(JSON.stringify(prod_db_list))

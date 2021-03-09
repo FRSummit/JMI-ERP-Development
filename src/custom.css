@@ -1947,6 +1947,32 @@ span.cancel-order {
 
 /* ----------- Invoice Printing & Challan Printing Page ENDS ------------------------------- */
 
+.jmi-select-options-section {
+    display : inline-block;
+    width   : 90%;
+    float   : right;
+    position: relative;
+    height  : auto;
+}
+
+.jmi-select-options-section span.right-icon {
+    width    : 8px;
+    height   : 8px;
+    position : absolute;
+    right    : 8px;
+    top      : 4px;
+    color    : #BFCFE2;
+    transform: rotate(90deg);
+}
+
+.jmi-select-option {
+    height     : auto;
+    padding    : 1px 5px 1px 10px;
+    line-height: 1;
+    border     : 1px solid #BFCFE2;
+    font-size  : 12px;
+}
+
 /* --------------------------------------------------------------------------------------- */
 
 @media only screen and (max-width: 1290px) {
