@@ -118,7 +118,13 @@
                                         <td :id="'order-data-table-tr-td-' + i">
                                             <span v-if="!(data.deal_type === 'F' && data.net_amount === '0')">
                                                 <span class="single_qty quantity-setup">
-                                                    <span class="qty">{{ data.qty }}</span>
+                                                    <span class="qty" v-if="data.net_qty < data.available_stock">{{ data.qty }}</span>
+                                                    <span class="qty" v-if="data.net_qty > data.available_stock" :class="data.net_qty > data.available_stock ? 'jmi-stock-out' : ''">{{ data.qty }}
+                                                        <span class="tool-tip">
+                                                            <p class="txt">Stock:<span>{{ data.available_stock }}</span></p>
+                                                            <p class="txt">In Transit: <span>{{ data.transit_stock }}</span></p>
+                                                        </span>
+                                                    </span>
                                                 </span>
                                                 <span class="qty_editable quantity-setup hide" style="border: 1px solid #026CD1;">
                                                     <span class="qty-increase" @click="decreaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-minus" :class="data.qty < 2 ? 'jmi-deactive-btn' : ''"></i></span>
@@ -131,7 +137,7 @@
                                         <td>
                                             <!-- <span v-if="!data.row_class">{{ data ? (data.offer ? (data.offer.offer ? (data.offer.offer.discount_percentage ? (data.offer.offer.discount_percentage) : 0) : 0) : 0) : 0 }}%</span>
                                             <span v-if="data.row_class"></span> -->
-                                            <span v-if="!(data.deal_type === 'F' && data.net_amount === '0')">{{ data ? (data.offer ? (data.offer.offer ? (data.offer.offer.discount_percentage ? (data.offer.offer.discount_percentage) : 0) : 0) : 0) : 0 }}%</span>
+                                            <span v-if="!(data.deal_type === 'F' && data.net_amount === '0')">{{ data ? (data.offer ? (data.offer.offer ? (data.offer.offer.discount_percentage ? Number(data.offer.offer.discount_percentage).toFixed(2) : 0) : 0) : 0) : 0 }}%</span>
                                         </td>
                                         <!-- Bonus Column -->
                                         <td>
