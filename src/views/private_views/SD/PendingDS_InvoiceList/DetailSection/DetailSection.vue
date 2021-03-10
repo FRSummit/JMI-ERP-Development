@@ -33,8 +33,8 @@
                   <v-tabs-items v-model="tab" class="tab-container" style="padding-top: 30px">
                     <v-tab-item v-for="(status, i) in status_list" :key="i">
                       <v-card color="basil" flat>
-                        <v-card v-if="status.status_name === 'Institution'"><DetailDataList :tab="status.status_name"  :data="invoice_challan_print_data" :SCHEDULE_DETAILS_LIST="SCHEDULE_DETAILS_LIST" /></v-card>
-                        <v-card v-if="status.status_name === 'Chemist'"><DetailDataList :tab="status.status_name"  :data="invoice_challan_print_data" :SCHEDULE_DETAILS_LIST="SCHEDULE_DETAILS_LIST" /></v-card>
+                        <v-card v-if="status.status_name === 'Institution'"><Institution :tab="status.status_name"  :data="invoice_challan_print_data" :SCHEDULE_DETAILS_LIST="SCHEDULE_DETAILS_LIST" /></v-card>
+                        <v-card v-if="status.status_name === 'Chemist'"><Chemist :tab="status.status_name"  :data="invoice_challan_print_data" :SCHEDULE_DETAILS_LIST="SCHEDULE_DETAILS_LIST" /></v-card>
                         <!-- <v-card v-if="status.status_name === 'Printing Ready'"><DetailDataList :tab="status.status_name"  :data="invoice_challan_print_data" :SCHEDULE_DETAILS_LIST="SCHEDULE_DETAILS_LIST" /></v-card>
                         <v-card v-if="status.status_name === 'Handover'"><DetailDataList :tab="status.status_name"  :data="invoice_challan_print_data" :SCHEDULE_DETAILS_LIST="SCHEDULE_DETAILS_LIST" /></v-card> -->
                       </v-card>
@@ -53,12 +53,14 @@
 <script>
 // import * as VueGoogleMaps from 'vue2-google-maps'
 // import { google } from 'google-maps';
-import DetailDataList from './DetailData/DetailDataList'
+import Institution from './DetailData/Institution'
+import Chemist from './DetailData/Chemist'
 
 export default {
   props: ["SCHEDULE_DETAILS_LIST"],
   components: {
-    DetailDataList
+    Institution,
+    Chemist
   },
   data() {
     return {
