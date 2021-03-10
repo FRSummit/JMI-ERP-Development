@@ -151,7 +151,7 @@
                                         <!-- Option Column -->
                                         <td class="row-action jmi-tr-td-option" style="min-width: 70px; text-align: right;">
                                             <span v-if="!(data.deal_type === 'F' && data.net_amount === '0')">
-                                                <span class="icon edit-icon" @click="editOrderitemClickHandler(data, i)"><i class="zmdi zmdi-edit"></i></span>
+                                                <span class="icon edit-icon" @click="editOrderitemClickHandler(data, i)" v-if="productTableEditableIsValid(data.available_stock, data.transit_stock)"><i class="zmdi zmdi-edit"></i></span>
                                                 <span class="icon delete-icon" @click="deleteOrderitemClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
                                             </span>
                                         </td>
@@ -1816,6 +1816,13 @@ export default {
         set_Or_Change_Date(da_date) {
             this.header_date = da_date.toString().split(' ')[0]
         },
+        productTableEditableIsValid(available_stock, transit_stock) {
+            if(available_stock === '0' && transit_stock === '0') {
+                return false
+            } else {
+                return true
+            }
+        }
     },
     watch: { 
         async pending_order_list_by_id(newVal, oldVal){
