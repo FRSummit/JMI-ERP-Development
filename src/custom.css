@@ -1973,6 +1973,36 @@ span.cancel-order {
     font-size  : 12px;
 }
 
+.jmi-stock-out {
+    color   : #C11616;
+    position: relative;
+}
+
+.jmi-stock-out span.tool-tip {
+    display: none;
+}
+
+.jmi-stock-out:hover span.tool-tip {
+    display   : block;
+    position  : absolute;
+    top       : -6px;
+    right     : -84px;
+    box-shadow: 0px 0px 5px #026cd178;
+    background: #FBFCFE;
+    padding   : 2px 4px;
+    width     : 80px;
+    text-align: left;
+}
+
+.jmi-stock-out:hover span.tool-tip p {
+    font-size: 11px;
+    color    : #000000;
+}
+
+.jmi-stock-out:hover span.tool-tip p span {
+    color: #C11616;
+}
+
 /* --------------------------------------------------------------------------------------- */
 
 @media only screen and (max-width: 1290px) {

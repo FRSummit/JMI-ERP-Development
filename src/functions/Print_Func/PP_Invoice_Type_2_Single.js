@@ -22,52 +22,6 @@ export default class PP_Invoice_Type_2_Single {
                             +     '<body style="">'
                             +         '<div class="print-section" style="page-break-before: always; overflow: hidden;">'
                             +             '<div class="print-section-inner">'
-                            // +                 this.create_summery_section_data()
-                            // +                 '<table class="initial-data-section" style="">'
-                            // +                     '<thead style="display: list-item;">'
-                            // +                         '<tr style="display: list-item;">'
-                            // +                             '<td style="display: inline-block; width: 50%; text-align: left;">'
-                            // +                                 '<p><span class="label">Customer Code</span><span class="label-value">: ' + (data.sbu_customer_info ? (data.sbu_customer_info.display_code ? (data.sbu_customer_info.display_code) : '') : '') + '</span></p>'
-                            // +                             '</td>'
-                            // +                             '<td style="display: inline-block; width: 49%; text-align: right;">'
-                            // +                                 '<p><span class="label">Invoice No</span><span class="label-value">: ' + (data.invoice_no ? data.invoice_no : '') + '</span></p>'
-                            // +                             '</td>'
-                            // +                         '</tr>'
-                            // +                         '<tr style="display: list-item;">'
-                            // +                             '<td style="display: inline-block; width: 50%; text-align: left;">'
-                            // +                                 '<p><span class="label">Customer Name</span><span class="label-value">: ' + (data.sbu_customer_info ? (data.sbu_customer_info.display_name ? (data.sbu_customer_info.display_name) : '') : '') + '</span></p>'
-                            // +                             '</td>'
-                            // +                             '<td style="display: inline-block; width: 49%; text-align: right;">'
-                            // +                                 '<p><span class="label">Invoice Date</span><span class="label-value">: ' + (data.invoice_date ? (data.invoice_date).split(' ')[0] : '') + '</span></p>'
-                            // +                             '</td>'
-                            // +                         '</tr>'
-                            // +                         '<tr style="display: list-item;">'
-                            // +                             '<td style="display: inline-block; width: 50%; text-align: left;">'
-                            // +                                 '<p><span class="label">Address</span><span class="label-value">: ' + (data.sbu_customer_info ? (data.sbu_customer_info.customer_info ? (data.sbu_customer_info.customer_info.customer_address ? (data.sbu_customer_info.customer_info.customer_address) : '') : '') : '') + '</span></p>'
-                            // +                             '</td>'
-                            // +                             '<td style="display: inline-block; width: 49%; text-align: right;">'
-                            // +                                 '<p><span class="label">Depot</span><span class="label-value">: ' + (data.area_info ? (data.area_info.area_name ? (data.area_info.area_name) : '') : '') + '</span></p>'
-                            // +                             '</td>'
-                            // +                         '</tr>'
-                            // +                         '<tr style="display: list-item;">'
-                            // +                             '<td style="display: inline-block; width: 50%; text-align: left;">'
-                            // +                                 '<p><span class="label">MIO Name</span><span class="label-value">: ' + (data.sbu_customer_info ? (data.sbu_customer_info.customer_area_info ? (data.sbu_customer_info.customer_area_info.sales_force ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info.name ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info.name) : '') : '') : '') : '') : '') + '</span></p>'
-                            // +                             '</td>'
-                            // +                             '<td style="display: inline-block; width: 49%; text-align: right;">'
-                            // +                                 '<p><span class="label">T.Code</span><span class="label-value">: ' + (data.sbu_customer_info ? (data.sbu_customer_info.customer_area_info ? (data.sbu_customer_info.customer_area_info.sales_force ? (data.sbu_customer_info.customer_area_info.sales_force.get_sales_area ? (data.sbu_customer_info.customer_area_info.sales_force.get_sales_area.display_code) : '') : '') : '') : '') + '</span></p>'
-                            // +                             '</td>'
-                            // +                         '</tr>'
-                            // +                         '<tr style="display: list-item;">'
-                            // +                             '<td style="display: inline-block; width: 50%; text-align: left;">'
-                            // +                                 '<p><span class="label">S.R Name</span><span class="label-value">: ' + (data.sbu_customer_info ? (data.sbu_customer_info.customer_area_info ? (data.sbu_customer_info.customer_area_info.sales_force ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info.name) : '') : '') : '') : '') : '') : '') + '</span></p>'
-                            // +                             '</td>'
-                            // +                             '<td style="display: inline-block; width: 49%; text-align: right;">'
-                            // +                                 '<p style="display: inline-block;"><span class="label">Order No</span><span class="label-value">: ' + (data.order_info ? (data.order_info.order_no ? (data.order_info.order_no) : '') : '') + '</span></p>'
-                            // +                                 '<p style="display: inline-block;"><span class="label">Order Date</span><span class="label-value">: ' + (data.order_info ? (data.order_info.order_date ? (data.order_info.order_date).split(' ')[0] : '') : '') + '</span></p>'
-                            // +                             '</td>'
-                            // +                         '</tr>'
-                            // +                     '</thead>'
-                            // +                 '</table>'
                             +                 '<table style="">'
                             +                     '<thead>'
                             +                         '<tr style="">'
@@ -75,12 +29,12 @@ export default class PP_Invoice_Type_2_Single {
                             +                                 '<p style=""></p>'
                             +                             '</td>'
                             +                             '<td colspan="7" style="text-align: right;">'
-                            +                                 '<p style="display: inline-block; padding: 10px 0 30px 0;"><span class="label" style="border: 1px solid #000000; border-radius: 4px; padding: 4px 4px;">' + (data.sbu_customer_info ? (data.sbu_customer_info.credit_flag === 'Y' ? 'CREDIT' : 'CASH') : '') + '</span></p>'
+                            +                                 '<p style="display: inline-block; padding: 10px 30px 30px 0;"><span class="label" style="border: 1px solid #000000; border-radius: 4px; padding: 4px 4px;">' + (data.sbu_customer_info ? (data.sbu_customer_info.credit_flag === 'Y' ? 'CREDIT' : 'CASH') : '') + '</span></p>'
                             +                             '</td>'
                             +                         '</tr>'
                             +                         '<tr style="">'
                             +                             '<td colspan="6" style="text-align: left;">'
-                            +                                 '<p style="padding-bottom: 30px;"><span class="label">Printing Date</span><span class="label-value">: ' + '15 Mar, 2021' + '</span></p>'
+                            +                                 '<p style="padding-bottom: 30px;"><span class="label" style="display: inline-block; width: 30px;"></span><span class="label-value">: ' + this.printing_Date_Format() + '</span></p>'
                             +                             '</td>'
                             +                             '<td colspan="7" style="text-align: right;">'
                             +                                 '<p><span class="label"></p>'
@@ -120,12 +74,11 @@ export default class PP_Invoice_Type_2_Single {
                             +                         '</tr>'
                             +                         '<tr style="">'
                             +                             '<th colspan="6" style="text-align: left;">'
-                            +                                 '<p><span class="label">S.R Name</span><span class="label-value">: ' + (data.sbu_customer_info ? (data.sbu_customer_info.customer_area_info ? (data.sbu_customer_info.customer_area_info.sales_force ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info.name) : '') : '') : '') : '') : '') : '') + '</span></p>'
+                            +                                 '<p style="padding-bottom: 10px;"><span class="label">S.R Name</span><span class="label-value">: ' + (data.sbu_customer_info ? (data.sbu_customer_info.customer_area_info ? (data.sbu_customer_info.customer_area_info.sales_force ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info.name) : '') : '') : '') : '') : '') : '') + '</span></p>'
                             +                             '</th>'
                             +                             '<th colspan="7" style="text-align: right;">'
                             +                                 '<p style="display: inline-block; margin-right: 20px;"><span class="label">Order No :</span><span class="label-value" style="">' + (data.order_info ? (data.order_info.order_no ? (data.order_info.order_no) : '') : '') + '</span></p>'
                             +                                 '<p style="display: inline-block;"><span class="label">Order Date :</span><span class="label-value" style="">' + (data.order_info ? (data.order_info.order_date ? (data.order_info.order_date).split(' ')[0] : '') : '') + '</span></p>'
-                            // +                                 '<p style="display: inline-block; padding: 10px;"><span class="label" style="border: 1px solid #000000; border-radius: 4px; padding: 4px 4px;">' + (data.sbu_customer_info ? (data.sbu_customer_info.credit_flag === 'Y' ? 'CREDIT' : 'CASH') : '') + '</span></p>'
                             +                             '</th>'
                             +                         '</tr>'
                             +                         '<tr>'
@@ -158,34 +111,8 @@ export default class PP_Invoice_Type_2_Single {
                             +                         this.create_net_payable_data(data)
                             +                     '</tbody>'
                             +                 '</table>'
-
-                            +                 '<div class="status-section" style=" margin-top: 20px;">'
-                            +                     '<table style="width: 50%; margin-left: 0%; page-break-inside: avoid;">'
-                            +                         '<tr>'
-                            +                             '<td colspan="4"><p style="text-align: left; font-size: 14px; font-weight: 500;">Present Credit Status:</p></td>'
-                            +                         '</tr>'
-                            +                         '<tr  style="border-bottom: 1px solid #000000;">'
-                            +                             '<td>Invoice No</td>'
-                            +                             '<td>Inv Date</td>'
-                            +                             '<td>Pay Mode</td>'
-                            +                             '<td>Outstanding</td>'
-                            +                         '</tr>'
-                            +                         '<tr>'
-                            +                             '<td>' + '' + '</td>'
-                            +                             '<td>' + '' + '</td>'
-                            +                             '<td>' + '' + '</td>'
-                            +                             '<td>' + '' + '</td>'
-                            +                         '</tr>'
-                            +                         '<tr style="">'
-                            +                             '<td colspan="4">'
-                            +                                 '<p style="text-align: right; font-size: 12px; font-weight: 500; margin: 8px 20px 0 0;">Total: <span style="border-top: 1px dotted #000000; border-bottom: 2px double #000000; font-weight: 600;">' + '' + '</span></p>'
-                            +                             '</td>'
-                            +                         '</tr>'
-                            +                     '</table>'
-                            +                 '</div>'
-                            +                 '<div class="signature-section" style="float: right; page-break-after: always; page-break-inside: avoid; margin-top: 20px; font-size: 12px;">'
-                            +                     '<p style="margin: 0; text-align: center; font-family: Calibri;"><span style="border-bottom: 1px solid #000000; width: 300px; display: block;">' + '' + '</span><span style="width: 300px; display: block;">For NIPRO JMI Pharma Ltd.</span></p>'
-                            +                 '</div>'
+                            // +                 this.create_credit_status()
+                            +                 this.create_signature_section()
                             +             '</div>'
                             +         '</div>'
                 )
@@ -199,13 +126,18 @@ export default class PP_Invoice_Type_2_Single {
         return true;
     }
 
+    printing_Date_Format() {
+        var t = new Date();
+        return t.getDate() + ' ' + monthShortNames[t.getMonth()] + ', ' + t.getFullYear()
+    }
+
     addStylePrint_3() {
         let style = ''
         style += ''
               + '@page {'
               +     'size: 8.5in 11in;'
             //   +     'margin: 25mm 10mm 15mm 15mm; border: 1px solid #000000'
-              +     'margin: 10mm 10mm 15mm 15mm; border: 1px solid #000000'
+              +     'margin: 17mm 10mm 15mm 15mm; border: 1px solid #000000'
               + '}'
               +
               + '@media print {'
@@ -501,18 +433,20 @@ export default class PP_Invoice_Type_2_Single {
 
     create_rounding_adjustment_data() {
         let rounding_adjustment = ''
-        rounding_adjustment += ''
-                    +   '<tr>'
-                    +       '<td>' + '' + '</td>'
-                    +       '<td>' + '' + '</td>'
-                    +       '<td>' + '' + '</td>'
-                    +       '<td>' + '' + '</td>'
-                    +       '<td>' + '' + '</td>'
-                    +       '<td>' + '' + '</td>'
-                    +       '<td colspan="5" style="text-align: right;">' + 'Rounding Adjustment :' + '</td>'
-                    +       '<td style="text-align: right; border-bottom: 1px solid #000000;">' + '' + '</td>'
-                    +       '<td style="text-align: right; border-bottom: 1px solid #000000;">' + ROUNDING_ADJ + '</td>'
-                    +   '</tr>'
+        if(ROUNDING_ADJ !== 0) {
+            rounding_adjustment += ''
+                        +   '<tr>'
+                        +       '<td>' + '' + '</td>'
+                        +       '<td>' + '' + '</td>'
+                        +       '<td>' + '' + '</td>'
+                        +       '<td>' + '' + '</td>'
+                        +       '<td>' + '' + '</td>'
+                        +       '<td>' + '' + '</td>'
+                        +       '<td colspan="5" style="text-align: right;">' + 'Rounding Adjustment :' + '</td>'
+                        +       '<td style="text-align: right; border-bottom: 1px solid #000000;">' + '' + '</td>'
+                        +       '<td style="text-align: right; border-bottom: 1px solid #000000;">' + ROUNDING_ADJ + '</td>'
+                        +   '</tr>'
+        }
         return rounding_adjustment
     }
 
@@ -532,6 +466,47 @@ export default class PP_Invoice_Type_2_Single {
                     +       '<td style="text-align: right; border-bottom: 1px solid #000000;">' + comaSeparatedDigits.comaSeparate(NET_PAYABLE_AFTER_ADJ) + '.00</td>'
                     +   '</tr>'
         return net_payable
+    }
+
+    create_credit_status() {
+        let result = ''
+            result += ''
+                    +   '<div class="status-section" style=" margin-top: 20px;">'
+                    +       '<table style="width: 50%; margin-left: 0%; page-break-inside: avoid;">'
+                    +           '<tr>'
+                    +               '<td colspan="4"><p style="text-align: left; font-size: 14px; font-weight: 500;">Present Credit Status:</p></td>'
+                    +           '</tr>'
+                    +           '<tr  style="border-bottom: 1px solid #000000;">'
+                    +               '<td>Invoice No</td>'
+                    +               '<td>Inv Date</td>'
+                    +               '<td>Pay Mode</td>'
+                    +               '<td>Outstanding</td>'
+                    +           '</tr>'
+                    +           '<tr>'
+                    +               '<td>' + '' + '</td>'
+                    +               '<td>' + '' + '</td>'
+                    +               '<td>' + '' + '</td>'
+                    +               '<td>' + '' + '</td>'
+                    +           '</tr>'
+                    +           '<tr style="">'
+                    +               '<td colspan="4">'
+                    +                   '<p style="text-align: right; font-size: 12px; font-weight: 500; margin: 8px 20px 0 0;">Total: <span style="border-top: 1px dotted #000000; border-bottom: 2px double #000000; font-weight: 600;">' + '' + '</span></p>'
+                    +               '</td>'
+                    +           '</tr>'
+                    +       '</table>'
+                    +   '</div>'
+
+        return result
+    }
+
+    create_signature_section() {
+        let result = ''
+            result += ''
+                    +   '<div class="signature-section" style="float: right; page-break-after: always; page-break-inside: avoid; margin-top: 40px; font-size: 12px;">'
+                    +       '<p style="margin: 0; text-align: center; font-family: Calibri;"><span style="border-bottom: 1px solid #000000; width: 300px; display: block;">' + '' + '</span><span style="width: 300px; display: block;">For NIPRO JMI Pharma Ltd.</span></p>'
+                    +   '</div>'
+
+        return result
     }
 
     convert_number_to_word(num) {

@@ -118,7 +118,13 @@
                                         <td :id="'order-data-table-tr-td-' + i">
                                             <span v-if="!(data.deal_type === 'F' && data.net_amount === '0')">
                                                 <span class="single_qty quantity-setup">
-                                                    <span class="qty">{{ data.qty }}</span>
+                                                    <span class="qty" v-if="parseInt(data.net_qty) < parseInt(data.available_stock)">{{ data.qty }}</span>
+                                                    <span class="qty" v-if="parseInt(data.net_qty) > parseInt(data.available_stock)" :class="parseInt(data.net_qty) > parseInt(data.available_stock) ? 'jmi-stock-out' : ''">{{ data.qty }}
+                                                        <span class="tool-tip">
+                                                            <p class="txt">Stock:<span>{{ data.available_stock }}</span></p>
+                                                            <p class="txt">In Transit: <span>{{ data.transit_stock }}</span></p>
+                                                        </span>
+                                                    </span>
                                                 </span>
                                                 <span class="qty_editable quantity-setup hide" style="border: 1px solid #026CD1;">
                                                     <span class="qty-increase" @click="decreaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-minus" :class="data.qty < 2 ? 'jmi-deactive-btn' : ''"></i></span>
@@ -131,7 +137,7 @@
                                         <td>
                                             <!-- <span v-if="!data.row_class">{{ data ? (data.offer ? (data.offer.offer ? (data.offer.offer.discount_percentage ? (data.offer.offer.discount_percentage) : 0) : 0) : 0) : 0 }}%</span>
                                             <span v-if="data.row_class"></span> -->
-                                            <span v-if="!(data.deal_type === 'F' && data.net_amount === '0')">{{ data ? (data.offer ? (data.offer.offer ? (data.offer.offer.discount_percentage ? (data.offer.offer.discount_percentage) : 0) : 0) : 0) : 0 }}%</span>
+                                            <span v-if="!(data.deal_type === 'F' && data.net_amount === '0')">{{ data ? (data.offer ? (data.offer.offer ? (data.offer.offer.discount_percentage ? Number(data.offer.offer.discount_percentage).toFixed(2) : 0) : 0) : 0) : 0 }}%</span>
                                         </td>
                                         <!-- Bonus Column -->
                                         <td>
@@ -145,7 +151,7 @@
                                         <!-- Option Column -->
                                         <td class="row-action jmi-tr-td-option" style="min-width: 70px; text-align: right;">
                                             <span v-if="!(data.deal_type === 'F' && data.net_amount === '0')">
-                                                <span class="icon edit-icon" @click="editOrderitemClickHandler(data, i)"><i class="zmdi zmdi-edit"></i></span>
+                                                <span class="icon edit-icon" @click="editOrderitemClickHandler(data, i)" v-if="productTableEditableIsValid(data.available_stock, data.transit_stock, data.net_qty)"><i class="zmdi zmdi-edit"></i></span>
                                                 <span class="icon delete-icon" @click="deleteOrderitemClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
                                             </span>
                                         </td>
@@ -1038,6 +1044,7 @@ export default {
             SHOW_PRINT_ICON: false,
             ADD_PRODUCT_MODAL_SUBMITION_SECTION: true,
             ORDER_SUCCESS_MESSAGE: null,
+            DISABLE_SUBMISSION_BTN: false,
         }
     },
     async created() {
@@ -1076,7 +1083,9 @@ export default {
         // Increase Table Row's Single Product/Order
         increaseOrderedItemClickHandler(data, index) {
             console.log(data + '    ' + index)
-            console.log(data.qty)
+            console.log(parseInt(data.qty))
+            console.log(parseInt(data.available_stock))
+            console.log(parseInt(data.transit_stock))
             if(parseInt(this.ORDER_CREATED_BY) !== parseInt(this.ORDER_AUTH_USER)) {
                 // data.qty
                 console.log('difference')
@@ -1090,6 +1099,11 @@ export default {
                 data.qty++
                 this.UPDATE_BTN_ENABLE = true
             }
+            if(parseInt(data.net_qty) > parseInt(data.available_stock) && parseInt(data.available_stock) > 0) {
+                this.DISABLE_SUBMISSION_BTN = false
+            } else {
+                this.DISABLE_SUBMISSION_BTN = true 
+            }
             this.createSubtotalCalculation()
             // this.UPDATE_BTN_TRUE = true
             // this.createSubtotalCalculation()
@@ -1100,7 +1114,7 @@ export default {
                 this.ORDERED_TABLE_DATA__INIT_LIST[index + 1].bonus_qty = bonus
             }
             console.log(data.offer.offer.free_req_qty)
-            console.log(this.ORDERED_TABLE_DATA__INIT_LIST[index + 1].bonus_qty)
+            // console.log(this.ORDERED_TABLE_DATA__INIT_LIST[index + 1].bonus_qty)
             console.log(data.qty)
         },
         // Decrease Table Row's Single Product/Order
@@ -1116,6 +1130,11 @@ export default {
             // Free Product row quantity decrease
             if(data.offer.offer_type === "free") {
                 this.ORDERED_TABLE_DATA__INIT_LIST[index + 1].bonus_qty--
+            }
+            if(parseInt(data.net_qty) > parseInt(data.available_stock) && parseInt(data.available_stock) > 0) {
+                this.DISABLE_SUBMISSION_BTN = false
+            } else {
+                this.DISABLE_SUBMISSION_BTN = true 
             }
         },
         // Increase Table Row's Single Product/Order
@@ -1156,6 +1175,13 @@ export default {
             data.qty = selector.value
             this.UPDATE_BTN_ENABLE = true
             // this.UPDATE_BTN_TRUE = true
+            console.log(data.net_qty)
+            console.log(data.available_stock)
+            if(parseInt(data.net_qty) > parseInt(data.available_stock) && parseInt(data.available_stock) > 0) {
+                this.DISABLE_SUBMISSION_BTN = false
+            } else {
+                this.DISABLE_SUBMISSION_BTN = true 
+            }
             this.createSubtotalCalculation()
         },
         quantityKeyDown_ordered_table(value, i) {
@@ -1810,6 +1836,16 @@ export default {
         set_Or_Change_Date(da_date) {
             this.header_date = da_date.toString().split(' ')[0]
         },
+        productTableEditableIsValid(available_stock, transit_stock, data_qty) {
+            if(available_stock === '0' && transit_stock === '0') {
+                return false
+            } else if(parseInt(data_qty) > parseInt(available_stock) && parseInt(available_stock) !== 0 && parseInt(transit_stock) !== 0) {
+                return true
+            }
+             else {
+                return true
+            }
+        }
     },
     watch: { 
         async pending_order_list_by_id(newVal, oldVal){

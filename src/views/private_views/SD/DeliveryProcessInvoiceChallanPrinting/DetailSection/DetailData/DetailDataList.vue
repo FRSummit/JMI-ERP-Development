@@ -71,6 +71,8 @@ const service = new Service();
 
 import PP_Invoice_Type_2_Single from '../../../../../../functions/Print_Func/PP_Invoice_Type_2_Single'
 const pp_Invoice_Type_2_Single = new PP_Invoice_Type_2_Single()
+import PP_Invoice_Type_3_Institution from '../../../../../../functions/Print_Func/PP_Invoice_Type_3_Institution'
+const pp_Invoice_Type_3_Institution = new PP_Invoice_Type_3_Institution()
 
 import ComaSeparatedDigits from '../../../../../../functions/ComaSeparatedDigits'
 const comaSeparatedDigits = new ComaSeparatedDigits()
@@ -115,6 +117,7 @@ export default {
     },
     printAllInvoiceClickHandler() {
       console.log('print ALl')
+      console.log(this.tab)
     },
     async printInvoice(schedule_id, i) {
       console.log('index : ' + i)
@@ -129,7 +132,12 @@ export default {
         .then(res => {
           console.log(res.data)
           // ppInvoice_Type_2.print_invoice(res.data)
-          pp_Invoice_Type_2_Single.print_invoice(res.data.invoice_details)
+          // if(this.tab === 'All' || this.tab === 'Chemist') {
+          if(this.tab === 'All') {
+            pp_Invoice_Type_2_Single.print_invoice(res.data.invoice_details)
+          } else {
+            pp_Invoice_Type_3_Institution.print_invoice(res.data.invoice_details)
+          }
         })
     }
   },
