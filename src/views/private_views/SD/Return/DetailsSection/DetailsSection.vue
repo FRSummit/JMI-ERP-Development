@@ -184,89 +184,91 @@
                         </div>
                     </div>
                     
-                    <div class="input-autofield-show-section">
-                        <div class="input-autofield-show-section-inner">
-                            <!-- <div class="input-autofield">
-                                <AdvancedSearch class="advanced-search" v-model="autocomplete_modal" :options="autocomplete_options" type="text" placeholder="Search By Batch Number"></AdvancedSearch>
-                            </div> -->
-                            <div class="autofield-show-section">
-                                <div class="autofield-show-section-inner">
-                                    <div class="header">
-                                        <input id="sd_return-add-product" class="jmi-auto-filter-input" type="text" placeholder="Search By Name or Product ID" v-on:keyup="searchKeyUpAddProductHandler" />
-                                        <tr class="jmi-add-product-autofill-header-row">
-                                            <td><span class="td-span-title">Name</span></td>
-                                            <td><span class="td-span-title">Price</span></td>
-                                            <td></td>
-                                            <td><span class="td-span-title">Option</span></td>
-                                        </tr>
-                                    </div>
-                                    <div class="response-body">
-                                        <div id="progressbar" class="jmi-progressbar" v-if="!auto_field_data">
-                                            <v-progress-circular indeterminate color="primary"></v-progress-circular>
+                    <div class="row">
+                        <div class="input-autofield-show-section">
+                            <div class="input-autofield-show-section-inner">
+                                <!-- <div class="input-autofield">
+                                    <AdvancedSearch class="advanced-search" v-model="autocomplete_modal" :options="autocomplete_options" type="text" placeholder="Search By Batch Number"></AdvancedSearch>
+                                </div> -->
+                                <div class="autofield-show-section">
+                                    <div class="autofield-show-section-inner">
+                                        <div class="header">
+                                            <input id="sd_return-add-product" class="jmi-auto-filter-input" type="text" placeholder="Search By Name or Product ID" v-on:keyup="searchKeyUpAddProductHandler" />
+                                            <tr class="jmi-add-product-autofill-header-row">
+                                                <td><span class="td-span-title">Name</span></td>
+                                                <td><span class="td-span-title">Price</span></td>
+                                                <td></td>
+                                                <td><span class="td-span-title">Option</span></td>
+                                            </tr>
                                         </div>
-                                        <tr class="responer-body-filter-output" v-for="(data, i) in auto_field_data" :key="i">
-                                            <td>
-                                                <!-- <span class="responer-body-filter-tag">{{ data ? data.product_info.prod_name : "" }}</span> -->
-                                                <span class="responer-body-filter-tag">{{ data ? data.prod_name : "" }}</span>
-                                                <span>{{ data ? (data.display_code ? ('Code: ' + data.display_code) : '') : "" }} {{ data ? (data.offer ? ('| ' + data.offer) : '') : "" }}<span class="responer-body-filter-tag-id hide" style="display: inline-block; margin-left: 2px;">{{ data ? (data.prod_id ? (' | ID: ' + data.prod_id) : '') : "" }}</span></span>
-                                            </td>
-                                            <td>
-                                                <span class="quantity-setup">
-                                                    <span class="qty">{{ data ? data.base_tp : "" }}</span>
-                                                </span>
-                                            </td>
-                                            <td></td>
-                                            <td class="row-action">
-                                                <span class="delete-icon" @click="addProductFromAutofieldResponseClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
-                                            </td>
-                                        </tr>
+                                        <div class="response-body">
+                                            <div id="progressbar" class="jmi-progressbar" v-if="!auto_field_data">
+                                                <v-progress-circular indeterminate color="primary"></v-progress-circular>
+                                            </div>
+                                            <tr class="responer-body-filter-output" v-for="(data, i) in auto_field_data" :key="i">
+                                                <td>
+                                                    <!-- <span class="responer-body-filter-tag">{{ data ? data.product_info.prod_name : "" }}</span> -->
+                                                    <span class="responer-body-filter-tag">{{ data ? data.prod_name : "" }}</span>
+                                                    <span>{{ data ? (data.display_code ? ('Code: ' + data.display_code) : '') : "" }} {{ data ? (data.offer ? ('| ' + data.offer) : '') : "" }}<span class="responer-body-filter-tag-id hide" style="display: inline-block; margin-left: 2px;">{{ data ? (data.prod_id ? (' | ID: ' + data.prod_id) : '') : "" }}</span></span>
+                                                </td>
+                                                <td>
+                                                    <span class="quantity-setup">
+                                                        <span class="qty">{{ data ? data.base_tp : "" }}</span>
+                                                    </span>
+                                                </td>
+                                                <td></td>
+                                                <td class="row-action">
+                                                    <span class="delete-icon" @click="addProductFromAutofieldResponseClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
+                                                </td>
+                                            </tr>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="ordered-product-list">
-                        <div class="ordered-product-list-inner">
-                            <div class="selected-ordered-product">
-                                <tr class="header-row">
-                                    <td>
-                                        <span class="jmi-title">Name</span>
-                                    </td>
-                                    <td>
-                                        <span class="jmi-title">Quantity</span>
-                                    </td>
-                                    <td><span class="jmi-title">Total Price</span></td>
-                                    <td class="row-action"></td>
-                                </tr>
-                                <div id="progressbar" class="jmi-progressbar" v-if="!SELECTED_ORDERED_PRODUCTS__INIT_LIST">
-                                    <v-progress-circular indeterminate color="primary"></v-progress-circular>
+                        <div class="ordered-product-list">
+                            <div class="ordered-product-list-inner">
+                                <div class="selected-ordered-product">
+                                    <tr class="header-row">
+                                        <td>
+                                            <span class="jmi-title">Name</span>
+                                        </td>
+                                        <td>
+                                            <span class="jmi-title">Quantity</span>
+                                        </td>
+                                        <td><span class="jmi-title">Total Price</span></td>
+                                        <td class="row-action"></td>
+                                    </tr>
+                                    <div id="progressbar" class="jmi-progressbar" v-if="!SELECTED_ORDERED_PRODUCTS__INIT_LIST">
+                                        <v-progress-circular indeterminate color="primary"></v-progress-circular>
+                                    </div>
+                                    <tr v-for="(data, i) in SELECTED_ORDERED_PRODUCTS__INIT_LIST" :key="i">
+                                        <td>
+                                            <!-- <span>{{  data ? data.product_info.prod_name : ""  }}</span> -->
+                                            <span>{{  data ? data.prod_name : ""  }}</span>
+                                            <span>Code: {{ data ? (data.display_code ? data.display_code : data.prod_id) : "" }}<span class="responer-body-filter-tag-id hide" style="display: inline-block; margin-left: 2px;"> | ID: {{ data ? (data.prod_id ? (data.prod_id) : '') : "" }}</span></span>
+                                        </td>
+                                        <td>
+                                            <span class="quantity-setup">
+                                                <span class="qty-increase" @click="decreaseProductInAutofieldProductClickHandler(data, i)"><i class="zmdi zmdi-minus" :class="data.quantity <= 1 ? 'jmi-deactive-btn' : ''"></i></span>
+                                                <input :id="'order-add-modal-qty-' + i" class="qty" type="number" placeholder="00" :value="data.quantity ? data.quantity : 1" v-on:keyup="quantityKeyUp_modal(data, $event, i)" min="1" step="1" v-on:keydown="quantityKeyDown_modal($event, i)" pattern="[0-9]*">
+                                                <!-- <input class="qty" type="number" placeholder="00" v-model="add_order_modal_data_quantity" v-on:keyup="quantityKeyUp_modal(data.quantity)"> -->
+                                                <span class="qty-decrease" @click="increaseProductInAutofieldProductClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
+                                            </span>
+                                        </td>
+                                        <td>{{ data ? (data.quantity * data.base_tp).toFixed(2) : "" }}</td>
+                                        <td class="row-action">
+                                            <span class="delete-icon" @click="removeAddedOrderedProductClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
+                                        </td>
+                                    </tr>
                                 </div>
-                                <tr v-for="(data, i) in SELECTED_ORDERED_PRODUCTS__INIT_LIST" :key="i">
-                                    <td>
-                                        <!-- <span>{{  data ? data.product_info.prod_name : ""  }}</span> -->
-                                        <span>{{  data ? data.prod_name : ""  }}</span>
-                                        <span>Code: {{ data ? (data.display_code ? data.display_code : data.prod_id) : "" }}<span class="responer-body-filter-tag-id hide" style="display: inline-block; margin-left: 2px;"> | ID: {{ data ? (data.prod_id ? (data.prod_id) : '') : "" }}</span></span>
-                                    </td>
-                                    <td>
-                                        <span class="quantity-setup">
-                                            <span class="qty-increase" @click="decreaseProductInAutofieldProductClickHandler(data, i)"><i class="zmdi zmdi-minus" :class="data.quantity <= 1 ? 'jmi-deactive-btn' : ''"></i></span>
-                                            <input :id="'order-add-modal-qty-' + i" class="qty" type="number" placeholder="00" :value="data.quantity ? data.quantity : 1" v-on:keyup="quantityKeyUp_modal(data, $event, i)" min="1" step="1" v-on:keydown="quantityKeyDown_modal($event, i)" pattern="[0-9]*">
-                                            <!-- <input class="qty" type="number" placeholder="00" v-model="add_order_modal_data_quantity" v-on:keyup="quantityKeyUp_modal(data.quantity)"> -->
-                                            <span class="qty-decrease" @click="increaseProductInAutofieldProductClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
-                                        </span>
-                                    </td>
-                                    <td>{{ data ? (data.quantity * data.base_tp).toFixed(2) : "" }}</td>
-                                    <td class="row-action">
-                                        <span class="delete-icon" @click="removeAddedOrderedProductClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
-                                    </td>
-                                </tr>
                             </div>
                         </div>
                     </div>
                     <div class="submit-section">
                         <div class="submit-section-inner">
-                            <span class="cancel-order" @click="cancelOrderFromModalClickHandler">Cancel</span>
-                            <span class="proceed-order" @click="addItemsFromModalClickHandler">Add Items</span>
+                            <button class="cancel-order cancel" @click="cancelOrderFromModalClickHandler">Cancel</button>
+                            <button class="proceed-order confirm" @click="addItemsFromModalClickHandler">Add Items</button>
                         </div>
                     </div>
                 </div>
