@@ -54,6 +54,9 @@
       <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
         <router-link to="/features/local_sales/doctors_profile:1">Doctors Profile</router-link>
       </div>
+      <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
+        <router-link to="/sd/pending-ds-invoice-list">Pending DS Invoice List</router-link>
+      </div>
     </div>
     
     <br />
