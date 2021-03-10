@@ -137,5 +137,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import url("./DetailDataList.less");
+@import url("./DetailData.less");
 </style>
