@@ -56,8 +56,9 @@
         </div>
         <div class="location-list-section">
           <div class="location-list-section-inner">
-            <div id="progressbar" class="progressbar" v-if="!PENDING_DELIVERY_SCHEDULE_INV_LIST.length" style="text-align: center; margin: 40px 0; color: #026cd1;">
-              <v-progress-circular indeterminate color="primary"></v-progress-circular>
+            <div id="progressbar" class="jmi-progressbar" v-if="!PENDING_DELIVERY_SCHEDULE_INV_LIST.length" style="text-align: center; margin: 40px 0; color: #026cd1;">
+              <v-progress-circular indeterminate color="primary" v-if="progressbarTimeOut()"></v-progress-circular>
+              <p v-if="!progressbarTimeOut()">No Schedule Found</p>
             </div>
             <!-- <draggable
               class="dragArea unpublished"
@@ -141,6 +142,7 @@ export default {
         'Item 5'
       ],
       PENDING_DELIVERY_SCHEDULE_INV_LIST: [],
+      progressbar_time_out: true,
     };
   },
   created() {
@@ -169,6 +171,11 @@ export default {
       }
       await this.PENDING_DELIVERY_SCHEDULE_INVOICE_LIST_BY_DA_ID__FROM_SERVICE(da_id)
       this.$emit('SELECTED_DA_ID', da_id)
+    },
+    progressbarTimeOut() {
+      setTimeout( ()=> {
+        console.log('progressbar_time_out')
+      }, 2000)
     },
     // onUnpublishedChange({ added }) {
     //   console.log('Working 1')
@@ -231,7 +238,7 @@ export default {
     },
     async PENDING_DELIVERY_SCHEDULE_DELIVERY_LIST__FROM_SERVICE() {
       this.PENDING_DELIVERY_SCHEDULE_INV_LIST = []
-      await service.getPendingDeliveryScheduleInvoiceList_DELIVERY_SCHEDULING()
+      await service.getPendingDeliveryAllScheduleInvoiceList_DELIVERY_SCHEDULING()
         .then(res => {
           console.log(res.data)
           this.PENDING_DELIVERY_SCHEDULE_INV_LIST = res.data.invoice_info

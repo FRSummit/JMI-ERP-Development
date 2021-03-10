@@ -32,16 +32,17 @@
         </div> -->
         <div class="location-title">
           <div class="location-title-inner">
-            <p>Delivery Schedule List (<span>{{ INVOICE_LIST.length }}</span>)</p>
+            <p>DS Invoice List (<span>{{ INVOICE_LIST.length }}</span>)</p>
           </div>
         </div>
         <div class="location-list-section">
           <div class="location-list-section-inner">
             <div
+              :id="'invoice-challan-printing-section-list-' + p"
               class="invoice-challan-printing-section-list"
               v-for="(invoice, p) in INVOICE_LIST"
               :key="p"
-              @click="invoiceClickHandler(invoice)"
+              @click="invoiceClickHandler(invoice, p)"
             >
               <div class="invoice-challan-printing-section-list-inner">
                 <div class="name-status-section">
@@ -122,7 +123,16 @@ export default {
     onChange() {
       console.log(this.selectedDA);
     },
-    invoiceClickHandler(invoice) {
+    invoiceClickHandler(invoice, index) {
+            let length = document.getElementsByClassName('invoice-challan-printing-section-list').length
+            for(let i=0; i<length; i++) {
+                document.querySelector('#invoice-challan-printing-section-list-' + i).className = 'invoice-challan-printing-section-list'
+            }
+            if(document.querySelector('#invoice-challan-printing-section-list-' + index).className === 'invoice-challan-printing-section-list') {
+                document.querySelector('#invoice-challan-printing-section-list-' + index).className = 'invoice-challan-printing-section-list active'
+            } else {
+                document.querySelector('#invoice-challan-printing-section-list-' + index).className = 'invoice-challan-printing-section-list'
+            }
       this.$emit('invoice_id_from_left', invoice.id)
     },
     // --------------------------------------------------------------------------------------

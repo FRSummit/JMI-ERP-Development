@@ -76,7 +76,7 @@ import ComaSeparatedDigits from '../../../../../../functions/ComaSeparatedDigits
 const comaSeparatedDigits = new ComaSeparatedDigits()
 
 export default {
-  props: ["tab", "data", "SCHEDULE_DETAILS_LIST"],
+  props: ["tab", "SCHEDULE_DETAILS_LIST"],
   components: {},
   data() {
     return {
