@@ -111,31 +111,7 @@ export default class PP_Invoice_Type_2_Single {
                             +                         this.create_net_payable_data(data)
                             +                     '</tbody>'
                             +                 '</table>'
-
-                            +                 '<div class="status-section" style=" margin-top: 20px;">'
-                            +                     '<table style="width: 50%; margin-left: 0%; page-break-inside: avoid;">'
-                            +                         '<tr>'
-                            +                             '<td colspan="4"><p style="text-align: left; font-size: 14px; font-weight: 500;">Present Credit Status:</p></td>'
-                            +                         '</tr>'
-                            +                         '<tr  style="border-bottom: 1px solid #000000;">'
-                            +                             '<td>Invoice No</td>'
-                            +                             '<td>Inv Date</td>'
-                            +                             '<td>Pay Mode</td>'
-                            +                             '<td>Outstanding</td>'
-                            +                         '</tr>'
-                            +                         '<tr>'
-                            +                             '<td>' + '' + '</td>'
-                            +                             '<td>' + '' + '</td>'
-                            +                             '<td>' + '' + '</td>'
-                            +                             '<td>' + '' + '</td>'
-                            +                         '</tr>'
-                            +                         '<tr style="">'
-                            +                             '<td colspan="4">'
-                            +                                 '<p style="text-align: right; font-size: 12px; font-weight: 500; margin: 8px 20px 0 0;">Total: <span style="border-top: 1px dotted #000000; border-bottom: 2px double #000000; font-weight: 600;">' + '' + '</span></p>'
-                            +                             '</td>'
-                            +                         '</tr>'
-                            +                     '</table>'
-                            +                 '</div>'
+                            +                 this.create_credit_status()
                             +                 '<div class="signature-section" style="float: right; page-break-after: always; page-break-inside: avoid; margin-top: 20px; font-size: 12px;">'
                             +                     '<p style="margin: 0; text-align: center; font-family: Calibri;"><span style="border-bottom: 1px solid #000000; width: 300px; display: block;">' + '' + '</span><span style="width: 300px; display: block;">For NIPRO JMI Pharma Ltd.</span></p>'
                             +                 '</div>'
@@ -490,6 +466,37 @@ export default class PP_Invoice_Type_2_Single {
                     +       '<td style="text-align: right; border-bottom: 1px solid #000000;">' + comaSeparatedDigits.comaSeparate(NET_PAYABLE_AFTER_ADJ) + '.00</td>'
                     +   '</tr>'
         return net_payable
+    }
+
+    create_credit_status() {
+        let result = ''
+            result += ''
+                    +   '<div class="status-section" style=" margin-top: 20px;">'
+                    +       '<table style="width: 50%; margin-left: 0%; page-break-inside: avoid;">'
+                    +           '<tr>'
+                    +               '<td colspan="4"><p style="text-align: left; font-size: 14px; font-weight: 500;">Present Credit Status:</p></td>'
+                    +           '</tr>'
+                    +           '<tr  style="border-bottom: 1px solid #000000;">'
+                    +               '<td>Invoice No</td>'
+                    +               '<td>Inv Date</td>'
+                    +               '<td>Pay Mode</td>'
+                    +               '<td>Outstanding</td>'
+                    +           '</tr>'
+                    +           '<tr>'
+                    +               '<td>' + '' + '</td>'
+                    +               '<td>' + '' + '</td>'
+                    +               '<td>' + '' + '</td>'
+                    +               '<td>' + '' + '</td>'
+                    +           '</tr>'
+                    +           '<tr style="">'
+                    +               '<td colspan="4">'
+                    +                   '<p style="text-align: right; font-size: 12px; font-weight: 500; margin: 8px 20px 0 0;">Total: <span style="border-top: 1px dotted #000000; border-bottom: 2px double #000000; font-weight: 600;">' + '' + '</span></p>'
+                    +               '</td>'
+                    +           '</tr>'
+                    +       '</table>'
+                    +   '</div>'
+
+        return result
     }
 
     convert_number_to_word(num) {
