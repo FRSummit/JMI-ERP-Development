@@ -111,10 +111,8 @@ export default class PP_Invoice_Type_2_Single {
                             +                         this.create_net_payable_data(data)
                             +                     '</tbody>'
                             +                 '</table>'
-                            +                 this.create_credit_status()
-                            +                 '<div class="signature-section" style="float: right; page-break-after: always; page-break-inside: avoid; margin-top: 20px; font-size: 12px;">'
-                            +                     '<p style="margin: 0; text-align: center; font-family: Calibri;"><span style="border-bottom: 1px solid #000000; width: 300px; display: block;">' + '' + '</span><span style="width: 300px; display: block;">For NIPRO JMI Pharma Ltd.</span></p>'
-                            +                 '</div>'
+                            // +                 this.create_credit_status()
+                            +                 this.create_signature_section()
                             +             '</div>'
                             +         '</div>'
                 )
@@ -494,6 +492,16 @@ export default class PP_Invoice_Type_2_Single {
                     +               '</td>'
                     +           '</tr>'
                     +       '</table>'
+                    +   '</div>'
+
+        return result
+    }
+
+    create_signature_section() {
+        let result = ''
+            result += ''
+                    +   '<div class="signature-section" style="float: right; page-break-after: always; page-break-inside: avoid; margin-top: 40px; font-size: 12px;">'
+                    +       '<p style="margin: 0; text-align: center; font-family: Calibri;"><span style="border-bottom: 1px solid #000000; width: 300px; display: block;">' + '' + '</span><span style="width: 300px; display: block;">For NIPRO JMI Pharma Ltd.</span></p>'
                     +   '</div>'
 
         return result
