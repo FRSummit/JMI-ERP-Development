@@ -433,18 +433,20 @@ export default class PP_Invoice_Type_2_Single {
 
     create_rounding_adjustment_data() {
         let rounding_adjustment = ''
-        rounding_adjustment += ''
-                    +   '<tr>'
-                    +       '<td>' + '' + '</td>'
-                    +       '<td>' + '' + '</td>'
-                    +       '<td>' + '' + '</td>'
-                    +       '<td>' + '' + '</td>'
-                    +       '<td>' + '' + '</td>'
-                    +       '<td>' + '' + '</td>'
-                    +       '<td colspan="5" style="text-align: right;">' + 'Rounding Adjustment :' + '</td>'
-                    +       '<td style="text-align: right; border-bottom: 1px solid #000000;">' + '' + '</td>'
-                    +       '<td style="text-align: right; border-bottom: 1px solid #000000;">' + ROUNDING_ADJ + '</td>'
-                    +   '</tr>'
+        if(ROUNDING_ADJ !== 0) {
+            rounding_adjustment += ''
+                        +   '<tr>'
+                        +       '<td>' + '' + '</td>'
+                        +       '<td>' + '' + '</td>'
+                        +       '<td>' + '' + '</td>'
+                        +       '<td>' + '' + '</td>'
+                        +       '<td>' + '' + '</td>'
+                        +       '<td>' + '' + '</td>'
+                        +       '<td colspan="5" style="text-align: right;">' + 'Rounding Adjustment :' + '</td>'
+                        +       '<td style="text-align: right; border-bottom: 1px solid #000000;">' + '' + '</td>'
+                        +       '<td style="text-align: right; border-bottom: 1px solid #000000;">' + ROUNDING_ADJ + '</td>'
+                        +   '</tr>'
+        }
         return rounding_adjustment
     }
 
