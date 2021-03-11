@@ -413,6 +413,7 @@ export default {
                     orders.push(order)
                 }
                 this.APPROVE_ALL_SELECTED_ORDER__FROM_SERVICE(orders)
+                // console.log(orders.length)
             } else {
                 let orders = []
                 console.log('specific ids')
@@ -428,6 +429,7 @@ export default {
                     }
                 }
                 this.APPROVE_SPECIFIC_SELECTED_ORDER__FROM_SERVICE(orders)
+                // console.log(orders.length)
             }
             this.on_change_status = ''
         },
