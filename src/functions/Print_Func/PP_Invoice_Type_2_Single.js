@@ -7,6 +7,8 @@ let PRODUCT_SERIAL_NO = 1
 
 var monthShortNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
+// import dotmatrix_font from '../../assets/print-font/dormatrix.ttf'
+
 export default class PP_Invoice_Type_2_Single {
     
     print_invoice(data) {
@@ -29,12 +31,12 @@ export default class PP_Invoice_Type_2_Single {
                             +                                 '<p style=""></p>'
                             +                             '</td>'
                             +                             '<td colspan="7" style="text-align: right;">'
-                            +                                 '<p style="display: inline-block; padding: 10px 30px 30px 0;"><span class="label" style="border: 1px solid #000000; border-radius: 4px; padding: 4px 4px;">' + (data.sbu_customer_info ? (data.sbu_customer_info.credit_flag === 'Y' ? 'CREDIT' : 'CASH') : '') + '</span></p>'
+                            +                                 '<p style="display: inline-block; padding: 10px 30px 20px 0;"><span class="label" style="border: 1px solid #000000; border-radius: 4px; padding: 4px 4px;">' + (data.sbu_customer_info ? (data.sbu_customer_info.credit_flag === 'Y' ? 'CREDIT' : 'CASH') : '') + '</span></p>'
                             +                             '</td>'
                             +                         '</tr>'
                             +                         '<tr style="">'
                             +                             '<td colspan="6" style="text-align: left;">'
-                            +                                 '<p style="padding-bottom: 30px;"><span class="label" style="display: inline-block; width: 30px;"></span><span class="label-value">: ' + this.printing_Date_Format() + '</span></p>'
+                            +                                 '<p style="padding-bottom: 30px;"><span class="label" style="display: inline-block; width: 30px;"></span><span class="label-value"> ' + this.printing_Date_Format() + '</span></p>'
                             +                             '</td>'
                             +                             '<td colspan="7" style="text-align: right;">'
                             +                                 '<p><span class="label"></p>'
@@ -77,7 +79,7 @@ export default class PP_Invoice_Type_2_Single {
                             +                                 '<p style="padding-bottom: 10px;"><span class="label">S.R Name</span><span class="label-value">: ' + (data.sbu_customer_info ? (data.sbu_customer_info.customer_area_info ? (data.sbu_customer_info.customer_area_info.sales_force ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info.name) : '') : '') : '') : '') : '') : '') + '</span></p>'
                             +                             '</th>'
                             +                             '<th colspan="7" style="text-align: right;">'
-                            +                                 '<p style="display: inline-block; margin-right: 20px;"><span class="label">Order No :</span><span class="label-value" style="">' + (data.order_info ? (data.order_info.order_no ? (data.order_info.order_no) : '') : '') + '</span></p>'
+                            +                                 '<p style="display: inline-block; margin-right: 20px; padding-bottom: 6px;"><span class="label">Order No :</span><span class="label-value" style="">' + (data.order_info ? (data.order_info.order_no ? (data.order_info.order_no) : '') : '') + '</span></p>'
                             +                                 '<p style="display: inline-block;"><span class="label">Order Date :</span><span class="label-value" style="">' + (data.order_info ? (data.order_info.order_date ? (data.order_info.order_date).split(' ')[0] : '') : '') + '</span></p>'
                             +                             '</th>'
                             +                         '</tr>'
@@ -128,7 +130,8 @@ export default class PP_Invoice_Type_2_Single {
 
     printing_Date_Format() {
         var t = new Date();
-        return t.getDate() + ' ' + monthShortNames[t.getMonth()] + ', ' + t.getFullYear()
+        // return t.getDate() + ' ' + monthShortNames[t.getMonth()] + ', ' + t.getFullYear()
+        return t.getFullYear() + '-' + (t.getMonth() + 1) + '-' + t.getDate() 
     }
 
     addStylePrint_3() {
@@ -137,16 +140,19 @@ export default class PP_Invoice_Type_2_Single {
               + '@page {'
               +     'size: 8.5in 11in;'
             //   +     'margin: 25mm 10mm 15mm 15mm; border: 1px solid #000000'
-              +     'margin: 17mm 10mm 15mm 15mm; border: 1px solid #000000'
+              +     'margin: 10mm 10mm 15mm 15mm; border: 1px solid #000000'
               + '}'
               +
               + '@media print {'
               +     'body {'
               +         'margin: 0px;'
-              +         'font-family: "Calibri";'
+            //   +         'font-family: "Courier";'
+              +         'font-family: calibri;'
+              +         'font-weight: 100;'
               +     '}'
               +     'p {'
               +         'margin: 0px;'
+              +         'font-weight: 100;'
               +     '}'
               +     '.initial-data-section {'
               +         'display: block;'
@@ -166,9 +172,9 @@ export default class PP_Invoice_Type_2_Single {
               +         'float: right'
               +     '}'
               +     '.initial-data-section p {'
-              +         'font-size: 10px;'
+              +         'font-size: 12px;'
               +         'line-height: 1;'
-              +         'font-weight: 600;'
+            //   +         'font-weight: 400;'
               +         'padding: 2px 0;'
               +         'margin: 0;'
               +     '}'
@@ -188,10 +194,10 @@ export default class PP_Invoice_Type_2_Single {
               +     'table {'
               +         'border-collapse: collapse;'
               +         'color:black;'
-              +         'font-size:10px;'
+              +         'font-size: 12px;'
               +         'width: 100%; text-align: center;'
               +         'text-align: center;'
-              +         'font-family: "Calibri";'
+              +         'font-family: calibri;'
               +         'page-break-inside: auto;'
               +     '}'
               +     'thead {'
@@ -199,15 +205,16 @@ export default class PP_Invoice_Type_2_Single {
               +         'display: table-header-group;'
               +     '}'
               +     'thead p {'
-              +         'font-size: 10px;'
+              +         'font-size: 12px;'
               +         'line-height: 1;'
-              +         'font-weight: 600;'
+            //   +         'font-weight: 400;'
               +         'padding: 2px 0;'
               +         'margin: 0;'
               +     '}'
               +     'tr {'
               +     '}'
               +     'thead tr th{'
+              +         'font-weight: 100;'
             //   +         'border: 1px solid #000000'
               +     '}'
               +     'tbody {'
@@ -215,6 +222,7 @@ export default class PP_Invoice_Type_2_Single {
               +     '}'
               +      'table thead th, table tbody td {'
             //   +          'padding: 2px;'
+              +          'font-weight: 100;'
               +      '}'
               + '}'
         return style
@@ -315,7 +323,7 @@ export default class PP_Invoice_Type_2_Single {
             deal_type += '' +
                             '<tr>' +
                                 '<td colspan="13">' +
-                                    '<p style="font-size: 10px; font-weight: 600; line-height: 1.5; text-align: left; border-bottom: 1px solid #000000; margin: 0; width: 100px;">Offer Type: ' + product_deal_type + '</p>' +
+                                    '<p style="font-size: 12px; line-height: 1.5; text-align: left; border-bottom: 1px solid #000000; margin: 0; width: 100px;">Offer Type: ' + product_deal_type + '</p>' +
                                 '</td>' +
                             '</tr>'
         
@@ -388,9 +396,10 @@ export default class PP_Invoice_Type_2_Single {
 
         let gross_tp = ''
         gross_tp += ''
-                    +   '<tr style=" border-top: 1px solid #000000;">'
-                    +       '<td colspan="9" style="margin-top: 10px;">' + '<p style="text-align: left; margin: 0;">In Word : ' + this.convert_number_to_word(Number(NET_PAYABLE_AFTER_ADJ).toFixed(0)) + '.</p>' + '</td>'
-                    +       '<td colspan="2" style="text-align: right; margin-top: 10px;">' + 'Gross TP :' + '</td>'
+                    +   '<tr style=" "><td colspan="13"><hr /></td></tr>'
+                    +   '<tr style=" ">'
+                    +       '<td colspan="9" style="margin-top: 10px; >' + '<p style="text-align: left; margin: 0;">In Word : ' + this.convert_number_to_word(Number(NET_PAYABLE_AFTER_ADJ).toFixed(0)) + '.</p>' + '</td>'
+                    +       '<td colspan="2" style="text-align: right; margin-top: 10px;>' + 'Gross TP :' + '</td>'
                     +       '<td style="text-align: right; margin-top: 10px; border-bottom: 1px solid #000000;">' + '' + '</td>'
                     +       '<td style="text-align: right; margin-top: 10px; border-bottom: 1px solid #000000;">' + comaSeparatedDigits.comaSeparate(data.inv_tp) + '</td>'
                     +   '</tr>'
@@ -407,7 +416,7 @@ export default class PP_Invoice_Type_2_Single {
                     +       '<td>' + '' + '</td>'
                     +       '<td>' + '' + '</td>'
                     +       '<td>' + '' + '</td>'
-                    +       '<td colspan="5" style="text-align: right;">' + 'Less discount 5% on TP :' + '</td>'
+                    +       '<td colspan="5" style="text-align: right;">' + 'Less discount on TP :' + '</td>'
                     +       '<td style="text-align: right; border-bottom: 1px solid #000000;">' + '' + '</td>'
                     +       '<td style="text-align: right; border-bottom: 1px solid #000000;">' + comaSeparatedDigits.comaSeparate(data.inv_discount) + '</td>'
                     +   '</tr>'
@@ -474,7 +483,7 @@ export default class PP_Invoice_Type_2_Single {
                     +   '<div class="status-section" style=" margin-top: 20px;">'
                     +       '<table style="width: 50%; margin-left: 0%; page-break-inside: avoid;">'
                     +           '<tr>'
-                    +               '<td colspan="4"><p style="text-align: left; font-size: 14px; font-weight: 500;">Present Credit Status:</p></td>'
+                    +               '<td colspan="4"><p style="text-align: left; font-size: 14px;">Present Credit Status:</p></td>'
                     +           '</tr>'
                     +           '<tr  style="border-bottom: 1px solid #000000;">'
                     +               '<td>Invoice No</td>'
@@ -490,7 +499,7 @@ export default class PP_Invoice_Type_2_Single {
                     +           '</tr>'
                     +           '<tr style="">'
                     +               '<td colspan="4">'
-                    +                   '<p style="text-align: right; font-size: 12px; font-weight: 500; margin: 8px 20px 0 0;">Total: <span style="border-top: 1px dotted #000000; border-bottom: 2px double #000000; font-weight: 600;">' + '' + '</span></p>'
+                    +                   '<p style="text-align: right; font-size: 12px; margin: 8px 20px 0 0;">Total: <span style="border-top: 1px dotted #000000; border-bottom: 2px double #000000;">' + '' + '</span></p>'
                     +               '</td>'
                     +           '</tr>'
                     +       '</table>'
@@ -502,8 +511,8 @@ export default class PP_Invoice_Type_2_Single {
     create_signature_section() {
         let result = ''
             result += ''
-                    +   '<div class="signature-section" style="float: right; page-break-after: always; page-break-inside: avoid; margin-top: 40px; font-size: 12px;">'
-                    +       '<p style="margin: 0; text-align: center; font-family: Calibri;"><span style="border-bottom: 1px solid #000000; width: 300px; display: block;">' + '' + '</span><span style="width: 300px; display: block;">For NIPRO JMI Pharma Ltd.</span></p>'
+                    +   '<div class="signature-section" style="float: right; page-break-after: always; page-break-inside: avoid; margin-top: 60px; font-size: 12px;">'
+                    +       '<p style="margin: 0; text-align: center; font-family: calibri; "><span style="border-bottom: 1px solid #000000; width: 300px; display: block;">FAYAZUR RAHMAN SUMMIT</span><span style="width: 300px; display: block;">For NIPRO JMI Pharma Ltd.</span></p>'
                     +   '</div>'
 
         return result

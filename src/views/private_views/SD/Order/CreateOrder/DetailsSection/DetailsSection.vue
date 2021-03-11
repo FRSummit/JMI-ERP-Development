@@ -479,10 +479,16 @@ export default {
         // Delete Table Row's Single Product/Order
         deleteOrderitemClickHandler(data, index) {
             console.log(data + '    ' + index)
+            console.log(data.prod_id)
             if(this.ORDERED_TABLE_DATA__INIT_LIST.length > 0) {
                 for (let [i, tt] of this.ORDERED_TABLE_DATA__INIT_LIST.entries()) {
                     if (tt.prod_id === data.prod_id) {
                         this.ORDERED_TABLE_DATA__INIT_LIST.splice(i, 1);
+                        for(let [x, y] of this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.entries()) {
+                            if (y.prod_id === data.prod_id) {
+                                this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.splice(x, 1);
+                            }
+                        }
                         this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.push(data)
                         console.log(this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.length)
                         // Free Product row delete
@@ -749,6 +755,13 @@ export default {
                     if(this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.length > 0) {
                         console.log('length has')
                         console.log(this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST[0])
+                        // for(let i=0; i<this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.length; i++) {
+                        //     for(let j=(i+1); j<this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.length; j++) {
+                        //         if(this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST[i].prod_id === this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST[j].prod_id) {
+                        //             this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.splice(i, 1)
+                        //         }
+                        //     }
+                        // }
                         for(let i=0; i<this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.length; i++) {
                             // this.auto_field_data.push(this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST[i])
                             for(let j=0; j<this.ALL_PRODUCTS_LIST_2.length; j++) {
