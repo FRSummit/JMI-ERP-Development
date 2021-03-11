@@ -117,7 +117,7 @@
                                         <!-- Quantity Column -->
                                         <td :id="'order-data-table-tr-td-' + i">
                                             <span v-if="!(data.deal_type === 'F' && data.net_amount === '0')">
-                                                <span class="single_qty quantity-setup">
+                                                <span class="single_qty quantity-setup" v-if="STOCK_TRANSIT_VALIDATION">
                                                     <span class="qty" v-if="parseInt(data.net_qty) < parseInt(data.available_stock)">{{ data.qty }}</span>
                                                     <span class="qty" v-if="parseInt(data.net_qty) > parseInt(data.available_stock)" :class="parseInt(data.net_qty) > parseInt(data.available_stock) ? 'jmi-stock-out' : ''">{{ data.qty }}
                                                         <span class="tool-tip">
@@ -125,6 +125,9 @@
                                                             <p class="txt">In Transit: <span>{{ data.transit_stock }}</span></p>
                                                         </span>
                                                     </span>
+                                                </span>
+                                                <span class="single_qty quantity-setup" v-if="!STOCK_TRANSIT_VALIDATION">
+                                                    <span class="qty">{{ data.qty }}</span>
                                                 </span>
                                                 <span class="qty_editable quantity-setup hide" style="border: 1px solid #026CD1;">
                                                     <span class="qty-increase" @click="decreaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-minus" :class="data.qty < 2 ? 'jmi-deactive-btn' : ''"></i></span>
@@ -1045,6 +1048,7 @@ export default {
             ADD_PRODUCT_MODAL_SUBMITION_SECTION: true,
             ORDER_SUCCESS_MESSAGE: null,
             DISABLE_SUBMISSION_BTN: false,
+            STOCK_TRANSIT_VALIDATION: false,
         }
     },
     async created() {
@@ -1698,7 +1702,26 @@ export default {
                 })
         },
         async APPROVE_SINGLE_ORDER__FROM_SERVICE() {
-            await service.getApproveSingleOrderByOrderId_OrderApproval(this.order_id_from_left_side)
+            console.log('Approve single order')
+            await this.check_STOCK_TRANSIT_VALIDATION()
+            if(this.STOCK_TRANSIT_VALIDATION === false) {
+                await service.getApproveSingleOrderByOrderId_OrderApproval(this.order_id_from_left_side)
+                    .then(res => {
+                        console.log(res.data)
+                        this.approve_product_confirmation_popup_modal = false
+                        this.approved_single_order_modal = true
+                        this.ORDER_SUCCESS_MESSAGE = res.data.message
+                        this.$emit('single_order_approved', this.order_id_from_left_side)
+                        this.defaultAllThisComponentData()
+                        setTimeout( () => {
+                            this.approved_single_order_modal = false
+                            this.ORDER_SUCCESS_MESSAGE = null
+                        }, 2000)
+                    })
+            } else {
+                this.approve_product_confirmation_popup_modal = false
+            }
+            /*await service.getApproveSingleOrderByOrderId_OrderApproval(this.order_id_from_left_side)
                 .then(res => {
                     console.log(res.data)
                     this.approve_product_confirmation_popup_modal = false
@@ -1710,7 +1733,7 @@ export default {
                         this.approved_single_order_modal = false
                         this.ORDER_SUCCESS_MESSAGE = null
                     }, 2000)
-                })
+                })*/
         },
         async PRINT_THIS_ORDER_DETAILS__INVOICE__FROM_SERVICE() {
             await service.getPrintOrderDetails_OrderApproval_INVOICE(this.order_id_from_left_side)
@@ -1845,7 +1868,17 @@ export default {
              else {
                 return true
             }
-        }
+        },
+        check_STOCK_TRANSIT_VALIDATION() {
+            this.STOCK_TRANSIT_VALIDATION = false
+            for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST.length; i++) {
+                if(parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].net_qty) > (parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].available_stock) + parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].transit_stock)) ) {
+                    this.STOCK_TRANSIT_VALIDATION = true
+                } else {
+                    this.STOCK_TRANSIT_VALIDATION = false
+                }
+            }
+        },
     },
     watch: { 
         async pending_order_list_by_id(newVal, oldVal){
