@@ -484,24 +484,12 @@ export default {
                 for (let [i, tt] of this.ORDERED_TABLE_DATA__INIT_LIST.entries()) {
                     if (tt.prod_id === data.prod_id) {
                         this.ORDERED_TABLE_DATA__INIT_LIST.splice(i, 1);
-                        // for(let j=0; j<this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.length; j++) {
-                        //     console.log(this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST[j].prod_id)
-                        //     if(this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST[j].prod_id !== data.prod_id) {
-                        //         this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.push(data)
-                        //     } else {
-                        //         console.log('matched')
-                        //     }
-                        // }
-                        // if(this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.length === 0) {
-                        //     this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.push(data)
-                        // }
                         for(let [x, y] of this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.entries()) {
                             if (y.prod_id === data.prod_id) {
                                 this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.splice(x, 1);
                             }
                         }
                         this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.push(data)
-                        // for(let [i, ])
                         console.log(this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.length)
                         // Free Product row delete
                         if(data.offer_type === "free") {
