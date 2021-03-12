@@ -835,7 +835,8 @@ export default {
                     console.log(res.data)
                     this.proceed_modal_popup = false
                     this.order_creating_progressbar = false
-                    this.$router.push('/features/local_sales/order_approval')
+                    // this.$router.push('/features/local_sales/order_approval')
+                    this.defaultAllThisComponentData()
                 })
         },
         async getAllProduct() {

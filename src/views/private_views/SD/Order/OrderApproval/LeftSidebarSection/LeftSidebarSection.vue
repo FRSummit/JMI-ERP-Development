@@ -525,20 +525,34 @@ export default {
         onChangeFilterBy() {
             console.log('onChangeFilterBy: ' + this.on_change_filter_by)
         },
+        checkMultipleOrderIsSelect() {
+            let count_selected_order = 0
+            for(let i=0; i<this.ALL_PENDING_ORDERS_CUSTOMER_LIST.length; i++) {
+                let radio_selector = document.querySelector('#order-approval-left-sidebar #order-approval-checkbox-' + i)
+                if(radio_selector.checked === true) {
+                    count_selected_order++
+                }
+            }
+            return count_selected_order
+        },
         customerClickHandlerFromList(customer, c) {
             this.SELECTED_ORDER_INDEX = c
             console.log(this.SELECTED_ORDER_INDEX)
-            // console.log(c + '    ' +customer)
-            let length = document.getElementsByClassName('customer-section-list').length
-            for(let i=0; i<length; i++) {
-                document.querySelector('#customer-section-list-' + i).className = 'customer-section-list'
-            }
-            if(document.querySelector('#customer-section-list-' + c).className === 'customer-section-list') {
-                document.querySelector('#customer-section-list-' + c).className = 'customer-section-list active'
+            if(this.checkMultipleOrderIsSelect() < 2) {
+                // console.log(c + '    ' +customer)
+                let length = document.getElementsByClassName('customer-section-list').length
+                for(let i=0; i<length; i++) {
+                    document.querySelector('#customer-section-list-' + i).className = 'customer-section-list'
+                }
+                if(document.querySelector('#customer-section-list-' + c).className === 'customer-section-list') {
+                    document.querySelector('#customer-section-list-' + c).className = 'customer-section-list active'
+                } else {
+                    document.querySelector('#customer-section-list-' + c).className = 'customer-section-list'
+                }
+                this.$emit("select_order_by_order_id", customer.id)
             } else {
-                document.querySelector('#customer-section-list-' + c).className = 'customer-section-list'
+                this.$emit("multiple_order_selection")
             }
-            this.$emit("select_order_by_order_id", customer.id)
         },
         searchKeyUpHandler(value) {
             console.log(value.key)

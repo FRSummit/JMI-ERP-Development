@@ -458,10 +458,10 @@ export default class PostService {
   }
 
   // Order Approval - APPROVE SELECTED ORDERS - LEFT SECTION
-  getApproveSelectedOrders_OrderApproval(orders) {
+  async getApproveSelectedOrders_OrderApproval(orders) {
     console.log(orders)
     let web_menu_url = '/api/web/approve-selected-order'
-    return axios(web_menu_url, {
+    return await axios(web_menu_url, {
       method: 'GET',
       headers: {
         'Authorization': token_type + ' ' + token
