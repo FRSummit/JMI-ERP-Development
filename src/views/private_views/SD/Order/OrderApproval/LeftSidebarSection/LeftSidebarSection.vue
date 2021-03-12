@@ -637,7 +637,7 @@ export default {
                     .then(res => {
                         console.log(res.data)
                         // this.ORDER_SUCCESS_MESSAGE = res.data.message
-                    this.ORDER_SUCCESS_MESSAGE = res.data.response_code === 409 ? 'Already Approved' : ( res.data.count === 1 ? (res.data.count + ' Order Approved out of ' + this.SELECT_ORDER_COUNT) : (res.data.count + ' Orders Approved out of ' + this.SELECT_ORDER_COUNT) )
+                        this.ORDER_SUCCESS_MESSAGE = res.data.response_code === 409 ? 'Already Approved' : ( res.data.count === 1 ? (res.data.count + ' Order Approved out of ' + this.SELECT_ORDER_COUNT) : (res.data.count + ' Orders Approved out of ' + this.SELECT_ORDER_COUNT) )
                         this.SELECT_ORDER_APPROVED_COUNT = res.data.count
                         this.deselectAllSelectedOrder()
                         this.approve_selection_modal = false
