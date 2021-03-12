@@ -1004,6 +1004,11 @@ input[type=number] {
     width  : 50%;
 }
 
+.modal-popup-section .modal-popup-section-inner .popup-submit-section .popup-confirm-btn-section:hover {
+    background: #AAC0D9;
+    cursor    : pointer;
+}
+
 .modal-popup-section .modal-popup-section-inner .popup-submit-section .popup-confirm-btn-section span {
     outline: 0;
     cursor : pointer;
@@ -1013,6 +1018,11 @@ input[type=number] {
 .modal-popup-section .modal-popup-section-inner .popup-submit-section .popup-cancel-btn-section {
     display: inline-block;
     width  : 50%;
+}
+
+.modal-popup-section .modal-popup-section-inner .popup-submit-section .popup-cancel-btn-section:hover {
+    background: #AAC0D9;
+    cursor    : pointer;
 }
 
 .modal-popup-section .modal-popup-section-inner .popup-submit-section .popup-cancel-btn-section span {

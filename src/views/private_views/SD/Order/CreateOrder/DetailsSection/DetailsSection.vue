@@ -324,11 +324,11 @@
                 <p class="popup-desc">You want to proceed the order.</p>
                 <span class="divider"></span>
                 <div class="popup-submit-section">
-                <div class="popup-cancel-btn-section">
-                    <span @click="cancelOrderModalClickHandler">Cancel</span>
+                <div class="popup-cancel-btn-section" @click="cancelOrderModalClickHandler">
+                    <span>Cancel</span>
                 </div>
-                <div class="popup-confirm-btn-section">
-                    <span @click="proceedOrderModalClickHandler">Proceed</span>
+                <div class="popup-confirm-btn-section" @click="proceedOrderModalClickHandler">
+                    <span>Proceed</span>
                 </div>
                 </div>
             </div>

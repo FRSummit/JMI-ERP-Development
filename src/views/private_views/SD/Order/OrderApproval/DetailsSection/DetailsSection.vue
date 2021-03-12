@@ -613,11 +613,11 @@
                 <p class="popup-desc">You want to reject the order.</p>
                 <span class="divider"></span>
                 <div class="popup-submit-section">
-                <div class="popup-cancel-btn-section">
-                    <span @click="cancelRejectionOrderModalClickHandler">Cancel</span>
+                <div class="popup-cancel-btn-section" @click="cancelRejectionOrderModalClickHandler">
+                    <span>Cancel</span>
                 </div>
-                <div class="popup-confirm-btn-section">
-                    <span @click="proceedRejectionOrderModalClickHandler">Proceed</span>
+                <div class="popup-confirm-btn-section" @click="proceedRejectionOrderModalClickHandler">
+                    <span>Proceed</span>
                 </div>
                 </div>
             </div>
@@ -1233,11 +1233,11 @@ export default {
                 for (let [i, tt] of this.ORDERED_TABLE_DATA__INIT_LIST.entries()) {
                     if (tt.product_id === this.delete_product_from_table_popup_modal_data.product_id) {
                         this.ORDERED_TABLE_DATA__INIT_LIST.splice(i, 1);
-                        for(let [x, y] of this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.entries()) {
-                            if (y.prod_id === data.prod_id) {
-                                this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.splice(x, 1);
-                            }
-                        }
+                        // for(let [x, y] of this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.entries()) {
+                        //     if (y.prod_id === this.delete_product_from_table_popup_modal_data.product_id) {
+                        //         this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.splice(x, 1);
+                        //     }
+                        // }
                         this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.push(this.delete_product_from_table_popup_modal_data)
                         // Free Product row delete
                         // if(data.offer_type === "free") {
@@ -1722,6 +1722,8 @@ export default {
                             this.approved_single_order_modal = false
                             this.ORDER_SUCCESS_MESSAGE = null
                         }, 2000)
+                    }).catch(err => {
+                        console.log(err)
                     })
             } else {
                 this.approve_product_confirmation_popup_modal = false
