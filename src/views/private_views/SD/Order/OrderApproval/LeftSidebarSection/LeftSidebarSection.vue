@@ -42,6 +42,7 @@
                                 </div>
                                 <div class="type-section">
                                     <p class="customer-type"><span class="type">{{ customer ? (customer.order_date).split(' ')[0] : "" }}</span></p>
+                                    <!-- <p class="customer-type"><span class="type">{{ customer ? (customer.order_date) : "" }}</span></p> -->
                                 </div>
                             </div>
                         </div>
@@ -171,6 +172,7 @@
             <div class="modal-popup-section-inner update-successfully-modal-inner">
                 <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
                 <p class="popup-text">{{ ORDER_SUCCESS_MESSAGE }}</p>
+                <!-- <p class="popup-text">{{ SELECT_ORDER_APPROVED_COUNT }} Orders Approved out of {{ SELECT_ORDER_COUNT }}</p> -->
             </div>
         </div>
       </div>
@@ -319,6 +321,9 @@ export default {
                     status: "Select All"
                 },
                 {
+                    status: "Deselect All"
+                },
+                {
                     status: "Approved Selected"
                 },
                 {
@@ -355,6 +360,8 @@ export default {
             approved_orders_success_modal: false,
             ORDER_SUCCESS_MESSAGE: null,
             SELECTED_ORDER_INDEX: null,
+            SELECT_ORDER_COUNT: null,
+            SELECT_ORDER_APPROVED_COUNT: null,
         }
     },
     created() {},
@@ -414,6 +421,7 @@ export default {
                 }
                 this.APPROVE_ALL_SELECTED_ORDER__FROM_SERVICE(orders)
                 // console.log(orders.length)
+                this.SELECT_ORDER_COUNT = orders.length
             } else {
                 let orders = []
                 console.log('specific ids')
@@ -430,6 +438,7 @@ export default {
                 }
                 this.APPROVE_SPECIFIC_SELECTED_ORDER__FROM_SERVICE(orders)
                 // console.log(orders.length)
+                this.SELECT_ORDER_COUNT = orders.length
             }
             this.on_change_status = ''
         },
@@ -445,8 +454,18 @@ export default {
                         this.SELECT_OPTION__CUSTOMER_ID_LIST.push(parseInt(this.ALL_PENDING_ORDERS_CUSTOMER_LIST[i].customer_id))
                         this.SELECT_OPTION__ORDER_ID_LIST.push(parseInt(this.ALL_PENDING_ORDERS_CUSTOMER_LIST[i].id))
                     }
+                    this.$emit("multiple_order_selection")
                     // alert(this.SELECT_OPTION__CUSTOMER_ID_LIST)
                     // alert(this.SELECT_OPTION__ORDER_ID_LIST)
+                    break
+                case 'Deselect All':
+                    this.SELECT_OPTION__CUSTOMER_ID_LIST = []
+                    this.SELECT_OPTION__ORDER_ID_LIST = []
+                    for(let i=0; i<this.ALL_PENDING_ORDERS_CUSTOMER_LIST.length; i++) {
+                        let radio_selector = document.querySelector('#order-approval-left-sidebar #order-approval-checkbox-' + i)
+                        radio_selector.checked = false
+                    }
+                    this.on_change_status = ''
                     break
                 case 'Approved Selected':
                     // console.log('Approved Selected')
@@ -519,20 +538,34 @@ export default {
         onChangeFilterBy() {
             console.log('onChangeFilterBy: ' + this.on_change_filter_by)
         },
+        checkMultipleOrderIsSelect() {
+            let count_selected_order = 0
+            for(let i=0; i<this.ALL_PENDING_ORDERS_CUSTOMER_LIST.length; i++) {
+                let radio_selector = document.querySelector('#order-approval-left-sidebar #order-approval-checkbox-' + i)
+                if(radio_selector.checked === true) {
+                    count_selected_order++
+                }
+            }
+            return count_selected_order
+        },
         customerClickHandlerFromList(customer, c) {
             this.SELECTED_ORDER_INDEX = c
             console.log(this.SELECTED_ORDER_INDEX)
-            // console.log(c + '    ' +customer)
-            let length = document.getElementsByClassName('customer-section-list').length
-            for(let i=0; i<length; i++) {
-                document.querySelector('#customer-section-list-' + i).className = 'customer-section-list'
-            }
-            if(document.querySelector('#customer-section-list-' + c).className === 'customer-section-list') {
-                document.querySelector('#customer-section-list-' + c).className = 'customer-section-list active'
+            if(this.checkMultipleOrderIsSelect() < 2) {
+                // console.log(c + '    ' +customer)
+                let length = document.getElementsByClassName('customer-section-list').length
+                for(let i=0; i<length; i++) {
+                    document.querySelector('#customer-section-list-' + i).className = 'customer-section-list'
+                }
+                if(document.querySelector('#customer-section-list-' + c).className === 'customer-section-list') {
+                    document.querySelector('#customer-section-list-' + c).className = 'customer-section-list active'
+                } else {
+                    document.querySelector('#customer-section-list-' + c).className = 'customer-section-list'
+                }
+                this.$emit("select_order_by_order_id", customer.id)
             } else {
-                document.querySelector('#customer-section-list-' + c).className = 'customer-section-list'
+                this.$emit("multiple_order_selection")
             }
-            this.$emit("select_order_by_order_id", customer.id)
         },
         searchKeyUpHandler(value) {
             console.log(value.key)
@@ -583,7 +616,9 @@ export default {
             await service.getApproveSelectedOrders_OrderApproval(orders)
                 .then(res => {
                     console.log(res.data)
-                    this.ORDER_SUCCESS_MESSAGE = res.data.message
+                    // this.ORDER_SUCCESS_MESSAGE = res.data.message
+                    this.ORDER_SUCCESS_MESSAGE = res.data.response_code === 409 ? 'Already Approved' : ( res.data.count === 1 ? (res.data.count + ' Order Approved out of ' + this.SELECT_ORDER_COUNT) : (res.data.count + ' Orders Approved out of ' + this.SELECT_ORDER_COUNT) )
+                    this.SELECT_ORDER_APPROVED_COUNT = res.data.count
                     this.deselectAllSelectedOrder()
                     this.approve_selection_modal = false
                     this.approved_orders_success_modal = true
@@ -601,7 +636,9 @@ export default {
                 await service.getApproveSelectedOrders_OrderApproval(orders)
                     .then(res => {
                         console.log(res.data)
-                        this.ORDER_SUCCESS_MESSAGE = res.data.message
+                        // this.ORDER_SUCCESS_MESSAGE = res.data.message
+                        this.ORDER_SUCCESS_MESSAGE = res.data.response_code === 409 ? 'Already Approved' : ( res.data.count === 1 ? (res.data.count + ' Order Approved out of ' + this.SELECT_ORDER_COUNT) : (res.data.count + ' Orders Approved out of ' + this.SELECT_ORDER_COUNT) )
+                        this.SELECT_ORDER_APPROVED_COUNT = res.data.count
                         this.deselectAllSelectedOrder()
                         this.approve_selection_modal = false
                         this.approved_orders_success_modal = true

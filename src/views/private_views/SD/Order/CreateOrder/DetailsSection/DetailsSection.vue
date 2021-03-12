@@ -15,13 +15,13 @@
                             <span class="right-icon"><i class="fas fa-chevron-right"></i></span>
                                 <select title="Pick a customer" class="selectpicker jmi-select-option" v-model="on_change_reg_area_tt" @change="onChangeRegAreaTTDropdown()" style="">
                                     <optgroup label="DHK101" v-if="checkReagionAreaTT(REGION_AREA_TERRITORY_LIST)">
-                                        <option v-for="(rat, m) in checkReagionAreaTT(REGION_AREA_TERRITORY_LIST).reg" :key="m" :value="rat.id"><span v-if="rat.lvl === '3'">{{ rat.display_code }} - {{ rat.area_name }}</span></option>
+                                        <option v-for="(rat, m) in checkReagionAreaTT(REGION_AREA_TERRITORY_LIST).reg" :key="m" :value="rat.id"><span v-if="rat.lvl === '3'">{{ rat.display_code }} - {{ rat.area_short_name }}</span></option>
                                     </optgroup>
                                     <optgroup label="DHK101">
-                                        <option v-for="(rat, m) in checkReagionAreaTT(REGION_AREA_TERRITORY_LIST).area" :key="m" :value="rat.id"><span v-if="rat.lvl === '4'">{{ rat.display_code }} - {{ rat.area_name }}</span></option>
+                                        <option v-for="(rat, m) in checkReagionAreaTT(REGION_AREA_TERRITORY_LIST).area" :key="m" :value="rat.id"><span v-if="rat.lvl === '4'">{{ rat.display_code }} - {{ rat.area_short_name }}</span></option>
                                     </optgroup>
                                     <optgroup label="DHK101">
-                                        <option v-for="(rat, m) in checkReagionAreaTT(REGION_AREA_TERRITORY_LIST).tt" :key="m" :value="rat.id"><span v-if="rat.lvl === '5'">{{ rat.display_code }} - {{ rat.area_name }}</span></option>
+                                        <option v-for="(rat, m) in checkReagionAreaTT(REGION_AREA_TERRITORY_LIST).tt" :key="m" :value="rat.id"><span v-if="rat.lvl === '5'">{{ rat.display_code }} - {{ rat.area_short_name }}</span></option>
                                     </optgroup>
                             </select>
                         </div>
@@ -324,12 +324,21 @@
                 <p class="popup-desc">You want to proceed the order.</p>
                 <span class="divider"></span>
                 <div class="popup-submit-section">
-                <div class="popup-cancel-btn-section">
-                    <span @click="cancelOrderModalClickHandler">Cancel</span>
+                <div class="popup-cancel-btn-section" @click="cancelOrderModalClickHandler">
+                    <span>Cancel</span>
                 </div>
-                <div class="popup-confirm-btn-section">
-                    <span @click="proceedOrderModalClickHandler">Proceed</span>
+                <div class="popup-confirm-btn-section" @click="proceedOrderModalClickHandler">
+                    <span>Proceed</span>
                 </div>
+                </div>
+            </div>
+        </div>
+        <!-- Order Creating Modal -->
+        <div class="modal-popup-section order-proceed-modal" v-if="order_creating_progressbar">
+            <div class="modal-popup-section-inner order-proceed-modal-inner">
+                <div id="progressbar" class="jmi-progressbar">
+                    <v-progress-circular indeterminate color="primary"></v-progress-circular>
+                    <p>Order creating inprogress</p>
                 </div>
             </div>
         </div>
@@ -405,6 +414,7 @@ export default {
             REGION_AREA_TERRITORY_LIST: [],
             on_change_reg_area_tt: null,
             SALSE_AREA_ID: null,
+            order_creating_progressbar: false,
         }
     },
     async created() {},
@@ -819,11 +829,19 @@ export default {
         async CREATE_OFFER__FROM_SERVICE(prod_db_list) {
             let sbu_id = parseInt(JSON.parse(localStorage.getItem("user")).user_detils.sbu_id)
             let customer_id = parseInt(this.customer_data ? this.customer_data.customer_id : 0)
+            // console.log(prod_db_list)
+            // console.log(sbu_id + '  ' + customer_id + '  ' + this.on_change_reg_area_tt)
 
-            await service.getCreateOrder_CreateOrderDetailsSection(prod_db_list, sbu_id, customer_id, this.createYYYYDDMM())
+            await service.getCreateOrder_CreateOrderDetailsSection(prod_db_list, sbu_id, customer_id, this.createYYYYDDMM(), this.on_change_reg_area_tt)
                 .then(res => {
                     console.log(res.data)
-                    this.$router.push('/features/local_sales/order_approval')
+                    this.proceed_modal_popup = false
+                    this.order_creating_progressbar = false
+                    // this.$router.push('/features/local_sales/order_approval')
+                    this.defaultAllThisComponentData()
+                }).catch(err => {
+                    alert('Order creating problem : ' + err)
+                    this.order_creating_progressbar = false
                 })
         },
         async getAllProduct() {
@@ -1009,6 +1027,8 @@ export default {
             }
             console.log(prod_db_list)
             // CALL SERVICE IMPLEMENTATION FUNCTION
+            this.proceed_modal_popup = false
+            this.order_creating_progressbar = true
             await this.CREATE_OFFER__FROM_SERVICE(prod_db_list)
         },
         // -------------------------------------------------------------------------------------------------
@@ -1116,7 +1136,8 @@ export default {
                     this.SALSE_AREA_ID = newVal.customer_area_info ? (newVal.customer_area_info.sales_area_id ? (newVal.customer_area_info.sales_area_id) : null) : null
                     console.log(this.SALSE_AREA_ID)
                     // this.selectREG_AREA_TT(this.SALSE_AREA_ID)
-                    this.AREA_LIST_BY_USER__FROM_SERVICE(newVal.customer_id)
+                    // this.AREA_LIST_BY_USER__FROM_SERVICE(newVal.customer_id)
+                    this.AREA_LIST_BY_USER__FROM_SERVICE()
                     this.defaultAllThisComponentData()
                 }
             }

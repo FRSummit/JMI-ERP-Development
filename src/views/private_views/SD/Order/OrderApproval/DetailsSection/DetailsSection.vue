@@ -117,8 +117,8 @@
                                         <!-- Quantity Column -->
                                         <td :id="'order-data-table-tr-td-' + i">
                                             <span v-if="!(data.deal_type === 'F' && data.net_amount === '0')">
-                                                <span class="single_qty quantity-setup" v-if="STOCK_TRANSIT_VALIDATION">
-                                                    <span class="qty" v-if="parseInt(data.net_qty) < parseInt(data.available_stock)">{{ data.qty }}</span>
+                                                <span class="single_qty quantity-setup" v-if="STOCK_TRANSIT_VALIDATION === false">
+                                                    <span class="qty" v-if="( parseInt(data.net_qty) <= parseInt(data.available_stock) ) || (data.available_stock === null)">{{ data.qty }}</span>
                                                     <span class="qty" v-if="parseInt(data.net_qty) > parseInt(data.available_stock)" :class="parseInt(data.net_qty) > parseInt(data.available_stock) ? 'jmi-stock-out' : ''">{{ data.qty }}
                                                         <span class="tool-tip">
                                                             <p class="txt">Stock:<span>{{ data.available_stock }}</span></p>
@@ -126,7 +126,7 @@
                                                         </span>
                                                     </span>
                                                 </span>
-                                                <span class="single_qty quantity-setup" v-if="!STOCK_TRANSIT_VALIDATION">
+                                                <span class="single_qty quantity-setup" v-if="STOCK_TRANSIT_VALIDATION === true">
                                                     <span class="qty">{{ data.qty }}</span>
                                                 </span>
                                                 <span class="qty_editable quantity-setup hide" style="border: 1px solid #026CD1;">
@@ -613,11 +613,11 @@
                 <p class="popup-desc">You want to reject the order.</p>
                 <span class="divider"></span>
                 <div class="popup-submit-section">
-                <div class="popup-cancel-btn-section">
-                    <span @click="cancelRejectionOrderModalClickHandler">Cancel</span>
+                <div class="popup-cancel-btn-section" @click="cancelRejectionOrderModalClickHandler">
+                    <span>Cancel</span>
                 </div>
-                <div class="popup-confirm-btn-section">
-                    <span @click="proceedRejectionOrderModalClickHandler">Proceed</span>
+                <div class="popup-confirm-btn-section" @click="proceedRejectionOrderModalClickHandler">
+                    <span>Proceed</span>
                 </div>
                 </div>
             </div>
@@ -668,6 +668,13 @@
             <div class="modal-popup-section-inner update-successfully-modal-inner">
                 <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
                 <p class="popup-text">{{ ORDER_SUCCESS_MESSAGE }}</p>
+            </div>
+        </div>
+        <!-- Order Approved Message -->
+        <div id="update-successfully-modal" class="modal-popup-section update-successfully-modal" v-if="removing_last_product_from_cart">
+            <div class="modal-popup-section-inner update-successfully-modal-inner">
+                <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
+                <p class="popup-text">Please reject this order.</p>
             </div>
         </div>
     </div>
@@ -1049,6 +1056,7 @@ export default {
             ORDER_SUCCESS_MESSAGE: null,
             DISABLE_SUBMISSION_BTN: false,
             STOCK_TRANSIT_VALIDATION: false,
+            removing_last_product_from_cart: false,
         }
     },
     async created() {
@@ -1233,11 +1241,11 @@ export default {
                 for (let [i, tt] of this.ORDERED_TABLE_DATA__INIT_LIST.entries()) {
                     if (tt.product_id === this.delete_product_from_table_popup_modal_data.product_id) {
                         this.ORDERED_TABLE_DATA__INIT_LIST.splice(i, 1);
-                        for(let [x, y] of this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.entries()) {
-                            if (y.prod_id === data.prod_id) {
-                                this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.splice(x, 1);
-                            }
-                        }
+                        // for(let [x, y] of this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.entries()) {
+                        //     if (y.prod_id === this.delete_product_from_table_popup_modal_data.product_id) {
+                        //         this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.splice(x, 1);
+                        //     }
+                        // }
                         this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.push(this.delete_product_from_table_popup_modal_data)
                         // Free Product row delete
                         // if(data.offer_type === "free") {
@@ -1247,6 +1255,12 @@ export default {
                 }
                 await this.DESTROY_ORDER_DETAILS_BY_ID__FROM_SERVICE(this.delete_product_from_table_popup_modal_data.id)
                 this.createSubtotalCalculation()
+            } else {
+                this.delete_product_from_table_popup_modal = false
+                this.removing_last_product_from_cart = true
+                setTimeout( () => {
+                    this.removing_last_product_from_cart = false
+                }, 2000)
             }
             // console.log(this.delete_product_from_table_popup_modal_data)
             // this.delete_product_from_table_popup_modal_data = null
@@ -1343,6 +1357,7 @@ export default {
             this.approve_product_confirmation_popup_modal = false
         },
         async confirmApprovingSingleOrderClickHandler() {
+            this.approve_product_confirmation_popup_modal = false
             await this.APPROVE_SINGLE_ORDER__FROM_SERVICE()
             this.createSubtotalCalculation()
         },
@@ -1709,19 +1724,33 @@ export default {
         async APPROVE_SINGLE_ORDER__FROM_SERVICE() {
             console.log('Approve single order')
             await this.check_STOCK_TRANSIT_VALIDATION()
+            this.approve_product_confirmation_popup_modal = false
             if(this.STOCK_TRANSIT_VALIDATION === false) {
                 await service.getApproveSingleOrderByOrderId_OrderApproval(this.order_id_from_left_side)
                     .then(res => {
                         console.log(res.data)
-                        this.approve_product_confirmation_popup_modal = false
-                        this.approved_single_order_modal = true
-                        this.ORDER_SUCCESS_MESSAGE = res.data.message
-                        this.$emit('single_order_approved', this.order_id_from_left_side)
-                        this.defaultAllThisComponentData()
-                        setTimeout( () => {
-                            this.approved_single_order_modal = false
-                            this.ORDER_SUCCESS_MESSAGE = null
-                        }, 2000)
+                        if(res.data.response_code === 200) {
+                            this.approve_product_confirmation_popup_modal = false
+                            this.approved_single_order_modal = true
+                            this.ORDER_SUCCESS_MESSAGE = res.data.message
+                            this.$emit('single_order_approved', this.order_id_from_left_side)
+                            this.defaultAllThisComponentData()
+                            setTimeout( () => {
+                                this.approved_single_order_modal = false
+                                this.ORDER_SUCCESS_MESSAGE = null
+                            }, 2000)
+                        } else {
+                            this.approve_product_confirmation_popup_modal = false
+                            this.approved_single_order_modal = true
+                            this.ORDER_SUCCESS_MESSAGE = res.data.message
+                            this.$emit('single_order_approved_failed', this.order_id_from_left_side)
+                            setTimeout( () => {
+                                this.approved_single_order_modal = false
+                                this.ORDER_SUCCESS_MESSAGE = null
+                            }, 2000) 
+                        }
+                    }).catch(err => {
+                        console.log(err)
                     })
             } else {
                 this.approve_product_confirmation_popup_modal = false
@@ -1756,7 +1785,7 @@ export default {
             this.discount_total = 0
             this.gross_total = 0
             this.grand_total = 0
-            console.log(this.ORDERED_TABLE_DATA__INIT_LIST[0])
+            // console.log(this.ORDERED_TABLE_DATA__INIT_LIST[0])
             for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST.length; i++) {
                 this.sub_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_tp) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty
                 this.vat_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_vat) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty
@@ -1862,7 +1891,8 @@ export default {
             }
         },
         set_Or_Change_Date(da_date) {
-            this.header_date = da_date.toString().split(' ')[0]
+            console.log(da_date)
+            this.header_date = da_date ? da_date.toString().split(' ')[0] : null
         },
         productTableEditableIsValid(available_stock, transit_stock, data_qty) {
             if(available_stock === '0' && transit_stock === '0') {
@@ -1890,9 +1920,11 @@ export default {
             console.log('changes' + newVal)
             console.log('changes' + oldVal)
             console.log('SR DA ID ' + this.pending_order_list_by_id.da_id)
+            // if()
             // console.log(this.pending_order_list_by_id.order_details)
             // await this.defaultAllThisComponentData()
             setTimeout( () => {
+                console.log(this.pending_order_list_by_id.order_date)
                 // console.log(this.pending_order_list_by_id)
                 this.SHOW_PRINT_ICON = true
                 this.PENDING_ORDER_DATA_BY_ID = this.pending_order_list_by_id

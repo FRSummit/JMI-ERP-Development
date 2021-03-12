@@ -9,14 +9,16 @@
           v-on:select_order_by_order_id="selectOrderByOrderId"
           :rejected_order_id="rejected_order_id"
           :approved_order_id="approved_order_id"
-          v-on:approve_selection_modal="approveSelectionModal" />
+          v-on:approve_selection_modal="approveSelectionModal"
+          v-on:multiple_order_selection="multipleOrderSelection" />
         <DetailsSection 
           :style="(filter_modal_toggle === true) || (approve_selected_with_da_popup_modal_toggle === true) || (approve_selection_modal_val === true) ? 'z-index: -1;' : 'z-index: 5;'"
           :pending_order_list_by_id="pending_order_list_by_id"
           :order_id_from_left_side="order_id_from_left_side"
           v-on:remove_rejected_order_id_from_left_list="removeRejectedOrderFromLeft"
           v-on:single_order_approved="singleOrderApprovedHandler"
-          v-on:reload_this_order="reloadThisOrder" />
+          v-on:reload_this_order="reloadThisOrder"
+          v-on:single_order_approved_failed="singleOrderApprovedFailed" />
       </div>
     </div>
   </div>
@@ -75,6 +77,9 @@ export default {
       this.approve_selection_modal_val = value
       console.log(this.approve_selection_modal_val)
     },
+    multipleOrderSelection() {
+      this.pending_order_list_by_id = []
+    },
     approveSelectedWith_DA_PopupModalToggle(value) {
       this.approve_selected_with_da_popup_modal_toggle = value
     },
@@ -95,6 +100,9 @@ export default {
       // })
     },
     reloadThisOrder(value) {
+      this.PENDING_ORDER_DETAILS__FROM_SERVICE(value)
+    },
+    singleOrderApprovedFailed(value) {
       this.PENDING_ORDER_DETAILS__FROM_SERVICE(value)
     },
     singleOrderApprovedHandler(order_id) {

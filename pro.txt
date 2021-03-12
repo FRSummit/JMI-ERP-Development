@@ -23,7 +23,7 @@
 >> npm install vue-hotel-datepicker
 >> npm install --save vue2-datepicker
 >> npm install vue-advanced-search
->> 
+>> npm install -g firebase-tools
 >> 
 >> 
 >> 

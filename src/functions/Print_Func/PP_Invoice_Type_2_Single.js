@@ -22,7 +22,7 @@ export default class PP_Invoice_Type_2_Single {
                             +         '</style>'
                             +     '</head>'
                             +     '<body style="">'
-                            +         '<div class="print-section" style="page-break-before: always; overflow: hidden;">'
+                            +         '<div class="print-section" style="page-break-before: always; overflow: hidden; padding-right: 1px;">'
                             +             '<div class="print-section-inner">'
                             +                 '<table style="">'
                             +                     '<thead>'
@@ -31,7 +31,7 @@ export default class PP_Invoice_Type_2_Single {
                             +                                 '<p style=""></p>'
                             +                             '</td>'
                             +                             '<td colspan="7" style="text-align: right;">'
-                            +                                 '<p style="display: inline-block; padding: 10px 30px 20px 0;"><span class="label" style="border: 1px solid #000000; border-radius: 4px; padding: 4px 4px;">' + (data.sbu_customer_info ? (data.sbu_customer_info.credit_flag === 'Y' ? 'CREDIT' : 'CASH') : '') + '</span></p>'
+                            +                                 '<p style="display: inline-block; padding: 10px 30px 14px 0;"><span class="label" style="border: 1px solid #000000; border-radius: 4px; padding: 4px 4px;">' + (data.sbu_customer_info ? (data.sbu_customer_info.credit_flag === 'Y' ? 'CREDIT' : 'CASH') : '') + '</span></p>'
                             +                             '</td>'
                             +                         '</tr>'
                             +                         '<tr style="">'
@@ -140,7 +140,7 @@ export default class PP_Invoice_Type_2_Single {
               + '@page {'
               +     'size: 8.5in 11in;'
             //   +     'margin: 25mm 10mm 15mm 15mm; border: 1px solid #000000'
-              +     'margin: 10mm 10mm 15mm 15mm; border: 1px solid #000000'
+              +     'margin: 12mm 10mm 15mm 15mm; border: 1px solid #000000'
               + '}'
               +
               + '@media print {'
@@ -396,12 +396,12 @@ export default class PP_Invoice_Type_2_Single {
 
         let gross_tp = ''
         gross_tp += ''
-                    +   '<tr style=" "><td colspan="13"><hr /></td></tr>'
+                    +   '<tr style=" "><td colspan="13"><hr style="border: 1px solid #000000;" /></td></tr>'
                     +   '<tr style=" ">'
-                    +       '<td colspan="9" style="margin-top: 10px; >' + '<p style="text-align: left; margin: 0;">In Word : ' + this.convert_number_to_word(Number(NET_PAYABLE_AFTER_ADJ).toFixed(0)) + '.</p>' + '</td>'
-                    +       '<td colspan="2" style="text-align: right; margin-top: 10px;>' + 'Gross TP :' + '</td>'
-                    +       '<td style="text-align: right; margin-top: 10px; border-bottom: 1px solid #000000;">' + '' + '</td>'
-                    +       '<td style="text-align: right; margin-top: 10px; border-bottom: 1px solid #000000;">' + comaSeparatedDigits.comaSeparate(data.inv_tp) + '</td>'
+                    +       '<td colspan="9" style="text-align: left;">' + '<p style="text-align: left; margin: 0;">In Word : ' + this.convert_number_to_word(Number(NET_PAYABLE_AFTER_ADJ).toFixed(0)) + '.</p>' + '</td>'
+                    +       '<td colspan="2" style="text-align: right;">' + 'Gross TP :' + '</td>'
+                    +       '<td style="text-align: right; border-bottom: 1px solid #000000;">' + '' + '</td>'
+                    +       '<td style="text-align: right; border-bottom: 1px solid #000000; padding-bottom: 2px;">' + comaSeparatedDigits.comaSeparate(data.inv_tp) + '</td>'
                     +   '</tr>'
         return gross_tp
     }
@@ -418,7 +418,7 @@ export default class PP_Invoice_Type_2_Single {
                     +       '<td>' + '' + '</td>'
                     +       '<td colspan="5" style="text-align: right;">' + 'Less discount on TP :' + '</td>'
                     +       '<td style="text-align: right; border-bottom: 1px solid #000000;">' + '' + '</td>'
-                    +       '<td style="text-align: right; border-bottom: 1px solid #000000;">' + comaSeparatedDigits.comaSeparate(data.inv_discount) + '</td>'
+                    +       '<td style="text-align: right; border-bottom: 1px solid #000000; padding-bottom: 2px;">' + comaSeparatedDigits.comaSeparate(data.inv_discount) + '</td>'
                     +   '</tr>'
         return discount
     }
@@ -435,7 +435,7 @@ export default class PP_Invoice_Type_2_Single {
                     +       '<td>' + '' + '</td>'
                     +       '<td colspan="5" style="text-align: right;">' + 'Add VAT on TP :' + '</td>'
                     +       '<td style="text-align: right; border-bottom: 1px solid #000000;">' + '' + '</td>'
-                    +       '<td style="text-align: right; border-bottom: 1px solid #000000;">' + comaSeparatedDigits.comaSeparate(data.inv_vat) + '</td>'
+                    +       '<td style="text-align: right; border-bottom: 1px solid #000000; padding-bottom: 2px;">' + comaSeparatedDigits.comaSeparate(data.inv_vat) + '</td>'
                     +   '</tr>'
         return vat
     }
@@ -453,7 +453,7 @@ export default class PP_Invoice_Type_2_Single {
                         +       '<td>' + '' + '</td>'
                         +       '<td colspan="5" style="text-align: right;">' + 'Rounding Adjustment :' + '</td>'
                         +       '<td style="text-align: right; border-bottom: 1px solid #000000;">' + '' + '</td>'
-                        +       '<td style="text-align: right; border-bottom: 1px solid #000000;">' + ROUNDING_ADJ + '</td>'
+                        +       '<td style="text-align: right; border-bottom: 1px solid #000000; padding-bottom: 2px;">' + ROUNDING_ADJ + '</td>'
                         +   '</tr>'
         }
         return rounding_adjustment
@@ -472,7 +472,7 @@ export default class PP_Invoice_Type_2_Single {
                     +       '<td>' + '' + '</td>'
                     +       '<td colspan="5" style="text-align: right;">' + 'Net Payable :' + '</td>'
                     +       '<td style="text-align: right; border-bottom: 1px solid #000000;">' + '' + '</td>'
-                    +       '<td style="text-align: right; border-bottom: 1px solid #000000;">' + comaSeparatedDigits.comaSeparate(NET_PAYABLE_AFTER_ADJ) + '.00</td>'
+                    +       '<td style="text-align: right; border-bottom: 1px solid #000000; padding-bottom: 2px;">' + comaSeparatedDigits.comaSeparate(NET_PAYABLE_AFTER_ADJ) + '.00</td>'
                     +   '</tr>'
         return net_payable
     }
@@ -512,7 +512,7 @@ export default class PP_Invoice_Type_2_Single {
         let result = ''
             result += ''
                     +   '<div class="signature-section" style="float: right; page-break-after: always; page-break-inside: avoid; margin-top: 60px; font-size: 12px;">'
-                    +       '<p style="margin: 0; text-align: center; font-family: calibri; "><span style="border-bottom: 1px solid #000000; width: 300px; display: block;">FAYAZUR RAHMAN SUMMIT</span><span style="width: 300px; display: block;">For NIPRO JMI Pharma Ltd.</span></p>'
+                    +       '<p style="margin: 0; text-align: right; font-family: calibri; "><span style="border-bottom: 1px solid #000000; width: 200px; display: block; padding-bottom: 2px;">FAYAZUR RAHMAN SUMMIT</span><span style="width: 200px; display: block; padding-top: 2px;">For NIPRO JMI Pharma Ltd.</span></p>'
                     +   '</div>'
 
         return result
