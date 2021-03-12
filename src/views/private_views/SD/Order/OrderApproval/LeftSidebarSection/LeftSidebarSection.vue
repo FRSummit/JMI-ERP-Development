@@ -42,6 +42,7 @@
                                 </div>
                                 <div class="type-section">
                                     <p class="customer-type"><span class="type">{{ customer ? (customer.order_date).split(' ')[0] : "" }}</span></p>
+                                    <!-- <p class="customer-type"><span class="type">{{ customer ? (customer.order_date) : "" }}</span></p> -->
                                 </div>
                             </div>
                         </div>
@@ -171,6 +172,7 @@
             <div class="modal-popup-section-inner update-successfully-modal-inner">
                 <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
                 <p class="popup-text">{{ ORDER_SUCCESS_MESSAGE }}</p>
+                <!-- <p class="popup-text">{{ SELECT_ORDER_APPROVED_COUNT }} Orders Approved out of {{ SELECT_ORDER_COUNT }}</p> -->
             </div>
         </div>
       </div>
@@ -355,6 +357,8 @@ export default {
             approved_orders_success_modal: false,
             ORDER_SUCCESS_MESSAGE: null,
             SELECTED_ORDER_INDEX: null,
+            SELECT_ORDER_COUNT: null,
+            SELECT_ORDER_APPROVED_COUNT: null,
         }
     },
     created() {},
@@ -414,6 +418,7 @@ export default {
                 }
                 this.APPROVE_ALL_SELECTED_ORDER__FROM_SERVICE(orders)
                 // console.log(orders.length)
+                this.SELECT_ORDER_COUNT = orders.length
             } else {
                 let orders = []
                 console.log('specific ids')
@@ -430,6 +435,7 @@ export default {
                 }
                 this.APPROVE_SPECIFIC_SELECTED_ORDER__FROM_SERVICE(orders)
                 // console.log(orders.length)
+                this.SELECT_ORDER_COUNT = orders.length
             }
             this.on_change_status = ''
         },
@@ -583,7 +589,9 @@ export default {
             await service.getApproveSelectedOrders_OrderApproval(orders)
                 .then(res => {
                     console.log(res.data)
-                    this.ORDER_SUCCESS_MESSAGE = res.data.message
+                    // this.ORDER_SUCCESS_MESSAGE = res.data.message
+                    this.ORDER_SUCCESS_MESSAGE = res.data.response_code === 409 ? 'Already Approved' : ( res.data.count === 1 ? (res.data.count + ' Order Approved out of ' + this.SELECT_ORDER_COUNT) : (res.data.count + ' Orders Approved out of ' + this.SELECT_ORDER_COUNT) )
+                    this.SELECT_ORDER_APPROVED_COUNT = res.data.count
                     this.deselectAllSelectedOrder()
                     this.approve_selection_modal = false
                     this.approved_orders_success_modal = true
@@ -601,7 +609,9 @@ export default {
                 await service.getApproveSelectedOrders_OrderApproval(orders)
                     .then(res => {
                         console.log(res.data)
-                        this.ORDER_SUCCESS_MESSAGE = res.data.message
+                        // this.ORDER_SUCCESS_MESSAGE = res.data.message
+                    this.ORDER_SUCCESS_MESSAGE = res.data.response_code === 409 ? 'Already Approved' : ( res.data.count === 1 ? (res.data.count + ' Order Approved out of ' + this.SELECT_ORDER_COUNT) : (res.data.count + ' Orders Approved out of ' + this.SELECT_ORDER_COUNT) )
+                        this.SELECT_ORDER_APPROVED_COUNT = res.data.count
                         this.deselectAllSelectedOrder()
                         this.approve_selection_modal = false
                         this.approved_orders_success_modal = true

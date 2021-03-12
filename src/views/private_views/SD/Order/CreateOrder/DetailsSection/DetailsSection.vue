@@ -333,6 +333,15 @@
                 </div>
             </div>
         </div>
+        <!-- Order Creating Modal -->
+        <div class="modal-popup-section order-proceed-modal" v-if="order_creating_progressbar">
+            <div class="modal-popup-section-inner order-proceed-modal-inner">
+                <div id="progressbar" class="jmi-progressbar">
+                    <v-progress-circular indeterminate color="primary"></v-progress-circular>
+                    <p>Order creating inprogress</p>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -405,6 +414,7 @@ export default {
             REGION_AREA_TERRITORY_LIST: [],
             on_change_reg_area_tt: null,
             SALSE_AREA_ID: null,
+            order_creating_progressbar: false,
         }
     },
     async created() {},
@@ -824,6 +834,7 @@ export default {
                 .then(res => {
                     console.log(res.data)
                     this.proceed_modal_popup = false
+                    this.order_creating_progressbar = false
                     this.$router.push('/features/local_sales/order_approval')
                 })
         },
@@ -1010,6 +1021,8 @@ export default {
             }
             console.log(prod_db_list)
             // CALL SERVICE IMPLEMENTATION FUNCTION
+            this.proceed_modal_popup = false
+            this.order_creating_progressbar = true
             await this.CREATE_OFFER__FROM_SERVICE(prod_db_list)
         },
         // -------------------------------------------------------------------------------------------------
