@@ -321,6 +321,9 @@ export default {
                     status: "Select All"
                 },
                 {
+                    status: "Deselect All"
+                },
+                {
                     status: "Approved Selected"
                 },
                 {
@@ -451,8 +454,18 @@ export default {
                         this.SELECT_OPTION__CUSTOMER_ID_LIST.push(parseInt(this.ALL_PENDING_ORDERS_CUSTOMER_LIST[i].customer_id))
                         this.SELECT_OPTION__ORDER_ID_LIST.push(parseInt(this.ALL_PENDING_ORDERS_CUSTOMER_LIST[i].id))
                     }
+                    this.$emit("multiple_order_selection")
                     // alert(this.SELECT_OPTION__CUSTOMER_ID_LIST)
                     // alert(this.SELECT_OPTION__ORDER_ID_LIST)
+                    break
+                case 'Deselect All':
+                    this.SELECT_OPTION__CUSTOMER_ID_LIST = []
+                    this.SELECT_OPTION__ORDER_ID_LIST = []
+                    for(let i=0; i<this.ALL_PENDING_ORDERS_CUSTOMER_LIST.length; i++) {
+                        let radio_selector = document.querySelector('#order-approval-left-sidebar #order-approval-checkbox-' + i)
+                        radio_selector.checked = false
+                    }
+                    this.on_change_status = ''
                     break
                 case 'Approved Selected':
                     // console.log('Approved Selected')

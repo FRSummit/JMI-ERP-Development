@@ -1785,7 +1785,7 @@ export default {
             this.discount_total = 0
             this.gross_total = 0
             this.grand_total = 0
-            console.log(this.ORDERED_TABLE_DATA__INIT_LIST[0])
+            // console.log(this.ORDERED_TABLE_DATA__INIT_LIST[0])
             for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST.length; i++) {
                 this.sub_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_tp) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty
                 this.vat_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_vat) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty
@@ -1891,7 +1891,8 @@ export default {
             }
         },
         set_Or_Change_Date(da_date) {
-            this.header_date = da_date.toString().split(' ')[0]
+            console.log(da_date)
+            this.header_date = da_date ? da_date.toString().split(' ')[0] : null
         },
         productTableEditableIsValid(available_stock, transit_stock, data_qty) {
             if(available_stock === '0' && transit_stock === '0') {
@@ -1919,9 +1920,11 @@ export default {
             console.log('changes' + newVal)
             console.log('changes' + oldVal)
             console.log('SR DA ID ' + this.pending_order_list_by_id.da_id)
+            // if()
             // console.log(this.pending_order_list_by_id.order_details)
             // await this.defaultAllThisComponentData()
             setTimeout( () => {
+                console.log(this.pending_order_list_by_id.order_date)
                 // console.log(this.pending_order_list_by_id)
                 this.SHOW_PRINT_ICON = true
                 this.PENDING_ORDER_DATA_BY_ID = this.pending_order_list_by_id
