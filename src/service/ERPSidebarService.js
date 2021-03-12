@@ -337,7 +337,7 @@ export default class PostService {
   }
 
   // CREATE ORDER - SUBMIT ORDER TO CREATE - SEND SELECTED PRODUCT LIST
-  getCreateOrder_CreateOrderDetailsSection(prod_db_list, sbu_id, customer_id, date) {
+  getCreateOrder_CreateOrderDetailsSection(prod_db_list, sbu_id, customer_id, date, sales_area_id) {
     console.log(JSON.stringify(prod_db_list))
     let web_menu_url = '/api/mobile/create-order'
     return axios(web_menu_url, {
@@ -350,6 +350,7 @@ export default class PostService {
         customer_id: customer_id,
         sbu_id: sbu_id,
         date: date,
+        sales_area_id: sales_area_id
       },
     })
   }

@@ -388,7 +388,7 @@ function () {
 
   }, {
     key: "getCreateOrder_CreateOrderDetailsSection",
-    value: function getCreateOrder_CreateOrderDetailsSection(prod_db_list, sbu_id, customer_id, date) {
+    value: function getCreateOrder_CreateOrderDetailsSection(prod_db_list, sbu_id, customer_id, date, sales_area_id) {
       console.log(JSON.stringify(prod_db_list));
       var web_menu_url = '/api/mobile/create-order';
       return (0, _axios["default"])(web_menu_url, {
@@ -400,7 +400,8 @@ function () {
           order_detail: JSON.stringify(prod_db_list),
           customer_id: customer_id,
           sbu_id: sbu_id,
-          date: date
+          date: date,
+          sales_area_id: sales_area_id
         }
       });
     } // -------------------------------------------------------------------------------

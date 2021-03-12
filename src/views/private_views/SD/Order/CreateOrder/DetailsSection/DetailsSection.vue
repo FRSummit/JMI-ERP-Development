@@ -15,13 +15,13 @@
                             <span class="right-icon"><i class="fas fa-chevron-right"></i></span>
                                 <select title="Pick a customer" class="selectpicker jmi-select-option" v-model="on_change_reg_area_tt" @change="onChangeRegAreaTTDropdown()" style="">
                                     <optgroup label="DHK101" v-if="checkReagionAreaTT(REGION_AREA_TERRITORY_LIST)">
-                                        <option v-for="(rat, m) in checkReagionAreaTT(REGION_AREA_TERRITORY_LIST).reg" :key="m" :value="rat.id"><span v-if="rat.lvl === '3'">{{ rat.display_code }} - {{ rat.area_name }}</span></option>
+                                        <option v-for="(rat, m) in checkReagionAreaTT(REGION_AREA_TERRITORY_LIST).reg" :key="m" :value="rat.id"><span v-if="rat.lvl === '3'">{{ rat.display_code }} - {{ rat.area_short_name }}</span></option>
                                     </optgroup>
                                     <optgroup label="DHK101">
-                                        <option v-for="(rat, m) in checkReagionAreaTT(REGION_AREA_TERRITORY_LIST).area" :key="m" :value="rat.id"><span v-if="rat.lvl === '4'">{{ rat.display_code }} - {{ rat.area_name }}</span></option>
+                                        <option v-for="(rat, m) in checkReagionAreaTT(REGION_AREA_TERRITORY_LIST).area" :key="m" :value="rat.id"><span v-if="rat.lvl === '4'">{{ rat.display_code }} - {{ rat.area_short_name }}</span></option>
                                     </optgroup>
                                     <optgroup label="DHK101">
-                                        <option v-for="(rat, m) in checkReagionAreaTT(REGION_AREA_TERRITORY_LIST).tt" :key="m" :value="rat.id"><span v-if="rat.lvl === '5'">{{ rat.display_code }} - {{ rat.area_name }}</span></option>
+                                        <option v-for="(rat, m) in checkReagionAreaTT(REGION_AREA_TERRITORY_LIST).tt" :key="m" :value="rat.id"><span v-if="rat.lvl === '5'">{{ rat.display_code }} - {{ rat.area_short_name }}</span></option>
                                     </optgroup>
                             </select>
                         </div>
@@ -829,14 +829,19 @@ export default {
         async CREATE_OFFER__FROM_SERVICE(prod_db_list) {
             let sbu_id = parseInt(JSON.parse(localStorage.getItem("user")).user_detils.sbu_id)
             let customer_id = parseInt(this.customer_data ? this.customer_data.customer_id : 0)
+            // console.log(prod_db_list)
+            // console.log(sbu_id + '  ' + customer_id + '  ' + this.on_change_reg_area_tt)
 
-            await service.getCreateOrder_CreateOrderDetailsSection(prod_db_list, sbu_id, customer_id, this.createYYYYDDMM())
+            await service.getCreateOrder_CreateOrderDetailsSection(prod_db_list, sbu_id, customer_id, this.createYYYYDDMM(), this.on_change_reg_area_tt)
                 .then(res => {
                     console.log(res.data)
                     this.proceed_modal_popup = false
                     this.order_creating_progressbar = false
                     // this.$router.push('/features/local_sales/order_approval')
                     this.defaultAllThisComponentData()
+                }).catch(err => {
+                    alert('Order creating problem : ' + err)
+                    this.order_creating_progressbar = false
                 })
         },
         async getAllProduct() {
@@ -1131,7 +1136,8 @@ export default {
                     this.SALSE_AREA_ID = newVal.customer_area_info ? (newVal.customer_area_info.sales_area_id ? (newVal.customer_area_info.sales_area_id) : null) : null
                     console.log(this.SALSE_AREA_ID)
                     // this.selectREG_AREA_TT(this.SALSE_AREA_ID)
-                    this.AREA_LIST_BY_USER__FROM_SERVICE(newVal.customer_id)
+                    // this.AREA_LIST_BY_USER__FROM_SERVICE(newVal.customer_id)
+                    this.AREA_LIST_BY_USER__FROM_SERVICE()
                     this.defaultAllThisComponentData()
                 }
             }
