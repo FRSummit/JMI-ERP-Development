@@ -16,7 +16,8 @@
           :order_id_from_left_side="order_id_from_left_side"
           v-on:remove_rejected_order_id_from_left_list="removeRejectedOrderFromLeft"
           v-on:single_order_approved="singleOrderApprovedHandler"
-          v-on:reload_this_order="reloadThisOrder" />
+          v-on:reload_this_order="reloadThisOrder"
+          v-on:single_order_approved_failed="singleOrderApprovedFailed" />
       </div>
     </div>
   </div>
@@ -95,6 +96,9 @@ export default {
       // })
     },
     reloadThisOrder(value) {
+      this.PENDING_ORDER_DETAILS__FROM_SERVICE(value)
+    },
+    singleOrderApprovedFailed(value) {
       this.PENDING_ORDER_DETAILS__FROM_SERVICE(value)
     },
     singleOrderApprovedHandler(order_id) {

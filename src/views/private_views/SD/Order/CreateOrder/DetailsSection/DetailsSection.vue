@@ -823,6 +823,7 @@ export default {
             await service.getCreateOrder_CreateOrderDetailsSection(prod_db_list, sbu_id, customer_id, this.createYYYYDDMM())
                 .then(res => {
                     console.log(res.data)
+                    this.proceed_modal_popup = false
                     this.$router.push('/features/local_sales/order_approval')
                 })
         },

@@ -117,8 +117,8 @@
                                         <!-- Quantity Column -->
                                         <td :id="'order-data-table-tr-td-' + i">
                                             <span v-if="!(data.deal_type === 'F' && data.net_amount === '0')">
-                                                <span class="single_qty quantity-setup" v-if="STOCK_TRANSIT_VALIDATION">
-                                                    <span class="qty" v-if="parseInt(data.net_qty) < parseInt(data.available_stock)">{{ data.qty }}</span>
+                                                <span class="single_qty quantity-setup" v-if="STOCK_TRANSIT_VALIDATION === false">
+                                                    <span class="qty" v-if="( parseInt(data.net_qty) <= parseInt(data.available_stock) ) || (data.available_stock === null)">{{ data.qty }}</span>
                                                     <span class="qty" v-if="parseInt(data.net_qty) > parseInt(data.available_stock)" :class="parseInt(data.net_qty) > parseInt(data.available_stock) ? 'jmi-stock-out' : ''">{{ data.qty }}
                                                         <span class="tool-tip">
                                                             <p class="txt">Stock:<span>{{ data.available_stock }}</span></p>
@@ -126,7 +126,7 @@
                                                         </span>
                                                     </span>
                                                 </span>
-                                                <span class="single_qty quantity-setup" v-if="!STOCK_TRANSIT_VALIDATION">
+                                                <span class="single_qty quantity-setup" v-if="STOCK_TRANSIT_VALIDATION === true">
                                                     <span class="qty">{{ data.qty }}</span>
                                                 </span>
                                                 <span class="qty_editable quantity-setup hide" style="border: 1px solid #026CD1;">
@@ -1343,6 +1343,7 @@ export default {
             this.approve_product_confirmation_popup_modal = false
         },
         async confirmApprovingSingleOrderClickHandler() {
+            this.approve_product_confirmation_popup_modal = false
             await this.APPROVE_SINGLE_ORDER__FROM_SERVICE()
             this.createSubtotalCalculation()
         },
@@ -1709,19 +1710,31 @@ export default {
         async APPROVE_SINGLE_ORDER__FROM_SERVICE() {
             console.log('Approve single order')
             await this.check_STOCK_TRANSIT_VALIDATION()
+            this.approve_product_confirmation_popup_modal = false
             if(this.STOCK_TRANSIT_VALIDATION === false) {
                 await service.getApproveSingleOrderByOrderId_OrderApproval(this.order_id_from_left_side)
                     .then(res => {
                         console.log(res.data)
-                        this.approve_product_confirmation_popup_modal = false
-                        this.approved_single_order_modal = true
-                        this.ORDER_SUCCESS_MESSAGE = res.data.message
-                        this.$emit('single_order_approved', this.order_id_from_left_side)
-                        this.defaultAllThisComponentData()
-                        setTimeout( () => {
-                            this.approved_single_order_modal = false
-                            this.ORDER_SUCCESS_MESSAGE = null
-                        }, 2000)
+                        if(res.data.response_code === 200) {
+                            this.approve_product_confirmation_popup_modal = false
+                            this.approved_single_order_modal = true
+                            this.ORDER_SUCCESS_MESSAGE = res.data.message
+                            this.$emit('single_order_approved', this.order_id_from_left_side)
+                            this.defaultAllThisComponentData()
+                            setTimeout( () => {
+                                this.approved_single_order_modal = false
+                                this.ORDER_SUCCESS_MESSAGE = null
+                            }, 2000)
+                        } else {
+                            this.approve_product_confirmation_popup_modal = false
+                            this.approved_single_order_modal = true
+                            this.ORDER_SUCCESS_MESSAGE = res.data.message
+                            this.$emit('single_order_approved_failed', this.order_id_from_left_side)
+                            setTimeout( () => {
+                                this.approved_single_order_modal = false
+                                this.ORDER_SUCCESS_MESSAGE = null
+                            }, 2000) 
+                        }
                     }).catch(err => {
                         console.log(err)
                     })
