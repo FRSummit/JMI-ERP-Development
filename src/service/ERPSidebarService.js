@@ -547,12 +547,15 @@ export default class PostService {
 
   // DELIVERY SCHEDULING - PENDING DELIVERY LIST - LEFT SECTION
   async getPendingDeliveryScheduleInvoiceLBy_DA_ID_DELIVERY_SCHEDULING(da_id) {
-    let web_menu_url = '/api/web/pending-delivery-schedule-invoice-list-by-da/' + da_id
+    let web_menu_url = '/api/web/pending-delivery-schedule-invoice-list-by-da'
     return await axios(web_menu_url, {
       method: 'GET',
       headers: {
         'Authorization': token_type + ' ' + token
       },
+      param: {
+        da_id: da_id
+      }
     })
   }
 
@@ -609,6 +612,17 @@ export default class PostService {
   // DELEVERIES - LEFT SECTION
   async getPendingDeliveredInvoiceList_DELEVERIES() {
     let web_menu_url = '/api/web/pending-delivered-invoice-list'
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+    })
+  }
+
+  // DELEVERIES - LEFT SECTION
+  async getPendingDeliverInvoiceDetailsByInvocieId_DELEVERIES(invoice_id) {
+    let web_menu_url = '/api/web/pending-deliver-invoice-details/' + invoice_id
     return await axios(web_menu_url, {
       method: 'GET',
       headers: {

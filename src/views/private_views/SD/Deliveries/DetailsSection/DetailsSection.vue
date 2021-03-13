@@ -84,17 +84,13 @@
                                         </td>
                                         <!-- Discount Column -->
                                         <td>
-                                            <!-- <span v-if="!data.row_class">{{ data ? (data.offer ? (data.offer.offer ? (data.offer.offer.discount_percentage ? (data.offer.offer.discount_percentage) : 0) : 0) : 0) : 0 }}%</span>
-                                            <span v-if="data.row_class"></span> -->
                                             <span v-if="!(data.deal_type === 'F' && data.net_amount === '0')">{{ data ? (data.offer ? (data.offer.offer ? (data.offer.offer.discount_percentage ? Number(data.offer.offer.discount_percentage).toFixed(2) : 0) : 0) : 0) : 0 }}%</span>
                                         </td>
                                         <!-- Bonus Column -->
                                         <td>
-                                            <!-- <span>{{ data.offer.offer_type === "bonus" ? parseInt(data.qty / (data.offer.offer.bonus_on)) : data.bonus_qty }}</span> -->
-                                            <span>{{ data.bonus_qty ? data.bonus_qty : '' }}</span>
+                                            <span>{{ data.offer.offer_type === "bonus" ? parseInt(data.qty / (data.offer.offer.bonus_on)) : data.bonus_qty }}</span>
                                         </td>
                                         <!-- Total Price Column -->
-                                        <!-- <td>{{ Number(data.tp).toFixed(2) }}</td> -->
                                         <td>
                                             <span v-if="!(data.deal_type === 'F' && data.net_amount === '0')">{{ Number((data.unit_tp) * (data.qty)).toFixed(2) }}</span>
                                         </td>
@@ -875,7 +871,7 @@ export default {
             RESPONSE_ORDERED_PRODUCTS__STORE: [],
             DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST: [],
             DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST_2: [],
-            ORDERED_TABLE_DATA__INIT_LIST: this.pending_order_list_by_id.order_details,
+            ORDERED_TABLE_DATA__INIT_LIST: this.pending_order_list_by_id,
             ORDERED_TABLE_DATA__INIT_LIST_2: [],
             SHOW_CUSTOMER_PROFILE: [],
             ORDERED_PRODUCT_TABLE_ROW_IS_EDITABLE: false,
@@ -981,12 +977,9 @@ export default {
                 this.createSubtotalCalculation()
             }
             // Free Product row quantity decrease
-            // if(data.offer.offer_type === "free") {
-            //     this.ORDERED_TABLE_DATA__INIT_LIST[index + 1].bonus_qty--
-            // }
-            // if(data.offer.offer_type === "free") {
-            //     this.ORDERED_TABLE_DATA__INIT_LIST[index + 1].bonus_qty--
-            // }
+            if(data.offer.offer_type === "free") {
+                this.ORDERED_TABLE_DATA__INIT_LIST[index + 1].bonus_qty--
+            }
             if(parseInt(data.net_qty) > parseInt(data.available_stock) && parseInt(data.available_stock) > 0) {
                 this.DISABLE_SUBMISSION_BTN = false
             } else {
@@ -1763,7 +1756,7 @@ export default {
         async pending_order_list_by_id(newVal, oldVal){
             console.log('changes' + newVal)
             console.log('changes' + oldVal)
-            console.log('SR DA ID ' + this.pending_order_list_by_id.da_id)
+            // console.log('SR DA ID ' + this.pending_order_list_by_id.da_id)
             // if()
             // console.log(this.pending_order_list_by_id.order_details)
             // await this.defaultAllThisComponentData()
@@ -1772,8 +1765,8 @@ export default {
                 // console.log(this.pending_order_list_by_id)
                 this.SHOW_PRINT_ICON = true
                 this.PENDING_ORDER_DATA_BY_ID = this.pending_order_list_by_id
-                // this.ORDERED_TABLE_DATA__INIT_LIST = this.pending_order_list_by_id.invoice_details
-                this.ORDERED_TABLE_DATA__INIT_LIST = this.pending_order_list_by_id.order_details
+                this.ORDERED_TABLE_DATA__INIT_LIST = this.pending_order_list_by_id.invoice_details
+                // this.ORDERED_TABLE_DATA__INIT_LIST = this.pending_order_list_by_id.order_details
                 // this.set_Or_Change_SR(this.pending_order_list_by_id.da_id)
                 // this.set_Or_Change_Date(this.pending_order_list_by_id.order_date)
                 // this.ORDER_CREATED_BY = 101
