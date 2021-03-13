@@ -33,12 +33,12 @@ export default class PostService {
     })
   }
 
-  async getWEB_SystemAssignedSBU() {
+  async getWEB_SystemAssignedSBU(token_2) {
     let web_menu_url = '/api/system/AssignedSBU'
     return await axios(web_menu_url, {
       method: 'GET',
       headers: {
-        'Authorization': token_type + ' ' + token
+        'Authorization': token_type + ' ' + token_2
       }
     })
   }
@@ -547,12 +547,15 @@ export default class PostService {
 
   // DELIVERY SCHEDULING - PENDING DELIVERY LIST - LEFT SECTION
   async getPendingDeliveryScheduleInvoiceLBy_DA_ID_DELIVERY_SCHEDULING(da_id) {
-    let web_menu_url = '/api/web/pending-delivery-schedule-invoice-list-by-da/' + da_id
+    let web_menu_url = '/api/web/pending-delivery-schedule-invoice-list-by-da'
     return await axios(web_menu_url, {
       method: 'GET',
       headers: {
         'Authorization': token_type + ' ' + token
       },
+      param: {
+        da_id: da_id
+      }
     })
   }
 
@@ -598,6 +601,28 @@ export default class PostService {
   async getPrintInvoiceDetails_INVOICE_CHALLAN_PRINTING(invoice_id) {
     console.log(invoice_id)
     let web_menu_url = '/api/web/print-invoice-details/' + invoice_id
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+    })
+  }
+
+  // DELEVERIES - LEFT SECTION
+  async getPendingDeliveredInvoiceList_DELEVERIES() {
+    let web_menu_url = '/api/web/pending-delivered-invoice-list'
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+    })
+  }
+
+  // DELEVERIES - LEFT SECTION
+  async getPendingDeliverInvoiceDetailsByInvocieId_DELEVERIES(invoice_id) {
+    let web_menu_url = '/api/web/pending-deliver-invoice-details/' + invoice_id
     return await axios(web_menu_url, {
       method: 'GET',
       headers: {

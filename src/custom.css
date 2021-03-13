@@ -1391,16 +1391,32 @@ select:focus {
 }
 
 /* ------------list section-- */
+
+#deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .title-count {
+    padding: 10px 20px;
+}
+
+#deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner p.total-customer {
+    font-size  : 16px;
+    color      : #111213;
+    margin     : 0;
+    font-weight: 500;
+}
+
+#deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner span.count {
+    color: #026CD1;
+}
+
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .customer-list-section {
     position: relative;
-    height  : calc(100vh - (74px + 73px + 62px + 44px + 32px));
+    height  : calc(100vh - (74px + 73px + 62px + 44px + 32px + 50px));
 }
 
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .customer-list-section .customer-list-section-inner {
     position       : fixed;
     overflow-y     : scroll;
     width          : 300px;
-    height         : calc(100vh - (74px + 73px + 62px + 44px + 32px));
+    height         : calc(100vh - (74px + 73px + 62px + 44px + 32px + 50px));
     scrollbar-width: none;
 }
 
@@ -1751,7 +1767,7 @@ select:focus {
 /* Right Section Starts */
 #deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner {
     width    : 50%;
-    top      : 100px;
+    top      : 200px;
     left     : 25%;
     max-width: 600px;
     min-width: 600px;

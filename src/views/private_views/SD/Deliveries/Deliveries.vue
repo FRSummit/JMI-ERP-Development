@@ -43,7 +43,6 @@ export default {
       filter_modal_toggle: false,
       approve_selected_with_da_popup_modal_toggle: false,
       pending_order_list_by_id: [],
-      details_section_header_info: [],
       rejected_order_id: null,
       order_id_from_left_side: null,
     };
@@ -71,7 +70,7 @@ export default {
     // ---------------------------------------------------------------------------------------------------
     // From Left Section Methods
     selectOrderByOrderId(order_id) {
-      // console.log(value)
+      console.log(order_id)
       this.PENDING_ORDER_DETAILS__FROM_SERVICE(order_id)
     },
     // ---------------------------------------------------------------------------------------------------
@@ -88,13 +87,14 @@ export default {
     // Service call from left sidebar section
     async PENDING_ORDER_DETAILS__FROM_SERVICE(order_id) {
       this.order_id_from_left_side = order_id
-      // await service.getSelectedPendingOrderById_OrderApproval(1111)
-      await service.getSelectedPendingOrderById_OrderApproval(order_id)
+      // await service.getPrintInvoiceDetails_INVOICE_CHALLAN_PRINTING(order_id)
+      await service.getPendingDeliverInvoiceDetailsByInvocieId_DELEVERIES(order_id)
         .then(res => {
           console.log(res.data)
-          console.log(res.data.order_info.sbu_customer_info)
-          this.pending_order_list_by_id = res.data.order_info
-          this.details_section_header_info = res.data.order_info.sbu_customer_info
+          // console.log(res.data.order_info.sbu_customer_info)
+          this.pending_order_list_by_id = res.data.invoice_details
+          // this.pending_order_list_by_id = res.data.order_info
+          // this.details_section_header_info = res.data.order_info.sbu_customer_info
         })
     }
   },

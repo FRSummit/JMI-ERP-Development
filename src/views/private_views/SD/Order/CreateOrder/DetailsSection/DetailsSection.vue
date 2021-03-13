@@ -511,7 +511,7 @@ export default {
                 }
             }
             this.createSubtotalCalculation()
-            this.UPDATE_BTN_TRUE = true
+            // this.UPDATE_BTN_TRUE = true
         },
         //------------------------------------------------------------------------------------------
         // Add Product/Order , Atachment Row

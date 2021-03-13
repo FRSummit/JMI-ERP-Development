@@ -1,18 +1,20 @@
 <template>
-    <div id="order-approval-details-section" class="order-approval-details-section">
-        <div class="order-approval-details-section-inner">
-            <div class="print-section" v-if="SHOW_PRINT_ICON">
+    <div id="deliveries-details-section" class="deliveries-details-section">
+        <div class="deliveries-details-section-inner">
+            <!-- <div class="print-section" v-if="SHOW_PRINT_ICON">
                 <span class="print-icon" @click="printInvoiceClickHandler"><i class="zmdi zmdi-print"></i></span>
-            </div>
+            </div> -->
             <div class="title-section">
                 <div class="row">
-                    <div class="col-lg-3 col-md-4 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Invoice No:</span><span class="id">{{ PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.order_no : "" }}</span></p></div>
-                    <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer:</span><span class="jmi-lvl-value id url" @click="customerDetailsClickHandler">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? PENDING_ORDER_DATA_BY_ID.sbu_customer_info.display_name : '') : '' }}</span></p></div>
-                    <div class="col-lg-3 col-md-4 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Status:</span> <span class="jmi-lvl-value">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.is_approved === 'N' ? 'Pending' : '') : '' }}</span></p></div>
+                    <div class="col-lg-3 col-md-4 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Invoice No:</span><span class="id">{{ PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.invoice_no : "" }}</span></p></div>
+                    <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer:</span><span class="jmi-lvl-value id">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? PENDING_ORDER_DATA_BY_ID.sbu_customer_info.display_name : '') : '' }}</span></p></div>
+                    <!-- <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer:</span><span class="jmi-lvl-value id url" @click="customerDetailsClickHandler">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? PENDING_ORDER_DATA_BY_ID.sbu_customer_info.display_name : '') : '' }}</span></p></div> -->
+                    <div class="col-lg-3 col-md-4 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Phone:</span> <span class="jmi-lvl-value">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_info.person_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_info.person_info.phone ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_info.person_info.phone) : '') : '') : '') : '') : '' }}</span></p></div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-3 col-md-4 col-sm-12"><p class="jmi-title">Territory ID: <span class="jmi-lvl-value">{{ PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.territory_id : '' }}</span></p></div>
-                    <div class="col-lg-9 col-md-8 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><span class="jmi-lvl-value address">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_address ? PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_address : '') : '') : '' }}</span></p></div>
+                    <div class="col-lg-3 col-md-3 col-sm-12"><p class="jmi-title">Total Bill: <span class="jmi-lvl-value">{{ PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.net_total : '' }}</span></p></div>
+                    <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><span class="jmi-lvl-value address">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_info.customer_address ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_info.customer_address) : '') : '') : '') : '' }}</span></p></div>
+                    <div class="col-lg-3 col-md-3 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Order Placed:</span><span class="jmi-lvl-value address">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.created_at ? (PENDING_ORDER_DATA_BY_ID.created_at).split('T')[0] : '') : '' }}</span></p></div>
                     
                 </div>
             </div>
@@ -22,24 +24,8 @@
                     <div class="row">
                         <div class="col-lg-3 col-md-6 col-sm-6"><p class="am">AM: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info.name) : '') : '') : '') : '') : '' }}</span></p></div>
                         <div class="col-lg-3 col-md-6 col-sm-6"><p class="mio">MIO: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info.name) : '') : '') : '') : '') : '') : '') : '' }}</span></p></div>
-                        <div class="col-lg-3 col-md-6 col-sm-6" style="line-height: 1;">
-                            <div class="sr" style="display: table-cell; width: 33%; padding-right: 20px; padding-bottom: 0; line-height: 1;">
-                                <span class="jmi-lvl">SR: </span>
-                                <p class="selectpicker-pera"> 
-                                    <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_70">{{ selected_sr }}</span>
-                                    <span class="sr-modal" v-if="sr_add_modal">
-                                        <span class="sr-modal-inner" v-click-outside="srModalSectionOutsideClick">
-                                            <span class="jmi-title">Select SR</span>
-                                            <span class="sr-loop" v-for="(sr, m) in SR_LIST__DA" :key="m">
-                                                <span  class="sr-name" @click="selectedSRClickHandler(sr.name)">{{ sr.name }}</span>
-                                            </span>
-                                        </span>
-                                    </span>
-                                </p>
-                                <span class="sr-add-icon" @click="srAddIconClickHandler"><i class="zmdi zmdi-plus"></i></span>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6 right_side_row"><p class="delivery-dt"><span class="jmi-lvl" style="font-size: 15px;">Delivery:</span> <span class="jmi-lvl-value"><input type="date" v-model="header_date" id="expected-delivery-date" placeholder="09/12/2020" /></span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="mio">SR: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.get_sales_area ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.get_sales_area ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.get_sales_area.area_name ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.get_sales_area.area_name) : '') : '') : '') : '') : '') : '') : '' }}</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="mio">Delivery Date: <span class="jmi-lvl-value">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.delivery_date ? (PENDING_ORDER_DATA_BY_ID.delivery_date).split(' ')[0] : '') : '' }}</span></p></div>
                     </div>
                 </div>
             </div>
@@ -77,7 +63,7 @@
                                         <!-- Quantity Column -->
                                         <td :id="'order-data-table-tr-td-' + i">
                                             <span v-if="!(data.deal_type === 'F' && data.net_amount === '0')">
-                                                <span class="single_qty quantity-setup" v-if="STOCK_TRANSIT_VALIDATION === false">
+                                                <!-- <span class="single_qty quantity-setup">
                                                     <span class="qty" v-if="( parseInt(data.net_qty) <= parseInt(data.available_stock) ) || (data.available_stock === null)">{{ data.qty }}</span>
                                                     <span class="qty" v-if="parseInt(data.net_qty) > parseInt(data.available_stock)" :class="parseInt(data.net_qty) > parseInt(data.available_stock) ? 'jmi-stock-out' : ''">{{ data.qty }}
                                                         <span class="tool-tip">
@@ -85,8 +71,8 @@
                                                             <p class="txt">In Transit: <span>{{ data.transit_stock }}</span></p>
                                                         </span>
                                                     </span>
-                                                </span>
-                                                <span class="single_qty quantity-setup" v-if="STOCK_TRANSIT_VALIDATION === true">
+                                                </span> -->
+                                                <span class="single_qty quantity-setup">
                                                     <span class="qty">{{ data.qty }}</span>
                                                 </span>
                                                 <span class="qty_editable quantity-setup hide" style="border: 1px solid #026CD1;">
@@ -98,8 +84,6 @@
                                         </td>
                                         <!-- Discount Column -->
                                         <td>
-                                            <!-- <span v-if="!data.row_class">{{ data ? (data.offer ? (data.offer.offer ? (data.offer.offer.discount_percentage ? (data.offer.offer.discount_percentage) : 0) : 0) : 0) : 0 }}%</span>
-                                            <span v-if="data.row_class"></span> -->
                                             <span v-if="!(data.deal_type === 'F' && data.net_amount === '0')">{{ data ? (data.offer ? (data.offer.offer ? (data.offer.offer.discount_percentage ? Number(data.offer.offer.discount_percentage).toFixed(2) : 0) : 0) : 0) : 0 }}%</span>
                                         </td>
                                         <!-- Bonus Column -->
@@ -107,7 +91,6 @@
                                             <span>{{ data.offer.offer_type === "bonus" ? parseInt(data.qty / (data.offer.offer.bonus_on)) : data.bonus_qty }}</span>
                                         </td>
                                         <!-- Total Price Column -->
-                                        <!-- <td>{{ Number(data.tp).toFixed(2) }}</td> -->
                                         <td>
                                             <span v-if="!(data.deal_type === 'F' && data.net_amount === '0')">{{ Number((data.unit_tp) * (data.qty)).toFixed(2) }}</span>
                                         </td>
@@ -161,8 +144,7 @@
             <!-- Bottom Subtotal & Attachment Section -->
             <div class="submit-section" v-if="ORDERED_TABLE_DATA__INIT_LIST && PENDING_ORDER_DATA_BY_ID">
                 <div class="submit-section-inner">
-                    <span class="proceed-order" @click="updateOrderClickHandler" style="margin-right: 20px;" v-if="UPDATE_BTN_ENABLE">Update Order</span>
-                    <span class="proceed-order" @click="proceedOrderClickHandler" v-if="!UPDATE_BTN_ENABLE">Approve Order</span>
+                    <span class="proceed-order" @click="proceedOrderClickHandler">Delivered Order</span>
                 </div>
             </div>
             <!-- Current Outstanding Modal -->
@@ -212,7 +194,7 @@
                 </div>
             </div>
             <!-- Customer Name click Modal -->
-            <div class="customer-details-modal-section" v-if="customer_details_modal">
+            <!-- <div class="customer-details-modal-section" v-if="customer_details_modal">
                 <div class="customer-details-modal-section-inner" v-click-outside="customerDetailsModalOutsideClick">
                     <div class="top-section">
                         <div class="top-section-inner">
@@ -225,7 +207,7 @@
                             </div>
                             <div class="tab-section">
                                 <div class="tab-section-inner">
-                                    <b-tabs class="mt-3 order-approval-customer-details">
+                                    <b-tabs class="mt-3 deliveries-customer-details">
                                         <b-tab title="Basic" active>
                                             <div class="basic-section">
                                                 <div class="basic-section-inner">
@@ -236,7 +218,6 @@
                                                     <p class="basic-data"><span class="lvl">Customer Type:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_info ? (SHOW_CUSTOMER_PROFILE.customer_info.customer_type ? (SHOW_CUSTOMER_PROFILE.customer_info.customer_type.description) : '') : '') : '' }}</span></p>
                                                     <p class="basic-data"><span class="lvl">Sales Area:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_area_info ? (SHOW_CUSTOMER_PROFILE.customer_area_info.sales_area ? (SHOW_CUSTOMER_PROFILE.customer_area_info.sales_area.area_name ? (SHOW_CUSTOMER_PROFILE.customer_area_info.sales_area.area_name) : '') : '') : '') : '' }}</span></p>
                                                     <p class="basic-data"><span class="lvl">Sales Center:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_area_info ? (SHOW_CUSTOMER_PROFILE.customer_area_info.sales_area ? (SHOW_CUSTOMER_PROFILE.customer_area_info.sales_area.area_name ? (SHOW_CUSTOMER_PROFILE.customer_area_info.sales_area.area_name) : '') : '') : '') : '' }}</span></p>
-                                                    <!-- <p class="basic-data"><span class="lvl">Credit Limit:</span><span class="lvl-value">2,00,000</span></p> -->
                                                     <p class="basic-data"><span class="lvl">Type of Payment:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.credit_flag === 'Y' ? 'Cash' : 'Credit') : '' }}</span></p>
                                                 </div>
                                             </div>
@@ -327,7 +308,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
         <!-- Reject Order Modal -->
         <div class="modal-popup-section order-proceed-modal" v-if="reject_order_modal_popup">
@@ -370,37 +351,168 @@
                 <p class="popup-text">Product Update Successfully</p>
             </div>
         </div>
-        <!-- Approve Product Confirmation -->
-        <div class="modal-popup-section order-proceed-modal" v-if="approve_product_confirmation_popup_modal">
-            <div class="modal-popup-section-inner order-proceed-modal-inner">
-                <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
-                <p class="popup-text">Are you sure?</p>
-                <p class="popup-desc">You want to approve the order.</p>
-                <span class="divider"></span>
-                <div class="popup-submit-section">
-                <div class="popup-cancel-btn-section">
-                    <span @click="cancelApprovingSingleOrderClickHandler">Cancel</span>
-                </div>
-                <div class="popup-confirm-btn-section">
-                    <span @click="confirmApprovingSingleOrderClickHandler">Confirm</span>
-                </div>
+        <!-- Proceed Delevery Modal -->
+        <div class="modal-popup-section deliveries-proceed-modal" v-if="approve_product_confirmation_popup_modal">
+            <div class="modal-popup-section-inner deliveries-proceed-modal">
+                <div class="tab-section">
+                    <div class="tab-section-inner">
+                        <b-tabs class="mt-3 deliveries-customer-details">
+                            <b-tab title="Cash" active>
+                                <div class="tab-inner cash">
+                                    <div class="row">
+                                        <div class="imvoice-amount">
+                                            <p class="jmi-lvl">Invoice Amount:</p>
+                                            <p class="jmi-lvl-value">10000</p>
+                                        </div>
+                                        <div class="imvoice-amount">
+                                            <p class="jmi-lvl">Invoice Amount:</p>
+                                            <p class="jmi-lvl-value">10000</p>
+                                        </div>
+                                    </div>
+                                    <div class="row receiver-amount">
+                                        <p class="jmi-lvl">Type Receiver Amount</p>
+                                        <input type="text" v-model="receiver_amount">
+                                    </div>
+                                </div>
+                            </b-tab>
+                            <b-tab title="Cheque">
+                                <div class="tab-inner cheque">
+                                    <div class="row">
+                                        <div class="imvoice-amount">
+                                            <p class="jmi-lvl">Invoice Amount:</p>
+                                            <p class="jmi-lvl-value">10000</p>
+                                        </div>
+                                        <div class="imvoice-amount">
+                                            <p class="jmi-lvl">Invoice Amount:</p>
+                                            <p class="jmi-lvl-value">10000</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="jmi-inline-block">
+                                            <p class="jmi-lvl">Select date</p>
+                                            <input type="text" v-model="receiver_amount">
+                                        </div>
+                                        <div class="jmi-inline-block right-alg">
+                                            <p class="jmi-lvl">Type Receiver Amount</p>
+                                            <input type="text" v-model="receiver_amount">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="jmi-inline-block">
+                                            <p class="jmi-lvl">Enter cheque Number</p>
+                                            <input type="text" v-model="receiver_amount">
+                                        </div>
+                                        <div class="jmi-inline-block right-alg">
+                                            <p class="jmi-lvl">Attach File (File Should be jpg, png, pdf)</p>
+                                            <input type="text" v-model="receiver_amount">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <img src="https://static6.depositphotos.com/1005979/577/i/600/depositphotos_5777799-stock-photo-blank-check-with-open-space.jpg" alt="">
+                                    </div>
+                                </div>
+                            </b-tab>
+                            <b-tab title="Deposit Slip">
+                                <div class="tab-inner cheque">
+                                    <div class="row">
+                                        <div class="imvoice-amount">
+                                            <p class="jmi-lvl">Invoice Amount:</p>
+                                            <p class="jmi-lvl-value">10000</p>
+                                        </div>
+                                        <div class="imvoice-amount">
+                                            <p class="jmi-lvl">Invoice Amount:</p>
+                                            <p class="jmi-lvl-value">10000</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="jmi-inline-block">
+                                            <p class="jmi-lvl">Select date</p>
+                                            <input type="text" v-model="receiver_amount">
+                                        </div>
+                                        <div class="jmi-inline-block right-alg">
+                                            <p class="jmi-lvl">Type Receiver Amount</p>
+                                            <input type="text" v-model="receiver_amount">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="jmi-inline-block">
+                                            <p class="jmi-lvl">Attach File (File Should be jpg, png, pdf)</p>
+                                            <input type="text" v-model="receiver_amount">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <img src="https://static6.depositphotos.com/1005979/577/i/600/depositphotos_5777799-stock-photo-blank-check-with-open-space.jpg" alt="">
+                                    </div>
+                                </div>
+                            </b-tab>
+                            <b-tab title="Adjustment">
+                                <div class="tab-inner cheque"> 
+                                    <div class="row">
+                                        <div class="jmi-inline-block">
+                                            <p class="jmi-lvl">Attach File (File Should be jpg, png, pdf)</p>
+                                            <input type="text" v-model="receiver_amount">
+                                        </div>
+                                        <div class="jmi-inline-block right-alg">
+                                            <p class="jmi-lvl">VAT Chalan.pdf</p>
+                                            <input type="text" v-model="receiver_amount">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="jmi-inline-block">
+                                            <p class="jmi-lvl">Attach File (File Should be jpg, png, pdf)</p>
+                                            <input type="text" v-model="receiver_amount">
+                                        </div>
+                                        <div class="jmi-inline-block right-alg">
+                                            <p class="jmi-lvl">ABC Chalan.pdf</p>
+                                            <input type="text" v-model="receiver_amount">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="jmi-inline-block">
+                                            <p class="jmi-lvl">Attach File (File Should be jpg, png, pdf)</p>
+                                            <input type="text" v-model="receiver_amount">
+                                        </div>
+                                        <div class="jmi-inline-block right-alg">
+                                            <p class="jmi-lvl">Credit Memo.pdf</p>
+                                            <input type="text" v-model="receiver_amount">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="jmi-inline-block">
+                                            <p class="jmi-lvl">Attach File (File Should be jpg, png, pdf)</p>
+                                            <input type="text" v-model="receiver_amount">
+                                        </div>
+                                        <div class="jmi-inline-block right-alg">
+                                            <p class="jmi-lvl">Collection Memo.pdf</p>
+                                            <input type="text" v-model="receiver_amount">
+                                        </div>
+                                    </div>
+                                </div>
+                            </b-tab>
+                        </b-tabs>
+                        <div class="submit-section">
+                            <button class="cancel" @click="deliveryOrderModalCancelClickHandler">Cancel</button>
+                            <button class="confirm" @click="deliveryOrderModalConfirmClickHandler">Proceed</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        <!--  -->
         <!-- Order Approved Message -->
-        <div id="update-successfully-modal" class="modal-popup-section update-successfully-modal" v-if="approved_single_order_modal">
+        <!-- <div id="update-successfully-modal" class="modal-popup-section update-successfully-modal" v-if="approved_single_order_modal">
             <div class="modal-popup-section-inner update-successfully-modal-inner">
                 <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
                 <p class="popup-text">{{ ORDER_SUCCESS_MESSAGE }}</p>
             </div>
-        </div>
+        </div> -->
         <!-- Order Approved Message -->
-        <div id="update-successfully-modal" class="modal-popup-section update-successfully-modal" v-if="removing_last_product_from_cart">
+        <!-- <div id="update-successfully-modal" class="modal-popup-section update-successfully-modal" v-if="removing_last_product_from_cart">
             <div class="modal-popup-section-inner update-successfully-modal-inner">
                 <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
                 <p class="popup-text">Please reject this order.</p>
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
 
@@ -428,7 +540,7 @@ export default {
     data() {
         return {
             on_change_SR_dropdown: null,
-            SR_LIST__DA: [],
+            // SR_LIST__DA: [],
             header_date: null,
             order_table_header: ["Name", "Unit Price", "Quantity", "Bonus", "Total Price"],
             PRODUCT_MODAL_DATA_LIST: [],
@@ -758,7 +870,7 @@ export default {
             RESPONSE_ORDERED_PRODUCTS__STORE: [],
             DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST: [],
             DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST_2: [],
-            ORDERED_TABLE_DATA__INIT_LIST: this.pending_order_list_by_id.order_details,
+            ORDERED_TABLE_DATA__INIT_LIST: this.pending_order_list_by_id,
             ORDERED_TABLE_DATA__INIT_LIST_2: [],
             SHOW_CUSTOMER_PROFILE: [],
             ORDERED_PRODUCT_TABLE_ROW_IS_EDITABLE: false,
@@ -791,7 +903,7 @@ export default {
         .then( coordinates => {
             console.log(coordinates)
         })
-        await this.DIC_WISE_USERS__FROM_SERVICE()
+        // await this.DIC_WISE_USERS__FROM_SERVICE()
     },
     methods: {
         onChangeSRDropdown() {
@@ -819,7 +931,7 @@ export default {
         // Increase Table Row's Single Product/Order
         increaseOrderedItemClickHandler(data, index) {
             console.log(data + '    ' + index)
-            console.log(parseInt(data.qty))
+            /*console.log(parseInt(data.qty))
             console.log(parseInt(data.available_stock))
             console.log(parseInt(data.transit_stock))
             if(parseInt(this.ORDER_CREATED_BY) !== parseInt(this.ORDER_AUTH_USER)) {
@@ -851,7 +963,7 @@ export default {
             }
             console.log(data.offer.offer.free_req_qty)
             // console.log(this.ORDERED_TABLE_DATA__INIT_LIST[index + 1].bonus_qty)
-            console.log(data.qty)
+            console.log(data.qty)*/
         },
         // Decrease Table Row's Single Product/Order
         decreaseOrderedItemClickHandler(data, index) {
@@ -961,7 +1073,7 @@ export default {
             this.delete_product_from_table_popup_modal = false
         },
         async confirmRemovingProductFromTableClickHandler() {
-            if(this.ORDERED_TABLE_DATA__INIT_LIST.length > 1) {
+            /*if(this.ORDERED_TABLE_DATA__INIT_LIST.length > 1) {
                 for (let [i, tt] of this.ORDERED_TABLE_DATA__INIT_LIST.entries()) {
                     if (tt.product_id === this.delete_product_from_table_popup_modal_data.product_id) {
                         this.ORDERED_TABLE_DATA__INIT_LIST.splice(i, 1);
@@ -985,7 +1097,20 @@ export default {
                 setTimeout( () => {
                     this.removing_last_product_from_cart = false
                 }, 2000)
-            }
+            }*/
+                for (let [i, tt] of this.ORDERED_TABLE_DATA__INIT_LIST.entries()) {
+                    if (tt.product_id === this.delete_product_from_table_popup_modal_data.product_id) {
+                        this.ORDERED_TABLE_DATA__INIT_LIST[i].qty = 0
+                        this.delete_product_from_table_popup_modal = false
+                        // this.ORDERED_TABLE_DATA__INIT_LIST.splice(i, 1);
+                        // Free Product row delete
+                        // if(data.offer_type === "free") {
+                        //     this.ORDERED_TABLE_DATA__INIT_LIST.splice(i, 1);
+                        // }
+                    }
+                }
+                // await this.DESTROY_ORDER_DETAILS_BY_ID__FROM_SERVICE(this.delete_product_from_table_popup_modal_data.id)
+                this.createSubtotalCalculation()
             // console.log(this.delete_product_from_table_popup_modal_data)
             // this.delete_product_from_table_popup_modal_data = null
             // console.log(this.delete_product_from_table_popup_modal_data)
@@ -1082,8 +1207,16 @@ export default {
         },
         async confirmApprovingSingleOrderClickHandler() {
             this.approve_product_confirmation_popup_modal = false
-            await this.APPROVE_SINGLE_ORDER__FROM_SERVICE()
+            // await this.APPROVE_SINGLE_ORDER__FROM_SERVICE()
             this.createSubtotalCalculation()
+        },
+        // ----------------------------------------------------------------------------------------
+        // Delivery Order Popup
+        deliveryOrderModalCancelClickHandler() {
+            this.approve_product_confirmation_popup_modal = false
+        },
+        deliveryOrderModalConfirmClickHandler() {
+            this.approve_product_confirmation_popup_modal = false
         },
         //------------------------------------------------------------------------------------------
         // Order Modal Functions
@@ -1315,14 +1448,14 @@ export default {
         // --------------------------------------------------------------------------------------------
         // Filter - Order Approval add product modal
         searchKeyUpAddProductHandler() {
-            let input = document.getElementById("order-approval-add-product");
+            let input = document.getElementById("deliveries-add-product");
             let filter = input.value.toUpperCase();
             let list = document.querySelectorAll('.responer-body-filter-output')
             let txt_selector = "responer-body-filter-tag"
             let id_selector = "responer-body-filter-tag-id"
 
             // console.log(value.key)
-            let v = document.querySelector('#order-approval-add-product').value
+            let v = document.querySelector('#deliveries-add-product').value
             if(isNaN(v)) {
                 jmiFilter.searchByID_Name_Details_Section(filter, list, txt_selector)
             } else {
@@ -1336,13 +1469,13 @@ export default {
         },
         // ------------------------------------------------------------------------------------------
         // Service Implementation
-        async DIC_WISE_USERS__FROM_SERVICE() {
-            await service.getDICWiseUsers_MonthlyDeliveryPlan()
-                .then(res => {
-                    console.log(res.data)
-                    this.SR_LIST__DA = res.data.users.da
-                })
-        },
+        // async DIC_WISE_USERS__FROM_SERVICE() {
+        //     await service.getDICWiseUsers_MonthlyDeliveryPlan()
+        //         .then(res => {
+        //             console.log(res.data)
+        //             this.SR_LIST__DA = res.data.users.da
+        //         })
+        // },
         async ADD_PRODUCTS_DATA_LIST__FROM_SERVICE() {
             await service.getSearchProductDataList_CreateOrderDetailsSection()
                 .then(res => {
@@ -1513,7 +1646,7 @@ export default {
             for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST.length; i++) {
                 this.sub_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_tp) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty
                 this.vat_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_vat) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty
-                this.discount_total += (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_tp) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) - (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.price_now_per_qty) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty)
+                // this.discount_total += (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_tp) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) - (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.price_now_per_qty) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty)
                 // console.log(parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.price_now_per_qty) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty)
             }
             // this.discount_total = 0
@@ -1521,59 +1654,59 @@ export default {
             this.grand_total = this.sub_total + this.vat_total - this.discount_total
         },
         // -----------------------------------------------------------------------------------------------
-        async GENERATE_ORDERED_PRODUCTS_DETAILS_LIST_FROM_PRODUCT_OFFER_RESPONSE() {
-            // if(this.UPDATE_ORDER_CLICKED) {
-            //     this.ORDERED_TABLE_DATA__INIT_LIST = []
-            //     this.UPDATE_ORDER_CLICKED = false
-            // }
-            if(this.SELECTED_ORDERED_PRODUCTS__STORE.length > 0 && this.RESPONSE_ORDERED_PRODUCTS__STORE.length > 0) {
-                for (let i=0; i<this.SELECTED_ORDERED_PRODUCTS__STORE.length; i++) {
-                    for(let j=0; j<this.RESPONSE_ORDERED_PRODUCTS__STORE.length; j++) {
-                        if( parseInt(this.SELECTED_ORDERED_PRODUCTS__STORE[i].prod_id) === parseInt(this.RESPONSE_ORDERED_PRODUCTS__STORE[j].prod_id) ) {
-                            let product = {
-                                    prod_id             : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].prod_id,
-                                    prod_name           : this.SELECTED_ORDERED_PRODUCTS__STORE[i].prod_name,
-                                    base_tp             : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].base_tp,
-                                    price_now_per_qty   : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].price_now_per_qty,
-                                    base_vat            : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].base_vat,
-                                    line_total          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].line_total,
-                                    vat_total           : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].vat_total,
-                                    quantity            : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].quantity,
-                                    offer_type          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type,
-                                    offer               : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer,
-                                    row_class           : ''
-                            }
-                            this.ORDERED_TABLE_DATA__INIT_LIST_2.push(product)
+        // async GENERATE_ORDERED_PRODUCTS_DETAILS_LIST_FROM_PRODUCT_OFFER_RESPONSE() {
+        //     // if(this.UPDATE_ORDER_CLICKED) {
+        //     //     this.ORDERED_TABLE_DATA__INIT_LIST = []
+        //     //     this.UPDATE_ORDER_CLICKED = false
+        //     // }
+        //     if(this.SELECTED_ORDERED_PRODUCTS__STORE.length > 0 && this.RESPONSE_ORDERED_PRODUCTS__STORE.length > 0) {
+        //         for (let i=0; i<this.SELECTED_ORDERED_PRODUCTS__STORE.length; i++) {
+        //             for(let j=0; j<this.RESPONSE_ORDERED_PRODUCTS__STORE.length; j++) {
+        //                 if( parseInt(this.SELECTED_ORDERED_PRODUCTS__STORE[i].prod_id) === parseInt(this.RESPONSE_ORDERED_PRODUCTS__STORE[j].prod_id) ) {
+        //                     let product = {
+        //                             prod_id             : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].prod_id,
+        //                             prod_name           : this.SELECTED_ORDERED_PRODUCTS__STORE[i].prod_name,
+        //                             base_tp             : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].base_tp,
+        //                             price_now_per_qty   : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].price_now_per_qty,
+        //                             base_vat            : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].base_vat,
+        //                             line_total          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].line_total,
+        //                             vat_total           : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].vat_total,
+        //                             quantity            : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].quantity,
+        //                             offer_type          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type,
+        //                             offer               : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer,
+        //                             row_class           : ''
+        //                     }
+        //                     this.ORDERED_TABLE_DATA__INIT_LIST_2.push(product)
 
-                            // FOR FREE PRODUCT ENTRY
-                            if(this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type === "free") {
-                                let ferr_product = {
-                                        prod_id             : this.RESPONSE_ORDERED_PRODUCTS__STORE[i].prod_id,
-                                        prod_name           : this.SELECTED_ORDERED_PRODUCTS__STORE[i].prod_name,
-                                        base_tp             : this.RESPONSE_ORDERED_PRODUCTS__STORE[i].base_tp,
-                                        price_now_per_qty   : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].price_now_per_qty,
-                                        base_vat            : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].base_vat,
-                                        line_total          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].line_total,
-                                        vat_total           : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].vat_total,
-                                        // price_now_per_qty   : 0,
-                                        // base_vat            : 0,
-                                        // line_total          : 0,
-                                        // vat_total           : 0,
-                                        quantity            : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].quantity,
-                                        offer_type          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type,
-                                        offer               : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer,
-                                        row_class           : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type
-                                }
-                                this.ORDERED_TABLE_DATA__INIT_LIST_2.push(ferr_product)
-                            }
-                        }
-                    }
-                }
-            }
-            this.createSubtotalCalculation()
-            console.log(this.ORDERED_TABLE_DATA__INIT_LIST_2)
-            this.UPDATE_BTN_TRUE = false
-        },
+        //                     // FOR FREE PRODUCT ENTRY
+        //                     if(this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type === "free") {
+        //                         let ferr_product = {
+        //                                 prod_id             : this.RESPONSE_ORDERED_PRODUCTS__STORE[i].prod_id,
+        //                                 prod_name           : this.SELECTED_ORDERED_PRODUCTS__STORE[i].prod_name,
+        //                                 base_tp             : this.RESPONSE_ORDERED_PRODUCTS__STORE[i].base_tp,
+        //                                 price_now_per_qty   : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].price_now_per_qty,
+        //                                 base_vat            : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].base_vat,
+        //                                 line_total          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].line_total,
+        //                                 vat_total           : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].vat_total,
+        //                                 // price_now_per_qty   : 0,
+        //                                 // base_vat            : 0,
+        //                                 // line_total          : 0,
+        //                                 // vat_total           : 0,
+        //                                 quantity            : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].quantity,
+        //                                 offer_type          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type,
+        //                                 offer               : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer,
+        //                                 row_class           : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type
+        //                         }
+        //                         this.ORDERED_TABLE_DATA__INIT_LIST_2.push(ferr_product)
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     }
+        //     this.createSubtotalCalculation()
+        //     console.log(this.ORDERED_TABLE_DATA__INIT_LIST_2)
+        //     this.UPDATE_BTN_TRUE = false
+        // },
         // -------------------------------------------------------------------------------------------------
         // Default Functionality
         defaultAllThisComponentData() {
@@ -1606,14 +1739,14 @@ export default {
             let date = yyyy + '-' + mm + '-' + dd
             return date
         },
-        set_Or_Change_SR(da_id) {
-            console.log(da_id)
-            for(let i=0; i<this.SR_LIST__DA.length; i++) {
-                if(this.SR_LIST__DA[i].id === parseInt(da_id)) {
-                    this.selected_sr = this.SR_LIST__DA[i].name
-                }
-            }
-        },
+        // set_Or_Change_SR(da_id) {
+        //     console.log(da_id)
+        //     for(let i=0; i<this.SR_LIST__DA.length; i++) {
+        //         if(this.SR_LIST__DA[i].id === parseInt(da_id)) {
+        //             this.selected_sr = this.SR_LIST__DA[i].name
+        //         }
+        //     }
+        // },
         set_Or_Change_Date(da_date) {
             console.log(da_date)
             this.header_date = da_date ? da_date.toString().split(' ')[0] : null
@@ -1643,18 +1776,19 @@ export default {
         async pending_order_list_by_id(newVal, oldVal){
             console.log('changes' + newVal)
             console.log('changes' + oldVal)
-            console.log('SR DA ID ' + this.pending_order_list_by_id.da_id)
+            // console.log('SR DA ID ' + this.pending_order_list_by_id.da_id)
             // if()
             // console.log(this.pending_order_list_by_id.order_details)
             // await this.defaultAllThisComponentData()
             setTimeout( () => {
-                console.log(this.pending_order_list_by_id.order_date)
+                console.log(this.pending_order_list_by_id.invoice_details)
                 // console.log(this.pending_order_list_by_id)
                 this.SHOW_PRINT_ICON = true
                 this.PENDING_ORDER_DATA_BY_ID = this.pending_order_list_by_id
-                this.ORDERED_TABLE_DATA__INIT_LIST = this.pending_order_list_by_id.order_details
-                this.set_Or_Change_SR(this.pending_order_list_by_id.da_id)
-                this.set_Or_Change_Date(this.pending_order_list_by_id.order_date)
+                this.ORDERED_TABLE_DATA__INIT_LIST = this.pending_order_list_by_id.invoice_details
+                // this.ORDERED_TABLE_DATA__INIT_LIST = this.pending_order_list_by_id.order_details
+                // this.set_Or_Change_SR(this.pending_order_list_by_id.da_id)
+                // this.set_Or_Change_Date(this.pending_order_list_by_id.order_date)
                 // this.ORDER_CREATED_BY = 101
                 this.ORDER_CREATED_BY = this.pending_order_list_by_id.created_by
                 this.ORDER_AUTH_USER = this.pending_order_list_by_id.auth_user

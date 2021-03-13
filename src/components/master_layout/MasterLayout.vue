@@ -19,10 +19,10 @@
             <p class="group-name">{{ sbu_name }}</p>
           </div>
           <div class="group-selection-dropdown-section" v-click-outside="groupModalOutsideClick">
-            <span class="group-selection-icon" @click="selectGroup()" v-if="sbu_list_is_present_bol">
+            <span class="group-selection-icon" @click="selectGroup()" v-if="sbu_list">
               <i class="fas fa-exchange-alt"></i>
             </span>
-            <GroupModal />
+            <GroupModal v-on:sbu_list_is_present="sbuListIsPresent" />
           </div>
         </div>
         <div class="right-section">
@@ -125,8 +125,7 @@ export default {
       privatePage: false,
       mouseOverTriger: true,
       sbu_name: null,
-      sbu_list_is_present_bol: false,
-      sbu_list: [],
+      sbu_list_is_present: false,
     };
   },
   created() {},
@@ -137,14 +136,12 @@ export default {
     // console.log(this.$route.name);
     if(JSON.parse(localStorage.getItem("user"))) {
       setTimeout( () => {
+        console.log('local storage')
         // this.userName = JSON.parse(localStorage.getItem("user")) ? JSON.parse(localStorage.getItem("user")).user_detils.name : ""
         // this.userDesignation = JSON.parse(localStorage.getItem("user")) ? JSON.parse(localStorage.getItem("user")).user_detils.role_name : ""
         // this.authenticated = this.$store.state.userIsAuthorized
       }, 1000)
     }
-    // setTimeout( () => {
-    //   this.WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE()
-    // }, 2000)
   },
   methods: {
     closeSideNav() {
@@ -211,23 +208,6 @@ export default {
           }
         }
       }
-
-
-      // let modals = [
-      //   { name: "group-list-section" },
-      //   { name: "chat-modal" },
-      //   { name: "notification-modal" },
-      //   { name: "profile-modal" },
-      // ];
-
-      // for (let i = 0; i < this.sbu_list.length; i++) {
-      //   let selectedSelector = document.querySelector("#" + modals[i].name);
-      //   if (currentModal !== modals[i].name) {
-      //     if (selectedSelector.className === modals[i].name) {
-      //       selectedSelector.className = modals[i].name + " hide";
-      //     }
-      //   }
-      // }
     },
     profileArrowRotation() {
       if (
@@ -285,55 +265,46 @@ export default {
         this.profileArrowRotation();
       }
     },
-    async profileUserName(username, designation, sbu_name, token) {
+    profileUserName(username, designation, sbu_name) {
       this.userName = username
       this.userDesignation = designation
       this.sbu_name = sbu_name
-      console.log(token)
-      
-      await this.WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE()
-
-      // if(username && designation && sbu_name) {
-      //   setTimeout( () => {
-      //     this.WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE()
-      //   }, 2000)
-      // }
     },
     sbuListIsPresent(flag) {
       console.log(flag)
-      this.sbu_list_is_present_bol = flag
-      console.log(this.sbu_list_is_present_bol)
+      this.sbu_list_is_present = flag
     },
-    async WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE() {
-      // if(JSON.parse(localStorage.getItem("user")).accessToken) {
-      //   console.log(JSON.parse(localStorage.getItem("user")).accessToken)
-      //   console.log(JSON.parse(localStorage.getItem("user")).user_detils.name)
-      // }
-      console.log('I am here')
-      this.sbu_list_is_present_bol = false
-      await service.getWEB_SystemAssignedSBU()
+    // SERVICE IMPLEMENTATION
+    async WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE(token) {
+      await service.getWEB_SystemAssignedSBU(token)
         .then(res => {
           console.log(res.data)
+          this.sbu_list = []
           this.sbu_list = res.data.data
-          if(res.data.data.length > 0) {
-            this.sbu_list_is_present_bol = true
-          }
+          this.progress = false;
         })
     }
   },
-  // watch: {
-  //   userName: {
-  //     userName: JSON.parse(localStorage.getItem("user")) ? JSON.parse(localStorage.getItem("user")).user_detils.name : "",
-  //     userDesignation: JSON.parse(localStorage.getItem("user")) ? JSON.parse(localStorage.getItem("user")).user_detils.role_name : "",
-  //     authenticated: this.$store.state.userIsAuthorized,
-  //   }
-  // }
-  // watch: {
-  //   username: (newVal, oldVal) => {
-  //     console.log(newVal)
-  //     console.log(oldVal)
-  //   }
-  // }
+  watch: {
+    // userName: {
+    //   userName: JSON.parse(localStorage.getItem("user")) ? JSON.parse(localStorage.getItem("user")).user_detils.name : "",
+    //   userDesignation: JSON.parse(localStorage.getItem("user")) ? JSON.parse(localStorage.getItem("user")).user_detils.role_name : "",
+    //   authenticated: this.$store.state.userIsAuthorized,
+    // }
+    userName(newVal, oldVal) {
+      console.log(newVal)
+      console.log(oldVal)
+      if(newVal !== oldVal) {
+        console.log('change name')
+        this.sbu_list = []
+        setTimeout(()=> {
+          let token = JSON.parse(localStorage.getItem("user")) ? JSON.parse(localStorage.getItem("user")).accessToken : ''
+          console.log(token)
+          this.WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE(token)
+        }, 3000)
+      }
+    }
+  }
 };
 </script>
 

@@ -26,19 +26,23 @@
                 </select>
             </div>
         </div>
+        <!-- Customer Counter -->
+        <div class="title-count">
+            <p class="total-customer">Total Invoice (<span class="count">{{ ALL_PENDING_ORDERS_CUSTOMER_LIST.length }}</span>)</p>
+        </div>
         <!-- Customer List -->
         <div class="customer-list-section">
             <div class="customer-list-section-inner">
-                <div id="progressbar" class="progressbar" v-if="!customer_list">
+                <!-- <div id="progressbar" class="progressbar" v-if="!customer_list">
                     <v-progress-circular indeterminate color="primary"></v-progress-circular>
-                </div>
+                </div> -->
                 <!-- <div :id="'customer-section-list-' + c" class="customer-section-list" v-for="(customer, c) in customer_list" :key="c" @click="customerClickHandlerFromList(customer, c)"> -->
                 <div :id="'customer-section-list-' + c" class="customer-section-list" v-for="(customer, c) in ALL_PENDING_ORDERS_CUSTOMER_LIST" :key="c" @click="customerClickHandlerFromList(customer, c)">
                     <div :id="'customer-section-list-inner-' + c" class="customer-section-list-inner">
                         <div class="customer-id-type-section">
                             <div class="customer-id-type-section-inner">
                                 <div class="id-section">
-                                    <p class="customer-id">{{ customer ? (customer.order_no ? (customer.order_no) : '' ) : "" }}</p>
+                                    <p class="customer-id">INV{{ customer ? (customer.id ? (customer.id) : '' ) : "" }}</p>
                                 </div>
                                 <div class="jmi-status-section_t_1">
                                     <!-- <p class="customer-type"><span class="type">{{ customer ? (customer.order_date).split(' ')[0] : "" }}</span></p> -->
@@ -162,128 +166,6 @@ export default {
     data() {
         return {
             ALL_PENDING_ORDERS_CUSTOMER_LIST: [],
-            customer_list: [
-                {
-                    customer_id: "DHK0301",
-                    order_date: "09/12/2020",
-                    order_address: "ABI Pharmacy and Diagnostic Center",
-                    order_status: "Pending",
-                    order_id: "102131",
-                    order_bill: "4300",
-                },
-                {
-                    customer_id: "MKY0301",
-                    order_date: "09/12/2020",
-                    order_address: "ABI Pharmacy and Diagnostic Center",
-                    order_status: "Approved",
-                    order_id: "102131",
-                    order_bill: "4300",
-                },
-                {
-                    customer_id: "SGN0301",
-                    order_date: "09/12/2020",
-                    order_address: "ABI Pharmacy and Diagnostic Center",
-                    order_status: "Rejected",
-                    order_id: "102131",
-                    order_bill: "4300",
-                },
-                {
-                    customer_id: "FKR0301",
-                    order_date: "09/12/2020",
-                    order_address: "ABI Pharmacy and Diagnostic Center",
-                    order_status: "Pending",
-                    order_id: "102131",
-                    order_bill: "4300",
-                },
-                {
-                    customer_id: "NGO0301",
-                    order_date: "09/12/2020",
-                    order_address: "ABI Pharmacy and Diagnostic Center",
-                    order_status: "Approved",
-                    order_id: "102131",
-                    order_bill: "4300",
-                },
-                {
-                    customer_id: "LLP0301",
-                    order_date: "09/12/2020",
-                    order_address: "ABI Pharmacy and Diagnostic Center",
-                    order_status: "Rejected",
-                    order_id: "102131",
-                    order_bill: "4300",
-                },
-                {
-                    customer_id: "MNO0301",
-                    order_date: "09/12/2020",
-                    order_address: "ABI Pharmacy and Diagnostic Center",
-                    order_status: "Pending",
-                    order_id: "102131",
-                    order_bill: "4300",
-                },
-                {
-                    customer_id: "AAD0301",
-                    order_date: "09/12/2020",
-                    order_address: "ABI Pharmacy and Diagnostic Center",
-                    order_status: "Approved",
-                    order_id: "102131",
-                    order_bill: "4300",
-                },
-                {
-                    customer_id: "DHK0301",
-                    order_date: "09/12/2020",
-                    order_address: "ABI Pharmacy and Diagnostic Center",
-                    order_status: "Rejected",
-                    order_id: "102131",
-                    order_bill: "4300",
-                },
-                {
-                    customer_id: "DHK0301",
-                    order_date: "09/12/2020",
-                    order_address: "ABI Pharmacy and Diagnostic Center",
-                    order_status: "Pending",
-                    order_id: "102131",
-                    order_bill: "4300",
-                },
-                {
-                    customer_id: "DHK0301",
-                    order_date: "09/12/2020",
-                    order_address: "ABI Pharmacy and Diagnostic Center",
-                    order_status: "Approved",
-                    order_id: "102131",
-                    order_bill: "4300",
-                },
-                {
-                    customer_id: "DHK0301",
-                    order_date: "09/12/2020",
-                    order_address: "ABI Pharmacy and Diagnostic Center",
-                    order_status: "Rejected",
-                    order_id: "102131",
-                    order_bill: "4300",
-                },
-                {
-                    customer_id: "DHK0301",
-                    order_date: "09/12/2020",
-                    order_address: "ABI Pharmacy and Diagnostic Center",
-                    order_status: "Pending",
-                    order_id: "102131",
-                    order_bill: "4300",
-                },
-                {
-                    customer_id: "DHK0301",
-                    order_date: "09/12/2020",
-                    order_address: "ABI Pharmacy and Diagnostic Center",
-                    order_status: "Approved",
-                    order_id: "102131",
-                    order_bill: "4300",
-                },
-                {
-                    customer_id: "DHK0301",
-                    order_date: "09/12/2020",
-                    order_address: "ABI Pharmacy and Diagnostic Center",
-                    order_status: "Rejected",
-                    order_id: "102131",
-                    order_bill: "4300",
-                },
-            ],
             months: [
                 {name: "January"},
                 {name: "February"},
@@ -326,7 +208,7 @@ export default {
     },
     created() {},
     async mounted() {
-        await this.ALL_PENDING_ORDERS_CUSTOMER_LIST__FROM_SERVICE()
+        await this.ALL_DELIVERIES_INVOICE_LIST__FROM_SERVICE()
     },
     methods: {
         filterClick() {
@@ -366,7 +248,7 @@ export default {
         },
         onChangeStatusDropdown() {
             console.log('onChangeStatusDropdown: ' + this.on_change_status)
-            switch(this.on_change_status) {
+            /*switch(this.on_change_status) {
                 case 'Select All':
                     this.SELECT_OPTION__CUSTOMER_ID_LIST = []
                     this.SELECT_OPTION__ORDER_ID_LIST = []
@@ -425,26 +307,27 @@ export default {
                     break
                 default:
                     break
-            }
+            }*/
         },
         onChangeSortBy() {
             console.log('onChangeSortBy: ' + this.on_change_sort_by)
         },
         onChange(value) {
-            switch(value) {
-                case 'a_to_z':
-                    this.radioSpanDefaultClass = 'active'
-                    this.radioSpanCustomClass = ''
-                    this.ALL_PENDING_ORDERS_CUSTOMER_LIST.sort()
-                    break
-                case 'z_to_a':
-                    this.radioSpanDefaultClass = ''
-                    this.radioSpanCustomClass = 'active'
-                    this.ALL_PENDING_ORDERS_CUSTOMER_LIST.sort().reverse()
-                    break
-                default:
-                    break
-            }
+            console.log(value)
+            // switch(value) {
+            //     case 'a_to_z':
+            //         this.radioSpanDefaultClass = 'active'
+            //         this.radioSpanCustomClass = ''
+            //         this.ALL_PENDING_ORDERS_CUSTOMER_LIST.sort()
+            //         break
+            //     case 'z_to_a':
+            //         this.radioSpanDefaultClass = ''
+            //         this.radioSpanCustomClass = 'active'
+            //         this.ALL_PENDING_ORDERS_CUSTOMER_LIST.sort().reverse()
+            //         break
+            //     default:
+            //         break
+            // }
         },
         onChangeFilterBy() {
             console.log('onChangeFilterBy: ' + this.on_change_filter_by)
@@ -487,11 +370,11 @@ export default {
         },
         // ------------------------------------------------------------------------------------------
         // Service Implementation
-        async ALL_PENDING_ORDERS_CUSTOMER_LIST__FROM_SERVICE() {
-            await service.getAllPendingOrdersCustomerList_OrderApprovalLeftSide()
+        async ALL_DELIVERIES_INVOICE_LIST__FROM_SERVICE() {
+            await service.getPendingDeliveredInvoiceList_DELEVERIES()
                 .then(res => {
                     console.log(res.data)
-                    this.ALL_PENDING_ORDERS_CUSTOMER_LIST = res.data.orders_info
+                    this.ALL_PENDING_ORDERS_CUSTOMER_LIST = res.data.invoice_list
                 })
         },
         async APPROVE_ALL_SELECTED_ORDER__FROM_SERVICE() {
@@ -520,17 +403,17 @@ export default {
             }
         }
     },
-    watch: {
-        async rejected_order_id(newVal, oldVal) {
-            if(newVal !== oldVal) {
-                await this.ALL_PENDING_ORDERS_CUSTOMER_LIST__FROM_SERVICE()
-                let length = document.getElementsByClassName('customer-section-list').length
-                for(let i=0; i<length; i++) {
-                    document.querySelector('#customer-section-list-' + i).className = 'customer-section-list'
-                }
-            }
-        }
-    }
+    // watch: {
+    //     async rejected_order_id(newVal, oldVal) {
+    //         if(newVal !== oldVal) {
+    //             await this.ALL_DELIVERIES_INVOICE_LIST__FROM_SERVICE()
+    //             let length = document.getElementsByClassName('customer-section-list').length
+    //             for(let i=0; i<length; i++) {
+    //                 document.querySelector('#customer-section-list-' + i).className = 'customer-section-list'
+    //             }
+    //         }
+    //     }
+    // }
 }
 </script>
 

@@ -19,6 +19,7 @@ import './assets/material-design-iconic-font/css/material-design-iconic-font.css
 import './assets/material-design-iconic-font/css/material-design-iconic-font.min.css'
 import './assets/icofont/icofont.css'
 import './assets/icofont/icofont.min.css'
+import firebase from 'firebase'
 import VueHtmlToPaper from 'vue-html-to-paper'
 import 'print-js'
 import * as VueGoogleMaps from "vue2-google-maps";
@@ -63,6 +64,30 @@ import { configureFakeBackend } from './router';
 configureFakeBackend();
 
 Vue.config.productionTip = false
+
+// var firebaseConfig = {
+//   apiKey: "AIzaSyDTE1s7TtOtjje1a9cb7VX5kI_B9KSAEo4",
+//   authDomain: "",
+//   databaseURL: "",
+//   projectId: "",
+//   storageBucket: "",
+//   messagingSenderId: "",
+//   appId: "",
+//   measurementId: ""
+// };
+const firebaseConfig = {
+  apiKey: "AIzaSyAdshIIQA3BdlBAljuxpn1DS5aI_L9_lbo",
+  authDomain: "jmi-erp-f34ae.firebaseapp.com",
+  databaseURL: "https://jmi-erp-f34ae.firebaseio.com",
+  projectId: "jmi-erp-f34ae",
+  storageBucket: "jmi-erp-f34ae.appspot.com",
+  messagingSenderId: "305377898609",
+  appId: "1:305377898609:web:09ea96315d5886d5026bd0",
+  measurementId: "G-XX6DY0XRDX"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+window.firebase = firebase;
 
 new Vue({
   router,
