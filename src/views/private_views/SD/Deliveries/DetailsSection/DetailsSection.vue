@@ -1073,7 +1073,7 @@ export default {
             this.delete_product_from_table_popup_modal = false
         },
         async confirmRemovingProductFromTableClickHandler() {
-            if(this.ORDERED_TABLE_DATA__INIT_LIST.length > 1) {
+            /*if(this.ORDERED_TABLE_DATA__INIT_LIST.length > 1) {
                 for (let [i, tt] of this.ORDERED_TABLE_DATA__INIT_LIST.entries()) {
                     if (tt.product_id === this.delete_product_from_table_popup_modal_data.product_id) {
                         this.ORDERED_TABLE_DATA__INIT_LIST.splice(i, 1);
@@ -1097,7 +1097,20 @@ export default {
                 setTimeout( () => {
                     this.removing_last_product_from_cart = false
                 }, 2000)
-            }
+            }*/
+                for (let [i, tt] of this.ORDERED_TABLE_DATA__INIT_LIST.entries()) {
+                    if (tt.product_id === this.delete_product_from_table_popup_modal_data.product_id) {
+                        this.ORDERED_TABLE_DATA__INIT_LIST[i].qty = 0
+                        this.delete_product_from_table_popup_modal = false
+                        // this.ORDERED_TABLE_DATA__INIT_LIST.splice(i, 1);
+                        // Free Product row delete
+                        // if(data.offer_type === "free") {
+                        //     this.ORDERED_TABLE_DATA__INIT_LIST.splice(i, 1);
+                        // }
+                    }
+                }
+                // await this.DESTROY_ORDER_DETAILS_BY_ID__FROM_SERVICE(this.delete_product_from_table_popup_modal_data.id)
+                this.createSubtotalCalculation()
             // console.log(this.delete_product_from_table_popup_modal_data)
             // this.delete_product_from_table_popup_modal_data = null
             // console.log(this.delete_product_from_table_popup_modal_data)
