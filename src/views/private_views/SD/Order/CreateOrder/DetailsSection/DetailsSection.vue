@@ -415,6 +415,7 @@ export default {
             on_change_reg_area_tt: null,
             SALSE_AREA_ID: null,
             order_creating_progressbar: false,
+            CUSTOMER_ID_FROM_LEFT: null,
         }
     },
     async created() {},
@@ -853,7 +854,8 @@ export default {
                 })
         },
         async AREA_LIST_BY_USER__FROM_SERVICE() {
-            let customer_id = parseInt(this.customer_data ? this.customer_data.customer_id : 0)
+            console.log(this.CUSTOMER_ID_FROM_LEFT)
+            let customer_id = this.CUSTOMER_ID_FROM_LEFT ? this.CUSTOMER_ID_FROM_LEFT : parseInt(this.customer_data ? this.customer_data.customer_id : 0)
             console.log(customer_id)
             await service.getAreaListByUser_CreateOrderDetailsSection(customer_id)
                 .then(res => {
@@ -1131,6 +1133,8 @@ export default {
         // }
 
         customer_data(newVal, oldVal){
+            this.CUSTOMER_ID_FROM_LEFT = newVal.customer_id
+            this.AREA_LIST_BY_USER__FROM_SERVICE()
             if( newVal && oldVal) {
                 if(newVal.customer_id !== oldVal.customer_id) {
                     this.SALSE_AREA_ID = newVal.customer_area_info ? (newVal.customer_area_info.sales_area_id ? (newVal.customer_area_info.sales_area_id) : null) : null
