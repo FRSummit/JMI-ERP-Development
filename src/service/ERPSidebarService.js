@@ -33,12 +33,12 @@ export default class PostService {
     })
   }
 
-  async getWEB_SystemAssignedSBU() {
+  async getWEB_SystemAssignedSBU(token_2) {
     let web_menu_url = '/api/system/AssignedSBU'
     return await axios(web_menu_url, {
       method: 'GET',
       headers: {
-        'Authorization': token_type + ' ' + token
+        'Authorization': token_type + ' ' + token_2
       }
     })
   }

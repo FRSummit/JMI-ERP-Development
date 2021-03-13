@@ -26,6 +26,10 @@
                 </select>
             </div>
         </div>
+        <!-- Customer Counter -->
+        <div class="title-count">
+            <p class="total-customer">Total Invoice (<span class="count">{{ ALL_PENDING_ORDERS_CUSTOMER_LIST.length }}</span>)</p>
+        </div>
         <!-- Customer List -->
         <div class="customer-list-section">
             <div class="customer-list-section-inner">
@@ -38,7 +42,7 @@
                         <div class="customer-id-type-section">
                             <div class="customer-id-type-section-inner">
                                 <div class="id-section">
-                                    <p class="customer-id">{{ customer ? (customer.invoice_no ? (customer.invoice_no) : '' ) : "" }}</p>
+                                    <p class="customer-id">INV{{ customer ? (customer.id ? (customer.id) : '' ) : "" }}</p>
                                 </div>
                                 <div class="jmi-status-section_t_1">
                                     <!-- <p class="customer-type"><span class="type">{{ customer ? (customer.order_date).split(' ')[0] : "" }}</span></p> -->

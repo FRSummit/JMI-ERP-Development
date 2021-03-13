@@ -63,7 +63,7 @@
                                         <!-- Quantity Column -->
                                         <td :id="'order-data-table-tr-td-' + i">
                                             <span v-if="!(data.deal_type === 'F' && data.net_amount === '0')">
-                                                <span class="single_qty quantity-setup" v-if="STOCK_TRANSIT_VALIDATION === false">
+                                                <!-- <span class="single_qty quantity-setup">
                                                     <span class="qty" v-if="( parseInt(data.net_qty) <= parseInt(data.available_stock) ) || (data.available_stock === null)">{{ data.qty }}</span>
                                                     <span class="qty" v-if="parseInt(data.net_qty) > parseInt(data.available_stock)" :class="parseInt(data.net_qty) > parseInt(data.available_stock) ? 'jmi-stock-out' : ''">{{ data.qty }}
                                                         <span class="tool-tip">
@@ -71,8 +71,8 @@
                                                             <p class="txt">In Transit: <span>{{ data.transit_stock }}</span></p>
                                                         </span>
                                                     </span>
-                                                </span>
-                                                <span class="single_qty quantity-setup" v-if="STOCK_TRANSIT_VALIDATION === true">
+                                                </span> -->
+                                                <span class="single_qty quantity-setup">
                                                     <span class="qty">{{ data.qty }}</span>
                                                 </span>
                                                 <span class="qty_editable quantity-setup hide" style="border: 1px solid #026CD1;">
@@ -90,7 +90,8 @@
                                         </td>
                                         <!-- Bonus Column -->
                                         <td>
-                                            <span>{{ data.offer.offer_type === "bonus" ? parseInt(data.qty / (data.offer.offer.bonus_on)) : data.bonus_qty }}</span>
+                                            <!-- <span>{{ data.offer.offer_type === "bonus" ? parseInt(data.qty / (data.offer.offer.bonus_on)) : data.bonus_qty }}</span> -->
+                                            <span>{{ data.bonus_qty ? data.bonus_qty : '' }}</span>
                                         </td>
                                         <!-- Total Price Column -->
                                         <!-- <td>{{ Number(data.tp).toFixed(2) }}</td> -->
@@ -198,7 +199,7 @@
                 </div>
             </div>
             <!-- Customer Name click Modal -->
-            <div class="customer-details-modal-section" v-if="customer_details_modal">
+            <!-- <div class="customer-details-modal-section" v-if="customer_details_modal">
                 <div class="customer-details-modal-section-inner" v-click-outside="customerDetailsModalOutsideClick">
                     <div class="top-section">
                         <div class="top-section-inner">
@@ -222,7 +223,6 @@
                                                     <p class="basic-data"><span class="lvl">Customer Type:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_info ? (SHOW_CUSTOMER_PROFILE.customer_info.customer_type ? (SHOW_CUSTOMER_PROFILE.customer_info.customer_type.description) : '') : '') : '' }}</span></p>
                                                     <p class="basic-data"><span class="lvl">Sales Area:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_area_info ? (SHOW_CUSTOMER_PROFILE.customer_area_info.sales_area ? (SHOW_CUSTOMER_PROFILE.customer_area_info.sales_area.area_name ? (SHOW_CUSTOMER_PROFILE.customer_area_info.sales_area.area_name) : '') : '') : '') : '' }}</span></p>
                                                     <p class="basic-data"><span class="lvl">Sales Center:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_area_info ? (SHOW_CUSTOMER_PROFILE.customer_area_info.sales_area ? (SHOW_CUSTOMER_PROFILE.customer_area_info.sales_area.area_name ? (SHOW_CUSTOMER_PROFILE.customer_area_info.sales_area.area_name) : '') : '') : '') : '' }}</span></p>
-                                                    <!-- <p class="basic-data"><span class="lvl">Credit Limit:</span><span class="lvl-value">2,00,000</span></p> -->
                                                     <p class="basic-data"><span class="lvl">Type of Payment:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.credit_flag === 'Y' ? 'Cash' : 'Credit') : '' }}</span></p>
                                                 </div>
                                             </div>
@@ -313,7 +313,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
         <!-- Reject Order Modal -->
         <div class="modal-popup-section order-proceed-modal" v-if="reject_order_modal_popup">
@@ -936,7 +936,7 @@ export default {
         // Increase Table Row's Single Product/Order
         increaseOrderedItemClickHandler(data, index) {
             console.log(data + '    ' + index)
-            console.log(parseInt(data.qty))
+            /*console.log(parseInt(data.qty))
             console.log(parseInt(data.available_stock))
             console.log(parseInt(data.transit_stock))
             if(parseInt(this.ORDER_CREATED_BY) !== parseInt(this.ORDER_AUTH_USER)) {
@@ -968,7 +968,7 @@ export default {
             }
             console.log(data.offer.offer.free_req_qty)
             // console.log(this.ORDERED_TABLE_DATA__INIT_LIST[index + 1].bonus_qty)
-            console.log(data.qty)
+            console.log(data.qty)*/
         },
         // Decrease Table Row's Single Product/Order
         decreaseOrderedItemClickHandler(data, index) {
@@ -981,9 +981,12 @@ export default {
                 this.createSubtotalCalculation()
             }
             // Free Product row quantity decrease
-            if(data.offer.offer_type === "free") {
-                this.ORDERED_TABLE_DATA__INIT_LIST[index + 1].bonus_qty--
-            }
+            // if(data.offer.offer_type === "free") {
+            //     this.ORDERED_TABLE_DATA__INIT_LIST[index + 1].bonus_qty--
+            // }
+            // if(data.offer.offer_type === "free") {
+            //     this.ORDERED_TABLE_DATA__INIT_LIST[index + 1].bonus_qty--
+            // }
             if(parseInt(data.net_qty) > parseInt(data.available_stock) && parseInt(data.available_stock) > 0) {
                 this.DISABLE_SUBMISSION_BTN = false
             } else {
@@ -1630,7 +1633,7 @@ export default {
             for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST.length; i++) {
                 this.sub_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_tp) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty
                 this.vat_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_vat) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty
-                this.discount_total += (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_tp) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) - (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.price_now_per_qty) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty)
+                // this.discount_total += (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_tp) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) - (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.price_now_per_qty) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty)
                 // console.log(parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.price_now_per_qty) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty)
             }
             // this.discount_total = 0
@@ -1638,59 +1641,59 @@ export default {
             this.grand_total = this.sub_total + this.vat_total - this.discount_total
         },
         // -----------------------------------------------------------------------------------------------
-        async GENERATE_ORDERED_PRODUCTS_DETAILS_LIST_FROM_PRODUCT_OFFER_RESPONSE() {
-            // if(this.UPDATE_ORDER_CLICKED) {
-            //     this.ORDERED_TABLE_DATA__INIT_LIST = []
-            //     this.UPDATE_ORDER_CLICKED = false
-            // }
-            if(this.SELECTED_ORDERED_PRODUCTS__STORE.length > 0 && this.RESPONSE_ORDERED_PRODUCTS__STORE.length > 0) {
-                for (let i=0; i<this.SELECTED_ORDERED_PRODUCTS__STORE.length; i++) {
-                    for(let j=0; j<this.RESPONSE_ORDERED_PRODUCTS__STORE.length; j++) {
-                        if( parseInt(this.SELECTED_ORDERED_PRODUCTS__STORE[i].prod_id) === parseInt(this.RESPONSE_ORDERED_PRODUCTS__STORE[j].prod_id) ) {
-                            let product = {
-                                    prod_id             : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].prod_id,
-                                    prod_name           : this.SELECTED_ORDERED_PRODUCTS__STORE[i].prod_name,
-                                    base_tp             : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].base_tp,
-                                    price_now_per_qty   : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].price_now_per_qty,
-                                    base_vat            : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].base_vat,
-                                    line_total          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].line_total,
-                                    vat_total           : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].vat_total,
-                                    quantity            : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].quantity,
-                                    offer_type          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type,
-                                    offer               : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer,
-                                    row_class           : ''
-                            }
-                            this.ORDERED_TABLE_DATA__INIT_LIST_2.push(product)
+        // async GENERATE_ORDERED_PRODUCTS_DETAILS_LIST_FROM_PRODUCT_OFFER_RESPONSE() {
+        //     // if(this.UPDATE_ORDER_CLICKED) {
+        //     //     this.ORDERED_TABLE_DATA__INIT_LIST = []
+        //     //     this.UPDATE_ORDER_CLICKED = false
+        //     // }
+        //     if(this.SELECTED_ORDERED_PRODUCTS__STORE.length > 0 && this.RESPONSE_ORDERED_PRODUCTS__STORE.length > 0) {
+        //         for (let i=0; i<this.SELECTED_ORDERED_PRODUCTS__STORE.length; i++) {
+        //             for(let j=0; j<this.RESPONSE_ORDERED_PRODUCTS__STORE.length; j++) {
+        //                 if( parseInt(this.SELECTED_ORDERED_PRODUCTS__STORE[i].prod_id) === parseInt(this.RESPONSE_ORDERED_PRODUCTS__STORE[j].prod_id) ) {
+        //                     let product = {
+        //                             prod_id             : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].prod_id,
+        //                             prod_name           : this.SELECTED_ORDERED_PRODUCTS__STORE[i].prod_name,
+        //                             base_tp             : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].base_tp,
+        //                             price_now_per_qty   : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].price_now_per_qty,
+        //                             base_vat            : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].base_vat,
+        //                             line_total          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].line_total,
+        //                             vat_total           : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].vat_total,
+        //                             quantity            : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].quantity,
+        //                             offer_type          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type,
+        //                             offer               : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer,
+        //                             row_class           : ''
+        //                     }
+        //                     this.ORDERED_TABLE_DATA__INIT_LIST_2.push(product)
 
-                            // FOR FREE PRODUCT ENTRY
-                            if(this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type === "free") {
-                                let ferr_product = {
-                                        prod_id             : this.RESPONSE_ORDERED_PRODUCTS__STORE[i].prod_id,
-                                        prod_name           : this.SELECTED_ORDERED_PRODUCTS__STORE[i].prod_name,
-                                        base_tp             : this.RESPONSE_ORDERED_PRODUCTS__STORE[i].base_tp,
-                                        price_now_per_qty   : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].price_now_per_qty,
-                                        base_vat            : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].base_vat,
-                                        line_total          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].line_total,
-                                        vat_total           : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].vat_total,
-                                        // price_now_per_qty   : 0,
-                                        // base_vat            : 0,
-                                        // line_total          : 0,
-                                        // vat_total           : 0,
-                                        quantity            : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].quantity,
-                                        offer_type          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type,
-                                        offer               : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer,
-                                        row_class           : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type
-                                }
-                                this.ORDERED_TABLE_DATA__INIT_LIST_2.push(ferr_product)
-                            }
-                        }
-                    }
-                }
-            }
-            this.createSubtotalCalculation()
-            console.log(this.ORDERED_TABLE_DATA__INIT_LIST_2)
-            this.UPDATE_BTN_TRUE = false
-        },
+        //                     // FOR FREE PRODUCT ENTRY
+        //                     if(this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type === "free") {
+        //                         let ferr_product = {
+        //                                 prod_id             : this.RESPONSE_ORDERED_PRODUCTS__STORE[i].prod_id,
+        //                                 prod_name           : this.SELECTED_ORDERED_PRODUCTS__STORE[i].prod_name,
+        //                                 base_tp             : this.RESPONSE_ORDERED_PRODUCTS__STORE[i].base_tp,
+        //                                 price_now_per_qty   : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].price_now_per_qty,
+        //                                 base_vat            : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].base_vat,
+        //                                 line_total          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].line_total,
+        //                                 vat_total           : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].vat_total,
+        //                                 // price_now_per_qty   : 0,
+        //                                 // base_vat            : 0,
+        //                                 // line_total          : 0,
+        //                                 // vat_total           : 0,
+        //                                 quantity            : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].quantity,
+        //                                 offer_type          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type,
+        //                                 offer               : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer,
+        //                                 row_class           : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type
+        //                         }
+        //                         this.ORDERED_TABLE_DATA__INIT_LIST_2.push(ferr_product)
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     }
+        //     this.createSubtotalCalculation()
+        //     console.log(this.ORDERED_TABLE_DATA__INIT_LIST_2)
+        //     this.UPDATE_BTN_TRUE = false
+        // },
         // -------------------------------------------------------------------------------------------------
         // Default Functionality
         defaultAllThisComponentData() {
@@ -1765,19 +1768,20 @@ export default {
             // console.log(this.pending_order_list_by_id.order_details)
             // await this.defaultAllThisComponentData()
             setTimeout( () => {
-                console.log(this.pending_order_list_by_id.order_date)
+                console.log(this.pending_order_list_by_id.invoice_details)
                 // console.log(this.pending_order_list_by_id)
                 this.SHOW_PRINT_ICON = true
                 this.PENDING_ORDER_DATA_BY_ID = this.pending_order_list_by_id
+                // this.ORDERED_TABLE_DATA__INIT_LIST = this.pending_order_list_by_id.invoice_details
                 this.ORDERED_TABLE_DATA__INIT_LIST = this.pending_order_list_by_id.order_details
-                this.set_Or_Change_SR(this.pending_order_list_by_id.da_id)
-                this.set_Or_Change_Date(this.pending_order_list_by_id.order_date)
+                // this.set_Or_Change_SR(this.pending_order_list_by_id.da_id)
+                // this.set_Or_Change_Date(this.pending_order_list_by_id.order_date)
                 // this.ORDER_CREATED_BY = 101
                 this.ORDER_CREATED_BY = this.pending_order_list_by_id.created_by
                 this.ORDER_AUTH_USER = this.pending_order_list_by_id.auth_user
                 console.log(this.PENDING_ORDER_DATA_BY_ID.is_verified)
                 console.log(this.order_id_from_left_side)
-                this.createSubtotalCalculation()
+                // this.createSubtotalCalculation()
                 console.log(this.ORDERED_TABLE_DATA__INIT_LIST)
             }, 100)
             // if( newVal && oldVal) {

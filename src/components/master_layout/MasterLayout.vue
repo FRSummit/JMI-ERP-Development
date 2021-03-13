@@ -19,7 +19,7 @@
             <p class="group-name">{{ sbu_name }}</p>
           </div>
           <div class="group-selection-dropdown-section" v-click-outside="groupModalOutsideClick">
-            <span class="group-selection-icon" @click="selectGroup()">
+            <span class="group-selection-icon" @click="selectGroup()" v-if="sbu_list">
               <i class="fas fa-exchange-alt"></i>
             </span>
             <GroupModal v-on:sbu_list_is_present="sbuListIsPresent" />
@@ -275,10 +275,11 @@ export default {
       this.sbu_list_is_present = flag
     },
     // SERVICE IMPLEMENTATION
-    async WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE() {
-      await service.getWEB_SystemAssignedSBU()
+    async WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE(token) {
+      await service.getWEB_SystemAssignedSBU(token)
         .then(res => {
           console.log(res.data)
+          this.sbu_list = []
           this.sbu_list = res.data.data
           this.progress = false;
         })
@@ -297,7 +298,9 @@ export default {
         console.log('change name')
         this.sbu_list = []
         setTimeout(()=> {
-          this.WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE()
+          let token = JSON.parse(localStorage.getItem("user")) ? JSON.parse(localStorage.getItem("user")).accessToken : ''
+          console.log(token)
+          this.WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE(token)
         }, 3000)
       }
     }

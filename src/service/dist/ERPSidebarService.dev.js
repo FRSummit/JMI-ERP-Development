@@ -88,7 +88,7 @@ function () {
     }
   }, {
     key: "getWEB_SystemAssignedSBU",
-    value: function getWEB_SystemAssignedSBU() {
+    value: function getWEB_SystemAssignedSBU(token_2) {
       var web_menu_url;
       return regeneratorRuntime.async(function getWEB_SystemAssignedSBU$(_context3) {
         while (1) {
@@ -99,7 +99,7 @@ function () {
               return regeneratorRuntime.awrap((0, _axios["default"])(web_menu_url, {
                 method: 'GET',
                 headers: {
-                  'Authorization': token_type + ' ' + token
+                  'Authorization': token_type + ' ' + token_2
                 }
               }));
 
