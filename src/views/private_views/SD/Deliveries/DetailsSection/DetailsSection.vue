@@ -1,18 +1,20 @@
 <template>
-    <div id="order-approval-details-section" class="order-approval-details-section">
-        <div class="order-approval-details-section-inner">
-            <div class="print-section" v-if="SHOW_PRINT_ICON">
+    <div id="deliveries-details-section" class="deliveries-details-section">
+        <div class="deliveries-details-section-inner">
+            <!-- <div class="print-section" v-if="SHOW_PRINT_ICON">
                 <span class="print-icon" @click="printInvoiceClickHandler"><i class="zmdi zmdi-print"></i></span>
-            </div>
+            </div> -->
             <div class="title-section">
                 <div class="row">
-                    <div class="col-lg-3 col-md-4 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Invoice No:</span><span class="id">{{ PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.order_no : "" }}</span></p></div>
-                    <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer:</span><span class="jmi-lvl-value id url" @click="customerDetailsClickHandler">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? PENDING_ORDER_DATA_BY_ID.sbu_customer_info.display_name : '') : '' }}</span></p></div>
-                    <div class="col-lg-3 col-md-4 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Status:</span> <span class="jmi-lvl-value">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.is_approved === 'N' ? 'Pending' : '') : '' }}</span></p></div>
+                    <div class="col-lg-3 col-md-4 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Invoice No:</span><span class="id">{{ PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.invoice_no : "" }}</span></p></div>
+                    <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer:</span><span class="jmi-lvl-value id">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? PENDING_ORDER_DATA_BY_ID.sbu_customer_info.display_name : '') : '' }}</span></p></div>
+                    <!-- <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer:</span><span class="jmi-lvl-value id url" @click="customerDetailsClickHandler">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? PENDING_ORDER_DATA_BY_ID.sbu_customer_info.display_name : '') : '' }}</span></p></div> -->
+                    <div class="col-lg-3 col-md-4 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Phone:</span> <span class="jmi-lvl-value">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_info.person_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_info.person_info.phone ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_info.person_info.phone) : '') : '') : '') : '') : '' }}</span></p></div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-3 col-md-4 col-sm-12"><p class="jmi-title">Territory ID: <span class="jmi-lvl-value">{{ PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.territory_id : '' }}</span></p></div>
-                    <div class="col-lg-9 col-md-8 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><span class="jmi-lvl-value address">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_address ? PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_address : '') : '') : '' }}</span></p></div>
+                    <div class="col-lg-3 col-md-3 col-sm-12"><p class="jmi-title">Total Bill: <span class="jmi-lvl-value">{{ PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.net_total : '' }}</span></p></div>
+                    <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><span class="jmi-lvl-value address">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_info.customer_address ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_info.customer_address) : '') : '') : '') : '' }}</span></p></div>
+                    <div class="col-lg-3 col-md-3 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Order Placed:</span><span class="jmi-lvl-value address">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.created_at ? (PENDING_ORDER_DATA_BY_ID.created_at).split('T')[0] : '') : '' }}</span></p></div>
                     
                 </div>
             </div>
@@ -22,24 +24,8 @@
                     <div class="row">
                         <div class="col-lg-3 col-md-6 col-sm-6"><p class="am">AM: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info.name) : '') : '') : '') : '') : '' }}</span></p></div>
                         <div class="col-lg-3 col-md-6 col-sm-6"><p class="mio">MIO: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info.name) : '') : '') : '') : '') : '') : '') : '' }}</span></p></div>
-                        <div class="col-lg-3 col-md-6 col-sm-6" style="line-height: 1;">
-                            <div class="sr" style="display: table-cell; width: 33%; padding-right: 20px; padding-bottom: 0; line-height: 1;">
-                                <span class="jmi-lvl">SR: </span>
-                                <p class="selectpicker-pera"> 
-                                    <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_70">{{ selected_sr }}</span>
-                                    <span class="sr-modal" v-if="sr_add_modal">
-                                        <span class="sr-modal-inner" v-click-outside="srModalSectionOutsideClick">
-                                            <span class="jmi-title">Select SR</span>
-                                            <span class="sr-loop" v-for="(sr, m) in SR_LIST__DA" :key="m">
-                                                <span  class="sr-name" @click="selectedSRClickHandler(sr.name)">{{ sr.name }}</span>
-                                            </span>
-                                        </span>
-                                    </span>
-                                </p>
-                                <span class="sr-add-icon" @click="srAddIconClickHandler"><i class="zmdi zmdi-plus"></i></span>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6 right_side_row"><p class="delivery-dt"><span class="jmi-lvl" style="font-size: 15px;">Delivery:</span> <span class="jmi-lvl-value"><input type="date" v-model="header_date" id="expected-delivery-date" placeholder="09/12/2020" /></span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="mio">SR: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.get_sales_area ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.get_sales_area ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.get_sales_area.area_name ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.get_sales_area.area_name) : '') : '') : '') : '') : '') : '') : '' }}</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="mio">Delivery Date: <span class="jmi-lvl-value">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.delivery_date ? (PENDING_ORDER_DATA_BY_ID.delivery_date).split(' ')[0] : '') : '' }}</span></p></div>
                     </div>
                 </div>
             </div>
@@ -162,7 +148,7 @@
             <div class="submit-section" v-if="ORDERED_TABLE_DATA__INIT_LIST && PENDING_ORDER_DATA_BY_ID">
                 <div class="submit-section-inner">
                     <span class="proceed-order" @click="updateOrderClickHandler" style="margin-right: 20px;" v-if="UPDATE_BTN_ENABLE">Update Order</span>
-                    <span class="proceed-order" @click="proceedOrderClickHandler" v-if="!UPDATE_BTN_ENABLE">Approve Order</span>
+                    <span class="proceed-order" @click="proceedOrderClickHandler" v-if="!UPDATE_BTN_ENABLE">Delivered Order</span>
                 </div>
             </div>
             <!-- Current Outstanding Modal -->
@@ -225,7 +211,7 @@
                             </div>
                             <div class="tab-section">
                                 <div class="tab-section-inner">
-                                    <b-tabs class="mt-3 order-approval-customer-details">
+                                    <b-tabs class="mt-3 deliveries-customer-details">
                                         <b-tab title="Basic" active>
                                             <div class="basic-section">
                                                 <div class="basic-section-inner">
@@ -370,37 +356,168 @@
                 <p class="popup-text">Product Update Successfully</p>
             </div>
         </div>
-        <!-- Approve Product Confirmation -->
-        <div class="modal-popup-section order-proceed-modal" v-if="approve_product_confirmation_popup_modal">
-            <div class="modal-popup-section-inner order-proceed-modal-inner">
-                <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
-                <p class="popup-text">Are you sure?</p>
-                <p class="popup-desc">You want to approve the order.</p>
-                <span class="divider"></span>
-                <div class="popup-submit-section">
-                <div class="popup-cancel-btn-section">
-                    <span @click="cancelApprovingSingleOrderClickHandler">Cancel</span>
-                </div>
-                <div class="popup-confirm-btn-section">
-                    <span @click="confirmApprovingSingleOrderClickHandler">Confirm</span>
-                </div>
+        <!-- Proceed Delevery Modal -->
+        <div class="modal-popup-section deliveries-proceed-modal" v-if="approve_product_confirmation_popup_modal">
+            <div class="modal-popup-section-inner deliveries-proceed-modal">
+                <div class="tab-section">
+                    <div class="tab-section-inner">
+                        <b-tabs class="mt-3 deliveries-customer-details">
+                            <b-tab title="Cash" active>
+                                <div class="tab-inner cash">
+                                    <div class="row">
+                                        <div class="imvoice-amount">
+                                            <p class="jmi-lvl">Invoice Amount:</p>
+                                            <p class="jmi-lvl-value">10000</p>
+                                        </div>
+                                        <div class="imvoice-amount">
+                                            <p class="jmi-lvl">Invoice Amount:</p>
+                                            <p class="jmi-lvl-value">10000</p>
+                                        </div>
+                                    </div>
+                                    <div class="row receiver-amount">
+                                        <p class="jmi-lvl">Type Receiver Amount</p>
+                                        <input type="text" v-model="receiver_amount">
+                                    </div>
+                                </div>
+                            </b-tab>
+                            <b-tab title="Cheque">
+                                <div class="tab-inner cheque">
+                                    <div class="row">
+                                        <div class="imvoice-amount">
+                                            <p class="jmi-lvl">Invoice Amount:</p>
+                                            <p class="jmi-lvl-value">10000</p>
+                                        </div>
+                                        <div class="imvoice-amount">
+                                            <p class="jmi-lvl">Invoice Amount:</p>
+                                            <p class="jmi-lvl-value">10000</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="jmi-inline-block">
+                                            <p class="jmi-lvl">Select date</p>
+                                            <input type="text" v-model="receiver_amount">
+                                        </div>
+                                        <div class="jmi-inline-block right-alg">
+                                            <p class="jmi-lvl">Type Receiver Amount</p>
+                                            <input type="text" v-model="receiver_amount">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="jmi-inline-block">
+                                            <p class="jmi-lvl">Enter cheque Number</p>
+                                            <input type="text" v-model="receiver_amount">
+                                        </div>
+                                        <div class="jmi-inline-block right-alg">
+                                            <p class="jmi-lvl">Attach File (File Should be jpg, png, pdf)</p>
+                                            <input type="text" v-model="receiver_amount">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <img src="https://static6.depositphotos.com/1005979/577/i/600/depositphotos_5777799-stock-photo-blank-check-with-open-space.jpg" alt="">
+                                    </div>
+                                </div>
+                            </b-tab>
+                            <b-tab title="Deposit Slip">
+                                <div class="tab-inner cheque">
+                                    <div class="row">
+                                        <div class="imvoice-amount">
+                                            <p class="jmi-lvl">Invoice Amount:</p>
+                                            <p class="jmi-lvl-value">10000</p>
+                                        </div>
+                                        <div class="imvoice-amount">
+                                            <p class="jmi-lvl">Invoice Amount:</p>
+                                            <p class="jmi-lvl-value">10000</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="jmi-inline-block">
+                                            <p class="jmi-lvl">Select date</p>
+                                            <input type="text" v-model="receiver_amount">
+                                        </div>
+                                        <div class="jmi-inline-block right-alg">
+                                            <p class="jmi-lvl">Type Receiver Amount</p>
+                                            <input type="text" v-model="receiver_amount">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="jmi-inline-block">
+                                            <p class="jmi-lvl">Attach File (File Should be jpg, png, pdf)</p>
+                                            <input type="text" v-model="receiver_amount">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <img src="https://static6.depositphotos.com/1005979/577/i/600/depositphotos_5777799-stock-photo-blank-check-with-open-space.jpg" alt="">
+                                    </div>
+                                </div>
+                            </b-tab>
+                            <b-tab title="Adjustment">
+                                <div class="tab-inner cheque"> 
+                                    <div class="row">
+                                        <div class="jmi-inline-block">
+                                            <p class="jmi-lvl">Attach File (File Should be jpg, png, pdf)</p>
+                                            <input type="text" v-model="receiver_amount">
+                                        </div>
+                                        <div class="jmi-inline-block right-alg">
+                                            <p class="jmi-lvl">VAT Chalan.pdf</p>
+                                            <input type="text" v-model="receiver_amount">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="jmi-inline-block">
+                                            <p class="jmi-lvl">Attach File (File Should be jpg, png, pdf)</p>
+                                            <input type="text" v-model="receiver_amount">
+                                        </div>
+                                        <div class="jmi-inline-block right-alg">
+                                            <p class="jmi-lvl">ABC Chalan.pdf</p>
+                                            <input type="text" v-model="receiver_amount">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="jmi-inline-block">
+                                            <p class="jmi-lvl">Attach File (File Should be jpg, png, pdf)</p>
+                                            <input type="text" v-model="receiver_amount">
+                                        </div>
+                                        <div class="jmi-inline-block right-alg">
+                                            <p class="jmi-lvl">Credit Memo.pdf</p>
+                                            <input type="text" v-model="receiver_amount">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="jmi-inline-block">
+                                            <p class="jmi-lvl">Attach File (File Should be jpg, png, pdf)</p>
+                                            <input type="text" v-model="receiver_amount">
+                                        </div>
+                                        <div class="jmi-inline-block right-alg">
+                                            <p class="jmi-lvl">Collection Memo.pdf</p>
+                                            <input type="text" v-model="receiver_amount">
+                                        </div>
+                                    </div>
+                                </div>
+                            </b-tab>
+                        </b-tabs>
+                        <div class="submit-section">
+                            <button class="cancel">Cancel</button>
+                            <button class="confirm">Proceed</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        <!--  -->
         <!-- Order Approved Message -->
-        <div id="update-successfully-modal" class="modal-popup-section update-successfully-modal" v-if="approved_single_order_modal">
+        <!-- <div id="update-successfully-modal" class="modal-popup-section update-successfully-modal" v-if="approved_single_order_modal">
             <div class="modal-popup-section-inner update-successfully-modal-inner">
                 <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
                 <p class="popup-text">{{ ORDER_SUCCESS_MESSAGE }}</p>
             </div>
-        </div>
+        </div> -->
         <!-- Order Approved Message -->
-        <div id="update-successfully-modal" class="modal-popup-section update-successfully-modal" v-if="removing_last_product_from_cart">
+        <!-- <div id="update-successfully-modal" class="modal-popup-section update-successfully-modal" v-if="removing_last_product_from_cart">
             <div class="modal-popup-section-inner update-successfully-modal-inner">
                 <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
                 <p class="popup-text">Please reject this order.</p>
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
 
@@ -428,7 +545,7 @@ export default {
     data() {
         return {
             on_change_SR_dropdown: null,
-            SR_LIST__DA: [],
+            // SR_LIST__DA: [],
             header_date: null,
             order_table_header: ["Name", "Unit Price", "Quantity", "Bonus", "Total Price"],
             PRODUCT_MODAL_DATA_LIST: [],
@@ -791,7 +908,7 @@ export default {
         .then( coordinates => {
             console.log(coordinates)
         })
-        await this.DIC_WISE_USERS__FROM_SERVICE()
+        // await this.DIC_WISE_USERS__FROM_SERVICE()
     },
     methods: {
         onChangeSRDropdown() {
@@ -1082,7 +1199,7 @@ export default {
         },
         async confirmApprovingSingleOrderClickHandler() {
             this.approve_product_confirmation_popup_modal = false
-            await this.APPROVE_SINGLE_ORDER__FROM_SERVICE()
+            // await this.APPROVE_SINGLE_ORDER__FROM_SERVICE()
             this.createSubtotalCalculation()
         },
         //------------------------------------------------------------------------------------------
@@ -1315,14 +1432,14 @@ export default {
         // --------------------------------------------------------------------------------------------
         // Filter - Order Approval add product modal
         searchKeyUpAddProductHandler() {
-            let input = document.getElementById("order-approval-add-product");
+            let input = document.getElementById("deliveries-add-product");
             let filter = input.value.toUpperCase();
             let list = document.querySelectorAll('.responer-body-filter-output')
             let txt_selector = "responer-body-filter-tag"
             let id_selector = "responer-body-filter-tag-id"
 
             // console.log(value.key)
-            let v = document.querySelector('#order-approval-add-product').value
+            let v = document.querySelector('#deliveries-add-product').value
             if(isNaN(v)) {
                 jmiFilter.searchByID_Name_Details_Section(filter, list, txt_selector)
             } else {
@@ -1336,13 +1453,13 @@ export default {
         },
         // ------------------------------------------------------------------------------------------
         // Service Implementation
-        async DIC_WISE_USERS__FROM_SERVICE() {
-            await service.getDICWiseUsers_MonthlyDeliveryPlan()
-                .then(res => {
-                    console.log(res.data)
-                    this.SR_LIST__DA = res.data.users.da
-                })
-        },
+        // async DIC_WISE_USERS__FROM_SERVICE() {
+        //     await service.getDICWiseUsers_MonthlyDeliveryPlan()
+        //         .then(res => {
+        //             console.log(res.data)
+        //             this.SR_LIST__DA = res.data.users.da
+        //         })
+        // },
         async ADD_PRODUCTS_DATA_LIST__FROM_SERVICE() {
             await service.getSearchProductDataList_CreateOrderDetailsSection()
                 .then(res => {
@@ -1606,14 +1723,14 @@ export default {
             let date = yyyy + '-' + mm + '-' + dd
             return date
         },
-        set_Or_Change_SR(da_id) {
-            console.log(da_id)
-            for(let i=0; i<this.SR_LIST__DA.length; i++) {
-                if(this.SR_LIST__DA[i].id === parseInt(da_id)) {
-                    this.selected_sr = this.SR_LIST__DA[i].name
-                }
-            }
-        },
+        // set_Or_Change_SR(da_id) {
+        //     console.log(da_id)
+        //     for(let i=0; i<this.SR_LIST__DA.length; i++) {
+        //         if(this.SR_LIST__DA[i].id === parseInt(da_id)) {
+        //             this.selected_sr = this.SR_LIST__DA[i].name
+        //         }
+        //     }
+        // },
         set_Or_Change_Date(da_date) {
             console.log(da_date)
             this.header_date = da_date ? da_date.toString().split(' ')[0] : null

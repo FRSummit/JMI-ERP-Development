@@ -1420,20 +1420,24 @@ function () {
           }
         }
       });
-    } //////////////////////////////////////////////////////////////////////////////////////////
-    // Get Doctors Profile
+    } // DELEVERIES - LEFT SECTION
 
   }, {
-    key: "autocomplete",
-    value: function autocomplete() {
+    key: "getPendingDeliveredInvoiceList_DELEVERIES",
+    value: function getPendingDeliveredInvoiceList_DELEVERIES() {
       var web_menu_url;
-      return regeneratorRuntime.async(function autocomplete$(_context48) {
+      return regeneratorRuntime.async(function getPendingDeliveredInvoiceList_DELEVERIES$(_context48) {
         while (1) {
           switch (_context48.prev = _context48.next) {
             case 0:
-              web_menu_url = 'https://api.publicapis.org/entries';
+              web_menu_url = '/api/web/pending-delivered-invoice-list';
               _context48.next = 3;
-              return regeneratorRuntime.awrap((0, _axios["default"])(web_menu_url));
+              return regeneratorRuntime.awrap((0, _axios["default"])(web_menu_url, {
+                method: 'GET',
+                headers: {
+                  'Authorization': token_type + ' ' + token
+                }
+              }));
 
             case 3:
               return _context48.abrupt("return", _context48.sent);
@@ -1444,24 +1448,25 @@ function () {
           }
         }
       });
-    }
+    } //////////////////////////////////////////////////////////////////////////////////////////
+    // Get Doctors Profile
+
   }, {
-    key: "getAllSidebarMenu",
-    value: function getAllSidebarMenu() {
-      return regeneratorRuntime.async(function getAllSidebarMenu$(_context49) {
+    key: "autocomplete",
+    value: function autocomplete() {
+      var web_menu_url;
+      return regeneratorRuntime.async(function autocomplete$(_context49) {
         while (1) {
           switch (_context49.prev = _context49.next) {
             case 0:
-              _context49.next = 2;
-              return regeneratorRuntime.awrap((0, _axios["default"])({
-                method: 'GET',
-                url: FRSAPIURL + '/jerp_menu'
-              }));
-
-            case 2:
-              return _context49.abrupt("return", _context49.sent);
+              web_menu_url = 'https://api.publicapis.org/entries';
+              _context49.next = 3;
+              return regeneratorRuntime.awrap((0, _axios["default"])(web_menu_url));
 
             case 3:
+              return _context49.abrupt("return", _context49.sent);
+
+            case 4:
             case "end":
               return _context49.stop();
           }
@@ -1469,16 +1474,16 @@ function () {
       });
     }
   }, {
-    key: "getAllCompanyList",
-    value: function getAllCompanyList() {
-      return regeneratorRuntime.async(function getAllCompanyList$(_context50) {
+    key: "getAllSidebarMenu",
+    value: function getAllSidebarMenu() {
+      return regeneratorRuntime.async(function getAllSidebarMenu$(_context50) {
         while (1) {
           switch (_context50.prev = _context50.next) {
             case 0:
               _context50.next = 2;
               return regeneratorRuntime.awrap((0, _axios["default"])({
                 method: 'GET',
-                url: FRSAPIURL + '/company_list'
+                url: FRSAPIURL + '/jerp_menu'
               }));
 
             case 2:
@@ -1492,16 +1497,16 @@ function () {
       });
     }
   }, {
-    key: "getAllChatList",
-    value: function getAllChatList() {
-      return regeneratorRuntime.async(function getAllChatList$(_context51) {
+    key: "getAllCompanyList",
+    value: function getAllCompanyList() {
+      return regeneratorRuntime.async(function getAllCompanyList$(_context51) {
         while (1) {
           switch (_context51.prev = _context51.next) {
             case 0:
               _context51.next = 2;
               return regeneratorRuntime.awrap((0, _axios["default"])({
                 method: 'GET',
-                url: FRSAPIURL + '/chat'
+                url: FRSAPIURL + '/company_list'
               }));
 
             case 2:
@@ -1515,16 +1520,16 @@ function () {
       });
     }
   }, {
-    key: "getAllNoificationList",
-    value: function getAllNoificationList() {
-      return regeneratorRuntime.async(function getAllNoificationList$(_context52) {
+    key: "getAllChatList",
+    value: function getAllChatList() {
+      return regeneratorRuntime.async(function getAllChatList$(_context52) {
         while (1) {
           switch (_context52.prev = _context52.next) {
             case 0:
               _context52.next = 2;
               return regeneratorRuntime.awrap((0, _axios["default"])({
                 method: 'GET',
-                url: FRSAPIURL + '/noification'
+                url: FRSAPIURL + '/chat'
               }));
 
             case 2:
@@ -1538,16 +1543,16 @@ function () {
       });
     }
   }, {
-    key: "getAllUser",
-    value: function getAllUser() {
-      return regeneratorRuntime.async(function getAllUser$(_context53) {
+    key: "getAllNoificationList",
+    value: function getAllNoificationList() {
+      return regeneratorRuntime.async(function getAllNoificationList$(_context53) {
         while (1) {
           switch (_context53.prev = _context53.next) {
             case 0:
               _context53.next = 2;
               return regeneratorRuntime.awrap((0, _axios["default"])({
                 method: 'GET',
-                url: FRSAPIURL + '/user'
+                url: FRSAPIURL + '/noification'
               }));
 
             case 2:
@@ -1561,16 +1566,16 @@ function () {
       });
     }
   }, {
-    key: "getUsersList",
-    value: function getUsersList() {
-      return regeneratorRuntime.async(function getUsersList$(_context54) {
+    key: "getAllUser",
+    value: function getAllUser() {
+      return regeneratorRuntime.async(function getAllUser$(_context54) {
         while (1) {
           switch (_context54.prev = _context54.next) {
             case 0:
               _context54.next = 2;
               return regeneratorRuntime.awrap((0, _axios["default"])({
                 method: 'GET',
-                url: FRSAPIURL + '/users'
+                url: FRSAPIURL + '/user'
               }));
 
             case 2:
@@ -1584,16 +1589,16 @@ function () {
       });
     }
   }, {
-    key: "getLoginRequestUserData",
-    value: function getLoginRequestUserData(username, password) {
-      return regeneratorRuntime.async(function getLoginRequestUserData$(_context55) {
+    key: "getUsersList",
+    value: function getUsersList() {
+      return regeneratorRuntime.async(function getUsersList$(_context55) {
         while (1) {
           switch (_context55.prev = _context55.next) {
             case 0:
               _context55.next = 2;
               return regeneratorRuntime.awrap((0, _axios["default"])({
                 method: 'GET',
-                url: FRSAPIURL + '/' + "users?username=".concat(username, "&password=").concat(password)
+                url: FRSAPIURL + '/users'
               }));
 
             case 2:
@@ -1607,24 +1612,22 @@ function () {
       });
     }
   }, {
-    key: "getPassengersList",
-    value: function getPassengersList(itemsPerPage, pageNumber) {
-      return regeneratorRuntime.async(function getPassengersList$(_context56) {
+    key: "getLoginRequestUserData",
+    value: function getLoginRequestUserData(username, password) {
+      return regeneratorRuntime.async(function getLoginRequestUserData$(_context56) {
         while (1) {
           switch (_context56.prev = _context56.next) {
             case 0:
-              console.log(itemsPerPage + '    ' + pageNumber); // return await axios.get('/passengers_list');
-
-              _context56.next = 3;
+              _context56.next = 2;
               return regeneratorRuntime.awrap((0, _axios["default"])({
                 method: 'GET',
-                url: FRSAPIURL + '/passengers_list'
+                url: FRSAPIURL + '/' + "users?username=".concat(username, "&password=").concat(password)
               }));
 
-            case 3:
+            case 2:
               return _context56.abrupt("return", _context56.sent);
 
-            case 4:
+            case 3:
             case "end":
               return _context56.stop();
           }
@@ -1632,22 +1635,24 @@ function () {
       });
     }
   }, {
-    key: "getCompetitorsDataMgt",
-    value: function getCompetitorsDataMgt() {
-      return regeneratorRuntime.async(function getCompetitorsDataMgt$(_context57) {
+    key: "getPassengersList",
+    value: function getPassengersList(itemsPerPage, pageNumber) {
+      return regeneratorRuntime.async(function getPassengersList$(_context57) {
         while (1) {
           switch (_context57.prev = _context57.next) {
             case 0:
-              _context57.next = 2;
+              console.log(itemsPerPage + '    ' + pageNumber); // return await axios.get('/passengers_list');
+
+              _context57.next = 3;
               return regeneratorRuntime.awrap((0, _axios["default"])({
                 method: 'GET',
-                url: FRSAPIURL + '/competitors_data'
+                url: FRSAPIURL + '/passengers_list'
               }));
 
-            case 2:
+            case 3:
               return _context57.abrupt("return", _context57.sent);
 
-            case 3:
+            case 4:
             case "end":
               return _context57.stop();
           }
@@ -1655,16 +1660,16 @@ function () {
       });
     }
   }, {
-    key: "getSBUData",
-    value: function getSBUData() {
-      return regeneratorRuntime.async(function getSBUData$(_context58) {
+    key: "getCompetitorsDataMgt",
+    value: function getCompetitorsDataMgt() {
+      return regeneratorRuntime.async(function getCompetitorsDataMgt$(_context58) {
         while (1) {
           switch (_context58.prev = _context58.next) {
             case 0:
               _context58.next = 2;
               return regeneratorRuntime.awrap((0, _axios["default"])({
                 method: 'GET',
-                url: FRSAPIURL + '/sub_data'
+                url: FRSAPIURL + '/competitors_data'
               }));
 
             case 2:
@@ -1678,16 +1683,16 @@ function () {
       });
     }
   }, {
-    key: "getSBUSisterConcernData",
-    value: function getSBUSisterConcernData() {
-      return regeneratorRuntime.async(function getSBUSisterConcernData$(_context59) {
+    key: "getSBUData",
+    value: function getSBUData() {
+      return regeneratorRuntime.async(function getSBUData$(_context59) {
         while (1) {
           switch (_context59.prev = _context59.next) {
             case 0:
               _context59.next = 2;
               return regeneratorRuntime.awrap((0, _axios["default"])({
                 method: 'GET',
-                url: FRSAPIURL + '/sister_concern_data'
+                url: FRSAPIURL + '/sub_data'
               }));
 
             case 2:
@@ -1701,16 +1706,16 @@ function () {
       });
     }
   }, {
-    key: "getSDGeoLocation",
-    value: function getSDGeoLocation() {
-      return regeneratorRuntime.async(function getSDGeoLocation$(_context60) {
+    key: "getSBUSisterConcernData",
+    value: function getSBUSisterConcernData() {
+      return regeneratorRuntime.async(function getSBUSisterConcernData$(_context60) {
         while (1) {
           switch (_context60.prev = _context60.next) {
             case 0:
               _context60.next = 2;
               return regeneratorRuntime.awrap((0, _axios["default"])({
                 method: 'GET',
-                url: FRSAPIURL + '/geo_location'
+                url: FRSAPIURL + '/sister_concern_data'
               }));
 
             case 2:
@@ -1724,18 +1729,16 @@ function () {
       });
     }
   }, {
-    key: "getDAlistForDeliverySchedule",
-    value: function getDAlistForDeliverySchedule() {
-      return regeneratorRuntime.async(function getDAlistForDeliverySchedule$(_context61) {
+    key: "getSDGeoLocation",
+    value: function getSDGeoLocation() {
+      return regeneratorRuntime.async(function getSDGeoLocation$(_context61) {
         while (1) {
           switch (_context61.prev = _context61.next) {
             case 0:
               _context61.next = 2;
-              return regeneratorRuntime.awrap((0, _axios["default"])(FRSAPIURL + '/DA_list', {
-                method: 'GET' // headers: {
-                //   'Authorization': token_type + ' ' + token
-                // }
-
+              return regeneratorRuntime.awrap((0, _axios["default"])({
+                method: 'GET',
+                url: FRSAPIURL + '/geo_location'
               }));
 
             case 2:
@@ -1749,14 +1752,14 @@ function () {
       });
     }
   }, {
-    key: "getInvoiceChallanListForDeliverySchedule",
-    value: function getInvoiceChallanListForDeliverySchedule() {
-      return regeneratorRuntime.async(function getInvoiceChallanListForDeliverySchedule$(_context62) {
+    key: "getDAlistForDeliverySchedule",
+    value: function getDAlistForDeliverySchedule() {
+      return regeneratorRuntime.async(function getDAlistForDeliverySchedule$(_context62) {
         while (1) {
           switch (_context62.prev = _context62.next) {
             case 0:
               _context62.next = 2;
-              return regeneratorRuntime.awrap((0, _axios["default"])(FRSAPIURL + '/delivery_schedule_invoice_chalan_list', {
+              return regeneratorRuntime.awrap((0, _axios["default"])(FRSAPIURL + '/DA_list', {
                 method: 'GET' // headers: {
                 //   'Authorization': token_type + ' ' + token
                 // }
@@ -1769,6 +1772,31 @@ function () {
             case 3:
             case "end":
               return _context62.stop();
+          }
+        }
+      });
+    }
+  }, {
+    key: "getInvoiceChallanListForDeliverySchedule",
+    value: function getInvoiceChallanListForDeliverySchedule() {
+      return regeneratorRuntime.async(function getInvoiceChallanListForDeliverySchedule$(_context63) {
+        while (1) {
+          switch (_context63.prev = _context63.next) {
+            case 0:
+              _context63.next = 2;
+              return regeneratorRuntime.awrap((0, _axios["default"])(FRSAPIURL + '/delivery_schedule_invoice_chalan_list', {
+                method: 'GET' // headers: {
+                //   'Authorization': token_type + ' ' + token
+                // }
+
+              }));
+
+            case 2:
+              return _context63.abrupt("return", _context63.sent);
+
+            case 3:
+            case "end":
+              return _context63.stop();
           }
         }
       });

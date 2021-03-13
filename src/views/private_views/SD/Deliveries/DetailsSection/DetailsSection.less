@@ -4,7 +4,7 @@
 @medium     :~"only screen and (max-width: 999px)";
 @small      :~"only screen and (max-width: 767px)";
 
-#order-approval-details-section.order-approval-details-section {
+#deliveries-details-section.deliveries-details-section {
     display        : table-cell;
     width          : calc(100vw - (60px + 300px));
     padding        : 10px 10px 6px;
@@ -33,7 +33,7 @@
         background: #004e98;
     }
 
-    .order-approval-details-section-inner {
+    .deliveries-details-section-inner {
         box-shadow   : 0px 0px 8px #026CD11A;
         border-radius: 8px;
         padding      : 10px 0;
@@ -89,7 +89,7 @@
 
                     span.jmi-lvl {
                         display     : inline-block;
-                        margin-right: 10px;
+                        margin-right: 4px;
                     }
 
                     span.jmi-lvl-value {
@@ -1950,7 +1950,7 @@
 
                         .tab-section {
                             .tab-section-inner {
-                                .mt-3.order-approval-customer-details {
+                                .mt-3.deliveries-customer-details {
                                     height  : auto;
                                     overflow: hidden;
 
@@ -2148,67 +2148,75 @@
                 }
             }
         }
+
+        // .delevered-modal {
+        //     .delevered-modal-inner {
+        //         width: 50%;
+        //         left : 25%;
+        //         top  : 20%;
+        //     }
+        // }
     }
 }
 
 // 1250+
 @media @extra_lerge {
 
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .order-table .order-table-inner table tbody tr#subtotal-section td:nth-child(5) {
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .order-table .order-table-inner table tbody tr#subtotal-section td:nth-child(5) {
         padding-right: 16px;
     }
 }
 
 // 1000 to 1249
 @media @lerge {
-    #order-approval-details-section.order-approval-details-section {
+    #deliveries-details-section.deliveries-details-section {
         padding: 8px;
     }
 
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner {
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner {
         padding: 8px 0;
     }
 
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .title-section {
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .title-section {
         padding: 0 8px;
     }
 
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .title-section .row,
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .header-summery-section .header-summery-section-inner .row {
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .title-section .row,
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .header-summery-section .header-summery-section-inner .row {
         padding: 0;
     }
 
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .header-summery-section {
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .header-summery-section {
         padding  : 0 8px 10px;
         font-size: 16px;
     }
 
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .order-table {
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .order-table {
         margin-top: 10px;
     }
 
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .order-table .order-table-inner {
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .order-table .order-table-inner {
         padding: 0;
     }
 
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .order-table .order-table-inner table tbody tr#subtotal-section td:nth-child(5) {
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .order-table .order-table-inner table tbody tr#subtotal-section td:nth-child(5) {
         // padding-right: 18px;
         padding: 0;
     }
 
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr.header-row td:first-child .jmi-title,
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr.header-row .jmi-title,
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr td {
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr.header-row td:first-child .jmi-title,
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr.header-row .jmi-title,
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr td {
         font-size: 14px;
     }
 
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .submit-section {
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .submit-section {
         height: 34px;
     }
 
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .submit-section .submit-section-inner span.cancel-order,
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .submit-section .submit-section-inner span.proceed-order,
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .submit-section .submit-section-inner span.update-order {
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .submit-section .submit-section-inner span.cancel-order,
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .submit-section .submit-section-inner span.proceed-order,
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .submit-section .submit-section-inner span.update-order {
         font-size     : 12px;
         padding       : 4px 10px;
         height        : 26px;
@@ -2216,62 +2224,62 @@
         vertical-align: middle;
     }
 
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .header-summery-section .header-summery-section-inner .row .sr .jmi-lvl {
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .header-summery-section .header-summery-section-inner .row .sr .jmi-lvl {
         font-size: 14px;
     }
 }
 
 // 768 to 999
 @media @medium {
-    #order-approval-details-section.order-approval-details-section {
+    #deliveries-details-section.deliveries-details-section {
         padding: 8px;
     }
 
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner {
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner {
         padding: 8px 0;
     }
 
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .title-section {
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .title-section {
         padding: 0 8px;
     }
 
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .title-section .row,
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .header-summery-section .header-summery-section-inner .row {
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .title-section .row,
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .header-summery-section .header-summery-section-inner .row {
         padding: 0;
     }
 
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .header-summery-section {
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .header-summery-section {
         padding  : 0 8px 10px;
         font-size: 14px;
     }
 
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .header-summery-section .header-summery-section-inner .row p {
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .header-summery-section .header-summery-section-inner .row p {
         // font-size: 12px;
     }
 
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .order-table .order-table-inner table thead tr th,
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .order-table .order-table-inner table tbody tr td {
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .order-table .order-table-inner table thead tr th,
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .order-table .order-table-inner table tbody tr td {
         font-size: 12px;
     }
 
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .order-table .order-table-inner table tbody tr td span:last-child {
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .order-table .order-table-inner table tbody tr td span:last-child {
         // font-size: 10px;
     }
 
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .header-summery-section .header-summery-section-inner .row .sr span {
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .header-summery-section .header-summery-section-inner .row .sr span {
         // font-size: 12px !important;
     }
 
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .order-table {
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .order-table {
         margin-top: 10px;
     }
 
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .order-table .order-table-inner {
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .order-table .order-table-inner {
         padding: 0;
     }
 
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .order-table .order-table-inner table tbody tr#subtotal-section td:first-child .add-order-section,
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .order-table .order-table-inner table tbody tr#subtotal-section td:first-child .attachment-section {
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .order-table .order-table-inner table tbody tr#subtotal-section td:first-child .add-order-section,
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .order-table .order-table-inner table tbody tr#subtotal-section td:first-child .attachment-section {
         font-size: 12px;
 
         i {
@@ -2279,39 +2287,39 @@
         }
     }
 
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .order-table .order-table-inner table tbody tr#subtotal-section td span {
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .order-table .order-table-inner table tbody tr#subtotal-section td span {
         font-size: 10px;
     }
 
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .order-table .order-table-inner table tbody tr#subtotal-section td:nth-child(5) {
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .order-table .order-table-inner table tbody tr#subtotal-section td:nth-child(5) {
         // padding-right: 34px;
     }
 
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .order-table .order-table-inner table tbody tr#grand-total-section td span {
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .order-table .order-table-inner table tbody tr#grand-total-section td span {
         font-size: 10px;
     }
 
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .order-table .order-table-inner table tbody tr#grand-total-section td:first-child span {
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .order-table .order-table-inner table tbody tr#grand-total-section td:first-child span {
         font-size: 10px;
         margin   : 0 4px;
         width    : 80px;
     }
 
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .add-order-modal-section .add-order-modal-section-inner {
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .add-order-modal-section .add-order-modal-section-inner {
         left: calc((100vw / 2) - 300px);
     }
 
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr.header-row td:first-child .jmi-title,
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr.header-row .jmi-title,
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr td {
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr.header-row td:first-child .jmi-title,
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr.header-row .jmi-title,
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr td {
         font-size: 14px;
     }
 
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .order-table .order-table-inner table tbody tr td span.quantity-setup {
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .order-table .order-table-inner table tbody tr td span.quantity-setup {
         padding: 2px;
     }
 
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .order-table .order-table-inner table tbody tr:hover td span.quantity-setup {
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .order-table .order-table-inner table tbody tr:hover td span.quantity-setup {
         padding: 2px;
 
         span {
@@ -2325,7 +2333,7 @@
         }
     }
 
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .order-table .order-table-inner table tbody tr#grand-total-section td:first-child span.order-forward {
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .order-table .order-table-inner table tbody tr#grand-total-section td:first-child span.order-forward {
         margin-right: 0;
         width       : 80px;
 
@@ -2334,9 +2342,9 @@
         }
     }
 
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .submit-section .submit-section-inner span.cancel-order,
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .submit-section .submit-section-inner span.proceed-order,
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .submit-section .submit-section-inner span.update-order {
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .submit-section .submit-section-inner span.cancel-order,
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .submit-section .submit-section-inner span.proceed-order,
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .submit-section .submit-section-inner span.update-order {
         font-size     : 12px;
         padding       : 4px 10px;
         height        : 26px;
@@ -2344,8 +2352,8 @@
         vertical-align: middle;
     }
 
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .add-order-modal-section .submit-section .submit-section-inner span.cancel-order,
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .add-order-modal-section .submit-section .submit-section-inner span.proceed-order {
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .add-order-modal-section .submit-section .submit-section-inner span.cancel-order,
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .add-order-modal-section .submit-section .submit-section-inner span.proceed-order {
         display       : inline-block;
         padding       : 0;
         width         : 120px;
@@ -2355,8 +2363,8 @@
         line-height   : 2;
     }
 
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .add-order-modal-section .add-order-modal-section-inner .submit-section .submit-section-inner span.cancel-order,
-    #order-approval-details-section.order-approval-details-section .order-approval-details-section-inner .add-order-modal-section .add-order-modal-section-inner .submit-section .submit-section-inner span.proceed-order {
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .add-order-modal-section .add-order-modal-section-inner .submit-section .submit-section-inner span.cancel-order,
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .add-order-modal-section .add-order-modal-section-inner .submit-section .submit-section-inner span.proceed-order {
         padding: 0;
     }
 }

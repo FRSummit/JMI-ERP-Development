@@ -606,6 +606,17 @@ export default class PostService {
     })
   }
 
+  // DELEVERIES - LEFT SECTION
+  async getPendingDeliveredInvoiceList_DELEVERIES() {
+    let web_menu_url = '/api/web/pending-delivered-invoice-list'
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+    })
+  }
+
 
   //////////////////////////////////////////////////////////////////////////////////////////
 
