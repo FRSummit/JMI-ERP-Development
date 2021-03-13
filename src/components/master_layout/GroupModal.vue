@@ -39,7 +39,8 @@ export default {
     // });
   },
   async mounted() {
-    this.WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE()
+    this.sbu_list = [],
+    await this.WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE()
   },
   methods: {
     // SERVICE IMPLEMENTATION

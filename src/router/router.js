@@ -241,5 +241,23 @@ router.beforeEach((to, from, next) => {
       return next('/login');
     }
   }
-  next();
+  // Store.commit('setUserIsAuthenticated', routerAuthCheck);
+  if (to.matched.some(record => {
+    console.log(record.path)
+    console.log(record.path)
+  })) {
+    console.log('router check if')
+    // if(routerAuthCheck){
+    //   next();
+    // }
+    // else{
+    //  router.replace('/sign-in');
+    // }
+  }
+  else{
+    // Store.commit('setUserIsAuthenticated', false);
+    console.log('router check else')
+    next();
+  }
+  // next();
 })

@@ -101,6 +101,9 @@ export default {
   created() {
     this.$emit('routeName', this.$route.name);
   },
+  mounted() {
+    this.$emit('new_dashboard_occured')
+  },
   methods: {
     print() {
       console.log("working");
