@@ -1,0 +1,1132 @@
+#create-order-details-section.create-order-details-section {
+  display: table-cell;
+  width: calc(100vw - (60px + 300px));
+  padding: 10px 10px 6px;
+  position: fixed;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  height: calc(100vh - (74px + 73px + 32px));
+}
+#create-order-details-section.create-order-details-section::-webkit-scrollbar {
+  width: 2px;
+}
+#create-order-details-section.create-order-details-section::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+#create-order-details-section.create-order-details-section::-webkit-scrollbar-thumb {
+  background: #168fff;
+  border-radius: 10px;
+}
+#create-order-details-section.create-order-details-section::-webkit-scrollbar-thumb:hover {
+  background: #004e98;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner {
+  box-shadow: 0px 0px 8px #026CD11A;
+  border-radius: 8px;
+  padding: 10px 0;
+  position: relative;
+  height: 100%;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .title-section {
+  padding: 0 20px 0px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .title-section .row {
+  padding: 4px 0;
+  margin: 0;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .title-section .row p.jmi-title {
+  line-height: 1.3;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .title-section .row p.jmi-title span.jmi-lvl {
+  display: inline-block;
+  margin-right: 10px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .title-section .row p.jmi-title span.jmi-lvl-value {
+  display: inline-block;
+  float: right;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .title-section .row p.jmi-title span.id {
+  color: #026CD1;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .title-section .row p.jmi-title span.customer-type {
+  color: #026CD1;
+  font-size: 12px;
+  background: #E2EDFA;
+  padding: 2px 6px;
+  border-radius: 20px;
+  margin-left: 12px;
+  vertical-align: middle;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .title-section .row p.jmi-title span.order-placed {
+  color: #026CD1;
+  font-size: 12px;
+  background: #E2EDFA;
+  padding: 2px 6px;
+  border-radius: 20px;
+  margin-left: 12px;
+  vertical-align: middle;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .title-section .row p.jmi-title span.url {
+  text-decoration: underline;
+  cursor: pointer;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .header-summery-section {
+  padding: 0 20px 0px;
+  border-bottom: 1px solid #E9F1FB;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .header-summery-section .header-summery-section-inner .row {
+  padding: 4px 0;
+  margin: 0;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .header-summery-section .header-summery-section-inner .row p {
+  padding: 0;
+  line-height: 1.3;
+  margin: 0;
+  font-size: 14px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .header-summery-section .header-summery-section-inner .row p .url {
+  text-decoration: underline;
+  cursor: pointer;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .header-summery-section .header-summery-section-inner .row p .jmi-no-underline {
+  text-decoration: none;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .header-summery-section .header-summery-section-inner .row p span.jmi-lvl {
+  margin-right: 6px;
+  display: inline-block;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .header-summery-section .header-summery-section-inner .row p span.jmi-lvl-value {
+  color: #026CD1;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .header-summery-section .header-summery-section-inner .row p span.id.url {
+  display: inline-block;
+  width: 140px;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .header-summery-section .header-summery-section-inner .row p span.address {
+  display: inline-block;
+  width: 140px;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .header-summery-section .header-summery-section-inner .row p #expected-delivery-date {
+  margin: 0;
+  height: 18px;
+  font-size: 14px;
+  border-bottom: none;
+  width: 140px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .header-summery-section .header-summery-section-inner .row .sr .jmi-lvl {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .header-summery-section .header-summery-section-inner .row .sr p.selectpicker-pera {
+  font-size: 14px;
+  display: inline-block;
+  vertical-align: middle;
+  width: 70%;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .header-summery-section .header-summery-section-inner .row .sr p.selectpicker-pera span.sr-modal {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 18, 35, 0.4);
+  z-index: 999;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .header-summery-section .header-summery-section-inner .row .sr p.selectpicker-pera span.sr-modal span.sr-modal-inner {
+  top: 244px;
+  left: calc((100vw / 2) - 150px);
+  width: 300px;
+  max-height: 300px;
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  box-shadow: 0px 0px 20px #026cd129;
+  border-radius: 8px;
+  padding: 10px;
+  position: fixed;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .header-summery-section .header-summery-section-inner .row .sr p.selectpicker-pera span.sr-modal span.sr-modal-inner::-webkit-scrollbar {
+  width: 2px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .header-summery-section .header-summery-section-inner .row .sr p.selectpicker-pera span.sr-modal span.sr-modal-inner::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .header-summery-section .header-summery-section-inner .row .sr p.selectpicker-pera span.sr-modal span.sr-modal-inner::-webkit-scrollbar-thumb {
+  background: #168fff;
+  border-radius: 10px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .header-summery-section .header-summery-section-inner .row .sr p.selectpicker-pera span.sr-modal span.sr-modal-inner::-webkit-scrollbar-thumb:hover {
+  background: #004e98;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .header-summery-section .header-summery-section-inner .row .sr p.selectpicker-pera span.sr-modal span.sr-modal-inner .jmi-title {
+  display: block;
+  width: 100%;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 6px 20px;
+  border-bottom: 2px solid #E2EDFA;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .header-summery-section .header-summery-section-inner .row .sr p.selectpicker-pera span.sr-modal span.sr-modal-inner span.sr-loop span.sr-name {
+  display: block;
+  color: #026CD1;
+  cursor: pointer;
+  padding: 6px 20px;
+  text-align: left;
+  letter-spacing: 0px;
+  font-size: 14px;
+  border-bottom: 1px solid #E2EDFA;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .header-summery-section .header-summery-section-inner .row .sr p.selectpicker-pera span.sr-modal span.sr-modal-inner span.sr-loop span.sr-name:hover {
+  background: #E2EDFA;
+  border-radius: 2px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .header-summery-section .header-summery-section-inner .row .sr span.sr-add-icon {
+  background: #E2EDFA;
+  padding: 3px 5px 0px;
+  border-radius: 50%;
+  margin-left: 8px;
+  cursor: pointer;
+  vertical-align: middle;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .header-summery-section .header-summery-section-inner .row .sr span.sr-add-icon i {
+  font-size: 18px;
+  color: #026CD1;
+  font-weight: 500;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table {
+  margin-bottom: 20px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner {
+  padding: 0 10px 20px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table {
+  border-top: none;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table thead tr th:first-child {
+  width: 20%;
+  text-align: left;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table thead tr th:nth-child(2) {
+  width: 18%;
+  text-align: right;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table thead tr th:nth-child(3) {
+  width: 18%;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table thead tr th:nth-child(4) {
+  width: 10%;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table thead tr th:nth-child(5) {
+  width: 10%;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table thead tr th:nth-child(6) {
+  width: 14%;
+  text-align: right;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table thead tr th:last-child {
+  width: 10%;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody .table-data-rows {
+  width: 100%;
+  display: list-item;
+  min-height: 50px;
+  height: calc(100vh - ((74px + 73px + 32px) + (86px + 8px + 100px + 20px + 46px + 50px)));
+  /* 6 or 7 rows*/
+  overflow: auto;
+  -webkit-flex-flow: row wrap;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody .table-data-rows::-webkit-scrollbar {
+  width: 2px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody .table-data-rows::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody .table-data-rows::-webkit-scrollbar-thumb {
+  background: #168fff;
+  border-radius: 10px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody .table-data-rows::-webkit-scrollbar-thumb:hover {
+  background: #004e98;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody tr td:first-child span {
+  display: block;
+  text-align: left;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody tr td:first-child span:last-child {
+  font-size: 10px;
+  text-align: left;
+  color: #8e8e8e;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody tr td:first-child {
+  width: 20%;
+  text-align: left;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody tr td:nth-child(2) {
+  width: 18%;
+  text-align: right;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody tr td:nth-child(3) {
+  width: 18%;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody tr td:nth-child(4) {
+  width: 10%;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody tr td:nth-child(5) {
+  width: 10%;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody tr td:nth-child(6) {
+  width: 14%;
+  text-align: right;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody tr td:last-child {
+  width: 10%;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody tr td span.quantity-setup {
+  border: 1px solid #026CD1;
+  padding: 2px 8px;
+  border-radius: 2px;
+  background: #FFFFFF;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody tr td span.quantity-setup span.qty-increase {
+  display: inline-block;
+  color: #026CD1;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody tr td span.quantity-setup span.qty {
+  margin: 0 10px;
+  color: #026CD1;
+  display: inline-block;
+  min-width: 16px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody tr td span.quantity-setup span.qty-decrease {
+  display: inline-block;
+  color: #026CD1;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody tr:hover {
+  background: #E2EDFA;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody tr.free {
+  background: #FFF7E3;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody tr.bottom-total:hover {
+  background: none;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody tr.subtotal.bottom-total td {
+  text-align: right;
+  color: #111213;
+  font-size: 12px;
+  padding: 0 10px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody tr.subtotal.bottom-total td span.add-order-attachment-section {
+  text-align: left;
+  font-size: 12px;
+  color: #026CD1;
+  cursor: pointer;
+  width: max-content;
+  font-weight: 600;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody tr.subtotal.bottom-total td span.add-order-attachment-section i {
+  font-size: 12px;
+  margin-right: 6px;
+  font-weight: 600;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody tr.subtotal.bottom-total td span.add-attachment {
+  color: #8D979F;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody tr.subtotal.bottom-total td span.add-attachment i {
+  transform: rotate(40deg);
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody tr.grand-total.bottom-total td {
+  width: auto;
+  text-align: right;
+  color: #026CD1;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 0 10px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .submit-section {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+  padding: 5px 0;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .submit-section .submit-section-inner {
+  text-align: center;
+  height: 40px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .submit-section .submit-section-inner span.cancel-order {
+  font-size: 14px;
+  color: #DF2A43;
+  padding: 11px 29px 10px;
+  border: 1px solid #DF2A43;
+  border-radius: 2px;
+  cursor: pointer;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .submit-section .submit-section-inner span.proceed-order,
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .submit-section .submit-section-inner span.update-order {
+  margin-left: 40px;
+  font-size: 14px;
+  color: #FFFFFF;
+  background: #026CD1;
+  padding: 12px 26px 11px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section {
+  position: fixed;
+  left: calc((100vw / 2) - 200px);
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background-color: rgb(0 18 0.72916667%);
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner {
+  padding: 20px;
+  text-align: center;
+  width: calc(100vw/2);
+  min-width: 600px;
+  background: #FFFFFF;
+  position: absolute;
+  left: calc((100vw / 2) - (100vw / 4));
+  opacity: 1;
+  z-index: 9999;
+  border-radius: 2px;
+  display: list-item;
+  top: calc((100vh / 2) - ((100vh / 1.5) / 2));
+  height: calc(100vh / 1.5);
+  /* 6 or 7 rows*/
+  overflow: auto;
+  -webkit-flex-flow: row wrap;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner::-webkit-scrollbar {
+  width: 2px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner::-webkit-scrollbar-thumb {
+  background: #168fff;
+  border-radius: 10px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner::-webkit-scrollbar-thumb:hover {
+  background: #004e98;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .close-icon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .close-icon span.icon {
+  cursor: pointer;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .close-icon span.icon i {
+  font-size: 20px;
+  font-weight: 500;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .top-section {
+  text-align: left;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .top-section .top-section-inner {
+  display: block;
+  width: 100%;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .top-section .top-section-inner .logo {
+  display: inline-block;
+  width: 40px;
+  margin-right: 14px;
+  vertical-align: middle;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .top-section .top-section-inner .logo img {
+  border: 1px solid #026CD1;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .top-section .top-section-inner .title-section {
+  display: inline-block;
+  width: 80%;
+  vertical-align: middle;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .top-section .top-section-inner .title-section p.name {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: #393535;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .top-section .top-section-inner .title-section p.name span.tik-icon {
+  background: #026CD1;
+  border-radius: 50%;
+  line-height: 1;
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  margin-left: 6px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .top-section .top-section-inner .title-section p.name span.tik-icon i {
+  position: absolute;
+  top: 1px;
+  left: 2px;
+  color: #FFFFFF;
+  font-size: 8px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .top-section .top-section-inner .title-section p.id {
+  margin: 0;
+  font-size: 14px;
+  color: #026CD1;
+  line-height: 1;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .input-autofield-show-section {
+  margin-top: 20px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .input-autofield-show-section .input-autofield-show-section-inner .autofield-show-section {
+  border: 1px solid #AAC0D9;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .input-autofield-show-section .input-autofield-show-section-inner .autofield-show-section .autofield-show-section-inner .header {
+  padding: 4px 10px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .input-autofield-show-section .input-autofield-show-section-inner .autofield-show-section .autofield-show-section-inner .header input {
+  width: 95%;
+  margin-top: 6px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  border: 1px solid #AAC0D9;
+  border-radius: 4px;
+  font-size: 16px;
+  padding: 12px 14px;
+  height: auto;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .input-autofield-show-section .input-autofield-show-section-inner .autofield-show-section .autofield-show-section-inner .header input:focus {
+  box-shadow: none;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .input-autofield-show-section .input-autofield-show-section-inner .autofield-show-section .autofield-show-section-inner .response-body {
+  width: 100%;
+  display: list-item;
+  height: 130px;
+  margin-bottom: 6px;
+  /* 6 or 7 rows*/
+  overflow: auto;
+  -webkit-flex-flow: row wrap;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .input-autofield-show-section .input-autofield-show-section-inner .autofield-show-section .autofield-show-section-inner .response-body::-webkit-scrollbar {
+  width: 2px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .input-autofield-show-section .input-autofield-show-section-inner .autofield-show-section .autofield-show-section-inner .response-body::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .input-autofield-show-section .input-autofield-show-section-inner .autofield-show-section .autofield-show-section-inner .response-body::-webkit-scrollbar-thumb {
+  background: #168fff;
+  border-radius: 10px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .input-autofield-show-section .input-autofield-show-section-inner .autofield-show-section .autofield-show-section-inner .response-body::-webkit-scrollbar-thumb:hover {
+  background: #004e98;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .input-autofield-show-section .input-autofield-show-section-inner .autofield-show-section .autofield-show-section-inner .response-body tr {
+  padding: 0px 10px;
+  display: table;
+  width: 100%;
+  border-bottom: none;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .input-autofield-show-section .input-autofield-show-section-inner .autofield-show-section .autofield-show-section-inner .response-body tr td {
+  color: #222223;
+  font-size: 14px;
+  font-weight: 400;
+  width: 20%;
+  border-top: none;
+  padding: 4px 10px;
+  text-align: center;
+  vertical-align: middle;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .input-autofield-show-section .input-autofield-show-section-inner .autofield-show-section .autofield-show-section-inner .response-body tr td:first-child {
+  width: 40%;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .input-autofield-show-section .input-autofield-show-section-inner .autofield-show-section .autofield-show-section-inner .response-body tr td:first-child span {
+  display: block;
+  text-align: left;
+  font-weight: 500;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .input-autofield-show-section .input-autofield-show-section-inner .autofield-show-section .autofield-show-section-inner .response-body tr td:first-child span:last-child {
+  font-size: 10px;
+  text-align: left;
+  font-weight: 400;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .input-autofield-show-section .input-autofield-show-section-inner .autofield-show-section .autofield-show-section-inner .response-body tr td span.quantity-setup span.qty-increase {
+  display: none;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .input-autofield-show-section .input-autofield-show-section-inner .autofield-show-section .autofield-show-section-inner .response-body tr td span.quantity-setup span.qty {
+  margin: 0 10px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .input-autofield-show-section .input-autofield-show-section-inner .autofield-show-section .autofield-show-section-inner .response-body tr td span.quantity-setup span.qty-decrease {
+  display: none;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .input-autofield-show-section .input-autofield-show-section-inner .autofield-show-section .autofield-show-section-inner .response-body tr td.row-action {
+  text-align: right;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .input-autofield-show-section .input-autofield-show-section-inner .autofield-show-section .autofield-show-section-inner .response-body tr td.row-action span {
+  display: none;
+  cursor: pointer;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .input-autofield-show-section .input-autofield-show-section-inner .autofield-show-section .autofield-show-section-inner .response-body tr:hover {
+  background: #E2EDFA;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .input-autofield-show-section .input-autofield-show-section-inner .autofield-show-section .autofield-show-section-inner .response-body tr:hover td:first-child span {
+  color: #026CD1;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .input-autofield-show-section .input-autofield-show-section-inner .autofield-show-section .autofield-show-section-inner .response-body tr:hover td {
+  color: #026CD1;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .input-autofield-show-section .input-autofield-show-section-inner .autofield-show-section .autofield-show-section-inner .response-body tr:hover td span.quantity-setup {
+  padding: 2px 8px;
+  border-radius: 2px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .input-autofield-show-section .input-autofield-show-section-inner .autofield-show-section .autofield-show-section-inner .response-body tr:hover td span.quantity-setup span.qty-increase {
+  display: inline-block;
+  color: #026CD1;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .input-autofield-show-section .input-autofield-show-section-inner .autofield-show-section .autofield-show-section-inner .response-body tr:hover td span.quantity-setup span.qty {
+  margin: 0 10px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .input-autofield-show-section .input-autofield-show-section-inner .autofield-show-section .autofield-show-section-inner .response-body tr:hover td span.quantity-setup input.qty {
+  font-size: 14px;
+  width: 40px;
+  height: auto;
+  border: none;
+  text-align: center;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .input-autofield-show-section .input-autofield-show-section-inner .autofield-show-section .autofield-show-section-inner .response-body tr:hover td span.quantity-setup span.qty-decrease {
+  display: inline-block;
+  color: #026CD1;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .input-autofield-show-section .input-autofield-show-section-inner .autofield-show-section .autofield-show-section-inner .response-body tr:hover td.row-action span {
+  display: inline-block;
+  font-size: 18px;
+  color: #026CD1;
+  background: #FFFFFF;
+  border-radius: 50%;
+  padding: 2px 6px;
+  line-height: 1;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list {
+  margin-top: 20px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #E9F1FB;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product {
+  width: 100%;
+  display: list-item;
+  height: 220px;
+  /* 6 or 7 rows*/
+  overflow: auto;
+  -webkit-flex-flow: row wrap;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product::-webkit-scrollbar {
+  width: 2px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product::-webkit-scrollbar-thumb {
+  background: #168fff;
+  border-radius: 10px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product::-webkit-scrollbar-thumb:hover {
+  background: #004e98;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr.header-row {
+  border-bottom: 1px solid #E9F1FB;
+  padding: 0;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr.header-row .jmi-title {
+  padding: 6px 10px;
+  font-size: 16px;
+  color: #111213;
+  margin: 0;
+  text-align: center;
+  font-weight: 500;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr.header-row td:nth-child(2) {
+  width: 20%;
+  min-width: 114px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr.header-row td:first-child {
+  width: 40%;
+  text-align: left;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr.header-row td:first-child .jmi-title {
+  font-size: 16px;
+  text-align: left;
+  font-weight: 500;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr {
+  padding: 0px 10px;
+  display: table;
+  width: 100%;
+  border-bottom: none;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr td {
+  color: #026CD1;
+  font-size: 14px;
+  font-weight: 400;
+  width: 20%;
+  min-width: 114px;
+  border-top: none;
+  padding: 4px 10px;
+  text-align: center;
+  vertical-align: middle;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr td:first-child {
+  width: 40%;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr td:first-child span {
+  display: block;
+  text-align: left;
+  color: #026CD1;
+  font-weight: 500;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr td:first-child span:last-child {
+  font-size: 10px;
+  text-align: left;
+  font-weight: 400;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr td {
+  color: #026CD1;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr td span.quantity-setup {
+  border: 1px solid #026CD1;
+  padding: 2px 8px;
+  border-radius: 2px;
+  background: #FFFFFF;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr td span.quantity-setup span.qty-increase {
+  display: inline-block;
+  color: #026CD1;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr td span.quantity-setup span.qty {
+  margin: 0 10px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr td span.quantity-setup input.qty {
+  font-size: 14px;
+  width: 40px;
+  height: auto;
+  border: none;
+  text-align: center;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr td span.quantity-setup span.qty-decrease {
+  display: inline-block;
+  color: #026CD1;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr td.row-action span {
+  display: inline-block;
+  background: #F5BFC6;
+  border-radius: 50%;
+  padding: 6px 7px;
+  line-height: 1;
+  cursor: pointer;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr td.row-action span svg {
+  color: #DF2A43;
+  width: 12px;
+  height: 12px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr:hover {
+  background: #E2EDFA;
+  border-radius: 10px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr:hover td:first-child span {
+  color: #026CD1;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr:hover td {
+  color: #026CD1;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr:hover td span.quantity-setup {
+  padding: 2px 8px;
+  border-radius: 2px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr:hover td span.quantity-setup span.qty-increase {
+  display: inline-block;
+  color: #026CD1;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr:hover td span.quantity-setup span.qty {
+  margin: 0 10px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr:hover td span.quantity-setup input.qty {
+  font-size: 14px;
+  width: 40px;
+  height: auto;
+  border: none;
+  text-align: center;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr:hover td span.quantity-setup span.qty-decrease {
+  display: inline-block;
+  color: #026CD1;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .submit-section {
+  margin-top: 10px;
+  position: relative;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .submit-section .submit-section-inner {
+  text-align: center;
+  padding: 14px 0;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .submit-section .submit-section-inner span.cancel-order {
+  font-size: 14px;
+  color: #DF2A43;
+  padding: 9px 29px 8px;
+  border: 1px solid #DF2A43;
+  border-radius: 2px;
+  cursor: pointer;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .submit-section .submit-section-inner span.proceed-order {
+  margin-left: 40px;
+  font-size: 14px;
+  color: #FFFFFF;
+  background: #026CD1;
+  padding: 10px 26px 9px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .attachment-modal {
+  position: fixed;
+  left: calc((100vw / 2) - 200px);
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background-color: rgb(0 18 0.72916667%);
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .attachment-modal .attachment-modal-inner {
+  padding: 40px 60px;
+  text-align: center;
+  width: 600px;
+  background: #FFFFFF;
+  position: absolute;
+  left: calc((100vw / 2) - 300px);
+  opacity: 1;
+  z-index: 9999;
+  border-radius: 2px;
+  display: list-item;
+  top: calc((100vh / 2) - ((100vh / 1.5) / 2));
+  height: calc(100vh / 1.5);
+  min-height: 390px;
+  max-height: 400px;
+  /* 6 or 7 rows*/
+  overflow: auto;
+  -webkit-flex-flow: row wrap;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .attachment-modal .attachment-modal-inner::-webkit-scrollbar {
+  width: 2px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .attachment-modal .attachment-modal-inner::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .attachment-modal .attachment-modal-inner::-webkit-scrollbar-thumb {
+  background: #168fff;
+  border-radius: 10px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .attachment-modal .attachment-modal-inner::-webkit-scrollbar-thumb:hover {
+  background: #004e98;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .attachment-modal .attachment-modal-inner p.title {
+  margin: 0;
+  font-size: 16px;
+  color: #000000;
+  line-height: 1;
+  font-weight: 500;
+  text-align: left;
+  margin-bottom: 20px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .attachment-modal .attachment-modal-inner .file-input-section .file-input-section-inner .input-section input {
+  border: 1px solid #026CD1;
+  display: inline-block;
+  padding: 6px 12px;
+  font-size: 16px;
+  color: #026CD1;
+  cursor: pointer;
+  height: 40px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .attachment-modal .attachment-modal-inner .file-input-section .file-input-section-inner .input-section input:focus {
+  box-shadow: none;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .attachment-modal .attachment-modal-inner .file-input-section .file-input-section-inner .input-section span.submit-btn {
+  font-size: 16px;
+  color: #FFFFFF;
+  background: #026CD1;
+  padding: 10px 20px 11px;
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+  cursor: pointer;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .attachment-modal .attachment-modal-inner .file-input-section .file-input-section-inner p.input-type-informations {
+  padding: 4px 0;
+  margin: 10px 0 10px;
+  font-size: 12px;
+  color: #36454F;
+  line-height: 1;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .attachment-modal .attachment-modal-inner .uploadeded-file-list {
+  border-top: 1px solid #E9F1FB;
+  margin-top: 10px;
+  padding-top: 10px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .attachment-modal .attachment-modal-inner .uploadeded-file-list .uploaded-file-list-inner {
+  width: 100%;
+  display: list-item;
+  height: 170px;
+  margin-bottom: 6px;
+  /* 6 or 7 rows*/
+  overflow: auto;
+  -webkit-flex-flow: row wrap;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .attachment-modal .attachment-modal-inner .uploadeded-file-list .uploaded-file-list-inner::-webkit-scrollbar {
+  width: 2px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .attachment-modal .attachment-modal-inner .uploadeded-file-list .uploaded-file-list-inner::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .attachment-modal .attachment-modal-inner .uploadeded-file-list .uploaded-file-list-inner::-webkit-scrollbar-thumb {
+  background: #168fff;
+  border-radius: 10px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .attachment-modal .attachment-modal-inner .uploadeded-file-list .uploaded-file-list-inner::-webkit-scrollbar-thumb:hover {
+  background: #004e98;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .attachment-modal .attachment-modal-inner .uploadeded-file-list .uploaded-file-list-inner .file {
+  margin: 6px 0;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .attachment-modal .attachment-modal-inner .uploadeded-file-list .uploaded-file-list-inner .file .file-inner {
+  display: block;
+  width: 100%;
+  padding: 6px 10px;
+  background: #E2EDFA;
+  border-radius: 2px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .attachment-modal .attachment-modal-inner .uploadeded-file-list .uploaded-file-list-inner .file .file-inner p.file-name {
+  display: inline-block;
+  width: 80%;
+  margin: 0;
+  font-size: 16px;
+  color: #026CD1;
+  line-height: 1;
+  text-align: left;
+  vertical-align: middle;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .attachment-modal .attachment-modal-inner .uploadeded-file-list .uploaded-file-list-inner .file .file-inner .file-action {
+  display: inline-block;
+  width: 20%;
+  text-align: center;
+  vertical-align: middle;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .attachment-modal .attachment-modal-inner .uploadeded-file-list .uploaded-file-list-inner .file .file-inner .file-action span {
+  display: inline-block;
+  line-height: 1;
+  margin: 0 10px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .attachment-modal .attachment-modal-inner .uploadeded-file-list .uploaded-file-list-inner .file .file-inner .file-action span.download-icon {
+  cursor: pointer;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .attachment-modal .attachment-modal-inner .uploadeded-file-list .uploaded-file-list-inner .file .file-inner .file-action span.download-icon i {
+  color: #026CD1;
+  font-size: 18px;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .attachment-modal .attachment-modal-inner .uploadeded-file-list .uploaded-file-list-inner .file .file-inner .file-action span.delete-icon {
+  cursor: pointer;
+}
+#create-order-details-section.create-order-details-section .create-order-details-section-inner .attachment-modal .attachment-modal-inner .uploadeded-file-list .uploaded-file-list-inner .file .file-inner .file-action span.delete-icon svg {
+  color: #DF2A43;
+  width: 16px;
+  height: 16px;
+}
+@media only screen and (min-width: 1250px) {
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody tr#subtotal-section td:nth-child(5) {
+    padding-right: 16px;
+  }
+}
+@media only screen and (min-width: 1000px) and (max-width: 1249px) {
+  #create-order-details-section.create-order-details-section {
+    padding: 8px;
+  }
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner {
+    padding: 8px 0;
+  }
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner .title-section {
+    padding: 0 8px;
+  }
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner .title-section .row,
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner .header-summery-section .header-summery-section-inner .row {
+    padding: 0;
+  }
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner .header-summery-section {
+    padding: 0 8px 10px;
+    font-size: 16px;
+  }
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table {
+    margin-top: 10px;
+  }
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner {
+    padding: 0;
+  }
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody tr#subtotal-section td:nth-child(5) {
+    padding: 0;
+  }
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr.header-row td:first-child .jmi-title,
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr.header-row .jmi-title,
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr td {
+    font-size: 14px;
+  }
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner .submit-section {
+    height: 34px;
+  }
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .submit-section .submit-section-inner span.cancel-order,
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .submit-section .submit-section-inner span.proceed-order {
+    font-size: 12px;
+    padding: 4px 20px;
+    height: 26px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 999px) {
+  #create-order-details-section.create-order-details-section {
+    padding: 8px;
+  }
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner {
+    padding: 8px 0;
+  }
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner .title-section {
+    padding: 0 8px;
+  }
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner .title-section .row,
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner .header-summery-section .header-summery-section-inner .row {
+    padding: 0;
+  }
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner .header-summery-section {
+    padding: 0 8px 10px;
+    font-size: 14px;
+  }
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner .header-summery-section .header-summery-section-inner .row p {
+    font-size: 12px;
+  }
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table thead tr th,
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody tr td {
+    font-size: 12px;
+  }
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner .header-summery-section .header-summery-section-inner .row .sr span {
+    font-size: 12px !important;
+  }
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table {
+    margin-top: 10px;
+  }
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner {
+    padding: 0;
+  }
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody tr#subtotal-section td:first-child .add-order-section,
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody tr#subtotal-section td:first-child .attachment-section {
+    font-size: 12px;
+  }
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody tr#subtotal-section td:first-child .add-order-section i,
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody tr#subtotal-section td:first-child .attachment-section i {
+    font-size: 12px;
+  }
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody tr#subtotal-section td span {
+    font-size: 10px;
+  }
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody tr#grand-total-section td span {
+    font-size: 10px;
+  }
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody tr#grand-total-section td:first-child span {
+    font-size: 10px;
+    margin: 0 4px;
+    width: 80px;
+  }
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner {
+    left: calc((100vw / 2) - 300px);
+  }
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr.header-row td:first-child .jmi-title,
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr.header-row .jmi-title,
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product tr td {
+    font-size: 14px;
+  }
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody tr td span.quantity-setup {
+    padding: 2px;
+  }
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody tr#grand-total-section td:first-child span.order-forward {
+    margin-right: 0;
+    width: 80px;
+  }
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody tr#grand-total-section td:first-child span.order-forward i {
+    font-size: 10px;
+  }
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner .submit-section .submit-section-inner span.cancel-order,
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner .submit-section .submit-section-inner span.proceed-order,
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner .submit-section .submit-section-inner span.update-order {
+    font-size: 12px;
+    padding: 4px 10px;
+    height: 26px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .submit-section .submit-section-inner span.cancel-order,
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .submit-section .submit-section-inner span.proceed-order {
+    display: inline-block;
+    padding: 0;
+    width: 120px;
+    text-align: center;
+    height: 26px;
+    vertical-align: middle;
+    line-height: 2;
+  }
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .submit-section .submit-section-inner span.cancel-order,
+  #create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .submit-section .submit-section-inner span.proceed-order {
+    padding: 0;
+  }
+}

@@ -8,8 +8,9 @@
           v-on:filter_modal="filterModalToggle"
           v-on:select_customer_by_customer_code="selectCustomerByCustomerCode" />
         <DetailsSection 
-        :style="filter_modal_toggle === true ? 'z-index: -1;' : 'z-index: 5;'"
-        :customer_data="customer_data" />
+          :style="filter_modal_toggle === true ? 'z-index: -1;' : 'z-index: 5;'"
+          :customer_id_from_left="customer_id"
+          :customer_data="customer_data" />
       </div>
     </div>
   </div>
@@ -39,6 +40,7 @@ export default {
       pathName: [],
       filter_modal_toggle: false,
       left_side_customer_data_list: [],
+      customer_id: null,
       customer_data: null,
     };
   },
@@ -61,6 +63,8 @@ export default {
     /***----------------------------Left Section Emitted Functions ---------------------------------- ***/
     selectCustomerByCustomerCode(value) {
       // console.log(value)()
+      this.customer_id = value
+      console.log(value)
       this.CUSTOMER_INFO_FOR_DEPOT__FROM_SERVICE(value)
       // this.left_list_customer_selection_id = value
     },
