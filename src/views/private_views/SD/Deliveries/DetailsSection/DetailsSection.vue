@@ -144,8 +144,7 @@
             <!-- Bottom Subtotal & Attachment Section -->
             <div class="submit-section" v-if="ORDERED_TABLE_DATA__INIT_LIST && PENDING_ORDER_DATA_BY_ID">
                 <div class="submit-section-inner">
-                    <span class="proceed-order" @click="updateOrderClickHandler" style="margin-right: 20px;" v-if="UPDATE_BTN_ENABLE">Update Order</span>
-                    <span class="proceed-order" @click="proceedOrderClickHandler" v-if="!UPDATE_BTN_ENABLE">Delivered Order</span>
+                    <span class="proceed-order" @click="proceedOrderClickHandler">Delivered Order</span>
                 </div>
             </div>
             <!-- Current Outstanding Modal -->
@@ -492,8 +491,8 @@
                             </b-tab>
                         </b-tabs>
                         <div class="submit-section">
-                            <button class="cancel">Cancel</button>
-                            <button class="confirm">Proceed</button>
+                            <button class="cancel" @click="deliveryOrderModalCancelClickHandler">Cancel</button>
+                            <button class="confirm" @click="deliveryOrderModalConfirmClickHandler">Proceed</button>
                         </div>
                     </div>
                 </div>
@@ -1198,6 +1197,14 @@ export default {
             // await this.APPROVE_SINGLE_ORDER__FROM_SERVICE()
             this.createSubtotalCalculation()
         },
+        // ----------------------------------------------------------------------------------------
+        // Delivery Order Popup
+        deliveryOrderModalCancelClickHandler() {
+            this.approve_product_confirmation_popup_modal = false
+        },
+        deliveryOrderModalConfirmClickHandler() {
+            this.approve_product_confirmation_popup_modal = false
+        },
         //------------------------------------------------------------------------------------------
         // Order Modal Functions
         addOrderModalOutsideClick() {
@@ -1774,7 +1781,7 @@ export default {
                 this.ORDER_AUTH_USER = this.pending_order_list_by_id.auth_user
                 console.log(this.PENDING_ORDER_DATA_BY_ID.is_verified)
                 console.log(this.order_id_from_left_side)
-                // this.createSubtotalCalculation()
+                this.createSubtotalCalculation()
                 console.log(this.ORDERED_TABLE_DATA__INIT_LIST)
             }, 100)
             // if( newVal && oldVal) {
