@@ -637,6 +637,11 @@ export default class PostService {
 
   // DELEVERIES - DETAILS SECTION
   async getSaveInvoiceDeliveryInfo_DELIVERIES(invoice_id, invoice_dtl, cash, cheque, net_payable_amount) {
+    console.log(invoice_id)
+    console.log(invoice_dtl)
+    console.log(cash)
+    console.log(cheque)
+    console.log(net_payable_amount)
     let web_menu_url = '/api/web/save-invoice-delivery-info'
     return await axios(web_menu_url, {
       method: 'GET',
@@ -645,7 +650,7 @@ export default class PostService {
       },
       params: {
         invoice_id: invoice_id,
-        invoice_details: invoice_dtl,
+        invoice_details: JSON.stringify(invoice_dtl),
         cash: cash,
         cheque: cheque,
         net_payable_amount: net_payable_amount
