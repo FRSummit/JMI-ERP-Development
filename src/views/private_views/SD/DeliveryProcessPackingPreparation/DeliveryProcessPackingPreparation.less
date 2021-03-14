@@ -11,27 +11,33 @@
 @title_breadcrumb_height  : 73px;
 @footer_height            : 32px;
 
-#delivery-packing-preparation.delivery-packing-preparation {
+#invoice-challan-printing.invoice-challan-printing {
     position: relative;
-    // height  : calc(@window_height - (@header_height + @footer_height));
+    height  : calc(@window_height - (@header_height + @footer_height));
 
-    .delivery-packing-preparation-section {
+    .invoice-challan-printing-section {
         border-top: 2px solid @hex-triplet;
+        height    : calc(100vh - (74px + 73px + 32px));
 
-        .delivery-packing-preparation-inner {
+        .invoice-challan-printing-inner {
             display: table;
             width  : 100%;
+            height : 100%;
 
-            .delivery-packing-preparation-detail-section {
-                display: table-cell;
-                padding: 20px 0 0;
-                width : calc(@window_width - (@sidebar_default_width + @secondary_left_menu_width));
+            .invoice-challan-printing-detail-section {
+                // display: table-cell;
+                display   : block;
+                overflow  : hidden;
+                padding   : 20px 0 0;
+                width     : calc(@window_width - (@sidebar_default_width + @secondary_left_menu_width));
+                height    : calc(100vh - (74px + 73px + 32px + 4px));
+                // height : 100%;
 
-                .delivery-packing-preparation-detail-section-inner {
+                .invoice-challan-printing-detail-section-inner {
                     font-size: 14px;
                     height   : 100%;
 
-                    
+
                 }
             }
         }

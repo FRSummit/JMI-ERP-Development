@@ -15,20 +15,20 @@
 @secondary_left_menu_date_range_section_height   : 45px;
 @secondary_left_menu_challan_text_section_height : 36px;
 
-#delivery-packing-preparation-left-list.delivery-packing-preparation-left-list {
+#invoice-challan-printing-left-list.invoice-challan-printing-left-list {
     display : table-cell;
     position: relative;
     overflow: hidden;
     width   : @secondary_left_menu_width;
 
-    .delivery-packing-preparation-list-section {
+    .invoice-challan-printing-list-section {
         position       : fixed;
         display        : inline-block;
         width          : @secondary_left_menu_width;
         border-right   : 2px solid @hex-triplet;
         // padding     : 20px;
 
-        .delivery-packing-preparation-list-section-inner {
+        .invoice-challan-printing-list-section-inner {
             overflow: hidden;
             display : block;
             height  : 100%;
@@ -156,13 +156,15 @@
 
             .location-list-section {
                 position: relative;
-                height  : calc(@window_height - (@header_height + @title_breadcrumb_height + @secondary_left_menu_DA_section_height + @secondary_left_menu_date_range_section_height + @secondary_left_menu_challan_text_section_height + @footer_height));
+                // height  : calc(@window_height - (@header_height + @title_breadcrumb_height + @secondary_left_menu_DA_section_height + @secondary_left_menu_date_range_section_height + @secondary_left_menu_challan_text_section_height + @footer_height));
+                height  : calc(@window_height - (@header_height + @title_breadcrumb_height + @secondary_left_menu_challan_text_section_height + @footer_height));
 
                 .location-list-section-inner {
                     position       : fixed;
                     overflow-y     : scroll;
                     width          : 300px;
-                    height         : calc(@window_height - (@header_height + @title_breadcrumb_height + @secondary_left_menu_DA_section_height + @secondary_left_menu_date_range_section_height + @secondary_left_menu_challan_text_section_height + @footer_height));
+                    // height         : calc(@window_height - (@header_height + @title_breadcrumb_height + @secondary_left_menu_DA_section_height + @secondary_left_menu_date_range_section_height + @secondary_left_menu_challan_text_section_height + @footer_height));
+                    height         : calc(@window_height - (@header_height + @title_breadcrumb_height + @secondary_left_menu_challan_text_section_height + @footer_height));
                     scrollbar-width: none;
 
                     &::-webkit-scrollbar {
@@ -184,7 +186,7 @@
                     }
                 }
 
-                .delivery-packing-preparation-section-list {
+                .invoice-challan-printing-section-list {
                     // box-shadow: 0px 0px 8px #026CD11A;
                     padding      : 0;
                     // margin       : 0 0 6px;
@@ -200,7 +202,7 @@
                         // border-left: 2px solid #026CD1;
                     }
 
-                    .delivery-packing-preparation-section-list-inner {
+                    .invoice-challan-printing-section-list-inner {
                         padding: 12px 20px;
                         cursor : pointer;
 
@@ -282,6 +284,10 @@
                             }
                         }
                     }
+                }
+
+                .invoice-challan-printing-section-list.active {
+                    background: #026CD11A;
                 }
             }
         }

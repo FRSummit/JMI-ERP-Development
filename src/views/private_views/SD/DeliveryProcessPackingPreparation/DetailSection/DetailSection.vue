@@ -1,8 +1,8 @@
 <template>
-  <div class="delivery-preparation-detail-section">
-    <div class="delivery-preparation-detail-section-inner">
-      <div class="delivery-packing-preparation-detail-header-section">
-        <div class="delivery-packing-preparation-detail-header-section-inner">
+  <div class="invoice-challan-print-detail-section">
+    <div class="invoice-challan-print-detail-section-inner">
+      <div class="invoice-challan-printing-detail-header-section">
+        <div class="invoice-challan-printing-detail-header-section-inner">
           <div class="packing-preparation-status-section">
             <div class="packing-preparation-status-section-inner">
               <!-- <span class="background-fixed-h-row"></span> -->
@@ -18,7 +18,7 @@
 
               <div class="packing-preparation-tab-section">
                 <v-card color="basil">
-                  <v-tabs v-model="tab" background-color="transparent" grow>
+                  <v-tabs class="" v-model="tab" background-color="transparent" grow>
                     <v-tab class="packing-tab" v-for="(status, i) in status_list" :key="i" :disabled="status.status_class !== 'done' ? '' : disabled">
                     <!-- <v-tab class="packing-tab" v-for="(status, i) in status_list" :key="i"> -->
                       <div class="tab-icon" :class="status.status_class">
@@ -30,13 +30,13 @@
                       </div>
                     </v-tab>
                   </v-tabs>
-                  <v-tabs-items v-model="tab" class="tab-container" style="margin-top: 30px">
+                  <v-tabs-items v-model="tab" class="tab-container" style="padding-top: 30px">
                     <v-tab-item v-for="(status, i) in status_list" :key="i">
                       <v-card color="basil" flat>
-                        <v-card v-if="status.status_name === 'Initial Phase'"><DetailDataList :tab="status.status_name"  :data="delivery_packing_preparation_data" /></v-card>
-                        <v-card v-if="status.status_name === 'Prepare Delivery'"><DetailDataList :tab="status.status_name"  :data="delivery_packing_preparation_data" /></v-card>
-                        <v-card v-if="status.status_name === 'Gate Pass'"><DetailDataList :tab="status.status_name"  :data="delivery_packing_preparation_data" /></v-card>
-                        <v-card v-if="status.status_name === 'Ready'"><DetailDataList :tab="status.status_name"  :data="delivery_packing_preparation_data" /></v-card>
+                        <v-card v-if="status.status_name === 'All'"><DetailDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="SCHEDULE_DETAILS_LIST" /></v-card>
+                        <v-card v-if="status.status_name === 'Chemist'"><DetailDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="SCHEDULE_DETAILS_LIST_CHEMIST" /></v-card>
+                        <v-card v-if="status.status_name === 'Institution'"><DetailDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="SCHEDULE_DETAILS_LIST_INSTITUTION" /></v-card>
+                        <!-- <v-card v-if="status.status_name === 'Handover'"><DetailDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="SCHEDULE_DETAILS_LIST" /></v-card> -->
                       </v-card>
                     </v-tab-item>
                   </v-tabs-items>
@@ -56,6 +56,7 @@
 import DetailDataList from './DetailData/DetailDataList'
 
 export default {
+  props: ["SCHEDULE_DETAILS_LIST", "SCHEDULE_DETAILS_LIST_CHEMIST", "SCHEDULE_DETAILS_LIST_INSTITUTION"],
   components: {
     DetailDataList
   },
@@ -65,143 +66,21 @@ export default {
       status_list: [
         {
           status_class: "done",
-          status_name: "Initial Phase",
+          status_name: "All",
         },
         {
           status_class: "done",
-          status_name: "Prepare Delivery",
+          status_name: "Chemist",
         },
         {
           status_class: "done",
-          status_name: "Gate Pass",
+          status_name: "Institution",
         },
-        {
-          status_class: "",
-          status_name: "Ready",
-        },
+        // {
+        //   status_class: "",
+        //   status_name: "Handover",
+        // },
       ],
-      delivery_packing_preparation_data: [
-        {
-          medicine_name: "Antiasthmatic & Antiallergic. Doxiva Montiva.",
-          batch_no: "BATCHNO01234",
-          quantity: "200"
-        },
-        {
-          medicine_name: "Antiasthmatic & Antiallergic. Doxiva Montiva.",
-          batch_no: "BATCHNO01235",
-          quantity: "300"
-        },
-        {
-          medicine_name: "Antiasthmatic & Antiallergic. Doxiva Montiva.",
-          batch_no: "BATCHNO01236",
-          quantity: "400"
-        },
-        {
-          medicine_name: "Antiasthmatic & Antiallergic. Doxiva Montiva.",
-          batch_no: "BATCHNO01237",
-          quantity: "500"
-        },
-        {
-          medicine_name: "Antiasthmatic & Antiallergic. Doxiva Montiva.",
-          batch_no: "BATCHNO01234",
-          quantity: "200"
-        },
-        {
-          medicine_name: "Antiasthmatic & Antiallergic. Doxiva Montiva.",
-          batch_no: "BATCHNO01235",
-          quantity: "300"
-        },
-        {
-          medicine_name: "Antiasthmatic & Antiallergic. Doxiva Montiva.",
-          batch_no: "BATCHNO01236",
-          quantity: "400"
-        },
-        {
-          medicine_name: "Antiasthmatic & Antiallergic. Doxiva Montiva.",
-          batch_no: "BATCHNO01237",
-          quantity: "500"
-        },
-        {
-          medicine_name: "Antiasthmatic & Antiallergic. Doxiva Montiva.",
-          batch_no: "BATCHNO01234",
-          quantity: "200"
-        },
-        {
-          medicine_name: "Antiasthmatic & Antiallergic. Doxiva Montiva.",
-          batch_no: "BATCHNO01235",
-          quantity: "300"
-        },
-        {
-          medicine_name: "Antiasthmatic & Antiallergic. Doxiva Montiva.",
-          batch_no: "BATCHNO01236",
-          quantity: "400"
-        },
-        {
-          medicine_name: "Antiasthmatic & Antiallergic. Doxiva Montiva.",
-          batch_no: "BATCHNO01237",
-          quantity: "500"
-        },
-        {
-          medicine_name: "Antiasthmatic & Antiallergic. Doxiva Montiva.",
-          batch_no: "BATCHNO01234",
-          quantity: "200"
-        },
-        {
-          medicine_name: "Antiasthmatic & Antiallergic. Doxiva Montiva.",
-          batch_no: "BATCHNO01235",
-          quantity: "300"
-        },
-        {
-          medicine_name: "Antiasthmatic & Antiallergic. Doxiva Montiva.",
-          batch_no: "BATCHNO01236",
-          quantity: "400"
-        },
-        {
-          medicine_name: "Antiasthmatic & Antiallergic. Doxiva Montiva.",
-          batch_no: "BATCHNO01237",
-          quantity: "500"
-        },
-        {
-          medicine_name: "Antiasthmatic & Antiallergic. Doxiva Montiva.",
-          batch_no: "BATCHNO01234",
-          quantity: "200"
-        },
-        {
-          medicine_name: "Antiasthmatic & Antiallergic. Doxiva Montiva.",
-          batch_no: "BATCHNO01235",
-          quantity: "300"
-        },
-        {
-          medicine_name: "Antiasthmatic & Antiallergic. Doxiva Montiva.",
-          batch_no: "BATCHNO01236",
-          quantity: "400"
-        },
-        {
-          medicine_name: "Antiasthmatic & Antiallergic. Doxiva Montiva.",
-          batch_no: "BATCHNO01237",
-          quantity: "500"
-        },
-        {
-          medicine_name: "Antiasthmatic & Antiallergic. Doxiva Montiva.",
-          batch_no: "BATCHNO01234",
-          quantity: "200"
-        },
-        {
-          medicine_name: "Antiasthmatic & Antiallergic. Doxiva Montiva.",
-          batch_no: "BATCHNO01235",
-          quantity: "300"
-        },
-        {
-          medicine_name: "Antiasthmatic & Antiallergic. Doxiva Montiva.",
-          batch_no: "BATCHNO01236",
-          quantity: "400"
-        },
-        {
-          medicine_name: "Antiasthmatic & Antiallergic. Doxiva Montiva.",
-          batch_no: "BATCHNO01237",
-          quantity: "500"
-        },
-      ]
     };
   },
   created() {

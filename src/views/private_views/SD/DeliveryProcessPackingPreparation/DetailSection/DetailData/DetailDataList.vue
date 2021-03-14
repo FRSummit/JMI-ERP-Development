@@ -1,32 +1,35 @@
 <template>
   <div id="detail-data-list" class="detail-data-list">
     <div class="detail-data-list-inner">
-      <div class="detail-data-submit-section">
+      <div class="detail-data-submit-section hide">
         <div class="detail-data-submit-section-inner">
           <div
-            class="print-save-pdf-section"
-            v-if="tab === 'Gate Pass' || tab === 'Ready'"
+            class="serial-range-custom-section"
+            v-if="tab === 'Invoice Print' || tab === 'Chalan Print'"
           >
-            <div class="print-save-pdf-section-inner">
-              <div class="print-section">
-                <div class="print-section-inner">
-                  <span><i class="fas fa-print"></i>Print</span>
-                </div>
-              </div>
-              <div class="pdf-section">
-                <div class="pdf-section-inner">
-                  <span><i class="far fa-file-pdf"></i>Save Pdf</span>
+            <div class="serial-range-custom-section-inner">
+              <div class="range-customization-section">
+                <div class="range-customization-section-inner">
+                  <span>Serial Range:</span>
+                  <form class="input-btns">
+                    <p><input type="radio" checked="checked" name="serialRange" value="Default" @change="onChange('Default')" /> <span :class="radioSpanDefaultClass">Default</span></p>
+                    <p><input type="radio" name="serialRange" value="Custom" @change="onChange('Custom')" /> <span :class="radioSpanCustomClass">Custom</span></p>
+                    <!-- <form>
+                      <input type="radio" checked="checked" value="radio" />
+                    </label>-->
+                  </form>
                 </div>
               </div>
             </div>
           </div>
           <div class="submit-btn-section">
             <div class="submit-btn-section-inner">
-              <button>Done</button>
+              <button>Print &amp; Next</button>
             </div>
           </div>
         </div>
       </div>
+      <span class="print-all-icon"><i class="zmdi zmdi-print" @click="printAllInvoiceClickHandler"></i><span class="tool-tip">Print All Invoice</span></span>
       <div class="detail-data-list-section">
         <div class="detail-data-list-section-inner">
           <!-- {{ data }} -->
@@ -34,17 +37,22 @@
           <table class="data-table" cellspacing="0" width="100%">
             <thead>
               <tr class="data-table-head-row">
-                <th v-for="(head, i) in table_header" :key="i">
-                  {{ head }}
-                </th>
+                <th>SL No</th>
+                <th>Invoice ID</th>
+                <th>Customer Type</th>
+                <th>Customer Name</th>
+                <th style="text-align: right;">Amount</th>
+                <th style="width: 10%;"></th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(d, i) in data" :key="i" class="data-table-data-row">
+              <tr v-for="(schedule, i) in SCHEDULE_DETAILS_LIST" :key="i" class="data-table-data-row">
                 <td>{{ i + 1 }}</td>
-                <td>{{ d.medicine_name }}</td>
-                <td>{{ d.batch_no }}</td>
-                <td>{{ d.quantity }}</td>
+                <td style="color: #026CD1; font-weight: 500;">{{ schedule.invoice_id }}</td>
+                <td>{{ schedule.customer_info ? (schedule.customer_info.customer_type ? (schedule.customer_info.customer_type) : '') : '' }}</td>
+                <td>{{ schedule.customer_info ? (schedule.customer_info.customer_name ? (schedule.customer_info.customer_name) : '') : '' }}</td>
+                <td style="text-align: right;">{{ comaSrparation(Number(schedule.invoice_amt).toFixed(2)) }}</td>
+                <td style="width: 10%;"><i class="zmdi zmdi-print" @click="printInvoice(schedule.id, i)"></i></td>
               </tr>
             </tbody>
           </table>
@@ -55,13 +63,83 @@
 </template>
 
 <script>
+import Service from "../../../../../../service/ERPSidebarService";
+const service = new Service();
+
+// import PP_Invoice_Type_2 from '../../../../../../functions/Print_Func/PP_Invoice_Type_2'
+// const ppInvoice_Type_2 = new PP_Invoice_Type_2()
+
+import PP_Invoice_Type_2_Single from '../../../../../../functions/Print_Func/PP_Invoice_Type_2_Single'
+const pp_Invoice_Type_2_Single = new PP_Invoice_Type_2_Single()
+import PP_Invoice_Type_3_Institution from '../../../../../../functions/Print_Func/PP_Invoice_Type_3_Institution'
+const pp_Invoice_Type_3_Institution = new PP_Invoice_Type_3_Institution()
+
+import ComaSeparatedDigits from '../../../../../../functions/ComaSeparatedDigits'
+const comaSeparatedDigits = new ComaSeparatedDigits()
+
 export default {
-  props: ["tab", "data"],
+  props: ["tab", "SCHEDULE_DETAILS_LIST"],
   components: {},
   data() {
     return {
-      table_header: ["SL No", "Medicine Name", "Batch No", "Quantity"],
+      table_header: [
+        "SL No",
+        "Invoice ID",
+        "Customer Type",
+        "Customer Name",
+        "Amount",
+        ""
+      ],
+      // value: null,
+      radioSpanDefaultClass: 'active',
+      radioSpanCustomClass: null
     };
+  },
+  methods: {
+    onChange(value) {
+      switch(value) {
+        case 'Default':
+          console.log('D : ' + value)
+          this.radioSpanDefaultClass = 'active'
+          this.radioSpanCustomClass = ''
+          break
+        case 'Custom':
+          console.log('C : ' + value)
+          this.radioSpanDefaultClass = ''
+          this.radioSpanCustomClass = 'active'
+          break
+          default:
+            break
+      }
+    },
+    comaSrparation(data) {
+      return comaSeparatedDigits.comaSeparate(data)
+    },
+    printAllInvoiceClickHandler() {
+      console.log('print ALl')
+      console.log(this.tab)
+    },
+    async printInvoice(schedule_id, i) {
+      console.log('index : ' + i)
+      console.log(schedule_id)
+      // ppInvoice_Type_2.print_invoice(schedule_id)
+      await this.PRING_INVOCIE_DETAILS__FROM_SERVICE(schedule_id)
+    },
+    // ---------------------------------------------------------------
+    // SERVICE CALL
+    async PRING_INVOCIE_DETAILS__FROM_SERVICE(invoice_id) {
+      service.getPrintInvoiceDetails_INVOICE_CHALLAN_PRINTING(invoice_id)
+        .then(res => {
+          console.log(res.data)
+          // ppInvoice_Type_2.print_invoice(res.data)
+          // if(this.tab === 'All' || this.tab === 'Chemist') {
+          if(this.tab === 'All') {
+            pp_Invoice_Type_2_Single.print_invoice(res.data.invoice_details)
+          } else {
+            pp_Invoice_Type_3_Institution.print_invoice(res.data.invoice_details)
+          }
+        })
+    }
   },
 };
 </script>
