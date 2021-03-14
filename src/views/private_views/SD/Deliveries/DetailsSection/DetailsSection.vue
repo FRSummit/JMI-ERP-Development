@@ -492,13 +492,13 @@
                 <p class="popup-text">{{ ORDER_SUCCESS_MESSAGE }}</p>
             </div>
         </div> -->
-        <!-- Order Approved Message -->
-        <!-- <div id="update-successfully-modal" class="modal-popup-section update-successfully-modal" v-if="removing_last_product_from_cart">
+        <!-- Delivery Success Message -->
+        <div id="update-successfully-modal" class="modal-popup-section update-successfully-modal" v-if="delivery_success_or_not_msg_modal">
             <div class="modal-popup-section-inner update-successfully-modal-inner">
                 <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
-                <p class="popup-text">Please reject this order.</p>
+                <p class="popup-text">{{ delivery_success_or_not_msg }}</p>
             </div>
-        </div> -->
+        </div>
     </div>
 </template>
 
@@ -878,6 +878,7 @@ export default {
             cheque_tab_date: null,
             DEPOSIT_TAB_VISIBLE: false,
             ADJUSTMENT_TAB_VISIBLE: false,
+            delivery_success_or_not_msg_modal: false,
         }
     },
     async created() {
@@ -1189,6 +1190,12 @@ export default {
             await service.getSaveInvoiceDeliveryInfo_DELIVERIES(invoice_id, invoice_dtl, cash, cheque, net_payable_amount)
                 .then(res => {
                     console.log(res.data)
+                    this.approve_product_confirmation_popup_modal = false
+                    this.delivery_success_or_not_msg_modal = true
+                    this.delivery_success_or_not_msg = res.data.message
+                    setTimeout( ()=> {
+                        this.delivery_success_or_not_msg_modal = false
+                    }, 2000)
                 })
         },
         // ----------------------------------------------------------------------------------------------
