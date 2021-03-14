@@ -65,7 +65,8 @@ export function configureFakeBackend() {
                             accessToken: users.data.token.access_token,
                             token_type: users.data.token.token_type,
                             // expires_at: users.data.expires_at,
-                            expires_at: new Date().getTime() + (Math.abs(new Date(users.data.token.expires_at).getTime() - new Date().getTime())),
+                            // expires_at: new Date().getTime() + (Math.abs(new Date(users.data.token.expires_at).getTime() - new Date().getTime())),
+                            expires_at: new Date(users.data.token.expires_at).getTime(),
                             user_detils: {
                                 id: users.data.user.id,
                                 name: users.data.user.name,

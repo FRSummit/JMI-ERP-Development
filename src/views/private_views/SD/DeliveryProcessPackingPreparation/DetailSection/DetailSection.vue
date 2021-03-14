@@ -26,7 +26,7 @@
                       </div>
                       <div class="tab-name-section" :class="status.status_class">
                         <span class="tab-name">{{ status.status_name }}</span>
-                        <span class="background-fixed-h-row" v-if="(i+1) < status_list.length"></span>
+                        <!-- <span class="background-fixed-h-row" v-if="(i+1) < status_list.length"></span> -->
                       </div>
                     </v-tab>
                   </v-tabs>
