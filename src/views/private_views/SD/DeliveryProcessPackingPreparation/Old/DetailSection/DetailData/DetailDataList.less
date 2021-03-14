@@ -1,0 +1,170 @@
+#detail-data-list.detail-data-list {
+
+    .detail-data-list-inner {
+        .detail-data-submit-section {
+            width  : 93%;
+            margin : 0 auto;
+            padding: 10px 0;
+
+            .detail-data-submit-section-inner {
+                overflow: hidden;
+
+                .print-save-pdf-section {
+                    display: inline-block;
+                    float  : left;
+                    width  : 80%;
+
+                    .print-save-pdf-section-inner {
+                        display    : block;
+                        text-align : center;
+                        margin-left: 25%;
+
+                        .print-section {
+                            display     : inline-block;
+                            width       : auto;
+                            margin-right: 30px;
+
+                            .print-section-inner {
+                                span {
+                                    font-size      : 16px;
+                                    color          : #026CD1;
+                                    cursor         : pointer;
+                                    text-decoration: underline;
+
+                                    svg {
+                                        margin-right: 8px;
+                                    }
+                                }
+                            }
+                        }
+
+                        .pdf-section {
+                            display    : inline-block;
+                            width      : auto;
+                            margin-left: 30px;
+
+                            .pdf-section-inner {
+                                span {
+                                    font-size      : 16px;
+                                    color          : #026CD1;
+                                    cursor         : pointer;
+                                    text-decoration: underline;
+
+                                    svg {
+                                        margin-right: 8px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .submit-btn-section {
+                    display: inline-block;
+                    float  : right;
+
+                    .submit-btn-section-inner {
+                        button {
+                            color        : #FCFCFC;
+                            font-size    : 14px;
+                            background   : #026CD1;
+                            width        : 140px;
+                            padding      : 12px 0;
+                            border-radius: 2px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .detail-data-list-section {
+            margin-top: 20px;
+
+            .detail-data-list-section-inner {
+                .data-table {
+                    border-top: 1px solid #E9F2FB;
+                    position  : relative;
+
+                    tr {
+                        border-bottom: none;
+                        display      : table;
+                        width        : 100%;
+                    }
+
+                    thead {
+
+                        tr.data-table-head-row {
+                            border-bottom: 1px solid #E9F2FB;
+
+                            th {
+                                padding    : 10px 6px;
+                                text-align : center;
+                                color      : #026CD1;
+                                font-size  : 16px;
+                                font-weight: 500;
+                                width      : 20%;
+                            }
+
+                            th:first-child {
+                                width: 10%;
+                            }
+
+                            th:nth-child(2) {
+                                width: 50%;
+                            }
+                        }
+                    }
+
+                    tbody {
+                        width            : 100%;
+                        display          : list-item;
+                        height           : calc(100vh - (74px + 73px + (40px + 84px + 30px + 60px + 20px + 46px) + 32px));
+                        overflow         : auto;
+                        -webkit-flex-flow: row wrap;
+
+                        &::-webkit-scrollbar {
+                            width: 2px;
+                        }
+
+                        &::-webkit-scrollbar-track {
+                            box-shadow   : inset 0 0 5px grey;
+                            border-radius: 10px;
+                        }
+
+                        &::-webkit-scrollbar-thumb {
+                            background   : #168fff;
+                            border-radius: 10px;
+                        }
+
+                        &::-webkit-scrollbar-thumb:hover {
+                            background: #004e98;
+                        }
+
+                        tr.data-table-data-row {
+
+                            &:hover {
+                                background: #E2EDFA;
+                            }
+                            td {
+                                padding   : 10px 6px;
+                                text-align: center;
+                                color     : #111213;
+                                font-size : 14px;
+                                width     : 20%;
+                            }
+
+                            td:first-child {
+                                width: 10%;
+                            }
+
+                            td:nth-child(2) {
+                                width: 50%;
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+}
