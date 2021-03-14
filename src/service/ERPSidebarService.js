@@ -635,6 +635,29 @@ export default class PostService {
     })
   }
 
+  // DELEVERIES - DETAILS SECTION
+  async getSaveInvoiceDeliveryInfo_DELIVERIES(invoice_id, invoice_dtl, cash, cheque, net_payable_amount) {
+    console.log(invoice_id)
+    console.log(invoice_dtl)
+    console.log(cash)
+    console.log(cheque)
+    console.log(net_payable_amount)
+    let web_menu_url = '/api/web/save-invoice-delivery-info'
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+      params: {
+        invoice_id: invoice_id,
+        invoice_details: JSON.stringify(invoice_dtl),
+        cash: cash,
+        cheque: cheque,
+        net_payable_amount: net_payable_amount
+      }
+    })
+  }
+
   // -------------------------------------------------------------------------------------------
   // DS PACKING PREPARATION - LEFT SECTION
   async getDeliveryScheduleProdPreparationListByDA_ID_DS_PACKING_PREPARATION(da_id) {

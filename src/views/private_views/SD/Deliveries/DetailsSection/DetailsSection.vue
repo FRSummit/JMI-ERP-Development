@@ -478,7 +478,7 @@
                         </b-tabs>
                         <div class="submit-section">
                             <button class="cancel" @click="deliveryOrderModalCancelClickHandler">Cancel</button>
-                            <button class="confirm" @click="deliveryOrderModalConfirmClickHandler">Proceed</button>
+                            <button class="confirm" @click="deliveryOrderModalConfirmClickHandler" v-if="cash_receive_amount > 0 || cheque_receive_amount > 0">Proceed</button>
                         </div>
                     </div>
                 </div>
@@ -492,13 +492,13 @@
                 <p class="popup-text">{{ ORDER_SUCCESS_MESSAGE }}</p>
             </div>
         </div> -->
-        <!-- Order Approved Message -->
-        <!-- <div id="update-successfully-modal" class="modal-popup-section update-successfully-modal" v-if="removing_last_product_from_cart">
+        <!-- Delivery Success Message -->
+        <div id="update-successfully-modal" class="modal-popup-section update-successfully-modal" v-if="delivery_success_or_not_msg_modal">
             <div class="modal-popup-section-inner update-successfully-modal-inner">
                 <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
-                <p class="popup-text">Please reject this order.</p>
+                <p class="popup-text">{{ delivery_success_or_not_msg }}</p>
             </div>
-        </div> -->
+        </div>
     </div>
 </template>
 
@@ -878,6 +878,7 @@ export default {
             cheque_tab_date: null,
             DEPOSIT_TAB_VISIBLE: false,
             ADJUSTMENT_TAB_VISIBLE: false,
+            delivery_success_or_not_msg_modal: false,
         }
     },
     async created() {
@@ -987,7 +988,50 @@ export default {
             this.approve_product_confirmation_popup_modal = false
         },
         deliveryOrderModalConfirmClickHandler() {
-            this.approve_product_confirmation_popup_modal = false
+            console.log('deliveryOrderModalConfirmClickHandler')
+            let invoice_id = this.order_id_from_left_side
+            let product = {
+                prod_id: [],
+                invoiced_qty: [],
+                delivered_qty: [],
+            }
+            let collection = {
+                net_payable_amount: null,	
+                cash_collection: null,
+                check_collection: null,
+                collected_amount: null,
+                due_amount: null
+            }
+            for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST_NOT_CHANGEABLE.length; i++) {
+                product.prod_id.push( this.ORDERED_TABLE_DATA__INIT_LIST_NOT_CHANGEABLE[i].product_info.id )
+                product.invoiced_qty.push( parseInt(this.ORDERED_TABLE_DATA__INIT_LIST_NOT_CHANGEABLE[i].net_qty) )
+                product.delivered_qty.push( parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) + parseInt( parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) / parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on) ) )
+            }
+            collection.net_payable_amount = Number(this.grand_total).toFixed(2)
+            collection.cash_collection = Number(this.cash_receive_amount).toFixed(2)
+            collection.check_collection = Number(this.cheque_receive_amount).toFixed(2)
+            collection.collected_amount = Number(this.cash_receive_amount + this.cheque_receive_amount).toFixed(2)
+            collection.due_amount = Number(this.grand_total - (this.cash_receive_amount + this.cheque_receive_amount)).toFixed(2)
+
+            let invoice_dtl = []
+            for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST_NOT_CHANGEABLE.length; i++) {
+                let invoice_details = {
+                    prod_id: this.ORDERED_TABLE_DATA__INIT_LIST_NOT_CHANGEABLE[i].product_info.id,
+                    dlv_qty: parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) + parseInt( parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) / parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on) )
+                }
+                invoice_dtl.push(invoice_details)
+            }
+            let cash = Number(this.cash_receive_amount).toFixed(2)
+            let cheque = Number(this.cheque_receive_amount).toFixed(2)
+            let net_payable_amount = Number(this.grand_total).toFixed(2)
+
+            this.SAVE_INVOICE_DELIVERY_INFO__FROM_SERVICE(invoice_id, invoice_dtl, cash, cheque, net_payable_amount)
+
+
+            console.log(invoice_id)
+            console.log(product)
+            console.log(collection)
+            // this.approve_product_confirmation_popup_modal = false
         },
         //------------------------------------------------------------------------------------------
         // Increase Autofield Selected Ordered Product
@@ -1142,47 +1186,16 @@ export default {
                     this.SHOW_CUSTOMER_PROFILE = res.data.customer_info
                 })
         },
-        async CANCEL_ORDER_BY_ORDER_ID__FROM_SERVICE(order_id) {
-            await service.getCancelOrderByOrderId_OrderApproval(order_id)
+        async SAVE_INVOICE_DELIVERY_INFO__FROM_SERVICE(invoice_id, invoice_dtl, cash, cheque, net_payable_amount) {
+            await service.getSaveInvoiceDeliveryInfo_DELIVERIES(invoice_id, invoice_dtl, cash, cheque, net_payable_amount)
                 .then(res => {
                     console.log(res.data)
-                    this.$emit('remove_rejected_order_id_from_left_list', order_id)
-                })
-        },
-        async DESTROY_ORDER_DETAILS_BY_ID__FROM_SERVICE(id){
-            console.log(id)
-            await service.getDestroyOrderDetailsById_OrderApproval(id)
-                .then(res => {
-                    console.log(res.data)
-                    this.delete_product_from_table_popup_modal_data = null
-                    this.delete_product_from_table_popup_modal = false
-                    this.$emit('reload_this_order', this.order_id_from_left_side)
-                })
-        },
-        async ADD_PRODUCT_FROM_AUTOFILL_SECOND_FULL_PERAM(prod_db_list){
-            console.log(this.order_id_from_left_side)
-            console.log(prod_db_list)
-            await service.getAddNewProdOnExistOrderByOrderId_OrderApproval(this.order_id_from_left_side, prod_db_list)
-                .then(res => {
-                    console.log(res.data)
-                    /*this.ORDERED_TABLE_DATA__INIT_LIST = []
-                    this.ORDERED_TABLE_DATA__INIT_LIST = res.data.order.order_details
-                    this.createSubtotalCalculation()*/
-                    this.$emit('reload_this_order', this.order_id_from_left_side)
-                })
-        },
-        async UPDATE_ORDER__FROM_SERVICE(prod_list) {
-            await service.getUpdateOrderByOrderId_OrderApproval(this.order_id_from_left_side, prod_list)
-                .then(res => {
-                    console.log(res.data)
-                    if(res.data.response_code === 200) {
-                        this.UPDATE_BTN_ENABLE = false
-                        this.product_update_successfully_modal = true
-                        this.$emit('reload_this_order', this.order_id_from_left_side)
-                        setTimeout( () => {
-                            this.product_update_successfully_modal = false
-                        }, 2000)
-                    }
+                    this.approve_product_confirmation_popup_modal = false
+                    this.delivery_success_or_not_msg_modal = true
+                    this.delivery_success_or_not_msg = res.data.message
+                    setTimeout( ()=> {
+                        this.delivery_success_or_not_msg_modal = false
+                    }, 2000)
                 })
         },
         // ----------------------------------------------------------------------------------------------
@@ -1198,7 +1211,7 @@ export default {
             for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST.length; i++) {
                 this.sub_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_tp) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty
                 this.vat_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_vat) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty
-                // this.discount_total += (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_tp) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) - (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.price_now_per_qty) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty)
+                this.discount_total += (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_tp) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) - (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.price_now_per_qty) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty)
                 // console.log(parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.price_now_per_qty) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty)
             }
             // this.discount_total = 0
@@ -1228,6 +1241,13 @@ export default {
                 this.SHOW_PRINT_ICON = false
                 console.log('default component')
                 console.log(this.ORDERED_TABLE_DATA__INIT_LIST.length)
+
+                /*let qty_edit_static_lists = document.querySelectorAll('.single_qty.quantity-setup')
+                let qty_edit_dynamic_lists = document.querySelectorAll('.qty_editable.quantity-setup')
+                for(let i=0; i<qty_edit_static_lists.length; i++) {
+                    qty_edit_static_lists[i].className = 'single_qty quantity-setup'
+                    qty_edit_dynamic_lists[i].className = 'qty_editable quantity-setup hide'
+                }*/
         },
         createYYYYDDMM() {
             let yyyy = new Date().getFullYear()
@@ -1333,6 +1353,14 @@ export default {
                 console.log(this.PENDING_ORDER_DATA_BY_ID.is_verified)
                 console.log(this.order_id_from_left_side)
                 this.createSubtotalCalculation()
+
+                /*let qty_edit_static_lists = document.querySelectorAll('.single_qty.quantity-setup')
+                let qty_edit_dynamic_lists = document.querySelectorAll('.qty_editable.quantity-setup')
+                for(let i=0; i<qty_edit_static_lists.length; i++) {
+                    qty_edit_static_lists[i].className = 'single_qty quantity-setup'
+                    qty_edit_dynamic_lists[i].className = 'qty_editable quantity-setup hide'
+                }
+                console.log(qty_edit_static_lists.length)*/
             }, 100)
         },
     }
