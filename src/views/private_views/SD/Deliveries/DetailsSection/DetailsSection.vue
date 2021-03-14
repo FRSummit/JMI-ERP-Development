@@ -478,7 +478,7 @@
                         </b-tabs>
                         <div class="submit-section">
                             <button class="cancel" @click="deliveryOrderModalCancelClickHandler">Cancel</button>
-                            <button class="confirm" @click="deliveryOrderModalConfirmClickHandler">Proceed</button>
+                            <button class="confirm" @click="deliveryOrderModalConfirmClickHandler" v-if="cash_receive_amount > 0 || cheque_receive_amount > 0">Proceed</button>
                         </div>
                     </div>
                 </div>
@@ -987,7 +987,35 @@ export default {
             this.approve_product_confirmation_popup_modal = false
         },
         deliveryOrderModalConfirmClickHandler() {
-            this.approve_product_confirmation_popup_modal = false
+            console.log('deliveryOrderModalConfirmClickHandler')
+            let invoice_id = this.order_id_from_left_side
+            let product = {
+                prod_id: [],
+                invoiced_qty: [],
+                delivered_qty: [],
+            }
+            let collection = {
+                net_payable_amount: null,	
+                cash_collection: null,
+                check_collection: null,
+                collected_amount: null,
+                due_amount: null
+            }
+            for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST_NOT_CHANGEABLE.length; i++) {
+                product.prod_id.push( this.ORDERED_TABLE_DATA__INIT_LIST_NOT_CHANGEABLE[i].product_info.id )
+                product.invoiced_qty.push( parseInt(this.ORDERED_TABLE_DATA__INIT_LIST_NOT_CHANGEABLE[i].net_qty) )
+                product.delivered_qty.push( parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) + parseInt( parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) / parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on) ) )
+            }
+            collection.net_payable_amount = Number(this.grand_total).toFixed(2)
+            collection.cash_collection = Number(this.cash_receive_amount).toFixed(2)
+            collection.check_collection = Number(this.cheque_receive_amount).toFixed(2)
+            collection.collected_amount = Number(this.cash_receive_amount + this.cheque_receive_amount).toFixed(2)
+            collection.due_amount = Number(this.grand_total - (this.cash_receive_amount + this.cheque_receive_amount)).toFixed(2)
+
+            console.log(invoice_id)
+            console.log(product)
+            console.log(collection)
+            // this.approve_product_confirmation_popup_modal = false
         },
         //------------------------------------------------------------------------------------------
         // Increase Autofield Selected Ordered Product
@@ -1198,7 +1226,7 @@ export default {
             for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST.length; i++) {
                 this.sub_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_tp) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty
                 this.vat_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_vat) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty
-                // this.discount_total += (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_tp) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) - (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.price_now_per_qty) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty)
+                this.discount_total += (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_tp) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) - (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.price_now_per_qty) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty)
                 // console.log(parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.price_now_per_qty) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty)
             }
             // this.discount_total = 0
@@ -1228,6 +1256,13 @@ export default {
                 this.SHOW_PRINT_ICON = false
                 console.log('default component')
                 console.log(this.ORDERED_TABLE_DATA__INIT_LIST.length)
+
+                /*let qty_edit_static_lists = document.querySelectorAll('.single_qty.quantity-setup')
+                let qty_edit_dynamic_lists = document.querySelectorAll('.qty_editable.quantity-setup')
+                for(let i=0; i<qty_edit_static_lists.length; i++) {
+                    qty_edit_static_lists[i].className = 'single_qty quantity-setup'
+                    qty_edit_dynamic_lists[i].className = 'qty_editable quantity-setup hide'
+                }*/
         },
         createYYYYDDMM() {
             let yyyy = new Date().getFullYear()
@@ -1333,6 +1368,14 @@ export default {
                 console.log(this.PENDING_ORDER_DATA_BY_ID.is_verified)
                 console.log(this.order_id_from_left_side)
                 this.createSubtotalCalculation()
+
+                /*let qty_edit_static_lists = document.querySelectorAll('.single_qty.quantity-setup')
+                let qty_edit_dynamic_lists = document.querySelectorAll('.qty_editable.quantity-setup')
+                for(let i=0; i<qty_edit_static_lists.length; i++) {
+                    qty_edit_static_lists[i].className = 'single_qty quantity-setup'
+                    qty_edit_dynamic_lists[i].className = 'qty_editable quantity-setup hide'
+                }
+                console.log(qty_edit_static_lists.length)*/
             }, 100)
         },
     }
