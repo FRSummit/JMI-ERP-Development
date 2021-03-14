@@ -232,14 +232,18 @@ router.beforeEach((to, from, next) => {
   const publicPages = ['/', '/login', '/login-v1', '/signup'];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('user');
+  console.log(JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')).expires_at : 'You are logged out')
 
   if (authRequired && !loggedIn) {
-    return next('/login');
+    return next('/');
   } else if (authRequired && loggedIn) {
     // if(new Date().getTime() > JSON.parse(localStorage.getItem('user')).expiresAt) {
     if(new Date().getTime() > JSON.parse(localStorage.getItem('user')).expires_at) {
-      return next('/login');
+      return next('/');
     }
+    // if((JSON.parse(localStorage.getItem('user')).expires_at - new Date().getTime()) < 0) {
+    //   return next('/login');
+    // }
   }
   // Store.commit('setUserIsAuthenticated', routerAuthCheck);
   if (to.matched.some(record => {

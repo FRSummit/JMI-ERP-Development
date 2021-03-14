@@ -9,49 +9,71 @@
             .detail-data-submit-section-inner {
                 overflow: hidden;
 
-                .print-save-pdf-section {
+                .serial-range-custom-section {
                     display: inline-block;
                     float  : left;
                     width  : 80%;
 
-                    .print-save-pdf-section-inner {
-                        display    : block;
-                        text-align : center;
-                        margin-left: 25%;
+                    .serial-range-custom-section-inner {
+                        display: block;
 
-                        .print-section {
-                            display     : inline-block;
-                            width       : auto;
-                            margin-right: 30px;
-
-                            .print-section-inner {
+                        .range-customization-section {
+                            .range-customization-section-inner {
                                 span {
-                                    font-size      : 16px;
-                                    color          : #026CD1;
-                                    cursor         : pointer;
-                                    text-decoration: underline;
-
-                                    svg {
-                                        margin-right: 8px;
-                                    }
+                                    display    : inline-block;
+                                    font-size  : 14px;
+                                    font-weight: 500;
                                 }
-                            }
-                        }
 
-                        .pdf-section {
-                            display    : inline-block;
-                            width      : auto;
-                            margin-left: 30px;
+                                form.input-btns {
+                                    display       : inline-block;
+                                    vertical-align: middle;
 
-                            .pdf-section-inner {
-                                span {
-                                    font-size      : 16px;
-                                    color          : #026CD1;
-                                    cursor         : pointer;
-                                    text-decoration: underline;
+                                    p {
+                                        font-size  : 14px;
+                                        margin     : 0 10px;
+                                        line-height: 1;
+                                        display    : inline-block;
 
-                                    svg {
-                                        margin-right: 8px;
+                                        input {
+                                            display                : inline-block;
+                                            width                  : 20px;
+                                            height                 : 20px;
+                                            border-radius          : 50%;
+                                            opacity                : 1;
+                                            cursor                 : pointer;
+                                            position               : relative;
+                                            pointer-events         : auto;
+                                            // ::after {
+                                            //     border: 2px solid black;
+                                            //     background-color: #658a65;
+                                            //     color: #026CD1;
+                                            // }
+                                            // :checked {
+                                            //     border: 2px solid rgb(214, 0, 0);
+                                            //     background-color: #00f000;
+                                            //     color: #026CD1;
+                                            // }
+                                        }
+
+                                        span {
+                                            display       : inline-block;
+                                            padding       : 0;
+                                            vertical-align: bottom;
+                                            font-weight   : 400;
+
+                                            &::before {
+                                                display: none;
+                                            }
+
+                                            &::after {
+                                                display: none;
+                                            }
+                                        }
+
+                                        span.active {
+                                            color: #026CD1;
+                                        }
                                     }
                                 }
                             }
@@ -102,7 +124,7 @@
                                 color      : #026CD1;
                                 font-size  : 16px;
                                 font-weight: 500;
-                                width      : 20%;
+                                width      : 25%;
                             }
 
                             th:first-child {
@@ -110,17 +132,19 @@
                             }
 
                             th:nth-child(2) {
-                                width: 50%;
+                                width: 40%;
                             }
                         }
                     }
 
                     tbody {
-                        width            : 100%;
-                        display          : list-item;
-                        height           : calc(100vh - (74px + 73px + (40px + 84px + 30px + 60px + 20px + 46px) + 32px));
-                        overflow         : auto;
-                        -webkit-flex-flow: row wrap;
+                        width               : 100%;
+                        display             : list-item;
+                        // height           : calc(100vh - (74px + 73px + (40px + 84px + 30px + 60px + 20px + 46px) + 32px));
+                        // height           : calc(100vh - (74px + 73px + (60px + 30px + 46px) + 32px));
+                        height              : calc(100vh - (74px + 73px + (60px + 30px + 46px) + 32px + 66px));
+                        overflow            : auto;
+                        -webkit-flex-flow   : row wrap;
 
                         &::-webkit-scrollbar {
                             width: 2px;
@@ -145,12 +169,13 @@
                             &:hover {
                                 background: #E2EDFA;
                             }
+
                             td {
                                 padding   : 10px 6px;
                                 text-align: center;
                                 color     : #111213;
                                 font-size : 14px;
-                                width     : 20%;
+                                width     : 25%;
                             }
 
                             td:first-child {
@@ -158,7 +183,7 @@
                             }
 
                             td:nth-child(2) {
-                                width: 50%;
+                                width: 40%;
                             }
                         }
 

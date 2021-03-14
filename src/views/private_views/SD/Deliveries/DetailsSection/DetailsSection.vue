@@ -348,7 +348,8 @@
                                         </div>
                                         <div class="imvoice-amount">
                                             <p class="jmi-lvl">Due Amount:</p>
-                                            <p class="jmi-lvl-value">{{ Number(cash_due_amount).toFixed(2) }}</p>
+                                            <!-- <p class="jmi-lvl-value">{{ Number(cash_due_amount).toFixed(2) }}</p> -->
+                                            <p class="jmi-lvl-value">{{ Number(parseFloat(grand_total) - parseFloat(cash_receive_amount) ).toFixed(2) }}</p>
                                         </div>
                                     </div>
                                     <div class="row receiver-amount">
@@ -358,7 +359,8 @@
                                 </div>
                             </b-tab>
                             <!-- <b-tab title="Cheque" v-if="CHEQUE_TAB_VISIBLE === true"> -->
-                            <b-tab title="Cheque" v-if="parseFloat(cash_due_amount) > 0">
+                            <!-- <b-tab title="Cheque" v-if="parseFloat(cash_due_amount) > 0"> -->
+                            <b-tab title="Cheque">
                                 <div class="tab-inner cheque">
                                     <div class="row">
                                         <div class="imvoice-amount">
@@ -367,17 +369,18 @@
                                         </div>
                                         <div class="imvoice-amount">
                                             <p class="jmi-lvl">Due Amount:</p>
-                                            <p class="jmi-lvl-value">{{ Number(cash_due_amount).toFixed(2) }}</p>
+                                            <!-- <p class="jmi-lvl-value">{{ Number(cheque_due_amount).toFixed(2) }}</p> -->
+                                            <p class="jmi-lvl-value">{{ Number(parseFloat(grand_total) - parseFloat(cash_receive_amount) - parseFloat(cheque_receive_amount) ).toFixed(2) }}</p>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="jmi-inline-block">
                                             <p class="jmi-lvl">Select date</p>
-                                            <input type="date" class="jmi-lvl-value" v-model="receiver_amount">
+                                            <input type="date" class="jmi-lvl-value" v-model="cheque_tab_date">
                                         </div>
                                         <div class="jmi-inline-block right-alg">
                                             <p class="jmi-lvl">Type Receiver Amount</p>
-                                            <input type="number" id="deliveries_cash_receiver_amount" class="jmi-lvl-value" v-model="cash_receive_amount" v-on:keyup="deliveries_cash_receiver_amount_KeyUp_ordered_table($event)" min="1" step="1" v-on:keydown="deliveries_cash_receiver_amount_KeyDown_ordered_table($event, i)" pattern="[0-9]*">
+                                            <input type="number" id="deliveries_cheque_receiver_amount" class="jmi-lvl-value" v-model="cheque_receive_amount" v-on:keyup="deliveries_cheque_receiver_amount_KeyUp_ordered_table($event)" min="1" step="1" v-on:keydown="deliveries_cheque_receiver_amount_KeyDown_ordered_table($event, i)" pattern="[0-9]*">
                                         </div>
                                     </div>
                                     <div class="row">
@@ -869,9 +872,12 @@ export default {
             cash_due_amount: 0.0,
             cash_receive_amount: 0.0,
             CHEQUE_TAB_VISIBLE: false,
+            cheque_due_amount: 0.0,
+            cheque_cheque_number: null,
+            cheque_receive_amount: 0.0,
+            cheque_tab_date: null,
             DEPOSIT_TAB_VISIBLE: false,
             ADJUSTMENT_TAB_VISIBLE: false,
-            cheque_cheque_number: null,
         }
     },
     async created() {
@@ -1264,6 +1270,7 @@ export default {
         },
         // ----------------------------------------------------------------------------------------
         // DELIVERY ORDER MODAL EVENT HANDLER
+        // CHEQUE
         deliveries_cash_receiver_amount_KeyUp_ordered_table(value) {
             console.log(value.key)
             // this.cash_due_amount
@@ -1273,9 +1280,30 @@ export default {
             } else if((selector.value).toString() === '') {
                 selector.value = 0
             }
+            this.cash_receive_amount = parseFloat(selector.value)
             this.cash_due_amount = parseFloat(this.grand_total) - parseFloat(selector.value)
         },
         deliveries_cash_receiver_amount_KeyDown_ordered_table(value) {
+            console.log(value.key)
+            // this.cash_due_amount
+            // if(value.keyCode === 190 || value.keyCode === 110) {
+            //     value.preventDefault()
+            // }
+        },
+        // CHEQUE
+        deliveries_cheque_receiver_amount_KeyUp_ordered_table(value) {
+            console.log(value.key)
+            // this.cash_due_amount
+            let selector = document.querySelector('#deliveries_cheque_receiver_amount')
+            if(parseInt(selector.value) === 0) {
+                selector.value = 0
+            } else if((selector.value).toString() === '') {
+                selector.value = 0
+            }
+            this.cheque_receive_amount = parseFloat(selector.value)
+            this.cheque_due_amount = parseFloat(this.grand_total) - parseFloat(selector.value)
+        },
+        deliveries_cheque_receiver_amount_KeyDown_ordered_table(value) {
             console.log(value.key)
             // this.cash_due_amount
             // if(value.keyCode === 190 || value.keyCode === 110) {

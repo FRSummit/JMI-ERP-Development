@@ -274,6 +274,7 @@ export default class PostService {
   //////////////////////////////////////////////////////////////////////////////////////////
   // Order
 
+  // -------------------------------------------------------------------------------------------
   // CREATE ORDER
   async getAllCustomerForDepot_CreateOrderLeftList() {
     let web_menu_url = '/api/web/all-customers-for-depot'
@@ -355,7 +356,7 @@ export default class PostService {
     })
   }
 
-  // -------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------
   // Order Approval - SUBMIT ORDER TO CREATE - SEND SELECTED PRODUCT LIST
   async getAllPendingOrdersCustomerList_OrderApprovalLeftSide() {
     // let web_menu_url = '/api/web/all-pending-orders-customer-list'
@@ -508,6 +509,7 @@ export default class PostService {
   //   })
   // }
 
+  // -------------------------------------------------------------------------------------------
   // DELIVERY SCHEDULING - PENDING DELIVERY LIST - LEFT SECTION
   async getPendingDeliveryAllScheduleInvoiceList_DELIVERY_SCHEDULING() {
     let web_menu_url = '/api/web/pending-delivery-schedule-all-invoice-list'
@@ -597,6 +599,7 @@ export default class PostService {
     })
   }
 
+  // -------------------------------------------------------------------------------------------
   // INVOICE-CHALLAN PRINTING - DETAILS SECTION
   async getPrintInvoiceDetails_INVOICE_CHALLAN_PRINTING(invoice_id) {
     console.log(invoice_id)
@@ -609,6 +612,7 @@ export default class PostService {
     })
   }
 
+  // -------------------------------------------------------------------------------------------
   // DELEVERIES - LEFT SECTION
   async getPendingDeliveredInvoiceList_DELEVERIES() {
     let web_menu_url = '/api/web/pending-delivered-invoice-list'
@@ -630,6 +634,20 @@ export default class PostService {
       },
     })
   }
+
+  // -------------------------------------------------------------------------------------------
+  // DS PACKING PREPARATION - LEFT SECTION
+  async getDeliveryScheduleProdPreparationListByDA_ID_DS_PACKING_PREPARATION(da_id) {
+    let web_menu_url = '/api/web/delivery-schedule-prod-preparation-list/' + da_id
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+    })
+  }
+
+  // -------------------------------------------------------------------------------------------
 
 
   //////////////////////////////////////////////////////////////////////////////////////////
@@ -766,50 +784,4 @@ export default class PostService {
     })
   }
 }
-
-
-/**
- *
- *
-<?php
-header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json; charset=UTF-8");
-
-$file = file_get_contents("input.json");
-echo ($file);
-
-?>
-
-
-
-input file
-
-[
-{
-    "primary_menu": "Setting & Management - Setting & Management",
-    "secondary_menu_list": [
-      {
-        "secondary_menu": "Product Management",
-        "left_icon": "./Icons/Group 1383.svg",
-        "tertiary_menu_list": [
-          {
-            "tertiary_menu": "Product Management",
-            "left_icon": "./Icons/Group 1383.svg"
-          },
-          {
-            "tertiary_menu": "Product Management",
-            "left_icon": "./Icons/Group 1383.svg"
-          },
-          {
-            "tertiary_menu": "Product Management",
-            "left_icon": "./Icons/Group 1383.svg"
-          }
-        ]
-      }
-    .............
-]
-
- */
-
-
 
