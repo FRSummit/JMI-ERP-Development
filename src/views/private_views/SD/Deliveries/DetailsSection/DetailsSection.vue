@@ -1012,6 +1012,21 @@ export default {
             collection.collected_amount = Number(this.cash_receive_amount + this.cheque_receive_amount).toFixed(2)
             collection.due_amount = Number(this.grand_total - (this.cash_receive_amount + this.cheque_receive_amount)).toFixed(2)
 
+            let invoice_dtl = []
+            for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST_NOT_CHANGEABLE.length; i++) {
+                let invoice_details = {
+                    prod_id: this.ORDERED_TABLE_DATA__INIT_LIST_NOT_CHANGEABLE[i].product_info.id,
+                    dlv_qty: parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) + parseInt( parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) / parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on) )
+                }
+                invoice_dtl.push(invoice_details)
+            }
+            let cash = Number(this.cash_receive_amount).toFixed(2)
+            let cheque = Number(this.cheque_receive_amount).toFixed(2)
+            let net_payable_amount = Number(this.grand_total).toFixed(2)
+
+            this.SAVE_INVOICE_DELIVERY_INFO__FROM_SERVICE(invoice_id, invoice_dtl, cash, cheque, net_payable_amount)
+
+
             console.log(invoice_id)
             console.log(product)
             console.log(collection)
@@ -1170,47 +1185,10 @@ export default {
                     this.SHOW_CUSTOMER_PROFILE = res.data.customer_info
                 })
         },
-        async CANCEL_ORDER_BY_ORDER_ID__FROM_SERVICE(order_id) {
-            await service.getCancelOrderByOrderId_OrderApproval(order_id)
+        async SAVE_INVOICE_DELIVERY_INFO__FROM_SERVICE(invoice_id, invoice_dtl, cash, cheque, net_payable_amount) {
+            await service.getSaveInvoiceDeliveryInfo_DELIVERIES(invoice_id, invoice_dtl, cash, cheque, net_payable_amount)
                 .then(res => {
                     console.log(res.data)
-                    this.$emit('remove_rejected_order_id_from_left_list', order_id)
-                })
-        },
-        async DESTROY_ORDER_DETAILS_BY_ID__FROM_SERVICE(id){
-            console.log(id)
-            await service.getDestroyOrderDetailsById_OrderApproval(id)
-                .then(res => {
-                    console.log(res.data)
-                    this.delete_product_from_table_popup_modal_data = null
-                    this.delete_product_from_table_popup_modal = false
-                    this.$emit('reload_this_order', this.order_id_from_left_side)
-                })
-        },
-        async ADD_PRODUCT_FROM_AUTOFILL_SECOND_FULL_PERAM(prod_db_list){
-            console.log(this.order_id_from_left_side)
-            console.log(prod_db_list)
-            await service.getAddNewProdOnExistOrderByOrderId_OrderApproval(this.order_id_from_left_side, prod_db_list)
-                .then(res => {
-                    console.log(res.data)
-                    /*this.ORDERED_TABLE_DATA__INIT_LIST = []
-                    this.ORDERED_TABLE_DATA__INIT_LIST = res.data.order.order_details
-                    this.createSubtotalCalculation()*/
-                    this.$emit('reload_this_order', this.order_id_from_left_side)
-                })
-        },
-        async UPDATE_ORDER__FROM_SERVICE(prod_list) {
-            await service.getUpdateOrderByOrderId_OrderApproval(this.order_id_from_left_side, prod_list)
-                .then(res => {
-                    console.log(res.data)
-                    if(res.data.response_code === 200) {
-                        this.UPDATE_BTN_ENABLE = false
-                        this.product_update_successfully_modal = true
-                        this.$emit('reload_this_order', this.order_id_from_left_side)
-                        setTimeout( () => {
-                            this.product_update_successfully_modal = false
-                        }, 2000)
-                    }
                 })
         },
         // ----------------------------------------------------------------------------------------------
