@@ -144,7 +144,7 @@
             <!-- Bottom Subtotal & Attachment Section -->
             <div class="submit-section" v-if="ORDERED_TABLE_DATA__INIT_LIST && PENDING_ORDER_DATA_BY_ID">
                 <div class="submit-section-inner">
-                    <span class="proceed-order" @click="proceedOrderClickHandler">Delivered Order</span>
+                    <span class="proceed-order" @click="deliveryOrderClickHandler">Delivered Order</span>
                 </div>
             </div>
             <!-- Current Outstanding Modal -->
@@ -287,7 +287,6 @@
                                                         <gmap-marker :key="index" v-for="(m, index) in markers" :position="m.position"
                                                             @click="centerClick(m, index)"
                                                         ></gmap-marker>
-
                                                         <gmap-info-window
                                                             :options="infoOptions"
                                                             :position="infoWindowPos"
@@ -309,23 +308,6 @@
                     </div>
                 </div>
             </div> -->
-        </div>
-        <!-- Reject Order Modal -->
-        <div class="modal-popup-section order-proceed-modal" v-if="reject_order_modal_popup">
-            <div class="modal-popup-section-inner order-proceed-modal-inner">
-                <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
-                <p class="popup-text">Are you sure?</p>
-                <p class="popup-desc">You want to reject the order.</p>
-                <span class="divider"></span>
-                <div class="popup-submit-section">
-                <div class="popup-cancel-btn-section" @click="cancelRejectionOrderModalClickHandler">
-                    <span>Cancel</span>
-                </div>
-                <div class="popup-confirm-btn-section" @click="proceedRejectionOrderModalClickHandler">
-                    <span>Proceed</span>
-                </div>
-                </div>
-            </div>
         </div>
         <!-- Delete Product From Main Table Modal -->
         <div class="modal-popup-section order-proceed-modal" v-if="delete_product_from_table_popup_modal">
@@ -353,7 +335,7 @@
         </div>
         <!-- Proceed Delevery Modal -->
         <div class="modal-popup-section deliveries-proceed-modal" v-if="approve_product_confirmation_popup_modal">
-            <div class="modal-popup-section-inner deliveries-proceed-modal">
+            <div class="modal-popup-section-inner deliveries-proceed-modal-inner">
                 <div class="tab-section">
                     <div class="tab-section-inner">
                         <b-tabs class="mt-3 deliveries-customer-details">
@@ -362,57 +344,58 @@
                                     <div class="row">
                                         <div class="imvoice-amount">
                                             <p class="jmi-lvl">Invoice Amount:</p>
-                                            <p class="jmi-lvl-value">10000</p>
+                                            <p class="jmi-lvl-value">{{ Number(grand_total).toFixed(2) }}</p>
                                         </div>
                                         <div class="imvoice-amount">
-                                            <p class="jmi-lvl">Invoice Amount:</p>
-                                            <p class="jmi-lvl-value">10000</p>
+                                            <p class="jmi-lvl">Due Amount:</p>
+                                            <p class="jmi-lvl-value">{{ Number(cash_due_amount).toFixed(2) }}</p>
                                         </div>
                                     </div>
                                     <div class="row receiver-amount">
                                         <p class="jmi-lvl">Type Receiver Amount</p>
-                                        <input type="text" v-model="receiver_amount">
+                                        <input type="number" id="deliveries_cash_receiver_amount" class="jmi-lvl-value" v-model="cash_receive_amount" v-on:keyup="deliveries_cash_receiver_amount_KeyUp_ordered_table($event)" min="1" step="1" v-on:keydown="deliveries_cash_receiver_amount_KeyDown_ordered_table($event, i)" pattern="[0-9]*">
                                     </div>
                                 </div>
                             </b-tab>
-                            <b-tab title="Cheque">
+                            <!-- <b-tab title="Cheque" v-if="CHEQUE_TAB_VISIBLE === true"> -->
+                            <b-tab title="Cheque" v-if="parseFloat(cash_due_amount) > 0">
                                 <div class="tab-inner cheque">
                                     <div class="row">
                                         <div class="imvoice-amount">
                                             <p class="jmi-lvl">Invoice Amount:</p>
-                                            <p class="jmi-lvl-value">10000</p>
+                                            <p class="jmi-lvl-value">{{ Number(grand_total).toFixed(2) }}</p>
                                         </div>
                                         <div class="imvoice-amount">
-                                            <p class="jmi-lvl">Invoice Amount:</p>
-                                            <p class="jmi-lvl-value">10000</p>
+                                            <p class="jmi-lvl">Due Amount:</p>
+                                            <p class="jmi-lvl-value">{{ Number(cash_due_amount).toFixed(2) }}</p>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="jmi-inline-block">
                                             <p class="jmi-lvl">Select date</p>
-                                            <input type="text" v-model="receiver_amount">
+                                            <input type="date" class="jmi-lvl-value" v-model="receiver_amount">
                                         </div>
                                         <div class="jmi-inline-block right-alg">
                                             <p class="jmi-lvl">Type Receiver Amount</p>
-                                            <input type="text" v-model="receiver_amount">
+                                            <input type="number" id="deliveries_cash_receiver_amount" class="jmi-lvl-value" v-model="cash_receive_amount" v-on:keyup="deliveries_cash_receiver_amount_KeyUp_ordered_table($event)" min="1" step="1" v-on:keydown="deliveries_cash_receiver_amount_KeyDown_ordered_table($event, i)" pattern="[0-9]*">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="jmi-inline-block">
                                             <p class="jmi-lvl">Enter cheque Number</p>
-                                            <input type="text" v-model="receiver_amount">
+                                            <input type="text" v-model="cheque_cheque_number">
                                         </div>
                                         <div class="jmi-inline-block right-alg">
                                             <p class="jmi-lvl">Attach File (File Should be jpg, png, pdf)</p>
-                                            <input type="text" v-model="receiver_amount">
+                                            <input type="file" class="jmi-lvl-value" @change="imageChooseEventHandler($event)" accept="image/x-png,image/gif,image/jpeg">
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <img src="https://static6.depositphotos.com/1005979/577/i/600/depositphotos_5777799-stock-photo-blank-check-with-open-space.jpg" alt="">
+                                        <img id="cheque_image">
                                     </div>
                                 </div>
                             </b-tab>
-                            <b-tab title="Deposit Slip">
+                            <b-tab title="Deposit Slip" v-if="DEPOSIT_TAB_VISIBLE">
                                 <div class="tab-inner cheque">
                                     <div class="row">
                                         <div class="imvoice-amount">
@@ -445,7 +428,7 @@
                                     </div>
                                 </div>
                             </b-tab>
-                            <b-tab title="Adjustment">
+                            <b-tab title="Adjustment" v-if="ADJUSTMENT_TAB_VISIBLE">
                                 <div class="tab-inner cheque"> 
                                     <div class="row">
                                         <div class="jmi-inline-block">
@@ -519,19 +502,10 @@
 <script>
 // import AdvancedSearch from 'vue-advanced-search'
 import * as VueGoogleMaps from 'vue2-google-maps'
-
 import JMIFilter from '.././../../../../functions/JMIFIlter'
 const jmiFilter = new JMIFilter()
-
 import ERPService from '../../../../../service/ERPSidebarService'
 const service = new ERPService()
-
-import PP_Invoice_Type_1 from '../../../../../functions/Print_Func/PP_Invoice_Type_1'
-const ppInvoice_Type_1 = new PP_Invoice_Type_1()
-
-// import DemoPrintData from './DemoPrintData'
-// const demoPrintData = new DemoPrintData()
-
 export default {
     props: ["pending_order_list_by_id", "order_id_from_left_side"],
     components: {
@@ -564,13 +538,11 @@ export default {
             add_order_modal: false,
             attachment_modal: false,
             order_forward_modal: false,
-
             autocomplete_modal: null,
             autocomplete_options: [
                 { label: 'label1', value: 'value1' },
                 { label: 'label2', value: 'value2' }
             ],
-
             on_change_order_forward_area_manager: null,
             on_change_order_forward_rsm: null,
             statement_reason: null,
@@ -860,7 +832,6 @@ export default {
             directionsRenderer: null,
             InfoWindow: VueGoogleMaps.InfoWindow,
             Map: VueGoogleMaps.Map,
-
             // This Component Dynamic Data Starts here
             sr_add_modal: false,
             selected_sr: null,
@@ -871,6 +842,7 @@ export default {
             DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST: [],
             DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST_2: [],
             ORDERED_TABLE_DATA__INIT_LIST: this.pending_order_list_by_id,
+            ORDERED_TABLE_DATA__INIT_LIST_NOT_CHANGEABLE: [],
             ORDERED_TABLE_DATA__INIT_LIST_2: [],
             SHOW_CUSTOMER_PROFILE: [],
             ORDERED_PRODUCT_TABLE_ROW_IS_EDITABLE: false,
@@ -893,6 +865,13 @@ export default {
             DISABLE_SUBMISSION_BTN: false,
             STOCK_TRANSIT_VALIDATION: false,
             removing_last_product_from_cart: false,
+            // DELIVERIES ORDER TAB
+            cash_due_amount: 0.0,
+            cash_receive_amount: 0.0,
+            CHEQUE_TAB_VISIBLE: false,
+            DEPOSIT_TAB_VISIBLE: false,
+            ADJUSTMENT_TAB_VISIBLE: false,
+            cheque_cheque_number: null,
         }
     },
     async created() {
@@ -903,67 +882,12 @@ export default {
         .then( coordinates => {
             console.log(coordinates)
         })
-        // await this.DIC_WISE_USERS__FROM_SERVICE()
     },
     methods: {
-        onChangeSRDropdown() {
-            console.log(this.on_change_SR_dropdown)
-        },
-        srAddIconClickHandler() {
-            if(this.sr_add_modal) {
-                this.sr_add_modal = false
-            } else {
-                this.sr_add_modal = true
-            }
-        },
-        srModalSectionOutsideClick() {
-            this.sr_add_modal = false
-        },
-        selectedSRClickHandler(value) {
-            this.selected_sr = value
-            this.sr_add_modal = false
-        },
-        expectedDateCalendarClick() {
-            console.log('expectedDateCalendarClick')
-        },
         //------------------------------------------------------------------------------------------
-        // Table List Actions
         // Increase Table Row's Single Product/Order
         increaseOrderedItemClickHandler(data, index) {
             console.log(data + '    ' + index)
-            /*console.log(parseInt(data.qty))
-            console.log(parseInt(data.available_stock))
-            console.log(parseInt(data.transit_stock))
-            if(parseInt(this.ORDER_CREATED_BY) !== parseInt(this.ORDER_AUTH_USER)) {
-                // data.qty
-                console.log('difference')
-                data.qty++
-                this.UPDATE_BTN_ENABLE = true
-                if(data.qty > this.DIC_OR_MIO_OR_AM_USER_QTY_COUNT) {
-                    data.qty--
-                    this.UPDATE_BTN_ENABLE = false
-                }
-            } else {
-                data.qty++
-                this.UPDATE_BTN_ENABLE = true
-            }
-            if(parseInt(data.net_qty) > parseInt(data.available_stock) && parseInt(data.available_stock) > 0) {
-                this.DISABLE_SUBMISSION_BTN = false
-            } else {
-                this.DISABLE_SUBMISSION_BTN = true 
-            }
-            this.createSubtotalCalculation()
-            // this.UPDATE_BTN_TRUE = true
-            // this.createSubtotalCalculation()
-            // Free Product row quantity increase
-            if(data.offer.offer_type === "free") {
-                let bonus = parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[index + 1].bonus_qty)
-                bonus = parseInt(parseInt(data.qty) / parseInt(data.offer.offer.free_req_qty))
-                this.ORDERED_TABLE_DATA__INIT_LIST[index + 1].bonus_qty = bonus
-            }
-            console.log(data.offer.offer.free_req_qty)
-            // console.log(this.ORDERED_TABLE_DATA__INIT_LIST[index + 1].bonus_qty)
-            console.log(data.qty)*/
         },
         // Decrease Table Row's Single Product/Order
         decreaseOrderedItemClickHandler(data, index) {
@@ -984,32 +908,6 @@ export default {
             } else {
                 this.DISABLE_SUBMISSION_BTN = true 
             }
-        },
-        // Increase Table Row's Single Product/Order
-        increaseOrderedItemClickHandler_2(data, index) {
-            console.log(data + '    ' + index)
-            data.quantity++
-            this.UPDATE_BTN_ENABLE = true
-            // this.UPDATE_BTN_TRUE = true
-            // this.createSubtotalCalculation()
-            // Free Product row quantity increase
-            // if(data.offer_type === "free") {
-            //     this.ORDERED_TABLE_DATA__INIT_LIST[index + 1].quantity++
-            // }
-        },
-        // Decrease Table Row's Single Product/Order
-        decreaseOrderedItemClickHandler_2(data, index) {
-            console.log(data + '    ' + index)
-            if(data.quantity > 1) {
-                data.quantity--
-                this.UPDATE_BTN_ENABLE = true
-                // this.UPDATE_BTN_TRUE = true
-                // this.createSubtotalCalculation()
-            }
-            // Free Product row quantity decrease
-            // if(data.offer_type === "free") {
-            //     this.ORDERED_TABLE_DATA__INIT_LIST[index + 1].quantity--
-            // }
         },
         // Ordered Table Quantity input keyup & keydown
         quantityKeyUp_ordered_table(data, value, i) {
@@ -1050,15 +948,6 @@ export default {
             selector_qty_1.className = 'single_qty quantity-setup hide '
             selector_qty_2.className = 'qty_editable quantity-setup'
         },
-        editOrderitemClickHandler_2(data, index) {
-            // this.UPDATE_QUANTITY_ENABLE_2 = true
-            console.log(data + '    ' + index)
-            console.log(data + '    ' + index)
-            let selector_qty_1 = document.querySelector('#order-data-table-tr_2-' + index + ' #order-data-table-tr-td_2-' + index + ' .single_qty')
-            let selector_qty_2 = document.querySelector('#order-data-table-tr_2-' + index + ' #order-data-table-tr-td_2-' + index + ' .qty_editable')
-            selector_qty_1.className = 'single_qty quantity-setup hide '
-            selector_qty_2.className = 'qty_editable quantity-setup'
-        },
         // Delete Table Row's Single Product/Order
         async deleteOrderitemClickHandler(data, index) {
             console.log(data + '    ' + index)
@@ -1073,142 +962,18 @@ export default {
             this.delete_product_from_table_popup_modal = false
         },
         async confirmRemovingProductFromTableClickHandler() {
-            /*if(this.ORDERED_TABLE_DATA__INIT_LIST.length > 1) {
-                for (let [i, tt] of this.ORDERED_TABLE_DATA__INIT_LIST.entries()) {
-                    if (tt.product_id === this.delete_product_from_table_popup_modal_data.product_id) {
-                        this.ORDERED_TABLE_DATA__INIT_LIST.splice(i, 1);
-                        // for(let [x, y] of this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.entries()) {
-                        //     if (y.prod_id === this.delete_product_from_table_popup_modal_data.product_id) {
-                        //         this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.splice(x, 1);
-                        //     }
-                        // }
-                        this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.push(this.delete_product_from_table_popup_modal_data)
-                        // Free Product row delete
-                        // if(data.offer_type === "free") {
-                        //     this.ORDERED_TABLE_DATA__INIT_LIST.splice(i, 1);
-                        // }
-                    }
-                }
-                await this.DESTROY_ORDER_DETAILS_BY_ID__FROM_SERVICE(this.delete_product_from_table_popup_modal_data.id)
-                this.createSubtotalCalculation()
-            } else {
-                this.delete_product_from_table_popup_modal = false
-                this.removing_last_product_from_cart = true
-                setTimeout( () => {
-                    this.removing_last_product_from_cart = false
-                }, 2000)
-            }*/
-                for (let [i, tt] of this.ORDERED_TABLE_DATA__INIT_LIST.entries()) {
-                    if (tt.product_id === this.delete_product_from_table_popup_modal_data.product_id) {
-                        this.ORDERED_TABLE_DATA__INIT_LIST[i].qty = 0
-                        this.delete_product_from_table_popup_modal = false
-                        // this.ORDERED_TABLE_DATA__INIT_LIST.splice(i, 1);
-                        // Free Product row delete
-                        // if(data.offer_type === "free") {
-                        //     this.ORDERED_TABLE_DATA__INIT_LIST.splice(i, 1);
-                        // }
-                    }
-                }
-                // await this.DESTROY_ORDER_DETAILS_BY_ID__FROM_SERVICE(this.delete_product_from_table_popup_modal_data.id)
-                this.createSubtotalCalculation()
-            // console.log(this.delete_product_from_table_popup_modal_data)
-            // this.delete_product_from_table_popup_modal_data = null
-            // console.log(this.delete_product_from_table_popup_modal_data)
-        },
-        deleteOrderitemClickHandler_2(data, index) {
-            console.log(data + '    ' + index)
-            if(this.ORDERED_TABLE_DATA__INIT_LIST_2.length > 0) {
-                for (let [i, tt] of this.ORDERED_TABLE_DATA__INIT_LIST_2.entries()) {
-                    if (tt.prod_id === data.prod_id) {
-                        this.ORDERED_TABLE_DATA__INIT_LIST_2.splice(i, 1);
-                        this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST_2.push(data)
-                        // Free Product row delete
-                        if(data.offer_type === "free") {
-                            this.ORDERED_TABLE_DATA__INIT_LIST_2.splice(i, 1);
-                        }
-                    }
+            for (let [i, tt] of this.ORDERED_TABLE_DATA__INIT_LIST.entries()) {
+                if (tt.product_id === this.delete_product_from_table_popup_modal_data.product_id) {
+                    this.ORDERED_TABLE_DATA__INIT_LIST[i].qty = 0
+                    this.delete_product_from_table_popup_modal = false
                 }
             }
-        },
-        //------------------------------------------------------------------------------------------
-        // Add Product/Order , Atachment Row
-        async addOrderClickHandler() {
-            this.SELECTED_ORDERED_PRODUCTS__INIT_LIST = []
-            if(this.add_order_modal) {
-                this.add_order_modal = false
-            } else {
-                this.add_order_modal = true
-                this.ADD_PRODUCT_MODAL_SUBMITION_SECTION = true
-                await this.ADD_PRODUCTS_DATA_LIST__FROM_SERVICE()
-            }
-        },
-        addAttachmentClickHandler() {
-            if(this.attachment_modal) {
-                this.attachment_modal = false
-            } else {
-                this.attachment_modal = true
-            }
+            this.createSubtotalCalculation()
         },
         //------------------------------------------------------------------------------------------
         // Order Submition Actions
-        orderForwardClickHandler() {
-            if(this.order_forward_modal) {
-                this.order_forward_modal = false
-            } else {
-                this.order_forward_modal = true
-            }
-        },
-        orderRejectClickHandler() {
-            console.log(this.ORDERED_TABLE_DATA__INIT_LIST[0].order_id)
-            if(this.reject_order_modal_popup) {
-                this.reject_order_modal_popup = false
-            } else {
-                this.reject_order_modal_popup = true
-            }
-        },
-        cancelRejectionOrderModalClickHandler() {
-            this.reject_order_modal_popup = false
-        },
-        async proceedRejectionOrderModalClickHandler() {
-            await this.CANCEL_ORDER_BY_ORDER_ID__FROM_SERVICE(this.ORDERED_TABLE_DATA__INIT_LIST[0].order_id)
-            this.defaultAllThisComponentData()
-        },
-        async updateOrderClickHandler() {
-            console.log('update order')
-            console.log(this.ORDERED_TABLE_DATA__INIT_LIST)
-            console.log(this.ORDERED_TABLE_DATA__INIT_LIST_2)
-            // this.UPDATE_QUANTITY_ENABLE_1 = false
-            // this.UPDATE_QUANTITY_ENABLE_2 = false
-
-            let prod_list = []
-            for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST.length; i++) {
-                let prod_obj = {
-                    prod_id: parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].product_id),
-                    quantity: this.ORDERED_TABLE_DATA__INIT_LIST[i].qty ? this.ORDERED_TABLE_DATA__INIT_LIST[i].qty : 0
-                }
-                prod_list.push(prod_obj)
-            }
-            console.log(prod_list)
-            await this.UPDATE_ORDER__FROM_SERVICE(prod_list)
-            this.createSubtotalCalculation()
-            
-            // input qty hide and span qty displaying
-            for(let i=0; i<document.querySelectorAll('.single_qty.quantity-setup').length; i++) {
-                document.querySelectorAll('.single_qty.quantity-setup')[i].className = 'single_qty quantity-setup'
-                document.querySelectorAll('.qty_editable.quantity-setup')[i].className = 'qty_editable quantity-setup hide'
-            }
-            // this.defaultAllThisComponentData()
-        },
-        proceedOrderClickHandler() {
+        deliveryOrderClickHandler() {
             this.approve_product_confirmation_popup_modal = true
-        },
-        cancelApprovingSingleOrderClickHandler() {
-            this.approve_product_confirmation_popup_modal = false
-        },
-        async confirmApprovingSingleOrderClickHandler() {
-            this.approve_product_confirmation_popup_modal = false
-            // await this.APPROVE_SINGLE_ORDER__FROM_SERVICE()
-            this.createSubtotalCalculation()
         },
         // ----------------------------------------------------------------------------------------
         // Delivery Order Popup
@@ -1219,10 +984,6 @@ export default {
             this.approve_product_confirmation_popup_modal = false
         },
         //------------------------------------------------------------------------------------------
-        // Order Modal Functions
-        addOrderModalOutsideClick() {
-            this.add_order_modal = false
-        },
         // Increase Autofield Selected Ordered Product
         increaseProductInAutofieldProductClickHandler(data, index) {
             console.log('increase autofield selected product: ' + data + '    ' + index)
@@ -1252,103 +1013,6 @@ export default {
             if(value.keyCode === 190 || value.keyCode === 110) {
                 value.preventDefault()
             }
-        },
-        // Add Selected Ordered Product
-        addProductFromAutofieldResponseClickHandler(data, index) {
-            console.log('added ordered product from auto field: ' + data + '    ' + index)
-            let product = {
-                            id: data.id,
-                            prod_id: data.prod_id,
-                            prod_class: data.prod_class,
-                            base_tp: data.base_tp,
-                            prod_name: data.prod_name,
-                            prod_code: data.prod_code,
-                            code_id: data.code_id,
-                            element_name: data.element_name,
-                            display_code: data.display_code,
-                            quantity: 1
-                        }
-            this.SELECTED_ORDERED_PRODUCTS__INIT_LIST.push(product)
-            // Remove this product from all product list
-            if(this.PRODUCT_MODAL_DATA_LIST.length > 0) {
-                for (let [i, tt] of this.PRODUCT_MODAL_DATA_LIST.entries()) {
-                    if (tt.prod_id === data.prod_id) {
-                        this.PRODUCT_MODAL_DATA_LIST.splice(i, 1);
-                    }
-                }
-            }
-        },
-        // Remove Added Ordered Product
-        removeAddedOrderedProductClickHandler(data, index) {
-            console.log('remove added ordered product: ' + data + '    ' + index)
-            // this.SELECTED_ORDERED_PRODUCTS__INIT_LIST.push(data)
-            if(this.SELECTED_ORDERED_PRODUCTS__INIT_LIST.length > 0) {
-                for (let [i, tt] of this.SELECTED_ORDERED_PRODUCTS__INIT_LIST.entries()) {
-                    if (tt.prod_id === data.prod_id) {
-                        this.SELECTED_ORDERED_PRODUCTS__INIT_LIST.splice(i, 1);
-                    }
-                }
-            }
-            // Adding removed product to all product list
-            this.PRODUCT_MODAL_DATA_LIST.push(data)
-        },
-        cancelOrderFromModalClickHandler() {
-            this.add_order_modal = false
-        },
-        async addItemsFromModalClickHandler() {
-            // console.log('add items from modal')
-            // console.log(this.SELECTED_ORDERED_PRODUCTS__INIT_LIST)
-            // this.SELECTED_ORDERED_PRODUCTS__STORE = this.SELECTED_ORDERED_PRODUCTS__INIT_LIST
-            if(this.SELECTED_ORDERED_PRODUCTS__STORE.length > 0) {
-                for(let i=0; i<this.SELECTED_ORDERED_PRODUCTS__INIT_LIST.length; i++) {
-                    this.SELECTED_ORDERED_PRODUCTS__STORE.push(this.SELECTED_ORDERED_PRODUCTS__INIT_LIST[i])
-                }
-            } else {
-                this.SELECTED_ORDERED_PRODUCTS__STORE = this.SELECTED_ORDERED_PRODUCTS__INIT_LIST
-            }
-            // Create object for post method
-            let prod_db_list = []
-            for(let i=0; i<this.SELECTED_ORDERED_PRODUCTS__INIT_LIST.length; i++) {
-                let prod_obj = {
-                    prod_id: parseInt(this.SELECTED_ORDERED_PRODUCTS__INIT_LIST[i].prod_id),
-                    quantity: this.SELECTED_ORDERED_PRODUCTS__INIT_LIST[i].quantity ? this.SELECTED_ORDERED_PRODUCTS__INIT_LIST[i].quantity : 0
-                }
-                prod_db_list.push(prod_obj)
-            }
-            console.log(prod_db_list)
-            // CALL SERVICE IMPLEMENTATION FUNCTION
-            // await this.FIND_PRODUCT_OFFER__FROM_SERVICE(prod_db_list)
-            this.ADD_PRODUCT_FROM_AUTOFILL_SECOND_FULL_PERAM(prod_db_list)
-            // Close Modal
-            if(prod_db_list.length > 0) {
-                this.add_order_modal = false
-                this.ADD_PRODUCT_MODAL_SUBMITION_SECTION = false
-            }
-        },
-        //------------------------------------------------------------------------------------------
-        // Attachment Modal
-        attachmentModalOutsideClick() {
-            this.attachment_modal = false
-        },
-        uploadFileCLickHandler() {
-            console.log('File upload')
-        },
-        //------------------------------------------------------------------------------------------
-        // Order Forward Modal
-        orderForwardModalOutsideClick() {
-            this.order_forward_modal = false
-        },
-        onChangeOrderForwardAreaManager() {
-            console.log(this.on_change_order_forward_area_manager)
-        },
-        onChangeOrderForwardRSM() {
-            console.log(this.on_change_order_forward_rsm)
-        },
-        cancelOrderForwardClickHandler() {
-            console.log('cancelOrderForwardClickHandler')
-        },
-        async sendOrderForwardClickHandler() {
-            console.log('sendOrderForwardClickHandler')
         },
         //------------------------------------------------------------------------------------------
         // Current Outstanding Modal
@@ -1384,7 +1048,6 @@ export default {
             this.infoContent = this.getInfoWindowContent(marker);
             console.log(this.currentMidx + '    ' + index)
             
-
             //check if its the same marker that was selected if yes toggle
             if (this.currentMidx == index) {
             this.infoWinOpen = !this.infoWinOpen;
@@ -1453,7 +1116,6 @@ export default {
             let list = document.querySelectorAll('.responer-body-filter-output')
             let txt_selector = "responer-body-filter-tag"
             let id_selector = "responer-body-filter-tag-id"
-
             // console.log(value.key)
             let v = document.querySelector('#deliveries-add-product').value
             if(isNaN(v)) {
@@ -1463,71 +1125,10 @@ export default {
             }
         }, 
         async printInvoiceClickHandler() {
-            // ppInvoice_Type_1.print_invoice(demoPrintData.print_sdr_023_data())
-            await this.PRINT_THIS_ORDER_DETAILS__INVOICE__FROM_SERVICE()
-            
+            console.log('printInvoiceClickHandler')
         },
         // ------------------------------------------------------------------------------------------
         // Service Implementation
-        // async DIC_WISE_USERS__FROM_SERVICE() {
-        //     await service.getDICWiseUsers_MonthlyDeliveryPlan()
-        //         .then(res => {
-        //             console.log(res.data)
-        //             this.SR_LIST__DA = res.data.users.da
-        //         })
-        // },
-        async ADD_PRODUCTS_DATA_LIST__FROM_SERVICE() {
-            await service.getSearchProductDataList_CreateOrderDetailsSection()
-                .then(res => {
-                    console.log(res.data)
-                    this.PRODUCT_MODAL_DATA_LIST = res.data.product_list
-                    // console.log(this.SELECTED_ORDERED_PRODUCTS__STORE.length)
-                    // console.log(this.PRODUCT_MODAL_DATA_LIST.length)
-                    // console.log(this.SELECTED_ORDERED_PRODUCTS__STORE)
-                    if(this.SELECTED_ORDERED_PRODUCTS__STORE.length > 0) {
-                        for(let i=0; i<this.PRODUCT_MODAL_DATA_LIST.length; i++) {
-                            for(let j=0; j<this.SELECTED_ORDERED_PRODUCTS__STORE.length; j++) {
-                                if(this.PRODUCT_MODAL_DATA_LIST[i].prod_id === this.SELECTED_ORDERED_PRODUCTS__STORE[j].prod_id) {
-                                    this.PRODUCT_MODAL_DATA_LIST.splice(i, 1)
-                                }
-                            }
-                        }
-                    }
-                    // Add deleted product
-                    if(this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.length > 0) {
-                        for(let i=0; i<this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.length; i++) {
-                            this.PRODUCT_MODAL_DATA_LIST.push(this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST[i])
-                        }
-                    }
-                    if(this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST_2.length > 0) {
-                        for(let i=0; i<this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST_2.length; i++) {
-                            this.PRODUCT_MODAL_DATA_LIST.push(this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST_2[i])
-                        }
-                    }
-                    // Remove Product Which are already in ORDERED
-                    if(this.ORDERED_TABLE_DATA__INIT_LIST.length > 0) {
-                        for(let i=0; i<this.PRODUCT_MODAL_DATA_LIST.length; i++) {
-                            for(let j=0; j<this.ORDERED_TABLE_DATA__INIT_LIST.length; j++) {
-                                if(this.PRODUCT_MODAL_DATA_LIST[i].prod_id === this.ORDERED_TABLE_DATA__INIT_LIST[j].product_id) {
-                                    console.log('matched : ' + this.ORDERED_TABLE_DATA__INIT_LIST[j].product_id)
-                                    this.PRODUCT_MODAL_DATA_LIST.splice(i, 1)
-                                }
-                            }
-                        }
-                    }
-                    this.createSubtotalCalculation()
-                })
-        },
-        async FIND_PRODUCT_OFFER__FROM_SERVICE(prod_db_list) {
-            let sbu_id = parseInt(JSON.parse(localStorage.getItem("user")).user_detils.sbu_id)
-            let customer_id = parseInt(this.customer_data ? this.customer_data.customer_id : 0)
-            
-            await service.getFindProductOffer_CreateOrderDetailsSection(prod_db_list, sbu_id, customer_id, this.createYYYYDDMM())
-                .then(res => {
-                    console.log(res.data)
-                    this.ADD_PRODUCT_FROM_AUTOFILL_SECOND_FULL_PERAM(res.data.data)
-                })
-        },
         async SHOW_CUSTOMER_PROFILE__FROM_SERVICE(customer_id) {
             await service.getShowCustomerProfile_OrderApproval(customer_id)
                 .then(res => {
@@ -1578,61 +1179,6 @@ export default {
                     }
                 })
         },
-        async APPROVE_SINGLE_ORDER__FROM_SERVICE() {
-            console.log('Approve single order')
-            await this.check_STOCK_TRANSIT_VALIDATION()
-            this.approve_product_confirmation_popup_modal = false
-            if(this.STOCK_TRANSIT_VALIDATION === false) {
-                await service.getApproveSingleOrderByOrderId_OrderApproval(this.order_id_from_left_side)
-                    .then(res => {
-                        console.log(res.data)
-                        if(res.data.response_code === 200) {
-                            this.approve_product_confirmation_popup_modal = false
-                            this.approved_single_order_modal = true
-                            this.ORDER_SUCCESS_MESSAGE = res.data.message
-                            this.$emit('single_order_approved', this.order_id_from_left_side)
-                            this.defaultAllThisComponentData()
-                            setTimeout( () => {
-                                this.approved_single_order_modal = false
-                                this.ORDER_SUCCESS_MESSAGE = null
-                            }, 2000)
-                        } else {
-                            this.approve_product_confirmation_popup_modal = false
-                            this.approved_single_order_modal = true
-                            this.ORDER_SUCCESS_MESSAGE = res.data.message
-                            this.$emit('single_order_approved_failed', this.order_id_from_left_side)
-                            setTimeout( () => {
-                                this.approved_single_order_modal = false
-                                this.ORDER_SUCCESS_MESSAGE = null
-                            }, 2000) 
-                        }
-                    }).catch(err => {
-                        console.log(err)
-                    })
-            } else {
-                this.approve_product_confirmation_popup_modal = false
-            }
-            /*await service.getApproveSingleOrderByOrderId_OrderApproval(this.order_id_from_left_side)
-                .then(res => {
-                    console.log(res.data)
-                    this.approve_product_confirmation_popup_modal = false
-                    this.approved_single_order_modal = true
-                    this.ORDER_SUCCESS_MESSAGE = res.data.message
-                    this.$emit('single_order_approved', this.order_id_from_left_side)
-                    this.defaultAllThisComponentData()
-                    setTimeout( () => {
-                        this.approved_single_order_modal = false
-                        this.ORDER_SUCCESS_MESSAGE = null
-                    }, 2000)
-                })*/
-        },
-        async PRINT_THIS_ORDER_DETAILS__INVOICE__FROM_SERVICE() {
-            await service.getPrintOrderDetails_OrderApproval_INVOICE(this.order_id_from_left_side)
-                .then(res => {
-                    console.log(res.data.order_info.order_details)
-                    ppInvoice_Type_1.print_invoice(res.data.order_info)
-                })
-        },
         // ----------------------------------------------------------------------------------------------
         // Bottom Row Calculation
         // Create Secondary Subtotal
@@ -1653,60 +1199,6 @@ export default {
             this.gross_total = this.sub_total + this.vat_total
             this.grand_total = this.sub_total + this.vat_total - this.discount_total
         },
-        // -----------------------------------------------------------------------------------------------
-        // async GENERATE_ORDERED_PRODUCTS_DETAILS_LIST_FROM_PRODUCT_OFFER_RESPONSE() {
-        //     // if(this.UPDATE_ORDER_CLICKED) {
-        //     //     this.ORDERED_TABLE_DATA__INIT_LIST = []
-        //     //     this.UPDATE_ORDER_CLICKED = false
-        //     // }
-        //     if(this.SELECTED_ORDERED_PRODUCTS__STORE.length > 0 && this.RESPONSE_ORDERED_PRODUCTS__STORE.length > 0) {
-        //         for (let i=0; i<this.SELECTED_ORDERED_PRODUCTS__STORE.length; i++) {
-        //             for(let j=0; j<this.RESPONSE_ORDERED_PRODUCTS__STORE.length; j++) {
-        //                 if( parseInt(this.SELECTED_ORDERED_PRODUCTS__STORE[i].prod_id) === parseInt(this.RESPONSE_ORDERED_PRODUCTS__STORE[j].prod_id) ) {
-        //                     let product = {
-        //                             prod_id             : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].prod_id,
-        //                             prod_name           : this.SELECTED_ORDERED_PRODUCTS__STORE[i].prod_name,
-        //                             base_tp             : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].base_tp,
-        //                             price_now_per_qty   : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].price_now_per_qty,
-        //                             base_vat            : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].base_vat,
-        //                             line_total          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].line_total,
-        //                             vat_total           : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].vat_total,
-        //                             quantity            : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].quantity,
-        //                             offer_type          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type,
-        //                             offer               : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer,
-        //                             row_class           : ''
-        //                     }
-        //                     this.ORDERED_TABLE_DATA__INIT_LIST_2.push(product)
-
-        //                     // FOR FREE PRODUCT ENTRY
-        //                     if(this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type === "free") {
-        //                         let ferr_product = {
-        //                                 prod_id             : this.RESPONSE_ORDERED_PRODUCTS__STORE[i].prod_id,
-        //                                 prod_name           : this.SELECTED_ORDERED_PRODUCTS__STORE[i].prod_name,
-        //                                 base_tp             : this.RESPONSE_ORDERED_PRODUCTS__STORE[i].base_tp,
-        //                                 price_now_per_qty   : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].price_now_per_qty,
-        //                                 base_vat            : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].base_vat,
-        //                                 line_total          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].line_total,
-        //                                 vat_total           : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].vat_total,
-        //                                 // price_now_per_qty   : 0,
-        //                                 // base_vat            : 0,
-        //                                 // line_total          : 0,
-        //                                 // vat_total           : 0,
-        //                                 quantity            : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].quantity,
-        //                                 offer_type          : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type,
-        //                                 offer               : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer,
-        //                                 row_class           : this.RESPONSE_ORDERED_PRODUCTS__STORE[j].offer_type
-        //                         }
-        //                         this.ORDERED_TABLE_DATA__INIT_LIST_2.push(ferr_product)
-        //                     }
-        //                 }
-        //             }
-        //         }
-        //     }
-        //     this.createSubtotalCalculation()
-        //     console.log(this.ORDERED_TABLE_DATA__INIT_LIST_2)
-        //     this.UPDATE_BTN_TRUE = false
-        // },
         // -------------------------------------------------------------------------------------------------
         // Default Functionality
         defaultAllThisComponentData() {
@@ -1730,7 +1222,6 @@ export default {
                 this.SHOW_PRINT_ICON = false
                 console.log('default component')
                 console.log(this.ORDERED_TABLE_DATA__INIT_LIST.length)
-
         },
         createYYYYDDMM() {
             let yyyy = new Date().getFullYear()
@@ -1771,38 +1262,50 @@ export default {
                 }
             }
         },
+        // ----------------------------------------------------------------------------------------
+        // DELIVERY ORDER MODAL EVENT HANDLER
+        deliveries_cash_receiver_amount_KeyUp_ordered_table(value) {
+            console.log(value.key)
+            // this.cash_due_amount
+            let selector = document.querySelector('#deliveries_cash_receiver_amount')
+            if(parseInt(selector.value) === 0) {
+                selector.value = 0
+            } else if((selector.value).toString() === '') {
+                selector.value = 0
+            }
+            this.cash_due_amount = parseFloat(this.grand_total) - parseFloat(selector.value)
+        },
+        deliveries_cash_receiver_amount_KeyDown_ordered_table(value) {
+            console.log(value.key)
+            // this.cash_due_amount
+            // if(value.keyCode === 190 || value.keyCode === 110) {
+            //     value.preventDefault()
+            // }
+        },
+        imageChooseEventHandler(event) {
+            let output = document.querySelector('#cheque_image')
+            output.src = URL.createObjectURL(event.target.files[0])
+            output.onload = () => {
+                URL.revokeObjectURL(output.src)
+            }
+        }
     },
     watch: { 
         async pending_order_list_by_id(newVal, oldVal){
             console.log('changes' + newVal)
             console.log('changes' + oldVal)
-            // console.log('SR DA ID ' + this.pending_order_list_by_id.da_id)
-            // if()
-            // console.log(this.pending_order_list_by_id.order_details)
-            // await this.defaultAllThisComponentData()
             setTimeout( () => {
                 console.log(this.pending_order_list_by_id.invoice_details)
-                // console.log(this.pending_order_list_by_id)
                 this.SHOW_PRINT_ICON = true
                 this.PENDING_ORDER_DATA_BY_ID = this.pending_order_list_by_id
                 this.ORDERED_TABLE_DATA__INIT_LIST = this.pending_order_list_by_id.invoice_details
-                // this.ORDERED_TABLE_DATA__INIT_LIST = this.pending_order_list_by_id.order_details
-                // this.set_Or_Change_SR(this.pending_order_list_by_id.da_id)
-                // this.set_Or_Change_Date(this.pending_order_list_by_id.order_date)
-                // this.ORDER_CREATED_BY = 101
+                this.ORDERED_TABLE_DATA__INIT_LIST_NOT_CHANGEABLE = this.pending_order_list_by_id.invoice_details
                 this.ORDER_CREATED_BY = this.pending_order_list_by_id.created_by
                 this.ORDER_AUTH_USER = this.pending_order_list_by_id.auth_user
                 console.log(this.PENDING_ORDER_DATA_BY_ID.is_verified)
                 console.log(this.order_id_from_left_side)
                 this.createSubtotalCalculation()
-                console.log(this.ORDERED_TABLE_DATA__INIT_LIST)
             }, 100)
-            // if( newVal && oldVal) {
-            //     if(newVal.customer_id !== oldVal.customer_id) {
-            //         this.defaultAllThisComponentData()
-            //         console.log(this.pending_order_list_by_id.order_details)
-            //     }
-            // }
         },
     }
 }
