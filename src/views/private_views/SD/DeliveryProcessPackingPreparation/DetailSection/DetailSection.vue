@@ -33,10 +33,10 @@
                   <v-tabs-items v-model="tab" class="tab-container" style="padding-top: 30px">
                     <v-tab-item v-for="(status, i) in status_list" :key="i">
                       <v-card color="basil" flat>
-                        <v-card v-if="status.status_name === 'Initial Phase'"><DetailDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="SCHEDULE_DETAILS_LIST" /></v-card>
-                        <v-card v-if="status.status_name === 'Prepare Delivery'"><DetailDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="SCHEDULE_DETAILS_LIST_CHEMIST" /></v-card>
-                        <v-card v-if="status.status_name === 'Gate Pass'"><DetailDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="SCHEDULE_DETAILS_LIST_INSTITUTION" /></v-card>
-                        <v-card v-if="status.status_name === 'Ready'"><DetailDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="SCHEDULE_DETAILS_LIST" /></v-card>
+                        <v-card v-if="status.status_name === 'Initial Phase'"><DetailDataList :tab="status.status_name" :PROD_PREPARATION_LIST="PROD_PREPARATION_LIST" /></v-card>
+                        <v-card v-if="status.status_name === 'Prepare Delivery'"><DetailDataList :tab="status.status_name" :PROD_PREPARATION_LIST="PROD_PREPARATION_LIST" /></v-card>
+                        <v-card v-if="status.status_name === 'Gate Pass'"><DetailDataList :tab="status.status_name" :PROD_PREPARATION_LIST="PROD_PREPARATION_LIST" /></v-card>
+                        <v-card v-if="status.status_name === 'Ready'"><DetailDataList :tab="status.status_name" :PROD_PREPARATION_LIST="PROD_PREPARATION_LIST" /></v-card>
                       </v-card>
                     </v-tab-item>
                   </v-tabs-items>
@@ -56,7 +56,7 @@
 import DetailDataList from './DetailData/DetailDataList'
 
 export default {
-  props: ["SCHEDULE_DETAILS_LIST", "SCHEDULE_DETAILS_LIST_CHEMIST", "SCHEDULE_DETAILS_LIST_INSTITUTION"],
+  props: ["PROD_PREPARATION_LIST"],
   components: {
     DetailDataList
   },

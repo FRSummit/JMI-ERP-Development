@@ -37,22 +37,18 @@
           <table class="data-table" cellspacing="0" width="100%">
             <thead>
               <tr class="data-table-head-row">
-                <th>SL No</th>
-                <th>Invoice ID</th>
-                <th>Customer Type</th>
-                <th>Customer Name</th>
-                <th style="text-align: right;">Amount</th>
-                <th style="width: 10%;"></th>
+                <th>Sl No</th>
+                <th style="text-align: left;">Medicine Name</th>
+                <th>Batch No</th>
+                <th>Quantity</th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(schedule, i) in SCHEDULE_DETAILS_LIST" :key="i" class="data-table-data-row">
+              <tr v-for="(schedule, i) in PROD_PREPARATION_LIST" :key="i" class="data-table-data-row">
                 <td>{{ i + 1 }}</td>
-                <td style="color: #026CD1; font-weight: 500;">{{ schedule.invoice_id }}</td>
-                <td>{{ schedule.customer_info ? (schedule.customer_info.customer_type ? (schedule.customer_info.customer_type) : '') : '' }}</td>
-                <td>{{ schedule.customer_info ? (schedule.customer_info.customer_name ? (schedule.customer_info.customer_name) : '') : '' }}</td>
-                <td style="text-align: right;">{{ comaSrparation(Number(schedule.invoice_amt).toFixed(2)) }}</td>
-                <td style="width: 10%;"><i class="zmdi zmdi-print" @click="printInvoice(schedule.id, i)"></i></td>
+                <td style="color: #026CD1; font-weight: 500; text-align: left;">{{ schedule.product_info ? (schedule.product_info.prod_code ? (schedule.product_info.prod_code) : '' ) : '' }} - {{ schedule.product_info ? (schedule.product_info.prod_name ? (schedule.product_info.prod_name) : '' ) : '' }}</td>
+                <td>{{ schedule.batch_no ? (schedule.batch_no) : '' }}</td>
+                <td>{{ schedule.inv_qty ? (schedule.inv_qty) : '' }}</td>
               </tr>
             </tbody>
           </table>
@@ -78,18 +74,10 @@ import ComaSeparatedDigits from '../../../../../../functions/ComaSeparatedDigits
 const comaSeparatedDigits = new ComaSeparatedDigits()
 
 export default {
-  props: ["tab", "SCHEDULE_DETAILS_LIST"],
+  props: ["tab", "PROD_PREPARATION_LIST"],
   components: {},
   data() {
     return {
-      table_header: [
-        "SL No",
-        "Invoice ID",
-        "Customer Type",
-        "Customer Name",
-        "Amount",
-        ""
-      ],
       // value: null,
       radioSpanDefaultClass: 'active',
       radioSpanCustomClass: null
