@@ -1202,13 +1202,14 @@ export default {
             await service.getSaveInvoiceDeliveryInfo_DELIVERIES(invoice_id, invoice_dtl, cash, cheque, net_payable_amount)
                 .then(res => {
                     console.log(res.data)
-                    if(res.data.response_code === 200) {
-                        this.$emit('invoice_delivery_info_saved', this.INVOICE_ID_FROM_LEFT)
-                    }
+                    // if(res.data.response_code === 200) {
+                    //     this.$emit('invoice_delivery_info_saved', this.INVOICE_ID_FROM_LEFT)
+                    // }
                     this.approve_product_confirmation_popup_modal = false
                     this.delivery_success_or_not_msg_modal = true
                     this.delivery_success_or_not_msg = res.data.message
                     setTimeout( ()=> {
+                        this.$router.push('/features/users/dashboard')
                         this.delivery_success_or_not_msg_modal = false
                     }, 2000)
                 })
