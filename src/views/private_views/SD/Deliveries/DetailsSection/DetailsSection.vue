@@ -363,18 +363,23 @@
                             <b-tab title="Cheque">
                                 <div class="tab-inner cheque">
                                     <div class="row">
-                                        <div class="imvoice-amount">
+                                        <div class="imvoice-amount" style="width: 33%;">
                                             <p class="jmi-lvl">Invoice Amount:</p>
                                             <p class="jmi-lvl-value">{{ Number(grand_total).toFixed(2) }}</p>
                                         </div>
-                                        <div class="imvoice-amount">
+                                        <div class="imvoice-amount" style="width: 33%;">
+                                            <p class="jmi-lvl">Cash Amount:</p>
+                                            <!-- <p class="jmi-lvl-value">{{ Number(cheque_due_amount).toFixed(2) }}</p> -->
+                                            <p class="jmi-lvl-value">{{ Number(cash_receive_amount).toFixed(2) }}</p>
+                                        </div>
+                                        <div class="imvoice-amount" style="width: 33%;">
                                             <p class="jmi-lvl">Due Amount:</p>
                                             <!-- <p class="jmi-lvl-value">{{ Number(cheque_due_amount).toFixed(2) }}</p> -->
                                             <p class="jmi-lvl-value">{{ Number(parseFloat(grand_total) - parseFloat(cash_receive_amount) - parseFloat(cheque_receive_amount) ).toFixed(2) }}</p>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="jmi-inline-block">
+                                        <div class="jmi-inline-block hide">
                                             <p class="jmi-lvl">Select date</p>
                                             <input type="date" class="jmi-lvl-value" v-model="cheque_tab_date">
                                         </div>
@@ -384,12 +389,12 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="jmi-inline-block">
+                                        <div class="jmi-inline-block hide">
                                             <p class="jmi-lvl">Enter cheque Number</p>
                                             <input type="text" v-model="cheque_cheque_number">
                                         </div>
                                         <div class="jmi-inline-block right-alg">
-                                            <p class="jmi-lvl">Attach File (File Should be jpg, png, pdf)</p>
+                                            <p class="jmi-lvl">Attach File (File Should be jpg, png)</p>
                                             <input type="file" class="jmi-lvl-value" @change="imageChooseEventHandler($event)" accept="image/x-png,image/gif,image/jpeg">
                                         </div>
                                     </div>
@@ -1344,6 +1349,21 @@ export default {
             output.onload = () => {
                 URL.revokeObjectURL(output.src)
             }
+
+            output.addEventListener('load', (event) => {
+                const dataUrl = this.createImageToBase64(event.currentTarget)
+                console.log(dataUrl)
+            })
+        },
+        createImageToBase64(img) {
+            const canvas = document.createElement('canvas')
+            const ctx = canvas.getContext('2d');
+            // Set width and height
+            canvas.width = img.width;
+            canvas.height = img.height;
+            // Draw the image
+            ctx.drawImage(img, 0, 0);
+            return canvas.toDataURL('image/jpeg');
         }
     },
     watch: { 
