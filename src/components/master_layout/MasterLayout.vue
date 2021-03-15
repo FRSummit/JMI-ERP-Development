@@ -118,8 +118,8 @@ export default {
       userName: null,
       userDesignation: null,
       // authenticated: null,
-      // userName: JSON.parse(localStorage.getItem("user")) ? JSON.parse(localStorage.getItem("user")).user_detils.name : "",
-      // userDesignation: JSON.parse(localStorage.getItem("user")) ? JSON.parse(localStorage.getItem("user")).user_detils.role_name : "",
+      // userName: JSON.parse(localStorage.getItem("jerp_logged_user")) ? JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.name : "",
+      // userDesignation: JSON.parse(localStorage.getItem("jerp_logged_user")) ? JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.role_name : "",
       authenticated: this.$store.state.userIsAuthorized,
       sidenav: false,
       privatePage: false,
@@ -130,15 +130,15 @@ export default {
   },
   created() {},
   mounted() {
-      // this.userName = JSON.parse(localStorage.getItem("user")) ? JSON.parse(localStorage.getItem("user")).user_detils.name : ""
-      // this.userDesignation = JSON.parse(localStorage.getItem("user")) ? JSON.parse(localStorage.getItem("user")).user_detils.role_name : ""
+      // this.userName = JSON.parse(localStorage.getItem("jerp_logged_user")) ? JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.name : ""
+      // this.userDesignation = JSON.parse(localStorage.getItem("jerp_logged_user")) ? JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.role_name : ""
       // this.authenticated = this.$store.state.userIsAuthorized
     // console.log(this.$route.name);
-    if(JSON.parse(localStorage.getItem("user"))) {
+    if(JSON.parse(localStorage.getItem("jerp_logged_user"))) {
       setTimeout( () => {
         console.log('local storage')
-        // this.userName = JSON.parse(localStorage.getItem("user")) ? JSON.parse(localStorage.getItem("user")).user_detils.name : ""
-        // this.userDesignation = JSON.parse(localStorage.getItem("user")) ? JSON.parse(localStorage.getItem("user")).user_detils.role_name : ""
+        // this.userName = JSON.parse(localStorage.getItem("jerp_logged_user")) ? JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.name : ""
+        // this.userDesignation = JSON.parse(localStorage.getItem("jerp_logged_user")) ? JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.role_name : ""
         // this.authenticated = this.$store.state.userIsAuthorized
       }, 1000)
     }
@@ -287,8 +287,8 @@ export default {
   },
   watch: {
     // userName: {
-    //   userName: JSON.parse(localStorage.getItem("user")) ? JSON.parse(localStorage.getItem("user")).user_detils.name : "",
-    //   userDesignation: JSON.parse(localStorage.getItem("user")) ? JSON.parse(localStorage.getItem("user")).user_detils.role_name : "",
+    //   userName: JSON.parse(localStorage.getItem("jerp_logged_user")) ? JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.name : "",
+    //   userDesignation: JSON.parse(localStorage.getItem("jerp_logged_user")) ? JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.role_name : "",
     //   authenticated: this.$store.state.userIsAuthorized,
     // }
     userName(newVal, oldVal) {
@@ -298,7 +298,7 @@ export default {
         console.log('change name')
         this.sbu_list = []
         setTimeout(()=> {
-          let token = JSON.parse(localStorage.getItem("user")) ? JSON.parse(localStorage.getItem("user")).accessToken : ''
+          let token = JSON.parse(localStorage.getItem("jerp_logged_user")) ? JSON.parse(localStorage.getItem("jerp_logged_user")).accessToken : ''
           console.log(token)
           this.WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE(token)
         }, 3000)

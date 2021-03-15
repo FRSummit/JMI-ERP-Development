@@ -45,7 +45,7 @@ export default {
   methods: {
     // SERVICE IMPLEMENTATION
     async WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE() {
-      let token = JSON.parse(localStorage.getItem("user")) ? JSON.parse(localStorage.getItem("user")).accessToken : ''
+      let token = JSON.parse(localStorage.getItem("jerp_logged_user")) ? JSON.parse(localStorage.getItem("jerp_logged_user")).accessToken : ''
       await service.getWEB_SystemAssignedSBU(token)
         .then(res => {
           console.log(res.data)

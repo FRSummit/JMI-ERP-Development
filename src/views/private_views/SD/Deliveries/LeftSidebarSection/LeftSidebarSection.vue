@@ -162,7 +162,7 @@ import JMIFilter from '.././../../../../functions/JMIFIlter'
 const jmiFilter = new JMIFilter()
 
 export default {
-    props: ["rejected_order_id"],
+    props: ["rejected_order_id", "SAVED_INVOICE_DELIVERY_INFO_FROM_RIGHT"],
     data() {
         return {
             ALL_PENDING_ORDERS_CUSTOMER_LIST: [],
@@ -403,7 +403,7 @@ export default {
             }
         }
     },
-    // watch: {
+    watch: {
     //     async rejected_order_id(newVal, oldVal) {
     //         if(newVal !== oldVal) {
     //             await this.ALL_DELIVERIES_INVOICE_LIST__FROM_SERVICE()
@@ -413,7 +413,13 @@ export default {
     //             }
     //         }
     //     }
-    // }
+        SAVED_INVOICE_DELIVERY_INFO_FROM_RIGHT(newVal, oldVal) {
+            console.log('saved invoice delivery info')
+            if(newVal !== oldVal) {
+                document.querySelector('#search-filter').value = null
+            }
+        }
+    }
 }
 </script>
 

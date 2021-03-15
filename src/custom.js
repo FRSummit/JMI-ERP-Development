@@ -40,4 +40,11 @@ $(document).ready(function () {
     //         return false;
     //     }
     // }
+    // $('#doctors-list.doctors-list .v-data-table').prepend($('#doctors-list.doctors-list .v-data-table .v-data-footer'))
+
+
+    // document.querySelector('#doctors-list.doctors-list .v-input__icon').addEventListener('click', () => {
+    //     console.log('clicked')
+    // })
+    
 });

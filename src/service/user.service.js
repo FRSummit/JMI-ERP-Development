@@ -25,7 +25,7 @@ function login(username, password) {
             if (user.accessToken) {
                 // console.log('inside token')
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('user', JSON.stringify(user));
+                localStorage.setItem('jerp_logged_user', JSON.stringify(user));
             }
             // console.log('done user service')
 

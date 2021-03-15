@@ -231,17 +231,17 @@ router.beforeEach((to, from, next) => {
   // redirect to login page if not logged in and trying to access a restricted page
   const publicPages = ['/', '/login', '/login-v1', '/signup'];
   const authRequired = !publicPages.includes(to.path);
-  const loggedIn = localStorage.getItem('user');
-  console.log(JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')).expires_at : 'You are logged out')
+  const loggedIn = localStorage.getItem('jerp_logged_user');
+  console.log(JSON.parse(localStorage.getItem('jerp_logged_user')) ? JSON.parse(localStorage.getItem('jerp_logged_user')).expires_at : 'You are logged out')
 
   if (authRequired && !loggedIn) {
     return next('/');
   } else if (authRequired && loggedIn) {
-    // if(new Date().getTime() > JSON.parse(localStorage.getItem('user')).expiresAt) {
-    if(new Date().getTime() > JSON.parse(localStorage.getItem('user')).expires_at) {
+    // if(new Date().getTime() > JSON.parse(localStorage.getItem('jerp_logged_user')).expiresAt) {
+    if(new Date().getTime() > JSON.parse(localStorage.getItem('jerp_logged_user')).expires_at) {
       return next('/');
     }
-    // if((JSON.parse(localStorage.getItem('user')).expires_at - new Date().getTime()) < 0) {
+    // if((JSON.parse(localStorage.getItem('jerp_logged_user')).expires_at - new Date().getTime()) < 0) {
     //   return next('/login');
     // }
   }

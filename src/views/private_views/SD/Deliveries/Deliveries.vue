@@ -7,12 +7,14 @@
           v-on:filter_modal="filterModalToggle"
           v-on:approve_selected_with_da_popup_modal="approveSelectedWith_DA_PopupModalToggle"
           v-on:select_order_by_order_id="selectOrderByOrderId"
-          :rejected_order_id="rejected_order_id" />
+          :rejected_order_id="rejected_order_id"
+          :SAVED_INVOICE_DELIVERY_INFO_FROM_RIGHT="SAVED_INVOICE_DELIVERY_INFO_FROM_RIGHT" />
         <DetailsSection 
           :style="(filter_modal_toggle === true) || (approve_selected_with_da_popup_modal_toggle === true) ? 'z-index: -1;' : 'z-index: 5;'"
           :pending_order_list_by_id="pending_order_list_by_id"
-          :order_id_from_left_side="order_id_from_left_side"
-          v-on:remove_rejected_order_id_from_left_list="removeRejectedOrderFromLeft" />
+          :INVOICE_ID_FROM_LEFT="INVOICE_ID_FROM_LEFT"
+          v-on:remove_rejected_order_id_from_left_list="removeRejectedOrderFromLeft"
+          v-on:invoice_delivery_info_saved="invoiceDeliveryInfoSavedEventHandler" />
       </div>
     </div>
   </div>
@@ -44,7 +46,8 @@ export default {
       approve_selected_with_da_popup_modal_toggle: false,
       pending_order_list_by_id: [],
       rejected_order_id: null,
-      order_id_from_left_side: null,
+      INVOICE_ID_FROM_LEFT: null,
+      SAVED_INVOICE_DELIVERY_INFO_FROM_RIGHT: null,
     };
   },
   created() {
@@ -83,12 +86,17 @@ export default {
       //   this.rejected_order_id = null
       // })
     },
+    invoiceDeliveryInfoSavedEventHandler(invoice_id) {
+      console.log(invoice_id)
+      this.SAVED_INVOICE_DELIVERY_INFO_FROM_RIGHT = invoice_id
+      this.PENDING_ORDER_DETAILS__FROM_SERVICE(invoice_id)
+    },
     // ---------------------------------------------------------------------------------------------------
     // Service call from left sidebar section
-    async PENDING_ORDER_DETAILS__FROM_SERVICE(order_id) {
-      this.order_id_from_left_side = order_id
+    async PENDING_ORDER_DETAILS__FROM_SERVICE(invoice_id) {
+      this.INVOICE_ID_FROM_LEFT = invoice_id
       // await service.getPrintInvoiceDetails_INVOICE_CHALLAN_PRINTING(order_id)
-      await service.getPendingDeliverInvoiceDetailsByInvocieId_DELEVERIES(order_id)
+      await service.getPendingDeliverInvoiceDetailsByInvocieId_DELEVERIES(invoice_id)
         .then(res => {
           console.log(res.data)
           // console.log(res.data.order_info.sbu_customer_info)

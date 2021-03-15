@@ -3,8 +3,8 @@ import env from '../environment'
 // import qs from 'qs'
 
 axios.defaults.baseURL = env.apiBaseUrl;
-let token = JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')).accessToken : null
-let token_type = JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')).token_type : null
+let token = JSON.parse(localStorage.getItem('jerp_logged_user')) ? JSON.parse(localStorage.getItem('jerp_logged_user')).accessToken : null
+let token_type = JSON.parse(localStorage.getItem('jerp_logged_user')) ? JSON.parse(localStorage.getItem('jerp_logged_user')).token_type : null
 let FRSAPIURL = env.apiBaseUrlFRS
 
 export default class PostService {

@@ -1434,6 +1434,9 @@
         height        : 26px;
         display       : inline-block;
         vertical-align: middle;
+
+        position: absolute;
+        bottom  : 0;
     }
 
     #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .add-order-modal-section .submit-section .submit-section-inner span.cancel-order,
@@ -1450,6 +1453,10 @@
     #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .add-order-modal-section .add-order-modal-section-inner .submit-section .submit-section-inner span.cancel-order,
     #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .add-order-modal-section .add-order-modal-section-inner .submit-section .submit-section-inner span.proceed-order {
         padding: 0;
+    }
+
+    #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .order-table .order-table-inner table tbody .table-data-rows {
+        height: calc(100vh - ((74px + 73px + 32px) + (86px + 8px + 100px + 20px + 46px + 50px + 70px)));
     }
 }
 

@@ -363,18 +363,23 @@
                             <b-tab title="Cheque">
                                 <div class="tab-inner cheque">
                                     <div class="row">
-                                        <div class="imvoice-amount">
+                                        <div class="imvoice-amount" style="width: 33%;">
                                             <p class="jmi-lvl">Invoice Amount:</p>
                                             <p class="jmi-lvl-value">{{ Number(grand_total).toFixed(2) }}</p>
                                         </div>
-                                        <div class="imvoice-amount">
+                                        <div class="imvoice-amount" style="width: 33%;">
+                                            <p class="jmi-lvl">Cash Amount:</p>
+                                            <!-- <p class="jmi-lvl-value">{{ Number(cheque_due_amount).toFixed(2) }}</p> -->
+                                            <p class="jmi-lvl-value">{{ Number(cash_receive_amount).toFixed(2) }}</p>
+                                        </div>
+                                        <div class="imvoice-amount" style="width: 33%;">
                                             <p class="jmi-lvl">Due Amount:</p>
                                             <!-- <p class="jmi-lvl-value">{{ Number(cheque_due_amount).toFixed(2) }}</p> -->
                                             <p class="jmi-lvl-value">{{ Number(parseFloat(grand_total) - parseFloat(cash_receive_amount) - parseFloat(cheque_receive_amount) ).toFixed(2) }}</p>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="jmi-inline-block">
+                                        <div class="jmi-inline-block hide">
                                             <p class="jmi-lvl">Select date</p>
                                             <input type="date" class="jmi-lvl-value" v-model="cheque_tab_date">
                                         </div>
@@ -384,17 +389,19 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="jmi-inline-block">
+                                        <div class="jmi-inline-block hide">
                                             <p class="jmi-lvl">Enter cheque Number</p>
                                             <input type="text" v-model="cheque_cheque_number">
                                         </div>
                                         <div class="jmi-inline-block right-alg">
-                                            <p class="jmi-lvl">Attach File (File Should be jpg, png, pdf)</p>
+                                            <p class="jmi-lvl">Attach File (File Should be jpg, png)</p>
                                             <input type="file" class="jmi-lvl-value" @change="imageChooseEventHandler($event)" accept="image/x-png,image/gif,image/jpeg">
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <img id="cheque_image">
+                                        <div class="img-section">
+                                            <img id="cheque_image">
+                                        </div>
                                     </div>
                                 </div>
                             </b-tab>
@@ -510,7 +517,7 @@ const jmiFilter = new JMIFilter()
 import ERPService from '../../../../../service/ERPSidebarService'
 const service = new ERPService()
 export default {
-    props: ["pending_order_list_by_id", "order_id_from_left_side"],
+    props: ["pending_order_list_by_id", "INVOICE_ID_FROM_LEFT"],
     components: {
         // AdvancedSearch 
     },
@@ -989,8 +996,8 @@ export default {
         },
         deliveryOrderModalConfirmClickHandler() {
             console.log('deliveryOrderModalConfirmClickHandler')
-            let invoice_id = this.order_id_from_left_side
-            let product = {
+            let invoice_id = this.INVOICE_ID_FROM_LEFT
+            /*let product = {
                 prod_id: [],
                 invoiced_qty: [],
                 delivered_qty: [],
@@ -1011,13 +1018,18 @@ export default {
             collection.cash_collection = Number(this.cash_receive_amount).toFixed(2)
             collection.check_collection = Number(this.cheque_receive_amount).toFixed(2)
             collection.collected_amount = Number(this.cash_receive_amount + this.cheque_receive_amount).toFixed(2)
-            collection.due_amount = Number(this.grand_total - (this.cash_receive_amount + this.cheque_receive_amount)).toFixed(2)
+            collection.due_amount = Number(this.grand_total - (this.cash_receive_amount + this.cheque_receive_amount)).toFixed(2)*/
 
             let invoice_dtl = []
+            let get_init_data_from_localstorage = localStorage.getItem('jerp_delivery_details_not_chandable_ordered_data') ? JSON.parse(localStorage.getItem('jerp_delivery_details_not_chandable_ordered_data')) : this.ORDERED_TABLE_DATA__INIT_LIST_NOT_CHANGEABLE
+            console.log(get_init_data_from_localstorage)
             for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST_NOT_CHANGEABLE.length; i++) {
                 let invoice_details = {
                     prod_id: this.ORDERED_TABLE_DATA__INIT_LIST_NOT_CHANGEABLE[i].product_info.id,
-                    dlv_qty: parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) + parseInt( parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) / parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on) )
+                    dlv_qty: this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on ? parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) + parseInt( parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) / parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on) ) : this.ORDERED_TABLE_DATA__INIT_LIST[i].qty,
+
+                    ret_qty: parseInt(get_init_data_from_localstorage[i].qty) - parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty),
+                    ret_bonus_qty: this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on ? parseInt(get_init_data_from_localstorage[i].bonus_qty) - parseInt( parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) / parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on) ) : null
                 }
                 invoice_dtl.push(invoice_details)
             }
@@ -1026,12 +1038,6 @@ export default {
             let net_payable_amount = Number(this.grand_total).toFixed(2)
 
             this.SAVE_INVOICE_DELIVERY_INFO__FROM_SERVICE(invoice_id, invoice_dtl, cash, cheque, net_payable_amount)
-
-
-            console.log(invoice_id)
-            console.log(product)
-            console.log(collection)
-            // this.approve_product_confirmation_popup_modal = false
         },
         //------------------------------------------------------------------------------------------
         // Increase Autofield Selected Ordered Product
@@ -1187,16 +1193,26 @@ export default {
                 })
         },
         async SAVE_INVOICE_DELIVERY_INFO__FROM_SERVICE(invoice_id, invoice_dtl, cash, cheque, net_payable_amount) {
-            await service.getSaveInvoiceDeliveryInfo_DELIVERIES(invoice_id, invoice_dtl, cash, cheque, net_payable_amount)
+            console.log(invoice_id)
+            console.log(invoice_dtl)
+            console.log(cash)
+            console.log(cheque)
+            console.log(net_payable_amount)
+            /*await service.getSaveInvoiceDeliveryInfo_DELIVERIES(invoice_id, invoice_dtl, cash, cheque, net_payable_amount)
                 .then(res => {
                     console.log(res.data)
+                    if(res.data.response_code === 200) {
+                        localStorage.removeItem("jerp_delivery_details_not_chandable_ordered_data")
+                    //     this.$emit('invoice_delivery_info_saved', this.INVOICE_ID_FROM_LEFT)
+                    }
                     this.approve_product_confirmation_popup_modal = false
                     this.delivery_success_or_not_msg_modal = true
                     this.delivery_success_or_not_msg = res.data.message
                     setTimeout( ()=> {
+                        this.$router.push('/features/users/dashboard')
                         this.delivery_success_or_not_msg_modal = false
                     }, 2000)
-                })
+                })*/
         },
         // ----------------------------------------------------------------------------------------------
         // Bottom Row Calculation
@@ -1336,22 +1352,39 @@ export default {
             output.onload = () => {
                 URL.revokeObjectURL(output.src)
             }
+
+            output.addEventListener('load', (event) => {
+                const dataUrl = this.createImageToBase64(event.currentTarget)
+                console.log(dataUrl)
+            })
+        },
+        createImageToBase64(img) {
+            const canvas = document.createElement('canvas')
+            const ctx = canvas.getContext('2d');
+            // Set width and height
+            canvas.width = img.width;
+            canvas.height = img.height;
+            // Draw the image
+            ctx.drawImage(img, 0, 0);
+            return canvas.toDataURL('image/jpeg');
         }
     },
     watch: { 
         async pending_order_list_by_id(newVal, oldVal){
             console.log('changes' + newVal)
             console.log('changes' + oldVal)
+            localStorage.removeItem("jerp_delivery_details_not_chandable_ordered_data");
             setTimeout( () => {
                 console.log(this.pending_order_list_by_id.invoice_details)
                 this.SHOW_PRINT_ICON = true
                 this.PENDING_ORDER_DATA_BY_ID = this.pending_order_list_by_id
                 this.ORDERED_TABLE_DATA__INIT_LIST = this.pending_order_list_by_id.invoice_details
                 this.ORDERED_TABLE_DATA__INIT_LIST_NOT_CHANGEABLE = this.pending_order_list_by_id.invoice_details
+                localStorage.setItem('jerp_delivery_details_not_chandable_ordered_data', JSON.stringify(this.pending_order_list_by_id.invoice_details))
                 this.ORDER_CREATED_BY = this.pending_order_list_by_id.created_by
                 this.ORDER_AUTH_USER = this.pending_order_list_by_id.auth_user
                 console.log(this.PENDING_ORDER_DATA_BY_ID.is_verified)
-                console.log(this.order_id_from_left_side)
+                console.log(this.INVOICE_ID_FROM_LEFT)
                 this.createSubtotalCalculation()
 
                 /*let qty_edit_static_lists = document.querySelectorAll('.single_qty.quantity-setup')
