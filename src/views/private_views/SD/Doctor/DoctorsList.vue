@@ -44,7 +44,7 @@
           <div class="add-search-print-section-inner">
             <!-- ADD BTN -->
             <div class="add-section">
-              <button class="add-customer">ADD</button>
+              <button class="add-customer"><i class="zmdi zmdi-plus"></i>ADD</button>
             </div>
             <!-- SEARCH INPUT -->
             <div class="search-section">
@@ -355,7 +355,6 @@ export default {
           document.querySelector('#doctors-list.doctors-list .v-input__slot .v-menu').style.display = 'block'
         }
     })
-    // document.querySelector('#doctors-list.doctors-list .v-data-footer .v-data-footer__select').innerHTML = 'Entries'
   },
   methods: {
     createBreadcrumbData() {
@@ -370,11 +369,17 @@ export default {
       //     typeof value === 'string' &&
       //     value.toString().toLocaleUpperCase().indexOf(search) !== -1
       // },
-      handleRowClick(item) {
-        console.log(item)
-      },
+    handleRowClick(item) {
+      console.log(item)
+    },
     getItemPerPage(val) {
       console.log(val);
+    },
+    printIconClickHandler() {
+      console.log('printIconClickHandler')
+    },
+    pdfIconClickHandler() {
+      console.log('pdfIconClickHandler')
     },
   },
 };

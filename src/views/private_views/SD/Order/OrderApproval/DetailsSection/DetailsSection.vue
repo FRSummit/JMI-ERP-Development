@@ -1723,7 +1723,8 @@ export default {
         },
         async APPROVE_SINGLE_ORDER__FROM_SERVICE() {
             console.log('Approve single order')
-            await this.check_STOCK_TRANSIT_VALIDATION()
+            this.check_STOCK_TRANSIT_VALIDATION()
+            console.log(this.STOCK_TRANSIT_VALIDATION)
             this.approve_product_confirmation_popup_modal = false
             if(this.STOCK_TRANSIT_VALIDATION === false) {
                 await service.getApproveSingleOrderByOrderId_OrderApproval(this.order_id_from_left_side)
@@ -1907,7 +1908,7 @@ export default {
         check_STOCK_TRANSIT_VALIDATION() {
             this.STOCK_TRANSIT_VALIDATION = false
             for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST.length; i++) {
-                if(parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].net_qty) > (parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].available_stock) + parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].transit_stock)) ) {
+                if(parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].net_qty) > (parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].available_stock ? this.ORDERED_TABLE_DATA__INIT_LIST[i].available_stock : 0) + parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].transit_stock ? this.ORDERED_TABLE_DATA__INIT_LIST[i].transit_stock : 0)) ) {
                     this.STOCK_TRANSIT_VALIDATION = true
                 } else {
                     this.STOCK_TRANSIT_VALIDATION = false
