@@ -3,7 +3,7 @@
     <Heading :pathName="pathName" :routeName="routeName" />
     <div class="data-table-section">
       <div class="data-table-section-inner">
-        <!-- <v-data-table
+        <v-data-table
           :headers="headers"
           :items="desserts"
           :key="name"
@@ -19,7 +19,7 @@
           }"
           @update:items-per-page="getItemPerPage"
         >
-        </v-data-table> -->
+        </v-data-table>
         <div class="add-search-print-section">
           <div class="add-search-print-section-inner">
             <!-- ADD BTN -->
