@@ -3,7 +3,7 @@ import { userService } from '../service/user.service'
 import { router } from '../router'
 
 
-const user = JSON.parse(localStorage.getItem('user'));
+const user = JSON.parse(localStorage.getItem('jerp_logged_user'));
 // console.log('account.modulle => local storage user :  ' + user)
 const state = user ? { status: { loggedIn: true }, user } : { status: {}, user: null };
 // console.log('account.module => state : ' + state + '    loggingIn: ' + state.loggingIn + '    user : ' + state.user)

@@ -62,11 +62,11 @@ export default {
   data() {
     return {
       user: {
-        name: JSON.parse(localStorage.getItem("user"))
-          ? JSON.parse(localStorage.getItem("user")).user_detils.name
+        name: JSON.parse(localStorage.getItem("jerp_logged_user"))
+          ? JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.name
           : "Fayazur Rahman Summit",
-        designation: JSON.parse(localStorage.getItem("user"))
-          ? JSON.parse(localStorage.getItem("user")).user_detils.role_name
+        designation: JSON.parse(localStorage.getItem("jerp_logged_user"))
+          ? JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.role_name
           : "Sr. Software Engineer",
         role: [
           {
@@ -100,11 +100,11 @@ export default {
     //   this.user = res.data[0];
     //   this.progress = false;
     // });
-    console.log(JSON.parse(localStorage.getItem("user")).user_detils.name);
-    let user_name = JSON.parse(localStorage.getItem("user")).user_detils.name
-    let user_designation = JSON.parse(localStorage.getItem("user")).user_detils.role_name
-    let sbu_name = JSON.parse(localStorage.getItem("user")).user_detils.sbu_name
-    let token = JSON.parse(localStorage.getItem("user")).accessToken
+    console.log(JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.name);
+    let user_name = JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.name
+    let user_designation = JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.role_name
+    let sbu_name = JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.sbu_name
+    let token = JSON.parse(localStorage.getItem("jerp_logged_user")).accessToken
     this.$emit('profile_user_name', user_name, user_designation, sbu_name), token
   },
   methods: {
