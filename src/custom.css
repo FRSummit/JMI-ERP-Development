@@ -1915,8 +1915,14 @@ select:focus {
     float: right;
 }
 
-#deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .tabs.mt-3 .tab-content .tab-inner.cheque .row img {
-    width    : 560px;
+#deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .tabs.mt-3 .tab-content .tab-inner.cheque .row .img-section {
+    width    : 200px;
+    /* height: 100px; */
+}
+
+#deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .tabs.mt-3 .tab-content .tab-inner.cheque .row .img-section img {
+    width    : 100%;
+    /* width    : 560px; */
     /* height: 100px; */
 }
 

@@ -399,7 +399,9 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <img id="cheque_image">
+                                        <div class="img-section">
+                                            <img id="cheque_image">
+                                        </div>
                                     </div>
                                 </div>
                             </b-tab>
