@@ -1017,7 +1017,7 @@ export default {
             for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST_NOT_CHANGEABLE.length; i++) {
                 let invoice_details = {
                     prod_id: this.ORDERED_TABLE_DATA__INIT_LIST_NOT_CHANGEABLE[i].product_info.id,
-                    dlv_qty: parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) + parseInt( parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) / parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on) )
+                    dlv_qty: this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on ? parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) + parseInt( parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) / parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on) ) : this.ORDERED_TABLE_DATA__INIT_LIST[i].qty
                 }
                 invoice_dtl.push(invoice_details)
             }
@@ -1187,6 +1187,11 @@ export default {
                 })
         },
         async SAVE_INVOICE_DELIVERY_INFO__FROM_SERVICE(invoice_id, invoice_dtl, cash, cheque, net_payable_amount) {
+            console.log(invoice_id)
+            console.log(invoice_dtl)
+            console.log(cash)
+            console.log(cheque)
+            console.log(net_payable_amount)
             await service.getSaveInvoiceDeliveryInfo_DELIVERIES(invoice_id, invoice_dtl, cash, cheque, net_payable_amount)
                 .then(res => {
                     console.log(res.data)
