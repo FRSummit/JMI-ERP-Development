@@ -482,6 +482,7 @@ input:focus {
 #doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table thead tr {
     /* border-top: 1px solid rgba(0,0,0,0.12); */
 }
+
 #doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table thead tr,
 #doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table tbody tr {
     display: inline-table;
@@ -557,7 +558,7 @@ input:focus {
 
 #doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table .v-data-table__wrapper th,
 #doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table .v-data-table__wrapper td {
-    font-size     : 14px;
+    font-size: 14px;
 }
 
 #doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table .v-data-table__wrapper tbody tr:hover {
@@ -577,6 +578,7 @@ input:focus {
     height         : 50px;
     justify-content: left;
     font-size      : 14px;
+    border-top     : none;
 }
 
 #doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table .v-data-footer .v-data-footer__icons-before button,
@@ -615,6 +617,127 @@ input:focus {
 #doctors-list.doctors-list .data-table-section .data-table-section-inner .v-input__slot::before {
     border : none;
     display: none;
+}
+
+/* ---- */
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .add-search-print-section {
+    position: absolute;
+    top     : 0;
+    right   : 0;
+    width   : 40%;
+}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .add-search-print-section .add-search-print-section-inner {}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .add-search-print-section .add-section {
+    display       : inline-block;
+    width         : 20%;
+    vertical-align: middle;
+    text-align    : center;
+}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .add-search-print-section .add-section button.add-customer {
+    display       : inline-block;
+    font-size     : 14px;
+    padding       : 6px 10px;
+    line-height   : 1.3;
+    color         : #FFFFFF;
+    width         : 80px;
+    height        : 34px;
+    text-align    : center;
+    vertical-align: middle;
+    border-radius : 2px;
+    background    : #026CD1;
+    outline       : none;
+
+}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .add-search-print-section .search-section {
+    display       : inline-block;
+    /* padding    : 20px 20px 10px; */
+    padding       : 6px 10px;
+    width         : 60%;
+    vertical-align: middle;
+
+}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .add-search-print-section .search-section .form-group {
+    margin        : 0;
+    position      : relative;
+    display       : inline-block;
+    vertical-align: middle;
+    width         : 100%;
+}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .add-search-print-section .search-section .has-search .form-control {
+    padding-left: 2.375rem;
+}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .add-search-print-section .search-section .has-search .form-control-feedback {
+    position      : absolute;
+    z-index       : 2;
+    display       : block;
+    width         : 16px;
+    height        : 16px;
+    text-align    : center;
+    pointer-events: none;
+    color         : #aaa;
+    top           : 8px;
+    left          : 12px;
+    border        : none;
+    padding       : 2px;
+}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .add-search-print-section .search-section input {
+    margin       : 0;
+    border-bottom: none;
+    border       : 1px solid #BFCFE2;
+    box-sizing   : inherit;
+    font-size    : 12px;
+    height       : auto;
+    padding      : 6px 0;
+}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .add-search-print-section .search-section input:focus {
+    box-shadow: none;
+}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .add-search-print-section .search-section span {
+    cursor: pointer;
+
+}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .add-search-print-section .search-section span svg:last-child {
+    display       : inline-block;
+    vertical-align: middle;
+    height        : 32px;
+    width         : 32px;
+    padding       : 8px;
+    margin        : 0;
+    float         : right;
+    color         : #BFCFE2;
+    border        : 1px solid #BFCFE2;
+}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .add-search-print-section .print-pdf-section {
+    display       : inline-block;
+    width         : 20%;
+    vertical-align: middle;
+}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .add-search-print-section .print-pdf-section .print-pdf-section-inner {}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .add-search-print-section .print-pdf-section .print-pdf-section-inner span {
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .add-search-print-section .print-pdf-section .print-pdf-section-inner span i {
+    font-size: 20px;
+}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .add-search-print-section .print-pdf-section .print-pdf-section-inner span:hover {
+    color: #026CD1;
 }
 
 /* ------------ Doctor LIST ENDS --------------------------- */
@@ -2234,8 +2357,26 @@ span.cancel-order {
 }
 
 
+@media only screen and (max-width: 1050px) {
+    #doctors-list.doctors-list .data-table-section .data-table-section-inner .add-search-print-section .add-section button.add-customer {
+        font-size: 12px;
+        padding  : 4px 6px;
+        width    : 60px;
+        height   : 30px;
+    }
+
+    #doctors-list.doctors-list .data-table-section .data-table-section-inner .add-search-print-section .search-section {
+        /* width: 50%; */
+    }
+
+    #doctors-list.doctors-list .data-table-section .data-table-section-inner .add-search-print-section .print-pdf-section .print-pdf-section-inner span i {
+        font-size: 18px;
+    }
+}
+
 
 @media only screen and (max-width: 1000px) {
+
     #doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table .v-data-table__wrapper th,
     #doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table .v-data-table__wrapper td {
         font-size     : 14px;

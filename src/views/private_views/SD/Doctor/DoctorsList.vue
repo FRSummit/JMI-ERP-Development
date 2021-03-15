@@ -40,6 +40,35 @@
             </tr>
           </template> -->
         </v-data-table>
+        <div class="add-search-print-section">
+          <div class="add-search-print-section-inner">
+            <!-- ADD BTN -->
+            <div class="add-section">
+              <button class="add-customer">ADD</button>
+            </div>
+            <!-- SEARCH INPUT -->
+            <div class="search-section">
+              <div class="form-group has-search">
+                <span class="fa fa-search form-control-feedback"></span>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="search-filter"
+                  placeholder="Search by ID No"
+                  v-on:keyup="searchKeyUpHandler"
+                />
+              </div>
+            </div>
+            <!-- PRINT & PDF -->
+            <div class="print-pdf-section">
+              <div class="print-pdf-section-inner">
+                <span class="print-icon" @click="printIconClickHandler"><i class="zmdi zmdi-print"></i></span>
+                <span class="pdf-icon" @click="pdfIconClickHandler"><i class="zmdi zmdi-file"></i></span>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
     </div>
   </div>
