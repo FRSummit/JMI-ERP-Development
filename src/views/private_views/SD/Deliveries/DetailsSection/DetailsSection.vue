@@ -997,7 +997,7 @@ export default {
         deliveryOrderModalConfirmClickHandler() {
             console.log('deliveryOrderModalConfirmClickHandler')
             let invoice_id = this.INVOICE_ID_FROM_LEFT
-            let product = {
+            /*let product = {
                 prod_id: [],
                 invoiced_qty: [],
                 delivered_qty: [],
@@ -1018,7 +1018,7 @@ export default {
             collection.cash_collection = Number(this.cash_receive_amount).toFixed(2)
             collection.check_collection = Number(this.cheque_receive_amount).toFixed(2)
             collection.collected_amount = Number(this.cash_receive_amount + this.cheque_receive_amount).toFixed(2)
-            collection.due_amount = Number(this.grand_total - (this.cash_receive_amount + this.cheque_receive_amount)).toFixed(2)
+            collection.due_amount = Number(this.grand_total - (this.cash_receive_amount + this.cheque_receive_amount)).toFixed(2)*/
 
             let invoice_dtl = []
             let get_init_data_from_localstorage = localStorage.getItem('jerp_delivery_details_not_chandable_ordered_data') ? JSON.parse(localStorage.getItem('jerp_delivery_details_not_chandable_ordered_data')) : this.ORDERED_TABLE_DATA__INIT_LIST_NOT_CHANGEABLE
@@ -1031,8 +1031,6 @@ export default {
                     ret_qty: parseInt(get_init_data_from_localstorage[i].qty) - parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty),
                     ret_bonus_qty: this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on ? parseInt(get_init_data_from_localstorage[i].bonus_qty) - parseInt( parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) / parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on) ) : null
                 }
-                // console.log(get_init_data_from_localstorage[i].qty + '    ' + this.ORDERED_TABLE_DATA__INIT_LIST[i].qty)
-                // console.log(get_init_data_from_localstorage[i].bonus_qty + '    ' + parseInt( parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) / parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on) ))
                 invoice_dtl.push(invoice_details)
             }
             let cash = Number(this.cash_receive_amount).toFixed(2)
@@ -1040,12 +1038,6 @@ export default {
             let net_payable_amount = Number(this.grand_total).toFixed(2)
 
             this.SAVE_INVOICE_DELIVERY_INFO__FROM_SERVICE(invoice_id, invoice_dtl, cash, cheque, net_payable_amount)
-
-
-            console.log(invoice_id)
-            console.log(product)
-            console.log(collection)
-            // this.approve_product_confirmation_popup_modal = false
         },
         //------------------------------------------------------------------------------------------
         // Increase Autofield Selected Ordered Product
