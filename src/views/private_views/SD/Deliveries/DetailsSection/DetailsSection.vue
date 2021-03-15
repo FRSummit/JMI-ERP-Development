@@ -510,7 +510,7 @@ const jmiFilter = new JMIFilter()
 import ERPService from '../../../../../service/ERPSidebarService'
 const service = new ERPService()
 export default {
-    props: ["pending_order_list_by_id", "order_id_from_left_side"],
+    props: ["pending_order_list_by_id", "INVOICE_ID_FROM_LEFT"],
     components: {
         // AdvancedSearch 
     },
@@ -989,7 +989,7 @@ export default {
         },
         deliveryOrderModalConfirmClickHandler() {
             console.log('deliveryOrderModalConfirmClickHandler')
-            let invoice_id = this.order_id_from_left_side
+            let invoice_id = this.INVOICE_ID_FROM_LEFT
             let product = {
                 prod_id: [],
                 invoiced_qty: [],
@@ -1195,6 +1195,9 @@ export default {
             await service.getSaveInvoiceDeliveryInfo_DELIVERIES(invoice_id, invoice_dtl, cash, cheque, net_payable_amount)
                 .then(res => {
                     console.log(res.data)
+                    if(res.data.response_code === 200) {
+                        this.$emit('invoice_delivery_info_saved', this.INVOICE_ID_FROM_LEFT)
+                    }
                     this.approve_product_confirmation_popup_modal = false
                     this.delivery_success_or_not_msg_modal = true
                     this.delivery_success_or_not_msg = res.data.message
@@ -1356,7 +1359,7 @@ export default {
                 this.ORDER_CREATED_BY = this.pending_order_list_by_id.created_by
                 this.ORDER_AUTH_USER = this.pending_order_list_by_id.auth_user
                 console.log(this.PENDING_ORDER_DATA_BY_ID.is_verified)
-                console.log(this.order_id_from_left_side)
+                console.log(this.INVOICE_ID_FROM_LEFT)
                 this.createSubtotalCalculation()
 
                 /*let qty_edit_static_lists = document.querySelectorAll('.single_qty.quantity-setup')
