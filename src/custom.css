@@ -449,7 +449,175 @@ input:focus {
     margin-top: 20px;
 }
 
-/* Doctor */
+/* ------------ Doctor STARTS ------------------------------------------------ */
+/* ------------ Doctor LIST STARTS ------------------------- */
+#doctors-list.doctors-list {
+    position: relative;
+}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner {
+    position: relative;
+}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table {
+    position   : relative;
+    /* height  : 600px; */
+    height     : calc(100vh - (74px + 73px + 32px));
+}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table .v-data-table__wrapper {
+    position   : absolute;
+    top        : 50px;
+    /* height  : 530px; */
+    height     : calc(100vh - (74px + 73px + 32px + 50px));
+    width      : 100%;
+}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table tbody {
+    display   : block;
+    height    : calc(100vh - (74px + 73px + 32px + 50px));
+    overflow-y: scroll;
+}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table thead tr {
+    /* border-top: 1px solid rgba(0,0,0,0.12); */
+}
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table thead tr,
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table tbody tr {
+    display: inline-table;
+    width  : 100%;
+}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table tbody tr {
+    border-bottom: none;
+}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table tbody tr td {
+    border-bottom: none;
+}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table thead tr th:first-child,
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table tbody tr td:first-child {
+    width     : 20%;
+    text-align: left;
+}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table thead tr th:nth-child(2),
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table tbody tr td:nth-child(2) {
+    width     : 15%;
+    text-align: center;
+}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table thead tr th:nth-child(3),
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table tbody tr td:nth-child(3) {
+    width     : 15%;
+    text-align: center;
+}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table thead tr th:nth-child(4),
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table tbody tr td:nth-child(4) {
+    width     : 20%;
+    text-align: center;
+}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table thead tr th:nth-child(5),
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table tbody tr td:nth-child(5) {
+    width     : 15%;
+    text-align: center;
+}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table thead tr th:nth-child(6),
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table tbody tr td:nth-child(6) {
+    width     : 15%;
+    text-align: right;
+}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table tbody::-webkit-scrollbar {
+    width: 2px;
+}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table tbody::-webkit-scrollbar-track {
+    box-shadow   : inset 0 0 5px grey;
+    border-radius: 10px;
+}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table tbody::-webkit-scrollbar-thumb {
+    background   : #168fff;
+    border-radius: 10px;
+}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table tbody::-webkit-scrollbar-thumb:hover {
+    background: #004e98;
+}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table .v-data-table__wrapper th {
+    color         : #026CD1;
+    text-transform: uppercase;
+}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table .v-data-table__wrapper th,
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table .v-data-table__wrapper td {
+    font-size     : 14px;
+}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table .v-data-table__wrapper tbody tr:hover {
+    background: #DEF0FF;
+    color     : #026CD1;
+}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table .v-data-table__wrapper tbody tr:hover td:first-child {
+    text-decoration: underline;
+    cursor         : pointer;
+}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table .v-data-footer {
+    position       : absolute;
+    top            : 0px;
+    left           : 0;
+    height         : 50px;
+    justify-content: left;
+    font-size      : 14px;
+}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table .v-data-footer .v-data-footer__icons-before button,
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table .v-data-footer .v-data-footer__icons-after button {
+    width     : 30px;
+    height    : 30px;
+    background: #DEF0FF;
+    margin    : 0 4px;
+    color     : #026CD1;
+}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .v-menu>.v-menu__content {
+    top : 40px !important;
+    left: 0 !important;
+}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-footer__select .v-select__selections {
+    padding-left: 10px;
+}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-footer__select .v-select__selections .v-select__selection--comma {
+    font-size: 14px;
+    margin   : 0;
+    width    : 20px;
+}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-footer__pagination {
+    margin: 0 10px;
+}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-footer__select .v-select__selections input {
+    display  : none;
+    /* height: 2rem; */
+}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .v-input__slot::before {
+    border : none;
+    display: none;
+}
+
+/* ------------ Doctor LIST ENDS --------------------------- */
 #doctors-profile-details-section .mt-3.profile-details-tabs {}
 
 #doctors-profile-details-section ul {
@@ -472,7 +640,7 @@ input:focus {
     border-bottom: 2px solid #026CD1;
 }
 
-/* Doctor */
+/* ------------ Doctor ENDS ------------------------------------------------ */
 
 /* Create Order & Order Approval - Autocomplete */
 
@@ -1921,9 +2089,9 @@ select:focus {
 }
 
 #deliveries-details-section .deliveries-proceed-modal .modal-popup-section-inner .tabs.mt-3 .tab-content .tab-inner.cheque .row .img-section img {
-    width    : 100%;
+    width       : 100%;
     /* width    : 560px; */
-    /* height: 100px; */
+    /* height   : 100px; */
 }
 
 .modal-popup-section span.cancel-popup-icon {
@@ -2066,6 +2234,14 @@ span.cancel-order {
 }
 
 
+
+@media only screen and (max-width: 1000px) {
+    #doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table .v-data-table__wrapper th,
+    #doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table .v-data-table__wrapper td {
+        font-size     : 14px;
+        vertical-align: initial;
+    }
+}
 
 @media only screen and (max-width: 1100px) {
     #app #master-layout #header.header .header-inner .right-section .notification-section {

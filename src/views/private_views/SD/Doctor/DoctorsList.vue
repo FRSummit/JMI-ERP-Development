@@ -11,10 +11,13 @@
           :search="search"
           :custom-filter="filterOnlyCapsText"
           @click:row="handleRowClick"
+          :items-per-page="5"
           :footer-props="{
-            'items-per-page-options': [10, 20, 30, 40, 50]
+            showFirstLastPage: true,
+            'items-per-page-options': [5, 10,15, 30, 50, 100],
+            'items-per-page-text':'Entries'
           }"
-          :items-per-page="10"
+          @update:items-per-page="getItemPerPage"
         >
           <!-- <template v-slot:top>
             <v-text-field
@@ -23,8 +26,8 @@
               class="mx-4"
             ></v-text-field>
           </template> -->
-          <template v-slot:body.append>
-            <tr>
+          <!-- <template v-slot:body.append>
+            <tr> -->
               <!-- <td></td>
               <td>
                 <v-text-field
@@ -33,9 +36,9 @@
                   label="Less than"
                 ></v-text-field>
               </td> -->
-              <td colspan="4"></td>
+              <!-- <td colspan="4"></td>
             </tr>
-          </template>
+          </template> -->
         </v-data-table>
       </div>
     </div>
@@ -56,6 +59,8 @@ export default {
       routeName: "Doctors List",
       parentPath: "Local Sales",
       pathName: [],
+      // footerProps: {'items-per-page-options': [5, 10,15, 30, 50, 100]},
+      footerProps: {itemsPerPageText: 'Entries'},
         // search: '',
         // calories: '',
         desserts: [
@@ -163,6 +168,126 @@ export default {
             territory: 'Savar Bazar 3',
             status: 'Pending 3',
           },
+          {
+            name: 'Dr Qumrul Hassan Miron 2',
+            type: 'Hardcore 2',
+            designation: 'Senior Consultant 2',
+            specialization: 'Anatomical Pathology 2',
+            territory: 'Savar Bazar 2',
+            status: 'Pending 2',
+          },
+          {
+            name: 'Dr Qumrul Hassan Miron 3',
+            type: 'Hardcore 3',
+            designation: 'Senior Consultant 3',
+            specialization: 'Anatomical Pathology 3',
+            territory: 'Savar Bazar 3',
+            status: 'Pending 3',
+          },
+          {
+            name: 'Dr Qumrul Hassan Miron 2',
+            type: 'Hardcore 2',
+            designation: 'Senior Consultant 2',
+            specialization: 'Anatomical Pathology 2',
+            territory: 'Savar Bazar 2',
+            status: 'Pending 2',
+          },
+          {
+            name: 'Dr Qumrul Hassan Miron 3',
+            type: 'Hardcore 3',
+            designation: 'Senior Consultant 3',
+            specialization: 'Anatomical Pathology 3',
+            territory: 'Savar Bazar 3',
+            status: 'Pending 3',
+          },
+          {
+            name: 'Dr Qumrul Hassan Miron 2',
+            type: 'Hardcore 2',
+            designation: 'Senior Consultant 2',
+            specialization: 'Anatomical Pathology 2',
+            territory: 'Savar Bazar 2',
+            status: 'Pending 2',
+          },
+          {
+            name: 'Dr Qumrul Hassan Miron 3',
+            type: 'Hardcore 3',
+            designation: 'Senior Consultant 3',
+            specialization: 'Anatomical Pathology 3',
+            territory: 'Savar Bazar 3',
+            status: 'Pending 3',
+          },
+          {
+            name: 'Dr Qumrul Hassan Miron 2',
+            type: 'Hardcore 2',
+            designation: 'Senior Consultant 2',
+            specialization: 'Anatomical Pathology 2',
+            territory: 'Savar Bazar 2',
+            status: 'Pending 2',
+          },
+          {
+            name: 'Dr Qumrul Hassan Miron 3',
+            type: 'Hardcore 3',
+            designation: 'Senior Consultant 3',
+            specialization: 'Anatomical Pathology 3',
+            territory: 'Savar Bazar 3',
+            status: 'Pending 3',
+          },
+          {
+            name: 'Dr Qumrul Hassan Miron 2',
+            type: 'Hardcore 2',
+            designation: 'Senior Consultant 2',
+            specialization: 'Anatomical Pathology 2',
+            territory: 'Savar Bazar 2',
+            status: 'Pending 2',
+          },
+          {
+            name: 'Dr Qumrul Hassan Miron 3',
+            type: 'Hardcore 3',
+            designation: 'Senior Consultant 3',
+            specialization: 'Anatomical Pathology 3',
+            territory: 'Savar Bazar 3',
+            status: 'Pending 3',
+          },
+          {
+            name: 'Dr Qumrul Hassan Miron 2',
+            type: 'Hardcore 2',
+            designation: 'Senior Consultant 2',
+            specialization: 'Anatomical Pathology 2',
+            territory: 'Savar Bazar 2',
+            status: 'Pending 2',
+          },
+          {
+            name: 'Dr Qumrul Hassan Miron 3',
+            type: 'Hardcore 3',
+            designation: 'Senior Consultant 3',
+            specialization: 'Anatomical Pathology 3',
+            territory: 'Savar Bazar 3',
+            status: 'Pending 3',
+          },
+          {
+            name: 'Dr Qumrul Hassan Miron 2',
+            type: 'Hardcore 2',
+            designation: 'Senior Consultant 2',
+            specialization: 'Anatomical Pathology 2',
+            territory: 'Savar Bazar 2',
+            status: 'Pending 2',
+          },
+          {
+            name: 'Dr Qumrul Hassan Miron 3',
+            type: 'Hardcore 3',
+            designation: 'Senior Consultant 3',
+            specialization: 'Anatomical Pathology 3',
+            territory: 'Savar Bazar 3',
+            status: 'Pending 3',
+          },
+          {
+            name: 'Dr Qumrul Hassan Miron 2',
+            type: 'Hardcore 2',
+            designation: 'Senior Consultant 2',
+            specialization: 'Anatomical Pathology 2',
+            territory: 'Savar Bazar 2',
+            status: 'Pending 2',
+          },
         ],
     };
   },
@@ -195,7 +320,14 @@ export default {
     this.$emit("routeName", this.$route.name);
     this.createBreadcrumbData();
   },
-  mounted() {},
+  mounted() {
+    document.querySelector('#doctors-list.doctors-list .v-input__icon').addEventListener('click', () => {
+        if(window.getComputedStyle(document.querySelector('#doctors-list.doctors-list .v-input__slot .v-menu')).display === 'none') {
+          document.querySelector('#doctors-list.doctors-list .v-input__slot .v-menu').style.display = 'block'
+        }
+    })
+    // document.querySelector('#doctors-list.doctors-list .v-data-footer .v-data-footer__select').innerHTML = 'Entries'
+  },
   methods: {
     createBreadcrumbData() {
       this.pathName = breadcrumbFunctions.jmiERPBreadcrumb(
@@ -211,7 +343,10 @@ export default {
       // },
       handleRowClick(item) {
         console.log(item)
-      }
+      },
+    getItemPerPage(val) {
+      console.log(val);
+    },
   },
 };
 </script>

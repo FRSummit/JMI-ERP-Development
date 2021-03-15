@@ -1021,11 +1021,18 @@ export default {
             collection.due_amount = Number(this.grand_total - (this.cash_receive_amount + this.cheque_receive_amount)).toFixed(2)
 
             let invoice_dtl = []
+            let get_init_data_from_localstorage = localStorage.getItem('jerp_delivery_details_not_chandable_ordered_data') ? JSON.parse(localStorage.getItem('jerp_delivery_details_not_chandable_ordered_data')) : this.ORDERED_TABLE_DATA__INIT_LIST_NOT_CHANGEABLE
+            console.log(get_init_data_from_localstorage)
             for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST_NOT_CHANGEABLE.length; i++) {
                 let invoice_details = {
                     prod_id: this.ORDERED_TABLE_DATA__INIT_LIST_NOT_CHANGEABLE[i].product_info.id,
-                    dlv_qty: this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on ? parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) + parseInt( parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) / parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on) ) : this.ORDERED_TABLE_DATA__INIT_LIST[i].qty
+                    dlv_qty: this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on ? parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) + parseInt( parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) / parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on) ) : this.ORDERED_TABLE_DATA__INIT_LIST[i].qty,
+
+                    ret_qty: parseInt(get_init_data_from_localstorage[i].qty) - parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty),
+                    ret_bonus_qty: this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on ? parseInt(get_init_data_from_localstorage[i].bonus_qty) - parseInt( parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) / parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on) ) : null
                 }
+                // console.log(get_init_data_from_localstorage[i].qty + '    ' + this.ORDERED_TABLE_DATA__INIT_LIST[i].qty)
+                // console.log(get_init_data_from_localstorage[i].bonus_qty + '    ' + parseInt( parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) / parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on) ))
                 invoice_dtl.push(invoice_details)
             }
             let cash = Number(this.cash_receive_amount).toFixed(2)
@@ -1199,12 +1206,13 @@ export default {
             console.log(cash)
             console.log(cheque)
             console.log(net_payable_amount)
-            await service.getSaveInvoiceDeliveryInfo_DELIVERIES(invoice_id, invoice_dtl, cash, cheque, net_payable_amount)
+            /*await service.getSaveInvoiceDeliveryInfo_DELIVERIES(invoice_id, invoice_dtl, cash, cheque, net_payable_amount)
                 .then(res => {
                     console.log(res.data)
-                    // if(res.data.response_code === 200) {
+                    if(res.data.response_code === 200) {
+                        localStorage.removeItem("jerp_delivery_details_not_chandable_ordered_data")
                     //     this.$emit('invoice_delivery_info_saved', this.INVOICE_ID_FROM_LEFT)
-                    // }
+                    }
                     this.approve_product_confirmation_popup_modal = false
                     this.delivery_success_or_not_msg_modal = true
                     this.delivery_success_or_not_msg = res.data.message
@@ -1212,7 +1220,7 @@ export default {
                         this.$router.push('/features/users/dashboard')
                         this.delivery_success_or_not_msg_modal = false
                     }, 2000)
-                })
+                })*/
         },
         // ----------------------------------------------------------------------------------------------
         // Bottom Row Calculation
@@ -1373,12 +1381,14 @@ export default {
         async pending_order_list_by_id(newVal, oldVal){
             console.log('changes' + newVal)
             console.log('changes' + oldVal)
+            localStorage.removeItem("jerp_delivery_details_not_chandable_ordered_data");
             setTimeout( () => {
                 console.log(this.pending_order_list_by_id.invoice_details)
                 this.SHOW_PRINT_ICON = true
                 this.PENDING_ORDER_DATA_BY_ID = this.pending_order_list_by_id
                 this.ORDERED_TABLE_DATA__INIT_LIST = this.pending_order_list_by_id.invoice_details
                 this.ORDERED_TABLE_DATA__INIT_LIST_NOT_CHANGEABLE = this.pending_order_list_by_id.invoice_details
+                localStorage.setItem('jerp_delivery_details_not_chandable_ordered_data', JSON.stringify(this.pending_order_list_by_id.invoice_details))
                 this.ORDER_CREATED_BY = this.pending_order_list_by_id.created_by
                 this.ORDER_AUTH_USER = this.pending_order_list_by_id.auth_user
                 console.log(this.PENDING_ORDER_DATA_BY_ID.is_verified)
