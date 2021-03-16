@@ -57,7 +57,7 @@
                                 <span class="jmi-lvl">SR: </span>
                                 <p class="selectpicker-pera"> 
                                     <!-- <span class="jmi-lvl-value">{{ selected_sr }}</span> -->
-                                    <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_70">{{ selected_sr }}</span>
+                                    <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_70" @click="srAddIconClickHandler">{{ selected_sr }}</span>
                                     <span class="sr-modal" v-if="sr_add_modal">
                                         <span class="sr-modal-inner" v-click-outside="srModalSectionOutsideClick">
                                             <span class="jmi-title">Select SR</span>
@@ -66,8 +66,9 @@
                                             </span>
                                         </span>
                                     </span>
+                                    <span class="sr-add-icon" @click="srAddIconClickHandler"><i class="zmdi zmdi-plus"></i></span>
                                 </p>
-                                <span class="sr-add-icon" @click="srAddIconClickHandler"><i class="zmdi zmdi-plus"></i></span>
+                                <!-- <span class="sr-add-icon" @click="srAddIconClickHandler"><i class="zmdi zmdi-plus"></i></span> -->
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6 right_side_row"><p class="delivery-dt"><span class="jmi-lvl" style="font-size: 15px;">Delivery:</span> <span class="jmi-lvl-value"><input type="date" v-model="header_date" id="expected-delivery-date" placeholder="09/12/2020" /></span></p></div>
