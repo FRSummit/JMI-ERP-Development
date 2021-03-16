@@ -13,7 +13,7 @@
         ></v-progress-circular>
       </div>
       <div class="comapny-list-sec">
-        <div class="comapny-sec" v-for="(sbu, i) in sbu_list" :key="i">
+        <div class="comapny-sec" v-for="(sbu, i) in ASSIGNED_SBU_LIST" :key="i">
           <p class="company-name">{{ sbu.sbu_name }}</p>
         </div>
       </div>
@@ -22,38 +22,29 @@
 </template>
 
 <script>
-import ERPSidebarService from "../../service/ERPSidebarService";
-const service = new ERPSidebarService();
 
 export default {
+  props: ["ASSIGNED_SBU_LIST"],
   data() {
     return {
-      sbu_list: [],
       progress: true,
     };
   },
   created() {
-    // service.getAllCompanyList().then((res) => {
-    //   this.sbu_list = res.data;
-    //   this.progress = false;
-    // });
   },
   async mounted() {
-    this.sbu_list = [],
-    await this.WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE()
   },
   methods: {
     // SERVICE IMPLEMENTATION
-    async WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE() {
-      let token = JSON.parse(localStorage.getItem("jerp_logged_user")) ? JSON.parse(localStorage.getItem("jerp_logged_user")).accessToken : ''
-      await service.getWEB_SystemAssignedSBU(token)
-        .then(res => {
-          console.log(res.data)
-          this.sbu_list = res.data.data
-          this.progress = false;
-        })
-    }
   },
+  watch: {
+    ASSIGNED_SBU_LIST(newVal, oldVal) {
+      console.log(newVal + '    ' + oldVal)
+      if(newVal) {
+        this.progress = false
+      }
+    }
+  }
 };
 </script>
 

@@ -19,10 +19,10 @@
             <p class="group-name">{{ sbu_name }}</p>
           </div>
           <div class="group-selection-dropdown-section" v-click-outside="groupModalOutsideClick">
-            <span class="group-selection-icon" @click="selectGroup()" v-if="sbu_list">
+            <span class="group-selection-icon" @click="selectGroup()" v-if="ASSIGNED_SBU_LIST ? (ASSIGNED_SBU_LIST.length > 0 ? true : false) : false">
               <i class="fas fa-exchange-alt"></i>
             </span>
-            <GroupModal v-on:sbu_list_is_present="sbuListIsPresent" />
+            <GroupModal v-on:sbu_list_is_present="sbuListIsPresent" :ASSIGNED_SBU_LIST="ASSIGNED_SBU_LIST" />
           </div>
         </div>
         <div class="right-section">
@@ -61,7 +61,7 @@
               </div>
               <p class="profile-designation">{{ userDesignation }}</p>
             </div>
-            <ProfileModal v-on:lock_screen_clicked="lockScreenClicked" v-on:profile_user_name="profileUserName"/>
+            <ProfileModal v-on:lock_screen_clicked="lockScreenClicked"/>
           </div>
         </div>
       </div>
@@ -75,10 +75,10 @@
       @mouseover="sidebarHoverOver()"
       @mouseleave="sidebarHoverLeave()"
     >
-      <SidenavMenu v-on:close_side_nav="closeSideNav" />
+      <SidenavMenu :WEB_MENU="WEB_MENU" v-on:close_side_nav="closeSideNav" />
     </div>
     <div id="main-section">
-      <router-view v-on:routeName="currentRouteName" />
+      <router-view v-on:routeName="currentRouteName" v-on:new_dashboard_occured="newDashboardOccuredEventHandler" />
     </div>
 
     <!-- Footer Section -->
@@ -126,6 +126,8 @@ export default {
       mouseOverTriger: true,
       sbu_name: null,
       sbu_list_is_present: false,
+      ASSIGNED_SBU_LIST: null,
+      WEB_MENU: []
     };
   },
   created() {},
@@ -265,44 +267,55 @@ export default {
         this.profileArrowRotation();
       }
     },
-    profileUserName(username, designation, sbu_name) {
-      this.userName = username
-      this.userDesignation = designation
-      this.sbu_name = sbu_name
-    },
+    // profileUserName(username, designation, sbu_name, token) {
+    //   this.userName = username
+    //   this.userDesignation = designation
+    //   this.sbu_name = sbu_name
+    //   console.log(token)
+    // },
     sbuListIsPresent(flag) {
       console.log(flag)
       this.sbu_list_is_present = flag
     },
+    async newDashboardOccuredEventHandler() {
+      console.log('newDashboardOccuredEventHandler')
+      let token = JSON.parse(localStorage.getItem("jerp_logged_user")) ? JSON.parse(localStorage.getItem("jerp_logged_user")).accessToken : ''
+      this.userName = JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.name
+      this.userDesignation = JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.role_name
+      this.sbu_name = JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.sbu_name
+
+      await this.SYSTEM_WEB_MENU__FROM_SERVICE()
+      await this.WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE(token)
+    },
+    // ----------------------------------------------------------------------------------------
     // SERVICE IMPLEMENTATION
     async WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE(token) {
       await service.getWEB_SystemAssignedSBU(token)
         .then(res => {
           console.log(res.data)
-          this.sbu_list = []
-          this.sbu_list = res.data.data
+          this.ASSIGNED_SBU_LIST = res.data.data
           this.progress = false;
+        })
+    },
+    async SYSTEM_WEB_MENU__FROM_SERVICE() {
+      await service.getWebSideMenu()
+        .then(res => {
+          this.WEB_MENU = res.data.data
+          if(JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils === null) {
+              window.locationreload()
+          }
+        })
+        .catch(err => {
+            if(err) {
+                window.location.reload()
+            }
         })
     }
   },
   watch: {
-    // userName: {
-    //   userName: JSON.parse(localStorage.getItem("jerp_logged_user")) ? JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.name : "",
-    //   userDesignation: JSON.parse(localStorage.getItem("jerp_logged_user")) ? JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.role_name : "",
-    //   authenticated: this.$store.state.userIsAuthorized,
-    // }
-    userName(newVal, oldVal) {
-      console.log(newVal)
-      console.log(oldVal)
-      if(newVal !== oldVal) {
-        console.log('change name')
-        this.sbu_list = []
-        setTimeout(()=> {
-          let token = JSON.parse(localStorage.getItem("jerp_logged_user")) ? JSON.parse(localStorage.getItem("jerp_logged_user")).accessToken : ''
-          // console.log(token)
-          this.WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE(token)
-        }, 3000)
-      }
+    userName(newUser) {
+      console.log(newUser)
+      // this.newDashboardOccuredEventHandler()
     }
   }
 };
