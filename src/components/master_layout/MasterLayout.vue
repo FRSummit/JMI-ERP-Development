@@ -75,7 +75,7 @@
       @mouseover="sidebarHoverOver()"
       @mouseleave="sidebarHoverLeave()"
     >
-      <SidenavMenu v-on:close_side_nav="closeSideNav" />
+      <SidenavMenu :WEB_MENU="WEB_MENU" v-on:close_side_nav="closeSideNav" />
     </div>
     <div id="main-section">
       <router-view v-on:routeName="currentRouteName" v-on:new_dashboard_occured="newDashboardOccuredEventHandler" />
@@ -127,6 +127,7 @@ export default {
       sbu_name: null,
       sbu_list_is_present: false,
       ASSIGNED_SBU_LIST: null,
+      WEB_MENU: []
     };
   },
   created() {},
@@ -283,8 +284,10 @@ export default {
       this.userDesignation = JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.role_name
       this.sbu_name = JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.sbu_name
 
+      await this.SYSTEM_WEB_MENU__FROM_SERVICE()
       await this.WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE(token)
     },
+    // ----------------------------------------------------------------------------------------
     // SERVICE IMPLEMENTATION
     async WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE(token) {
       await service.getWEB_SystemAssignedSBU(token)
@@ -293,11 +296,26 @@ export default {
           this.ASSIGNED_SBU_LIST = res.data.data
           this.progress = false;
         })
+    },
+    async SYSTEM_WEB_MENU__FROM_SERVICE() {
+      await service.getWebSideMenu()
+        .then(res => {
+          this.WEB_MENU = res.data.data
+          if(JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils === null) {
+              window.locationreload()
+          }
+        })
+        .catch(err => {
+            if(err) {
+                window.location.reload()
+            }
+        })
     }
   },
   watch: {
     userName(newUser) {
       console.log(newUser)
+      // this.newDashboardOccuredEventHandler()
     }
   }
 };

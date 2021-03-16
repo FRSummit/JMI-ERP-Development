@@ -13,7 +13,7 @@
                     <span class="single-primary-icon" v-for="(static_menu, i) in static_menu_list" :key="i">
                         <i :class="static_menu.icon_class"></i>
                     </span>
-                    <span class="single-primary-icon" v-for="(primary, i) in menu_list" :key="i">
+                    <span class="single-primary-icon" v-for="(primary, i) in WEB_MENU" :key="i">
                         <i :class="primary.icon_class"></i>
                     </span>
                 </div>
@@ -64,7 +64,7 @@
 
         <div class="dynamic-menu">
           <div class="primary-menu-section">
-            <div class="primary-menu-section-inner" v-for="(primary, i) in menu_list" :key="i">
+            <div class="primary-menu-section-inner" v-for="(primary, i) in WEB_MENU" :key="i">
                 <div :id="'primary-menu-icon-inner-' + i" class="primary-menu-icon-inner">
                 <span :id="'primary-icon-' + i" class="primary-icon" @click="primaryMenuClick(i, primary)">
                     <i :class="primary.icon_class"></i>
@@ -167,35 +167,13 @@
 </template>
 
 <script>
-import ERPSidebarService from "../../service/ERPSidebarService";
-const service = new ERPSidebarService();
+// import ERPSidebarService from "../../service/ERPSidebarService";
+// const service = new ERPSidebarService();
 
 export default {
-  props: {
-    // sidenav: Boolean,
-    // sidenavMenu: Boolean
-  },
+  props: ["WEB_MENU"],
   data() {
     return {
-    //   static_menu_list: [
-    //     {
-    //       name: "Dashboard",
-    //       icon_class: "zmdi zmdi-view-dashboard"
-    //     },
-    //     {
-    //       name: "Quick Access",
-    //       icon_class: "zmdi zmdi-star",
-    //       secondary_menu_list: [
-    //         {
-    //             secondary_menu: "Recently used",
-    //         },
-    //         {
-    //             secondary_menu: "Favourite"
-    //         }
-    //       ]
-    //     }
-    //   ],
-      menu_list: [],
       btn: "primary",
       secondary_arrow_hide_flag: false,
       secondary_menu_display: false,
@@ -206,22 +184,17 @@ export default {
   created() {
   },
   async mounted() {
-    /*service.getAllSidebarMenu().then((res) => {
-    //   this.menu_list = res.data;
-      console.log(res.data)
-    });*/
-    await service.getWebSideMenu().then( res => {
-      this.menu_list = res.data.data;
-    //   console.log(res.data.data)
-    if(JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils === null) {
-        window.locationreload()
-    }
+    /*await service.getWebSideMenu().then( res => {
+        this.menu_list = res.data.data;
+        if(JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils === null) {
+            window.locationreload()
+        }
     })
     .catch(err => {
         if(err) {
             window.location.reload()
         }
-    })
+    })*/
   },
   methods: {
       staticMenuClick(id) {

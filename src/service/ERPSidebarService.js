@@ -648,7 +648,7 @@ export default class PostService {
   }
 
   // DELEVERIES - DETAILS SECTION
-  async getSaveInvoiceDeliveryInfo_DELIVERIES(invoice_id, invoice_dtl, cash, cheque, net_payable_amount) {
+  async getSaveInvoiceDeliveryInfo_DELIVERIES(invoice_id, invoice_dtl, cash, cheque, net_payable_amount, base64_img, img_name, file_path) {
     console.log(invoice_id)
     console.log(invoice_dtl)
     console.log(cash)
@@ -665,7 +665,10 @@ export default class PostService {
         invoice_details: JSON.stringify(invoice_dtl),
         cash: cash,
         cheque: cheque,
-        net_payable_amount: net_payable_amount
+        net_payable_amount: net_payable_amount,
+        base64_encoded_file: base64_img,
+        file_original_name: img_name,
+        file_upload_path: file_path
       }
     })
   }

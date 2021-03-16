@@ -1205,15 +1205,19 @@ export default {
             console.log(cash)
             console.log(cheque)
             console.log(net_payable_amount)
-            if( (parseFloat(this.grand_total) - parseFloat(this.cash_receive_amount) - parseFloat(this.cheque_receive_amount) > 0) || this.UPLOADED_IMAGE_DATA_BASE_64 === null) {
+            if(this.UPLOADED_IMAGE_DATA_BASE_64 === null) {
                 this.UPLOADED_IMAGE_DATA_BASE_64_IS_PRESENT = true
                 if(document.querySelector('.tabs.mt-3.deliveries-customer-details ul li:nth-child(2) a').className !== 'nav-link active') {
                     document.querySelector('.tabs.mt-3.deliveries-customer-details ul li:nth-child(2) a').click()
                 }
+                if(parseFloat(this.grand_total) - parseFloat(this.cash_receive_amount) - parseFloat(this.cheque_receive_amount) > 0) {
+                    console.log('Due present')
+                }
             } else {
                 console.log(this.UPLOADED_IMAGE_DATA_BASE_64)
                 console.log(this.UPLOADED_IMAGE_NAME)
-                /*await service.getSaveInvoiceDeliveryInfo_DELIVERIES(invoice_id, invoice_dtl, cash, cheque, net_payable_amount)
+                let file_path = 'customers/cheque'
+                await service.getSaveInvoiceDeliveryInfo_DELIVERIES(invoice_id, invoice_dtl, cash, cheque, net_payable_amount, this.UPLOADED_IMAGE_DATA_BASE_64, this.UPLOADED_IMAGE_NAME, file_path)
                 .then(res => {
                     console.log(res.data)
                     if(res.data.response_code === 200) {
@@ -1227,7 +1231,7 @@ export default {
                         this.$router.push('/features/users/dashboard')
                         this.delivery_success_or_not_msg_modal = false
                     }, 2000)
-                })*/
+                })
             }
             /*await service.getSaveInvoiceDeliveryInfo_DELIVERIES(invoice_id, invoice_dtl, cash, cheque, net_payable_amount)
                 .then(res => {
