@@ -96,16 +96,6 @@ export default {
     }),
   },
   created() {
-    // service.getAllUser().then((res) => {
-    //   this.user = res.data[0];
-    //   this.progress = false;
-    // });
-    console.log(JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.name);
-    let user_name = JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.name
-    let user_designation = JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.role_name
-    let sbu_name = JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.sbu_name
-    let token = JSON.parse(localStorage.getItem("jerp_logged_user")).accessToken
-    this.$emit('profile_user_name', user_name, user_designation, sbu_name), token
   },
   methods: {
     logingOut() {
@@ -120,7 +110,7 @@ export default {
         this.$emit("lock_screen_clicked");
       }
     },
-  },
+  }
 };
 </script>
 

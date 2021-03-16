@@ -61,7 +61,7 @@
               </div>
               <p class="profile-designation">{{ userDesignation }}</p>
             </div>
-            <ProfileModal v-on:lock_screen_clicked="lockScreenClicked" v-on:profile_user_name="profileUserName"/>
+            <ProfileModal v-on:lock_screen_clicked="lockScreenClicked"/>
           </div>
         </div>
       </div>
@@ -266,19 +266,24 @@ export default {
         this.profileArrowRotation();
       }
     },
-    profileUserName(username, designation, sbu_name) {
-      this.userName = username
-      this.userDesignation = designation
-      this.sbu_name = sbu_name
-    },
+    // profileUserName(username, designation, sbu_name, token) {
+    //   this.userName = username
+    //   this.userDesignation = designation
+    //   this.sbu_name = sbu_name
+    //   console.log(token)
+    // },
     sbuListIsPresent(flag) {
       console.log(flag)
       this.sbu_list_is_present = flag
     },
-    newDashboardOccuredEventHandler() {
+    async newDashboardOccuredEventHandler() {
       console.log('newDashboardOccuredEventHandler')
       let token = JSON.parse(localStorage.getItem("jerp_logged_user")) ? JSON.parse(localStorage.getItem("jerp_logged_user")).accessToken : ''
-      this.WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE(token)
+      this.userName = JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.name
+      this.userDesignation = JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.role_name
+      this.sbu_name = JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.sbu_name
+
+      await this.WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE(token)
     },
     // SERVICE IMPLEMENTATION
     async WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE(token) {
@@ -291,6 +296,9 @@ export default {
     }
   },
   watch: {
+    userName(newUser) {
+      console.log(newUser)
+    }
   }
 };
 </script>
