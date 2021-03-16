@@ -40,7 +40,7 @@ export default {
   },
   data() {
     return {
-      routeName: "Delivery Process Invoice/Challan Printing",
+      routeName: "DS Packing Preparation",
       parentPath: "Local Sales",
       pathName: [],
       info_modal_schedult_count: false,
