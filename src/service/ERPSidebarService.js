@@ -666,7 +666,7 @@ export default class PostService {
         cash: cash,
         cheque: cheque,
         net_payable_amount: net_payable_amount,
-        base64_encoded_file: base64_img,
+        // base64_encoded_file: JSON.stringify(base64_img),
         file_original_name: img_name,
         file_upload_path: file_path
       }
