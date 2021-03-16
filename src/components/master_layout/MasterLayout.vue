@@ -19,10 +19,10 @@
             <p class="group-name">{{ sbu_name }}</p>
           </div>
           <div class="group-selection-dropdown-section" v-click-outside="groupModalOutsideClick">
-            <span class="group-selection-icon" @click="selectGroup()" v-if="sbu_list">
+            <span class="group-selection-icon" @click="selectGroup()" v-if="ASSIGNED_SBU_LIST ? (ASSIGNED_SBU_LIST.length > 0 ? true : false) : false">
               <i class="fas fa-exchange-alt"></i>
             </span>
-            <GroupModal v-on:sbu_list_is_present="sbuListIsPresent" />
+            <GroupModal v-on:sbu_list_is_present="sbuListIsPresent" :ASSIGNED_SBU_LIST="ASSIGNED_SBU_LIST" />
           </div>
         </div>
         <div class="right-section">
@@ -78,7 +78,7 @@
       <SidenavMenu v-on:close_side_nav="closeSideNav" />
     </div>
     <div id="main-section">
-      <router-view v-on:routeName="currentRouteName" />
+      <router-view v-on:routeName="currentRouteName" v-on:new_dashboard_occured="newDashboardOccuredEventHandler" />
     </div>
 
     <!-- Footer Section -->
@@ -126,6 +126,7 @@ export default {
       mouseOverTriger: true,
       sbu_name: null,
       sbu_list_is_present: false,
+      ASSIGNED_SBU_LIST: null,
     };
   },
   created() {},
@@ -274,36 +275,22 @@ export default {
       console.log(flag)
       this.sbu_list_is_present = flag
     },
+    newDashboardOccuredEventHandler() {
+      console.log('newDashboardOccuredEventHandler')
+      let token = JSON.parse(localStorage.getItem("jerp_logged_user")) ? JSON.parse(localStorage.getItem("jerp_logged_user")).accessToken : ''
+      this.WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE(token)
+    },
     // SERVICE IMPLEMENTATION
     async WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE(token) {
       await service.getWEB_SystemAssignedSBU(token)
         .then(res => {
           console.log(res.data)
-          this.sbu_list = []
-          this.sbu_list = res.data.data
+          this.ASSIGNED_SBU_LIST = res.data.data
           this.progress = false;
         })
     }
   },
   watch: {
-    // userName: {
-    //   userName: JSON.parse(localStorage.getItem("jerp_logged_user")) ? JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.name : "",
-    //   userDesignation: JSON.parse(localStorage.getItem("jerp_logged_user")) ? JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.role_name : "",
-    //   authenticated: this.$store.state.userIsAuthorized,
-    // }
-    userName(newVal, oldVal) {
-      console.log(newVal)
-      console.log(oldVal)
-      if(newVal !== oldVal) {
-        console.log('change name')
-        this.sbu_list = []
-        setTimeout(()=> {
-          let token = JSON.parse(localStorage.getItem("jerp_logged_user")) ? JSON.parse(localStorage.getItem("jerp_logged_user")).accessToken : ''
-          // console.log(token)
-          this.WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE(token)
-        }, 3000)
-      }
-    }
   }
 };
 </script>
