@@ -1387,30 +1387,14 @@ export default {
         imageChooseEventHandler(event) {
             this.UPLOADED_IMAGE_NAME = null
             this.UPLOADED_IMAGE_DATA_BASE_64 = null
-            let output = document.querySelector('#cheque_image')
-            output.src = URL.createObjectURL(event.target.files[0])
-            output.onload = () => {
-                URL.revokeObjectURL(output.src)
-            }
+            let file = event.target.files[0]
             this.UPLOADED_IMAGE_NAME = event.target.files[0].name
-
-            output.addEventListener('load', (event) => {
-                const dataUrl = this.createImageToBase64(event.currentTarget)
-                this.UPLOADED_IMAGE_DATA_BASE_64 = dataUrl
-                this.UPLOADED_IMAGE_DATA_BASE_64_IS_PRESENT = false
-                console.log(dataUrl)
-            })
+            let reader = new FileReader();
+            reader.onloadend = () => {
+                this.UPLOADED_IMAGE_DATA_BASE_64 = reader.result
+            }
+            reader.readAsDataURL(file)
         },
-        createImageToBase64(img) {
-            const canvas = document.createElement('canvas')
-            const ctx = canvas.getContext('2d');
-            // Set width and height
-            canvas.width = img.width;
-            canvas.height = img.height;
-            // Draw the image
-            ctx.drawImage(img, 0, 0);
-            return canvas.toDataURL('image/jpeg');
-        }
     },
     watch: { 
         async pending_order_list_by_id(newVal, oldVal){
