@@ -395,6 +395,7 @@
                                         </div>
                                         <div class="jmi-inline-block right-alg">
                                             <p class="jmi-lvl">Attach File (File Should be jpg, png)</p>
+                                            <p class="jmi-lvl" style="color: #C11616; font-size: 10px;" v-if="UPLOADED_IMAGE_DATA_BASE_64_IS_PRESENT">* Please insert cheque image</p>
                                             <input type="file" class="jmi-lvl-value" @change="imageChooseEventHandler($event)" accept="image/x-png,image/gif,image/jpeg">
                                         </div>
                                     </div>
@@ -888,6 +889,7 @@ export default {
             ADJUSTMENT_TAB_VISIBLE: false,
             delivery_success_or_not_msg_modal: false,
             UPLOADED_IMAGE_DATA_BASE_64: null,
+            UPLOADED_IMAGE_DATA_BASE_64_IS_PRESENT: false,
         }
     },
     async created() {
@@ -1202,10 +1204,25 @@ export default {
             console.log(cash)
             console.log(cheque)
             console.log(net_payable_amount)
-            if((parseFloat(this.grand_total) - parseFloat(this.cash_receive_amount) - parseFloat(this.cheque_receive_amount) > 0) && this.UPLOADED_IMAGE_DATA_BASE_64 === null) {
-                console.log('image not uploaded')
+            if( (parseFloat(this.grand_total) - parseFloat(this.cash_receive_amount) - parseFloat(this.cheque_receive_amount) > 0) || this.UPLOADED_IMAGE_DATA_BASE_64 === null) {
+                this.UPLOADED_IMAGE_DATA_BASE_64_IS_PRESENT = true
             } else {
                 console.log(this.UPLOADED_IMAGE_DATA_BASE_64)
+                await service.getSaveInvoiceDeliveryInfo_DELIVERIES(invoice_id, invoice_dtl, cash, cheque, net_payable_amount)
+                .then(res => {
+                    console.log(res.data)
+                    if(res.data.response_code === 200) {
+                        localStorage.removeItem("jerp_delivery_details_not_chandable_ordered_data")
+                    //     this.$emit('invoice_delivery_info_saved', this.INVOICE_ID_FROM_LEFT)
+                    }
+                    this.approve_product_confirmation_popup_modal = false
+                    this.delivery_success_or_not_msg_modal = true
+                    this.delivery_success_or_not_msg = res.data.message
+                    setTimeout( ()=> {
+                        this.$router.push('/features/users/dashboard')
+                        this.delivery_success_or_not_msg_modal = false
+                    }, 2000)
+                })
             }
             /*await service.getSaveInvoiceDeliveryInfo_DELIVERIES(invoice_id, invoice_dtl, cash, cheque, net_payable_amount)
                 .then(res => {
@@ -1264,6 +1281,8 @@ export default {
                 this.header_date = null
                 this.reject_order_modal_popup = false
                 this.SHOW_PRINT_ICON = false
+                this.UPLOADED_IMAGE_DATA_BASE_64 = null
+                this.UPLOADED_IMAGE_DATA_BASE_64_IS_PRESENT = false
                 console.log('default component')
                 console.log(this.ORDERED_TABLE_DATA__INIT_LIST.length)
 
@@ -1367,6 +1386,7 @@ export default {
                 const dataUrl = this.createImageToBase64(event.currentTarget)
                 console.log(dataUrl)
                 this.UPLOADED_IMAGE_DATA_BASE_64 = dataUrl
+                this.UPLOADED_IMAGE_DATA_BASE_64_IS_PRESENT = false
             })
         },
         createImageToBase64(img) {
