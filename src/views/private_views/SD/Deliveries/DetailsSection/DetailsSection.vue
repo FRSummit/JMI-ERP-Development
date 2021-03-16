@@ -887,6 +887,7 @@ export default {
             DEPOSIT_TAB_VISIBLE: false,
             ADJUSTMENT_TAB_VISIBLE: false,
             delivery_success_or_not_msg_modal: false,
+            UPLOADED_IMAGE_DATA_BASE_64: null,
         }
     },
     async created() {
@@ -1027,10 +1028,12 @@ export default {
             for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST_NOT_CHANGEABLE.length; i++) {
                 let invoice_details = {
                     prod_id: this.ORDERED_TABLE_DATA__INIT_LIST_NOT_CHANGEABLE[i].product_info.id,
-                    dlv_qty: this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on ? parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) + parseInt( parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) / parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on) ) : this.ORDERED_TABLE_DATA__INIT_LIST[i].qty,
+                    // dlv_qty: this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on ? parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) + parseInt( parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) / parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on) ) : this.ORDERED_TABLE_DATA__INIT_LIST[i].qty,
 
-                    ret_qty: parseInt(get_init_data_from_localstorage[i].qty) - parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty),
-                    ret_bonus_qty: this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on ? parseInt(get_init_data_from_localstorage[i].bonus_qty) - parseInt( parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) / parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on) ) : null
+                    // ret_qty: parseInt(get_init_data_from_localstorage[i].qty) - parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty),
+                    // ret_bonus_qty: this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on ? parseInt(get_init_data_from_localstorage[i].bonus_qty) - parseInt( parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) / parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on) ) : null
+                    dlv_qty: this.ORDERED_TABLE_DATA__INIT_LIST[i].qty,
+                    current_bonus_qty: this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on ? ( parseInt( parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) / parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on) ) ) : 0
                 }
                 invoice_dtl.push(invoice_details)
             }
@@ -1199,6 +1202,11 @@ export default {
             console.log(cash)
             console.log(cheque)
             console.log(net_payable_amount)
+            if((parseFloat(this.grand_total) - parseFloat(this.cash_receive_amount) - parseFloat(this.cheque_receive_amount) > 0) && this.UPLOADED_IMAGE_DATA_BASE_64 === null) {
+                console.log('image not uploaded')
+            } else {
+                console.log(this.UPLOADED_IMAGE_DATA_BASE_64)
+            }
             /*await service.getSaveInvoiceDeliveryInfo_DELIVERIES(invoice_id, invoice_dtl, cash, cheque, net_payable_amount)
                 .then(res => {
                     console.log(res.data)
@@ -1355,8 +1363,10 @@ export default {
             }
 
             output.addEventListener('load', (event) => {
+                this.UPLOADED_IMAGE_DATA_BASE_64 = null
                 const dataUrl = this.createImageToBase64(event.currentTarget)
                 console.log(dataUrl)
+                this.UPLOADED_IMAGE_DATA_BASE_64 = dataUrl
             })
         },
         createImageToBase64(img) {

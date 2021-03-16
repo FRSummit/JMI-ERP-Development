@@ -14,7 +14,7 @@
           :items-per-page="15"
           :footer-props="{
             showFirstLastPage: true,
-            'items-per-page-options': [5, 10, 15, 30, 50, 100],
+            'items-per-page-options': [5, 10, 15, 30, 50, 100, -1],
             'items-per-page-text': 'Entries',
           }"
           @update:items-per-page="getItemPerPage"
@@ -140,6 +140,14 @@ export default {
 
         jmiFilter.searchById_LeftSidebar(filter, list, txt_selector)
     },
+    checkCustomerType(customer_type) {
+      console.log(customer_type)
+      if(customer_type === '422') {
+        return 'Chemist'
+      } else if(customer_type === '424') {
+        return 'Institute'
+      }
+    },
     // -------------------------------------------------------------------------------------
     // SERVICE CALL
     async GET_ALL_CUSTOMER_LIST__FROM_SERVICE() {
@@ -150,7 +158,7 @@ export default {
         for(let i=0; i<this.CUSTOMER_LIST.length; i++) {
             let customer = {
               name: this.CUSTOMER_LIST[i].display_name ? this.CUSTOMER_LIST[i].display_name : '',
-              type: this.CUSTOMER_LIST[i].customer_info.customer_type ? this.CUSTOMER_LIST[i].customer_info.customer_type : '',
+              type: this.CUSTOMER_LIST[i].customer_info.customer_type ? (this.checkCustomerType(this.CUSTOMER_LIST[i].customer_info.customer_type)) : '',
               designation: "DUMMY DATA",
               specialization: "DUMMY DATA",
               territory: "DUMMY DATA",
