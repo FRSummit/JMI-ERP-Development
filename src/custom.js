@@ -47,4 +47,7 @@ $(document).ready(function () {
     //     console.log('clicked')
     // })
     
+    // $(document).ready(function() {
+    //     $('#example').DataTable();
+    // } );
 });

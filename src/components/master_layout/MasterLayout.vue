@@ -299,7 +299,7 @@ export default {
         this.sbu_list = []
         setTimeout(()=> {
           let token = JSON.parse(localStorage.getItem("jerp_logged_user")) ? JSON.parse(localStorage.getItem("jerp_logged_user")).accessToken : ''
-          console.log(token)
+          // console.log(token)
           this.WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE(token)
         }, 3000)
       }

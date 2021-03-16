@@ -5,7 +5,7 @@
       <div class="data-table-section-inner">
         <v-data-table
           :headers="headers"
-          :items="desserts"
+          :items="customer_list"
           :key="name"
           class="elevation-1"
           :search="search"
@@ -78,6 +78,11 @@
 import Heading from "../../../../components/master_layout/HeadingTitleBreadcrumb/HeadingTitleBreadcrumb";
 import BreadcrumbFunctions from "../../../../functions/BreadcrumbFunctions";
 const breadcrumbFunctions = new BreadcrumbFunctions();
+import ERPService from "../../../../service/ERPSidebarService";
+const service = new ERPService();
+
+import JMIFilter from '../../../../functions/JMIFIlter'
+const jmiFilter = new JMIFilter()
 
 export default {
   components: {
@@ -92,232 +97,7 @@ export default {
       footerProps: {itemsPerPageText: 'Entries'},
         // search: '',
         // calories: '',
-        desserts: [
-          {
-            name: 'Dr Qumrul Hassan Miron 1',
-            type: 'Hardcore 1',
-            designation: 'Senior Consultant 1',
-            specialization: 'Anatomical Pathology 1',
-            territory: 'Savar Bazar 1',
-            status: 'Pending 1',
-          },
-          {
-            name: 'Dr Qumrul Hassan Miron 2',
-            type: 'Hardcore 2',
-            designation: 'Senior Consultant 2',
-            specialization: 'Anatomical Pathology 2',
-            territory: 'Savar Bazar 2',
-            status: 'Pending 2',
-          },
-          {
-            name: 'Dr Qumrul Hassan Miron 3',
-            type: 'Hardcore 3',
-            designation: 'Senior Consultant 3',
-            specialization: 'Anatomical Pathology 3',
-            territory: 'Savar Bazar 3',
-            status: 'Pending 3',
-          },
-          {
-            name: 'Dr Qumrul Hassan Miron 2',
-            type: 'Hardcore 2',
-            designation: 'Senior Consultant 2',
-            specialization: 'Anatomical Pathology 2',
-            territory: 'Savar Bazar 2',
-            status: 'Pending 2',
-          },
-          {
-            name: 'Dr Qumrul Hassan Miron 3',
-            type: 'Hardcore 3',
-            designation: 'Senior Consultant 3',
-            specialization: 'Anatomical Pathology 3',
-            territory: 'Savar Bazar 3',
-            status: 'Pending 3',
-          },
-          {
-            name: 'Dr Qumrul Hassan Miron 2',
-            type: 'Hardcore 2',
-            designation: 'Senior Consultant 2',
-            specialization: 'Anatomical Pathology 2',
-            territory: 'Savar Bazar 2',
-            status: 'Pending 2',
-          },
-          {
-            name: 'Dr Qumrul Hassan Miron 3',
-            type: 'Hardcore 3',
-            designation: 'Senior Consultant 3',
-            specialization: 'Anatomical Pathology 3',
-            territory: 'Savar Bazar 3',
-            status: 'Pending 3',
-          },
-          {
-            name: 'Dr Qumrul Hassan Miron 2',
-            type: 'Hardcore 2',
-            designation: 'Senior Consultant 2',
-            specialization: 'Anatomical Pathology 2',
-            territory: 'Savar Bazar 2',
-            status: 'Pending 2',
-          },
-          {
-            name: 'Dr Qumrul Hassan Miron 3',
-            type: 'Hardcore 3',
-            designation: 'Senior Consultant 3',
-            specialization: 'Anatomical Pathology 3',
-            territory: 'Savar Bazar 3',
-            status: 'Pending 3',
-          },
-          {
-            name: 'Dr Qumrul Hassan Miron 2',
-            type: 'Hardcore 2',
-            designation: 'Senior Consultant 2',
-            specialization: 'Anatomical Pathology 2',
-            territory: 'Savar Bazar 2',
-            status: 'Pending 2',
-          },
-          {
-            name: 'Dr Qumrul Hassan Miron 3',
-            type: 'Hardcore 3',
-            designation: 'Senior Consultant 3',
-            specialization: 'Anatomical Pathology 3',
-            territory: 'Savar Bazar 3',
-            status: 'Pending 3',
-          },
-          {
-            name: 'Dr Qumrul Hassan Miron 2',
-            type: 'Hardcore 2',
-            designation: 'Senior Consultant 2',
-            specialization: 'Anatomical Pathology 2',
-            territory: 'Savar Bazar 2',
-            status: 'Pending 2',
-          },
-          {
-            name: 'Dr Qumrul Hassan Miron 3',
-            type: 'Hardcore 3',
-            designation: 'Senior Consultant 3',
-            specialization: 'Anatomical Pathology 3',
-            territory: 'Savar Bazar 3',
-            status: 'Pending 3',
-          },
-          {
-            name: 'Dr Qumrul Hassan Miron 2',
-            type: 'Hardcore 2',
-            designation: 'Senior Consultant 2',
-            specialization: 'Anatomical Pathology 2',
-            territory: 'Savar Bazar 2',
-            status: 'Pending 2',
-          },
-          {
-            name: 'Dr Qumrul Hassan Miron 3',
-            type: 'Hardcore 3',
-            designation: 'Senior Consultant 3',
-            specialization: 'Anatomical Pathology 3',
-            territory: 'Savar Bazar 3',
-            status: 'Pending 3',
-          },
-          {
-            name: 'Dr Qumrul Hassan Miron 2',
-            type: 'Hardcore 2',
-            designation: 'Senior Consultant 2',
-            specialization: 'Anatomical Pathology 2',
-            territory: 'Savar Bazar 2',
-            status: 'Pending 2',
-          },
-          {
-            name: 'Dr Qumrul Hassan Miron 3',
-            type: 'Hardcore 3',
-            designation: 'Senior Consultant 3',
-            specialization: 'Anatomical Pathology 3',
-            territory: 'Savar Bazar 3',
-            status: 'Pending 3',
-          },
-          {
-            name: 'Dr Qumrul Hassan Miron 2',
-            type: 'Hardcore 2',
-            designation: 'Senior Consultant 2',
-            specialization: 'Anatomical Pathology 2',
-            territory: 'Savar Bazar 2',
-            status: 'Pending 2',
-          },
-          {
-            name: 'Dr Qumrul Hassan Miron 3',
-            type: 'Hardcore 3',
-            designation: 'Senior Consultant 3',
-            specialization: 'Anatomical Pathology 3',
-            territory: 'Savar Bazar 3',
-            status: 'Pending 3',
-          },
-          {
-            name: 'Dr Qumrul Hassan Miron 2',
-            type: 'Hardcore 2',
-            designation: 'Senior Consultant 2',
-            specialization: 'Anatomical Pathology 2',
-            territory: 'Savar Bazar 2',
-            status: 'Pending 2',
-          },
-          {
-            name: 'Dr Qumrul Hassan Miron 3',
-            type: 'Hardcore 3',
-            designation: 'Senior Consultant 3',
-            specialization: 'Anatomical Pathology 3',
-            territory: 'Savar Bazar 3',
-            status: 'Pending 3',
-          },
-          {
-            name: 'Dr Qumrul Hassan Miron 2',
-            type: 'Hardcore 2',
-            designation: 'Senior Consultant 2',
-            specialization: 'Anatomical Pathology 2',
-            territory: 'Savar Bazar 2',
-            status: 'Pending 2',
-          },
-          {
-            name: 'Dr Qumrul Hassan Miron 3',
-            type: 'Hardcore 3',
-            designation: 'Senior Consultant 3',
-            specialization: 'Anatomical Pathology 3',
-            territory: 'Savar Bazar 3',
-            status: 'Pending 3',
-          },
-          {
-            name: 'Dr Qumrul Hassan Miron 2',
-            type: 'Hardcore 2',
-            designation: 'Senior Consultant 2',
-            specialization: 'Anatomical Pathology 2',
-            territory: 'Savar Bazar 2',
-            status: 'Pending 2',
-          },
-          {
-            name: 'Dr Qumrul Hassan Miron 3',
-            type: 'Hardcore 3',
-            designation: 'Senior Consultant 3',
-            specialization: 'Anatomical Pathology 3',
-            territory: 'Savar Bazar 3',
-            status: 'Pending 3',
-          },
-          {
-            name: 'Dr Qumrul Hassan Miron 2',
-            type: 'Hardcore 2',
-            designation: 'Senior Consultant 2',
-            specialization: 'Anatomical Pathology 2',
-            territory: 'Savar Bazar 2',
-            status: 'Pending 2',
-          },
-          {
-            name: 'Dr Qumrul Hassan Miron 3',
-            type: 'Hardcore 3',
-            designation: 'Senior Consultant 3',
-            specialization: 'Anatomical Pathology 3',
-            territory: 'Savar Bazar 3',
-            status: 'Pending 3',
-          },
-          {
-            name: 'Dr Qumrul Hassan Miron 2',
-            type: 'Hardcore 2',
-            designation: 'Senior Consultant 2',
-            specialization: 'Anatomical Pathology 2',
-            territory: 'Savar Bazar 2',
-            status: 'Pending 2',
-          },
-        ],
+        customer_list: [],
     };
   },
     computed: {
@@ -349,12 +129,13 @@ export default {
     this.$emit("routeName", this.$route.name);
     this.createBreadcrumbData();
   },
-  mounted() {
+  async mounted() {
     document.querySelector('#doctors-list.doctors-list .v-input__icon').addEventListener('click', () => {
-        if(window.getComputedStyle(document.querySelector('#doctors-list.doctors-list .v-input__slot .v-menu')).display === 'none') {
-          document.querySelector('#doctors-list.doctors-list .v-input__slot .v-menu').style.display = 'block'
-        }
+      if(window.getComputedStyle(document.querySelector('#doctors-list.doctors-list .v-input__slot .v-menu')).display === 'none') {
+        document.querySelector('#doctors-list.doctors-list .v-input__slot .v-menu').style.display = 'block'
+      }
     })
+    await this.GET_ALL_CUSTOMER_LIST__FROM_SERVICE();
   },
   methods: {
     createBreadcrumbData() {
@@ -380,6 +161,35 @@ export default {
     },
     pdfIconClickHandler() {
       console.log('pdfIconClickHandler')
+    },
+    searchKeyUpHandler(value) {
+        console.log(value.key)
+        let input = document.getElementById("search-filter");
+        let filter = input.value.toUpperCase();
+        let list = document.querySelectorAll('.v-data-table__wrapper table tbody tr')
+        let txt_selector = "text-start"
+
+        jmiFilter.searchById_LeftSidebar(filter, list, txt_selector)
+    },
+    // -------------------------------------------------------------------------------------
+    // SERVICE CALL
+    async GET_ALL_CUSTOMER_LIST__FROM_SERVICE() {
+      await service.getAllAdvisorList_DOCTOR_LIST().then((res) => {
+        console.log(res.data.advisors_info);
+        this.CUSTOMER_LIST = res.data.advisors_info;
+        console.log(res.data.advisors_info.length)
+        for(let i=0; i<this.CUSTOMER_LIST.length; i++) {
+            let customer = {
+              name: this.CUSTOMER_LIST[i].advisor_name ? this.CUSTOMER_LIST[i].advisor_name : '',
+              type: this.CUSTOMER_LIST[i].advisor_type ? this.CUSTOMER_LIST[i].advisor_type : '',
+              designation: "DUMMY DATA",
+              specialization: this.CUSTOMER_LIST[i].specialization ? this.CUSTOMER_LIST[i].specialization : '',
+              territory: "DUMMY DATA",
+              status: "DUMMY DATA"
+            }
+            this.customer_list.push(customer)
+          }
+      });
     },
   },
 };

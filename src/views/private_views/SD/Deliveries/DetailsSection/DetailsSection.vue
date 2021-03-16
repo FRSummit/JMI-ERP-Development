@@ -395,6 +395,7 @@
                                         </div>
                                         <div class="jmi-inline-block right-alg">
                                             <p class="jmi-lvl">Attach File (File Should be jpg, png)</p>
+                                            <p class="jmi-lvl" style="color: #C11616; font-size: 10px;" v-if="UPLOADED_IMAGE_DATA_BASE_64_IS_PRESENT">* Please insert cheque image</p>
                                             <input type="file" class="jmi-lvl-value" @change="imageChooseEventHandler($event)" accept="image/x-png,image/gif,image/jpeg">
                                         </div>
                                     </div>
@@ -516,6 +517,7 @@ import JMIFilter from '.././../../../../functions/JMIFIlter'
 const jmiFilter = new JMIFilter()
 import ERPService from '../../../../../service/ERPSidebarService'
 const service = new ERPService()
+
 export default {
     props: ["pending_order_list_by_id", "INVOICE_ID_FROM_LEFT"],
     components: {
@@ -886,6 +888,9 @@ export default {
             DEPOSIT_TAB_VISIBLE: false,
             ADJUSTMENT_TAB_VISIBLE: false,
             delivery_success_or_not_msg_modal: false,
+            UPLOADED_IMAGE_NAME: null,
+            UPLOADED_IMAGE_DATA_BASE_64: null,
+            UPLOADED_IMAGE_DATA_BASE_64_IS_PRESENT: false,
         }
     },
     async created() {
@@ -1026,10 +1031,12 @@ export default {
             for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST_NOT_CHANGEABLE.length; i++) {
                 let invoice_details = {
                     prod_id: this.ORDERED_TABLE_DATA__INIT_LIST_NOT_CHANGEABLE[i].product_info.id,
-                    dlv_qty: this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on ? parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) + parseInt( parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) / parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on) ) : this.ORDERED_TABLE_DATA__INIT_LIST[i].qty,
+                    // dlv_qty: this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on ? parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) + parseInt( parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) / parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on) ) : this.ORDERED_TABLE_DATA__INIT_LIST[i].qty,
 
-                    ret_qty: parseInt(get_init_data_from_localstorage[i].qty) - parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty),
-                    ret_bonus_qty: this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on ? parseInt(get_init_data_from_localstorage[i].bonus_qty) - parseInt( parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) / parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on) ) : null
+                    // ret_qty: parseInt(get_init_data_from_localstorage[i].qty) - parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty),
+                    // ret_bonus_qty: this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on ? parseInt(get_init_data_from_localstorage[i].bonus_qty) - parseInt( parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) / parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on) ) : null
+                    dlv_qty: this.ORDERED_TABLE_DATA__INIT_LIST[i].qty,
+                    current_bonus_qty: this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on ? ( parseInt( parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) / parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on) ) ) : 0
                 }
                 invoice_dtl.push(invoice_details)
             }
@@ -1198,6 +1205,30 @@ export default {
             console.log(cash)
             console.log(cheque)
             console.log(net_payable_amount)
+            if( (parseFloat(this.grand_total) - parseFloat(this.cash_receive_amount) - parseFloat(this.cheque_receive_amount) > 0) || this.UPLOADED_IMAGE_DATA_BASE_64 === null) {
+                this.UPLOADED_IMAGE_DATA_BASE_64_IS_PRESENT = true
+                if(document.querySelector('.tabs.mt-3.deliveries-customer-details ul li:nth-child(2) a').className !== 'nav-link active') {
+                    document.querySelector('.tabs.mt-3.deliveries-customer-details ul li:nth-child(2) a').click()
+                }
+            } else {
+                console.log(this.UPLOADED_IMAGE_DATA_BASE_64)
+                console.log(this.UPLOADED_IMAGE_NAME)
+                /*await service.getSaveInvoiceDeliveryInfo_DELIVERIES(invoice_id, invoice_dtl, cash, cheque, net_payable_amount)
+                .then(res => {
+                    console.log(res.data)
+                    if(res.data.response_code === 200) {
+                        localStorage.removeItem("jerp_delivery_details_not_chandable_ordered_data")
+                    //     this.$emit('invoice_delivery_info_saved', this.INVOICE_ID_FROM_LEFT)
+                    }
+                    this.approve_product_confirmation_popup_modal = false
+                    this.delivery_success_or_not_msg_modal = true
+                    this.delivery_success_or_not_msg = res.data.message
+                    setTimeout( ()=> {
+                        this.$router.push('/features/users/dashboard')
+                        this.delivery_success_or_not_msg_modal = false
+                    }, 2000)
+                })*/
+            }
             /*await service.getSaveInvoiceDeliveryInfo_DELIVERIES(invoice_id, invoice_dtl, cash, cheque, net_payable_amount)
                 .then(res => {
                     console.log(res.data)
@@ -1255,6 +1286,9 @@ export default {
                 this.header_date = null
                 this.reject_order_modal_popup = false
                 this.SHOW_PRINT_ICON = false
+                this.UPLOADED_IMAGE_NAME = null
+                this.UPLOADED_IMAGE_DATA_BASE_64 = null
+                this.UPLOADED_IMAGE_DATA_BASE_64_IS_PRESENT = false
                 console.log('default component')
                 console.log(this.ORDERED_TABLE_DATA__INIT_LIST.length)
 
@@ -1347,14 +1381,19 @@ export default {
             // }
         },
         imageChooseEventHandler(event) {
+            this.UPLOADED_IMAGE_NAME = null
+            this.UPLOADED_IMAGE_DATA_BASE_64 = null
             let output = document.querySelector('#cheque_image')
             output.src = URL.createObjectURL(event.target.files[0])
             output.onload = () => {
                 URL.revokeObjectURL(output.src)
             }
+            this.UPLOADED_IMAGE_NAME = event.target.files[0].name
 
             output.addEventListener('load', (event) => {
                 const dataUrl = this.createImageToBase64(event.currentTarget)
+                this.UPLOADED_IMAGE_DATA_BASE_64 = dataUrl
+                this.UPLOADED_IMAGE_DATA_BASE_64_IS_PRESENT = false
                 console.log(dataUrl)
             })
         },

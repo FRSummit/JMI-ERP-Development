@@ -480,7 +480,8 @@ input:focus {
 #doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table tbody,
 #customer-profile.customer-profile .data-table-section .data-table-section-inner .v-data-table tbody {
     display   : block;
-    height    : calc(100vh - (74px + 73px + 32px + 50px));
+    /* height    : calc(100vh - (74px + 73px + 32px + 50px)); */
+    height    : calc(100vh - (74px + 73px + 32px + 104px));
     overflow-y: scroll;
 }
 
@@ -588,6 +589,11 @@ input:focus {
 #customer-profile.customer-profile .data-table-section .data-table-section-inner .v-data-table .v-data-table__wrapper th,
 #customer-profile.customer-profile .data-table-section .data-table-section-inner .v-data-table .v-data-table__wrapper td {
     font-size: 14px;
+}
+
+#doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table .v-data-table__wrapper td,
+#customer-profile.customer-profile .data-table-section .data-table-section-inner .v-data-table .v-data-table__wrapper td {
+    font-size: 12px;
 }
 
 #doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table .v-data-table__wrapper tbody tr:hover,
@@ -2393,6 +2399,10 @@ span.cancel-order {
 
 .jmi-stock-out:hover span.tool-tip p span {
     color: #C11616;
+}
+
+.jmi-error {
+    color: #C11616; 
 }
 
 /* --------------------------------------------------------------------------------------- */
