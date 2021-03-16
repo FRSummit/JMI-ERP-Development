@@ -257,12 +257,24 @@ export default class PostService {
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////
-  // Doctors
+  // DOCTOR - 
   //////////////////////////////////////////////////////////////////////////////////////////
 
   // Get Doctors Profile
   async getAdvisorProfile(id) {
     let web_menu_url = 'api/mobile/get-advisor-profile/' + id
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
+  // -------------------------------------------------------------------------------------------
+  // DOCTOR - DOCTOR LIST
+  // Get Doctors Profile
+  async getAllAdvisorList_DOCTOR_LIST() {
+    let web_menu_url = '/api/common/all-advisor-list'
     return await axios(web_menu_url, {
       method: 'GET',
       headers: {
