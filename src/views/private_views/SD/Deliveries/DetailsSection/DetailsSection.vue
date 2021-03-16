@@ -888,6 +888,7 @@ export default {
             DEPOSIT_TAB_VISIBLE: false,
             ADJUSTMENT_TAB_VISIBLE: false,
             delivery_success_or_not_msg_modal: false,
+            UPLOADED_IMAGE_NAME: null,
             UPLOADED_IMAGE_DATA_BASE_64: null,
             UPLOADED_IMAGE_DATA_BASE_64_IS_PRESENT: false,
         }
@@ -1206,9 +1207,13 @@ export default {
             console.log(net_payable_amount)
             if( (parseFloat(this.grand_total) - parseFloat(this.cash_receive_amount) - parseFloat(this.cheque_receive_amount) > 0) || this.UPLOADED_IMAGE_DATA_BASE_64 === null) {
                 this.UPLOADED_IMAGE_DATA_BASE_64_IS_PRESENT = true
+                if(document.querySelector('.tabs.mt-3.deliveries-customer-details ul li:nth-child(2) a').className !== 'nav-link active') {
+                    document.querySelector('.tabs.mt-3.deliveries-customer-details ul li:nth-child(2) a').click()
+                }
             } else {
                 console.log(this.UPLOADED_IMAGE_DATA_BASE_64)
-                await service.getSaveInvoiceDeliveryInfo_DELIVERIES(invoice_id, invoice_dtl, cash, cheque, net_payable_amount)
+                console.log(this.UPLOADED_IMAGE_NAME)
+                /*await service.getSaveInvoiceDeliveryInfo_DELIVERIES(invoice_id, invoice_dtl, cash, cheque, net_payable_amount)
                 .then(res => {
                     console.log(res.data)
                     if(res.data.response_code === 200) {
@@ -1222,7 +1227,7 @@ export default {
                         this.$router.push('/features/users/dashboard')
                         this.delivery_success_or_not_msg_modal = false
                     }, 2000)
-                })
+                })*/
             }
             /*await service.getSaveInvoiceDeliveryInfo_DELIVERIES(invoice_id, invoice_dtl, cash, cheque, net_payable_amount)
                 .then(res => {
@@ -1281,6 +1286,7 @@ export default {
                 this.header_date = null
                 this.reject_order_modal_popup = false
                 this.SHOW_PRINT_ICON = false
+                this.UPLOADED_IMAGE_NAME = null
                 this.UPLOADED_IMAGE_DATA_BASE_64 = null
                 this.UPLOADED_IMAGE_DATA_BASE_64_IS_PRESENT = false
                 console.log('default component')
@@ -1375,18 +1381,20 @@ export default {
             // }
         },
         imageChooseEventHandler(event) {
+            this.UPLOADED_IMAGE_NAME = null
+            this.UPLOADED_IMAGE_DATA_BASE_64 = null
             let output = document.querySelector('#cheque_image')
             output.src = URL.createObjectURL(event.target.files[0])
             output.onload = () => {
                 URL.revokeObjectURL(output.src)
             }
+            this.UPLOADED_IMAGE_NAME = event.target.files[0].name
 
             output.addEventListener('load', (event) => {
-                this.UPLOADED_IMAGE_DATA_BASE_64 = null
                 const dataUrl = this.createImageToBase64(event.currentTarget)
-                console.log(dataUrl)
                 this.UPLOADED_IMAGE_DATA_BASE_64 = dataUrl
                 this.UPLOADED_IMAGE_DATA_BASE_64_IS_PRESENT = false
+                console.log(dataUrl)
             })
         },
         createImageToBase64(img) {
