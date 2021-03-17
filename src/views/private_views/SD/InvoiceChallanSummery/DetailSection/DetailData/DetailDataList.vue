@@ -49,7 +49,7 @@
               <tr v-for="(schedule, i) in SCHEDULE_DETAILS_LIST" :key="i" class="data-table-data-row">
                 <td>{{ i + 1 }}</td>
                 <td style="color: #026CD1; font-weight: 500;">{{ schedule.invoice_id }}</td>
-                <td>{{ schedule.customer_info ? (schedule.customer_info.customer_type ? (schedule.customer_info.customer_type) : '') : '' }}</td>
+                <td>{{ schedule.customer_info ? (schedule.customer_info.customer_type ? (checkCustomerType(schedule.customer_info.customer_type)) : '') : '' }}</td>
                 <td>{{ schedule.customer_info ? (schedule.customer_info.customer_name ? (schedule.customer_info.customer_name) : '') : '' }}</td>
                 <td style="text-align: right;">{{ comaSrparation(Number(schedule.invoice_amt).toFixed(2)) }}</td>
                 <td style="width: 10%;"><i class="zmdi zmdi-print" @click="printInvoice(schedule.id, i)"></i></td>
@@ -124,6 +124,14 @@ export default {
       console.log(schedule_id)
       // ppInvoice_Type_2.print_invoice(schedule_id)
       await this.PRING_INVOCIE_DETAILS__FROM_SERVICE(schedule_id)
+    },
+    checkCustomerType(customer_type) {
+      console.log(customer_type)
+      if(customer_type === '422') {
+        return 'Chemist'
+      } else if(customer_type === '424') {
+        return 'Institute'
+      }
     },
     // ---------------------------------------------------------------
     // SERVICE CALL
