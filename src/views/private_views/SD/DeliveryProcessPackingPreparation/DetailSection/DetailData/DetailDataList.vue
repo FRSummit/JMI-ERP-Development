@@ -44,12 +44,19 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(schedule, i) in PROD_PREPARATION_LIST" :key="i" class="data-table-data-row">
-                <td>{{ i + 1 }}</td>
-                <td style="color: #026CD1; font-weight: 500; text-align: left;">{{ schedule.product_info ? (schedule.product_info.prod_code ? (schedule.product_info.prod_code) : '' ) : '' }} - {{ schedule.product_info ? (schedule.product_info.prod_name ? (schedule.product_info.prod_name) : '' ) : '' }}</td>
-                <td>{{ schedule.batch_no ? (schedule.batch_no) : '' }}</td>
-                <td>{{ schedule.inv_qty ? (schedule.inv_qty) : '' }}</td>
-              </tr>
+              <div v-for="(list, i) in PROD_PREPARATION_LIST" :key="i">
+                <tr class="data-table-data-row ds-pack-tt-mio-tr">
+                  <!-- <td>{{ test(list[i]) }}</td> -->
+                  <td colspan="4" v-if="checkPPIsPresent(list[i])"><p class="td-ds-pack-tt-mio">Territory:<span>{{ getTTNameFromPPList(list[i]) }}</span></p><p class="td-ds-pack-tt-mio">MIO:<span>{{ getMIONameFromPPList(list[i]) }}</span></p><span class="icon"><i class="zmdi zmdi-print"></i></span></td>
+                </tr>
+                <tr v-for="(schedule, j) in list" :key="j" class="data-table-data-row">
+                  <td>{{ i + j + 1 }}</td>
+                  <!-- <td style="color: #026CD1; font-weight: 500; text-align: left;">{{ schedule.product_info ? (schedule.product_info.prod_code ? (schedule.product_info.prod_code) : '' ) : '' }} - {{ schedule.product_info ? (schedule.product_info.prod_name ? (schedule.product_info.prod_name) : '' ) : '' }}</td> -->
+                  <td style="font-weight: 500; text-align: left;">{{ schedule.product_info ? (schedule.product_info.prod_code ? (schedule.product_info.prod_code) : '' ) : '' }} - {{ schedule.product_info ? (schedule.product_info.prod_name ? (schedule.product_info.prod_name) : '' ) : '' }}</td>
+                  <td>{{ schedule.batch_no ? (schedule.batch_no) : '' }}</td>
+                  <td>{{ schedule.inv_qty ? (schedule.inv_qty) : '' }}</td>
+                </tr>
+              </div>
             </tbody>
           </table>
         </div>
@@ -80,7 +87,8 @@ export default {
     return {
       // value: null,
       radioSpanDefaultClass: 'active',
-      radioSpanCustomClass: null
+      radioSpanCustomClass: null,
+      TD_TERRITORY_MIO_ROW_CHECK: []
     };
   },
   methods: {
@@ -112,6 +120,30 @@ export default {
       console.log(schedule_id)
       // ppInvoice_Type_2.print_invoice(schedule_id)
       await this.PRING_INVOCIE_DETAILS__FROM_SERVICE(schedule_id)
+    },
+    checkPPIsPresent(data) {
+      console.log(data)
+      if(data ? (data.id) : false) {
+        return true
+      } else {
+        return false
+      }
+    },
+    getTTNameFromPPList(data) {
+      console.log(data)
+      if(data ? (data.id) : false) {
+        return data.id ? (data.get_area ? (data.get_area.area_name) : '') : false
+      } else {
+        return false
+      }
+    },
+    getMIONameFromPPList(data) {
+      console.log(data)
+      if(data ? (data.id) : false) {
+        return data.id ? (data.get_adm_user ? (data.get_adm_user.name) : '') : false
+      } else {
+        return false
+      }
     },
     // ---------------------------------------------------------------
     // SERVICE CALL

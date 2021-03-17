@@ -45,7 +45,8 @@ export default {
       pathName: [],
       info_modal_schedult_count: false,
       schedule_count: null,
-      PROD_PREPARATION_LIST: []
+      PROD_PREPARATION_LIST: [],
+      PROD_PREPARATION_LIST_GROUP_BY: []
     };
   },
   created() {
@@ -79,12 +80,10 @@ export default {
           this.PROD_PREPARATION_LIST = []
           console.log(res.data)
           this.PROD_PREPARATION_LIST = res.data.prod_preparation_list
-          // if(res.data.schedule_list) {
-          //   for(let i=0; i<res.data.schedule_list.length; i++) {
-          //     if(res.data.schedule_list[i].customer_info.customer_type === '422') {
-          //       this.SCHEDULE_DETAILS_LIST_CHEMIST.push(res.data.schedule_list[i])
-          //     } else if(res.data.schedule_list[i].customer_info.customer_type === '424') {
-          //       this.SCHEDULE_DETAILS_LIST_INSTITUTION.push(res.data.schedule_list[i])
+          // if(this.PROD_PREPARATION_LIST) {
+          //   for(let i=0; i<this.PROD_PREPARATION_LIST.length; i++) {
+          //     for(let j=0; j<this.PROD_PREPARATION_LIST[i]; j++) {
+          //       this.
           //     }
           //   }
           // }
