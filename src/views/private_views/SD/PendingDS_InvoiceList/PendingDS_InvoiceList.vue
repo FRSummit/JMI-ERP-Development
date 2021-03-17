@@ -8,7 +8,9 @@
         <div class="invoice-challan-printing-detail-section">
           <div class="invoice-challan-printing-detail-inner">
             <DetailSection 
-              :SCHEDULE_DETAILS_LIST="SCHEDULE_DETAILS_LIST"/>
+              :SCHEDULE_DETAILS_LIST="SCHEDULE_DETAILS_LIST"
+              :SCHEDULE_DETAILS_LIST_CHEMIST="SCHEDULE_DETAILS_LIST_CHEMIST"
+              :SCHEDULE_DETAILS_LIST_INSTITUTION="SCHEDULE_DETAILS_LIST_INSTITUTION" />
           </div>
         </div>
       </div>
@@ -46,6 +48,8 @@ export default {
       // info_modal_schedult_count: false,
       // schedule_count: null,
       SCHEDULE_DETAILS_LIST: [],
+      SCHEDULE_DETAILS_LIST_CHEMIST: [],
+      SCHEDULE_DETAILS_LIST_INSTITUTION: [],
     };
   },
   created() {
@@ -78,6 +82,15 @@ export default {
         .then(res => {
           console.log(res.data)
           this.SCHEDULE_DETAILS_LIST = res.data.schedule_list
+          if(res.data.schedule_list) {
+            for(let i=0; i<res.data.schedule_list.length; i++) {
+              if(res.data.schedule_list[i].customer_info.customer_type === '422') {
+                this.SCHEDULE_DETAILS_LIST_CHEMIST.push(res.data.schedule_list[i])
+              } else if(res.data.schedule_list[i].customer_info.customer_type === '424') {
+                this.SCHEDULE_DETAILS_LIST_INSTITUTION.push(res.data.schedule_list[i])
+              }
+            }
+          }
         })
     }
   },
