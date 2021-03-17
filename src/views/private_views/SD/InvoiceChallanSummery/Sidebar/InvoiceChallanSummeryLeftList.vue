@@ -32,7 +32,7 @@
         </div> -->
         <div class="location-title">
           <div class="location-title-inner">
-            <p>DS Invoice List (<span>{{ INVOICE_LIST.length }}</span>)</p>
+            <p>Invoice/Challan List (<span>{{ INVOICE_LIST.length }}</span>)</p>
           </div>
         </div>
         <div class="location-list-section">
@@ -149,5 +149,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import url("./InvoiceChallanPrintingLeftList.less");
+@import url("./InvoiceChallanSummeryLeftList.less");
 </style>

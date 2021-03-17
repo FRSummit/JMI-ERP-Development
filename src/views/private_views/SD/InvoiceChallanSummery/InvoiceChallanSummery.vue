@@ -3,7 +3,7 @@
     <Heading :pathName="pathName" :routeName="routeName" />
     <div class="invoice-challan-summery-section">
       <div class="invoice-challan-summery-inner">
-        <InvoiceChallanPrintingLeftList
+        <InvoiceChallanSummeryLeftList
           v-on:invoice_id_from_left="invoiceIdFromLeftHandler"/>
         <div class="invoice-challan-summery-detail-section">
           <div class="invoice-challan-summery-detail-inner">
@@ -27,7 +27,7 @@
 
 <script>
 import Heading from "../../../../components/master_layout/HeadingTitleBreadcrumb/HeadingTitleBreadcrumb";
-import InvoiceChallanPrintingLeftList from "./Sidebar/InvoiceChallanPrintingLeftList";
+import InvoiceChallanSummeryLeftList from "./Sidebar/InvoiceChallanSummeryLeftList";
 import DetailSection from "./DetailSection/DetailSection";
 // import BreadcrumbFunctions from '../../../../functions/BreadcrumbFunctions'
 // const breadcrumbFunctions = new BreadcrumbFunctions()
@@ -37,12 +37,12 @@ const service = new Service();
 export default {
   components: {
     Heading,
-    InvoiceChallanPrintingLeftList,
+    InvoiceChallanSummeryLeftList,
     DetailSection,
   },
   data() {
     return {
-      routeName: "Delivery Process Invoice/Challan Printing",
+      routeName: "Invoice Challan Summery",
       parentPath: "Local Sales",
       pathName: [],
       // info_modal_schedult_count: false,
@@ -61,7 +61,7 @@ export default {
   },
   methods: {
     createBreadcrumbData() {
-      this.pathName = [{name: "Features"},{ name: "Local Sales" }, { name: "Delivery Process Invoice/Challan Printing" }];
+      this.pathName = [{name: "Features"},{ name: "Local Sales" }, { name: "Invoice Challan Summery" }];
       // this.pathName = breadcrumbFunctions.jmiERPBreadcrumb(window.location.pathname)
     },
     /*showInvoiceCountInformationMessagePopup() {
