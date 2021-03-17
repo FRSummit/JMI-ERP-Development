@@ -1216,7 +1216,7 @@ export default {
             } else {
                 console.log(this.UPLOADED_IMAGE_DATA_BASE_64)
                 console.log(this.UPLOADED_IMAGE_NAME)
-                let file_path = 'customers/cheque'
+                let file_path = '/customers/cheque/'
                 await service.getSaveInvoiceDeliveryInfo_DELIVERIES(invoice_id, invoice_dtl, cash, cheque, net_payable_amount, this.UPLOADED_IMAGE_DATA_BASE_64, this.UPLOADED_IMAGE_NAME, file_path)
                 .then(res => {
                     console.log(res.data)
@@ -1384,7 +1384,7 @@ export default {
             //     value.preventDefault()
             // }
         },
-        /*imageChooseEventHandler(event) {
+        imageChooseEventHandler(event) {
             this.UPLOADED_IMAGE_NAME = null
             this.UPLOADED_IMAGE_DATA_BASE_64 = null
             let file = event.target.files[0]
@@ -1394,8 +1394,8 @@ export default {
                 this.UPLOADED_IMAGE_DATA_BASE_64 = reader.result
             }
             reader.readAsDataURL(file)
-        },*/
-        imageChooseEventHandler(event) {
+        },
+        /*imageChooseEventHandler(event) {
             this.UPLOADED_IMAGE_NAME = null
             this.UPLOADED_IMAGE_DATA_BASE_64 = null
             let output = document.querySelector('#cheque_image')
@@ -1421,7 +1421,7 @@ export default {
             // Draw the image
             ctx.drawImage(img, 0, 0);
             return canvas.toDataURL('image/jpeg');
-        }
+        }*/
     },
     watch: { 
         async pending_order_list_by_id(newVal, oldVal){

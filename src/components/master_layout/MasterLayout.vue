@@ -143,6 +143,7 @@ export default {
         // this.userDesignation = JSON.parse(localStorage.getItem("jerp_logged_user")) ? JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.role_name : ""
         // this.authenticated = this.$store.state.userIsAuthorized
       }, 1000)
+      this.newDashboardOccuredEventHandler()
     }
   },
   methods: {

@@ -1,8 +1,8 @@
 <template>
   <div class="invoice-challan-print-detail-section">
     <div class="invoice-challan-print-detail-section-inner">
-      <div class="invoice-challan-printing-detail-header-section">
-        <div class="invoice-challan-printing-detail-header-section-inner">
+      <div class="invoice-challan-summery-detail-header-section">
+        <div class="invoice-challan-summery-detail-header-section-inner">
           <div class="packing-preparation-status-section">
             <div class="packing-preparation-status-section-inner">
               <!-- <span class="background-fixed-h-row"></span> -->
@@ -33,8 +33,10 @@
                   <v-tabs-items v-model="tab" class="tab-container" style="padding-top: 30px">
                     <v-tab-item v-for="(status, i) in status_list" :key="i">
                       <v-card color="basil" flat>
-                        <v-card v-if="status.status_name === 'Institution'"><DetailsDataList :tab="status.status_name"  :data="invoice_challan_print_data" :SCHEDULE_DETAILS_LIST="SCHEDULE_DETAILS_LIST_INSTITUTION" /></v-card>
-                        <v-card v-if="status.status_name === 'Chemist'"><DetailsDataList :tab="status.status_name"  :data="invoice_challan_print_data" :SCHEDULE_DETAILS_LIST="SCHEDULE_DETAILS_LIST_CHEMIST" /></v-card>
+                        <v-card v-if="status.status_name === 'INVOICE'"><DetailDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="DS_INVOICE" /></v-card>
+                        <v-card v-if="status.status_name === 'CHALLAN'"><DetailDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="DS_CHALLAN" /></v-card>
+                        <v-card v-if="status.status_name === 'GATE PASS'"><DetailDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="DS_GATEPASS" /></v-card>
+                        <v-card v-if="status.status_name === 'HANDOVER'"><DetailDataList :tab="status.status_name" /></v-card>
                       </v-card>
                     </v-tab-item>
                   </v-tabs-items>
@@ -51,14 +53,12 @@
 <script>
 // import * as VueGoogleMaps from 'vue2-google-maps'
 // import { google } from 'google-maps';
-import DetailsDataList from './DetailData/DetailsDataList'
-// import Chemist from './DetailData/Chemist'
+import DetailDataList from './DetailData/DetailDataList'
 
 export default {
-  props: ["SCHEDULE_DETAILS_LIST", "SCHEDULE_DETAILS_LIST_CHEMIST", "SCHEDULE_DETAILS_LIST_INSTITUTION"],
+  props: ["INVOICE_CHALLAN_SUMMERY", "DS_INVOICE", "DS_CHALLAN", "DS_GATEPASS"],
   components: {
-    DetailsDataList,
-    // Chemist
+    DetailDataList
   },
   data() {
     return {
@@ -66,125 +66,21 @@ export default {
       status_list: [
         {
           status_class: "done",
-          status_name: "Institution",
+          status_name: "INVOICE",
         },
         {
           status_class: "done",
-          status_name: "Chemist",
+          status_name: "CHALLAN",
         },
-        // {
-        //   status_class: "done",
-        //   status_name: "Printing Ready",
-        // },
-        // {
-        //   status_class: "",
-        //   status_name: "Handover",
-        // },
+        {
+          status_class: "done",
+          status_name: "GATE PASS",
+        },
+        {
+          status_class: "",
+          status_name: "HANDOVER",
+        },
       ],
-      invoice_challan_print_data: [
-        {
-          invoice_id: "INID123456",
-          customer_type: "Chemist",
-          customer_name: "New Gulshan Pharma",
-          amount: "146250"
-        },
-        {
-          invoice_id: "INID123456",
-          customer_type: "Chemist",
-          customer_name: "New Gulshan Pharma",
-          amount: "146250"
-        },
-        {
-          invoice_id: "INID123456",
-          customer_type: "Chemist",
-          customer_name: "New Gulshan Pharma",
-          amount: "146250"
-        },
-        {
-          invoice_id: "INID123456",
-          customer_type: "Chemist",
-          customer_name: "New Gulshan Pharma",
-          amount: "146250"
-        },
-        {
-          invoice_id: "INID123456",
-          customer_type: "Chemist",
-          customer_name: "New Gulshan Pharma",
-          amount: "146250"
-        },
-        {
-          invoice_id: "INID123456",
-          customer_type: "Chemist",
-          customer_name: "New Gulshan Pharma",
-          amount: "146250"
-        },
-        {
-          invoice_id: "INID123456",
-          customer_type: "Chemist",
-          customer_name: "New Gulshan Pharma",
-          amount: "146250"
-        },
-        {
-          invoice_id: "INID123456",
-          customer_type: "Chemist",
-          customer_name: "New Gulshan Pharma",
-          amount: "146250"
-        },
-        {
-          invoice_id: "INID123456",
-          customer_type: "Chemist",
-          customer_name: "New Gulshan Pharma",
-          amount: "146250"
-        },
-        {
-          invoice_id: "INID123456",
-          customer_type: "Chemist",
-          customer_name: "New Gulshan Pharma",
-          amount: "146250"
-        },
-        {
-          invoice_id: "INID123456",
-          customer_type: "Chemist",
-          customer_name: "New Gulshan Pharma",
-          amount: "146250"
-        },
-        {
-          invoice_id: "INID123456",
-          customer_type: "Chemist",
-          customer_name: "New Gulshan Pharma",
-          amount: "146250"
-        },
-        {
-          invoice_id: "INID123456",
-          customer_type: "Chemist",
-          customer_name: "New Gulshan Pharma",
-          amount: "146250"
-        },
-        {
-          invoice_id: "INID123456",
-          customer_type: "Chemist",
-          customer_name: "New Gulshan Pharma",
-          amount: "146250"
-        },
-        {
-          invoice_id: "INID123456",
-          customer_type: "Chemist",
-          customer_name: "New Gulshan Pharma",
-          amount: "146250"
-        },
-        {
-          invoice_id: "INID123456",
-          customer_type: "Chemist",
-          customer_name: "New Gulshan Pharma",
-          amount: "146250"
-        },
-        {
-          invoice_id: "INID123456",
-          customer_type: "Chemist",
-          customer_name: "New Gulshan Pharma",
-          amount: "146250"
-        },
-      ]
     };
   },
   created() {

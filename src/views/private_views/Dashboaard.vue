@@ -25,7 +25,7 @@
         <router-link to="/sd/delivery-process--packing-preparation">DS Packing Preparation</router-link>
       </div>
       <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
-        <router-link to="/sd/delivery-process-invoice-printing">DS Invoice Printing</router-link>
+        <router-link to="/sd/invoice-challan-summery">Invoice Challan Summery</router-link>
       </div>
       <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
         <router-link to="/sd/delivery-process--dispatch-entry">DS Dispatch Entry</router-link>

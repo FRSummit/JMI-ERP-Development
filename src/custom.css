@@ -316,14 +316,16 @@ input:focus {
 
 #delivery-scheduling-left-list .mx-input-wrapper,
 #delivery-packing-preparation-left-list .mx-input-wrapper,
-#invoice-challan-printing-left-list .mx-input-wrapper {
+#invoice-challan-printing-left-list .mx-input-wrapper,
+#invoice-challan-summery-left-list .mx-input-wrapper {
     display : block;
     position: relative;
 }
 
 #delivery-scheduling-left-list .mx-input-wrapper input,
 #delivery-packing-preparation-left-list .mx-input-wrapper input,
-#invoice-challan-printing-left-list .mx-input-wrapper input {
+#invoice-challan-printing-left-list .mx-input-wrapper input,
+#invoice-challan-summery-left-list .mx-input-wrapper input {
     font-size: 12px;
     width    : 176px;
     border   : 1px solid #E1E2E3;
@@ -338,7 +340,8 @@ input:focus {
 
 #delivery-scheduling-left-list .mx-input-wrapper input:focus,
 #delivery-packing-preparation-left-list .mx-input-wrapper input:focus,
-#invoice-challan-printing-left-list .mx-input-wrapper input:focus {
+#invoice-challan-printing-left-list .mx-input-wrapper input:focus,
+#invoice-challan-summery-left-list .mx-input-wrapper input:focus {
     outline           : 0;
     outline-offset    : 0;
     -moz-box-shadow   : none;
@@ -348,7 +351,8 @@ input:focus {
 
 #delivery-scheduling-left-list .mx-input-wrapper i,
 #delivery-packing-preparation-left-list .mx-input-wrapper i,
-#invoice-challan-printing-left-list .mx-input-wrapper i {
+#invoice-challan-printing-left-list .mx-input-wrapper i,
+#invoice-challan-summery-left-list .mx-input-wrapper i {
     position: absolute;
     top     : 2px;
     right   : 2px;
@@ -356,7 +360,8 @@ input:focus {
 
 #delivery-scheduling-left-list .mx-input-wrapper i:last-child,
 #delivery-packing-preparation-left-list .mx-input-wrapper i:last-child,
-#invoice-challan-printing-left-list .mx-input-wrapper i:last-child {
+#invoice-challan-printing-left-list .mx-input-wrapper i:last-child,
+#invoice-challan-summery-left-list .mx-input-wrapper i:last-child  {
     position: absolute;
     top     : 2px;
     right   : 18px;
@@ -392,27 +397,32 @@ input:focus {
 
 /* Delivery Packing Preparation & Invoice Challan Printing */
 #delivery-packing-preparation .v-sheet.v-card,
-#invoice-challan-printing .v-sheet.v-card {
+#invoice-challan-printing .v-sheet.v-card,
+#invoice-challan-summery .v-sheet.v-card {
     box-shadow: none;
 }
 
 #delivery-packing-preparation .v-tabs-slider-wrapper,
-#invoice-challan-printing .v-tabs-slider-wrapper {
+#invoice-challan-printing .v-tabs-slider-wrapper,
+#invoice-challan-summery .v-tabs-slider-wrapper {
     display: none
 }
 
 #delivery-packing-preparation .v-tabs-bar,
-#invoice-challan-printing .v-tabs-bar {
+#invoice-challan-printing .v-tabs-bar,
+#invoice-challan-summery .v-tabs-bar {
     height: auto;
 }
 
 #delivery-packing-preparation .v-tab.v-tab:hover,
-#invoice-challan-printing .v-tab.v-tab:hover {
+#invoice-challan-printing .v-tab.v-tab:hover,
+#invoice-challan-summery .v-tab.v-tab:hover {
     background: none;
 }
 
 #delivery-packing-preparation .v-tab:before,
-#invoice-challan-printing .v-tab:before {
+#invoice-challan-printing .v-tab:before,
+#invoice-challan-summery .v-tab:before {
     background-color: unset;
 }
 

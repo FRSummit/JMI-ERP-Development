@@ -534,17 +534,6 @@ export default class PostService {
   }
 
   // DELIVERY SCHEDULING - PENDING DELIVERY LIST - LEFT SECTION
-  async getPendingDeliveryScheduleInvoiceList_DELIVERY_SCHEDULING() {
-    let web_menu_url = '/api/web/pending-delivery-schedule-invoice-list'
-    return await axios(web_menu_url, {
-      method: 'GET',
-      headers: {
-        'Authorization': token_type + ' ' + token
-      },
-    })
-  }
-
-  // DELIVERY SCHEDULING - PENDING DELIVERY LIST - LEFT SECTION
   async getCreateDeliveryScheduleBy_DA_DELIVERY_SCHEDULING(da_id, date) {
     let web_menu_url = '/api/web/create-delivery-schedule'
     return await axios(web_menu_url, {
@@ -656,17 +645,17 @@ export default class PostService {
     console.log(net_payable_amount)
     let web_menu_url = '/api/web/save-invoice-delivery-info'
     return await axios(web_menu_url, {
-      method: 'GET',
+      method: 'POST',
       headers: {
         'Authorization': token_type + ' ' + token
       },
-      params: {
+      data: {
         invoice_id: invoice_id,
         invoice_details: JSON.stringify(invoice_dtl),
         cash: cash,
         cheque: cheque,
         net_payable_amount: net_payable_amount,
-        //base64_encoded_file: base64_img,
+        base64_encoded_file: base64_img,
         file_original_name: img_name,
         file_upload_path: file_path
       }
@@ -689,6 +678,18 @@ export default class PostService {
   // CUSTOMER - CUSTOMER LIST
   async getCommonAllCustomerList_CUSTOMER_LIST() {
     let web_menu_url = 'api/common/all-customer-list'
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+    })
+  }
+
+  // -------------------------------------------------------------------------------------------
+  // INVOICE CHALLAN SUMMERY - LEFT SIDE
+  async getPendingDeliveryScheduleInvoiceList_INVOICE_CHALLAN_SUMMERY() {
+    let web_menu_url = '/api/web/pending-delivery-schedule-invoice-list'
     return await axios(web_menu_url, {
       method: 'GET',
       headers: {

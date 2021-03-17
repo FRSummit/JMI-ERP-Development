@@ -15,13 +15,13 @@
                         <div class="select-options jmi-select-options-section" style="width: 100%;">
                             <span class="right-icon"><i class="fas fa-chevron-right"></i></span>
                                 <select title="Pick a customer" class="selectpicker jmi-select-option" v-model="on_change_reg_area_tt" @change="onChangeRegAreaTTDropdown()" style="">
-                                    <optgroup label="" v-if="checkReagionAreaTT(REGION_AREA_TERRITORY_LIST)">
+                                    <optgroup label="" v-if="checkReagionAreaTT(REGION_AREA_TERRITORY_LIST).reg.length > 0">
                                         <option v-for="(rat, m) in checkReagionAreaTT(REGION_AREA_TERRITORY_LIST).reg" :key="m" :value="rat.id"><span v-if="rat.lvl === '3'">{{ rat.display_code }} - {{ rat.area_short_name }}</span></option>
                                     </optgroup>
-                                    <optgroup label="">
+                                    <optgroup label="" v-if="checkReagionAreaTT(REGION_AREA_TERRITORY_LIST).area.length > 0">
                                         <option v-for="(rat, m) in checkReagionAreaTT(REGION_AREA_TERRITORY_LIST).area" :key="m" :value="rat.id"><span v-if="rat.lvl === '4'">{{ rat.display_code }} - {{ rat.area_short_name }}</span></option>
                                     </optgroup>
-                                    <optgroup label="">
+                                    <optgroup label="" v-if="checkReagionAreaTT(REGION_AREA_TERRITORY_LIST).tt.length > 0">
                                         <option v-for="(rat, m) in checkReagionAreaTT(REGION_AREA_TERRITORY_LIST).tt" :key="m" :value="rat.id"><span v-if="rat.lvl === '5'">{{ rat.display_code }} - {{ rat.area_short_name }}</span></option>
                                     </optgroup>
                             </select>
@@ -1076,6 +1076,7 @@ export default {
                     reg_area_tt.tt.push(list[i])
                 }
             }
+            console.log(reg_area_tt)
             return reg_area_tt
         },
         onChangeRegAreaTTDropdown() {
@@ -1135,11 +1136,13 @@ export default {
 
         customer_data(newVal, oldVal){
             this.CUSTOMER_ID_FROM_LEFT = newVal.customer_id
+            this.REGION_AREA_TERRITORY_LIST = []
             this.AREA_LIST_BY_USER__FROM_SERVICE()
             if( newVal && oldVal) {
                 if(newVal.customer_id !== oldVal.customer_id) {
                     this.SALSE_AREA_ID = newVal.customer_area_info ? (newVal.customer_area_info.sales_area_id ? (newVal.customer_area_info.sales_area_id) : null) : null
                     console.log(this.SALSE_AREA_ID)
+                    // this.REGION_AREA_TERRITORY_LIST = []
                     // this.selectREG_AREA_TT(this.SALSE_AREA_ID)
                     // this.AREA_LIST_BY_USER__FROM_SERVICE(newVal.customer_id)
                     this.AREA_LIST_BY_USER__FROM_SERVICE()

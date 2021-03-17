@@ -1,16 +1,17 @@
 <template>
-  <div id="invoice-challan-printing" class="invoice-challan-printing">
+  <div id="invoice-challan-summery" class="invoice-challan-summery">
     <Heading :pathName="pathName" :routeName="routeName" />
-    <div class="invoice-challan-printing-section">
-      <div class="invoice-challan-printing-inner">
-        <InvoiceChallanPrintingLeftList
+    <div class="invoice-challan-summery-section">
+      <div class="invoice-challan-summery-inner">
+        <InvoiceChallanSummeryLeftList
           v-on:invoice_id_from_left="invoiceIdFromLeftHandler"/>
-        <div class="invoice-challan-printing-detail-section">
-          <div class="invoice-challan-printing-detail-inner">
+        <div class="invoice-challan-summery-detail-section">
+          <div class="invoice-challan-summery-detail-inner">
             <DetailSection 
-              :SCHEDULE_DETAILS_LIST="SCHEDULE_DETAILS_LIST"
-              :SCHEDULE_DETAILS_LIST_CHEMIST="SCHEDULE_DETAILS_LIST_CHEMIST"
-              :SCHEDULE_DETAILS_LIST_INSTITUTION="SCHEDULE_DETAILS_LIST_INSTITUTION" />
+              :INVOICE_CHALLAN_SUMMERY="INVOICE_CHALLAN_SUMMERY"
+              :DS_INVOICE="DS_INVOICE"
+              :DS_CHALLAN="DS_CHALLAN"
+              :DS_GATEPASS="DS_GATEPASS" />
           </div>
         </div>
       </div>
@@ -27,7 +28,7 @@
 
 <script>
 import Heading from "../../../../components/master_layout/HeadingTitleBreadcrumb/HeadingTitleBreadcrumb";
-import InvoiceChallanPrintingLeftList from "./Sidebar/InvoiceChallanPrintingLeftList";
+import InvoiceChallanSummeryLeftList from "./Sidebar/InvoiceChallanSummeryLeftList";
 import DetailSection from "./DetailSection/DetailSection";
 // import BreadcrumbFunctions from '../../../../functions/BreadcrumbFunctions'
 // const breadcrumbFunctions = new BreadcrumbFunctions()
@@ -37,19 +38,20 @@ const service = new Service();
 export default {
   components: {
     Heading,
-    InvoiceChallanPrintingLeftList,
+    InvoiceChallanSummeryLeftList,
     DetailSection,
   },
   data() {
     return {
-      routeName: "Pending DS Invoice List",
+      routeName: "Invoice Challan Summery",
       parentPath: "Local Sales",
       pathName: [],
       // info_modal_schedult_count: false,
-      // schedule_count: null,
-      SCHEDULE_DETAILS_LIST: [],
-      SCHEDULE_DETAILS_LIST_CHEMIST: [],
-      SCHEDULE_DETAILS_LIST_INSTITUTION: [],
+      schedule_count: null,
+      INVOICE_CHALLAN_SUMMERY: [],
+      DS_INVOICE: [],
+      DS_CHALLAN: [],
+      DS_GATEPASS: [],
     };
   },
   created() {
@@ -61,16 +63,16 @@ export default {
   },
   methods: {
     createBreadcrumbData() {
-      this.pathName = [{name: "Features"},{ name: "Local Sales" }, { name: "Pending DS Invoice List" }];
+      this.pathName = [{name: "Features"},{ name: "Local Sales" }, { name: "Invoice Challan Summery" }];
       // this.pathName = breadcrumbFunctions.jmiERPBreadcrumb(window.location.pathname)
     },
-    // showInvoiceCountInformationMessagePopup() {
-    //   this.schedule_count = this.$route.path.split(':')[1]
-    //   this.info_modal_schedult_count = true
-    //   setTimeout( () => {
-    //     this.info_modal_schedult_count = false
-    //   }, 2000)
-    // },
+    /*showInvoiceCountInformationMessagePopup() {
+      this.schedule_count = this.$route.path.split(':')[1]
+      this.info_modal_schedult_count = true
+      setTimeout( () => {
+        this.info_modal_schedult_count = false
+      }, 2000)
+    },*/
     async invoiceIdFromLeftHandler(val) {
       console.log(val)
       await this.DELIVERY_SCHEDULE_DETAILS__FROM_SERVICE(val)
@@ -78,16 +80,19 @@ export default {
     // -------------------------------------------------------------------------------
     // Service Call
     async DELIVERY_SCHEDULE_DETAILS__FROM_SERVICE(schedule_id) {
-      service.getDeliveryScheduleDetails_DELIVERY_SCHEDULING_INVOICE_CHALLAN_PRINTING(schedule_id)
+      await service.getDeliveryScheduleDetails_DELIVERY_SCHEDULING_INVOICE_CHALLAN_PRINTING(schedule_id)
         .then(res => {
+          this.INVOICE_CHALLAN_SUMMERY = []
+          this.DS_INVOICE = []
+          this.DS_CHALLAN = []
+          this.DS_GATEPASS = []
           console.log(res.data)
-          this.SCHEDULE_DETAILS_LIST = res.data.schedule_list
+          this.INVOICE_CHALLAN_SUMMERY = res.data.schedule_list
+          this.DS_INVOICE = res.data.schedule_list
           if(res.data.schedule_list) {
             for(let i=0; i<res.data.schedule_list.length; i++) {
-              if(res.data.schedule_list[i].customer_info.customer_type === '422') {
-                this.SCHEDULE_DETAILS_LIST_CHEMIST.push(res.data.schedule_list[i])
-              } else if(res.data.schedule_list[i].customer_info.customer_type === '424') {
-                this.SCHEDULE_DETAILS_LIST_INSTITUTION.push(res.data.schedule_list[i])
+              if(res.data.schedule_list[i].customer_info.customer_type === '424') {
+                this.DS_CHALLAN.push(res.data.schedule_list[i])
               }
             }
           }
@@ -98,5 +103,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import url("./PendingDS_InvoiceList.less");
+@import url("./InvoiceChallanSummery.less");
 </style>

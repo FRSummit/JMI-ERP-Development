@@ -88,96 +88,128 @@ export const router = new VueRouter({
       name: 'Geo Location',
       component: () => import('../views/private_views/SD/SalesArea/GeoLocation.vue')
     },
+    // --------------------------------------------------------------------------------------
+    // MONTHLY DELIVERY PLAN
     {
-      // path: '/sd/monthly-delivery-plan',
       path: '/features/local_sales/delivery_plan',
       name: 'Monthly Delivery Plan',
       component: () => import('../views/private_views/SD/MonthlyDeliveryPlan/MonthlyDeliveryPlan.vue')
     },
+    // --------------------------------------------------------------------------------------
+    // DS
     {
-      // path: '/sd/delivery-scheduling',
       path: '/features/local_sales/delivery_schedule',
       name: 'Delivery Scheduling',
       component: () => import('../views/private_views/SD/DeliveryScheduling/DeliveryScheduling.vue')
     },
+    // --------------------------------------------------------------------------------------
+    // DS - PACKING PREPARATION
     {
       path: '/sd/delivery-process--packing-preparation',
       name: 'Delivery Process - Packing Preparation',
       component: () => import('../views/private_views/SD/DeliveryProcessPackingPreparation/DeliveryProcessPackingPreparation.vue')
     },
+    // --------------------------------------------------------------------------------------
+    // DS - INVOICE PRINTING
     {
       path: '/sd/delivery-process-invoice-printing:id',
       name: 'Delivery Process - Invoice Printing',
       component: () => import('../views/private_views/SD/DeliveryProcessInvoiceChallanPrinting/DeliveryProcessInvoiceChallanPrinting.vue')
     },
+    // --------------------------------------------------------------------------------------
+    // INVOICE CHALLAN SUMMERY 
+    {
+      path: '/sd/invoice-challan-summery',
+      name: 'Invoice Challan Summery ',
+      component: () => import('../views/private_views/SD/InvoiceChallanSummery/InvoiceChallanSummery.vue')
+    },
+    // --------------------------------------------------------------------------------------
+    // PENDING DS INVOICE LIST
     {
       path: '/sd/pending-ds-invoice-list',
       name: 'Delivery Process - Pending Invoice List',
       component: () => import('../views/private_views/SD/PendingDS_InvoiceList/PendingDS_InvoiceList.vue')
     },
+    // --------------------------------------------------------------------------------------
+    // DS DISPATCH ENTRY
     {
       path: '/sd/delivery-process--dispatch-entry',
       name: 'Delivery Process - Dispatch Entry',
       component: () => import('../views/private_views/SD/DeliveryProcessDispatchEntry/DispatchEntry.vue')
     },
-    // Create Order
+    // --------------------------------------------------------------------------------------
+    // CREATE ORDER
     {
       path: '/features/local_sales/sales_order',
       name: 'Create Order',
       component: () => import('../views/private_views/SD/Order/CreateOrder/CreateOrder.vue')
     },
-    // Order Approval
+    // --------------------------------------------------------------------------------------
+    // ORDER APPROVAL
     {
       path: '/features/local_sales/order_approval',
       name: 'Order Approval',
       component: () => import('../views/private_views/SD/Order/OrderApproval/OrderApproval.vue')
     },
-    // Deliveries
+    // --------------------------------------------------------------------------------------
+    // DELIVERIES
     {
       path: '/features/local_sales/deliveries',
       name: 'Deliveries',
       component: () => import('../views/private_views/SD/Deliveries/Deliveries.vue')
     },
-    // Return
+    // --------------------------------------------------------------------------------------
+    // RETURN
     {
       path: '/features/local_sales/return',
       name: 'Return',
       component: () => import('../views/private_views/SD/Return/Return.vue')
     },
-    // Customer Profile
+    // --------------------------------------------------------------------------------------
+    // CUSTOMER - CUSTOMER LIST
     {
       path: '/features/local_sales/customer_list',
       name: 'Customer List',
       component: () => import('../views/private_views/SD/Customer/CustomerList.vue')
     },
+    // --------------------------------------------------------------------------------------
+    // CUSTOMER - CREATE CUSTOMER
     {
       path: '/features/local_sales/create_customer',
       name: 'Create Customer',
       component: () => import('../views/private_views/SD/Customer/CreateCustomer/CreateCustomer.vue')
     },
+    // --------------------------------------------------------------------------------------
+    // CUSTOMER - CUSTOMER PROFILE
     {
       path: '/features/local_sales/customer_profile',
       name: 'Create Customer',
       component: () => import('../views/private_views/SD/Customer/CustomerProfile/CustomerProfile.vue')
     },
-    // Doctors List
+    // --------------------------------------------------------------------------------------
+    // DOCTOR - DOCTOR LIST
     {
       path: '/features/local_sales/doctors_list',
       name: 'Doctors List',
       component: () => import('../views/private_views/SD/Doctor/DoctorsList.vue')
     },
+    // --------------------------------------------------------------------------------------
+    // DOCTOR - DOCTOR CREATE
     {
       path: '/features/local_sales/create_doctor',
       name: 'Create Doctor',
       component: () => import('../views/private_views/SD/Doctor/CreateDoctor/CreateDoctor.vue')
     },
+    // --------------------------------------------------------------------------------------
+    // DOCTOR - DOCTOR PROFILE
     {
       path: '/features/local_sales/doctors_profile:count',
       name: 'Doctors Profile',
       component: () => import('../views/private_views/SD/Doctor/DoctorProfile/DoctorsProfile.vue')
     },
 
-    // 404 Page
+    // --------------------------------------------------------------------------------------
+    // 404 PAGES
     {
       path: '/401',
       name: 'Unauthorized Access',
