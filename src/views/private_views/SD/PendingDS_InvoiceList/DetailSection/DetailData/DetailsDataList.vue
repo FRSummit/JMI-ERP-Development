@@ -58,6 +58,14 @@
           </table>
         </div>
       </div>
+      <div class="add-invoice-to-ds-section">Hello
+        <div id="info-modal" class="modal-popup-section info-modal" v-if="info_modal_schedult_count">
+          <div class="modal-popup-section-inner update-successfully-modal-inner">
+            <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
+            <p class="popup-text info">Total Invoice {{ schedule_count }}</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
