@@ -15,13 +15,13 @@
                         <div class="select-options jmi-select-options-section" style="width: 100%;">
                             <span class="right-icon"><i class="fas fa-chevron-right"></i></span>
                                 <select title="Pick a customer" class="selectpicker jmi-select-option" v-model="on_change_reg_area_tt" @change="onChangeRegAreaTTDropdown()" style="">
-                                    <optgroup label="" v-if="checkReagionAreaTT(REGION_AREA_TERRITORY_LIST)">
+                                    <optgroup label="" v-if="checkReagionAreaTT(REGION_AREA_TERRITORY_LIST).reg.length > 0">
                                         <option v-for="(rat, m) in checkReagionAreaTT(REGION_AREA_TERRITORY_LIST).reg" :key="m" :value="rat.id"><span v-if="rat.lvl === '3'">{{ rat.display_code }} - {{ rat.area_short_name }}</span></option>
                                     </optgroup>
-                                    <optgroup label="">
+                                    <optgroup label="" v-if="checkReagionAreaTT(REGION_AREA_TERRITORY_LIST).area.length > 0">
                                         <option v-for="(rat, m) in checkReagionAreaTT(REGION_AREA_TERRITORY_LIST).area" :key="m" :value="rat.id"><span v-if="rat.lvl === '4'">{{ rat.display_code }} - {{ rat.area_short_name }}</span></option>
                                     </optgroup>
-                                    <optgroup label="">
+                                    <optgroup label="" v-if="checkReagionAreaTT(REGION_AREA_TERRITORY_LIST).tt.length > 0">
                                         <option v-for="(rat, m) in checkReagionAreaTT(REGION_AREA_TERRITORY_LIST).tt" :key="m" :value="rat.id"><span v-if="rat.lvl === '5'">{{ rat.display_code }} - {{ rat.area_short_name }}</span></option>
                                     </optgroup>
                             </select>
@@ -1076,6 +1076,7 @@ export default {
                     reg_area_tt.tt.push(list[i])
                 }
             }
+            console.log(reg_area_tt)
             return reg_area_tt
         },
         onChangeRegAreaTTDropdown() {
