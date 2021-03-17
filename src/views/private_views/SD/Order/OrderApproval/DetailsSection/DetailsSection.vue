@@ -1909,7 +1909,7 @@ export default {
         check_STOCK_TRANSIT_VALIDATION() {
             this.STOCK_TRANSIT_VALIDATION = false
             for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST.length; i++) {
-                if(parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].net_qty) > (parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].available_stock ? this.ORDERED_TABLE_DATA__INIT_LIST[i].available_stock : 0) + parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].transit_stock ? this.ORDERED_TABLE_DATA__INIT_LIST[i].transit_stock : 0)) ) {
+                if(parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].net_qty) > (parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].available_stock) + parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].transit_stock)) ) {
                     this.STOCK_TRANSIT_VALIDATION = true
                 } else {
                     this.STOCK_TRANSIT_VALIDATION = false
