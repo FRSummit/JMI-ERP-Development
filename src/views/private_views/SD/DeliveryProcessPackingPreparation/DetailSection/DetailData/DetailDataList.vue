@@ -47,10 +47,10 @@
               <div v-for="(list, i) in PROD_PREPARATION_LIST" :key="i">
                 <tr class="data-table-data-row ds-pack-tt-mio-tr">
                   <!-- <td>{{ test(list[i]) }}</td> -->
-                  <td colspan="4" v-if="checkPPIsPresent(list[i])"><p class="td-ds-pack-tt-mio">Territory:<span>{{ getTTNameFromPPList(list[i]) }}</span></p><p class="td-ds-pack-tt-mio">MIO:<span>{{ getMIONameFromPPList(list[i]) }}</span></p><span class="icon"><i class="zmdi zmdi-print"></i></span></td>
+                  <td colspan="4" v-if="checkPPIsPresent(list)"><p class="td-ds-pack-tt-mio">Territory:<span>{{ getTTNameFromPPList(list[0]) }}</span></p><p class="td-ds-pack-tt-mio">MIO:<span>{{ getMIONameFromPPList(list[0]) }}</span></p><span class="icon"><i class="zmdi zmdi-print"></i></span></td>
                 </tr>
                 <tr v-for="(schedule, j) in list" :key="j" class="data-table-data-row">
-                  <td>{{ i + j + 1 }}</td>
+                  <td>{{ j + 1 }}</td>
                   <!-- <td style="color: #026CD1; font-weight: 500; text-align: left;">{{ schedule.product_info ? (schedule.product_info.prod_code ? (schedule.product_info.prod_code) : '' ) : '' }} - {{ schedule.product_info ? (schedule.product_info.prod_name ? (schedule.product_info.prod_name) : '' ) : '' }}</td> -->
                   <td style="font-weight: 500; text-align: left;">{{ schedule.product_info ? (schedule.product_info.prod_code ? (schedule.product_info.prod_code) : '' ) : '' }} - {{ schedule.product_info ? (schedule.product_info.prod_name ? (schedule.product_info.prod_name) : '' ) : '' }}</td>
                   <td>{{ schedule.batch_no ? (schedule.batch_no) : '' }}</td>
@@ -88,7 +88,7 @@ export default {
       // value: null,
       radioSpanDefaultClass: 'active',
       radioSpanCustomClass: null,
-      TD_TERRITORY_MIO_ROW_CHECK: []
+      TD_TERRITORY_MIO_ROW_CHECK: [],
     };
   },
   methods: {
@@ -122,15 +122,15 @@ export default {
       await this.PRING_INVOCIE_DETAILS__FROM_SERVICE(schedule_id)
     },
     checkPPIsPresent(data) {
-      console.log(data)
-      if(data ? (data.id) : false) {
+      // console.log(data)
+      if(data ? (data[0]) : false) {
         return true
       } else {
         return false
       }
     },
     getTTNameFromPPList(data) {
-      console.log(data)
+      // console.log(data)
       if(data ? (data.id) : false) {
         return data.id ? (data.get_area ? (data.get_area.area_name) : '') : false
       } else {
@@ -138,7 +138,7 @@ export default {
       }
     },
     getMIONameFromPPList(data) {
-      console.log(data)
+      // console.log(data)
       if(data ? (data.id) : false) {
         return data.id ? (data.get_adm_user ? (data.get_adm_user.name) : '') : false
       } else {
