@@ -138,7 +138,7 @@ export default {
     // --------------------------------------------------------------------------------------
     // Service CALL
     async DELIVERY_SCHEDULE_LIST__FROM_SERVICE() {
-      service.getDeliveryScheduleList_DELIVERY_SCHEDULING_INVOICE_CHALLAN_PRINTING()
+      await service.getDeliveryScheduleList_DELIVERY_SCHEDULING_INVOICE_CHALLAN_PRINTING()
         .then(res => {
           console.log(res.data)
           this.INVOICE_LIST = res.data.schedule_list

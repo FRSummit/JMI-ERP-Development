@@ -8,9 +8,10 @@
         <div class="invoice-challan-summery-detail-section">
           <div class="invoice-challan-summery-detail-inner">
             <DetailSection 
-              :SCHEDULE_DETAILS_LIST="SCHEDULE_DETAILS_LIST"
-              :SCHEDULE_DETAILS_LIST_CHEMIST="SCHEDULE_DETAILS_LIST_CHEMIST"
-              :SCHEDULE_DETAILS_LIST_INSTITUTION="SCHEDULE_DETAILS_LIST_INSTITUTION" />
+              :INVOICE_CHALLAN_SUMMERY="INVOICE_CHALLAN_SUMMERY"
+              :DS_INVOICE="DS_INVOICE"
+              :DS_CHALLAN="DS_CHALLAN"
+              :DS_GATEPASS="DS_GATEPASS" />
           </div>
         </div>
       </div>
@@ -47,9 +48,10 @@ export default {
       pathName: [],
       // info_modal_schedult_count: false,
       schedule_count: null,
-      SCHEDULE_DETAILS_LIST: [],
-      SCHEDULE_DETAILS_LIST_CHEMIST: [],
-      SCHEDULE_DETAILS_LIST_INSTITUTION: [],
+      INVOICE_CHALLAN_SUMMERY: [],
+      DS_INVOICE: [],
+      DS_CHALLAN: [],
+      DS_GATEPASS: [],
     };
   },
   created() {
@@ -80,17 +82,17 @@ export default {
     async DELIVERY_SCHEDULE_DETAILS__FROM_SERVICE(schedule_id) {
       await service.getDeliveryScheduleDetails_DELIVERY_SCHEDULING_INVOICE_CHALLAN_PRINTING(schedule_id)
         .then(res => {
-          this.SCHEDULE_DETAILS_LIST = []
-          this.SCHEDULE_DETAILS_LIST_CHEMIST = []
-          this.SCHEDULE_DETAILS_LIST_INSTITUTION = []
+          this.INVOICE_CHALLAN_SUMMERY = []
+          this.DS_INVOICE = []
+          this.DS_CHALLAN = []
+          this.DS_GATEPASS = []
           console.log(res.data)
-          this.SCHEDULE_DETAILS_LIST = res.data.schedule_list
+          this.INVOICE_CHALLAN_SUMMERY = res.data.schedule_list
+          this.DS_INVOICE = res.data.schedule_list
           if(res.data.schedule_list) {
             for(let i=0; i<res.data.schedule_list.length; i++) {
-              if(res.data.schedule_list[i].customer_info.customer_type === '422') {
-                this.SCHEDULE_DETAILS_LIST_CHEMIST.push(res.data.schedule_list[i])
-              } else if(res.data.schedule_list[i].customer_info.customer_type === '424') {
-                this.SCHEDULE_DETAILS_LIST_INSTITUTION.push(res.data.schedule_list[i])
+              if(res.data.schedule_list[i].customer_info.customer_type === '424') {
+                this.DS_CHALLAN.push(res.data.schedule_list[i])
               }
             }
           }

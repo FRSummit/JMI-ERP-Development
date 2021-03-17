@@ -33,10 +33,10 @@
                   <v-tabs-items v-model="tab" class="tab-container" style="padding-top: 30px">
                     <v-tab-item v-for="(status, i) in status_list" :key="i">
                       <v-card color="basil" flat>
-                        <v-card v-if="status.status_name === 'INVOICE'"><DetailDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="SCHEDULE_DETAILS_LIST" /></v-card>
-                        <v-card v-if="status.status_name === 'CHALLAN'"><DetailDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="SCHEDULE_DETAILS_LIST_CHEMIST" /></v-card>
-                        <v-card v-if="status.status_name === 'GATE PASS'"><DetailDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="SCHEDULE_DETAILS_LIST_INSTITUTION" /></v-card>
-                        <v-card v-if="status.status_name === 'HANDOVER'"><DetailDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="SCHEDULE_DETAILS_LIST" /></v-card>
+                        <v-card v-if="status.status_name === 'INVOICE'"><DetailDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="DS_INVOICE" /></v-card>
+                        <v-card v-if="status.status_name === 'CHALLAN'"><DetailDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="DS_CHALLAN" /></v-card>
+                        <v-card v-if="status.status_name === 'GATE PASS'"><DetailDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="DS_GATEPASS" /></v-card>
+                        <v-card v-if="status.status_name === 'HANDOVER'"><DetailDataList :tab="status.status_name" /></v-card>
                       </v-card>
                     </v-tab-item>
                   </v-tabs-items>
@@ -56,7 +56,7 @@
 import DetailDataList from './DetailData/DetailDataList'
 
 export default {
-  props: ["SCHEDULE_DETAILS_LIST", "SCHEDULE_DETAILS_LIST_CHEMIST", "SCHEDULE_DETAILS_LIST_INSTITUTION"],
+  props: ["INVOICE_CHALLAN_SUMMERY", "DS_INVOICE", "DS_CHALLAN", "DS_GATEPASS"],
   components: {
     DetailDataList
   },
