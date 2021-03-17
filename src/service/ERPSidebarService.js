@@ -649,7 +649,7 @@ export default class PostService {
       headers: {
         'Authorization': token_type + ' ' + token
       },
-      params: {
+      data: {
         invoice_id: invoice_id,
         invoice_details: JSON.stringify(invoice_dtl),
         cash: cash,

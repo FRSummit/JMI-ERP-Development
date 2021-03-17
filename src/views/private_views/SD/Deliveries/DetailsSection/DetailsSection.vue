@@ -1216,7 +1216,7 @@ export default {
             } else {
                 console.log(this.UPLOADED_IMAGE_DATA_BASE_64)
                 console.log(this.UPLOADED_IMAGE_NAME)
-                let file_path = 'customers/cheque'
+                let file_path = '/customers/cheque/'
                 await service.getSaveInvoiceDeliveryInfo_DELIVERIES(invoice_id, invoice_dtl, cash, cheque, net_payable_amount, this.UPLOADED_IMAGE_DATA_BASE_64, this.UPLOADED_IMAGE_NAME, file_path)
                 .then(res => {
                     console.log(res.data)
