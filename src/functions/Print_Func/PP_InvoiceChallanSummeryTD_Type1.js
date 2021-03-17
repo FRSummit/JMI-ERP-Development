@@ -114,7 +114,7 @@ export default class PP_InvoiceChallanSummeryTD_Type1 {
         let result = ''
         for(let i=0; i< header.length; i++) {
             result +=   ''
-                    +       '<th  style="border: 1px solid #000000;">' + header[i] + '</th>'
+                    +       '<th  style="border: 1px solid #000000;' + header[i].style +'">' + header[i].th + '</th>'
         }
 
         return '<tr>' + '<th  style="border: 1px solid #000000;">' + 'Sl No.' + '</th>' + result + '</tr>'

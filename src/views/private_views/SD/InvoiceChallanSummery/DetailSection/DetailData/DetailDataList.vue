@@ -120,7 +120,12 @@ export default {
     printAllInvoiceClickHandler() {
       console.log('print ALl')
       console.log(this.tab)
-      let table_header = ["INVOICE ID", "CUSTOMER TYPE", "CUSTOMER NAME", "AMOUNT"]
+      let table_header = [
+        {th:"INVOICE ID", style:''},
+        {th:"CUSTOMER TYPE", style:''},
+        {th:"CUSTOMER NAME", style:''},
+        {th:"AMOUNT", style:'text-align: right;'}
+      ]
       console.log(table_header.length)
       let table_data = []
       for(let i=0; i<this.SCHEDULE_DETAILS_LIST.length; i++) {
