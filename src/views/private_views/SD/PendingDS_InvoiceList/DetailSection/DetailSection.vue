@@ -35,6 +35,7 @@
                       <v-card color="basil" flat>
                         <v-card v-if="status.status_name === 'Institution'"><DetailsDataList :tab="status.status_name"  :data="invoice_challan_print_data" :SCHEDULE_DETAILS_LIST="SCHEDULE_DETAILS_LIST_INSTITUTION" /></v-card>
                         <v-card v-if="status.status_name === 'Chemist'"><DetailsDataList :tab="status.status_name"  :data="invoice_challan_print_data" :SCHEDULE_DETAILS_LIST="SCHEDULE_DETAILS_LIST_CHEMIST" /></v-card>
+                        <v-card v-if="status.status_name === 'Add Invoice to DS'"></v-card>
                       </v-card>
                     </v-tab-item>
                   </v-tabs-items>
@@ -72,10 +73,10 @@ export default {
           status_class: "done",
           status_name: "Chemist",
         },
-        // {
-        //   status_class: "done",
-        //   status_name: "Printing Ready",
-        // },
+        {
+          status_class: "done",
+          status_name: "Add Invoice to DS",
+        },
         // {
         //   status_class: "",
         //   status_name: "Handover",
