@@ -95,6 +95,7 @@ export default {
     // Service call from left sidebar section
     async PENDING_ORDER_DETAILS__FROM_SERVICE(invoice_id) {
       this.INVOICE_ID_FROM_LEFT = invoice_id
+      this.pending_order_list_by_id = []
       // await service.getPrintInvoiceDetails_INVOICE_CHALLAN_PRINTING(order_id)
       await service.getPendingDeliverInvoiceDetailsByInvocieId_DELEVERIES(invoice_id)
         .then(res => {

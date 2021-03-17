@@ -78,6 +78,9 @@ export default {
     // -------------------------------------------------------------------------------
     // Service Call
     async DELIVERY_SCHEDULE_DETAILS__FROM_SERVICE(schedule_id) {
+      this.SCHEDULE_DETAILS_LIST = []
+      this.SCHEDULE_DETAILS_LIST_CHEMIST = []
+      this.SCHEDULE_DETAILS_LIST_INSTITUTION = []
       service.getDeliveryScheduleDetails_DELIVERY_SCHEDULING_INVOICE_CHALLAN_PRINTING(schedule_id)
         .then(res => {
           console.log(res.data)

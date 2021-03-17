@@ -20,12 +20,14 @@
     position: relative;
     overflow: hidden;
     width   : @secondary_left_menu_width;
+    height: calc(100vh - (@header_height + @title_breadcrumb_height + @footer_height));
 
     .invoice-challan-printing-list-section {
         position       : fixed;
         display        : inline-block;
         width          : @secondary_left_menu_width;
         border-right   : 2px solid @hex-triplet;
+        height: calc(100vh - (@header_height + @title_breadcrumb_height + @footer_height + 2px));
         // padding     : 20px;
 
         .invoice-challan-printing-list-section-inner {
