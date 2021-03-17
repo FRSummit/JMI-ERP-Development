@@ -1136,11 +1136,13 @@ export default {
 
         customer_data(newVal, oldVal){
             this.CUSTOMER_ID_FROM_LEFT = newVal.customer_id
+            this.REGION_AREA_TERRITORY_LIST = []
             this.AREA_LIST_BY_USER__FROM_SERVICE()
             if( newVal && oldVal) {
                 if(newVal.customer_id !== oldVal.customer_id) {
                     this.SALSE_AREA_ID = newVal.customer_area_info ? (newVal.customer_area_info.sales_area_id ? (newVal.customer_area_info.sales_area_id) : null) : null
                     console.log(this.SALSE_AREA_ID)
+                    // this.REGION_AREA_TERRITORY_LIST = []
                     // this.selectREG_AREA_TT(this.SALSE_AREA_ID)
                     // this.AREA_LIST_BY_USER__FROM_SERVICE(newVal.customer_id)
                     this.AREA_LIST_BY_USER__FROM_SERVICE()
