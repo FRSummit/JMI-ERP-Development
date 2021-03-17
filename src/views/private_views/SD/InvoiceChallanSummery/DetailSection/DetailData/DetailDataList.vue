@@ -52,7 +52,7 @@
                 <td>{{ schedule.customer_info ? (schedule.customer_info.customer_type ? (checkCustomerType(schedule.customer_info.customer_type)) : '') : '' }}</td>
                 <td>{{ schedule.customer_info ? (schedule.customer_info.customer_name ? (schedule.customer_info.customer_name) : '') : '' }}</td>
                 <td style="text-align: right;">{{ comaSrparation(Number(schedule.invoice_amt).toFixed(2)) }}</td>
-                <td style="width: 10%;"><i class="zmdi zmdi-print" @click="printInvoice(schedule.id, i)"></i></td>
+                <td style="width: 10%;"><i class="zmdi zmdi-print" @click="printInvoice(schedule.id, schedule.customer_info.customer_type, i)"></i></td>
               </tr>
             </tbody>
           </table>
@@ -73,6 +73,8 @@ import PP_Invoice_Type_2_Single from '../../../../../../functions/Print_Func/PP_
 const pp_Invoice_Type_2_Single = new PP_Invoice_Type_2_Single()
 import PP_Invoice_Type_3_Institution from '../../../../../../functions/Print_Func/PP_Invoice_Type_3_Institution'
 const pp_Invoice_Type_3_Institution = new PP_Invoice_Type_3_Institution()
+import PP_InvoiceChallanSummeryTD_Type1 from '../../../../../../functions/Print_Func/PP_InvoiceChallanSummeryTD_Type1'
+const pp_InvoiceChallanSummeryTD_Type1 = new PP_InvoiceChallanSummeryTD_Type1()
 
 import ComaSeparatedDigits from '../../../../../../functions/ComaSeparatedDigits'
 const comaSeparatedDigits = new ComaSeparatedDigits()
@@ -118,12 +120,26 @@ export default {
     printAllInvoiceClickHandler() {
       console.log('print ALl')
       console.log(this.tab)
+      let table_header = ["INVOICE ID", "CUSTOMER TYPE", "CUSTOMER NAME", "AMOUNT"]
+      console.log(table_header.length)
+      let table_data = []
+      for(let i=0; i<this.SCHEDULE_DETAILS_LIST.length; i++) {
+        let table_single_data = {
+          invoice_id: this.SCHEDULE_DETAILS_LIST[i].invoice_id,
+          customer_type: this.checkCustomerType(this.SCHEDULE_DETAILS_LIST[i].customer_info.customer_type),
+          customer_name: this.SCHEDULE_DETAILS_LIST[i].customer_info.customer_name,
+          amount: this.SCHEDULE_DETAILS_LIST[i].invoice_amt
+        }
+        table_data.push(table_single_data)
+      }
+      pp_InvoiceChallanSummeryTD_Type1.print_invoice(table_header, table_data)
+      console.log(table_data)
     },
-    async printInvoice(schedule_id, i) {
+    async printInvoice(schedule_id, schedule_customer_type, i) {
       console.log('index : ' + i)
       console.log(schedule_id)
       // ppInvoice_Type_2.print_invoice(schedule_id)
-      await this.PRING_INVOCIE_DETAILS__FROM_SERVICE(schedule_id)
+      await this.PRING_INVOCIE_DETAILS__FROM_SERVICE(schedule_id, schedule_customer_type)
     },
     checkCustomerType(customer_type) {
       console.log(customer_type)
@@ -135,16 +151,32 @@ export default {
     },
     // ---------------------------------------------------------------
     // SERVICE CALL
-    async PRING_INVOCIE_DETAILS__FROM_SERVICE(invoice_id) {
+    async PRING_INVOCIE_DETAILS__FROM_SERVICE(invoice_id, schedule_customer_type) {
       service.getPrintInvoiceDetails_INVOICE_CHALLAN_PRINTING(invoice_id)
         .then(res => {
           console.log(res.data)
           // ppInvoice_Type_2.print_invoice(res.data)
           // if(this.tab === 'All' || this.tab === 'Chemist') {
-          if(this.tab === 'All') {
-            pp_Invoice_Type_2_Single.print_invoice(res.data.invoice_details)
+          if(this.tab === 'INVOICE') {
+            if(res.data.invoice_details.invoice_details.length > 0) {
+              // pp_Invoice_Type_2_Single.print_invoice(res.data.invoice_details)
+              if(schedule_customer_type === '422') {
+                pp_Invoice_Type_2_Single.print_invoice(res.data.invoice_details)
+              } else if(schedule_customer_type === '424') {
+                pp_Invoice_Type_3_Institution.print_invoice(res.data.invoice_details)
+              }
+            } else {
+              alert('No Invoice data found')
+            }
+          } else if(this.tab === 'CHALLAN') {
+            // pp_Invoice_Type_3_Institution.print_invoice(res.data.invoice_details)
+            if(res.data.invoice_details.invoice_details.length > 0) {
+              pp_Invoice_Type_3_Institution.print_invoice(res.data.invoice_details)
+            } else {
+              alert('No GATE PASS data found')
+            }
           } else {
-            pp_Invoice_Type_3_Institution.print_invoice(res.data.invoice_details)
+            alert('Print not designed')
           }
         })
     }
