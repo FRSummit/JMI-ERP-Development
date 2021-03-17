@@ -13,14 +13,16 @@
 
 #invoice-challan-printing.invoice-challan-printing {
     position: relative;
-    // height  : calc(@window_height - (@header_height + @footer_height));
+    height  : calc(@window_height - (@header_height + @footer_height));
 
     .invoice-challan-printing-section {
         border-top: 2px solid @hex-triplet;
+        height  : calc(@window_height - (@header_height + @footer_height + @title_breadcrumb_height));
 
         .invoice-challan-printing-inner {
             display: table;
             width  : 100%;
+            height  : calc(@window_height - (@header_height + @footer_height + @title_breadcrumb_height));
 
             .invoice-challan-printing-detail-section {
                 display: table-cell;
