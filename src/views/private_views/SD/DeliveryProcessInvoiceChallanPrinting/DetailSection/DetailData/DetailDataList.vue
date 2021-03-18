@@ -29,7 +29,7 @@
           </div>
         </div>
       </div>
-      <span class="print-all-icon"><i class="zmdi zmdi-print" @click="printAllInvoiceClickHandler"></i><span class="tool-tip">Print All Invoice</span></span>
+      <span class="print-all-icon" v-if="SCHEDULE_DETAILS_LIST.length > 0"><i class="zmdi zmdi-print" @click="printAllInvoiceClickHandler"></i><span class="tool-tip">Print All Invoice</span></span>
       <div class="detail-data-list-section">
         <div class="detail-data-list-section-inner">
           <!-- {{ data }} -->

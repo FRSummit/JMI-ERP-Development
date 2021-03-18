@@ -76,6 +76,7 @@ export default {
     async invoiceIdFromLeftHandler(val) {
       console.log(val)
       await this.DELIVERY_SCHEDULE_DETAILS__FROM_SERVICE(val)
+      await this.DS_GATE_PASS_DETAILS__FROM_SERVICE(val)
     },
     // -------------------------------------------------------------------------------
     // Service Call
@@ -96,6 +97,14 @@ export default {
               }
             }
           }
+        })
+    },
+    async DS_GATE_PASS_DETAILS__FROM_SERVICE(ds_id) {
+      this.DS_GATEPASS = []
+      await service.getGatePassDetails_DS_INVOICE_CHALLAN_SUMMERY(ds_id)
+        .then(res => {
+          console.log(res.data)
+          this.DS_GATEPASS = res.data.gate_pass_data.gate_pass_info ? (res.data.gate_pass_data.gate_pass_info.gate_pass_details ? (res.data.gate_pass_data.gate_pass_info.gate_pass_details) : []) : []
         })
     }
   },

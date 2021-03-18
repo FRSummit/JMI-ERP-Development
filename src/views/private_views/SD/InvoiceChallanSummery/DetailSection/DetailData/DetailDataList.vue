@@ -29,12 +29,13 @@
           </div>
         </div>
       </div>
-      <span class="print-all-icon"><i class="zmdi zmdi-print" @click="printAllInvoiceClickHandler"></i><span class="tool-tip">Print All Invoice</span></span>
+      <span class="print-all-icon" v-if="SCHEDULE_DETAILS_LIST.length > 0"><i class="zmdi zmdi-print" @click="printAllInvoiceClickHandler"></i><span class="tool-tip">Print All Invoice</span></span>
       <div class="detail-data-list-section">
         <div class="detail-data-list-section-inner">
           <!-- {{ data }} -->
 
-          <table class="data-table" cellspacing="0" width="100%">
+          <!-- INVOICE / CHALLAN / HANDOVER -->
+          <table class="data-table" cellspacing="0" width="100%" v-if="tab !== 'GATE PASS'">
             <thead>
               <tr class="data-table-head-row">
                 <th>SL No</th>
@@ -48,7 +49,33 @@
             <tbody>
               <tr v-for="(schedule, i) in SCHEDULE_DETAILS_LIST" :key="i" class="data-table-data-row">
                 <td>{{ i + 1 }}</td>
-                <td style="color: #026CD1; font-weight: 500;">{{ schedule.get_invoice ? (schedule.get_invoice.invoice_no ? (schedule.get_invoice.invoice_no) : '') : '' }}</td>
+                <!-- <td style="color: #026CD1; font-weight: 500;">{{ schedule.get_invoice ? (schedule.get_invoice.invoice_no ? (schedule.get_invoice.invoice_no) : '') : '' }}</td> -->
+                <td style="color: #026CD1; font-weight: 500;">{{ schedule.invoice_id ? (schedule.invoice_id) : '' }}</td>
+                <td>{{ schedule.customer_info ? (schedule.customer_info.customer_type ? (checkCustomerType(schedule.customer_info.customer_type)) : '') : '' }}</td>
+                <td>{{ schedule.customer_info ? (schedule.customer_info.customer_name ? (schedule.customer_info.customer_name) : '') : '' }}</td>
+                <td style="text-align: right;">{{ comaSrparation(Number(schedule.invoice_amt).toFixed(2)) }}</td>
+                <td style="width: 10%;"><i class="zmdi zmdi-print" @click="printInvoice(schedule.id, schedule.customer_info.customer_type, i)"></i></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- GATE PASS -->
+          <table class="data-table" cellspacing="0" width="100%" v-if="tab === 'GATE PASS'">
+            <thead>
+              <tr class="data-table-head-row">
+                <th>SL No</th>
+                <th>Invoice ID</th>
+                <th>Customer Type</th>
+                <th>Customer Name</th>
+                <th style="text-align: right;">Amount</th>
+                <th style="width: 10%;"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(schedule, i) in SCHEDULE_DETAILS_LIST" :key="i" class="data-table-data-row">
+                <td>{{ i + 1 }}</td>
+                <!-- <td style="color: #026CD1; font-weight: 500;">{{ schedule.get_invoice ? (schedule.get_invoice.invoice_no ? (schedule.get_invoice.invoice_no) : '') : '' }}</td> -->
+                <td style="color: #026CD1; font-weight: 500;">{{ schedule.invoice_id ? (schedule.invoice_id) : '' }}</td>
                 <td>{{ schedule.customer_info ? (schedule.customer_info.customer_type ? (checkCustomerType(schedule.customer_info.customer_type)) : '') : '' }}</td>
                 <td>{{ schedule.customer_info ? (schedule.customer_info.customer_name ? (schedule.customer_info.customer_name) : '') : '' }}</td>
                 <td style="text-align: right;">{{ comaSrparation(Number(schedule.invoice_amt).toFixed(2)) }}</td>
