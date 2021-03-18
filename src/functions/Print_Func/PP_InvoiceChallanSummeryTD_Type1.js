@@ -1,5 +1,5 @@
-import ComaSeparatedDigits from '../ComaSeparatedDigits'
-const comaSeparatedDigits = new ComaSeparatedDigits()
+// import ComaSeparatedDigits from '../ComaSeparatedDigits'
+// const comaSeparatedDigits = new ComaSeparatedDigits()
 
 export default class PP_InvoiceChallanSummeryTD_Type1 {
     
@@ -105,6 +105,7 @@ export default class PP_InvoiceChallanSummeryTD_Type1 {
               +     '}'
               +      'table thead th, table tbody td {'
               +          'font-weight: 100;'
+              +          'padding: 2px 6px;'
               +      '}'
               + '}'
         return style
@@ -129,7 +130,8 @@ export default class PP_InvoiceChallanSummeryTD_Type1 {
                     +       '<td style="">' + table_data[i].invoice_id + '</td>'
                     +       '<td style="">' + table_data[i].customer_type + '</td>'
                     +       '<td style="">' + table_data[i].customer_name + '</td>'
-                    +       '<td style=" text-align: right;">' + comaSeparatedDigits.comaSeparate(table_data[i].amount) + '</td>'
+                    // +       '<td style=" text-align: right;">' + comaSeparatedDigits.comaSeparate(table_data[i].amount) + '</td>'
+                    +       '<td style=" text-align: right;">' + table_data[i].amount + '</td>'
                     +   '</tr>'
         }
         

@@ -104,7 +104,7 @@ export default {
       await service.getGatePassDetails_DS_INVOICE_CHALLAN_SUMMERY(ds_id)
         .then(res => {
           console.log(res.data)
-          this.DS_GATEPASS = res.data.gate_pass_data.gate_pass_info ? (res.data.gate_pass_data.gate_pass_info.gate_pass_details ? (res.data.gate_pass_data.gate_pass_info.gate_pass_details) : []) : []
+          this.DS_GATEPASS = res.data.gate_pass_data ? (res.data.gate_pass_data.gate_pass_details ? (res.data.gate_pass_data.gate_pass_details) : []) : []
         })
     }
   },
