@@ -104,6 +104,7 @@ import ProfileModal from "./ProfileModal";
 
 import ERPSidebarService from '../../service/ERPSidebarService';
 const service = new ERPSidebarService();
+import firebase from 'firebase'
 
 export default {
   components: {
@@ -287,6 +288,12 @@ export default {
 
       await this.SYSTEM_WEB_MENU__FROM_SERVICE()
       await this.WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE(token)
+      this.loadNotification()
+    },
+    loadNotification() {
+      firebase.database().ref('users').on('value', (snapshot)=> {
+        console.log(snapshot.val())
+      });
     },
     // ----------------------------------------------------------------------------------------
     // SERVICE IMPLEMENTATION
