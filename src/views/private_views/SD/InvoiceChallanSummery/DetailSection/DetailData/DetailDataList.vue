@@ -29,7 +29,7 @@
           </div>
         </div>
       </div>
-      <span class="print-all-icon" v-if="SCHEDULE_DETAILS_LIST.length > 0"><i class="zmdi zmdi-print" @click="printAllInvoiceClickHandler"></i><span class="tool-tip">Print All Invoice</span></span>
+      <span class="print-all-icon"><i class="zmdi zmdi-print" @click="printAllInvoiceClickHandler"></i><span class="tool-tip">Print All Invoice</span></span>
       <div class="detail-data-list-section">
         <div class="detail-data-list-section-inner">
           <!-- {{ data }} -->
@@ -97,6 +97,8 @@ import PP_Invoice_Type_3_Institution from '../../../../../../functions/Print_Fun
 const pp_Invoice_Type_3_Institution = new PP_Invoice_Type_3_Institution()
 import PP_InvoiceChallanSummeryTD_Type1 from '../../../../../../functions/Print_Func/PP_InvoiceChallanSummeryTD_Type1'
 const pp_InvoiceChallanSummeryTD_Type1 = new PP_InvoiceChallanSummeryTD_Type1()
+import PP_InvoiceChallanSummeryTD_GatePass from '../../../../../../functions/Print_Func/PP_InvoiceChallanSummeryTD_GatePass'
+const pp_InvoiceChallanSummeryTD_GatePass = new PP_InvoiceChallanSummeryTD_GatePass()
 
 import ComaSeparatedDigits from '../../../../../../functions/ComaSeparatedDigits'
 const comaSeparatedDigits = new ComaSeparatedDigits()
@@ -142,7 +144,7 @@ export default {
     printAllInvoiceClickHandler() {
       console.log('print ALl : ' + this.tab)
       console.log(this.tab)
-      if(this.tab !== 'GATE PASS') {
+      if(this.tab === 'INVOICE' || this.tab === 'CHALLAN') {
         let table_header = [
           {th:"INVOICE ID", style:''},
           {th:"CUSTOMER TYPE", style:''},
@@ -162,7 +164,7 @@ export default {
         }
         pp_InvoiceChallanSummeryTD_Type1.print_invoice(table_header, table_data)
         console.log(table_data)
-      } else {
+      } else if(this.tab === 'GATE PASS') {
         let table_header = [
           {th:"Code", style:''},
           {th:"Product Name", style:''},
@@ -180,7 +182,7 @@ export default {
           }
           table_data.push(table_single_data)
         }
-        pp_InvoiceChallanSummeryTD_Type1.print_invoice(table_header, table_data)
+        pp_InvoiceChallanSummeryTD_GatePass.print_invoice(table_header, table_data)
         console.log(table_data)
       }
     },
