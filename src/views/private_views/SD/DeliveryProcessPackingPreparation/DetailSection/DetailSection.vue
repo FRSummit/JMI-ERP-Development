@@ -35,7 +35,7 @@
                       <v-card color="basil" flat>
                         <v-card v-if="status.status_name === 'Initial Phase'"><DetailDataList :tab="status.status_name" :PROD_PREPARATION_LIST="PROD_PREPARATION_LIST" /></v-card>
                         <v-card v-if="status.status_name === 'Prepare Delivery'"><DetailDataList :tab="status.status_name" :PROD_PREPARATION_LIST="PROD_PREPARATION_LIST" /></v-card>
-                        <v-card v-if="status.status_name === 'Gate Pass'"><DetailDataList :tab="status.status_name" :PROD_PREPARATION_LIST="PROD_PREPARATION_LIST" /></v-card>
+                        <!-- <v-card v-if="status.status_name === 'Gate Pass'"><DetailDataList :tab="status.status_name" :PROD_PREPARATION_LIST="PROD_PREPARATION_LIST" /></v-card> -->
                         <v-card v-if="status.status_name === 'Ready'"><DetailDataList :tab="status.status_name" :PROD_PREPARATION_LIST="PROD_PREPARATION_LIST" /></v-card>
                       </v-card>
                     </v-tab-item>
@@ -72,10 +72,10 @@ export default {
           status_class: "done",
           status_name: "Prepare Delivery",
         },
-        {
-          status_class: "done",
-          status_name: "Gate Pass",
-        },
+        // {
+        //   status_class: "done",
+        //   status_name: "Gate Pass",
+        // },
         {
           status_class: "done",
           status_name: "Ready",
