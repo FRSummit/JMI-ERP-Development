@@ -603,8 +603,8 @@ export default class PostService {
   // DS - INVOICE CHALLAN SUMMERY
   async getGatePassDetails_DS_INVOICE_CHALLAN_SUMMERY(ds_id) {
     console.log(ds_id)
-    // let web_menu_url = '/api/web/gate-pass-details/' + ds_id
-    let web_menu_url = '/api/web/gate-pass-details/' + 1000
+    let web_menu_url = '/api/web/gate-pass-details/' + ds_id
+    // let web_menu_url = '/api/web/gate-pass-details/' + 1000
     return await axios(web_menu_url, {
       method: 'GET',
       headers: {
