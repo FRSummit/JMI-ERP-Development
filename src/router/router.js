@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
+// let web_title = 'JERP'
+
 export const router = new VueRouter({
   mode: 'history',
   routes: [
@@ -114,7 +116,8 @@ export const router = new VueRouter({
     {
       path: '/sd/delivery-process-invoice-printing:id',
       name: 'Delivery Process - Invoice Printing',
-      component: () => import('../views/private_views/SD/DeliveryProcessInvoiceChallanPrinting/DeliveryProcessInvoiceChallanPrinting.vue')
+      component: () => import('../views/private_views/SD/DeliveryProcessInvoiceChallanPrinting/DeliveryProcessInvoiceChallanPrinting.vue'),
+      // meta: { title: 'JERP - INV' }
     },
     // --------------------------------------------------------------------------------------
     // INVOICE CHALLAN SUMMERY 
