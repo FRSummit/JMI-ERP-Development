@@ -29,12 +29,13 @@
           </div>
         </div>
       </div>
-      <span class="print-all-icon"><i class="zmdi zmdi-print" @click="printAllInvoiceClickHandler"></i><span class="tool-tip">Print All Invoice</span></span>
+      <span class="print-all-icon" v-if="SCHEDULE_DETAILS_LIST.length > 0"><i class="zmdi zmdi-print" @click="printAllInvoiceClickHandler"></i><span class="tool-tip">Print All Invoice</span></span>
       <div class="detail-data-list-section">
         <div class="detail-data-list-section-inner">
           <!-- {{ data }} -->
 
-          <table class="data-table" cellspacing="0" width="100%">
+          <!-- INVOICE / CHALLAN / HANDOVER -->
+          <table class="data-table" cellspacing="0" width="100%" v-if="tab !== 'GATE PASS'">
             <thead>
               <tr class="data-table-head-row">
                 <th>SL No</th>
@@ -48,11 +49,32 @@
             <tbody>
               <tr v-for="(schedule, i) in SCHEDULE_DETAILS_LIST" :key="i" class="data-table-data-row">
                 <td>{{ i + 1 }}</td>
-                <td style="color: #026CD1; font-weight: 500;">{{ schedule.invoice_id }}</td>
+                <!-- <td style="color: #026CD1; font-weight: 500;">{{ schedule.get_invoice ? (schedule.get_invoice.invoice_no ? (schedule.get_invoice.invoice_no) : '') : '' }}</td> -->
+                <td style="color: #026CD1; font-weight: 500;">{{ schedule.invoice_id ? (schedule.invoice_id) : '' }}</td>
                 <td>{{ schedule.customer_info ? (schedule.customer_info.customer_type ? (checkCustomerType(schedule.customer_info.customer_type)) : '') : '' }}</td>
                 <td>{{ schedule.customer_info ? (schedule.customer_info.customer_name ? (schedule.customer_info.customer_name) : '') : '' }}</td>
                 <td style="text-align: right;">{{ comaSrparation(Number(schedule.invoice_amt).toFixed(2)) }}</td>
                 <td style="width: 10%;"><i class="zmdi zmdi-print" @click="printInvoice(schedule.id, schedule.customer_info.customer_type, i)"></i></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- GATE PASS -->
+          <table class="data-table" cellspacing="0" width="100%" v-if="tab === 'GATE PASS'">
+            <thead>
+              <tr class="data-table-head-row">
+                <th>SL No</th>
+                <th style="text-align: left;">Product Name</th>
+                <th>Quantity</th>
+                <!-- <th style="width: 10%;"></th> -->
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(schedule, i) in SCHEDULE_DETAILS_LIST" :key="i" class="data-table-data-row">
+                <td>{{ i + 1 }}</td>
+                <td style="color: #026CD1; font-weight: 500; text-align: left;">{{ schedule.sbu_product_info ? (schedule.sbu_product_info.display_code ? (schedule.sbu_product_info.display_code) : '') : '' }} - {{ schedule.sbu_product_info ? (schedule.sbu_product_info.display_name ? (schedule.sbu_product_info.display_name) : '') : '' }}</td>
+                <td style="">{{ schedule.total_qty }}</td>
+                <!-- <td style="width: 10%;"><i class="zmdi zmdi-print" @click="printGatePass(schedule, i)"></i></td> -->
               </tr>
             </tbody>
           </table>
@@ -118,33 +140,58 @@ export default {
       return comaSeparatedDigits.comaSeparate(data)
     },
     printAllInvoiceClickHandler() {
-      console.log('print ALl')
+      console.log('print ALl : ' + this.tab)
       console.log(this.tab)
-      let table_header = [
-        {th:"INVOICE ID", style:''},
-        {th:"CUSTOMER TYPE", style:''},
-        {th:"CUSTOMER NAME", style:''},
-        {th:"AMOUNT", style:'text-align: right;'}
-      ]
-      console.log(table_header.length)
-      let table_data = []
-      for(let i=0; i<this.SCHEDULE_DETAILS_LIST.length; i++) {
-        let table_single_data = {
-          invoice_id: this.SCHEDULE_DETAILS_LIST[i].invoice_id,
-          customer_type: this.checkCustomerType(this.SCHEDULE_DETAILS_LIST[i].customer_info.customer_type),
-          customer_name: this.SCHEDULE_DETAILS_LIST[i].customer_info.customer_name,
-          amount: this.SCHEDULE_DETAILS_LIST[i].invoice_amt
+      if(this.tab !== 'GATE PASS') {
+        let table_header = [
+          {th:"INVOICE ID", style:''},
+          {th:"CUSTOMER TYPE", style:''},
+          {th:"CUSTOMER NAME", style:''},
+          {th:"AMOUNT", style:'text-align: right;'}
+        ]
+        console.log(table_header.length)
+        let table_data = []
+        for(let i=0; i<this.SCHEDULE_DETAILS_LIST.length; i++) {
+          let table_single_data = {
+            invoice_id: this.SCHEDULE_DETAILS_LIST[i].invoice_id,
+            customer_type: this.checkCustomerType(this.SCHEDULE_DETAILS_LIST[i].customer_info.customer_type),
+            customer_name: this.SCHEDULE_DETAILS_LIST[i].customer_info.customer_name,
+            amount: this.SCHEDULE_DETAILS_LIST[i].invoice_amt
+          }
+          table_data.push(table_single_data)
         }
-        table_data.push(table_single_data)
+        pp_InvoiceChallanSummeryTD_Type1.print_invoice(table_header, table_data)
+        console.log(table_data)
+      } else {
+        let table_header = [
+          {th:"Code", style:''},
+          {th:"Product Name", style:''},
+          {th:"Pack Size", style:''},
+          {th:"Invoice Qty", style:'text-align: right;'}
+        ]
+        console.log(table_header.length)
+        let table_data = []
+        for(let i=0; i<this.SCHEDULE_DETAILS_LIST.length; i++) {
+          let table_single_data = {
+            invoice_id: this.SCHEDULE_DETAILS_LIST[i].sbu_product_info ? (this.SCHEDULE_DETAILS_LIST[i].sbu_product_info.display_code ? (this.SCHEDULE_DETAILS_LIST[i].sbu_product_info.display_code) : '') : '',
+            customer_type: this.SCHEDULE_DETAILS_LIST[i].sbu_product_info ? (this.SCHEDULE_DETAILS_LIST[i].sbu_product_info.display_name ? (this.SCHEDULE_DETAILS_LIST[i].sbu_product_info.display_name) : '') : '',
+            customer_name: 'Dummy',
+            amount: this.SCHEDULE_DETAILS_LIST[i].total_qty
+          }
+          table_data.push(table_single_data)
+        }
+        pp_InvoiceChallanSummeryTD_Type1.print_invoice(table_header, table_data)
+        console.log(table_data)
       }
-      pp_InvoiceChallanSummeryTD_Type1.print_invoice(table_header, table_data)
-      console.log(table_data)
     },
     async printInvoice(schedule_id, schedule_customer_type, i) {
       console.log('index : ' + i)
       console.log(schedule_id)
       // ppInvoice_Type_2.print_invoice(schedule_id)
       await this.PRING_INVOCIE_DETAILS__FROM_SERVICE(schedule_id, schedule_customer_type)
+    },
+    printGatePass() {
+      console.log('printGatePass')
     },
     checkCustomerType(customer_type) {
       console.log(customer_type)

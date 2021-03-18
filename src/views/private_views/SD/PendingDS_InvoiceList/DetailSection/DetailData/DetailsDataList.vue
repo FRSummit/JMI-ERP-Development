@@ -5,7 +5,7 @@
         <div class="detail-data-submit-section-inner">
           <div
             class="serial-range-custom-section"
-            v-if="tab === 'Invoice Print' || tab === 'Chalan Print'"
+            v-if="tab === 'Institution' || tab === 'Chemist'"
           >
             <div class="serial-range-custom-section-inner">
               <div class="range-customization-section">
@@ -29,7 +29,7 @@
           </div>
         </div>
       </div>
-      <span class="print-all-icon"><i class="zmdi zmdi-print" @click="printAllInvoiceClickHandler"></i><span class="tool-tip">Print All Invoice</span></span>
+      <span class="print-all-icon" v-if="SCHEDULE_DETAILS_LIST.length > 0"><i class="zmdi zmdi-print" @click="printAllInvoiceClickHandler"></i><span class="tool-tip">Print All Invoice</span></span>
       <div class="detail-data-list-section">
         <div class="detail-data-list-section-inner">
           <!-- {{ data }} -->
@@ -58,14 +58,6 @@
           </table>
         </div>
       </div>
-      <div class="add-invoice-to-ds-section">Hello
-        <div id="info-modal" class="modal-popup-section info-modal" v-if="info_modal_schedult_count">
-          <div class="modal-popup-section-inner update-successfully-modal-inner">
-            <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
-            <p class="popup-text info">Total Invoice {{ schedule_count }}</p>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </template>
@@ -88,7 +80,7 @@ import PP_InvoiceChallanSummeryTD_Type1 from '../../../../../../functions/Print_
 const pp_InvoiceChallanSummeryTD_Type1 = new PP_InvoiceChallanSummeryTD_Type1()
 
 export default {
-  props: ["tab", "data", "SCHEDULE_DETAILS_LIST"],
+  props: ["tab", "SCHEDULE_DETAILS_LIST"],
   components: {},
   data() {
     return {

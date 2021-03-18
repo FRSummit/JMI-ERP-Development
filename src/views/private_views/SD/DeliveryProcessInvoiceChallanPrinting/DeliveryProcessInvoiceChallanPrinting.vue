@@ -42,7 +42,7 @@ export default {
   },
   data() {
     return {
-      routeName: "Delivery Process Invoice/Challan Printing",
+      routeName: "DS Invoice/Challan Printing",
       parentPath: "Local Sales",
       pathName: [],
       info_modal_schedult_count: false,
@@ -61,7 +61,7 @@ export default {
   },
   methods: {
     createBreadcrumbData() {
-      this.pathName = [{name: "Features"},{ name: "Local Sales" }, { name: "Delivery Process Invoice/Challan Printing" }];
+      this.pathName = [{name: "Features"},{ name: "Local Sales" }, { name: "DS Invoice/Challan Printing" }];
       // this.pathName = breadcrumbFunctions.jmiERPBreadcrumb(window.location.pathname)
     },
     showInvoiceCountInformationMessagePopup() {
