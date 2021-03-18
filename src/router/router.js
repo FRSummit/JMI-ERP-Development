@@ -210,6 +210,13 @@ export const router = new VueRouter({
       name: 'Doctors Profile',
       component: () => import('../views/private_views/SD/Doctor/DoctorProfile/DoctorsProfile.vue')
     },
+    // --------------------------------------------------------------------------------------
+    // Balance Sheet
+    {
+      path: '/features/local_sales/balance-sheet',
+      name: 'Balance Sheet',
+      component: () => import('../views/private_views/SD/BalanceSheet/BalanceSheet.vue')
+    },
 
     // --------------------------------------------------------------------------------------
     // 404 PAGES

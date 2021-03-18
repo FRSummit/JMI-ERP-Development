@@ -14,7 +14,8 @@ p {
     margin: 0;
 }
 
-input:focus {
+input:focus,
+#sd-balance-sheet.sd-balance-sheet .sd-balance-sheet-inner input {
     outline           : 0;
     outline-offset    : 0;
     -moz-box-shadow   : none;
@@ -2378,6 +2379,144 @@ span.cancel-order {
 }
 
 /* ----------- Invoice Printing & Challan Printing Page ENDS ------------------------------- */
+
+input,
+#sd-balance-sheet.sd-balance-sheet .sd-balance-sheet-inner input {
+    box-sizing: border-box;
+    border    : 1px solid #BFCFE2;
+    margin    : 0;
+    font-size : 14px;
+    height    : auto;
+    padding   : 6px;
+}
+
+label,
+#sd-balance-sheet.sd-balance-sheet .sd-balance-sheet-inner label {
+    font-size  : 14px;
+    color      : #026CD1;
+    line-height: 1.5;
+}
+
+/* ----------- Balance Sheet Page Starts ------------------------------- */
+#sd-balance-sheet.sd-balance-sheet {}
+
+#sd-balance-sheet.sd-balance-sheet .sd-balance-sheet-inner {
+    border-top: 2px solid #e6e6e6;
+}
+
+#sd-balance-sheet.sd-balance-sheet .sd-balance-sheet-inner .input-section {
+    display: block;
+}
+
+#sd-balance-sheet.sd-balance-sheet .sd-balance-sheet-inner label {
+    display: inline-block;
+}
+
+#sd-balance-sheet.sd-balance-sheet .sd-balance-sheet-inner input {
+    display: inline-block;
+}
+
+#sd-balance-sheet.sd-balance-sheet .sd-balance-sheet-inner .input-section .input-section-inner {
+    padding : 10px;
+    position: relative;
+}
+
+#sd-balance-sheet.sd-balance-sheet .sd-balance-sheet-inner .input-section .summery {
+    padding: 10px 20px;
+}
+
+#sd-balance-sheet.sd-balance-sheet .sd-balance-sheet-inner .input-section .summery p.jmi-balance-collection {
+    color     : #28a411;
+    text-align: right;
+}
+
+#sd-balance-sheet.sd-balance-sheet .sd-balance-sheet-inner .input-section .summery p.jmi-balance-expence {
+    color     : #C11616;
+    text-align: right;
+}
+
+#sd-balance-sheet.sd-balance-sheet .sd-balance-sheet-inner .input-section .summery p.jmi-balance-total {
+    color     : #026CD1;
+    text-align: right;
+    border-top: 1px solid #AAC0D9;
+}
+
+#sd-balance-sheet.sd-balance-sheet .sd-balance-sheet-inner .input-section .summery p span {
+    color  : #000000;
+    display: inline-block;
+    width  : 120px;
+}
+
+#sd-balance-sheet.sd-balance-sheet .sd-balance-sheet-inner .input-section .input-section-inner .jmi-confirm-btn {
+    position: absolute;
+    bottom  : 10px;
+}
+
+#sd-balance-sheet.sd-balance-sheet .sd-balance-sheet-inner table.data-table {
+    border-top: 1px solid #E9F2FB;
+    position  : relative;
+}
+
+#sd-balance-sheet.sd-balance-sheet .sd-balance-sheet-inner table.data-table tr {
+    border-bottom: none;
+    display      : table;
+    width        : 100%;
+}
+
+#sd-balance-sheet.sd-balance-sheet .sd-balance-sheet-inner table.data-table thead {}
+
+#sd-balance-sheet.sd-balance-sheet .sd-balance-sheet-inner table.data-table tr.data-table-head-row {
+    border-bottom: 1px solid #E9F2FB;
+}
+
+#sd-balance-sheet.sd-balance-sheet .sd-balance-sheet-inner table.data-table tr.data-table-head-row th {
+    padding    : 10px 6px;
+    text-align : center;
+    color      : #026CD1;
+    font-size  : 14px;
+    font-weight: 500;
+}
+
+#sd-balance-sheet.sd-balance-sheet .sd-balance-sheet-inner table.data-table tbody {
+    width            : 100%;
+    display          : list-item;
+    height           : calc(100vh - (74px + 73px + (60px + 30px + 46px) + 32px + 70px));
+    overflow         : auto;
+    -webkit-flex-flow: row wrap;
+}
+
+#sd-balance-sheet.sd-balance-sheet .sd-balance-sheet-inner table.data-table tbody::-webkit-scrollbar {
+    width: 2px;
+}
+
+#sd-balance-sheet.sd-balance-sheet .sd-balance-sheet-inner table.data-table tbody::-webkit-scrollbar-track {
+    box-shadow   : inset 0 0 5px grey;
+    border-radius: 10px;
+}
+
+#sd-balance-sheet.sd-balance-sheet .sd-balance-sheet-inner table.data-table tbody::-webkit-scrollbar-thumb {
+    background   : #168fff;
+    border-radius: 10px;
+}
+
+#sd-balance-sheet.sd-balance-sheet .sd-balance-sheet-inner table.data-table tbody::-webkit-scrollbar-thumb:hover {
+    background: #004e98;
+}
+
+#sd-balance-sheet.sd-balance-sheet .sd-balance-sheet-inner table.data-table tbody tr.data-table-data-row {}
+
+#sd-balance-sheet.sd-balance-sheet .sd-balance-sheet-inner table.data-table tbody tr.data-table-data-row:hover {
+    background: #E2EDFA;
+}
+
+#sd-balance-sheet.sd-balance-sheet .sd-balance-sheet-inner table.data-table tbody td {
+    padding   : 10px 6px;
+    text-align: center;
+    color     : #111213;
+    font-size : 14px;
+}
+
+/* ----------- Balance Sheet Page ENDS ------------------------------- */
 
 .jmi-select-options-section {
     display : inline-block;
