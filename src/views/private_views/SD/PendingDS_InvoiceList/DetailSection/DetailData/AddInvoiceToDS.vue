@@ -3,11 +3,14 @@
     <div class="detail-data-list-inner">
         <div id="update-successfully-modal" class="modal-popup-section update-successfully-modal" v-if="component_activate">
             <div class="modal-popup-section-inner update-successfully-modal-inner" style="width: 300px; top: 25%; padding: 20px 30px;">
+                <span class="sort-text" style="color: red;">Development in progress</span>
                 <p class="jmi-title jmi-title_f16_cl026CD1_left">Select Invoice</p>
                 <div style="text-align: left;">
-                    <div v-for="(inv, i) in 10" :key="i">
-                        <input :id="'add-invoice-to-ds-' + i" class="jmi-input-checkbox" type="checkbox" :value="i">
-                        <label for="vehicle1">{{ inv }}</label>
+                    <div class="jmi-scroll-section">
+                        <div v-for="(inv, i) in 10" :key="i">
+                            <input :id="'add-invoice-to-ds-' + i" class="jmi-input-checkbox" type="checkbox" :value="i">
+                            <label for="vehicle1">{{ inv }}</label>
+                        </div>
                     </div>
                     <div class="jmi-submit-section">
                         <button class="jmi-cancel-btn" @click="cancelClickHandler">Cancel</button>

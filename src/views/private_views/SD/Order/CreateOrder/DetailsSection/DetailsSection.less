@@ -54,7 +54,7 @@
                     }
 
                     span.jmi-lvl-value {
-                        display: inline-block;
+                        display   : inline-block;
                         // float  : right;
                     }
 
@@ -1499,7 +1499,27 @@
     #deliveries-details-section.deliveries-details-section .deliveries-details-section-inner .order-table .order-table-inner table tbody .table-data-rows {
         height: calc(100vh - ((74px + 73px + 32px) + (86px + 8px + 100px + 20px + 46px + 50px + 70px)));
     }
+
+    #create-order-details-section.create-order-details-section .create-order-details-section-inner .submit-section,
+    #create-order-details-section.create-order-details-section .create-order-details-section-inner .submit-section .submit-section-inner {
+        height: 30px;
+    }
+    #create-order-details-section.create-order-details-section .create-order-details-section-inner .submit-section .submit-section-inner span.cancel-order,
+    #create-order-details-section.create-order-details-section .create-order-details-section-inner .submit-section .submit-section-inner span.proceed-order,
+    #create-order-details-section.create-order-details-section .create-order-details-section-inner .submit-section .submit-section-inner span.update-order {
+        position: relative;
+    }
 }
 
 // 767-
 @media @small {}
+
+
+@media only screen and (max-width: 990px) {
+    #create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody .table-data-rows {
+        height: calc(100vh - ((74px + 73px + 32px) + (86px + 8px + 100px + 20px + 46px + 50px + 60px)));
+    }
+    #order-data-table .jmi-tr-td-input-qty {
+        width: 20px;
+    }
+}

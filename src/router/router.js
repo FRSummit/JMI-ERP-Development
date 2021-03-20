@@ -217,6 +217,13 @@ export const router = new VueRouter({
       name: 'Balance Sheet',
       component: () => import('../views/private_views/SD/BalanceSheet/BalanceSheet.vue')
     },
+    // --------------------------------------------------------------------------------------
+    // Stock Report
+    {
+      path: '/features/reports/stock-report',
+      name: 'Stock Report',
+      component: () => import('../views/private_views/SD/StockReport/StockReport.vue')
+    },
 
     // --------------------------------------------------------------------------------------
     // 404 PAGES

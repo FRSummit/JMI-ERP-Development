@@ -91,7 +91,7 @@
                             <div class="territory-list">
                               <div class="territory-list-inner">
                                 <p class="territory-name" :class="checkIfTerritoryAreaDataListHasThisArea(t) ? 'hide': ''" v-for="(t, i) in all_territory_list_for_this_DA" :key="i" @click="territoryNameAddClick(t)">
-                                  <span class="territory_nm">{{ t.area_name }}</span>
+                                  <span class="territory_nm">{{ t.display_code }} - {{ t.area_name }}</span>
                                 </p>
                               </div>
                             </div>
@@ -136,7 +136,7 @@
       <div class="confirmation-alert-popup-inner">
         <span class="popup-icon"><i class="fas fa-trash-alt"></i></span>
         <p class="alert-text">Are you sure?</p>
-        <p class="alert-desc">You wan to delete the plan.</p>
+        <p class="alert-desc">You want to delete the plan.</p>
         <span class="divider"></span>
         <div class="confirmation-submit-section">
           <div class="confirm-btn-section">
@@ -173,13 +173,24 @@
           <div class="territory-list">
             <div class="territory-list-inner">
               <p class="territory-name" :class="checkIfTerritoryAreaDataListHasThisArea(t) ? 'hide': ''" v-for="(t, i) in all_territory_list_for_this_DA" :key="i" @click="territoryNameAddClickForCopy(t)">
-                <span class="territory_nm">{{ t.area_name }}</span>
+                <span class="territory_nm">{{ t.display_code }} - {{ t.area_name }}</span>
               </p>
             </div>
           </div>
         </div>
       </div>
     </div>
+
+
+    <div id="update-successfully-modal" class="modal-popup-section" v-if="adding_or_copy_tt">
+      <div class="modal-popup-section-inner">
+        <div id="progressbar" class="jmi-progressbar">
+          <v-progress-circular indeterminate color="primary"></v-progress-circular>
+          <p>Please wait...</p>
+        </div>
+      </div>
+    </div>
+
 
   </div>
 </template>
@@ -279,6 +290,7 @@ export default {
 
       // Delete Month data popup - LeftSide
       DELETE_THIS_MONTH_DATA_POPUP: false,
+      adding_or_copy_tt: false,
     };
   },
   created() {
@@ -355,6 +367,7 @@ export default {
         })
     },
     selectedUserSchedulePlan(schedule, selectedMonth, selector_id) {
+      console.log(schedule)
       this.territory_area_data_list = []
       this.importPlanMonthsData = []
       this.selectedDateMonth = null
@@ -384,6 +397,7 @@ export default {
     async MONTHLY_DELIVERY_PLAN_BY_MMYYYY_AND_FORCE_ID_FROM_SERVICE(MMYYYY, FORCE_ID) {
       await service.getMonthlyDeliveryPlanByForceId_MonthlyDeliveryPlan(MMYYYY, FORCE_ID)
           .then(res => {
+            console.log(res.data)
             if(res.data.response_code === 200) {
               this.DIC_DP_ID = res.data.delivery_plan_info.id
               if(res.data.delivery_plan_info.get_dpd_forces.length > 0) {
@@ -633,6 +647,7 @@ export default {
           })
     },
     async territoryNameAddClick(t) {
+      this.adding_or_copy_tt = true
       await this.MONTHLY_DELIVERY_PLAN_BY_MMYYYY_AND_FORCE_ID_FROM_SERVICE_2(this.changed_or_selected_MMYYYY, this.selectedSchedule.id)
       let FORCE_ID = this.selectedSchedule.id
       let AREA_ID = t.id
@@ -661,6 +676,7 @@ export default {
             }
           }
           this.territory_modal = false
+          this.adding_or_copy_tt = false
           this.CURRENT_MONTH_STATUS_CHECK_FOR_ALL_A_O(this.changed_or_selected_MMYYYY)
         }).catch(err => {
           console.log("Create Error : " + err)
@@ -681,6 +697,7 @@ export default {
             }
           }
           this.territory_modal = false
+          this.adding_or_copy_tt = false
           this.CURRENT_MONTH_STATUS_CHECK_FOR_ALL_A_O(this.changed_or_selected_MMYYYY)
         }).catch(err => {
           console.log("Create Error : " + err)
@@ -701,6 +718,7 @@ export default {
             }
           }
           this.territory_modal = false
+          this.adding_or_copy_tt = false
           this.CURRENT_MONTH_STATUS_CHECK_FOR_ALL_A_O(this.changed_or_selected_MMYYYY)
         }).catch(err => {
           console.log("Create Error : " + err)
@@ -727,6 +745,7 @@ export default {
       this.copy_modal = false
     },
     territoryNameAddClickForCopy(t) {
+      this.adding_or_copy_tt = true
       this.COPY_TERRITORY_FROM_SERVICE(this.copy_selected_territory_area_id, t.id, t.area_name)
     },
     async COPY_TERRITORY_FROM_SERVICE(selected_territory, selected_modal_area_id, area_name) {
@@ -742,6 +761,7 @@ export default {
               }
             }
             this.copy_modal = false
+            this.adding_or_copy_tt = false
           }
         }).catch(err => {
           console.log("Create Error : " + err)

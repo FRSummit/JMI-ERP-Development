@@ -29,7 +29,7 @@
           </div>
         </div>
       </div>
-      <!-- <span class="print-all-icon" v-if="SCHEDULE_DETAILS_LIST.length > 0"><i class="zmdi zmdi-print" @click="printAllInvoiceClickHandler"></i><span class="tool-tip">Print All Invoice</span></span> -->
+      <span class="print-all-icon"><i class="zmdi zmdi-print" @click="printAllClickHandler"></i><span class="tool-tip">Print All Invoice</span></span>
       <div class="detail-data-list-section">
         <div class="detail-data-list-section-inner">
           <!-- {{ data }} -->
@@ -47,11 +47,12 @@
               <div v-for="(list, i) in PROD_PREPARATION_LIST" :key="i">
                 <tr class="data-table-data-row ds-pack-tt-mio-tr">
                   <!-- <td>{{ test(list[i]) }}</td> -->
-                  <td colspan="4" v-if="checkPPIsPresent(list)"><p class="td-ds-pack-tt-mio">Territory:<span>{{ getTTNameFromPPList(list[0]) }}</span></p><p class="td-ds-pack-tt-mio">MIO:<span>{{ getMIONameFromPPList(list[0]) }}</span></p><span class="icon"><i class="zmdi zmdi-print"></i></span></td>
+                  <td colspan="4" v-if="checkPPIsPresent(list)"><p class="td-ds-pack-tt-mio">Territory:<span>{{ getTTNameFromPPList(list[0]) }}</span></p><p class="td-ds-pack-tt-mio">MIO:<span>{{ getMIONameFromPPList(list[0]) }}</span></p><span class="icon"><i class="zmdi zmdi-print" @click="printSingleArea"></i></span></td>
                 </tr>
                 <tr v-for="(schedule, j) in list" :key="j" class="data-table-data-row">
                   <td>{{ j + 1 }}</td>
                   <!-- <td style="color: #026CD1; font-weight: 500; text-align: left;">{{ schedule.product_info ? (schedule.product_info.prod_code ? (schedule.product_info.prod_code) : '' ) : '' }} - {{ schedule.product_info ? (schedule.product_info.prod_name ? (schedule.product_info.prod_name) : '' ) : '' }}</td> -->
+                  <!-- <td style="font-weight: 500; text-align: left;">{{ schedule }}</td> -->
                   <td style="font-weight: 500; text-align: left;">{{ schedule.product_info ? (schedule.product_info.prod_code ? (schedule.product_info.prod_code) : '' ) : '' }} - {{ schedule.product_info ? (schedule.product_info.prod_name ? (schedule.product_info.prod_name) : '' ) : '' }}</td>
                   <td>{{ schedule.batch_no ? (schedule.batch_no) : '' }}</td>
                   <td>{{ schedule.inv_qty ? (schedule.inv_qty) : '' }}</td>
@@ -76,6 +77,8 @@ import PP_Invoice_Type_2_Single from '../../../../../../functions/Print_Func/PP_
 const pp_Invoice_Type_2_Single = new PP_Invoice_Type_2_Single()
 import PP_Invoice_Type_3_Institution from '../../../../../../functions/Print_Func/PP_Invoice_Type_3_Institution'
 const pp_Invoice_Type_3_Institution = new PP_Invoice_Type_3_Institution()
+import PP_PackingSummeryAll_T1 from '../../../../../../functions/Print_Func/PP_PackingSummeryAll_T1'
+const pp_PackingSummeryAll_T1 = new PP_PackingSummeryAll_T1()
 
 import ComaSeparatedDigits from '../../../../../../functions/ComaSeparatedDigits'
 const comaSeparatedDigits = new ComaSeparatedDigits()
@@ -129,6 +132,49 @@ export default {
         return false
       }
     },
+    printAllClickHandler() {
+      console.log('print all')
+      console.log(this.PROD_PREPARATION_LIST)
+      // if(this.tab === 'INVOICE' || this.tab === 'CHALLAN') {
+        let table_header = [
+          {th:"Code", style:''},
+          {th:"Product Name", style:'text-align: left;'},
+          {th:"Pack Size", style:''},
+          {th:"Batch No", style:''},
+          {th:"Invoice Qty", style:''},
+          // {th:"Bonus", style:''},
+          // {th:"Total Dispatch", style:''}
+        ]
+        console.log(table_header.length)
+        let table_data = []
+        for(let i=0; i<this.PROD_PREPARATION_LIST.length; i++) {
+          // console.log(this.PROD_PREPARATION_LIST[i])
+          let group_table = {
+            sep_moi_name: "Dummy SEP MIO",
+            single_table: []
+          }
+          for(let j=0; j<this.PROD_PREPARATION_LIST[i].length; j++) {
+            // console.log(this.PROD_PREPARATION_LIST[i][j].batch_no)
+            let table_single_data = {
+              prod_code: this.PROD_PREPARATION_LIST[i][j].product_info.prod_code,
+              prod_name: this.PROD_PREPARATION_LIST[i][j].product_info.prod_name,
+              pack_size: "Dummy",
+              batch_no: this.PROD_PREPARATION_LIST[i][j].batch_no,
+              inv_qty: this.PROD_PREPARATION_LIST[i][j].inv_qty,
+              bonus: "Dummy",
+              total_dispatch: "Dummy",
+            }
+            group_table.single_table.push(table_single_data)
+          }
+          table_data.push(group_table)
+        }
+        // pp_PackingSummeryAll_T1.print_invoice(table_header, table_data)
+        pp_PackingSummeryAll_T1.print_invoice(table_header, this.PROD_PREPARATION_LIST)
+        console.log(table_data)
+    },
+    printSingleArea() {
+      alert('Development inprogress')
+    },
     getTTNameFromPPList(data) {
       // console.log(data)
       if(data ? (data.id) : false) {
@@ -140,7 +186,7 @@ export default {
     getMIONameFromPPList(data) {
       // console.log(data)
       if(data ? (data.id) : false) {
-        return data.id ? (data.get_adm_user ? (data.get_adm_user.name) : '') : false
+        return data.id ? (data.user_info ? (data.user_info.get_adm_user ? (data.user_info.get_adm_user.name) : '') : '') : false
       } else {
         return false
       }

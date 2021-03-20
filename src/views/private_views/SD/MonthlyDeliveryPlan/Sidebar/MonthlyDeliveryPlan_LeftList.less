@@ -390,7 +390,7 @@
             }
         }
     }
-    
+
     .confirmation-alert-popup {
         position        : fixed;
         left            : calc((100vw / 2) - 200px);
@@ -481,28 +481,28 @@
     }
 
     .copy-modal {
-        position: fixed;
+        position        : fixed;
         // top     : calc(74px + 73px + 80px + 24px);
         // right   : 120px;
         background-color: rgb(0 18 35 / 10%);
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        z-index: 999;
+        width           : 100%;
+        height          : 100%;
+        top             : 0;
+        left            : 0;
+        z-index         : 999;
 
         .add-territory-modal {
-            position        : absolute;
+            position           : absolute;
             // right           : 0;
             // top             : 36px;
-            width           : 350px;
-            height          : 400px;
-            background      : #FFFFFF 0% 0% no-repeat padding-box;
-            box-shadow      : 0px 0px 20px #026cd129;
-            border-radius   : 8px;
-            padding         : 10px;
-            top: calc(74px + 73px + 20px);
-            left: 360px;
+            width              : 350px;
+            height             : 400px;
+            background         : #FFFFFF 0% 0% no-repeat padding-box;
+            box-shadow         : 0px 0px 20px #026cd129;
+            border-radius      : 8px;
+            padding            : 10px;
+            top                : calc(74px + 73px + 20px);
+            left               : 360px;
 
             .add-territory-modal-inner {
                 width   : 100%;
@@ -666,5 +666,33 @@
                 }
             }
         }
+    }
+}
+
+@media only screen and (max-width: 950px) {
+
+    #monthly-delivery-plan-left-list.monthly-delivery-plan-left-list,
+    #monthly-delivery-plan-left-list.monthly-delivery-plan-left-list .monthly-delivery-plan-list-section {
+        width: 250px;
+    }
+
+    #monthly-delivery-plan-left-list.monthly-delivery-plan-left-list .monthly-delivery-plan-list-section .monthly-delivery-plan-list-section-inner .search-section,
+    #monthly-delivery-plan-left-list.monthly-delivery-plan-left-list .monthly-delivery-plan-list-section .monthly-delivery-plan-list-section-inner .month-selection-section {
+        padding: 10px 10px 20px;
+    }
+
+    #monthly-delivery-plan-left-list.monthly-delivery-plan-left-list .monthly-delivery-plan-list-section .monthly-delivery-plan-list-section-inner .month-selection-section .month-selection-section-inner .select-options {
+        width: 195px;
+    }
+
+    #monthly-delivery-plan-left-list.monthly-delivery-plan-left-list .monthly-delivery-plan-list-section .monthly-delivery-plan-list-section-inner .monthly-list-section .monthly-list-section-inner {
+        width: 250px;
+    }
+
+    #monthly-delivery-plan-left-list.monthly-delivery-plan-left-list .monthly-delivery-plan-list-section .monthly-delivery-plan-list-section-inner .monthly-list-section .monthly-delivery-plan-section-list .monthly-delivery-plan-section-list-inner .name-status-section .name-section p.name-text,
+    #monthly-delivery-plan-left-list.monthly-delivery-plan-left-list .monthly-delivery-plan-list-section .monthly-delivery-plan-list-section-inner .monthly-list-section .monthly-delivery-plan-section-list .monthly-delivery-plan-section-list-inner .contact-number-section p.contact-number,
+    #monthly-delivery-plan-left-list.monthly-delivery-plan-left-list .monthly-delivery-plan-list-section .monthly-delivery-plan-list-section-inner .monthly-list-section .monthly-delivery-plan-section-list .monthly-delivery-plan-section-list-inner .territory-text-section p.territory-text,
+    #monthly-delivery-plan-left-list.monthly-delivery-plan-left-list .monthly-delivery-plan-list-section .monthly-delivery-plan-list-section-inner .monthly-list-section .monthly-delivery-plan-section-list .monthly-delivery-plan-section-list-inner .territory-text-section .status-section p.status-text {
+        font-size: 12px;
     }
 }

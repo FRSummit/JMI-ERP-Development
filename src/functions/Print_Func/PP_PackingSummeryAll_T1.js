@@ -18,40 +18,23 @@ export default class PP_InvoiceChallanSummeryTD_Type1 {
                             +             '<div class="print-section-inner">'
                             +                 '<table style="">'
                             +                     '<thead>'
-                            // +                         '<tr style="">'
-                            // +                             '<td colspan="5" style="">'
-                            // +                                 '<p style="display: inline-block; float: left;"><span class="label">Depot Name</span><span class="label-value">: ' + 'Dummy Depot Name' + '</span></p>'
-                            // +                             '</td>'
-                            // +                         '</tr>'
-                            // +                         '<tr style="">'
-                            // +                             '<td colspan="5" style="">'
-                            // +                                 '<p style="display: inline-block; float: left;"><span class="label">DA Name</span><span class="label-value">: ' + 'Dummy DA Name' + '</span></p>'
-                            // +                                 '<p style="display: inline-block; float: right;"><span class="label">Vehical No</span><span class="label-value">: ' + 'Dummy 123456' + '</span></p>'
-                            // +                             '</td>'
-                            // +                         '</tr>'
-                            // +                         '<tr style="">'
-                            // +                             '<td colspan="5" style="padding-bottom: 10px;">'
-                            // +                                 '<p style="display: inline-block; float: left;"><span class="label">Schedule Date</span><span class="label-value">: ' + 'Dummy 123456' + '</span></p>'
-                            // +                                 '<p style="display: inline-block; float: right;"><span class="label">Driver Name</span><span class="label-value">: ' + 'Dummy Driver Name' + '</span></p>'
-                            // +                             '</td>'
-                            // +                         '</tr>'
                             +                         '<tr style="">'
-                            +                             '<td colspan="5" style="">'
+                            +                             '<td colspan="6" style="">'
                             +                                 '<p style="display: inline-block; float: left;"><span class="label">No. of Invoices</span><span class="label-value">: ' + 'Dummy' + '</span></p>'
                             +                             '</td>'
                             +                         '</tr>'
                             +                         '<tr style="">'
-                            +                             '<td colspan="5" style="">'
+                            +                             '<td colspan="6" style="">'
                             +                                 '<p style="display: inline-block; float: right;"><span class="label">Depot</span><span class="label-value">: ' + 'Dummy' + '</span></p>'
                             +                             '</td>'
                             +                         '</tr>'
                             +                         '<tr style="">'
-                            +                             '<td colspan="5" style="">'
+                            +                             '<td colspan="6" style="">'
                             +                                 '<p style="display: inline-block; float: right;"><span class="label">Delivery Date</span><span class="label-value">: ' + 'Dummy' + '</span></p>'
                             +                             '</td>'
                             +                         '</tr>'
                             +                         '<tr style="">'
-                            +                             '<td colspan="5" style="padding-bottom: 10px;">'
+                            +                             '<td colspan="6" style="padding-bottom: 20px;">'
                             +                                 '<p style="display: inline-block; float: left;"><span class="label">SPE/MIO Name</span><span class="label-value">: ' + 'Dummy' + '</span></p>'
                             +                             '</td>'
                             +                         '</tr>'
@@ -61,10 +44,10 @@ export default class PP_InvoiceChallanSummeryTD_Type1 {
                             +                         this.create_table_body_data(table_data)
 
                             +                         '<tr style="page-break-inside: avoid; page-break-after: always;">'
-                            +                             '<td colspan="5" style="padding-top: 40px;">'
-                            +                                 '<p style="display: inline-block; width: 33%; font-size: 14px; text-align: left;"><span class="label">Issued By</span></p>'
-                            +                                 '<p style="display: inline-block; width: 33%; font-size: 14px;"><span class="label">Checked By</span></p>'
-                            +                                 '<p style="display: inline-block; width: 33%; font-size: 14px; text-align: right;"><span class="label">Received By</span></p>'
+                            +                             '<td colspan="6" style="padding-top: 40px;">'
+                            +                                 '<p style="display: inline-block; width: 33%; font-size: 14px; text-align: left;"><span class="label" style="text-align: center; display: inline-block; width: 120px; border-bottom: 1px solid #000000;">Issued By</span></p>'
+                            +                                 '<p style="display: inline-block; width: 33%; font-size: 14px;"><span class="label" style="text-align: center; display: inline-block; width: 120px; border-bottom: 1px solid #000000;">Checked By</span></p>'
+                            +                                 '<p style="display: inline-block; width: 33%; font-size: 14px; text-align: right;"><span class="label" style="text-align: center; display: inline-block; width: 120px; border-bottom: 1px solid #000000;">Received By</span></p>'
                             +                             '</td>'
                             +                         '</tr>'
                             +                     '</tbody>'
@@ -92,7 +75,7 @@ export default class PP_InvoiceChallanSummeryTD_Type1 {
         style += ''
               + '@page {'
               +     'size: 8.5in 11in;'
-              +     'margin: 25mm 10mm 30mm 15mm; border: 1px solid #000000'
+              +     'margin: 30mm 10mm 30mm 15mm; border: 1px solid #000000'
               + '}'
               +
               + '@media print {'
@@ -149,20 +132,41 @@ export default class PP_InvoiceChallanSummeryTD_Type1 {
         return '<tr>' + '<th  style="border: 1px solid #000000;">' + 'Sl No.' + '</th>' + result + '</tr>'
     }
     
-    create_table_body_data(table_data) {        
+    create_table_body_data(table_data) {    
         let result = ''
         for(let i=0; i<table_data.length; i++) {
-            result +=   ''
-                    +   '<tr style="page-break-before: always;">'
-                    +       '<td style="border: 1px solid #000000;">' + (i + 1) + '</td>'
-                    +       '<td style="border: 1px solid #000000;">' + table_data[i].invoice_id + '</td>'
-                    +       '<td style="border: 1px solid #000000;">' + table_data[i].customer_type + '</td>'
-                    +       '<td style="border: 1px solid #000000; text-align: left;">' + table_data[i].customer_name + '</td>'
-                    // +       '<td style=" text-align: right;">' + table_data[i].amount !== null ? comaSeparatedDigits.comaSeparate(table_data[i].amount) : '' + '</td>'
-                    +       '<td style="border: 1px solid #000000; text-align: right;">' + table_data[i].amount + '</td>'
-                    +   '</tr>'
+            result += this.createTableGroup(table_data[i])
+            result += this.createTableGroup(table_data[i])
         }
         
+        return result
+
+
+    }
+
+    createTableGroup(data) {
+        let result = ''
+        if(data[0] ? (data[0].user_info ? (data[0].user_info.get_adm_user ? (data[0].user_info.get_adm_user.name) : false) : false) : false) {
+            result += '' +
+                    '<tr>' +
+                        '<td colspan="6" style="text-align: left;"><p style="display: inline-block;"><span class="label">SPE/MIO</span><span class="label-value">: ' + data[0].user_info.get_adm_user.name + '</span></p></td>' +
+                    '</tr>'
+
+            for(let i=0; i<data.length; i++) {
+                result += '' +
+                        '<tr>' +
+                            '<td style="border: 1px solid #000000;">' + (i + 1) + '</td>' +
+                            '<td style="border: 1px solid #000000;">' + data[i].product_info.prod_code + '</td>' +
+                            '<td style="border: 1px solid #000000; text-align: left;">' + data[i].product_info.prod_name + '</td>' +
+                            '<td style="border: 1px solid #000000;">' + data[i].product_info.com_pack_size + '</td>' +
+                            '<td style="border: 1px solid #000000;">' + data[i].batch_no + '</td>' +
+                            '<td style="border: 1px solid #000000;">' + data[i].inv_qty + '</td>' +
+                            // '<td style="border: 1px solid #000000;">' + 'DUMMY' + '</td>' +
+                            // '<td style="border: 1px solid #000000;">' + 'DUMMY' + '</td>' +
+                        '</tr>'
+            }
+        }
+
         return result
     }
 }

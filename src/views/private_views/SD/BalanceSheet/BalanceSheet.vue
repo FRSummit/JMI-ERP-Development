@@ -12,7 +12,7 @@
                         </div>
                         <div class="col-lg-3 col-md-4 input-section-inner">
                             <label>Amount</label>
-                            <input type="number" v-model="amount">
+                            <input type="number" v-model="amount" min="0">
                         </div>
                         <div class="col-lg-3 col-md-2 input-section-inner">
                             <button class="jmi-confirm-btn" @click="addParticulatClickHandler">Add</button>
@@ -25,16 +25,18 @@
                             <table class="data-table" cellspacing="0" width="100%">
                                 <thead>
                                 <tr class="data-table-head-row">
-                                    <th style="width: 15%; text-align: left;">Sl No</th>
-                                    <th style="width: 65%; text-align: left;">Particular</th>
-                                    <th style="width: 30%; text-align: right;">Amount</th>
+                                    <th style="width: 10%; text-align: left;">Sl No</th>
+                                    <th style="width: 60%; text-align: left;">Particular</th>
+                                    <th style="width: 20%; text-align: right;">Amount</th>
+                                    <th style="width: 10%; text-align: right;"></th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr v-for="(pp, i) in particular_amount_list" :key="i" class="data-table-data-row">
-                                    <td style="width: 15%; text-align: left;">{{ i + 1 }}</td>
-                                    <td style="width: 65%; text-align: left;">{{ pp.name }}</td>
-                                    <td style="width: 30%; text-align: right;">{{ pp.amount }}</td>
+                                    <td style="width: 10%; text-align: left;">{{ i + 1 }}</td>
+                                    <td style="width: 60%; text-align: left;">{{ pp.name }}</td>
+                                    <td style="width: 20%; text-align: right;">{{ pp.amount }}</td>
+                                    <td style="width: 10%; text-align: right;"><span class="jmi-del-span-icon" @click="deleteOrderitemClickHandler(pp, i)"><i class="fas fa-trash-alt"></i></span></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -75,7 +77,7 @@ export default {
       parentPath: "Local Sales",
       pathName: [],
       particular: null,
-      amount: null,
+      amount: 0.00,
       isActive: false,
       particular_amount_list: [
           {

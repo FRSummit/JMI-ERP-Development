@@ -11,6 +11,16 @@ export default {
   components: {
     MasterLayout,
   },
+  mounted() {
+    // window.onpopstate = () => {
+    //   if (
+    //     window.localStorage.getItem("jerp_logged_user") !== null &&
+    //     this.$route.path == "/"
+    //   ) {
+    //     this.$router.push("/dashboard"); // redirect to home, for example
+    //   }
+    // };
+  },
   methods: {},
 };
 </script>

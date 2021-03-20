@@ -2397,6 +2397,16 @@ label,
     line-height: 1.5;
 }
 
+/* ----------- Stock Report Page Starts ------------------------------- */
+#stock-report-t1.stock-report-t1 {}
+
+#stock-report-t1.stock-report-t1 .stock-report-t1-inner {
+    border-top: 2px solid #e6e6e6;
+}
+
+/* ----------- Stock Report Page Ends ------------------------------- */
+
+
 /* ----------- Balance Sheet Page Starts ------------------------------- */
 #sd-balance-sheet.sd-balance-sheet {}
 
@@ -2516,6 +2526,20 @@ label,
     font-size : 14px;
 }
 
+/* #sd-balance-sheet.sd-balance-sheet .sd-balance-sheet-inner table.data-table thead th .jmi-del-span-icon {} */
+#sd-balance-sheet.sd-balance-sheet .sd-balance-sheet-inner table.data-table tbody td .jmi-del-span-icon {
+    display   : none;
+    color     : #DF2A43;
+    width     : 20px;
+    height    : 20px;
+    text-align: center;
+    cursor    : pointer;
+}
+
+#sd-balance-sheet.sd-balance-sheet .sd-balance-sheet-inner table.data-table tbody tr.data-table-data-row:hover td .jmi-del-span-icon {
+    display: inline-block;
+}
+
 /* ----------- Balance Sheet Page ENDS ------------------------------- */
 
 .jmi-select-options-section {
@@ -2619,6 +2643,33 @@ button.jmi-confirm-btn {
 
 button.jmi-confirm-btn:focus {
     background-color: #026CD1 !important;
+}
+
+/* SCROLL */
+.jmi-scroll-section {
+    width            : 100%;
+    display          : list-item;
+    height           : 200px;
+    overflow         : auto;
+    -webkit-flex-flow: row wrap;
+}
+
+.jmi-scroll-section::-webkit-scrollbar {
+    width: 2px;
+}
+
+.jmi-scroll-section::-webkit-scrollbar-track {
+    box-shadow   : inset 0 0 5px grey;
+    border-radius: 10px;
+}
+
+.jmi-scroll-section::-webkit-scrollbar-thumb {
+    background   : #168fff;
+    border-radius: 10px;
+}
+
+.jmi-scroll-section::-webkit-scrollbar-thumb:hover {
+    background: #004e98;
 }
 
 /* --------------------------------------------------------------------------------------- */

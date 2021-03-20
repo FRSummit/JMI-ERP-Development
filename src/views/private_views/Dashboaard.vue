@@ -63,6 +63,9 @@
       <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
         <router-link to="/features/local_sales/balance-sheet">Balance Sheet</router-link>
       </div>
+      <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
+        <router-link to="/features/reports/stock-report">Stock Report</router-link>
+      </div>
     </div>
     
     <br />
@@ -106,6 +109,15 @@ export default {
   },
   mounted() {
     this.$emit('new_dashboard_occured')
+    // window.location.hash = "no-back-button";
+
+    // // Again because Google Chrome doesn't insert
+    // // the first hash into the history
+    // window.location.hash = "Again-No-back-button"; 
+
+    // window.onhashchange = function(){
+    //     window.location.hash = "no-back-button";
+    // }
   },
   methods: {
     print() {
