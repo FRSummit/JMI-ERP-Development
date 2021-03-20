@@ -57,7 +57,8 @@
                 </div>
                 <div class="contact-number-section">
                   <p class="contact-number jmi-txt-nowrap-ellipsis-middle_60">{{ invoice.da_info.name }}</p>
-                  <p class="status"><span class="status-icon"></span>Initial Phase</p>
+                  <!-- <p class="status"><span class="status-icon"></span>Initial Phase</p> -->
+                  <p class="status" :class="invoice.gate_pass_id ? 'Completed' : 'Initial'"><span class="status-icon"></span>{{ invoice.gate_pass_id ? 'On Delivery' : 'Initial Phase' }}</p>
                 </div>
                 <!-- <div class="territory-text-section">
                   <p class="territory-text">{{ invoice }}</p>
