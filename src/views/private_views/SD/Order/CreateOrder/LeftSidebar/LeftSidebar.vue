@@ -33,6 +33,7 @@
                                 <div class="id-section">
                                     <!-- <p class="customer-id">{{ customer.customer_id }}</p> -->
                                     <p class="customer-id">{{ customer.display_code }}</p>
+                                    <p class="customer-id-search-key hide">{{ customer.search_words }}</p>
                                 </div>
                                 <div class="type-section">
                                     <p class="customer-type">Customer Type: <span class="type" :class="customer.credit_flag === 'Y' ? 'Credit' : 'Cash'">{{ customer.credit_flag === "Y" ? "Credit" : "Cash" }}</span></p>
@@ -189,7 +190,7 @@ export default {
             let input = document.getElementById("search-filter");
             let filter = input.value.toUpperCase();
             let list = document.querySelectorAll('.customer-section-list')
-            let txt_selector = "customer-id"
+            let txt_selector = "customer-id-search-key"
 
             jmiFilter.searchById_LeftSidebar(filter, list, txt_selector)
         },
