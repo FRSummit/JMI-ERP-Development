@@ -831,8 +831,8 @@ export default {
         async CREATE_OFFER__FROM_SERVICE(prod_db_list) {
             let sbu_id = parseInt(JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.sbu_id)
             let customer_id = parseInt(this.customer_data ? this.customer_data.customer_id : 0)
-            // console.log(prod_db_list)
-            // console.log(sbu_id + '  ' + customer_id + '  ' + this.on_change_reg_area_tt)
+            console.log(prod_db_list)
+            console.log(sbu_id + '  ' + customer_id + '  ' + this.on_change_reg_area_tt)
 
             await service.getCreateOrder_CreateOrderDetailsSection(prod_db_list, sbu_id, customer_id, this.createYYYYDDMM(), this.on_change_reg_area_tt)
                 .then(res => {
@@ -880,6 +880,7 @@ export default {
                             // for (var i = 0; i < options.length; i++) {
                             //     if (options[i].text == "DHK1 - DHAKA-A") {
                                     options[0].selected = true;
+                                    this.on_change_reg_area_tt = this.REGION_AREA_TERRITORY_LIST[0].id
                                 //     break;
                                 // }
                             // }
