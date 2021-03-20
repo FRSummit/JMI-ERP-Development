@@ -14,7 +14,7 @@
                     <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title">Order Territory: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_70" style="float: right;">
                         <div class="select-options jmi-select-options-section" style="width: 100%;">
                             <span class="right-icon"><i class="fas fa-chevron-right"></i></span>
-                                <select title="Pick a customer" class="selectpicker jmi-select-option" v-model="on_change_reg_area_tt" @change="onChangeRegAreaTTDropdown()" style="">
+                                <select title="Pick a customer" id="region_area_tt_list" class="selectpicker jmi-select-option" v-model="on_change_reg_area_tt" @change="onChangeRegAreaTTDropdown()" style="">
                                     <optgroup label="" v-if="checkReagionAreaTT(REGION_AREA_TERRITORY_LIST).reg.length > 0">
                                         <option v-for="(rat, m) in checkReagionAreaTT(REGION_AREA_TERRITORY_LIST).reg" :key="m" :value="rat.id"><span v-if="rat.lvl === '3'">{{ rat.display_code }} - {{ rat.area_short_name }}</span></option>
                                     </optgroup>
@@ -849,7 +849,7 @@ export default {
         async getAllProduct() {
             await service.getSearchProductDataList_CreateOrderDetailsSection()
                 .then(res => {
-                    console.log(res.data.product_list)
+                    // console.log(res.data.product_list)
                     this.ALL_PRODUCTS_LIST_2 = res.data.product_list
                     return res.data.product_list
                 })
@@ -864,6 +864,26 @@ export default {
                     this.REGION_AREA_TERRITORY_LIST = []
                     if(res.data.sales_areas) {
                         this.REGION_AREA_TERRITORY_LIST = res.data.sales_areas
+                    }
+                    /*setTimeout( () => {
+                        var options = document.getElementById("region_area_tt_list").options;
+                        for (var i = 0; i < options.length; i++) {
+                            if (options[i].text == "DHK1 - DHAKA-A") {
+                                options[i].selected = true;
+                                break;
+                            }
+                        }
+                    }, 1000)*/
+                    if(this.REGION_AREA_TERRITORY_LIST.length === 1) {
+                        setTimeout( () => {
+                            var options = document.getElementById("region_area_tt_list").options;
+                            // for (var i = 0; i < options.length; i++) {
+                            //     if (options[i].text == "DHK1 - DHAKA-A") {
+                                    options[0].selected = true;
+                                //     break;
+                                // }
+                            // }
+                        }, 100)
                     }
                 })
         },
@@ -1076,7 +1096,7 @@ export default {
                     reg_area_tt.tt.push(list[i])
                 }
             }
-            console.log(reg_area_tt)
+            // console.log(reg_area_tt)
             return reg_area_tt
         },
         onChangeRegAreaTTDropdown() {
