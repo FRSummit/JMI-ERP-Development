@@ -310,14 +310,14 @@ export default {
         .then(res => {
           this.WEB_MENU = res.data.data
           if(JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils === null) {
-              window.locationreload()
+              window.location.reload()
           }
         })
-        .catch(err => {
-            if(err) {
-                window.location.reload()
-            }
-        })
+        // .catch(err => {
+        //     if(err) {
+        //         window.location.reload()
+        //     }
+        // })
     }
   },
   watch: {
