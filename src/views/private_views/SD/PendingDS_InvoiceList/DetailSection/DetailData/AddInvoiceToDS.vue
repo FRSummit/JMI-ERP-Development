@@ -69,6 +69,7 @@ export default {
         if(this.SELECTED_INVOICE.length > 0) {
             console.log(this.SELECTED_INVOICE)
             this.$emit('ADD_INVOICE_TO_CURRENT_SCHEDULE', this.SELECTED_INVOICE)
+            this.$emit('cancel_from_add_invoice_to_ds')
         } else {
             alert('Please Select at least one invoice or cancel this')
         }
