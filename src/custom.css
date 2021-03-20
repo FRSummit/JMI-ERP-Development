@@ -2397,6 +2397,15 @@ label,
     line-height: 1.5;
 }
 
+/* ----------- Stock Report Page Starts ------------------------------- */
+#stock-report-t1.stock-report-t1 {}
+
+#stock-report-t1.stock-report-t1 .stock-report-t1-inner {
+    border-top: 2px solid #e6e6e6;
+}
+/* ----------- Stock Report Page Ends ------------------------------- */
+
+
 /* ----------- Balance Sheet Page Starts ------------------------------- */
 #sd-balance-sheet.sd-balance-sheet {}
 

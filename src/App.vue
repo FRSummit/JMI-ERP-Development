@@ -11,6 +11,16 @@ export default {
   components: {
     MasterLayout,
   },
+  mounted() {
+    window.onpopstate = () => {
+      if (
+        window.localStorage.getItem("info") !== null &&
+        this.$route.path == "/login"
+      ) {
+        this.$router.push("/"); // redirect to home, for example
+      }
+    };
+  },
   methods: {},
 };
 </script>

@@ -63,6 +63,9 @@
       <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
         <router-link to="/features/local_sales/balance-sheet">Balance Sheet</router-link>
       </div>
+      <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
+        <router-link to="/features/reports/stock-report">Stock Report</router-link>
+      </div>
     </div>
     
     <br />
