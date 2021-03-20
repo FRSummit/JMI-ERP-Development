@@ -39,6 +39,7 @@
                             <div class="customer-id-type-section-inner">
                                 <div class="id-section">
                                     <p class="customer-id">{{ customer ? (customer.order_no ? (customer.order_no) : '' ) : "" }}</p>
+                                    <p class="customer-id-2 hide">{{ customer ? (customer.search_key ? (customer.search_key) : '' ) : "" }}</p>
                                 </div>
                                 <div class="type-section">
                                     <p class="customer-type"><span class="type">{{ customer ? (customer.order_date).split(' ')[0] : "" }}</span></p>
@@ -573,7 +574,7 @@ export default {
             let input = document.getElementById("search-filter");
             let filter = input.value.toUpperCase();
             let list = document.querySelectorAll('.customer-section-list')
-            let txt_selector = "customer-id"
+            let txt_selector = "customer-id-2"
 
             jmiFilter.searchById_LeftSidebar(filter, list, txt_selector)
         },
