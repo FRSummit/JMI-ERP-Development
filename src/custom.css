@@ -2516,6 +2516,20 @@ label,
     font-size : 14px;
 }
 
+/* #sd-balance-sheet.sd-balance-sheet .sd-balance-sheet-inner table.data-table thead th .jmi-del-span-icon {} */
+#sd-balance-sheet.sd-balance-sheet .sd-balance-sheet-inner table.data-table tbody td .jmi-del-span-icon {
+    display      : none;
+    color        : #DF2A43;
+    width        : 20px;
+    height       : 20px;
+    text-align   : center;
+    cursor       : pointer;
+}
+
+#sd-balance-sheet.sd-balance-sheet .sd-balance-sheet-inner table.data-table tbody tr.data-table-data-row:hover td .jmi-del-span-icon {
+    display: inline-block;
+}
+
 /* ----------- Balance Sheet Page ENDS ------------------------------- */
 
 .jmi-select-options-section {

@@ -76,6 +76,7 @@
         <!-- Filter Modal -->
         <div class="filter-sort-modal-section" v-if="filter_modal">
             <div class="filter-sort-modal-section-inner" v-click-outside="filterModalOutsideClick">
+                <span class="sort-text" style="color: red;">Development in progress</span>
                 <p class="sort-text">Sort by</p>
                 <div class="sort-section">
                     <div class="sort-section-inner">

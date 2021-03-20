@@ -52,6 +52,7 @@
                 <tr v-for="(schedule, j) in list" :key="j" class="data-table-data-row">
                   <td>{{ j + 1 }}</td>
                   <!-- <td style="color: #026CD1; font-weight: 500; text-align: left;">{{ schedule.product_info ? (schedule.product_info.prod_code ? (schedule.product_info.prod_code) : '' ) : '' }} - {{ schedule.product_info ? (schedule.product_info.prod_name ? (schedule.product_info.prod_name) : '' ) : '' }}</td> -->
+                  <!-- <td style="font-weight: 500; text-align: left;">{{ schedule }}</td> -->
                   <td style="font-weight: 500; text-align: left;">{{ schedule.product_info ? (schedule.product_info.prod_code ? (schedule.product_info.prod_code) : '' ) : '' }} - {{ schedule.product_info ? (schedule.product_info.prod_name ? (schedule.product_info.prod_name) : '' ) : '' }}</td>
                   <td>{{ schedule.batch_no ? (schedule.batch_no) : '' }}</td>
                   <td>{{ schedule.inv_qty ? (schedule.inv_qty) : '' }}</td>
