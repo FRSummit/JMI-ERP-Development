@@ -136,7 +136,7 @@ export default class PP_InvoiceChallanSummeryTD_Type1 {
         let result = ''
         for(let i=0; i<table_data.length; i++) {
             result += this.createTableGroup(table_data[i])
-            result += this.createTableGroup(table_data[i])
+            // result += this.createTableGroup(table_data[i])
         }
         
         return result
