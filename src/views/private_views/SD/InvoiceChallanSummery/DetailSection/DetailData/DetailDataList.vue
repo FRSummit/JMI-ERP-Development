@@ -148,7 +148,7 @@ export default {
         let table_header = [
           {th:"INVOICE ID", style:''},
           {th:"CUSTOMER TYPE", style:''},
-          {th:"CUSTOMER NAME", style:''},
+          {th:"CUSTOMER NAME", style:'text-align: left;'},
           {th:"AMOUNT", style:'text-align: right;'}
         ]
         console.log(table_header.length)

@@ -59,6 +59,14 @@ export default class PP_InvoiceChallanSummeryTD_Type1 {
                             +                     '</thead>'
                             +                     '<tbody>'
                             +                         this.create_table_body_data(table_data)
+
+                            +                         '<tr style="page-break-inside: avoid; page-break-after: always;">'
+                            +                             '<td colspan="5" style="padding-top: 40px;">'
+                            +                                 '<p style="display: inline-block; width: 33%; font-size: 14px; text-align: left;"><span class="label">Issued By</span></p>'
+                            +                                 '<p style="display: inline-block; width: 33%; font-size: 14px;"><span class="label">Checked By</span></p>'
+                            +                                 '<p style="display: inline-block; width: 33%; font-size: 14px; text-align: right;"><span class="label">Received By</span></p>'
+                            +                             '</td>'
+                            +                         '</tr>'
                             +                     '</tbody>'
                             +                 '</table>'
                             +             '</div>'
@@ -149,7 +157,7 @@ export default class PP_InvoiceChallanSummeryTD_Type1 {
                     +       '<td style="">' + (i + 1) + '</td>'
                     +       '<td style="">' + table_data[i].invoice_id + '</td>'
                     +       '<td style="">' + table_data[i].customer_type + '</td>'
-                    +       '<td style="">' + table_data[i].customer_name + '</td>'
+                    +       '<td style="text-align: left;">' + table_data[i].customer_name + '</td>'
                     // +       '<td style=" text-align: right;">' + table_data[i].amount !== null ? comaSeparatedDigits.comaSeparate(table_data[i].amount) : '' + '</td>'
                     +       '<td style=" text-align: right;">' + table_data[i].amount + '</td>'
                     +   '</tr>'
