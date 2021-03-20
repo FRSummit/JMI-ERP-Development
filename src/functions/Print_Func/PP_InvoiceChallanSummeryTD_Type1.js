@@ -153,13 +153,13 @@ export default class PP_InvoiceChallanSummeryTD_Type1 {
         let result = ''
         for(let i=0; i<table_data.length; i++) {
             result +=   ''
-                    +   '<tr style="page-break-before: always; border: 1px solid #000000;">'
-                    +       '<td style="">' + (i + 1) + '</td>'
-                    +       '<td style="">' + table_data[i].invoice_id + '</td>'
-                    +       '<td style="">' + table_data[i].customer_type + '</td>'
-                    +       '<td style="text-align: left;">' + table_data[i].customer_name + '</td>'
+                    +   '<tr style="page-break-before: always;">'
+                    +       '<td style="border: 1px solid #000000;">' + (i + 1) + '</td>'
+                    +       '<td style="border: 1px solid #000000;">' + table_data[i].invoice_id + '</td>'
+                    +       '<td style="border: 1px solid #000000;">' + table_data[i].customer_type + '</td>'
+                    +       '<td style="border: 1px solid #000000; text-align: left;">' + table_data[i].customer_name + '</td>'
                     // +       '<td style=" text-align: right;">' + table_data[i].amount !== null ? comaSeparatedDigits.comaSeparate(table_data[i].amount) : '' + '</td>'
-                    +       '<td style=" text-align: right;">' + table_data[i].amount + '</td>'
+                    +       '<td style="border: 1px solid #000000; text-align: right;">' + table_data[i].amount + '</td>'
                     +   '</tr>'
         }
         

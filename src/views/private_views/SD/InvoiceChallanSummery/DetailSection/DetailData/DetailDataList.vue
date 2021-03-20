@@ -167,7 +167,7 @@ export default {
       } else if(this.tab === 'GATE PASS') {
         let table_header = [
           {th:"Code", style:''},
-          {th:"Product Name", style:''},
+          {th:"Product Name", style:'text-align: left;'},
           {th:"Pack Size", style:''},
           {th:"Invoice Qty", style:'text-align: right;'}
         ]
