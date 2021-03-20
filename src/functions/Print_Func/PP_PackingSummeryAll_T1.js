@@ -157,7 +157,7 @@ export default class PP_InvoiceChallanSummeryTD_Type1 {
                             '<td style="border: 1px solid #000000;">' + (i + 1) + '</td>' +
                             '<td style="border: 1px solid #000000;">' + data[i].product_info.prod_code + '</td>' +
                             '<td style="border: 1px solid #000000; text-align: left;">' + data[i].product_info.prod_name + '</td>' +
-                            '<td style="border: 1px solid #000000;">' + 'DUMMY' + '</td>' +
+                            '<td style="border: 1px solid #000000;">' + data[i].product_info.com_pack_size + '</td>' +
                             '<td style="border: 1px solid #000000;">' + data[i].batch_no + '</td>' +
                             '<td style="border: 1px solid #000000;">' + data[i].inv_qty + '</td>' +
                             // '<td style="border: 1px solid #000000;">' + 'DUMMY' + '</td>' +
