@@ -35,7 +35,7 @@
                       <v-card color="basil" flat>
                         <v-card v-if="status.status_name === 'Institution'"><DetailsDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="SCHEDULE_DETAILS_LIST_INSTITUTION" /></v-card>
                         <v-card v-if="status.status_name === 'Chemist'"><DetailsDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="SCHEDULE_DETAILS_LIST_CHEMIST" /></v-card>
-                        <v-card v-if="status.status_name === 'Add Invoice to DS'"><AddInvoiceToDS :tab="status.status_name" v-on:cancel_from_add_invoice_to_ds="cancelFromAddInvoiceToDS" /></v-card>
+                        <v-card v-if="status.status_name === 'Add Invoice to DS'"><AddInvoiceToDS :tab="status.status_name" :INVOICE_FOR_CURRENT_DS_LIST="INVOICE_FOR_CURRENT_DS_LIST" v-on:cancel_from_add_invoice_to_ds="cancelFromAddInvoiceToDS" v-on:ADD_INVOICE_TO_CURRENT_SCHEDULE="addInvoiceToCurrentSchedule"/></v-card>
                       </v-card>
                     </v-tab-item>
                   </v-tabs-items>
@@ -54,7 +54,7 @@ import DetailsDataList from './DetailData/DetailsDataList'
 import AddInvoiceToDS from './DetailData/AddInvoiceToDS'
 
 export default {
-  props: ["SCHEDULE_DETAILS_LIST", "SCHEDULE_DETAILS_LIST_CHEMIST", "SCHEDULE_DETAILS_LIST_INSTITUTION"],
+  props: ["SCHEDULE_DETAILS_LIST", "SCHEDULE_DETAILS_LIST_CHEMIST", "SCHEDULE_DETAILS_LIST_INSTITUTION", "INVOICE_FOR_CURRENT_DS_LIST"],
   components: {
     DetailsDataList,
     AddInvoiceToDS
@@ -123,6 +123,11 @@ export default {
     saveRoute() {
       console.log("save route");
     },
+    // checkGatePass(data) {
+    //   for(let i=0; i<data.length; i++) {
+    //     console.log(data[i].get)
+    //   }
+    // }
     // receives a place object via the autocomplete component
     // setPlace(place) {
     //   this.currentPlace = place;
@@ -170,6 +175,9 @@ export default {
     cancelFromAddInvoiceToDS() {
       console.log('cancel btn clicked')
       document.querySelector('.packing-tab.v-tab').click()
+    },
+    addInvoiceToCurrentSchedule(value) {
+      this.$emit('ADD_INVOICE_TO_CURRENT_SCHEDULE', value)
     }
   },
 };
