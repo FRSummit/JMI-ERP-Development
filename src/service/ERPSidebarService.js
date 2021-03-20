@@ -728,6 +728,7 @@ export default class PostService {
   // -------------------------------------------------------------------------------------------
   // PENDING DS INVOICE LIST - ADD INVOICE TO DS
   async getAddInvoiceToCurrentDS_PENDING_DS_INVOICE_LIST(ds_id, list) {
+    console.log(ds_id)
     console.log(JSON.stringify(list))
     let web_menu_url = '/api/web/add-invoices-to-current-delivery-schedule'
     return await axios(web_menu_url, {
