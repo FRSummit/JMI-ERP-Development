@@ -248,10 +248,10 @@ export default {
       this.PENDING_DELIVERY_SCHEDULE_INV_LIST = []
       await service.getPendingDeliveryScheduleInvoiceLBy_DA_ID_DELIVERY_SCHEDULING(da_id)
         .then(res => {
-          console.log(res.data)
-          if(res.data ? res.data.length : false) {
+          console.log(res.data.invoice_info)
+          if(res.data ? res.data.invoice_info.length : false) {
             console.log('I am here')
-            this.PENDING_DELIVERY_SCHEDULE_INV_LIST = res.data
+            this.PENDING_DELIVERY_SCHEDULE_INV_LIST = res.data.invoice_info
           } else {
             console.log('else')
           }

@@ -551,13 +551,14 @@ export default class PostService {
 
   // DELIVERY SCHEDULING - PENDING DELIVERY LIST - LEFT SECTION
   async getPendingDeliveryScheduleInvoiceLBy_DA_ID_DELIVERY_SCHEDULING(da_id) {
+    console.log(da_id)
     let web_menu_url = '/api/web/pending-delivery-schedule-invoice-list-by-da'
     return await axios(web_menu_url, {
       method: 'GET',
       headers: {
         'Authorization': token_type + ' ' + token
       },
-      param: {
+      params: {
         da_id: da_id
       }
     })
