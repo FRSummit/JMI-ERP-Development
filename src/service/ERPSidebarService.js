@@ -203,6 +203,7 @@ export default class PostService {
 
   // MONTHLY DELIVERY PLAN - DELETE ALL MONTH DATA
   async getSD_DPD_COPY_EXECUTE_PROCEDURE(source_mnyr, target_mnyr) {
+    console.log(source_mnyr + '   ' + target_mnyr)
     let web_menu_url = '/api/web/sd-dpd-copy-execute-procedure/' + source_mnyr + '/' + target_mnyr
     return await axios(web_menu_url, {
       method: 'GET',

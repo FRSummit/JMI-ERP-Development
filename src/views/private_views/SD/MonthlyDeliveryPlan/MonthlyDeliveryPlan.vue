@@ -367,6 +367,7 @@ export default {
         })
     },
     selectedUserSchedulePlan(schedule, selectedMonth, selector_id) {
+      console.log(schedule)
       this.territory_area_data_list = []
       this.importPlanMonthsData = []
       this.selectedDateMonth = null
@@ -396,6 +397,7 @@ export default {
     async MONTHLY_DELIVERY_PLAN_BY_MMYYYY_AND_FORCE_ID_FROM_SERVICE(MMYYYY, FORCE_ID) {
       await service.getMonthlyDeliveryPlanByForceId_MonthlyDeliveryPlan(MMYYYY, FORCE_ID)
           .then(res => {
+            console.log(res.data)
             if(res.data.response_code === 200) {
               this.DIC_DP_ID = res.data.delivery_plan_info.id
               if(res.data.delivery_plan_info.get_dpd_forces.length > 0) {

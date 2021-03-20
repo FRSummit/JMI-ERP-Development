@@ -153,6 +153,7 @@ export default {
         this.$emit("selected_month", this.selectedMonth);
     },
     selectLeftUserSchedule(plan, selector_id) {
+      console.log(plan)
       let length = document.getElementsByClassName('monthly-delivery-plan-section-list').length
       for(let i=0; i<length; i++) {
         document.querySelector('#monthly-delivery-plan-section-list-' + i).className = 'monthly-delivery-plan-section-list'
@@ -283,6 +284,7 @@ export default {
         })
     },
     monthClickToCopy(t) {
+      console.log(t)
       let selectedMM = (this.getMonthsNumberFromMonthName(this.selectedMonth.split(' ')[0])) < 10 ? ('0' + this.getMonthsNumberFromMonthName(this.selectedMonth.split(' ')[0])) : (this.getMonthsNumberFromMonthName(this.selectedMonth.split(' ')[0])).toString()
       let selectedYYYY = this.selectedMonth.split(' ')[1].toString()
       let selectedMMYYYY = (selectedMM + selectedYYYY).toString()
