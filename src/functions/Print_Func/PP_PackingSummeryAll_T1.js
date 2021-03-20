@@ -132,66 +132,9 @@ export default class PP_InvoiceChallanSummeryTD_Type1 {
         return '<tr>' + '<th  style="border: 1px solid #000000;">' + 'Sl No.' + '</th>' + result + '</tr>'
     }
     
-    create_table_body_data(table_data) {        
-        /*let result = ''
-        for(let i=0; i<table_data.length; i++) {
-            result +=   ''
-                    +   '<tr style="page-break-before: always;">'
-                    +       '<td style="border: 1px solid #000000;">' + (i + 1) + '</td>'
-                    +       '<td style="border: 1px solid #000000;">' + table_data[i].invoice_id + '</td>'
-                    +       '<td style="border: 1px solid #000000;">' + table_data[i].customer_type + '</td>'
-                    +       '<td style="border: 1px solid #000000; text-align: left;">' + table_data[i].customer_name + '</td>'
-                    // +       '<td style=" text-align: right;">' + table_data[i].amount !== null ? comaSeparatedDigits.comaSeparate(table_data[i].amount) : '' + '</td>'
-                    +       '<td style="border: 1px solid #000000; text-align: right;">' + table_data[i].amount + '</td>'
-                    +   '</tr>'
-        }*/
-
-        /*let group_result = ''
-        for(let i=0; i<table_data.length; i++) {
-            group_result += '' +
-                            '<tr>' +
-                                '<td colspan="6"><p style="display: inline-block; float: right;"><span class="label">SPE/MIO</span><span class="label-value">: ' + table_data[i].sep_moi_name + '</span></p></td>' +
-                            '</tr>'
-
-            for(let j=0; j<table_data[i].single_table.length; j++) {
-                group_result += '' +
-                                '<tr>' +
-                                +       '<td style="border: 1px solid #000000;">' + (i + 1) + '</td>'
-                                +       '<td style="border: 1px solid #000000;">' + table_data[i].single_table[j].prod_code + '</td>'
-                                +       '<td style="border: 1px solid #000000;">' + table_data[i].single_table[j].prod_name + '</td>'
-                                +       '<td style="border: 1px solid #000000;">' + table_data[i].single_table[j].pack_size + '</td>'
-                                +       '<td style="border: 1px solid #000000;">' + table_data[i].single_table[j].batch_no + '</td>'
-                                +       '<td style="border: 1px solid #000000;">' + table_data[i].single_table[j].inv_qty + '</td>'
-                                +       '<td style="border: 1px solid #000000;">' + table_data[i].single_table[j].bonus + '</td>'
-                                +       '<td style="border: 1px solid #000000;">' + table_data[i].single_table[j].total_dispatch + '</td>'
-                                '</tr>'
-            }
-        }
-        
-        return group_result*/
-
-
+    create_table_body_data(table_data) {    
         let result = ''
         for(let i=0; i<table_data.length; i++) {
-            // group_result += '' +
-            //                 '<tr>' +
-            //                     '<td colspan="6"><p style="display: inline-block; float: right;"><span class="label">SPE/MIO</span><span class="label-value">: ' + table_data[i].sep_moi_name + '</span></p></td>' +
-            //                 '</tr>'
-
-            // for(let j=0; j<table_data[i].length; j++) {
-            //     group_result += '' +
-            //                     '<tr>' +
-            //                     +       '<td style="border: 1px solid #000000;">' + (i + 1) + '</td>'
-            //                     +       '<td style="border: 1px solid #000000;">' + table_data[i].single_table[j].prod_code + '</td>'
-            //                     +       '<td style="border: 1px solid #000000;">' + table_data[i].single_table[j].prod_name + '</td>'
-            //                     +       '<td style="border: 1px solid #000000;">' + table_data[i].single_table[j].pack_size + '</td>'
-            //                     +       '<td style="border: 1px solid #000000;">' + table_data[i].single_table[j].batch_no + '</td>'
-            //                     +       '<td style="border: 1px solid #000000;">' + table_data[i].single_table[j].inv_qty + '</td>'
-            //                     +       '<td style="border: 1px solid #000000;">' + table_data[i].single_table[j].bonus + '</td>'
-            //                     +       '<td style="border: 1px solid #000000;">' + table_data[i].single_table[j].total_dispatch + '</td>'
-            //                     '</tr>'
-            // }
-
             result += this.createTableGroup(table_data[i])
         }
         
