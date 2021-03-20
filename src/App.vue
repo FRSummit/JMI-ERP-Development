@@ -12,14 +12,14 @@ export default {
     MasterLayout,
   },
   mounted() {
-    window.onpopstate = () => {
-      if (
-        window.localStorage.getItem("info") !== null &&
-        this.$route.path == "/login"
-      ) {
-        this.$router.push("/"); // redirect to home, for example
-      }
-    };
+    // window.onpopstate = () => {
+    //   if (
+    //     window.localStorage.getItem("jerp_logged_user") !== null &&
+    //     this.$route.path == "/"
+    //   ) {
+    //     this.$router.push("/dashboard"); // redirect to home, for example
+    //   }
+    // };
   },
   methods: {},
 };
