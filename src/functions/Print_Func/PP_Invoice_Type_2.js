@@ -113,7 +113,7 @@ export default class PP_Invoice_Type_2 {
         style += ''
               + '@page {'
               +     'size: 8.5in 11in;'
-              +     'margin: 25mm 10mm 15mm 15mm; border: 1px solid #000000'
+              +     'margin: 25mm 10mm 30mm 15mm; border: 1px solid #000000'
               + '}'
               // + '@page:last {'
               // +     '.footer {'

@@ -34,7 +34,7 @@ export default class PP_InvoiceChallanSummeryTD_Type1 {
                             +                             '</td>'
                             +                         '</tr>'
                             +                         '<tr style="">'
-                            +                             '<td colspan="6" style="padding-bottom: 10px;">'
+                            +                             '<td colspan="6" style="padding-bottom: 20px;">'
                             +                                 '<p style="display: inline-block; float: left;"><span class="label">SPE/MIO Name</span><span class="label-value">: ' + 'Dummy' + '</span></p>'
                             +                             '</td>'
                             +                         '</tr>'
@@ -75,7 +75,7 @@ export default class PP_InvoiceChallanSummeryTD_Type1 {
         style += ''
               + '@page {'
               +     'size: 8.5in 11in;'
-              +     'margin: 25mm 10mm 15mm 15mm; border: 1px solid #000000'
+              +     'margin: 30mm 10mm 30mm 15mm; border: 1px solid #000000'
               + '}'
               +
               + '@media print {'
@@ -135,6 +135,7 @@ export default class PP_InvoiceChallanSummeryTD_Type1 {
     create_table_body_data(table_data) {    
         let result = ''
         for(let i=0; i<table_data.length; i++) {
+            result += this.createTableGroup(table_data[i])
             result += this.createTableGroup(table_data[i])
         }
         
