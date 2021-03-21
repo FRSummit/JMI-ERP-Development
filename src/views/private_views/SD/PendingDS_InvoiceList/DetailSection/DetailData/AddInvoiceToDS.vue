@@ -5,6 +5,7 @@
             <div class="modal-popup-section-inner update-successfully-modal-inner" style="width: 340px; top: 25%; padding: 20px 30px;">
                 <!-- <span class="sort-text" style="color: red;">Development in progress</span> -->
                 <p class="jmi-title jmi-title_f16_cl026CD1_left">Select Invoice</p>
+                <!-- <p class="jmi-title">No Invoice Found</p> -->
                 <div style="text-align: left;">
                     <div class="jmi-scroll-section">
                         <div v-for="(inv, i) in INVOICE_FOR_CURRENT_DS_LIST" :key="i">

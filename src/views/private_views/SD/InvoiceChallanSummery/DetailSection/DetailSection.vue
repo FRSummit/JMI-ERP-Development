@@ -35,7 +35,7 @@
                       <v-card color="basil" flat>
                         <v-card v-if="status.status_name === 'INVOICE'"><DetailDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="DS_INVOICE" /></v-card>
                         <v-card v-if="status.status_name === 'CHALLAN'"><DetailDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="DS_CHALLAN" /></v-card>
-                        <v-card v-if="status.status_name === 'GATE PASS'"><DetailDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="DS_GATEPASS" /></v-card>
+                        <v-card v-if="status.status_name === 'GATE PASS'"><DetailDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="DS_GATEPASS" v-on:gate_pass_cancel="gatePassCancelHandler" /></v-card>
                         <v-card v-if="status.status_name === 'HANDOVER'"><DetailDataList :tab="status.status_name" /></v-card>
                       </v-card>
                     </v-tab-item>
@@ -164,6 +164,10 @@ export default {
       });
       console.log(this.markers);
     },
+    gatePassCancelHandler() {
+      console.log('gate pass cancel')
+      document.querySelector('.packing-tab.v-tab').click()
+    }
 
     // addCurrentLocation(p) {
     //   let position = {
