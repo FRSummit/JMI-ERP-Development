@@ -129,7 +129,7 @@ export default {
       console.log('print ALl')
       console.log(this.tab)
       let table_header = [
-        {th:"INVOICE ID", style:''},
+        {th:"INVOICE NO", style:''},
         {th:"CUSTOMER TYPE", style:''},
         {th:"CUSTOMER NAME", style:'text-align: left;'},
         {th:"AMOUNT", style:'text-align: right;'}
@@ -138,7 +138,7 @@ export default {
       let table_data = []
       for(let i=0; i<this.SCHEDULE_DETAILS_LIST.length; i++) {
         let table_single_data = {
-          invoice_id: this.SCHEDULE_DETAILS_LIST[i].invoice_id,
+          invoice_id: this.SCHEDULE_DETAILS_LIST[i].get_invoice.invoice_no,
           customer_type: this.checkCustomerType(this.SCHEDULE_DETAILS_LIST[i].customer_info.customer_type),
           customer_name: this.SCHEDULE_DETAILS_LIST[i].customer_info.customer_name,
           amount: this.SCHEDULE_DETAILS_LIST[i].invoice_amt
