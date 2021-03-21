@@ -349,7 +349,7 @@
                                         <div class="imvoice-amount">
                                             <p class="jmi-lvl">Due Amount:</p>
                                             <!-- <p class="jmi-lvl-value">{{ Number(cash_due_amount).toFixed(2) }}</p> -->
-                                            <p class="jmi-lvl-value">{{ Number(parseFloat(grand_total) - parseFloat(cash_receive_amount) ).toFixed(2) }}</p>
+                                            <p id="cash-due-amount-selector" class="jmi-lvl-value">{{ Number(parseFloat(grand_total) - parseFloat(cash_receive_amount) ).toFixed(2) }}</p>
                                         </div>
                                     </div>
                                     <div class="row receiver-amount">
@@ -375,7 +375,7 @@
                                         <div class="imvoice-amount" style="width: 33%;">
                                             <p class="jmi-lvl">Due Amount:</p>
                                             <!-- <p class="jmi-lvl-value">{{ Number(cheque_due_amount).toFixed(2) }}</p> -->
-                                            <p class="jmi-lvl-value">{{ Number(parseFloat(grand_total) - parseFloat(cash_receive_amount) - parseFloat(cheque_receive_amount) ).toFixed(2) }}</p>
+                                            <p id="cheque-due-amount-selector" class="jmi-lvl-value">{{ Number(parseFloat(grand_total) - parseFloat(cash_receive_amount) - parseFloat(cheque_receive_amount) ).toFixed(2) }}</p>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -1205,15 +1205,15 @@ export default {
             console.log(cash)
             console.log(cheque)
             console.log(net_payable_amount)
-            if(this.UPLOADED_IMAGE_DATA_BASE_64 === null) {
-                this.UPLOADED_IMAGE_DATA_BASE_64_IS_PRESENT = true
-                if(document.querySelector('.tabs.mt-3.deliveries-customer-details ul li:nth-child(2) a').className !== 'nav-link active') {
-                    document.querySelector('.tabs.mt-3.deliveries-customer-details ul li:nth-child(2) a').click()
-                }
-                if(parseFloat(this.grand_total) - parseFloat(this.cash_receive_amount) - parseFloat(this.cheque_receive_amount) > 0) {
-                    console.log('Due present')
-                }
-            } else {
+            // if(this.UPLOADED_IMAGE_DATA_BASE_64 === null) {
+            //     this.UPLOADED_IMAGE_DATA_BASE_64_IS_PRESENT = true
+            //     if(document.querySelector('.tabs.mt-3.deliveries-customer-details ul li:nth-child(2) a').className !== 'nav-link active') {
+            //         document.querySelector('.tabs.mt-3.deliveries-customer-details ul li:nth-child(2) a').click()
+            //     }
+            //     if(parseFloat(this.grand_total) - parseFloat(this.cash_receive_amount) - parseFloat(this.cheque_receive_amount) > 0) {
+            //         console.log('Due present')
+            //     }
+            // } else {
                 console.log(this.UPLOADED_IMAGE_DATA_BASE_64)
                 console.log(this.UPLOADED_IMAGE_NAME)
                 let file_path = '/customers/cheque/'
@@ -1232,7 +1232,7 @@ export default {
                         this.delivery_success_or_not_msg_modal = false
                     }, 2000)
                 })
-            }
+            // }
             /*await service.getSaveInvoiceDeliveryInfo_DELIVERIES(invoice_id, invoice_dtl, cash, cheque, net_payable_amount)
                 .then(res => {
                     console.log(res.data)
@@ -1356,9 +1356,21 @@ export default {
             }
             this.cash_receive_amount = parseFloat(selector.value)
             this.cash_due_amount = parseFloat(this.grand_total) - parseFloat(selector.value)
+
+            if(this.cash_due_amount.toString().charAt(0) === '-') {
+                document.querySelector('#cash-due-amount-selector').className = 'jmi-lvl-value jmi-warning'
+                document.querySelector('#cheque-due-amount-selector').className = 'jmi-lvl-value jmi-warning'
+            } else {
+                document.querySelector('#cash-due-amount-selector').className = 'jmi-lvl-value'
+                document.querySelector('#cheque-due-amount-selector').className = 'jmi-lvl-value'
+            }
         },
         deliveries_cash_receiver_amount_KeyDown_ordered_table(value) {
             console.log(value.key)
+            // let selector = document.querySelector('#deliveries_cash_receiver_amount')
+            // if(selector.value.charAt(0) === '-') {
+
+            // }
             // this.cash_due_amount
             // if(value.keyCode === 190 || value.keyCode === 110) {
             //     value.preventDefault()
@@ -1375,7 +1387,15 @@ export default {
                 selector.value = 0
             }
             this.cheque_receive_amount = parseFloat(selector.value)
-            this.cheque_due_amount = parseFloat(this.grand_total) - parseFloat(selector.value)
+            this.cheque_due_amount = parseFloat(this.grand_total) - this.cash_receive_amount - parseFloat(selector.value)
+
+            if(this.cheque_due_amount.toString().charAt(0) === '-') {
+                document.querySelector('#cash-due-amount-selector').className = 'jmi-lvl-value jmi-warning'
+                document.querySelector('#cheque-due-amount-selector').className = 'jmi-lvl-value jmi-warning'
+            } else {
+                document.querySelector('#cash-due-amount-selector').className = 'jmi-lvl-value'
+                document.querySelector('#cheque-due-amount-selector').className = 'jmi-lvl-value'
+            }
         },
         deliveries_cheque_receiver_amount_KeyDown_ordered_table(value) {
             console.log(value.key)

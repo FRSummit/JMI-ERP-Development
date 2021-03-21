@@ -3,7 +3,7 @@
 
 export default class PP_InvoiceChallanSummeryTD_Type1 {
     
-    print_invoice(table_header, table_data) {
+    print_invoice(table_header, table_data, summery) {
         var mywindow = window.open('', 'PRINT'); 
         mywindow.document.write(''
                             + '<html>'
@@ -37,23 +37,23 @@ export default class PP_InvoiceChallanSummeryTD_Type1 {
                             // +                         '</tr>'
                             +                         '<tr style="">'
                             +                             '<td colspan="5" style="">'
-                            +                                 '<p style="display: inline-block; float: left;"><span class="label">No. of Invoices</span><span class="label-value">: ' + 'Dummy' + '</span></p>'
+                            +                                 '<p style="display: inline-block; float: left;"><span class="label">No. of Invoices</span><span class="label-value">: ' + summery.invoice_count + '</span></p>'
                             +                             '</td>'
                             +                         '</tr>'
                             +                         '<tr style="">'
                             +                             '<td colspan="5" style="">'
-                            +                                 '<p style="display: inline-block; float: right;"><span class="label">Depot</span><span class="label-value">: ' + 'Dummy' + '</span></p>'
+                            +                                 '<p style="display: inline-block; float: right;"><span class="label">Depot</span><span class="label-value">: ' + summery.depo_name + '</span></p>'
                             +                             '</td>'
                             +                         '</tr>'
                             +                         '<tr style="">'
                             +                             '<td colspan="5" style="">'
-                            +                                 '<p style="display: inline-block; float: left;"><span class="label">DS No</span><span class="label-value">: ' + 'Dummy' + '</span></p>'
-                            +                                 '<p style="display: inline-block; float: right;"><span class="label">Delivery Date</span><span class="label-value">: ' + 'Dummy' + '</span></p>'
+                            +                                 '<p style="display: inline-block; float: left;"><span class="label">DS No</span><span class="label-value">: ' + summery.ds_no + '</span></p>'
+                            +                                 '<p style="display: inline-block; float: right;"><span class="label">Delivery Date</span><span class="label-value">: ' + (summery.delivery_date ? (summery.delivery_date).split(' ')[0] : '') + '</span></p>'
                             +                             '</td>'
                             +                         '</tr>'
                             +                         '<tr style="">'
                             +                             '<td colspan="5" style="padding-bottom: 10px;">'
-                            +                                 '<p style="display: inline-block; float: left;"><span class="label">Territory</span><span class="label-value">: ' + 'Dummy' + '</span></p>'
+                            +                                 '<p style="display: inline-block; float: left;"><span class="label">Territory</span><span class="label-value">: ' + (summery.territory_id ? (summery.territory_id) : '') + '</span></p>'
                             +                             '</td>'
                             +                         '</tr>'
                             +                         this.create_table_header(table_header)

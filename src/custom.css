@@ -2602,6 +2602,10 @@ label,
     color: #C11616;
 }
 
+.jmi-warning {
+    color: #df2a43 !important;
+}
+
 .jmi-submit-section {
     position       : relative;
     width          : 100%;
