@@ -714,6 +714,36 @@ export default class PostService {
   }
 
   // -------------------------------------------------------------------------------------------
+  // PENDING DS INVOICE LIST - ADD INVOICE TO DS
+  async getInvoiceForCurrentDS_PENDING_DS_INVOICE_LIST(da_id, ds_id) {
+    let web_menu_url = '/api/web/invoices-for-current-delivery-schedule/' + da_id + '/' + ds_id
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+    })
+  }
+
+  // -------------------------------------------------------------------------------------------
+  // PENDING DS INVOICE LIST - ADD INVOICE TO DS
+  async getAddInvoiceToCurrentDS_PENDING_DS_INVOICE_LIST(ds_id, list) {
+    console.log(ds_id)
+    console.log(JSON.stringify(list))
+    let web_menu_url = '/api/web/add-invoices-to-current-delivery-schedule'
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+      params: {
+        ds_id: ds_id,
+        invoices: JSON.stringify(list)
+      }
+    })
+  }
+
+  // -------------------------------------------------------------------------------------------
 
   // -------------------------------------------------------------------------------------------
 

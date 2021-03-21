@@ -53,7 +53,7 @@
                 <td>{{ schedule.customer_info ? (schedule.customer_info.customer_type ? (checkCustomerType(schedule.customer_info.customer_type)) : '') : '' }}</td>
                 <td>{{ schedule.customer_info ? (schedule.customer_info.customer_name ? (schedule.customer_info.customer_name) : '') : '' }}</td>
                 <td style="text-align: right;">{{ comaSrparation(Number(schedule.invoice_amt).toFixed(2)) }}</td>
-                <td style="width: 10%;"><i class="zmdi zmdi-print" @click="printInvoice(schedule.id, i)"></i></td>
+                <td style="width: 10%;"><i class="zmdi zmdi-print" @click="printInvoice(schedule.invoice_id, i)"></i></td>
               </tr>
             </tbody>
           </table>
@@ -122,7 +122,7 @@ export default {
       console.log('print ALl')
       console.log(this.tab)
       let table_header = [
-        {th:"INVOICE ID", style:''},
+        {th:"INVOICE No", style:''},
         {th:"CUSTOMER TYPE", style:''},
         {th:"CUSTOMER NAME", style:'text-align: left;'},
         {th:"AMOUNT", style:'text-align: right;'}
@@ -131,7 +131,7 @@ export default {
       let table_data = []
       for(let i=0; i<this.SCHEDULE_DETAILS_LIST.length; i++) {
         let table_single_data = {
-          invoice_id: this.SCHEDULE_DETAILS_LIST[i].invoice_id,
+          invoice_id: this.SCHEDULE_DETAILS_LIST[i].get_invoice.invoice_no,
           customer_type: this.checkCustomerType(this.SCHEDULE_DETAILS_LIST[i].customer_info.customer_type),
           customer_name: this.SCHEDULE_DETAILS_LIST[i].customer_info.customer_name,
           amount: this.SCHEDULE_DETAILS_LIST[i].invoice_amt

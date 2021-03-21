@@ -96,6 +96,7 @@ export default class PP_Invoice_Type_3_Institution {
                             +                         this.create_multiple_person_table_body_data(data)
                             +                     '</tbody>'
                             +                 '</table>'
+                            +                 this.createInvoiceForChallan(data)
                             +             '</div>'
                             +         '</div>'
                 )
@@ -316,7 +317,8 @@ export default class PP_Invoice_Type_3_Institution {
 
         let gross_tp = ''
         gross_tp += ''
-                    +   '<tr style=" border-top: 1px solid #000000;">'
+                    +   '<tr style=" "><td colspan="13"><hr style="border: 1px solid #000000;" /></td></tr>'
+                    +   '<tr style="">'
                     +       '<td colspan="9" style="margin-top: 10px;">' + '<p style="text-align: left; margin: 0;">In Word : ' + this.convert_number_to_word(Number(NET_PAYABLE_AFTER_ADJ).toFixed(0)) + '.</p>' + '</td>'
                     +       '<td colspan="2" style="text-align: right; margin-top: 10px;">' + 'Gross TP :' + '</td>'
                     +       '<td style="text-align: right; margin-top: 10px; border-bottom: 1px solid #000000;">' + '' + '</td>'
@@ -408,5 +410,182 @@ export default class PP_Invoice_Type_3_Institution {
         str += (n[4] != 0) ? (a[Number(n[4])] || b[n[4][0]] + ' ' + a[n[4][1]]) + 'Hundred ' : '';
         str += (n[5] != 0) ? ((str != '') ? 'and ' : '') + (a[Number(n[5])] || b[n[5][0]] + ' ' + a[n[5][1]]) + 'only ' : '';
         return str;
+    }
+
+    // --------------------------------------------------------------------------------------
+    // INVOICE AFTER CHALLAN
+    createInvoiceForChallan(data) {
+        let result = ''
+        result += '' +
+        '<table style="page-break-before: always;">' +
+            '<thead>' +
+                '<tr style="">' +
+                    '<td colspan="6" style="text-align: left;">' +
+                        '<p style=""></p>' +
+                    '</td>' +
+                    '<td colspan="7" style="text-align: right;">' +
+                        '<p style="display: inline-block; padding: 10px 30px 14px 0;"><span class="label" style="border: 1px solid #000000; border-radius: 4px; padding: 4px 4px;">' + (data.sbu_customer_info ? (data.sbu_customer_info.credit_flag === 'Y' ? 'CREDIT' : 'CASH') : '') + '</span></p>' +
+                    '</td>' +
+                '</tr>' +
+                '<tr style="">' +
+                    '<td colspan="6" style="text-align: left;">' +
+                        '<p style="padding-bottom: 30px;"><span class="label" style="display: inline-block; width: 30px;"></span><span class="label-value"> ' + this.printing_Date_Format() + '</span></p>' +
+                    '</td>' +
+                    '<td colspan="7" style="text-align: right;">' +
+                        '<p><span class="label"></p>' +
+                    '</td>' +
+                '</tr>' +
+                '<tr style="">' +
+                    '<td colspan="6" style="text-align: left;">' +
+                        '<p><span class="label">Customer Code</span><span class="label-value">: ' + (data.sbu_customer_info ? (data.sbu_customer_info.display_code ? (data.sbu_customer_info.display_code) : '') : '') + '</span></p>' +
+                    '</td>' +
+                    '<td colspan="7" style="text-align: right;">' +
+                        '<p><span class="label">Invoice No :</span><span class="label-value" style="display: inline-block; min-width: 90px;">' + (data.invoice_no ? data.invoice_no : '') + '</span></p>' +
+                    '</td>' +
+                '</tr>' +
+                '<tr style="">' +
+                    '<td colspan="6" style="text-align: left;">' +
+                        '<p><span class="label">Customer Name</span><span class="label-value">: ' + (data.sbu_customer_info ? (data.sbu_customer_info.display_name ? (data.sbu_customer_info.display_name) : '') : '') + '</span></p>' +
+                    '</td>' +
+                    '<td colspan="7" style="text-align: right;">' +
+                        '<p><span class="label">Invoice Date :</span><span class="label-value" style="display: inline-block; min-width: 90px;">' + (data.invoice_date ? (data.invoice_date).split(' ')[0] : '') + '</span></p>' +
+                    '</td>' +
+                '</tr>' +
+                '<tr style="">' +
+                    '<td colspan="6" style="text-align: left;">' +
+                        '<p><span class="label">Address</span><span class="label-value">: ' + (data.sbu_customer_info ? (data.sbu_customer_info.customer_info ? (data.sbu_customer_info.customer_info.customer_address ? (data.sbu_customer_info.customer_info.customer_address) : '') : '') : '') + '</span></p>' +
+                    '</td>' +
+                    '<td colspan="7" style="text-align: right;">' +
+                        '<p><span class="label">Depot :</span><span class="label-value" style="display: inline-block; min-width: 90px;">' + (data.area_info ? (data.area_info.area_name ? (data.area_info.area_name) : '') : '') + '</span></p>' +
+                    '</td>' +
+                '</tr>' +
+                '<tr style="">' +
+                    '<td colspan="6" style="text-align: left;">' +
+                        '<p><span class="label">MIO Name</span><span class="label-value">: ' + (data.sbu_customer_info ? (data.sbu_customer_info.customer_area_info ? (data.sbu_customer_info.customer_area_info.sales_force ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info.name ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info.name) : '') : '') : '') : '') : '') + '</span></p>' +
+                    '</td>' +
+                    '<td colspan="7" style="text-align: right;">' +
+                        '<p><span class="label">T.Code :</span><span class="label-value" style="display: inline-block; min-width: 90px;">' + (data.sbu_customer_info ? (data.sbu_customer_info.customer_area_info ? (data.sbu_customer_info.customer_area_info.sales_force ? (data.sbu_customer_info.customer_area_info.sales_force.get_sales_area ? (data.sbu_customer_info.customer_area_info.sales_force.get_sales_area.display_code) : '') : '') : '') : '') + '</span></p>' +
+                    '</td>' +
+                '</tr>' +
+                '<tr style="">' +
+                    '<th colspan="6" style="text-align: left;">' +
+                        '<p style="padding-bottom: 10px;"><span class="label">S.R Name</span><span class="label-value">: ' + (data.sbu_customer_info ? (data.sbu_customer_info.customer_area_info ? (data.sbu_customer_info.customer_area_info.sales_force ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info.name) : '') : '') : '') : '') : '') : '') + '</span></p>' +
+                    '</th>' +
+                    '<th colspan="7" style="text-align: right;">' +
+                        '<p style="display: inline-block; margin-right: 20px; padding-bottom: 6px;"><span class="label">Order No :</span><span class="label-value" style="">' + (data.order_info ? (data.order_info.order_no ? (data.order_info.order_no) : '') : '') + '</span></p>' +
+                        '<p style="display: inline-block;"><span class="label">Order Date :</span><span class="label-value" style="">' + (data.order_info ? (data.order_info.order_date ? (data.order_info.order_date).split(' ')[0] : '') : '') + '</span></p>' +
+                    '</th>' +
+                '</tr>' +
+                '<tr>' +
+                    '<th style="border: 1px solid #000000;">SN</th>' +
+                    '<th style="border: 1px solid #000000; width: 20%;">Product Name</th>' +
+                    '<th style="border: 1px solid #000000;">Pack Size</th>' +
+                    '<th style="border: 1px solid #000000;">Batch No</th>' +
+                    '<th style="border: 1px solid #000000;">MFG Date</th>' +
+                    '<th style="border: 1px solid #000000;">EXP Date</th>' +
+                    '<th style="border: 1px solid #000000; width: 8%;">Unit Price TP/SP</th>' +
+                    '<th style="border: 1px solid #000000;">Unit VAT</th>' +
+                    '<th style="border: 1px solid #000000; width: 8%;">Unit Price with VAT</th>' +
+                    '<th style="border: 1px solid #000000;">Quantity</th>' +
+                    '<th style="border: 1px solid #000000;">Bonus</th>' +
+                    '<th style="border: 1px solid #000000;">Total VAT</th>' +
+                    '<th style="border: 1px solid #000000;">Total TP/SP</th>' +
+                '</tr>' +
+            '</thead>' +
+            '<tbody>' +
+                this.create_multiple_person_table_body_data_Invoice(data) +
+            '</tbody>' +
+        '</table>' +
+
+        '<table style="margin-top: 10px; page-break-inside: avoid;">' +
+            '<tbody>' +
+                this.create_gross_TP_data(data) +
+                this.create_discount_data(data) +
+                this.create_vat_data(data) +
+                this.create_rounding_adjustment_data(data) +
+                this.create_net_payable_data(data) +
+            '</tbody>' +
+        '</table>' +
+        // this.create_credit_status() +
+        this.create_signature_section()
+
+        return result
+    }
+
+    create_multiple_person_table_body_data_Invoice(data) {
+
+        let product_details = data.invoice_details
+        let multiple_person_data = ''
+        let products = {
+            product_bonus: [],
+            product_flat: [],
+            product_free: [],
+            product_regular: [],
+        }
+        for(let i=0; i<product_details.length; i++) {
+            if(product_details[i].deal_type === "B") {
+                products.product_bonus.push(product_details[i])
+            }
+            else if(product_details[i].deal_type === "D") {
+                products.product_flat.push(product_details[i])
+            }
+            else if(product_details[i].deal_type === "F") {
+                products.product_free.push(product_details[i])
+            }
+            else if(product_details[i].deal_type === "R") {
+                products.product_regular.push(product_details[i])
+            }
+        }
+        
+        multiple_person_data += products.product_bonus.length > 0 ? this.create_table_body_data_Invoice(products.product_bonus, 'Bonus') : ''
+        multiple_person_data += products.product_flat.length > 0 ? this.create_table_body_data_Invoice(products.product_flat, 'Flat') : ''
+        multiple_person_data += products.product_free.length > 0 ? this.create_table_body_data_Invoice(products.product_free, 'Free') : ''
+        multiple_person_data += products.product_regular.length > 0 ? this.create_table_body_data_Invoice(products.product_regular, 'Regular') : ''
+        
+        return multiple_person_data
+    }
+    
+    create_table_body_data_Invoice(products, product_deal_type) {
+        let product_details = products
+        let deal_type = ''
+            deal_type += '' +
+                            '<tr>' +
+                                '<td colspan="13">' +
+                                    '<p style="font-size: 12px; line-height: 1.5; text-align: left; border-bottom: 1px solid #000000; margin: 0; width: 100px;">Offer Type: ' + product_deal_type + '</p>' +
+                                '</td>' +
+                            '</tr>'
+        
+        let result = ''
+        for(let i=0; i<product_details.length; i++) {
+            result +=   ''
+                    +   '<tr style="page-break-before: always;">'
+                    +       '<td style="">' + (PRODUCT_SERIAL_NO) + '.</td>'
+                    +       '<td style=" width: 20%; text-align: left;">' + (product_details[i].product_info ? (product_details[i].product_info.prod_name ? (product_details[i].product_info.prod_name) : '') : '') + '</td>'
+                    +       '<td style="">' + (product_details[i].product_info ? (product_details[i].product_info.com_pack_size ? (product_details[i].product_info.com_pack_size) : '') : '') + '</td>'
+                    +       '<td style="">' + (product_details[i].batch_no ? (product_details[i].batch_no) : '') + '</td>'
+                    +       '<td style="">' + this.createMFG_EXP_Date((product_details[i].whss_batch ? (product_details[i].whss_batch.mfg_date ? (product_details[i].whss_batch.mfg_date).split(' ')[0] : '') : '')) + '</td>'
+                    +       '<td style="">' + this.createMFG_EXP_Date((product_details[i].whss_batch ? (product_details[i].whss_batch.exp_date ? (product_details[i].whss_batch.exp_date).split(' ')[0] : '') : '')) + '</td>'
+                    +       '<td style=" text-align: right;">' + comaSeparatedDigits.comaSeparate(product_details[i].unit_tp ? (product_details[i].unit_tp) : '') + '</td>'
+                    +       '<td style=" text-align: right;">' + comaSeparatedDigits.comaSeparate(product_details[i].unit_vat ? (product_details[i].unit_vat) : '') + '</td>'
+                    +       '<td style=" text-align: right;">' + comaSeparatedDigits.comaSeparate(this.createUnitPriceVat((product_details[i].unit_tp ? (product_details[i].unit_tp) : 0), (product_details[i].unit_vat ? (product_details[i].unit_vat) : 0))) + '</td>'
+                    +       '<td style="">' + (product_details[i].qty ? (product_details[i].qty) : '') + '</td>'
+                    +       '<td style="">' + (product_details[i].bonus_qty ? (product_details[i].bonus_qty) : '') + '</td>'
+                    +       '<td style=" text-align: right;">' + comaSeparatedDigits.comaSeparate(product_details[i].inv_vat ? (product_details[i].inv_vat) : '') + '</td>'
+                    +       '<td style=" text-align: right;">' + comaSeparatedDigits.comaSeparate(product_details[i].inv_tp ? (product_details[i].inv_tp) : '') + '</td>'
+                    +   '</tr>'
+                    PRODUCT_SERIAL_NO++
+        }
+        
+        return deal_type + result + this.create_subtotal_data(product_details)
+    }
+
+    create_signature_section() {
+        let result = ''
+            result += ''
+                    +   '<div class="signature-section" style="float: right; page-break-after: always; page-break-inside: avoid; margin-top: 60px; font-size: 12px;">'
+                    +       '<p style="margin: 0; text-align: right; font-family: calibri; "><span style="border-bottom: 1px solid #000000; width: 200px; display: block; padding-bottom: 2px;">FAYAZUR RAHMAN SUMMIT</span><span style="width: 200px; display: block; padding-top: 2px;">For NIPRO JMI Pharma Ltd.</span></p>'
+                    +   '</div>'
+
+        return result
     }
 }

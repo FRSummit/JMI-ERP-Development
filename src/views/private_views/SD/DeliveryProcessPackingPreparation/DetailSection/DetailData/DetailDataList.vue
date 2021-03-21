@@ -136,6 +136,7 @@ export default {
       console.log('print all')
       console.log(this.PROD_PREPARATION_LIST)
       // if(this.tab === 'INVOICE' || this.tab === 'CHALLAN') {
+        console.log()
         let table_header = [
           {th:"Code", style:''},
           {th:"Product Name", style:'text-align: left;'},
