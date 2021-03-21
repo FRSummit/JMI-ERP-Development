@@ -354,7 +354,7 @@
                                     </div>
                                     <div class="row receiver-amount">
                                         <p class="jmi-lvl">Type Receiver Amount</p>
-                                        <input type="number" id="deliveries_cash_receiver_amount" class="jmi-lvl-value" v-model="cash_receive_amount" v-on:keyup="deliveries_cash_receiver_amount_KeyUp_ordered_table($event)" min="1" step="1" v-on:keydown="deliveries_cash_receiver_amount_KeyDown_ordered_table($event, i)" pattern="[0-9]*">
+                                        <input type="number" id="deliveries_cash_receiver_amount" class="jmi-lvl-value" v-model="cash_receive_amount" v-on:keyup="deliveries_cash_receiver_amount_KeyUp_ordered_table($event)" step="any" v-on:keydown="deliveries_cash_receiver_amount_KeyDown_ordered_table($event, i)">
                                     </div>
                                 </div>
                             </b-tab>
@@ -375,7 +375,7 @@
                                         <div class="imvoice-amount" style="width: 33%;">
                                             <p class="jmi-lvl">Due Amount:</p>
                                             <!-- <p class="jmi-lvl-value">{{ Number(cheque_due_amount).toFixed(2) }}</p> -->
-                                            <p id="cheque-due-amount-selector" class="jmi-lvl-value">{{ Number(parseFloat(grand_total) - parseFloat(cash_receive_amount) - parseFloat(cheque_receive_amount) ).toFixed(2) }}</p>
+                                            <p type="number" id="cheque-due-amount-selector" class="jmi-lvl-value">{{ Number(parseFloat(grand_total) - parseFloat(cash_receive_amount) - parseFloat(cheque_receive_amount) ).toFixed(2) }}</p>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -393,10 +393,18 @@
                                             <p class="jmi-lvl">Enter cheque Number</p>
                                             <input type="text" v-model="cheque_cheque_number">
                                         </div>
-                                        <div class="jmi-inline-block right-alg">
+                                        <!-- <div class="jmi-inline-block right-alg"> -->
+                                        <div class="jmi-inline-block">
                                             <p class="jmi-lvl">Attach File (File Should be jpg, png)</p>
                                             <p class="jmi-lvl" style="color: #C11616; font-size: 10px;" v-if="UPLOADED_IMAGE_DATA_BASE_64_IS_PRESENT">* Please insert cheque image</p>
                                             <input type="file" class="jmi-lvl-value" @change="imageChooseEventHandler($event)" accept="image/x-png,image/gif,image/jpeg">
+                                        </div>
+                                        <div class="select-options jmi-inline-block right-alg">
+                                            <p class="jmi-lvl" style="float: unset;">Select file type</p>
+                                            <span class="right-icon"><i class="fas fa-chevron-right"></i></span>
+                                            <select title="Pick a customer" class="selectpicker" v-model="file_type_on_change" @change="onChangeFileTypeDropdown()">
+                                                <option v-for="(file, m) in file_types_list" :key="m" :value="file.code_id">{{ file.element_name }}</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -891,6 +899,8 @@ export default {
             UPLOADED_IMAGE_NAME: null,
             UPLOADED_IMAGE_DATA_BASE_64: null,
             UPLOADED_IMAGE_DATA_BASE_64_IS_PRESENT: false,
+            file_types_list: [],
+            file_type_on_change: null,
         }
     },
     async created() {
@@ -901,6 +911,7 @@ export default {
         .then( coordinates => {
             console.log(coordinates)
         })
+        await this.LOAD_FILE_TYPE__FROM_SERVICE()
     },
     methods: {
         //------------------------------------------------------------------------------------------
@@ -1192,6 +1203,14 @@ export default {
         },
         // ------------------------------------------------------------------------------------------
         // Service Implementation
+        async LOAD_FILE_TYPE__FROM_SERVICE() {
+            await service.getElementListByCode_Deliveries()
+                .then(res => {
+                    console.log(res.data)
+                    this.file_types_list = res.data.element_list
+                    this.file_type_on_change = this.file_types_list[0].code_id
+                })
+        },
         async SHOW_CUSTOMER_PROFILE__FROM_SERVICE(customer_id) {
             await service.getShowCustomerProfile_OrderApproval(customer_id)
                 .then(res => {
@@ -1342,6 +1361,9 @@ export default {
                 }
             }
         },
+        onChangeFileTypeDropdown() {
+            console.log(this.file_type_on_change)
+        },
         // ----------------------------------------------------------------------------------------
         // DELIVERY ORDER MODAL EVENT HANDLER
         // CHEQUE
@@ -1354,6 +1376,7 @@ export default {
             } else if((selector.value).toString() === '') {
                 selector.value = 0
             }
+            console.log(selector.value)
             this.cash_receive_amount = parseFloat(selector.value)
             this.cash_due_amount = parseFloat(this.grand_total) - parseFloat(selector.value)
 

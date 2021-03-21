@@ -21,8 +21,8 @@
             <p class="total-customer">Select Month</p>
             <div class="select-options">
                 <span class="right-icon"><i class="fas fa-chevron-right"></i></span>
-                    <select title="Pick a customer" class="selectpicker" v-model="on_change_status" @change="onChangeStatusDropdown()">
-                        <option v-for="(month, m) in months" :key="m">{{ month.name }}</option>
+                <select title="Pick a customer" class="selectpicker" v-model="on_change_status" @change="onChangeStatusDropdown()">
+                    <option v-for="(month, m) in months" :key="m">{{ month.name }}</option>
                 </select>
             </div>
         </div>

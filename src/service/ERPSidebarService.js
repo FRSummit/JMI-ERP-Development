@@ -677,6 +677,18 @@ export default class PostService {
     })
   }
 
+  // DELEVERIES - DETAILS SECTION
+  async getElementListByCode_Deliveries() {
+    let code = 14
+    let web_menu_url = '/api/common/element-list-by-code/' + code
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
+
   // -------------------------------------------------------------------------------------------
   // DS PACKING PREPARATION - LEFT SECTION
   async getDeliveryScheduleProdPreparationListByDA_ID_DS_PACKING_PREPARATION(da_id) {

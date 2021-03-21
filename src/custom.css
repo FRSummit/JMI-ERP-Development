@@ -2338,6 +2338,34 @@ span.cancel-order {
     cursor       : pointer;
 }
 
+#deliveries-details-section .tab-section-inner .select-options {
+    /* display : inline-block;
+    width   : 70%;
+    float   : right; */
+    position: relative;
+}
+
+#deliveries-details-section .tab-section-inner .select-options span.right-icon {}
+
+#deliveries-details-section .tab-section-inner .select-options span.right-icon svg {
+    width    : 12px;
+    height   : 12px;
+    position : absolute;
+    right    : 8px;
+    top      : 36px;
+    color    : #BFCFE2;
+    transform: rotate(90deg);
+}
+
+#deliveries-details-section .tab-section-inner .select-options select.selectpicker {
+    display    : block;
+    height     : 38px;
+    padding    : 1px 5px 1px 10px;
+    line-height: 1;
+    border     : 1px solid #BFCFE2;
+    font-size  : 12px;
+}
+
 /* Right Section Ends */
 /* ----------- SD Deliveries Page ENDS ----------------------------------------------------- */
 
