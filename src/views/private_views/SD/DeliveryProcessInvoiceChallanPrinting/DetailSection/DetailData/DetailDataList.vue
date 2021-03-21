@@ -128,6 +128,9 @@ export default {
     printAllInvoiceClickHandler() {
       console.log('print ALl')
       console.log(this.tab)
+      let summery = {
+
+      }
       let table_header = [
         {th:"INVOICE NO", style:''},
         {th:"CUSTOMER TYPE", style:''},
@@ -145,7 +148,7 @@ export default {
         }
         table_data.push(table_single_data)
       }
-      pp_InvoiceChallanSummeryTD_Type1.print_invoice(table_header, table_data)
+      pp_InvoiceChallanSummeryTD_Type1.print_invoice(table_header, table_data, summery)
       console.log(table_data)
     },
     async printInvoice(schedule_id, schedule_customer_type, i) {

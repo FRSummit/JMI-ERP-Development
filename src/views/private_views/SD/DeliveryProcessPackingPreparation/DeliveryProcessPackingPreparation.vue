@@ -8,7 +8,8 @@
         <div class="invoice-challan-printing-detail-section">
           <div class="invoice-challan-printing-detail-inner">
             <DetailSection 
-              :PROD_PREPARATION_LIST="PROD_PREPARATION_LIST" />
+              :PROD_PREPARATION_LIST="PROD_PREPARATION_LIST"
+              :PROD_PREPARATION_LIST_HEADER_INFO="PROD_PREPARATION_LIST_HEADER_INFO" />
           </div>
         </div>
       </div>
@@ -46,6 +47,7 @@ export default {
       info_modal_schedult_count: false,
       schedule_count: null,
       PROD_PREPARATION_LIST: [],
+      PROD_PREPARATION_LIST_HEADER_INFO: [],
       PROD_PREPARATION_LIST_GROUP_BY: []
     };
   },
@@ -78,8 +80,10 @@ export default {
       await service.getDeliveryScheduleProdPreparationListByDA_ID_DS_PACKING_PREPARATION(schedule_id)
         .then(res => {
           this.PROD_PREPARATION_LIST = []
+          this.PROD_PREPARATION_LIST_HEADER_INFO = []
           console.log(res.data)
           this.PROD_PREPARATION_LIST = res.data.prod_preparation_list
+          this.PROD_PREPARATION_LIST_HEADER_INFO = res.data.header
           // if(this.PROD_PREPARATION_LIST) {
           //   for(let i=0; i<this.PROD_PREPARATION_LIST.length; i++) {
           //     for(let j=0; j<this.PROD_PREPARATION_LIST[i]; j++) {

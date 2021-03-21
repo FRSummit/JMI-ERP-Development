@@ -40,6 +40,44 @@ input[type="checkbox"] {
     pointer-events: auto !important;
 }
 
+.jmi-table tbody tr {
+    border-bottom: none;
+}
+
+.jmi-table thead tr th,
+.jmi-table tbody tr td {
+    border    : none;
+    padding   : 4px;
+    text-align: center;
+}
+
+#stock-report-t1.stock-report-t1 .jmi-table thead {}
+
+#stock-report-t1.stock-report-t1 .stock-report-t1-inner {
+    height           : calc(100vh / 2);
+    overflow         : auto;
+    -webkit-flex-flow: row wrap;
+    border-bottom    : 1px solid #AAC0D9;
+}
+
+#stock-report-t1.stock-report-t1 .stock-report-t1-inner::-webkit-scrollbar {
+    width: 2px;
+}
+
+#stock-report-t1.stock-report-t1 .stock-report-t1-inner::-webkit-scrollbar-track {
+    box-shadow   : inset 0 0 5px grey;
+    border-radius: 10px;
+}
+
+#stock-report-t1.stock-report-t1 .stock-report-t1-inner::-webkit-scrollbar-thumb {
+    background   : #168fff;
+    border-radius: 10px;
+}
+
+#stock-report-t1.stock-report-t1 .stock-report-t1-inner::-webkit-scrollbar-thumb:hover {
+    background: #004e98;
+}
+
 /* ------------ DASHBOARD - LANDING PAGE ---------------------------------------- */
 #landing-page.landing-page .row {
     margin : 20px;
@@ -2338,6 +2376,34 @@ span.cancel-order {
     cursor       : pointer;
 }
 
+#deliveries-details-section .tab-section-inner .select-options {
+    /* display : inline-block;
+    width   : 70%;
+    float   : right; */
+    position: relative;
+}
+
+#deliveries-details-section .tab-section-inner .select-options span.right-icon {}
+
+#deliveries-details-section .tab-section-inner .select-options span.right-icon svg {
+    width    : 12px;
+    height   : 12px;
+    position : absolute;
+    right    : 8px;
+    top      : 36px;
+    color    : #BFCFE2;
+    transform: rotate(90deg);
+}
+
+#deliveries-details-section .tab-section-inner .select-options select.selectpicker {
+    display    : block;
+    height     : 38px;
+    padding    : 1px 5px 1px 10px;
+    line-height: 1;
+    border     : 1px solid #BFCFE2;
+    font-size  : 12px;
+}
+
 /* Right Section Ends */
 /* ----------- SD Deliveries Page ENDS ----------------------------------------------------- */
 
@@ -2600,6 +2666,10 @@ label,
 
 .jmi-error {
     color: #C11616;
+}
+
+.jmi-warning {
+    color: #df2a43 !important;
 }
 
 .jmi-submit-section {

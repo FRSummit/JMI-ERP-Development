@@ -54,6 +54,9 @@ export default {
       SCHEDULE_DETAILS_LIST_INSTITUTION: [],
       INVOICE_FOR_CURRENT_DS_LIST: [],
       DS_ID: null,
+      DA_ID: null,
+      CURRENT_SCHEDULE_ID: null,
+      // After Adding New Invoice
     };
   },
   created() {
@@ -77,6 +80,8 @@ export default {
     // },
     async invoiceIdFromLeftHandler(val) {
       console.log(val)
+      this.CURRENT_SCHEDULE_ID = null
+      this.CURRENT_SCHEDULE_ID = val
       await this.DELIVERY_SCHEDULE_DETAILS__FROM_SERVICE(val)
     },
     addInvoiceToCurrentSchedule(value) {
@@ -88,6 +93,7 @@ export default {
       this.SCHEDULE_DETAILS_LIST = []
       this.SCHEDULE_DETAILS_LIST_CHEMIST = []
       this.SCHEDULE_DETAILS_LIST_INSTITUTION = []
+      this.DA_ID = null
       this.DS_ID = null
       service.getDeliveryScheduleDetails_DELIVERY_SCHEDULING_INVOICE_CHALLAN_PRINTING(schedule_id)
         .then(res => {
@@ -103,6 +109,7 @@ export default {
             }
             // let da_id = res.data.schedule_list[0].ds_info.da_id
             // let ds_id = res.data.schedule_list[0].ds_id
+            this.DA_ID = res.data.schedule_list[0].ds_info.da_id
             this.DS_ID = res.data.schedule_list[0].ds_id
             this.GET_INVOICE_FOR_CURRENT_DS__FROM_SERVICE(res.data.schedule_list[0].ds_info.da_id, res.data.schedule_list[0].ds_id)
           }
@@ -123,12 +130,14 @@ export default {
         }
         inv_list.push(invoice_id)
       }
-      // console.log(inv_list)
+      console.log(inv_list)
       await service.getAddInvoiceToCurrentDS_PENDING_DS_INVOICE_LIST(this.DS_ID, inv_list)
         .then(res => {
           console.log(res.data)
+          this.DELIVERY_SCHEDULE_DETAILS__FROM_SERVICE(this.CURRENT_SCHEDULE_ID)
           if(res.data.response_data === 200) {
-            this.router.push('/features/users/dashboard')
+            // this.router.push('/features/users/dashboard')
+            this.GET_INVOICE_FOR_CURRENT_DS__FROM_SERVICE(this.DA_ID, this.DS_ID)
           }
         })
     }

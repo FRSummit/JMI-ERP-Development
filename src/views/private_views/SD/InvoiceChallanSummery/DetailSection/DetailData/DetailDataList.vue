@@ -81,6 +81,23 @@
         </div>
       </div>
     </div>
+    <!-- GATE PASS CONFIRMATION -->
+        <div class="modal-popup-section order-proceed-modal" v-if="gate_pass_proceed_modal_popup && tab === 'GATE PASS'">
+            <div class="modal-popup-section-inner order-proceed-modal-inner">
+                <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
+                <p class="popup-text">Are you sure?</p>
+                <p class="popup-desc">You want to create gate pass ?</p>
+                <span class="divider"></span>
+                <div class="popup-submit-section">
+                <div class="popup-cancel-btn-section" @click="cancelGatePassModalClickHandler">
+                    <span>Cancel</span>
+                </div>
+                <div class="popup-confirm-btn-section" @click="proceedGatePassModalClickHandler">
+                    <span>Proceed</span>
+                </div>
+                </div>
+            </div>
+        </div>
   </div>
 </template>
 
@@ -118,8 +135,14 @@ export default {
       ],
       // value: null,
       radioSpanDefaultClass: 'active',
-      radioSpanCustomClass: null
+      radioSpanCustomClass: null,
+      gate_pass_proceed_modal_popup: true
     };
+  },
+  mounted() {
+    console.log(this.tab)
+  },
+  computed: {
   },
   methods: {
     onChange(value) {
@@ -144,6 +167,9 @@ export default {
     printAllInvoiceClickHandler() {
       console.log('print ALl : ' + this.tab)
       console.log(this.tab)
+      let summery = {
+
+      }
       if(this.tab === 'INVOICE' || this.tab === 'CHALLAN') {
         let table_header = [
           {th:"INVOICE No", style:''},
@@ -162,7 +188,7 @@ export default {
           }
           table_data.push(table_single_data)
         }
-        pp_InvoiceChallanSummeryTD_Type1.print_invoice(table_header, table_data)
+        pp_InvoiceChallanSummeryTD_Type1.print_invoice(table_header, table_data, summery)
         console.log(table_data)
       } else if(this.tab === 'GATE PASS') {
         let table_header = [
@@ -182,7 +208,7 @@ export default {
           }
           table_data.push(table_single_data)
         }
-        pp_InvoiceChallanSummeryTD_GatePass.print_invoice(table_header, table_data)
+        pp_InvoiceChallanSummeryTD_GatePass.print_invoice(table_header, table_data, summery)
         console.log(table_data)
       }
     },
@@ -202,6 +228,14 @@ export default {
       } else if(customer_type === '424') {
         return 'Institute'
       }
+    },
+    cancelGatePassModalClickHandler() {
+      console.log('GATE_PASS_CANCEL')
+      this.$emit('gate_pass_cancel')
+      // this.gate_pass_proceed_modal_popup = false
+    },
+    proceedGatePassModalClickHandler() {
+      this.gate_pass_proceed_modal_popup = false
     },
     // ---------------------------------------------------------------
     // SERVICE CALL
@@ -235,6 +269,11 @@ export default {
         })
     }
   },
+  // watch: {
+  //   tab:(newTab, oldTab) => {
+  //     console.log(newTab + '    ' + oldTab)
+  //   }
+  // }
 };
 </script>
 

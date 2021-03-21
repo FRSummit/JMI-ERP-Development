@@ -20,9 +20,9 @@
 
         .dispatch-entry-tab-section {
             .mt-3.dispatch-entry-tabs {
-                display : block;
-                overflow: hidden;
-                height  : auto;
+                display   : block;
+                overflow  : hidden;
+                height    : auto;
                 margin-top: 20px !important;
 
                 .manual-entry-tab {
@@ -37,13 +37,14 @@
                             vertical-align: middle;
 
                             .input-section-inner {
-                                display: table;
-                                width  : 100%;
+                                margin    : 0;
+                                // display: block;
+                                // width  : 100%;
 
                                 div {
-                                    display: table-cell;
-                                    width  : 25%;
-                                    padding: 6px 10px;
+                                    // display: inline-block;
+                                    // width  : 25%;
+                                    // padding: 6px 10px;
 
                                     div {
                                         span {
@@ -56,13 +57,16 @@
 
                                         input {
                                             display      : block;
-                                            width        : 100%;
+                                            width        : 90%;
+                                            min-width    : 120px;
                                             font-size    : 14px;
                                             border       : 1px solid #E1E2E3;
                                             border-radius: 2px;
-                                            height       : auto;
+                                            height       : 40px;
                                             padding      : 11px 0 11px 10px;
                                             box-sizing   : border-box;
+                                            color        : @blue;
+                                            margin       : 0;
 
                                             &:focus {
                                                 outline           : 0;
@@ -70,7 +74,7 @@
                                                 -moz-box-shadow   : none;
                                                 -webkit-box-shadow: none;
                                                 box-shadow        : none;
-                                                border: 1px solid #026CD1;
+                                                border            : 1px solid #026CD1;
                                             }
                                         }
                                     }
@@ -82,14 +86,15 @@
                             display       : inline-block;
                             width         : 20%;
                             text-align    : center;
-                            vertical-align: text-top;
+                            vertical-align: bottom;
+                            margin        : 0;
 
                             .submit-section-inner {
                                 button {
                                     color        : #FCFCFC;
                                     font-size    : 14px;
                                     background   : #026CD1;
-                                    width        : 140px;
+                                    width        : 80%;
                                     padding      : 12px 0;
                                     border-radius: 2px;
                                 }
@@ -110,14 +115,15 @@
                             vertical-align: middle;
 
                             .delivery-details-section-inner {
-                                display: table;
-                                width  : 100%;
+                                // display: table;
+                                // width  : 100%;
+                                margin: 0;
 
                                 div {
-                                    display   : table-cell;
-                                    width     : 25%;
-                                    padding   : 6px 10px;
-                                    text-align: center;
+                                    // display   : table-cell;
+                                    // width     : 25%;
+                                    // padding   : 6px 10px;
+                                    // text-align: center;
 
                                     p {
                                         font-size: 16px;
@@ -137,13 +143,14 @@
                             width         : 20%;
                             vertical-align: middle;
                             text-align    : center;
+                            margin        : 0;
 
                             .submit-section-inner {
                                 button {
                                     color        : #FCFCFC;
                                     font-size    : 14px;
                                     background   : #026CD1;
-                                    width        : 140px;
+                                    width        : 80%;
                                     padding      : 12px 0;
                                     border-radius: 2px;
                                 }
@@ -153,5 +160,40 @@
                 }
             }
         }
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+
+    #delivery-process-dispatch-entry.delivery-process-dispatch-entry .delivery-process-dispatch-entry-inner .dispatch-entry-tab-section .mt-3.dispatch-entry-tabs .manual-entry-tab .manual-entry-tab-inner .input-section,
+    #delivery-process-dispatch-entry.delivery-process-dispatch-entry .delivery-process-dispatch-entry-inner .dispatch-entry-tab-section .mt-3.dispatch-entry-tabs .bar-code-scan-tab .bar-code-scan-tab-inner .delivery-details-section {
+        width  : 100%;
+        display: block;
+    }
+
+    #delivery-process-dispatch-entry.delivery-process-dispatch-entry .delivery-process-dispatch-entry-inner .dispatch-entry-tab-section .mt-3.dispatch-entry-tabs .manual-entry-tab .manual-entry-tab-inner .submit-section,
+    #delivery-process-dispatch-entry.delivery-process-dispatch-entry .delivery-process-dispatch-entry-inner .dispatch-entry-tab-section .mt-3.dispatch-entry-tabs .bar-code-scan-tab .bar-code-scan-tab-inner .submit-section {
+        width     : 100%;
+        display   : block;
+        margin-top: 20px;
+    }
+
+    #delivery-process-dispatch-entry.delivery-process-dispatch-entry .delivery-process-dispatch-entry-inner .dispatch-entry-tab-section .mt-3.dispatch-entry-tabs .bar-code-scan-tab .bar-code-scan-tab-inner .submit-section {
+        // text-align: left;
+    }
+
+    #delivery-process-dispatch-entry.delivery-process-dispatch-entry .delivery-process-dispatch-entry-inner .dispatch-entry-tab-section .mt-3.dispatch-entry-tabs .manual-entry-tab .manual-entry-tab-inner .submit-section .submit-section-inner button,
+    #delivery-process-dispatch-entry.delivery-process-dispatch-entry .delivery-process-dispatch-entry-inner .dispatch-entry-tab-section .mt-3.dispatch-entry-tabs .bar-code-scan-tab .bar-code-scan-tab-inner .submit-section .submit-section-inner button {
+        width: 200px;
+    }
+
+    #delivery-process-dispatch-entry.delivery-process-dispatch-entry .delivery-process-dispatch-entry-inner .dispatch-entry-tab-section .mt-3.dispatch-entry-tabs .manual-entry-tab .manual-entry-tab-inner .input-section .input-section-inner div div input {
+        font-size: 14px;
+        padding  : 4px 10px;
+        height   : 28px;
+    }
+
+    #delivery-process-dispatch-entry.delivery-process-dispatch-entry .delivery-process-dispatch-entry-inner .dispatch-entry-tab-section .mt-3.dispatch-entry-tabs .bar-code-scan-tab .bar-code-scan-tab-inner .delivery-details-section .delivery-details-section-inner div p {
+        font-size: 14px;
     }
 }

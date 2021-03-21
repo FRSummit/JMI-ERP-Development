@@ -84,7 +84,7 @@ import ComaSeparatedDigits from '../../../../../../functions/ComaSeparatedDigits
 const comaSeparatedDigits = new ComaSeparatedDigits()
 
 export default {
-  props: ["tab", "PROD_PREPARATION_LIST"],
+  props: ["tab", "PROD_PREPARATION_LIST", "PROD_PREPARATION_LIST_HEADER_INFO"],
   components: {},
   data() {
     return {
@@ -170,7 +170,7 @@ export default {
           table_data.push(group_table)
         }
         // pp_PackingSummeryAll_T1.print_invoice(table_header, table_data)
-        pp_PackingSummeryAll_T1.print_invoice(table_header, this.PROD_PREPARATION_LIST)
+        pp_PackingSummeryAll_T1.print_invoice(table_header, this.PROD_PREPARATION_LIST, this.PROD_PREPARATION_LIST_HEADER_INFO)
         console.log(table_data)
     },
     printSingleArea() {
