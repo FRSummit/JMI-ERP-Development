@@ -761,6 +761,31 @@ export default class PostService {
   }
 
   // -------------------------------------------------------------------------------------------
+  // DISPATCH ENTRY
+  async getDispatchEntryByGPNo_DS_DISPATCH_ENTRY(gp_no) {
+    console.log(gp_no)
+    let web_menu_url = '/api/web/dispatch-entry'
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+      params: {
+        gp_no: gp_no
+      }
+    })
+  }
+  // DISPATCH ENTRY
+  async getCreateDIspatch_DS_DISPATCH_ENTRY(gp_id) {
+    console.log(gp_id)
+    let web_menu_url = '/api/web/create-dispatch/' + gp_id
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
 
   // -------------------------------------------------------------------------------------------
 
