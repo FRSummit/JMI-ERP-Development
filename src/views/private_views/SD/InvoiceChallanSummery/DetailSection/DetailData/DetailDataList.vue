@@ -54,7 +54,7 @@
                 <td>{{ schedule.customer_info ? (schedule.customer_info.customer_type ? (checkCustomerType(schedule.customer_info.customer_type)) : '') : '' }}</td>
                 <td>{{ schedule.customer_info ? (schedule.customer_info.customer_name ? (schedule.customer_info.customer_name) : '') : '' }}</td>
                 <td style="text-align: right;">{{ comaSrparation(Number(schedule.invoice_amt).toFixed(2)) }}</td>
-                <td style="width: 10%;"><i class="zmdi zmdi-print" @click="printInvoice(schedule.id, schedule.customer_info.customer_type, i)"></i></td>
+                <td style="width: 10%;"><i class="zmdi zmdi-print" @click="printInvoice(schedule.invoice_id, schedule.customer_info.customer_type, i)"></i></td>
               </tr>
             </tbody>
           </table>

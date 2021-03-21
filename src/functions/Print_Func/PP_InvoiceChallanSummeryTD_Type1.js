@@ -47,12 +47,13 @@ export default class PP_InvoiceChallanSummeryTD_Type1 {
                             +                         '</tr>'
                             +                         '<tr style="">'
                             +                             '<td colspan="5" style="">'
+                            +                                 '<p style="display: inline-block; float: left;"><span class="label">DS No</span><span class="label-value">: ' + 'Dummy' + '</span></p>'
                             +                                 '<p style="display: inline-block; float: right;"><span class="label">Delivery Date</span><span class="label-value">: ' + 'Dummy' + '</span></p>'
                             +                             '</td>'
                             +                         '</tr>'
                             +                         '<tr style="">'
                             +                             '<td colspan="5" style="padding-bottom: 10px;">'
-                            +                                 '<p style="display: inline-block; float: left;"><span class="label">SPE/MIO Name</span><span class="label-value">: ' + 'Dummy' + '</span></p>'
+                            +                                 '<p style="display: inline-block; float: left;"><span class="label">Territory</span><span class="label-value">: ' + 'Dummy' + '</span></p>'
                             +                             '</td>'
                             +                         '</tr>'
                             +                         this.create_table_header(table_header)
@@ -92,7 +93,7 @@ export default class PP_InvoiceChallanSummeryTD_Type1 {
         style += ''
               + '@page {'
               +     'size: 8.5in 11in;'
-              +     'margin: 25mm 10mm 30mm 15mm; border: 1px solid #000000'
+              +     'margin: 30mm 10mm 30mm 15mm; border: 1px solid #000000'
               + '}'
               +
               + '@media print {'
