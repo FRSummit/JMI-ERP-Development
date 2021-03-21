@@ -40,6 +40,44 @@ input[type="checkbox"] {
     pointer-events: auto !important;
 }
 
+.jmi-table tbody tr {
+    border-bottom: none;
+}
+
+.jmi-table thead tr th,
+.jmi-table tbody tr td {
+    border    : none;
+    padding   : 4px;
+    text-align: center;
+}
+
+#stock-report-t1.stock-report-t1 .jmi-table thead {}
+
+#stock-report-t1.stock-report-t1 .stock-report-t1-inner {
+    height           : calc(100vh / 2);
+    overflow         : auto;
+    -webkit-flex-flow: row wrap;
+    border-bottom    : 1px solid #AAC0D9;
+}
+
+#stock-report-t1.stock-report-t1 .stock-report-t1-inner::-webkit-scrollbar {
+    width: 2px;
+}
+
+#stock-report-t1.stock-report-t1 .stock-report-t1-inner::-webkit-scrollbar-track {
+    box-shadow   : inset 0 0 5px grey;
+    border-radius: 10px;
+}
+
+#stock-report-t1.stock-report-t1 .stock-report-t1-inner::-webkit-scrollbar-thumb {
+    background   : #168fff;
+    border-radius: 10px;
+}
+
+#stock-report-t1.stock-report-t1 .stock-report-t1-inner::-webkit-scrollbar-thumb:hover {
+    background: #004e98;
+}
+
 /* ------------ DASHBOARD - LANDING PAGE ---------------------------------------- */
 #landing-page.landing-page .row {
     margin : 20px;
