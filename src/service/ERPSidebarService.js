@@ -652,12 +652,13 @@ export default class PostService {
   }
 
   // DELEVERIES - DETAILS SECTION
-  async getSaveInvoiceDeliveryInfo_DELIVERIES(invoice_id, invoice_dtl, cash, cheque, net_payable_amount, base64_img, img_name, file_path) {
+  async getSaveInvoiceDeliveryInfo_DELIVERIES(invoice_id, invoice_dtl, cash, cheque, net_payable_amount, base64_img, img_name, file_path, object_type) {
     console.log(invoice_id)
     console.log(invoice_dtl)
     console.log(cash)
     console.log(cheque)
     console.log(net_payable_amount)
+    console.log(object_type)
     let web_menu_url = '/api/web/save-invoice-delivery-info'
     return await axios(web_menu_url, {
       method: 'POST',
@@ -672,19 +673,23 @@ export default class PostService {
         net_payable_amount: net_payable_amount,
         base64_encoded_file: base64_img,
         file_original_name: img_name,
-        file_upload_path: file_path
+        file_upload_path: file_path,
+        object_type: object_type
       }
     })
   }
 
   // DELEVERIES - DETAILS SECTION
   async getElementListByCode_Deliveries() {
-    let code = 14
-    let web_menu_url = '/api/common/element-list-by-code/' + code
+    // let code = 14
+    let web_menu_url = '/api/common/element-list-by-code'
     return await axios(web_menu_url, {
       method: 'GET',
       headers: {
         'Authorization': token_type + ' ' + token
+      },
+      params: {
+        code_key: 'BLOB_OBJ_TYPE'
       }
     })
   }

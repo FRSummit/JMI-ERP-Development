@@ -403,7 +403,7 @@
                                             <p class="jmi-lvl" style="float: unset;">Select file type</p>
                                             <span class="right-icon"><i class="fas fa-chevron-right"></i></span>
                                             <select title="Pick a customer" class="selectpicker" v-model="file_type_on_change" @change="onChangeFileTypeDropdown()">
-                                                <option v-for="(file, m) in file_types_list" :key="m" :value="file.code_id">{{ file.element_name }}</option>
+                                                <option v-for="(file, m) in file_types_list" :key="m" :value="file.id">{{ file.element_name }}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -1208,7 +1208,7 @@ export default {
                 .then(res => {
                     console.log(res.data)
                     this.file_types_list = res.data.element_list
-                    this.file_type_on_change = this.file_types_list[0].code_id
+                    this.file_type_on_change = this.file_types_list[0].id
                 })
         },
         async SHOW_CUSTOMER_PROFILE__FROM_SERVICE(customer_id) {
@@ -1235,8 +1235,9 @@ export default {
             // } else {
                 console.log(this.UPLOADED_IMAGE_DATA_BASE_64)
                 console.log(this.UPLOADED_IMAGE_NAME)
+                console.log(this.file_type_on_change)
                 let file_path = '/customers/cheque/'
-                await service.getSaveInvoiceDeliveryInfo_DELIVERIES(invoice_id, invoice_dtl, cash, cheque, net_payable_amount, this.UPLOADED_IMAGE_DATA_BASE_64, this.UPLOADED_IMAGE_NAME, file_path)
+                await service.getSaveInvoiceDeliveryInfo_DELIVERIES(invoice_id, invoice_dtl, cash, cheque, net_payable_amount, this.UPLOADED_IMAGE_DATA_BASE_64, this.UPLOADED_IMAGE_NAME, file_path, this.file_type_on_change)
                 .then(res => {
                     console.log(res.data)
                     if(res.data.response_code === 200) {
