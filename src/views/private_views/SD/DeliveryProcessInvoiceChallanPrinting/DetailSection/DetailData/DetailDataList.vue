@@ -38,7 +38,7 @@
             <thead>
               <tr class="data-table-head-row">
                 <th>SL No</th>
-                <th>Invoice ID</th>
+                <th>Invoice No</th>
                 <th>Customer Type</th>
                 <th>Customer Name</th>
                 <th style="text-align: right;">Amount</th>
