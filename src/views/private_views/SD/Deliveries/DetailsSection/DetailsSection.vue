@@ -354,7 +354,8 @@
                                     </div>
                                     <div class="row receiver-amount">
                                         <p class="jmi-lvl">Type Receiver Amount</p>
-                                        <input type="number" id="deliveries_cash_receiver_amount" class="jmi-lvl-value" v-model="cash_receive_amount" v-on:keyup="deliveries_cash_receiver_amount_KeyUp_ordered_table($event)" step="any" v-on:keydown="deliveries_cash_receiver_amount_KeyDown_ordered_table($event, i)">
+                                        <input type="number" id="deliveries_cash_receiver_amount" class="jmi-lvl-value" v-model="cash_receive_amount"  step="any" />
+                                        <!-- <input type="number" id="deliveries_cash_receiver_amount" class="jmi-lvl-value" v-model="cash_receive_amount" v-on:keyup="deliveries_cash_receiver_amount_KeyUp_ordered_table($event)" step="any" v-on:keydown="deliveries_cash_receiver_amount_KeyDown_ordered_table($event, i)"> -->
                                     </div>
                                 </div>
                             </b-tab>
@@ -385,7 +386,8 @@
                                         </div>
                                         <div class="jmi-inline-block right-alg">
                                             <p class="jmi-lvl">Type Receiver Amount</p>
-                                            <input type="number" id="deliveries_cheque_receiver_amount" class="jmi-lvl-value" v-model="cheque_receive_amount" v-on:keyup="deliveries_cheque_receiver_amount_KeyUp_ordered_table($event)" min="1" step="1" v-on:keydown="deliveries_cheque_receiver_amount_KeyDown_ordered_table($event, i)" pattern="[0-9]*">
+                                            <input type="number" id="deliveries_cheque_receiver_amount" class="jmi-lvl-value" v-model="cheque_receive_amount" />
+                                            <!-- <input type="number" id="deliveries_cheque_receiver_amount" class="jmi-lvl-value" v-model="cheque_receive_amount" v-on:keyup="deliveries_cheque_receiver_amount_KeyUp_ordered_table($event)" min="1" step="1" v-on:keydown="deliveries_cheque_receiver_amount_KeyDown_ordered_table($event, i)" pattern="[0-9]*"> -->
                                         </div>
                                     </div>
                                     <div class="row">
