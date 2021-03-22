@@ -281,13 +281,16 @@ export default {
     },
     async newDashboardOccuredEventHandler() {
       console.log('newDashboardOccuredEventHandler')
-      let token = JSON.parse(localStorage.getItem("jerp_logged_user")) ? JSON.parse(localStorage.getItem("jerp_logged_user")).accessToken : ''
+      // let token = JSON.parse(localStorage.getItem("jerp_logged_user")) ? JSON.parse(localStorage.getItem("jerp_logged_user")).accessToken : ''
+      let token = JSON.parse(localStorage.getItem("jerp_logged_user")).accessToken
       this.userName = JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.name
       this.userDesignation = JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.role_name
       this.sbu_name = JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.sbu_name
 
-      await this.SYSTEM_WEB_MENU__FROM_SERVICE()
-      await this.WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE(token)
+      // console.log(token)
+
+      this.WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE(token)
+      this.SYSTEM_WEB_MENU__FROM_SERVICE()
       this.loadNotification()
     },
     loadNotification() {
@@ -298,26 +301,38 @@ export default {
     // ----------------------------------------------------------------------------------------
     // SERVICE IMPLEMENTATION
     async WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE(token) {
+      this.ASSIGNED_SBU_LIST = []
       await service.getWEB_SystemAssignedSBU(token)
         .then(res => {
           console.log(res.data)
           this.ASSIGNED_SBU_LIST = res.data.data
           this.progress = false;
         })
+        .catch(err => {
+            if(err) {
+                // window.location.reload()
+                console.log(err)
+            }
+        })
     },
     async SYSTEM_WEB_MENU__FROM_SERVICE() {
+      this.WEB_MENU = []
+      // console.log(JSON.parse(localStorage.getItem("jerp_logged_user")))
       await service.getWebSideMenu()
         .then(res => {
+          console.log(res.data)
           this.WEB_MENU = res.data.data
+          // console.log(JSON.parse(localStorage.getItem("jerp_logged_user")))
           if(JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils === null) {
               window.location.reload()
           }
         })
-        // .catch(err => {
-        //     if(err) {
-        //         window.location.reload()
-        //     }
-        // })
+        .catch(err => {
+            if(err) {
+                window.location.reload()
+                console.log(err)
+            }
+        })
     }
   },
   watch: {

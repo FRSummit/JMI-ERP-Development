@@ -32,7 +32,7 @@ export default class PP_InvoiceChallanSummeryTD_Type1 {
                             +                         '<tr style="">'
                             +                             '<td colspan="5" style="">'
                             +                                 '<p style="display: inline-block; float: left;"><span class="label">T. Codes</span><span class="label-value">: ' + (summery ? (summery.territory_id ? (summery.territory_id) : '') : '') + '</span></p>'
-                            +                                 '<p style="display: inline-block; float: right;"><span class="label">Ref No</span><span class="label-value">: ' + 'Dummy' + '</span></p>'
+                            +                                 '<p style="display: inline-block; float: right;"><span class="label">Ref No</span><span class="label-value">: ' + '' + '</span></p>'
                             +                             '</td>'
                             +                         '</tr>'
                             +                         '<tr style="">'
