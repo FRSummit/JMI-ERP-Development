@@ -104,7 +104,7 @@ import ComaSeparatedDigits from '../../../../../../functions/ComaSeparatedDigits
 const comaSeparatedDigits = new ComaSeparatedDigits()
 
 export default {
-  props: ["tab", "SCHEDULE_DETAILS_LIST"],
+  props: ["tab", "SCHEDULE_DETAILS_LIST", "HEADER_DATA"],
   components: {},
   data() {
     return {
@@ -170,7 +170,7 @@ export default {
           }
           table_data.push(table_single_data)
         }
-        pp_InvoiceChallanSummeryTD_Type1.print_invoice(table_header, table_data, summery)
+        pp_InvoiceChallanSummeryTD_Type1.print_invoice(table_header, table_data, this.HEADER_DATA)
         console.log(table_data)
       } else if(this.tab === 'GATE PASS') {
         let table_header = [

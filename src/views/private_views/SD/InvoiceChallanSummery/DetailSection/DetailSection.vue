@@ -33,9 +33,9 @@
                   <v-tabs-items v-model="tab" class="tab-container" style="padding-top: 30px">
                     <v-tab-item v-for="(status, i) in status_list" :key="i">
                       <v-card color="basil" flat>
-                        <v-card v-if="status.status_name === 'INVOICE'"><DetailDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="DS_INVOICE" /></v-card>
-                        <v-card v-if="status.status_name === 'CHALLAN'"><DetailDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="DS_CHALLAN" /></v-card>
-                        <v-card v-if="status.status_name === 'GATE PASS'"><DetailDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="DS_GATEPASS" /></v-card>
+                        <v-card v-if="status.status_name === 'INVOICE'"><DetailDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="DS_INVOICE" :HEADER_DATA="HEADER_DATA_INVOICE" /></v-card>
+                        <v-card v-if="status.status_name === 'CHALLAN'"><DetailDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="DS_CHALLAN" :HEADER_DATA="HEADER_DATA_CHALLAN" /></v-card>
+                        <v-card v-if="status.status_name === 'GATE PASS'"><DetailDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="DS_GATEPASS" :HEADER_DATA="DS_GATEPASS_HEADERS" /></v-card>
                         <v-card v-if="status.status_name === 'HANDOVER'"><DetailDataList :tab="status.status_name" /></v-card>
                       </v-card>
                     </v-tab-item>
@@ -81,7 +81,7 @@ const service = new Service();
 import DetailDataList from './DetailData/DetailDataList'
 
 export default {
-  props: ["INVOICE_CHALLAN_SUMMERY", "DS_INVOICE", "DS_CHALLAN", "INVOICE_ID_FROM_LEFT"],
+  props: ["INVOICE_CHALLAN_SUMMERY", "DS_INVOICE", "DS_CHALLAN", "INVOICE_ID_FROM_LEFT", "HEADER_DATA_INVOICE", "HEADER_DATA_CHALLAN"],
   components: {
     DetailDataList
   },
@@ -107,6 +107,7 @@ export default {
         },
       ],
       DS_GATEPASS: [],
+      DS_GATEPASS_HEADERS: [],
       gate_pass_proceed_modal_popup: false,
       loading_popup_modal: false,
       loading_message: null,
@@ -136,6 +137,7 @@ export default {
     async DS_GATE_PASS_DETAILS__FROM_SERVICE(ds_id) {
       console.log(ds_id)
       this.DS_GATEPASS = []
+      this.DS_GATEPASS_HEADERS = []
       this.loading_popup_modal = true
       this.loading_message = null
       await service.getGatePassDetails_DS_INVOICE_CHALLAN_SUMMERY(ds_id)
@@ -153,10 +155,13 @@ export default {
             }, 1500)
           }
           this.DS_GATEPASS = res.data.gate_pass_data ? (res.data.gate_pass_data.gate_pass_details ? (res.data.gate_pass_data.gate_pass_details) : []) : []
+          this.DS_GATEPASS_HEADERS = res.data.header
         })
         .catch(err => {
           console.log(err)
           if(err) {
+            this.DS_GATEPASS = []
+            this.DS_GATEPASS_HEADERS = []
             document.querySelector('.packing-tab.v-tab').click()
             this.loading_message = 'Request failed to load'
             setTimeout( () => {

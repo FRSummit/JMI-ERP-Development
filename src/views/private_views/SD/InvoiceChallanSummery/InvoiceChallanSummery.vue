@@ -11,7 +11,9 @@
               :INVOICE_CHALLAN_SUMMERY="INVOICE_CHALLAN_SUMMERY"
               :DS_INVOICE="DS_INVOICE"
               :DS_CHALLAN="DS_CHALLAN"
-              :INVOICE_ID_FROM_LEFT="INVOICE_ID_FROM_LEFT" />
+              :INVOICE_ID_FROM_LEFT="INVOICE_ID_FROM_LEFT"
+              :HEADER_DATA_INVOICE="HEADER_DATA_INVOICE"
+              :HEADER_DATA_CHALLAN="HEADER_DATA_CHALLAN" />
           </div>
         </div>
       </div>
@@ -55,6 +57,8 @@ export default {
       INVOICE_ID_FROM_LEFT: null,
       loading_popup_modal: false,
       loading_message: null,
+      HEADER_DATA_INVOICE: [],
+      HEADER_DATA_CHALLAN: [],
     };
   },
   created() {
@@ -92,13 +96,19 @@ export default {
           this.DS_INVOICE = []
           this.DS_CHALLAN = []
           // this.DS_GATEPASS = []
+          this.HEADER_DATA_INVOICE = []
+          this.HEADER_DATA_CHALLAN = []
           console.log(res.data)
           this.INVOICE_CHALLAN_SUMMERY = res.data.schedule_list
           this.DS_INVOICE = res.data.schedule_list
+          this.HEADER_DATA_INVOICE = res.data.header
+          console.log(this.HEADER_DATA_INVOICE)
           if(res.data.schedule_list) {
             for(let i=0; i<res.data.schedule_list.length; i++) {
               if(res.data.schedule_list[i].customer_info.customer_type === '424') {
                 this.DS_CHALLAN.push(res.data.schedule_list[i])
+                this.HEADER_DATA_CHALLAN = res.data.header
+                console.log(this.HEADER_DATA_CHALLAN)
               }
             }
           }
@@ -108,6 +118,8 @@ export default {
             this.INVOICE_CHALLAN_SUMMERY = []
             this.DS_INVOICE = []
             this.DS_CHALLAN = []
+            this.HEADER_DATA_INVOICE = []
+            this.HEADER_DATA_CHALLAN = []
             this.loading_message = 'Request failed to load or no data found'
             this.loading_popup_modal = true
             setTimeout( () => {
