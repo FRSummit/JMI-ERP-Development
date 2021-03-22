@@ -20,7 +20,7 @@ export default class PP_InvoiceChallanSummeryTD_Type1 {
                             +                     '<thead>'
                             +                         '<tr style="">'
                             +                             '<td colspan="5" style="">'
-                            +                                 '<p style="display: inline-block; float: left;"><span class="label">SR</span><span class="label-value">: ' + 'DUMMY' + '</span></p>'
+                            +                                 '<p style="display: inline-block; float: left;"><span class="label">SR</span><span class="label-value">: ' + (summery ? (summery.gp_for ? (summery.gp_for) : '') : '') + '</span></p>'
                             +                             '</td>'
                             +                         '</tr>'
                             +                         '<tr style="">'
@@ -37,7 +37,7 @@ export default class PP_InvoiceChallanSummeryTD_Type1 {
                             +                         '</tr>'
                             +                         '<tr style="">'
                             +                             '<td colspan="5" style="padding-bottom: 10px;">'
-                            +                                 '<p style="display: inline-block; float: left;"><span class="label">Gate Pass Type / No</span><span class="label-value">: ' + (summery ? (summery.gp_no ? (summery.gp_no) : '') : '') + '</span></p>'
+                            +                                 '<p style="display: inline-block; float: left;"><span class="label">Gate Pass No</span><span class="label-value">: ' + (summery ? (summery.gp_no ? (summery.gp_no) : '') : '') + '</span></p>'
                             +                             '</td>'
                             +                         '</tr>'
                             +                         this.create_table_header(table_header)
@@ -77,7 +77,7 @@ export default class PP_InvoiceChallanSummeryTD_Type1 {
         style += ''
               + '@page {'
               +     'size: 8.5in 11in;'
-              +     'margin: 25mm 10mm 30mm 15mm; border: 1px solid #000000'
+              +     'margin: 30mm 10mm 30mm 15mm; border: 1px solid #000000'
               + '}'
               +
               + '@media print {'
