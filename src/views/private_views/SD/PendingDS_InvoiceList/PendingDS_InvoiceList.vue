@@ -25,6 +25,13 @@
         <p class="popup-text info">Total Invoice {{ schedule_count }}</p>
       </div>
     </div> -->
+    <!-- Loading Message -->
+    <div id="info-modal" class="modal-popup-section info-modal" v-if="loading_popup_modal">
+      <div class="modal-popup-section-inner update-successfully-modal-inner">
+        <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
+        <p class="popup-text info">{{ loading_message ? loading_message : 'Please wait, we are processing ...' }}</p>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -57,7 +64,9 @@ export default {
       DS_ID: null,
       DA_ID: null,
       CURRENT_SCHEDULE_ID: null,
-      HEADER_DATA: []
+      HEADER_DATA: [],
+      loading_popup_modal: false,
+      loading_message: null,
     };
   },
   created() {
@@ -125,6 +134,11 @@ export default {
             this.DA_ID = null
             this.DS_ID = null
             this.HEADER_DATA = []
+            this.loading_message = 'Request failed to load or no data found'
+            this.loading_popup_modal = true
+            setTimeout( () => {
+              this.loading_popup_modal = false
+            }, 1500)
           }
         })
     },

@@ -33,9 +33,9 @@
                   <v-tabs-items v-model="tab" class="tab-container" style="padding-top: 30px">
                     <v-tab-item v-for="(status, i) in status_list" :key="i">
                       <v-card color="basil" flat>
-                        <v-card v-if="status.status_name === 'All'"><DetailDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="SCHEDULE_DETAILS_LIST" /></v-card>
-                        <v-card v-if="status.status_name === 'Chemist'"><DetailDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="SCHEDULE_DETAILS_LIST_CHEMIST" /></v-card>
-                        <v-card v-if="status.status_name === 'Institution'"><DetailDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="SCHEDULE_DETAILS_LIST_INSTITUTION" /></v-card>
+                        <v-card v-if="status.status_name === 'All'"><DetailDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="SCHEDULE_DETAILS_LIST" :HEADER_DATA="HEADER_DATA" /></v-card>
+                        <v-card v-if="status.status_name === 'Chemist'"><DetailDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="SCHEDULE_DETAILS_LIST_CHEMIST" :HEADER_DATA="HEADER_DATA" /></v-card>
+                        <v-card v-if="status.status_name === 'Institution'"><DetailDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="SCHEDULE_DETAILS_LIST_INSTITUTION" :HEADER_DATA="HEADER_DATA" /></v-card>
                         <!-- <v-card v-if="status.status_name === 'Handover'"><DetailDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="SCHEDULE_DETAILS_LIST" /></v-card> -->
                       </v-card>
                     </v-tab-item>
@@ -56,7 +56,7 @@
 import DetailDataList from './DetailData/DetailDataList'
 
 export default {
-  props: ["SCHEDULE_DETAILS_LIST", "SCHEDULE_DETAILS_LIST_CHEMIST", "SCHEDULE_DETAILS_LIST_INSTITUTION"],
+  props: ["SCHEDULE_DETAILS_LIST", "SCHEDULE_DETAILS_LIST_CHEMIST", "SCHEDULE_DETAILS_LIST_INSTITUTION", "HEADER_DATA"],
   components: {
     DetailDataList
   },

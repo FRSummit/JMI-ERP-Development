@@ -80,7 +80,7 @@ import PP_InvoiceChallanSummeryTD_Type1 from '../../../../../../functions/Print_
 const pp_InvoiceChallanSummeryTD_Type1 = new PP_InvoiceChallanSummeryTD_Type1()
 
 export default {
-  props: ["tab", "SCHEDULE_DETAILS_LIST"],
+  props: ["tab", "SCHEDULE_DETAILS_LIST", "HEADER_DATA"],
   components: {},
   data() {
     return {
@@ -128,9 +128,6 @@ export default {
     printAllInvoiceClickHandler() {
       console.log('print ALl')
       console.log(this.tab)
-      let summery = {
-
-      }
       let table_header = [
         {th:"INVOICE NO", style:''},
         {th:"CUSTOMER TYPE", style:''},
@@ -148,7 +145,7 @@ export default {
         }
         table_data.push(table_single_data)
       }
-      pp_InvoiceChallanSummeryTD_Type1.print_invoice(table_header, table_data, summery)
+      pp_InvoiceChallanSummeryTD_Type1.print_invoice(table_header, table_data, this.HEADER_DATA)
       console.log(table_data)
     },
     async printInvoice(schedule_id, schedule_customer_type, i) {
