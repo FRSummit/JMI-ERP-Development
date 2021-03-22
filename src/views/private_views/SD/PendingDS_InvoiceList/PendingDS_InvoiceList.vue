@@ -12,7 +12,8 @@
               :SCHEDULE_DETAILS_LIST_CHEMIST="SCHEDULE_DETAILS_LIST_CHEMIST"
               :SCHEDULE_DETAILS_LIST_INSTITUTION="SCHEDULE_DETAILS_LIST_INSTITUTION"
               :INVOICE_FOR_CURRENT_DS_LIST="INVOICE_FOR_CURRENT_DS_LIST"
-              v-on:ADD_INVOICE_TO_CURRENT_SCHEDULE="addInvoiceToCurrentSchedule" />
+              v-on:ADD_INVOICE_TO_CURRENT_SCHEDULE="addInvoiceToCurrentSchedule"
+              :HEADER_DATA="HEADER_DATA" />
           </div>
         </div>
       </div>
@@ -24,6 +25,13 @@
         <p class="popup-text info">Total Invoice {{ schedule_count }}</p>
       </div>
     </div> -->
+    <!-- Loading Message -->
+    <div id="info-modal" class="modal-popup-section info-modal" v-if="loading_popup_modal">
+      <div class="modal-popup-section-inner update-successfully-modal-inner">
+        <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
+        <p class="popup-text info">{{ loading_message ? loading_message : 'Please wait, we are processing ...' }}</p>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -56,7 +64,9 @@ export default {
       DS_ID: null,
       DA_ID: null,
       CURRENT_SCHEDULE_ID: null,
-      // After Adding New Invoice
+      HEADER_DATA: [],
+      loading_popup_modal: false,
+      loading_message: null,
     };
   },
   created() {
@@ -95,10 +105,12 @@ export default {
       this.SCHEDULE_DETAILS_LIST_INSTITUTION = []
       this.DA_ID = null
       this.DS_ID = null
+      this.HEADER_DATA = []
       service.getDeliveryScheduleDetails_DELIVERY_SCHEDULING_INVOICE_CHALLAN_PRINTING(schedule_id)
         .then(res => {
           console.log(res.data)
           this.SCHEDULE_DETAILS_LIST = res.data.schedule_list
+          this.HEADER_DATA = res.data.header
           if(res.data.schedule_list) {
             for(let i=0; i<res.data.schedule_list.length; i++) {
               if(res.data.schedule_list[i].customer_info.customer_type === '422') {
@@ -112,6 +124,21 @@ export default {
             this.DA_ID = res.data.schedule_list[0].ds_info.da_id
             this.DS_ID = res.data.schedule_list[0].ds_id
             this.GET_INVOICE_FOR_CURRENT_DS__FROM_SERVICE(res.data.schedule_list[0].ds_info.da_id, res.data.schedule_list[0].ds_id)
+          }
+        })
+        .catch(err => {
+          if(err) {
+            this.SCHEDULE_DETAILS_LIST = []
+            this.SCHEDULE_DETAILS_LIST_CHEMIST = []
+            this.SCHEDULE_DETAILS_LIST_INSTITUTION = []
+            this.DA_ID = null
+            this.DS_ID = null
+            this.HEADER_DATA = []
+            this.loading_message = 'Request failed to load or no data found'
+            this.loading_popup_modal = true
+            setTimeout( () => {
+              this.loading_popup_modal = false
+            }, 1500)
           }
         })
     },

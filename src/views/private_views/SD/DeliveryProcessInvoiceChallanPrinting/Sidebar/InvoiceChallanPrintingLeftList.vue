@@ -30,6 +30,19 @@
             </p>
           </div>
         </div> -->
+          <!-- Search & Filter section -->
+        <div id="jmi-search-section" class="jmi-search-section">
+          <div class="form-group has-search">
+            <span class="fa fa-search form-control-feedback"></span>
+            <input
+              type="text"
+              class="form-control"
+              id="search-filter"
+              placeholder="Search by ID No"
+              v-on:keyup="searchKeyUpHandler"
+            />
+          </div>
+        </div>
         <div class="location-title">
           <div class="location-title-inner">
             <p>DS Invoice List (<span>{{ INVOICE_LIST.length }}</span>)</p>
@@ -76,6 +89,8 @@ import Service from "../../../../../service/ERPSidebarService";
 const service = new Service();
 // import HotelDatePicker from 'vue-hotel-datepicker'
 // import DatePicker from 'vue2-datepicker'
+import JMIFilter from '../../../../../functions/JMIFIlter'
+const jmiFilter = new JMIFilter()
 
 export default {
   components: {
@@ -134,6 +149,15 @@ export default {
                 document.querySelector('#invoice-challan-printing-section-list-' + index).className = 'invoice-challan-printing-section-list'
             }
       this.$emit('invoice_id_from_left', invoice.id)
+    },
+    searchKeyUpHandler(value) {
+      console.log(value.key)
+      let input = document.getElementById("search-filter");
+      let filter = input.value.toUpperCase();
+      let list = document.querySelectorAll('.invoice-challan-printing-section-list')
+      let txt_selector = "name-text"
+
+      jmiFilter.searchById_LeftSidebar(filter, list, txt_selector)
     },
     // --------------------------------------------------------------------------------------
     // Service CALL

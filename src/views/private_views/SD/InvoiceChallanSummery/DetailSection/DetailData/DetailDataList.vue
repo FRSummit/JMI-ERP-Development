@@ -81,23 +81,6 @@
         </div>
       </div>
     </div>
-    <!-- GATE PASS CONFIRMATION -->
-        <div class="modal-popup-section order-proceed-modal" v-if="gate_pass_proceed_modal_popup && tab === 'GATE PASS'">
-            <div class="modal-popup-section-inner order-proceed-modal-inner">
-                <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
-                <p class="popup-text">Are you sure?</p>
-                <p class="popup-desc">You want to create gate pass ?</p>
-                <span class="divider"></span>
-                <div class="popup-submit-section">
-                <div class="popup-cancel-btn-section" @click="cancelGatePassModalClickHandler">
-                    <span>Cancel</span>
-                </div>
-                <div class="popup-confirm-btn-section" @click="proceedGatePassModalClickHandler">
-                    <span>Proceed</span>
-                </div>
-                </div>
-            </div>
-        </div>
   </div>
 </template>
 
@@ -121,7 +104,7 @@ import ComaSeparatedDigits from '../../../../../../functions/ComaSeparatedDigits
 const comaSeparatedDigits = new ComaSeparatedDigits()
 
 export default {
-  props: ["tab", "SCHEDULE_DETAILS_LIST"],
+  props: ["tab", "SCHEDULE_DETAILS_LIST", "HEADER_DATA"],
   components: {},
   data() {
     return {
@@ -136,7 +119,6 @@ export default {
       // value: null,
       radioSpanDefaultClass: 'active',
       radioSpanCustomClass: null,
-      gate_pass_proceed_modal_popup: true
     };
   },
   mounted() {
@@ -167,9 +149,6 @@ export default {
     printAllInvoiceClickHandler() {
       console.log('print ALl : ' + this.tab)
       console.log(this.tab)
-      let summery = {
-
-      }
       if(this.tab === 'INVOICE' || this.tab === 'CHALLAN') {
         let table_header = [
           {th:"INVOICE No", style:''},
@@ -188,7 +167,7 @@ export default {
           }
           table_data.push(table_single_data)
         }
-        pp_InvoiceChallanSummeryTD_Type1.print_invoice(table_header, table_data, summery)
+        pp_InvoiceChallanSummeryTD_Type1.print_invoice(table_header, table_data, this.HEADER_DATA)
         console.log(table_data)
       } else if(this.tab === 'GATE PASS') {
         let table_header = [
@@ -201,14 +180,14 @@ export default {
         let table_data = []
         for(let i=0; i<this.SCHEDULE_DETAILS_LIST.length; i++) {
           let table_single_data = {
-            invoice_id: this.SCHEDULE_DETAILS_LIST[i].sbu_product_info ? (this.SCHEDULE_DETAILS_LIST[i].sbu_product_info.display_code ? (this.SCHEDULE_DETAILS_LIST[i].sbu_product_info.display_code) : '') : '',
-            customer_type: this.SCHEDULE_DETAILS_LIST[i].sbu_product_info ? (this.SCHEDULE_DETAILS_LIST[i].sbu_product_info.display_name ? (this.SCHEDULE_DETAILS_LIST[i].sbu_product_info.display_name) : '') : '',
-            customer_name: 'Dummy',
-            amount: this.SCHEDULE_DETAILS_LIST[i].total_qty
+            code: this.SCHEDULE_DETAILS_LIST[i].sbu_product_info ? (this.SCHEDULE_DETAILS_LIST[i].sbu_product_info.display_code ? (this.SCHEDULE_DETAILS_LIST[i].sbu_product_info.display_code) : '') : '',
+            prod_name: this.SCHEDULE_DETAILS_LIST[i].sbu_product_info ? (this.SCHEDULE_DETAILS_LIST[i].sbu_product_info.display_name ? (this.SCHEDULE_DETAILS_LIST[i].sbu_product_info.display_name) : '') : '',
+            pack_size: this.SCHEDULE_DETAILS_LIST[i].adm_products ? (this.SCHEDULE_DETAILS_LIST[i].adm_products.com_pack_size ? (this.SCHEDULE_DETAILS_LIST[i].adm_products.com_pack_size) : '') : '',
+            invoice_qty: this.SCHEDULE_DETAILS_LIST[i].total_qty
           }
           table_data.push(table_single_data)
         }
-        pp_InvoiceChallanSummeryTD_GatePass.print_invoice(table_header, table_data, summery)
+        pp_InvoiceChallanSummeryTD_GatePass.print_invoice(table_header, table_data, this.HEADER_DATA)
         console.log(table_data)
       }
     },
@@ -228,14 +207,6 @@ export default {
       } else if(customer_type === '424') {
         return 'Institute'
       }
-    },
-    cancelGatePassModalClickHandler() {
-      console.log('GATE_PASS_CANCEL')
-      this.$emit('gate_pass_cancel')
-      // this.gate_pass_proceed_modal_popup = false
-    },
-    proceedGatePassModalClickHandler() {
-      this.gate_pass_proceed_modal_popup = false
     },
     // ---------------------------------------------------------------
     // SERVICE CALL
@@ -269,11 +240,6 @@ export default {
         })
     }
   },
-  // watch: {
-  //   tab:(newTab, oldTab) => {
-  //     console.log(newTab + '    ' + oldTab)
-  //   }
-  // }
 };
 </script>
 

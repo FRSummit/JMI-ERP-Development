@@ -91,6 +91,13 @@
         </div>
       </marquee>
     </div>
+    <!-- Loading Message -->
+    <div id="info-modal" class="modal-popup-section info-modal" v-if="err_popup_modal">
+      <div class="modal-popup-section-inner update-successfully-modal-inner">
+        <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
+        <p class="popup-text info">{{ err_message ? err_message : 'Please wait, we are processing ...' }}</p>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -128,7 +135,9 @@ export default {
       sbu_name: null,
       sbu_list_is_present: false,
       ASSIGNED_SBU_LIST: null,
-      WEB_MENU: []
+      WEB_MENU: [],
+      err_popup_modal: false,
+      err_message: null,
     };
   },
   created() {},
@@ -281,13 +290,16 @@ export default {
     },
     async newDashboardOccuredEventHandler() {
       console.log('newDashboardOccuredEventHandler')
-      let token = JSON.parse(localStorage.getItem("jerp_logged_user")) ? JSON.parse(localStorage.getItem("jerp_logged_user")).accessToken : ''
+      // let token = JSON.parse(localStorage.getItem("jerp_logged_user")) ? JSON.parse(localStorage.getItem("jerp_logged_user")).accessToken : ''
+      let token = JSON.parse(localStorage.getItem("jerp_logged_user")).accessToken
       this.userName = JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.name
       this.userDesignation = JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.role_name
       this.sbu_name = JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.sbu_name
 
-      await this.SYSTEM_WEB_MENU__FROM_SERVICE()
-      await this.WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE(token)
+      // console.log(token)
+
+      this.WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE(token)
+      this.SYSTEM_WEB_MENU__FROM_SERVICE()
       this.loadNotification()
     },
     loadNotification() {
@@ -298,26 +310,44 @@ export default {
     // ----------------------------------------------------------------------------------------
     // SERVICE IMPLEMENTATION
     async WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE(token) {
+      this.ASSIGNED_SBU_LIST = []
       await service.getWEB_SystemAssignedSBU(token)
         .then(res => {
           console.log(res.data)
           this.ASSIGNED_SBU_LIST = res.data.data
           this.progress = false;
         })
+        .catch(err => {
+            if(err) {
+                // window.location.reload()
+                console.log(err)
+            }
+        })
     },
     async SYSTEM_WEB_MENU__FROM_SERVICE() {
+      this.WEB_MENU = []
+      // console.log(JSON.parse(localStorage.getItem("jerp_logged_user")))
       await service.getWebSideMenu()
         .then(res => {
+          console.log(res.data)
           this.WEB_MENU = res.data.data
+          // console.log(JSON.parse(localStorage.getItem("jerp_logged_user")))
           if(JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils === null) {
               window.location.reload()
           }
         })
-        // .catch(err => {
-        //     if(err) {
-        //         window.location.reload()
-        //     }
-        // })
+        .catch(err => {
+            if(err) {
+              this.err_popup_modal = true
+              this.err_message = 'New Login, We are reloading page contents'
+              setTimeout( () => {
+                this.err_popup_modal = false
+                this.err_message = null
+                window.location.reload()
+              }, 2000)
+              console.log(err)
+            }
+        })
     }
   },
   watch: {

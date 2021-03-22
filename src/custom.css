@@ -51,32 +51,128 @@ input[type="checkbox"] {
     text-align: center;
 }
 
+/* --------------------------------------------------------------------- */
+/* STOCK REPORT STARTS */
 #stock-report-t1.stock-report-t1 .jmi-table thead {}
 
 #stock-report-t1.stock-report-t1 .stock-report-t1-inner {
-    height           : calc(100vh / 2);
+    padding: 40px 20px 20px;
+    position: relative;
+}
+
+#stock-report-t1.stock-report-t1 .stock-report-t1-inner span.print-all-icon {
+    position: absolute;
+    top     : 18px;
+    right   : 40px;
+}
+
+#stock-report-t1.stock-report-t1 .stock-report-t1-inner span.print-all-icon i {
+    color    : #026CD1;
+    font-size: 22px;
+    cursor   : pointer;
+}
+
+#stock-report-t1.stock-report-t1 .stock-report-t1-inner span.print-all-icon .tool-tip {
+    display  : none;
+    position : absolute;
+    top      : -20px;
+    right    : -78px;
+    color    : #026CD1;
+    font-size: 14px;
+    width    : 100px;
+}
+
+#stock-report-t1.stock-report-t1 .stock-report-t1-inner span.print-all-icon:hover .tool-tip {
+    display: block;
+}
+
+#stock-report-t1.stock-report-t1 .stock-report-t1-inner .stock-report-t1-inner-tablse-section {
+    padding: 10px 10px 0;
+    box-shadow: 0px 0px 8px #026cd11a;
+    border-radius: 8px;
+    height           : calc(100vh - (74px + 44px + 32px + 62px));
     overflow         : auto;
     -webkit-flex-flow: row wrap;
     border-bottom    : 1px solid #AAC0D9;
 }
 
-#stock-report-t1.stock-report-t1 .stock-report-t1-inner::-webkit-scrollbar {
+#stock-report-t1.stock-report-t1 .stock-report-t1-inner .stock-report-t1-inner-tablse-section::-webkit-scrollbar {
     width: 2px;
 }
 
-#stock-report-t1.stock-report-t1 .stock-report-t1-inner::-webkit-scrollbar-track {
+#stock-report-t1.stock-report-t1 .stock-report-t1-inner .stock-report-t1-inner-tablse-section::-webkit-scrollbar-track {
     box-shadow   : inset 0 0 5px grey;
     border-radius: 10px;
 }
 
-#stock-report-t1.stock-report-t1 .stock-report-t1-inner::-webkit-scrollbar-thumb {
+#stock-report-t1.stock-report-t1 .stock-report-t1-inner .stock-report-t1-inner-tablse-section::-webkit-scrollbar-thumb {
     background   : #168fff;
     border-radius: 10px;
 }
 
-#stock-report-t1.stock-report-t1 .stock-report-t1-inner::-webkit-scrollbar-thumb:hover {
+#stock-report-t1.stock-report-t1 .stock-report-t1-inner .stock-report-t1-inner-tablse-section::-webkit-scrollbar-thumb:hover {
     background: #004e98;
 }
+
+#stock-report-t1.stock-report-t1 .stock-report-t1-inner .stock-report-t1-inner-tablse-section .jmi-table thead th {
+    color: #026CD1;
+}
+
+#stock-report-t1.stock-report-t1 .stock-report-t1-inner .stock-report-t1-inner-tablse-section .jmi-table tbody tr:hover {
+    background: #E2EDFA;
+}
+
+/* STOCK REPORT ENDS */
+/* --------------------------------------------------------------------- */
+
+/* ---------------------------------------------------------------------------- */
+/* JMI SEARCH - LEFT SIDE STARTS */
+#jmi-search-section.jmi-search-section {
+    padding: 20px 20px 10px;
+}
+
+#jmi-search-section.jmi-search-section .form-group {
+    margin        : 0;
+    position      : relative;
+    display       : inline-block;
+    vertical-align: middle;
+    width         : 100%;
+}
+
+#jmi-search-section.jmi-search-section .has-search .form-control {
+    padding-left: 2.375rem;
+}
+
+#jmi-search-section.jmi-search-section .has-search .form-control-feedback {
+    position      : absolute;
+    z-index       : 2;
+    display       : block;
+    width         : 16px;
+    height        : 16px;
+    text-align    : center;
+    pointer-events: none;
+    color         : #aaa;
+    top           : 8px;
+    left          : 12px;
+    border        : none;
+    padding       : 2px;
+}
+
+#jmi-search-section.jmi-search-section input {
+    margin       : 0;
+    border-bottom: none;
+    border       : 1px solid #BFCFE2;
+    box-sizing   : inherit;
+    font-size    : 12px;
+    height       : auto;
+    padding      : 6px 0;
+}
+
+#jmi-search-section.jmi-search-section input:focus {
+    box-shadow: none;
+}
+/* JMI SEARCH - LEFT SIDE ENDS */
+/* ---------------------------------------------------------------------------- */
 
 /* ------------ DASHBOARD - LANDING PAGE ---------------------------------------- */
 #landing-page.landing-page .row {

@@ -33,9 +33,9 @@
                   <v-tabs-items v-model="tab" class="tab-container" style="padding-top: 30px">
                     <v-tab-item v-for="(status, i) in status_list" :key="i">
                       <v-card color="basil" flat>
-                        <v-card v-if="status.status_name === 'INVOICE'"><DetailDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="DS_INVOICE" /></v-card>
-                        <v-card v-if="status.status_name === 'CHALLAN'"><DetailDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="DS_CHALLAN" /></v-card>
-                        <v-card v-if="status.status_name === 'GATE PASS'"><DetailDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="DS_GATEPASS" v-on:gate_pass_cancel="gatePassCancelHandler" /></v-card>
+                        <v-card v-if="status.status_name === 'INVOICE'"><DetailDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="DS_INVOICE" :HEADER_DATA="HEADER_DATA_INVOICE" /></v-card>
+                        <v-card v-if="status.status_name === 'CHALLAN'"><DetailDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="DS_CHALLAN" :HEADER_DATA="HEADER_DATA_CHALLAN" /></v-card>
+                        <v-card v-if="status.status_name === 'GATE PASS'"><DetailDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="DS_GATEPASS" :HEADER_DATA="DS_GATEPASS_HEADERS" /></v-card>
                         <v-card v-if="status.status_name === 'HANDOVER'"><DetailDataList :tab="status.status_name" /></v-card>
                       </v-card>
                     </v-tab-item>
@@ -47,16 +47,41 @@
         </div>
       </div>
     </div>
+    <!-- GATE PASS CONFIRMATION -->
+        <div class="modal-popup-section order-proceed-modal" v-if="gate_pass_proceed_modal_popup">
+            <div class="modal-popup-section-inner order-proceed-modal-inner">
+                <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
+                <p class="popup-text">Are you sure?</p>
+                <p class="popup-desc">You want to create gate pass ?</p>
+                <span class="divider"></span>
+                <div class="popup-submit-section">
+                <div class="popup-cancel-btn-section" @click="cancelGatePassModalClickHandler">
+                    <span>Cancel</span>
+                </div>
+                <div class="popup-confirm-btn-section" @click="proceedGatePassModalClickHandler">
+                    <span>Proceed</span>
+                </div>
+                </div>
+            </div>
+        </div>
+    <!-- Loading -->
+    <div id="info-modal" class="modal-popup-section info-modal" v-if="loading_popup_modal">
+      <div class="modal-popup-section-inner update-successfully-modal-inner">
+        <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
+        <p class="popup-text info">{{ loading_message ? loading_message : 'Please wait, we are processing ...' }}</p>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-// import * as VueGoogleMaps from 'vue2-google-maps'
-// import { google } from 'google-maps';
+import Service from "../../../../../service/ERPSidebarService";
+const service = new Service();
+
 import DetailDataList from './DetailData/DetailDataList'
 
 export default {
-  props: ["INVOICE_CHALLAN_SUMMERY", "DS_INVOICE", "DS_CHALLAN", "DS_GATEPASS"],
+  props: ["INVOICE_CHALLAN_SUMMERY", "DS_INVOICE", "DS_CHALLAN", "DS_SUMMERY_FROM_LEFT", "INVOICE_ID_FROM_LEFT", "HEADER_DATA_INVOICE", "HEADER_DATA_CHALLAN"],
   components: {
     DetailDataList
   },
@@ -81,102 +106,84 @@ export default {
           status_name: "HANDOVER",
         },
       ],
+      DS_GATEPASS: [],
+      DS_GATEPASS_HEADERS: [],
+      gate_pass_proceed_modal_popup: false,
+      loading_popup_modal: false,
+      loading_message: null,
     };
   },
   created() {
-    /*const API_KEY = 'AIzaSyDl9xch1enBwqVj7OQwuLU6q1AoPkqviyI';
-    const url = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}&libraries=places`;
-    const s = document.createElement("script");
-    s.src=url;
-    document.head.appendChild(s);
-    this.directionsService = new window.google.maps.DirectionsService();
-    this.directionsRenderer = new window.google.maps.DirectionsRenderer();*/
-    // console.log(directionsService)
-    // console.log(directionsRenderer)
-    //get user coordinates from browser request
     this.$getLocation({}).then((coordinates) => {
       console.log(coordinates);
     });
   },
   mounted() {
-    // this.directionsService = new google.maps.DirectionsService();
-    // this.directionsRenderer = new google.maps.DirectionsRenderer();
-    // console.log(this.directionsService)
-    // console.log(this.directionsRenderer)
-    // this.geolocate();
-    // VueGoogleMaps.loaded.then( (res) => {
-    //   console.log(res)
-    //   this.directionsService = new VueGoogleMaps.gmapApi.maps.DirectionsService();
-    //   this.directionsRenderer = new VueGoogleMaps.gmapApi.maps.DirectionsRenderer();
-    // })
-    // if(VueGoogleMaps) {
-    // console.log(VueGoogleMaps)
-    //   this.directionsService = new VueGoogleMaps.gmapApi.maps.DirectionsService();
-    //   this.directionsRenderer = new VueGoogleMaps.gmapApi.maps.DirectionsRenderer();
-    // }
-    // console.log(new google.maps.DirectionsService())
-    // console.log(google)
   },
 
   methods: {
-    centerClick(m) {
-      console.log(m);
-    },
-    findRoute() {
-      console.log("find route");
-    },
-    saveRoute() {
-      console.log("save route");
-    },
-    // receives a place object via the autocomplete component
-    // setPlace(place) {
-    //   this.currentPlace = place;
-    // },
-    // addMarker() {
-    //   if (this.currentPlace) {
-    //     const marker = {
-    //       lat: this.currentPlace.geometry.location.lat(),
-    //       lng: this.currentPlace.geometry.location.lng(),
-    //     };
-    //     this.markers.push({ position: marker });
-    //     this.places.push(this.currentPlace);
-    //     this.center = marker;
-    //     this.currentPlace = null;
-    //   }
-    // },
-    geolocate() {
-      console.log("here");
-      navigator.geolocation.getCurrentPosition((position) => {
-        console.log("here 2");
-        console.log(this.markers);
-        this.center = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        };
-        // this.addCurrentLocation(position)
-        // this.markers.push(this.center)
-      });
-      this.markers.push({
-        position: {
-          lat: this.center.lat,
-          lng: this.center.lng,
-        },
-      });
-      console.log(this.markers);
-    },
-    gatePassCancelHandler() {
-      console.log('gate pass cancel')
+    cancelGatePassModalClickHandler() {
       document.querySelector('.packing-tab.v-tab').click()
+      this.gate_pass_proceed_modal_popup = false
+    },
+    async proceedGatePassModalClickHandler() {
+      if(this.INVOICE_ID_FROM_LEFT === null) 
+        this.INVOICE_ID_FROM_LEFT = 1001
+      this.gate_pass_proceed_modal_popup = false
+      await this.DS_GATE_PASS_DETAILS__FROM_SERVICE(this.INVOICE_ID_FROM_LEFT)
+    },
+    // ----------------------------------------------------------------------
+    // SERVICE CALL
+    async DS_GATE_PASS_DETAILS__FROM_SERVICE(ds_id) {
+      console.log(ds_id)
+      this.DS_GATEPASS = []
+      this.DS_GATEPASS_HEADERS = []
+      if(this.DS_SUMMERY_FROM_LEFT.gate_pass_id === null) {
+        this.loading_popup_modal = true
+      }
+      this.loading_message = null
+      await service.getGatePassDetails_DS_INVOICE_CHALLAN_SUMMERY(ds_id)
+        .then(res => {
+          console.log(res.data)
+          if(res.data.response_code === 200) {
+            this.loading_message = res.data.message
+            setTimeout( () => {
+              this.loading_popup_modal = false
+            }, 1500)
+          } else {
+            this.loading_message = res.data.message
+            setTimeout( () => {
+              this.loading_popup_modal = false
+            }, 1500)
+          }
+          this.DS_GATEPASS = res.data.gate_pass_data ? (res.data.gate_pass_data.gate_pass_details ? (res.data.gate_pass_data.gate_pass_details) : []) : []
+          this.DS_GATEPASS_HEADERS = res.data.header
+        })
+        .catch(err => {
+          console.log(err)
+          if(err) {
+            this.DS_GATEPASS = []
+            this.DS_GATEPASS_HEADERS = []
+            document.querySelector('.packing-tab.v-tab').click()
+            this.loading_message = 'Request failed to load'
+            setTimeout( () => {
+              this.loading_popup_modal = false
+            }, 1500)
+          }
+        })
     }
-
-    // addCurrentLocation(p) {
-    //   let position = {
-    //     lat: p.coords.latitude,
-    //     lng: p.coords.longitude,
-    //   };
-    //   this.markers.push({ position, title: "test" });
-    // },
   },
+  watch: {
+    tab(newVal) {
+      console.log(newVal)
+      // console.log(this.DS_SUMMERY_FROM_LEFT.gate_pass_id)
+      if( (this.DS_SUMMERY_FROM_LEFT.gate_pass_id === null) && (newVal === 2) ) {
+        this.gate_pass_proceed_modal_popup = true
+      } else {
+        this.DS_GATE_PASS_DETAILS__FROM_SERVICE(this.INVOICE_ID_FROM_LEFT)
+      }
+    }
+  }
 };
 </script>
 

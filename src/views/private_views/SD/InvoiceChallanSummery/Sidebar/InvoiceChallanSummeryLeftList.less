@@ -164,14 +164,14 @@
             .location-list-section {
                 position   : relative;
                 // height  : calc(@window_height - (@header_height + @title_breadcrumb_height + @secondary_left_menu_DA_section_height + @secondary_left_menu_date_range_section_height + @secondary_left_menu_challan_text_section_height + @footer_height));
-                height     : calc(@window_height - (@header_height + @title_breadcrumb_height + @secondary_left_menu_challan_text_section_height + @footer_height));
+                height     : calc(@window_height - (@header_height + @title_breadcrumb_height + @secondary_left_menu_challan_text_section_height + @footer_height + 64px));
 
                 .location-list-section-inner {
                     position          : fixed;
                     overflow-y        : scroll;
                     width             : 300px;
                     // height         : calc(@window_height - (@header_height + @title_breadcrumb_height + @secondary_left_menu_DA_section_height + @secondary_left_menu_date_range_section_height + @secondary_left_menu_challan_text_section_height + @footer_height));
-                    height            : calc(@window_height - (@header_height + @title_breadcrumb_height + @secondary_left_menu_challan_text_section_height + @footer_height));
+                    height            : calc(@window_height - (@header_height + @title_breadcrumb_height + @secondary_left_menu_challan_text_section_height + @footer_height + 64px));
                     scrollbar-width   : none;
 
                     &::-webkit-scrollbar {

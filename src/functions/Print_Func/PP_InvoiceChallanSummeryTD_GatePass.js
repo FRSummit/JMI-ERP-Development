@@ -3,7 +3,7 @@
 
 export default class PP_InvoiceChallanSummeryTD_Type1 {
     
-    print_invoice(table_header, table_data) {
+    print_invoice(table_header, table_data, summery) {
         var mywindow = window.open('', 'PRINT'); 
         mywindow.document.write(''
                             + '<html>'
@@ -20,24 +20,24 @@ export default class PP_InvoiceChallanSummeryTD_Type1 {
                             +                     '<thead>'
                             +                         '<tr style="">'
                             +                             '<td colspan="5" style="">'
-                            +                                 '<p style="display: inline-block; float: left;"><span class="label">SR</span><span class="label-value">: ' + 'Dummy' + '</span></p>'
+                            +                                 '<p style="display: inline-block; float: left;"><span class="label">SR</span><span class="label-value">: ' + (summery ? (summery.gp_for ? (summery.gp_for) : '') : '') + '</span></p>'
                             +                             '</td>'
                             +                         '</tr>'
                             +                         '<tr style="">'
                             +                             '<td colspan="5" style="">'
-                            +                                 '<p style="display: inline-block; float: left;"><span class="label">Vehical No</span><span class="label-value">: ' + 'Dummy' + '</span></p>'
-                            +                                 '<p style="display: inline-block; float: right;"><span class="label">Delivery Date</span><span class="label-value">: ' + 'Dummy' + '</span></p>'
+                            +                                 '<p style="display: inline-block; float: left;"><span class="label">Vehical No</span><span class="label-value">: ' + (summery ? (summery.vehicale_id ? (summery.vehicale_id) : '') : '') + '</span></p>'
+                            +                                 '<p style="display: inline-block; float: right;"><span class="label">Delivery Date</span><span class="label-value">: ' + (summery ? (summery.delivery_date ? (summery.delivery_date).split(' ')[0] : '') : '') + '</span></p>'
                             +                             '</td>'
                             +                         '</tr>'
                             +                         '<tr style="">'
                             +                             '<td colspan="5" style="">'
-                            +                                 '<p style="display: inline-block; float: left;"><span class="label">T. Codes</span><span class="label-value">: ' + 'Dummy' + '</span></p>'
-                            +                                 '<p style="display: inline-block; float: right;"><span class="label">Ref No</span><span class="label-value">: ' + 'Dummy' + '</span></p>'
+                            +                                 '<p style="display: inline-block; float: left;"><span class="label">T. Codes</span><span class="label-value">: ' + (summery ? (summery.territory_id ? (summery.territory_id) : '') : '') + '</span></p>'
+                            +                                 '<p style="display: inline-block; float: right;"><span class="label">Ref No</span><span class="label-value">: ' + '' + '</span></p>'
                             +                             '</td>'
                             +                         '</tr>'
                             +                         '<tr style="">'
                             +                             '<td colspan="5" style="padding-bottom: 10px;">'
-                            +                                 '<p style="display: inline-block; float: left;"><span class="label">Gate Pass Type</span><span class="label-value">: ' + 'Dummy' + '</span></p>'
+                            +                                 '<p style="display: inline-block; float: left;"><span class="label">Gate Pass No</span><span class="label-value">: ' + (summery ? (summery.gp_no ? (summery.gp_no) : '') : '') + '</span></p>'
                             +                             '</td>'
                             +                         '</tr>'
                             +                         this.create_table_header(table_header)
@@ -77,7 +77,7 @@ export default class PP_InvoiceChallanSummeryTD_Type1 {
         style += ''
               + '@page {'
               +     'size: 8.5in 11in;'
-              +     'margin: 25mm 10mm 30mm 15mm; border: 1px solid #000000'
+              +     'margin: 30mm 10mm 30mm 15mm; border: 1px solid #000000'
               + '}'
               +
               + '@media print {'
@@ -140,11 +140,11 @@ export default class PP_InvoiceChallanSummeryTD_Type1 {
             result +=   ''
                     +   '<tr style="page-break-before: always;">'
                     +       '<td style="border: 1px solid #000000;">' + (i + 1) + '</td>'
-                    +       '<td style="border: 1px solid #000000;">' + table_data[i].invoice_id + '</td>'
-                    +       '<td style="border: 1px solid #000000; text-align: left;">' + table_data[i].customer_type + '</td>'
-                    +       '<td style="border: 1px solid #000000;">' + table_data[i].customer_name + '</td>'
+                    +       '<td style="border: 1px solid #000000;">' + table_data[i].code + '</td>'
+                    +       '<td style="border: 1px solid #000000; text-align: left;">' + table_data[i].prod_name + '</td>'
+                    +       '<td style="border: 1px solid #000000;">' + table_data[i].pack_size + '</td>'
                     // +       '<td style=" text-align: right;">' + table_data[i].amount !== null ? comaSeparatedDigits.comaSeparate(table_data[i].amount) : '' + '</td>'
-                    +       '<td style="border: 1px solid #000000; text-align: right;">' + table_data[i].amount + '</td>'
+                    +       '<td style="border: 1px solid #000000; text-align: right;">' + table_data[i].invoice_qty + '</td>'
                     +   '</tr>'
         }
         
