@@ -8,30 +8,42 @@
             <th style="text-align: left;">Sl</th>
             <th>Code</th>
             <th style="text-align: left;">Product Name</th>
+            <th style="text-align: left;">Batch</th>
             <th>Pack Size</th>
             <th style="text-align: right;">Unit Price</th>
             <th>Stock</th>
             <th style="text-align: right;">Total Value</th>
           </tr>
         </thead>
-        <tbody>
-          <tr v-for="(prod, i) in 40" :key="i">
-            <td style="text-align: left;">{{ i + 1 }}</td>
-            <td>AXCL</td>
-            <td style="text-align: left;">AMX 250 Cap</td>
-            <td>100's</td>
-            <td style="text-align: right;">317.70</td>
-            <td>15</td>
-            <td style="text-align: right;">4764.44</td>
+        <tbody v-for="(prod_group, i) in stock_list" :key="i">
+          <tr><td colspan="8" style="text-align: left; color: #026CD1; font-weight: bold; text-decoration: underline;">{{ i }}</td></tr>
+          <tr v-for="(prod, j) in prod_group" :key="j">
+            <td style="text-align: left;">{{ (j + 1) }}</td>
+            <td>{{ prod.code }}</td>
+            <td style="text-align: left;">{{ prod.name }}</td>
+            <td style="text-align: left;">{{ prod.batch }}</td>
+            <td>{{ prod.pack_size }}</td>
+            <td style="text-align: right;">{{ prod.unit_price }}</td>
+            <td>{{ prod.stock }}</td>
+            <td style="text-align: right;">{{ prod.value }}</td>
           </tr>
         </tbody>
       </table>
+    </div>
+    <!-- Loading Message -->
+    <div id="info-modal" class="modal-popup-section info-modal" v-if="loading_popup_modal">
+      <div class="modal-popup-section-inner update-successfully-modal-inner">
+        <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
+        <p class="popup-text info">{{ loading_message ? loading_message : 'Please wait, we are processing ...' }}</p>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import Heading from "../../../../components/master_layout/HeadingTitleBreadcrumbT2/HeadingTitleBreadcrumb";
+import ERPSidebarService from '../../../../service/ERPSidebarService'
+const service = new ERPSidebarService()
 
 export default {
   components: {
@@ -42,20 +54,43 @@ export default {
       routeName: "Stock Report",
       parentPath: "Local Sales",
       pathName: [],
+      stock_list: [],
+      loading_popup_modal: false,
+      loading_message: null,
     };
   },
   created() {
     this.$emit("routeName", this.$route.name);
     this.createBreadcrumbData();
   },
-  mounted() {
-    // this.showInvoiceCountInformationMessagePopup()
+  async mounted() {
+    await this.PRESENT_POSITION_STOCK_REPORT__FROM_SERVICE()
   },
   methods: {
     createBreadcrumbData() {
       this.pathName = [{ name: "Features" }, { name: "Local Sales" }, { name: "vs" },];
       // this.pathName = breadcrumbFunctions.jmiERPBreadcrumb(window.location.pathname)
     },
+    // ------------------------------------------------------------------------------------------
+    // SERVICE CALL
+    async PRESENT_POSITION_STOCK_REPORT__FROM_SERVICE() {
+      this.stock_list = []
+      service.getPresentPositionStockReport__STOCK_REPORT()
+        .then(res => {
+          console.log(res.data)
+          this.stock_list = res.data.stock_info
+        })
+        .catch(err => {
+          if(err) {
+            this.stock_list = []
+            this.loading_message = 'Request failed to load or no data found'
+            this.loading_popup_modal = true
+            setTimeout( () => {
+              this.loading_popup_modal = false
+            }, 1500)
+          }
+        }) 
+    }
   },
   computed: {},
   watch: {},

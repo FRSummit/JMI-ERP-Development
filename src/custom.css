@@ -54,7 +54,7 @@ input[type="checkbox"] {
 #stock-report-t1.stock-report-t1 .jmi-table thead {}
 
 #stock-report-t1.stock-report-t1 .stock-report-t1-inner {
-    height           : calc(100vh / 2);
+    height           : calc(100vh - (74px + 44px + 32px));
     overflow         : auto;
     -webkit-flex-flow: row wrap;
     border-bottom    : 1px solid #AAC0D9;
@@ -76,6 +76,14 @@ input[type="checkbox"] {
 
 #stock-report-t1.stock-report-t1 .stock-report-t1-inner::-webkit-scrollbar-thumb:hover {
     background: #004e98;
+}
+
+#stock-report-t1.stock-report-t1 .stock-report-t1-inner .jmi-table thead th {
+    color: #026CD1;
+}
+
+#stock-report-t1.stock-report-t1 .stock-report-t1-inner .jmi-table tbody tr:hover {
+    background: #E2EDFA;
 }
 
 /* ------------ DASHBOARD - LANDING PAGE ---------------------------------------- */

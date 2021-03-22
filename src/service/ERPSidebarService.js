@@ -788,6 +788,17 @@ export default class PostService {
   }
 
   // -------------------------------------------------------------------------------------------
+  // STOCK REPORT
+  async getPresentPositionStockReport__STOCK_REPORT(gp_id) {
+    console.log(gp_id)
+    let web_menu_url = '/api/web/present-position-stock-report'
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
 
   // -------------------------------------------------------------------------------------------
 
