@@ -3,7 +3,7 @@
 
 export default class PP_InvoiceChallanSummeryTD_Type1 {
     
-    print_invoice(table_header, table_data) {
+    print_invoice(table_header, table_data, summery) {
         var mywindow = window.open('', 'PRINT'); 
         mywindow.document.write(''
                             + '<html>'
@@ -26,7 +26,7 @@ export default class PP_InvoiceChallanSummeryTD_Type1 {
                             +                         '<tr style="">'
                             +                             '<td colspan="5" style="">'
                             +                                 '<p style="display: inline-block; float: left;"><span class="label">Vehical No</span><span class="label-value">: ' + 'Dummy' + '</span></p>'
-                            +                                 '<p style="display: inline-block; float: right;"><span class="label">Delivery Date</span><span class="label-value">: ' + 'Dummy' + '</span></p>'
+                            +                                 '<p style="display: inline-block; float: right;"><span class="label">Delivery Date</span><span class="label-value">: ' + (summery ? (summery.delivery_date ? (summery.delivery_date).split(' ')[0] : '') : '') + '</span></p>'
                             +                             '</td>'
                             +                         '</tr>'
                             +                         '<tr style="">'

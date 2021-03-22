@@ -8,7 +8,9 @@
             <th style="text-align: left;">Sl</th>
             <th>Code</th>
             <th style="text-align: left;">Product Name</th>
-            <th style="text-align: left;">Batch</th>
+            <th>Batch</th>
+            <th>MFG Date</th>
+            <th>EXP Date</th>
             <th>Pack Size</th>
             <th style="text-align: right;">Unit Price</th>
             <th>Stock</th>
@@ -21,7 +23,9 @@
             <td style="text-align: left;">{{ (j + 1) }}</td>
             <td>{{ prod.code }}</td>
             <td style="text-align: left;">{{ prod.name }}</td>
-            <td style="text-align: left;">{{ prod.batch }}</td>
+            <td>{{ prod.batch }}</td>
+            <td>{{ createMFG_EXP_Date((prod.mfg_date).toString().split(' ')[0]) }}</td>
+            <td>{{ createMFG_EXP_Date((prod.exp_date).toString().split(' ')[0]) }}</td>
             <td>{{ prod.pack_size }}</td>
             <td style="text-align: right;">{{ prod.unit_price }}</td>
             <td>{{ prod.stock }}</td>
@@ -70,6 +74,14 @@ export default {
     createBreadcrumbData() {
       this.pathName = [{ name: "Features" }, { name: "Local Sales" }, { name: "vs" },];
       // this.pathName = breadcrumbFunctions.jmiERPBreadcrumb(window.location.pathname)
+    },
+    dateFormat2(d) {
+        var t = new Date(d);
+        var monthShortNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        return monthShortNames[t.getMonth()] + ' ' + t.getFullYear().toString().slice(-2);
+    },
+    createMFG_EXP_Date(dt) {
+        return this.dateFormat2(dt)
     },
     // ------------------------------------------------------------------------------------------
     // SERVICE CALL
