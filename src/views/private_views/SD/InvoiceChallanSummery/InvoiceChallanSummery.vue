@@ -11,18 +11,18 @@
               :INVOICE_CHALLAN_SUMMERY="INVOICE_CHALLAN_SUMMERY"
               :DS_INVOICE="DS_INVOICE"
               :DS_CHALLAN="DS_CHALLAN"
-              :DS_GATEPASS="DS_GATEPASS" />
+              :INVOICE_ID_FROM_LEFT="INVOICE_ID_FROM_LEFT" />
           </div>
         </div>
       </div>
     </div>
-    <!-- Order Approved Message -->
-    <!-- <div id="info-modal" class="modal-popup-section info-modal" v-if="info_modal_schedult_count">
+    <!-- Loading Message -->
+    <div id="info-modal" class="modal-popup-section info-modal" v-if="loading_popup_modal">
       <div class="modal-popup-section-inner update-successfully-modal-inner">
         <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
-        <p class="popup-text info">Total Invoice {{ schedule_count }}</p>
+        <p class="popup-text info">{{ loading_message ? loading_message : 'Please wait, we are processing ...' }}</p>
       </div>
-    </div> -->
+    </div>
   </div>
 </template>
 
@@ -51,7 +51,10 @@ export default {
       INVOICE_CHALLAN_SUMMERY: [],
       DS_INVOICE: [],
       DS_CHALLAN: [],
-      DS_GATEPASS: [],
+      // DS_GATEPASS: [],
+      INVOICE_ID_FROM_LEFT: null,
+      loading_popup_modal: false,
+      loading_message: null,
     };
   },
   created() {
@@ -75,8 +78,10 @@ export default {
     },*/
     async invoiceIdFromLeftHandler(val) {
       console.log(val)
+      this.INVOICE_ID_FROM_LEFT = null
+      this.INVOICE_ID_FROM_LEFT = val
       await this.DELIVERY_SCHEDULE_DETAILS__FROM_SERVICE(val)
-      await this.DS_GATE_PASS_DETAILS__FROM_SERVICE(val)
+      // await this.DS_GATE_PASS_DETAILS__FROM_SERVICE(val)
     },
     // -------------------------------------------------------------------------------
     // Service Call
@@ -86,7 +91,7 @@ export default {
           this.INVOICE_CHALLAN_SUMMERY = []
           this.DS_INVOICE = []
           this.DS_CHALLAN = []
-          this.DS_GATEPASS = []
+          // this.DS_GATEPASS = []
           console.log(res.data)
           this.INVOICE_CHALLAN_SUMMERY = res.data.schedule_list
           this.DS_INVOICE = res.data.schedule_list
@@ -98,15 +103,27 @@ export default {
             }
           }
         })
-    },
-    async DS_GATE_PASS_DETAILS__FROM_SERVICE(ds_id) {
-      this.DS_GATEPASS = []
-      await service.getGatePassDetails_DS_INVOICE_CHALLAN_SUMMERY(ds_id)
-        .then(res => {
-          console.log(res.data)
-          this.DS_GATEPASS = res.data.gate_pass_data ? (res.data.gate_pass_data.gate_pass_details ? (res.data.gate_pass_data.gate_pass_details) : []) : []
+        .catch(err => {
+          if(err) {
+            this.INVOICE_CHALLAN_SUMMERY = []
+            this.DS_INVOICE = []
+            this.DS_CHALLAN = []
+            this.loading_message = 'Request failed to load or no data found'
+            this.loading_popup_modal = true
+            setTimeout( () => {
+              this.loading_popup_modal = false
+            }, 1500)
+          }
         })
-    }
+    },
+    // async DS_GATE_PASS_DETAILS__FROM_SERVICE(ds_id) {
+    //   this.DS_GATEPASS = []
+    //   await service.getGatePassDetails_DS_INVOICE_CHALLAN_SUMMERY(ds_id)
+    //     .then(res => {
+    //       console.log(res.data)
+    //       this.DS_GATEPASS = res.data.gate_pass_data ? (res.data.gate_pass_data.gate_pass_details ? (res.data.gate_pass_data.gate_pass_details) : []) : []
+    //     })
+    // }
   },
 };
 </script>
