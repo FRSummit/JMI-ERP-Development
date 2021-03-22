@@ -54,35 +54,47 @@ input[type="checkbox"] {
 #stock-report-t1.stock-report-t1 .jmi-table thead {}
 
 #stock-report-t1.stock-report-t1 .stock-report-t1-inner {
-    height           : calc(100vh - (74px + 44px + 32px));
+    padding: 40px 20px 20px;
+    position: relative;
+}
+
+#stock-report-t1.stock-report-t1 .stock-report-t1-inner .print-all-icon {
+    position: absolute;
+}
+
+#stock-report-t1.stock-report-t1 .stock-report-t1-inner .stock-report-t1-inner-tablse-section {
+    padding: 10px;
+    box-shadow: 0px 0px 8px #026cd11a;
+    border-radius: 8px;
+    height           : calc(100vh - (74px + 44px + 32px + 62px));
     overflow         : auto;
     -webkit-flex-flow: row wrap;
     border-bottom    : 1px solid #AAC0D9;
 }
 
-#stock-report-t1.stock-report-t1 .stock-report-t1-inner::-webkit-scrollbar {
+#stock-report-t1.stock-report-t1 .stock-report-t1-inner .stock-report-t1-inner-tablse-section::-webkit-scrollbar {
     width: 2px;
 }
 
-#stock-report-t1.stock-report-t1 .stock-report-t1-inner::-webkit-scrollbar-track {
+#stock-report-t1.stock-report-t1 .stock-report-t1-inner .stock-report-t1-inner-tablse-section::-webkit-scrollbar-track {
     box-shadow   : inset 0 0 5px grey;
     border-radius: 10px;
 }
 
-#stock-report-t1.stock-report-t1 .stock-report-t1-inner::-webkit-scrollbar-thumb {
+#stock-report-t1.stock-report-t1 .stock-report-t1-inner .stock-report-t1-inner-tablse-section::-webkit-scrollbar-thumb {
     background   : #168fff;
     border-radius: 10px;
 }
 
-#stock-report-t1.stock-report-t1 .stock-report-t1-inner::-webkit-scrollbar-thumb:hover {
+#stock-report-t1.stock-report-t1 .stock-report-t1-inner .stock-report-t1-inner-tablse-section::-webkit-scrollbar-thumb:hover {
     background: #004e98;
 }
 
-#stock-report-t1.stock-report-t1 .stock-report-t1-inner .jmi-table thead th {
+#stock-report-t1.stock-report-t1 .stock-report-t1-inner .stock-report-t1-inner-tablse-section .jmi-table thead th {
     color: #026CD1;
 }
 
-#stock-report-t1.stock-report-t1 .stock-report-t1-inner .jmi-table tbody tr:hover {
+#stock-report-t1.stock-report-t1 .stock-report-t1-inner .stock-report-t1-inner-tablse-section .jmi-table tbody tr:hover {
     background: #E2EDFA;
 }
 

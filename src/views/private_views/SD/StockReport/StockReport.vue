@@ -2,37 +2,40 @@
   <div id="stock-report-t1" class="stock-report-t1">
     <Heading :pathName="pathName" :routeName="routeName" />
     <div class="stock-report-t1-inner">
-      <table class="table jmi-table" style="">
-        <thead>
-          <tr style="">
-            <th style="text-align: left;">Sl</th>
-            <th>Code</th>
-            <th style="text-align: left;">Product Name</th>
-            <th>Batch</th>
-            <th>MFG Date</th>
-            <th>EXP Date</th>
-            <th>Pack Size</th>
-            <th style="text-align: right;">Unit Price</th>
-            <th>Stock</th>
-            <th style="text-align: right;">Total Value</th>
-          </tr>
-        </thead>
-        <tbody v-for="(prod_group, i) in stock_list" :key="i">
-          <tr><td colspan="8" style="text-align: left; color: #026CD1; font-weight: bold; text-decoration: underline;">{{ i }}</td></tr>
-          <tr v-for="(prod, j) in prod_group" :key="j">
-            <td style="text-align: left;">{{ (j + 1) }}</td>
-            <td>{{ prod.code }}</td>
-            <td style="text-align: left;">{{ prod.name }}</td>
-            <td>{{ prod.batch }}</td>
-            <td>{{ createMFG_EXP_Date((prod.mfg_date).toString().split(' ')[0]) }}</td>
-            <td>{{ createMFG_EXP_Date((prod.exp_date).toString().split(' ')[0]) }}</td>
-            <td>{{ prod.pack_size }}</td>
-            <td style="text-align: right;">{{ prod.unit_price }}</td>
-            <td>{{ prod.stock }}</td>
-            <td style="text-align: right;">{{ prod.value }}</td>
-          </tr>
-        </tbody>
-      </table>
+      <span class="print-all-icon"><i class="zmdi zmdi-print" @click="printAllClickHandler"></i><span class="tool-tip">Print All Invoice</span></span>
+      <div class="stock-report-t1-inner-tablse-section">
+        <table class="table jmi-table" style="">
+          <thead>
+            <tr style="">
+              <th style="text-align: left;">Sl</th>
+              <th>Code</th>
+              <th style="text-align: left;">Product Name</th>
+              <th>Batch</th>
+              <th>MFG Date</th>
+              <th>EXP Date</th>
+              <th>Pack Size</th>
+              <th style="text-align: right;">Unit Price</th>
+              <th>Stock</th>
+              <th style="text-align: right;">Total Value</th>
+            </tr>
+          </thead>
+          <tbody v-for="(prod_group, i) in stock_list" :key="i">
+            <tr><td colspan="8" style="text-align: left; color: #026CD1; font-weight: bold; text-decoration: underline;">{{ i }}</td></tr>
+            <tr v-for="(prod, j) in prod_group" :key="j">
+              <td style="text-align: left;">{{ (j + 1) }}</td>
+              <td>{{ prod.code }}</td>
+              <td style="text-align: left;">{{ prod.name }}</td>
+              <td>{{ prod.batch }}</td>
+              <td>{{ createMFG_EXP_Date((prod.mfg_date).toString().split(' ')[0]) }}</td>
+              <td>{{ createMFG_EXP_Date((prod.exp_date).toString().split(' ')[0]) }}</td>
+              <td>{{ prod.pack_size }}</td>
+              <td style="text-align: right;">{{ prod.unit_price }}</td>
+              <td>{{ prod.stock }}</td>
+              <td style="text-align: right;">{{ prod.value }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
     <!-- Loading Message -->
     <div id="info-modal" class="modal-popup-section info-modal" v-if="loading_popup_modal">
@@ -83,6 +86,7 @@ export default {
     createMFG_EXP_Date(dt) {
         return this.dateFormat2(dt)
     },
+    printAllClickHandler() {},
     // ------------------------------------------------------------------------------------------
     // SERVICE CALL
     async PRESENT_POSITION_STOCK_REPORT__FROM_SERVICE() {
