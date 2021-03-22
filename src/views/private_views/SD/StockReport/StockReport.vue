@@ -51,6 +51,8 @@
 import Heading from "../../../../components/master_layout/HeadingTitleBreadcrumbT2/HeadingTitleBreadcrumb";
 import ERPSidebarService from '../../../../service/ERPSidebarService'
 const service = new ERPSidebarService()
+import PP_Stock_Report from '../../../../functions/Print_Func/PP_Stock_Report'
+const pp_Stock_Report = new PP_Stock_Report()
 
 export default {
   components: {
@@ -86,7 +88,26 @@ export default {
     createMFG_EXP_Date(dt) {
         return this.dateFormat2(dt)
     },
-    printAllClickHandler() {},
+    printAllClickHandler() {
+      let header = {
+        title: "NIPRO JMI Pharma Ltd.",
+        address: "Shugandha Holdings, 29/C & 29/D, Tejgaon I/A, Dhaka -1208",
+        subtitle: "Present Stock Position"
+      }
+      let table_header = [
+        {th: "Code", style: ""},
+        {th: "Product Name", style: "text-align: left;"},
+        {th: "Batch", style: ""},
+        {th: "MFG Date", style: ""},
+        {th: "EXP Date", style: ""},
+        {th: "Pack Size", style: ""},
+        {th: "Unit Price	", style: "text-align: right;"},
+        {th: "Stock", style: ""},
+        {th: "Total Value", style: "text-align: right;"}
+      ]
+      let table_data = this.stock_list
+      pp_Stock_Report.printReport(header, table_header, table_data)
+    },
     // ------------------------------------------------------------------------------------------
     // SERVICE CALL
     async PRESENT_POSITION_STOCK_REPORT__FROM_SERVICE() {

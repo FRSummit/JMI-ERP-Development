@@ -51,6 +51,8 @@ input[type="checkbox"] {
     text-align: center;
 }
 
+/* --------------------------------------------------------------------- */
+/* STOCK REPORT STARTS */
 #stock-report-t1.stock-report-t1 .jmi-table thead {}
 
 #stock-report-t1.stock-report-t1 .stock-report-t1-inner {
@@ -58,12 +60,34 @@ input[type="checkbox"] {
     position: relative;
 }
 
-#stock-report-t1.stock-report-t1 .stock-report-t1-inner .print-all-icon {
+#stock-report-t1.stock-report-t1 .stock-report-t1-inner span.print-all-icon {
     position: absolute;
+    top     : 18px;
+    right   : 40px;
+}
+
+#stock-report-t1.stock-report-t1 .stock-report-t1-inner span.print-all-icon i {
+    color    : #026CD1;
+    font-size: 22px;
+    cursor   : pointer;
+}
+
+#stock-report-t1.stock-report-t1 .stock-report-t1-inner span.print-all-icon .tool-tip {
+    display  : none;
+    position : absolute;
+    top      : -20px;
+    right    : -40px;
+    color    : #026CD1;
+    font-size: 14px;
+    width    : 100px;
+}
+
+#stock-report-t1.stock-report-t1 .stock-report-t1-inner span.print-all-icon:hover .tool-tip {
+    display: block;
 }
 
 #stock-report-t1.stock-report-t1 .stock-report-t1-inner .stock-report-t1-inner-tablse-section {
-    padding: 10px;
+    padding: 10px 10px 0;
     box-shadow: 0px 0px 8px #026cd11a;
     border-radius: 8px;
     height           : calc(100vh - (74px + 44px + 32px + 62px));
@@ -97,6 +121,9 @@ input[type="checkbox"] {
 #stock-report-t1.stock-report-t1 .stock-report-t1-inner .stock-report-t1-inner-tablse-section .jmi-table tbody tr:hover {
     background: #E2EDFA;
 }
+
+/* STOCK REPORT ENDS */
+/* --------------------------------------------------------------------- */
 
 /* ---------------------------------------------------------------------------- */
 /* JMI SEARCH - LEFT SIDE STARTS */
