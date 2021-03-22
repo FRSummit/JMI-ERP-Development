@@ -149,9 +149,6 @@ export default {
     printAllInvoiceClickHandler() {
       console.log('print ALl : ' + this.tab)
       console.log(this.tab)
-      let summery = {
-
-      }
       if(this.tab === 'INVOICE' || this.tab === 'CHALLAN') {
         let table_header = [
           {th:"INVOICE No", style:''},
@@ -183,14 +180,14 @@ export default {
         let table_data = []
         for(let i=0; i<this.SCHEDULE_DETAILS_LIST.length; i++) {
           let table_single_data = {
-            invoice_id: this.SCHEDULE_DETAILS_LIST[i].sbu_product_info ? (this.SCHEDULE_DETAILS_LIST[i].sbu_product_info.display_code ? (this.SCHEDULE_DETAILS_LIST[i].sbu_product_info.display_code) : '') : '',
-            customer_type: this.SCHEDULE_DETAILS_LIST[i].sbu_product_info ? (this.SCHEDULE_DETAILS_LIST[i].sbu_product_info.display_name ? (this.SCHEDULE_DETAILS_LIST[i].sbu_product_info.display_name) : '') : '',
-            customer_name: 'Dummy',
-            amount: this.SCHEDULE_DETAILS_LIST[i].total_qty
+            code: this.SCHEDULE_DETAILS_LIST[i].sbu_product_info ? (this.SCHEDULE_DETAILS_LIST[i].sbu_product_info.display_code ? (this.SCHEDULE_DETAILS_LIST[i].sbu_product_info.display_code) : '') : '',
+            prod_name: this.SCHEDULE_DETAILS_LIST[i].sbu_product_info ? (this.SCHEDULE_DETAILS_LIST[i].sbu_product_info.display_name ? (this.SCHEDULE_DETAILS_LIST[i].sbu_product_info.display_name) : '') : '',
+            pack_size: this.SCHEDULE_DETAILS_LIST[i].adm_products ? (this.SCHEDULE_DETAILS_LIST[i].adm_products.com_pack_size ? (this.SCHEDULE_DETAILS_LIST[i].adm_products.com_pack_size) : '') : '',
+            invoice_qty: this.SCHEDULE_DETAILS_LIST[i].total_qty
           }
           table_data.push(table_single_data)
         }
-        pp_InvoiceChallanSummeryTD_GatePass.print_invoice(table_header, table_data, summery)
+        pp_InvoiceChallanSummeryTD_GatePass.print_invoice(table_header, table_data, this.HEADER_DATA)
         console.log(table_data)
       }
     },
