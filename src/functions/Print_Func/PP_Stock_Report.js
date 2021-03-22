@@ -3,7 +3,7 @@
 
 export default class PP_InvoiceChallanSummeryTD_Type1 {
     
-    printReport(header, table_header, table_data) {
+    printReport(header, table_header, table_data, warehouse) {
         console.log(header)
         var mywindow = window.open('', 'PRINT'); 
         mywindow.document.write(''
@@ -19,11 +19,14 @@ export default class PP_InvoiceChallanSummeryTD_Type1 {
                             +             '<div class="print-section-inner">'
                             +                 '<table style="">'
                             +                     '<thead>'
-                            // +                         '<tr style="">'
-                            // +                             '<td colspan="6" style="">'
-                            // +                                 '<p style="display: inline-block; float: left;"><span class="label">No. of Invoices</span><span class="label-value">: ' + (summery ? (summery.invoice_count ? (summery.invoice_count) : '') : '') + '</span></p>'
-                            // // +                             '</td>'
-                            // // +                         '</tr>'
+                            +                         '<tr style="">'
+                            +                             '<td colspan="10" style="">'
+                            +                                 '<p style="display: block; text-align: center; font-size: 20px; font-weight: bold;">' + header.title + '</p>'
+                            +                                 '<p style="display: block; text-align: center; font-size: 12px;">' + header.address + '</p>'
+                            +                                 '<p style="display: block; text-align: center; padding-bottom: 10px;"><span style=" font-size: 18px; font-weight: bold; text-decoration: underline; margin-right: -160px;">' + header.subtitle + '</span><span style="font-size: 12px; font-weight: 100; float: right; width: 160px;">Printing Date: ' + this.printing_Date_Format_2() + '</span></p>'
+                            +                                 '<p style="display: block; text-align: center; padding-bottom: 30px;"></span><span style="font-size: 14px; font-weight: bold; float: right;">' + warehouse + '</span></p>'
+                            +                             '</td>'
+                            // +                         '</tr>'
                             // // +                         '<tr style="">'
                             // // +                             '<td colspan="6" style="">'
                             // +                                 '<p style="display: inline-block; float: right;"><span class="label">Depot</span><span class="label-value">: ' + (summery ? (summery.depo_name ? (summery.depo_name) : '') : '') + '</span></p>'
@@ -72,12 +75,17 @@ export default class PP_InvoiceChallanSummeryTD_Type1 {
         return t.getFullYear() + '-' + (t.getMonth() + 1) + '-' + t.getDate() 
     }
 
+    printing_Date_Format_2() {
+        var t = new Date();
+        return t.getFullYear() + '-' + (t.getMonth() + 1) + '-' + t.getDate() + ' ' + t.getHours() + ':' + t.getMinutes()
+    }
+
     addStylePrint_3() {
         let style = ''
         style += ''
               + '@page {'
               +     'size: 8.5in 11in;'
-              +     'margin: 30mm 10mm 30mm 15mm; border: 1px solid #000000'
+              +     'margin: 5mm 10mm 10mm 15mm; border: 1px solid #000000'
               + '}'
               +
               + '@media print {'

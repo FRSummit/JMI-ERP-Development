@@ -2,7 +2,7 @@
   <div id="stock-report-t1" class="stock-report-t1">
     <Heading :pathName="pathName" :routeName="routeName" />
     <div class="stock-report-t1-inner">
-      <span class="print-all-icon"><i class="zmdi zmdi-print" @click="printAllClickHandler"></i><span class="tool-tip">Print All Invoice</span></span>
+      <span class="print-all-icon"><i class="zmdi zmdi-print" @click="printAllClickHandler"></i><span class="tool-tip">Print</span></span>
       <div class="stock-report-t1-inner-tablse-section">
         <table class="table jmi-table" style="">
           <thead>
@@ -66,6 +66,7 @@ export default {
       stock_list: [],
       loading_popup_modal: false,
       loading_message: null,
+      warehouse: null,
     };
   },
   created() {
@@ -90,8 +91,8 @@ export default {
     },
     printAllClickHandler() {
       let header = {
-        title: "NIPRO JMI Pharma Ltd.",
-        address: "Shugandha Holdings, 29/C & 29/D, Tejgaon I/A, Dhaka -1208",
+        title: JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.sbu_name,
+        address: JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.address,
         subtitle: "Present Stock Position"
       }
       let table_header = [
@@ -106,20 +107,23 @@ export default {
         {th: "Total Value", style: "text-align: right;"}
       ]
       let table_data = this.stock_list
-      pp_Stock_Report.printReport(header, table_header, table_data)
+      pp_Stock_Report.printReport(header, table_header, table_data, this.warehouse)
     },
     // ------------------------------------------------------------------------------------------
     // SERVICE CALL
     async PRESENT_POSITION_STOCK_REPORT__FROM_SERVICE() {
       this.stock_list = []
+      this.warehouse = []
       service.getPresentPositionStockReport__STOCK_REPORT()
         .then(res => {
           console.log(res.data)
           this.stock_list = res.data.stock_info
+          this.warehouse = res.data.warehouse
         })
         .catch(err => {
           if(err) {
             this.stock_list = []
+            this.warehouse = []
             this.loading_message = 'Request failed to load or no data found'
             this.loading_popup_modal = true
             setTimeout( () => {
