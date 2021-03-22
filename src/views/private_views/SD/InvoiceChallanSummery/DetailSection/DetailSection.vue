@@ -81,7 +81,7 @@ const service = new Service();
 import DetailDataList from './DetailData/DetailDataList'
 
 export default {
-  props: ["INVOICE_CHALLAN_SUMMERY", "DS_INVOICE", "DS_CHALLAN", "INVOICE_ID_FROM_LEFT", "HEADER_DATA_INVOICE", "HEADER_DATA_CHALLAN"],
+  props: ["INVOICE_CHALLAN_SUMMERY", "DS_INVOICE", "DS_CHALLAN", "DS_SUMMERY_FROM_LEFT", "INVOICE_ID_FROM_LEFT", "HEADER_DATA_INVOICE", "HEADER_DATA_CHALLAN"],
   components: {
     DetailDataList
   },
@@ -138,7 +138,9 @@ export default {
       console.log(ds_id)
       this.DS_GATEPASS = []
       this.DS_GATEPASS_HEADERS = []
-      this.loading_popup_modal = true
+      if(this.DS_SUMMERY_FROM_LEFT.gate_pass_id === null) {
+        this.loading_popup_modal = true
+      }
       this.loading_message = null
       await service.getGatePassDetails_DS_INVOICE_CHALLAN_SUMMERY(ds_id)
         .then(res => {
@@ -174,8 +176,11 @@ export default {
   watch: {
     tab(newVal) {
       console.log(newVal)
-      if(newVal === 2) {
+      // console.log(this.DS_SUMMERY_FROM_LEFT.gate_pass_id)
+      if( (this.DS_SUMMERY_FROM_LEFT.gate_pass_id === null) && (newVal === 2) ) {
         this.gate_pass_proceed_modal_popup = true
+      } else {
+        this.DS_GATE_PASS_DETAILS__FROM_SERVICE(this.INVOICE_ID_FROM_LEFT)
       }
     }
   }

@@ -13,7 +13,8 @@
               :DS_CHALLAN="DS_CHALLAN"
               :INVOICE_ID_FROM_LEFT="INVOICE_ID_FROM_LEFT"
               :HEADER_DATA_INVOICE="HEADER_DATA_INVOICE"
-              :HEADER_DATA_CHALLAN="HEADER_DATA_CHALLAN" />
+              :HEADER_DATA_CHALLAN="HEADER_DATA_CHALLAN"
+              :DS_SUMMERY_FROM_LEFT="DS_SUMMERY_FROM_LEFT" />
           </div>
         </div>
       </div>
@@ -54,6 +55,7 @@ export default {
       DS_INVOICE: [],
       DS_CHALLAN: [],
       // DS_GATEPASS: [],
+      DS_SUMMERY_FROM_LEFT: null,
       INVOICE_ID_FROM_LEFT: null,
       loading_popup_modal: false,
       loading_message: null,
@@ -82,9 +84,15 @@ export default {
     },*/
     async invoiceIdFromLeftHandler(val) {
       console.log(val)
+      this.DS_SUMMERY_FROM_LEFT = null
       this.INVOICE_ID_FROM_LEFT = null
-      this.INVOICE_ID_FROM_LEFT = val
-      await this.DELIVERY_SCHEDULE_DETAILS__FROM_SERVICE(val)
+
+      this.DS_SUMMERY_FROM_LEFT = val
+      this.INVOICE_ID_FROM_LEFT = val.id
+      // Back to first tab
+      document.querySelector('.packing-tab.v-tab').click()
+
+      await this.DELIVERY_SCHEDULE_DETAILS__FROM_SERVICE(val.id)
       // await this.DS_GATE_PASS_DETAILS__FROM_SERVICE(val)
     },
     // -------------------------------------------------------------------------------
