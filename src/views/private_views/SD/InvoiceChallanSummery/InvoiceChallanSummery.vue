@@ -46,7 +46,7 @@ export default {
   },
   data() {
     return {
-      routeName: "Invoice Challan Summery",
+      routeName: "Invoice Challan Summary",
       parentPath: "Local Sales",
       pathName: [],
       // info_modal_schedult_count: false,
@@ -61,6 +61,7 @@ export default {
       loading_message: null,
       HEADER_DATA_INVOICE: [],
       HEADER_DATA_CHALLAN: [],
+      // NEW_GATE_PASS_CREATED: false,
     };
   },
   created() {
@@ -72,7 +73,7 @@ export default {
   },
   methods: {
     createBreadcrumbData() {
-      this.pathName = [{name: "Features"},{ name: "Local Sales" }, { name: "Invoice Challan Summery" }];
+      this.pathName = [{name: "Features"},{ name: "Local Sales" }, { name: "Invoice Challan Summary" }];
       // this.pathName = breadcrumbFunctions.jmiERPBreadcrumb(window.location.pathname)
     },
     /*showInvoiceCountInformationMessagePopup() {

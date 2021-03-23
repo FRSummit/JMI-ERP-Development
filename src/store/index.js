@@ -9,6 +9,9 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
   state: {
     userIsAuthorized: false,
+    
+    // INVOICE CHALLAN SUMMERY
+    INVOICE_CAHLLAN_SUMMERY__NEW_GATE_PASS_CREATED: null,
   },
   actions: {
     // loginChecker({ commit }, loginData) {

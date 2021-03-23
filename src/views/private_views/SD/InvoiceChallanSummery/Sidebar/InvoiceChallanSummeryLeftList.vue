@@ -94,6 +94,7 @@ import JMIFilter from '../../../../../functions/JMIFIlter'
 const jmiFilter = new JMIFilter()
 
 export default {
+  props: ["NEW_GATE_PASS_CREATED"],
   components: {
     // HotelDatePicker,
     // DatePicker
@@ -120,7 +121,8 @@ export default {
       // },
       // datetime: '',
       // range: ''
-      INVOICE_LIST: []
+      INVOICE_LIST: [],
+      // PROJECT_STORE_STATE__INVOICE_CAHLLAN_SUMMERY__NEW_GATE_PASS_CREATED : this.$store.state.INVOICE_CAHLLAN_SUMMERY__NEW_GATE_PASS_CREATED,
     };
   },
   created() {
@@ -133,6 +135,8 @@ export default {
     });
   },
   async mounted() {
+    // console.log(this.$store.state.INVOICE_CAHLLAN_SUMMERY__NEW_GATE_PASS_CREATED)
+    // this.PROJECT_STORE_STATE__INVOICE_CAHLLAN_SUMMERY__NEW_GATE_PASS_CREATED = this.$store.state.INVOICE_CAHLLAN_SUMMERY__NEW_GATE_PASS_CREATED
     await this.DELIVERY_SCHEDULE_LIST__FROM_SERVICE()
   },
   methods: {
@@ -170,6 +174,18 @@ export default {
         })
     }
   },
+  computed: {
+    PROJECT_STORE_STATE__INVOICE_CAHLLAN_SUMMERY__NEW_GATE_PASS_CREATED() {
+      return this.$store.state.INVOICE_CAHLLAN_SUMMERY__NEW_GATE_PASS_CREATED
+    }
+  },
+  watch: {
+    async PROJECT_STORE_STATE__INVOICE_CAHLLAN_SUMMERY__NEW_GATE_PASS_CREATED(newVal, oldVal) {
+      if(newVal !== oldVal) {
+        await this.DELIVERY_SCHEDULE_LIST__FROM_SERVICE()
+      }
+    }
+  }
 };
 </script>
 

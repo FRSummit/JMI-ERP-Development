@@ -158,6 +158,7 @@ export default {
           }
           this.DS_GATEPASS = res.data.gate_pass_data ? (res.data.gate_pass_data.gate_pass_details ? (res.data.gate_pass_data.gate_pass_details) : []) : []
           this.DS_GATEPASS_HEADERS = res.data.header
+          this.$store.state.INVOICE_CAHLLAN_SUMMERY__NEW_GATE_PASS_CREATED = new Date()
         })
         .catch(err => {
           console.log(err)
