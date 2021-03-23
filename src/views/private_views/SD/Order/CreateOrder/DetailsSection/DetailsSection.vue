@@ -9,7 +9,8 @@
                     <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer Name:</span><span class="jmi-lvl-value">{{ customer_data ? customer_data.display_name : "" }}</span></p></div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><span class="jmi-lvl-value address">{{ customer_data ? customer_data.customer_info.customer_address !== null ? customer_data.customer_info.customer_address : "Null" : "" }}</span></p></div>
+                    <!-- <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><span class="jmi-lvl-value address">{{ customer_data ? customer_data.customer_info.customer_address !== null ? customer_data.customer_info.customer_address : "Null" : "" }}</span></p></div> -->
+                    <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><input class="jmi-lvl-value-input" v-model="customer_address" /></p></div>
                     <!-- <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title">Territory: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_70">{{ customer_data ? customer_data.customer_area_info.sales_force.get_sales_area.area_name : "" }}</span></p></div>                       -->
                     <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title">Order Territory: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_70" style="float: right;">
                         <div class="select-options jmi-select-options-section" style="width: 100%;">
@@ -364,6 +365,7 @@ export default {
             sr_list: [],
             sr_add_modal: false,
             selected_sr: null,
+            // customer_address: null,
             order_table_header: ["Name", "Unit Price", "Quantity", "Discount", "Total Price"],
             ORDERED_TABLE_DATA__INIT_LIST: [],
             ORDERED_TABLE_DATA__MODIFIED_LIST: [],
@@ -1099,6 +1101,7 @@ export default {
                 this.SELECTED_ORDERED_PRODUCTS__STORE = []
                 this.RESPONSE_ORDERED_PRODUCTS__STORE = []
                 
+                this.customer_address = null
                 this.selected_sr = null
                 this.sub_total = 0.00
                 this.vat_total = 0.00
@@ -1156,6 +1159,12 @@ export default {
             }
         }
     },
+    computed: {
+        customer_address() {
+            // console.log(this.customer_data ? (this.customer_data.credit_flag ? (this.customer_data.credit_flag === "Y" ? "Credit" : "Cash") : '') : "")
+            return this.customer_data ? (this.customer_data.credit_flag ? (this.customer_data.credit_flag === "Y" ? "Credit" : "Cash") : '') : ""
+        }
+    },
     watch: { 
         // Garbase
         // customer_data: (newVal, oldVal) => {
@@ -1188,14 +1197,20 @@ export default {
         //     immediate: true,
         // }
 
-        customer_data(newVal, oldVal){
+        // customer_data(newVal, oldVal){
+        customer_data(newVal){
             this.CUSTOMER_ID_FROM_LEFT = newVal.customer_id
             this.REGION_AREA_TERRITORY_LIST = []
             this.AREA_LIST_BY_USER__FROM_SERVICE()
-            if( newVal && oldVal) {
-                if(newVal.customer_id !== oldVal.customer_id) {
+            // if( newVal && oldVal) {
+            if( newVal) {
+                // if(newVal.customer_id !== oldVal.customer_id) {
+                if(newVal.customer_id) {
+                    // this.customer_address = newVal.customer_info ? (newVal.customer_info.customer_address ? newVal.customer_info.customer_address : '') : ''
+                    // this.customer_address = newVal ? (newVal.credit_flag ? (newVal.credit_flag === "Y" ? "Credit" : "Cash") : '') : ""
+                    // console.log('this.customer_address : ' + this.customer_address)
                     this.SALSE_AREA_ID = newVal.customer_area_info ? (newVal.customer_area_info.sales_area_id ? (newVal.customer_area_info.sales_area_id) : null) : null
-                    console.log(this.SALSE_AREA_ID)
+                    // console.log(this.SALSE_AREA_ID)
                     // this.REGION_AREA_TERRITORY_LIST = []
                     // this.selectREG_AREA_TT(this.SALSE_AREA_ID)
                     // this.AREA_LIST_BY_USER__FROM_SERVICE(newVal.customer_id)
