@@ -131,10 +131,10 @@ export default class PP_InvoiceChallanSummeryTD_Type1 {
     
     create_table_body_data(table_data) {    
         let result = ''
-        for(let i=0; i<table_data.length; i++) {
-            result += this.createTableGroup(table_data[i])
+        // for(let i=0; i<table_data.length; i++) {
+            result += this.createTableGroup(table_data)
             // result += this.createTableGroup(table_data[i])
-        }
+        // }
         
         return result
 
@@ -143,11 +143,11 @@ export default class PP_InvoiceChallanSummeryTD_Type1 {
 
     createTableGroup(data) {
         let result = ''
-        if(data[0] ? (data[0].user_info ? (data[0].user_info.get_adm_user ? (data[0].user_info.get_adm_user.name) : false) : false) : false) {
-            result += '' +
-                    '<tr>' +
-                        '<td colspan="6" style="text-align: left;"><p style="display: inline-block;"><span class="label">SPE/MIO</span><span class="label-value">: ' + data[0].user_info.get_adm_user.name + '</span></p></td>' +
-                    '</tr>'
+        // if(data[0] ? (data[0].user_info ? (data[0].user_info.get_adm_user ? (data[0].user_info.get_adm_user.name) : false) : false) : false) {
+        //     result += '' +
+        //             '<tr>' +
+        //                 '<td colspan="6" style="text-align: left;"><p style="display: inline-block;"><span class="label">SPE/MIO</span><span class="label-value">: ' + data[0].user_info.get_adm_user.name + '</span></p></td>' +
+        //             '</tr>'
 
             for(let i=0; i<data.length; i++) {
                 result += '' +
@@ -161,7 +161,7 @@ export default class PP_InvoiceChallanSummeryTD_Type1 {
                             '<td style="border: 1px solid #000000;">' + data[i].qty + '</td>' +
                         '</tr>'
             }
-        }
+        // }
 
         return result
     }

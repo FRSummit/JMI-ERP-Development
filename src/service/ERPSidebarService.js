@@ -803,6 +803,21 @@ export default class PostService {
   }
 
   // -------------------------------------------------------------------------------------------
+  // DELIVERY GRN
+  async getGRN_InfoByGRN_No__DELIVERY_GRN(grn_no) {
+    let web_menu_url = '/api/web/grn-info-by-grn-no'
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+      params: {
+        grn_no: grn_no
+      }
+    })
+  }
+
+  // -------------------------------------------------------------------------------------------
 
   // -------------------------------------------------------------------------------------------
 

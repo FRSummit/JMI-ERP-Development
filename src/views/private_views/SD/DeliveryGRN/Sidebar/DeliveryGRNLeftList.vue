@@ -149,7 +149,7 @@ export default {
             } else {
                 document.querySelector('#invoice-challan-printing-section-list-' + index).className = 'invoice-challan-printing-section-list'
             }
-      this.$emit('invoice_id_from_left', invoice.id)
+      this.$emit('invoice_id_from_left', invoice)
     },
     searchKeyUpHandler(value) {
       console.log(value.key)

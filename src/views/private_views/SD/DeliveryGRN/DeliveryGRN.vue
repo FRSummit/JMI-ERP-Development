@@ -9,10 +9,7 @@
           <div class="invoice-challan-printing-detail-inner">
             <DetailSection 
               :SCHEDULE_DETAILS_LIST="SCHEDULE_DETAILS_LIST"
-              :SCHEDULE_DETAILS_LIST_CHEMIST="SCHEDULE_DETAILS_LIST_CHEMIST"
-              :SCHEDULE_DETAILS_LIST_INSTITUTION="SCHEDULE_DETAILS_LIST_INSTITUTION"
               :INVOICE_FOR_CURRENT_DS_LIST="INVOICE_FOR_CURRENT_DS_LIST"
-              v-on:ADD_INVOICE_TO_CURRENT_SCHEDULE="addInvoiceToCurrentSchedule"
               :HEADER_DATA="HEADER_DATA" />
           </div>
         </div>
@@ -51,8 +48,6 @@ export default {
       // info_modal_schedult_count: false,
       // schedule_count: null,
       SCHEDULE_DETAILS_LIST: [],
-      SCHEDULE_DETAILS_LIST_CHEMIST: [],
-      SCHEDULE_DETAILS_LIST_INSTITUTION: [],
       INVOICE_FOR_CURRENT_DS_LIST: [],
       DS_ID: null,
       DA_ID: null,
@@ -76,46 +71,31 @@ export default {
     async invoiceIdFromLeftHandler(val) {
       console.log(val)
       this.CURRENT_SCHEDULE_ID = null
-      this.CURRENT_SCHEDULE_ID = val
-      await this.DELIVERY_SCHEDULE_DETAILS__FROM_SERVICE(val)
-    },
-    addInvoiceToCurrentSchedule(value) {
-      this.ADD_INVOICE_TO_CURRENT_DS__FROM_SERVICE(value)
+      this.CURRENT_SCHEDULE_ID = val.return_grn_no
+      await this.GRN_INFO_BY_GRN_NO__FROM_SERVICE(val.return_grn_no)
     },
     // -------------------------------------------------------------------------------
     // Service Call
-    async DELIVERY_SCHEDULE_DETAILS__FROM_SERVICE(schedule_id) {
+    async GRN_INFO_BY_GRN_NO__FROM_SERVICE(grn_no) {
       this.SCHEDULE_DETAILS_LIST = []
-      this.SCHEDULE_DETAILS_LIST_CHEMIST = []
-      this.SCHEDULE_DETAILS_LIST_INSTITUTION = []
       this.DA_ID = null
       this.DS_ID = null
       this.HEADER_DATA = []
-      service.getDeliveryScheduleDetails_DELIVERY_SCHEDULING_INVOICE_CHALLAN_PRINTING(schedule_id)
+      service.getGRN_InfoByGRN_No__DELIVERY_GRN(grn_no)
         .then(res => {
           console.log(res.data)
-          this.SCHEDULE_DETAILS_LIST = res.data.schedule_list
+          this.SCHEDULE_DETAILS_LIST = res.data.grn_info.grn_detail
           this.HEADER_DATA = res.data.header
+          console.log(this.SCHEDULE_DETAILS_LIST)
+          console.log(this.HEADER_DATA)
           if(res.data.schedule_list) {
-            for(let i=0; i<res.data.schedule_list.length; i++) {
-              if(res.data.schedule_list[i].customer_info.customer_type === '422') {
-                this.SCHEDULE_DETAILS_LIST_CHEMIST.push(res.data.schedule_list[i])
-              } else if(res.data.schedule_list[i].customer_info.customer_type === '424') {
-                this.SCHEDULE_DETAILS_LIST_INSTITUTION.push(res.data.schedule_list[i])
-              }
-            }
-            // let da_id = res.data.schedule_list[0].ds_info.da_id
-            // let ds_id = res.data.schedule_list[0].ds_id
             this.DA_ID = res.data.schedule_list[0].ds_info.da_id
             this.DS_ID = res.data.schedule_list[0].ds_id
-            this.GET_INVOICE_FOR_CURRENT_DS__FROM_SERVICE(res.data.schedule_list[0].ds_info.da_id, res.data.schedule_list[0].ds_id)
           }
         })
         .catch(err => {
           if(err) {
             this.SCHEDULE_DETAILS_LIST = []
-            this.SCHEDULE_DETAILS_LIST_CHEMIST = []
-            this.SCHEDULE_DETAILS_LIST_INSTITUTION = []
             this.DA_ID = null
             this.DS_ID = null
             this.HEADER_DATA = []
@@ -127,32 +107,6 @@ export default {
           }
         })
     },
-    async GET_INVOICE_FOR_CURRENT_DS__FROM_SERVICE(da_id, ds_id) {
-      await service.getInvoiceForCurrentDS_PENDING_DS_INVOICE_LIST(da_id, ds_id)
-        .then(res => {
-          console.log(res.data)
-          this.INVOICE_FOR_CURRENT_DS_LIST = res.data.invoice_info
-        })
-    },
-    async ADD_INVOICE_TO_CURRENT_DS__FROM_SERVICE(value) {
-      let inv_list = []
-      for(let i=0; i<value.length; i++) {
-        let invoice_id = {
-          invoice_id: value[i]
-        }
-        inv_list.push(invoice_id)
-      }
-      console.log(inv_list)
-      await service.getAddInvoiceToCurrentDS_PENDING_DS_INVOICE_LIST(this.DS_ID, inv_list)
-        .then(res => {
-          console.log(res.data)
-          this.DELIVERY_SCHEDULE_DETAILS__FROM_SERVICE(this.CURRENT_SCHEDULE_ID)
-          if(res.data.response_data === 200) {
-            // this.router.push('/features/users/dashboard')
-            this.GET_INVOICE_FOR_CURRENT_DS__FROM_SERVICE(this.DA_ID, this.DS_ID)
-          }
-        })
-    }
   },
 };
 </script>
