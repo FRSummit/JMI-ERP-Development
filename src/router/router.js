@@ -225,6 +225,13 @@ export const router = new VueRouter({
       name: 'Stock Report',
       component: () => import('../views/private_views/SD/StockReport/StockReport.vue')
     },
+    // --------------------------------------------------------------------------------------
+    // DELIVERY GRN
+    {
+      path: '/features/local_sales/delivery_grn',
+      name: 'Delivery GRN',
+      component: () => import('../views/private_views/SD/DeliveryGRN/DeliveryGRN.vue')
+    },
 
     // --------------------------------------------------------------------------------------
     // 404 PAGES
