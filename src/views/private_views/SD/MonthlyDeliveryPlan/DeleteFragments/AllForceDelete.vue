@@ -3,7 +3,7 @@
     <div class="confirmation-alert-popup-inner">
       <span class="popup-icon"><i class="fas fa-trash-alt"></i></span>
       <p class="alert-text">Are you sure?</p>
-      <p class="alert-desc">You wan to delete the plan.</p>
+      <p class="alert-desc">You want to delete the plan.</p>
       <span class="divider"></span>
       <div class="confirmation-submit-section">
         <div class="confirm-btn-section">

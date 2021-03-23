@@ -85,7 +85,7 @@ export default class PP_InvoiceChallanSummeryTD_Type1 {
         style += ''
               + '@page {'
               +     'size: 8.5in 11in;'
-              +     'margin: 5mm 10mm 10mm 15mm; border: 1px solid #000000'
+              +     'margin: 5mm 10mm 5mm 15mm; border: 1px solid #000000'
               + '}'
               +
               + '@media print {'
