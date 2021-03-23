@@ -91,9 +91,10 @@
                         margin       : 0;
                         border-bottom: none;
                         border       : 1px solid #BFCFE2;
+                        border-radius: 2px;
                         box-sizing   : inherit;
                         font-size    : 12px;
-                        padding      : 0;
+                        padding      : 1px 10px;
                         display      : inline-block;
                         height       : auto;
                         width        : 80%;
@@ -1298,7 +1299,21 @@
     }
 
     .order-proceed-modal {
-        .order-proceed-modal-inner {}
+        .order-proceed-modal-inner {
+            top: 25%;
+
+            p.comment-text {
+                font-size    : 14px;
+                color        : #026CD1;
+                text-align   : left;
+                margin-bottom: 10px;
+            }
+
+            textarea.customer_comment {
+                border       : 1px solid #AAC0D9;
+                border-radius: 2px;
+            }
+        }
     }
 }
 

@@ -141,7 +141,7 @@
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
                                 <tr class="subtotal bottom-total" v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">
-                                    <td style="width: 50%;"></td>
+                                    <td style="width: 50%;"><span class="add-order-attachment-section add-order" @click="addCommentClickHandler"><i class="zmdi zmdi-plus"></i>Comment</span></td>
                                     <td style="width: 25%;">(+) Vat</td>
                                     <td style="width: 15%;">{{ Number(vat_total).toFixed(2) }}</td>
                                     <td style="width: 10%; min-width: 70px;"></td>
@@ -326,12 +326,12 @@
                 <p class="popup-desc">You want to proceed the order.</p>
                 <span class="divider"></span>
                 <div class="popup-submit-section">
-                <div class="popup-cancel-btn-section" @click="cancelOrderModalClickHandler">
-                    <span>Cancel</span>
-                </div>
-                <div class="popup-confirm-btn-section" @click="proceedOrderModalClickHandler">
-                    <span>Proceed</span>
-                </div>
+                    <div class="popup-cancel-btn-section" @click="cancelOrderModalClickHandler">
+                        <span>Cancel</span>
+                    </div>
+                    <div class="popup-confirm-btn-section" @click="proceedOrderModalClickHandler">
+                        <span>Proceed</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -341,6 +341,21 @@
                 <div id="progressbar" class="jmi-progressbar">
                     <v-progress-circular indeterminate color="primary"></v-progress-circular>
                     <p>{{ order_creating_progressbar_msg ? order_creating_progressbar_msg : 'Order creating inprogress' }}</p>
+                </div>
+            </div>
+        </div>
+        <!-- Comment Popup -->
+        <div class="modal-popup-section order-proceed-modal order-create-comment" v-if="add_comment_popup">
+            <div class="modal-popup-section-inner order-proceed-modal-inner">
+                <p class="comment-text">Add Comment</p>
+                <div class="popup-submit-section">
+                    <textarea class="customer_comment" v-model="customer_comment" cols="30" rows="10"></textarea>
+                    <div class="popup-cancel-btn-section" @click="cancelCommentModalClickHandler">
+                        <span>Cancel</span>
+                    </div>
+                    <div class="popup-confirm-btn-section" @click="proceedCommentModalClickHandler">
+                        <span>Proceed</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -365,7 +380,7 @@ export default {
             sr_list: [],
             sr_add_modal: false,
             selected_sr: null,
-            // customer_address: null,
+            customer_comment: null,
             order_table_header: ["Name", "Unit Price", "Quantity", "Discount", "Total Price"],
             ORDERED_TABLE_DATA__INIT_LIST: [],
             ORDERED_TABLE_DATA__MODIFIED_LIST: [],
@@ -420,6 +435,7 @@ export default {
             order_creating_progressbar: false,
             order_creating_progressbar_msg: null,
             CUSTOMER_ID_FROM_LEFT: null,
+            add_comment_popup: false,
         }
     },
     async created() {},
@@ -697,6 +713,19 @@ export default {
             } else {
                 jmiFilter.searchByID_Name_Details_Section(filter, list, id_selector)
             }
+        },
+        addCommentClickHandler() {
+            if(this.add_comment_popup) {
+                this.add_comment_popup = false
+            } else {
+                this.add_comment_popup = true
+            }
+        },
+        cancelCommentModalClickHandler() {
+            this.add_comment_popup = false
+        },
+        proceedCommentModalClickHandler() {
+            console.log(this.customer_address)
         },
         // ------------------------------------------------------------------------------------------
         // SPLICE PRODUCT 
@@ -1162,7 +1191,7 @@ export default {
     computed: {
         customer_address() {
             // console.log(this.customer_data ? (this.customer_data.credit_flag ? (this.customer_data.credit_flag === "Y" ? "Credit" : "Cash") : '') : "")
-            return this.customer_data ? (this.customer_data.credit_flag ? (this.customer_data.credit_flag === "Y" ? "Credit" : "Cash") : '') : ""
+            return this.customer_data ? (this.customer_data.customer_address ? (this.customer_data.customer_address) : '') : ''
         }
     },
     watch: { 
