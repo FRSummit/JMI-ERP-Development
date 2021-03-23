@@ -1620,6 +1620,11 @@ export default {
                     console.log(res.data)
                     this.SR_LIST__DA = res.data.users.da
                 })
+                .catch(err => {
+                    if(err) {
+                        alert('Server Problem 500. Please hit again.')
+                    }
+                })
         },
         async ADD_PRODUCTS_DATA_LIST__FROM_SERVICE() {
             await service.getSearchProductDataList_CreateOrderDetailsSection()
@@ -1662,6 +1667,11 @@ export default {
                     }
                     this.createSubtotalCalculation()
                 })
+                .catch(err => {
+                    if(err) {
+                        alert('Server Problem 500. Please hit again.')
+                    }
+                })
         },
         async FIND_PRODUCT_OFFER__FROM_SERVICE(prod_db_list) {
             let sbu_id = parseInt(JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.sbu_id)
@@ -1672,6 +1682,11 @@ export default {
                     console.log(res.data)
                     this.ADD_PRODUCT_FROM_AUTOFILL_SECOND_FULL_PERAM(res.data.data)
                 })
+                .catch(err => {
+                    if(err) {
+                        alert('Server Problem 500. Please hit again.')
+                    }
+                })
         },
         async SHOW_CUSTOMER_PROFILE__FROM_SERVICE(customer_id) {
             await service.getShowCustomerProfile_OrderApproval(customer_id)
@@ -1679,12 +1694,22 @@ export default {
                     // console.log(res.data.customer_info)
                     this.SHOW_CUSTOMER_PROFILE = res.data.customer_info
                 })
+                .catch(err => {
+                    if(err) {
+                        alert('Server Problem 500. Please hit again.')
+                    }
+                })
         },
         async CANCEL_ORDER_BY_ORDER_ID__FROM_SERVICE(order_id) {
             await service.getCancelOrderByOrderId_OrderApproval(order_id)
                 .then(res => {
                     console.log(res.data)
                     this.$emit('remove_rejected_order_id_from_left_list', order_id)
+                })
+                .catch(err => {
+                    if(err) {
+                        alert('Server Problem 500. Please hit again.')
+                    }
                 })
         },
         async DESTROY_ORDER_DETAILS_BY_ID__FROM_SERVICE(id){
@@ -1695,6 +1720,11 @@ export default {
                     this.delete_product_from_table_popup_modal_data = null
                     this.delete_product_from_table_popup_modal = false
                     this.$emit('reload_this_order', this.order_id_from_left_side)
+                })
+                .catch(err => {
+                    if(err) {
+                        alert('Server Problem 500. Please hit again.')
+                    }
                 })
         },
         async ADD_PRODUCT_FROM_AUTOFILL_SECOND_FULL_PERAM(prod_db_list){
@@ -1708,6 +1738,11 @@ export default {
                     this.createSubtotalCalculation()*/
                     this.$emit('reload_this_order', this.order_id_from_left_side)
                 })
+                .catch(err => {
+                    if(err) {
+                        alert('Server Problem 500. Please hit again.')
+                    }
+                })
         },
         async UPDATE_ORDER__FROM_SERVICE(prod_list) {
             await service.getUpdateOrderByOrderId_OrderApproval(this.order_id_from_left_side, prod_list)
@@ -1720,6 +1755,11 @@ export default {
                         setTimeout( () => {
                             this.product_update_successfully_modal = false
                         }, 2000)
+                    }
+                })
+                .catch(err => {
+                    if(err) {
+                        alert('Server Problem 500. Please hit again.')
                     }
                 })
         },
@@ -1752,8 +1792,11 @@ export default {
                                 this.ORDER_SUCCESS_MESSAGE = null
                             }, 2000) 
                         }
-                    }).catch(err => {
-                        console.log(err)
+                    })
+                    .catch(err => {
+                        if(err) {
+                            alert('Server Problem 500. Please hit again.')
+                        }
                     })
             } else {
                 this.approve_product_confirmation_popup_modal = false
@@ -1777,6 +1820,11 @@ export default {
                 .then(res => {
                     console.log(res.data.order_info.order_details)
                     ppInvoice_Type_1.print_invoice(res.data.order_info)
+                })
+                .catch(err => {
+                    if(err) {
+                        alert('Server Problem 500. Please hit again.')
+                    }
                 })
         },
         // ----------------------------------------------------------------------------------------------

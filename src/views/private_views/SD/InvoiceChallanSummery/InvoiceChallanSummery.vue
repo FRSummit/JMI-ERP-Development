@@ -4,7 +4,8 @@
     <div class="invoice-challan-summery-section">
       <div class="invoice-challan-summery-inner">
         <InvoiceChallanSummeryLeftList
-          v-on:invoice_id_from_left="invoiceIdFromLeftHandler"/>
+          v-on:invoice_id_from_left="invoiceIdFromLeftHandler"
+          v-on:updated_ds_from_left="updatedDSFromLeftHandler"/>
         <div class="invoice-challan-summery-detail-section">
           <div class="invoice-challan-summery-detail-inner">
             <DetailSection 
@@ -46,7 +47,7 @@ export default {
   },
   data() {
     return {
-      routeName: "Invoice Challan Summery",
+      routeName: "Invoice Challan Summary",
       parentPath: "Local Sales",
       pathName: [],
       // info_modal_schedult_count: false,
@@ -61,6 +62,7 @@ export default {
       loading_message: null,
       HEADER_DATA_INVOICE: [],
       HEADER_DATA_CHALLAN: [],
+      // NEW_GATE_PASS_CREATED: false,
     };
   },
   created() {
@@ -72,7 +74,7 @@ export default {
   },
   methods: {
     createBreadcrumbData() {
-      this.pathName = [{name: "Features"},{ name: "Local Sales" }, { name: "Invoice Challan Summery" }];
+      this.pathName = [{name: "Features"},{ name: "Local Sales" }, { name: "Invoice Challan Summary" }];
       // this.pathName = breadcrumbFunctions.jmiERPBreadcrumb(window.location.pathname)
     },
     /*showInvoiceCountInformationMessagePopup() {
@@ -82,18 +84,20 @@ export default {
         this.info_modal_schedult_count = false
       }, 2000)
     },*/
-    async invoiceIdFromLeftHandler(val) {
-      console.log(val)
+    async invoiceIdFromLeftHandler(ds) {
+      console.log(ds)
       this.DS_SUMMERY_FROM_LEFT = null
       this.INVOICE_ID_FROM_LEFT = null
 
-      this.DS_SUMMERY_FROM_LEFT = val
-      this.INVOICE_ID_FROM_LEFT = val.id
+      this.DS_SUMMERY_FROM_LEFT = ds
+      this.INVOICE_ID_FROM_LEFT = ds.id
       // Back to first tab
       document.querySelector('.packing-tab.v-tab').click()
 
-      await this.DELIVERY_SCHEDULE_DETAILS__FROM_SERVICE(val.id)
-      // await this.DS_GATE_PASS_DETAILS__FROM_SERVICE(val)
+      await this.DELIVERY_SCHEDULE_DETAILS__FROM_SERVICE(ds.id)
+    },
+    updatedDSFromLeftHandler(ds) {
+      this.DS_SUMMERY_FROM_LEFT = ds
     },
     // -------------------------------------------------------------------------------
     // Service Call

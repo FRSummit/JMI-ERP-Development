@@ -1,7 +1,7 @@
 <template>
-  <div id="invoice-challan-summery-left-list" class="invoice-challan-summery-left-list">
-    <div class="invoice-challan-summery-list-section">
-      <div class="invoice-challan-summery-list-section-inner">
+  <div id="invoice-challan-printing-left-list" class="invoice-challan-printing-left-list">
+    <div class="invoice-challan-printing-list-section">
+      <div class="invoice-challan-printing-list-section-inner">
         <!-- <div class="month-selection-section">
           <div class="month-selection-section-inner">
             <div class="select-option-label">
@@ -45,19 +45,19 @@
         </div>
         <div class="location-title">
           <div class="location-title-inner">
-            <p>Invoice/Challan List (<span>{{ INVOICE_LIST.length }}</span>)</p>
+            <p>Delivery Schedule List (<span>{{ INVOICE_LIST.length }}</span>)</p>
           </div>
         </div>
         <div class="location-list-section">
           <div class="location-list-section-inner">
             <div
-              :id="'invoice-challan-summery-section-list-' + p"
-              class="invoice-challan-summery-section-list"
+              :id="'invoice-challan-printing-section-list-' + p"
+              class="invoice-challan-printing-section-list"
               v-for="(invoice, p) in INVOICE_LIST"
               :key="p"
               @click="invoiceClickHandler(invoice, p)"
             >
-              <div class="invoice-challan-summery-section-list-inner">
+              <div class="invoice-challan-printing-section-list-inner">
                 <div class="name-status-section">
                   <div class="name-section">
                     <p class="name-text">DS{{ invoice.id }}</p>
@@ -94,7 +94,6 @@ import JMIFilter from '../../../../../functions/JMIFIlter'
 const jmiFilter = new JMIFilter()
 
 export default {
-  props: ["NEW_GATE_PASS_CREATED"],
   components: {
     // HotelDatePicker,
     // DatePicker
@@ -121,9 +120,7 @@ export default {
       // },
       // datetime: '',
       // range: ''
-      INVOICE_LIST: [],
-      SELECTED_INDEX: null,
-      SELECTED_DS: false,
+      INVOICE_LIST: []
     };
   },
   created() {
@@ -136,8 +133,6 @@ export default {
     });
   },
   async mounted() {
-    // console.log(this.$store.state.INVOICE_CAHLLAN_SUMMERY__NEW_GATE_PASS_CREATED)
-    // this.PROJECT_STORE_STATE__INVOICE_CAHLLAN_SUMMERY__NEW_GATE_PASS_CREATED = this.$store.state.INVOICE_CAHLLAN_SUMMERY__NEW_GATE_PASS_CREATED
     await this.DELIVERY_SCHEDULE_LIST__FROM_SERVICE()
   },
   methods: {
@@ -145,16 +140,14 @@ export default {
       console.log(this.selectedDA);
     },
     invoiceClickHandler(invoice, index) {
-      this.SELECTED_INDEX = null
-      this.SELECTED_INDEX = index
-            let length = document.getElementsByClassName('invoice-challan-summery-section-list').length
+            let length = document.getElementsByClassName('invoice-challan-printing-section-list').length
             for(let i=0; i<length; i++) {
-                document.querySelector('#invoice-challan-summery-section-list-' + i).className = 'invoice-challan-summery-section-list'
+                document.querySelector('#invoice-challan-printing-section-list-' + i).className = 'invoice-challan-printing-section-list'
             }
-            if(document.querySelector('#invoice-challan-summery-section-list-' + index).className === 'invoice-challan-summery-section-list') {
-                document.querySelector('#invoice-challan-summery-section-list-' + index).className = 'invoice-challan-summery-section-list active'
+            if(document.querySelector('#invoice-challan-printing-section-list-' + index).className === 'invoice-challan-printing-section-list') {
+                document.querySelector('#invoice-challan-printing-section-list-' + index).className = 'invoice-challan-printing-section-list active'
             } else {
-                document.querySelector('#invoice-challan-summery-section-list-' + index).className = 'invoice-challan-summery-section-list'
+                document.querySelector('#invoice-challan-printing-section-list-' + index).className = 'invoice-challan-printing-section-list'
             }
       this.$emit('invoice_id_from_left', invoice)
     },
@@ -162,7 +155,7 @@ export default {
       console.log(value.key)
       let input = document.getElementById("search-filter");
       let filter = input.value.toUpperCase();
-      let list = document.querySelectorAll('.invoice-challan-summery-section-list')
+      let list = document.querySelectorAll('.invoice-challan-printing-section-list')
       let txt_selector = "name-text"
 
       jmiFilter.searchById_LeftSidebar(filter, list, txt_selector)
@@ -170,33 +163,16 @@ export default {
     // --------------------------------------------------------------------------------------
     // Service CALL
     async DELIVERY_SCHEDULE_LIST__FROM_SERVICE() {
-      await service.getDeliveryScheduleList_DELIVERY_SCHEDULING_INVOICE_CHALLAN_PRINTING()
+      service.getDeliveryScheduleList_DELIVERY_SCHEDULING_INVOICE_CHALLAN_PRINTING()
         .then(res => {
           console.log(res.data)
           this.INVOICE_LIST = res.data.schedule_list
-          if(this.SELECTED_INDEX && this.SELECTED_DS) {
-            this.SELECTED_DS = false
-            this.$emit('updated_ds_from_left', res.data.schedule_list[this.SELECTED_INDEX])
-          }
         })
     }
   },
-  computed: {
-    PROJECT_STORE_STATE__INVOICE_CAHLLAN_SUMMERY__NEW_GATE_PASS_CREATED() {
-      return this.$store.state.INVOICE_CAHLLAN_SUMMERY__NEW_GATE_PASS_CREATED
-    }
-  },
-  watch: {
-    async PROJECT_STORE_STATE__INVOICE_CAHLLAN_SUMMERY__NEW_GATE_PASS_CREATED(newVal, oldVal) {
-      if(newVal !== oldVal) {
-        this.SELECTED_DS = true
-        await this.DELIVERY_SCHEDULE_LIST__FROM_SERVICE()
-      }
-    }
-  }
 };
 </script>
 
 <style lang="less" scoped>
-@import url("./InvoiceChallanSummeryLeftList.less");
+@import url("./DeliveryGRNLeftList.less");
 </style>

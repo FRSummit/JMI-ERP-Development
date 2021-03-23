@@ -9,7 +9,8 @@
                     <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer Name:</span><span class="jmi-lvl-value">{{ customer_data ? customer_data.display_name : "" }}</span></p></div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><span class="jmi-lvl-value address">{{ customer_data ? customer_data.customer_info.customer_address !== null ? customer_data.customer_info.customer_address : "Null" : "" }}</span></p></div>
+                    <!-- <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><span class="jmi-lvl-value address">{{ customer_data ? customer_data.customer_info.customer_address !== null ? customer_data.customer_info.customer_address : "Null" : "" }}</span></p></div> -->
+                    <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><input class="jmi-lvl-value-input" v-model="customer_address" /></p></div>
                     <!-- <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title">Territory: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_70">{{ customer_data ? customer_data.customer_area_info.sales_force.get_sales_area.area_name : "" }}</span></p></div>                       -->
                     <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title">Order Territory: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_70" style="float: right;">
                         <div class="select-options jmi-select-options-section" style="width: 100%;">
@@ -140,7 +141,7 @@
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
                                 <tr class="subtotal bottom-total" v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">
-                                    <td style="width: 50%;"></td>
+                                    <td style="width: 50%;"><span class="add-order-attachment-section add-order" @click="addCommentClickHandler"><i class="zmdi zmdi-plus"></i>Comment</span></td>
                                     <td style="width: 25%;">(+) Vat</td>
                                     <td style="width: 15%;">{{ Number(vat_total).toFixed(2) }}</td>
                                     <td style="width: 10%; min-width: 70px;"></td>
@@ -325,12 +326,12 @@
                 <p class="popup-desc">You want to proceed the order.</p>
                 <span class="divider"></span>
                 <div class="popup-submit-section">
-                <div class="popup-cancel-btn-section" @click="cancelOrderModalClickHandler">
-                    <span>Cancel</span>
-                </div>
-                <div class="popup-confirm-btn-section" @click="proceedOrderModalClickHandler">
-                    <span>Proceed</span>
-                </div>
+                    <div class="popup-cancel-btn-section" @click="cancelOrderModalClickHandler">
+                        <span>Cancel</span>
+                    </div>
+                    <div class="popup-confirm-btn-section" @click="proceedOrderModalClickHandler">
+                        <span>Proceed</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -339,7 +340,22 @@
             <div class="modal-popup-section-inner order-proceed-modal-inner">
                 <div id="progressbar" class="jmi-progressbar">
                     <v-progress-circular indeterminate color="primary"></v-progress-circular>
-                    <p>Order creating inprogress</p>
+                    <p>{{ order_creating_progressbar_msg ? order_creating_progressbar_msg : 'Order creating inprogress' }}</p>
+                </div>
+            </div>
+        </div>
+        <!-- Comment Popup -->
+        <div class="modal-popup-section order-proceed-modal order-create-comment" v-if="add_comment_popup">
+            <div class="modal-popup-section-inner order-proceed-modal-inner">
+                <p class="comment-text">Add Comment</p>
+                <div class="popup-submit-section">
+                    <textarea class="customer_comment" v-model="customer_comment" cols="30" rows="10"></textarea>
+                    <div class="popup-cancel-btn-section" @click="cancelCommentModalClickHandler">
+                        <span>Cancel</span>
+                    </div>
+                    <div class="popup-confirm-btn-section" @click="proceedCommentModalClickHandler">
+                        <span>Proceed</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -364,6 +380,7 @@ export default {
             sr_list: [],
             sr_add_modal: false,
             selected_sr: null,
+            customer_comment: null,
             order_table_header: ["Name", "Unit Price", "Quantity", "Discount", "Total Price"],
             ORDERED_TABLE_DATA__INIT_LIST: [],
             ORDERED_TABLE_DATA__MODIFIED_LIST: [],
@@ -416,7 +433,9 @@ export default {
             on_change_reg_area_tt: null,
             SALSE_AREA_ID: null,
             order_creating_progressbar: false,
+            order_creating_progressbar_msg: null,
             CUSTOMER_ID_FROM_LEFT: null,
+            add_comment_popup: false,
         }
     },
     async created() {},
@@ -695,6 +714,19 @@ export default {
                 jmiFilter.searchByID_Name_Details_Section(filter, list, id_selector)
             }
         },
+        addCommentClickHandler() {
+            if(this.add_comment_popup) {
+                this.add_comment_popup = false
+            } else {
+                this.add_comment_popup = true
+            }
+        },
+        cancelCommentModalClickHandler() {
+            this.add_comment_popup = false
+        },
+        proceedCommentModalClickHandler() {
+            console.log(this.customer_comment)
+        },
         // ------------------------------------------------------------------------------------------
         // SPLICE PRODUCT 
         splice_product() {
@@ -802,12 +834,22 @@ export default {
                         }
                     }
                 })
+                .catch(err => {
+                    if(err) {
+                        alert('Server Problem 500. Please hit again.')
+                    }
+                })
         },
         async DIC_WISE_USERS__FROM_SERVICE() {
             await service.getDICWiseUsers_MonthlyDeliveryPlan()
                 .then(res => {
                     console.log(res.data)
                     this.sr_list = res.data.users.da
+                })
+                .catch(err => {
+                    if(err) {
+                        alert('Server Problem 500. Please hit again.')
+                    }
                 })
         },
         async FIND_PRODUCT_OFFER__FROM_SERVICE(prod_db_list) {
@@ -827,8 +869,13 @@ export default {
                     // console.log(this.SELECTED_ORDERED_PRODUCTS__STORE)
                     this.GENERATE_ORDERED_PRODUCTS_DETAILS_LIST_FROM_PRODUCT_OFFER_RESPONSE()
                 })
+                .catch(err => {
+                    if(err) {
+                        alert('Server Problem 500. Please hit again.')
+                    }
+                })
         },
-        async CREATE_OFFER__FROM_SERVICE(prod_db_list) {
+        async CREATE_ORDER__FROM_SERVICE(prod_db_list) {
             let sbu_id = parseInt(JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.sbu_id)
             let customer_id = parseInt(this.customer_data ? this.customer_data.customer_id : 0)
             console.log(prod_db_list)
@@ -838,7 +885,14 @@ export default {
                 .then(res => {
                     console.log(res.data)
                     this.proceed_modal_popup = false
-                    this.order_creating_progressbar = false
+                    if(res.data.response_code === 201) {
+                        this.order_creating_progressbar_msg = res.data.message
+
+                        setTimeout( () => {
+                            this.order_creating_progressbar = false
+                            this.order_creating_progressbar_msg = null
+                        }, 1000)
+                    }
                     // this.$router.push('/features/local_sales/order_approval')
                     this.defaultAllThisComponentData()
                 }).catch(err => {
@@ -852,6 +906,11 @@ export default {
                     // console.log(res.data.product_list)
                     this.ALL_PRODUCTS_LIST_2 = res.data.product_list
                     return res.data.product_list
+                })
+                .catch(err => {
+                    if(err) {
+                        alert('Server Problem 500. Please hit again.')
+                    }
                 })
         },
         async AREA_LIST_BY_USER__FROM_SERVICE() {
@@ -885,6 +944,11 @@ export default {
                                 // }
                             // }
                         }, 100)
+                    }
+                })
+                .catch(err => {
+                    if(err) {
+                        alert('Server Problem 500. Please hit again.')
                     }
                 })
         },
@@ -1053,7 +1117,7 @@ export default {
             // CALL SERVICE IMPLEMENTATION FUNCTION
             this.proceed_modal_popup = false
             this.order_creating_progressbar = true
-            await this.CREATE_OFFER__FROM_SERVICE(prod_db_list)
+            await this.CREATE_ORDER__FROM_SERVICE(prod_db_list)
         },
         // -------------------------------------------------------------------------------------------------
         // Default Functionality
@@ -1066,6 +1130,7 @@ export default {
                 this.SELECTED_ORDERED_PRODUCTS__STORE = []
                 this.RESPONSE_ORDERED_PRODUCTS__STORE = []
                 
+                this.customer_address = null
                 this.selected_sr = null
                 this.sub_total = 0.00
                 this.vat_total = 0.00
@@ -1123,6 +1188,12 @@ export default {
             }
         }
     },
+    computed: {
+        customer_address() {
+            // console.log(this.customer_data ? (this.customer_data.credit_flag ? (this.customer_data.credit_flag === "Y" ? "Credit" : "Cash") : '') : "")
+            return this.customer_data ? (this.customer_data.customer_address ? (this.customer_data.customer_address) : '') : ''
+        }
+    },
     watch: { 
         // Garbase
         // customer_data: (newVal, oldVal) => {
@@ -1155,14 +1226,20 @@ export default {
         //     immediate: true,
         // }
 
-        customer_data(newVal, oldVal){
+        // customer_data(newVal, oldVal){
+        customer_data(newVal){
             this.CUSTOMER_ID_FROM_LEFT = newVal.customer_id
             this.REGION_AREA_TERRITORY_LIST = []
             this.AREA_LIST_BY_USER__FROM_SERVICE()
-            if( newVal && oldVal) {
-                if(newVal.customer_id !== oldVal.customer_id) {
+            // if( newVal && oldVal) {
+            if( newVal) {
+                // if(newVal.customer_id !== oldVal.customer_id) {
+                if(newVal.customer_id) {
+                    // this.customer_address = newVal.customer_info ? (newVal.customer_info.customer_address ? newVal.customer_info.customer_address : '') : ''
+                    // this.customer_address = newVal ? (newVal.credit_flag ? (newVal.credit_flag === "Y" ? "Credit" : "Cash") : '') : ""
+                    // console.log('this.customer_address : ' + this.customer_address)
                     this.SALSE_AREA_ID = newVal.customer_area_info ? (newVal.customer_area_info.sales_area_id ? (newVal.customer_area_info.sales_area_id) : null) : null
-                    console.log(this.SALSE_AREA_ID)
+                    // console.log(this.SALSE_AREA_ID)
                     // this.REGION_AREA_TERRITORY_LIST = []
                     // this.selectREG_AREA_TT(this.SALSE_AREA_ID)
                     // this.AREA_LIST_BY_USER__FROM_SERVICE(newVal.customer_id)

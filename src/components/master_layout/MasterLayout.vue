@@ -297,6 +297,7 @@ export default {
       this.sbu_name = JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.sbu_name
 
       // console.log(token)
+      // console.log(this.$store.state.userData)
 
       this.WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE(token)
       this.SYSTEM_WEB_MENU__FROM_SERVICE()
@@ -338,24 +339,44 @@ export default {
         })
         .catch(err => {
             if(err) {
-              this.err_popup_modal = true
-              this.err_message = 'New Login, We are reloading page contents'
-              setTimeout( () => {
-                this.err_popup_modal = false
-                this.err_message = null
+              // this.err_popup_modal = true
+              // this.err_message = 'New Login, please reload'
+              // setTimeout( () => {
+              //   this.err_popup_modal = false
+              //   this.err_message = null
+              //   // window.location.reload()
+              // }, 2000)
+              // console.log(err)
+              if(this.WEB_MENU.length === 0) {
                 window.location.reload()
-              }, 2000)
-              console.log(err)
+              }
             }
         })
     }
   },
-  watch: {
-    userName(newUser) {
-      console.log(newUser)
-      // this.newDashboardOccuredEventHandler()
-    }
-  }
+  // computed: {
+  //   current_pathname() {
+  //     console.log(this.$route.path)
+  //     if(this.$route.path === '/') {
+  //       console.log('login page')
+  //       console.log(this.WEB_MENU)
+  //     } else {
+  //       console.log('private page')
+  //       console.log(this.WEB_MENU)
+  //       if(this.WEB_MENU.length === 0) {
+  //         window.location.reload()
+  //       }
+  //     }
+  //     return this.$router.pathname
+  //   }
+  // },
+  // watch: {
+  //   current_pathname(newVal, oldVal) {
+  //     if(newVal !== oldVal) {
+  //       console.log(newVal)
+  //     }
+  //   }
+  // }
 };
 </script>
 

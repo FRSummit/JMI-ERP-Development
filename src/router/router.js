@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+// import Store from '../store/index'
 
 Vue.use(VueRouter)
 
@@ -224,6 +225,13 @@ export const router = new VueRouter({
       name: 'Stock Report',
       component: () => import('../views/private_views/SD/StockReport/StockReport.vue')
     },
+    // --------------------------------------------------------------------------------------
+    // DELIVERY GRN
+    {
+      path: '/features/local_sales/delivery_grn',
+      name: 'Delivery GRN',
+      component: () => import('../views/private_views/SD/DeliveryGRN/DeliveryGRN.vue')
+    },
 
     // --------------------------------------------------------------------------------------
     // 404 PAGES
@@ -295,6 +303,8 @@ router.beforeEach((to, from, next) => {
     // }
   }
   // Store.commit('setUserIsAuthenticated', routerAuthCheck);
+  // Store.commit('setUserLoginAuthentication');
+  // console.log(Store.commit)
   if (to.matched.some(record => {
     console.log(record.path)
     console.log(record.path)
@@ -310,6 +320,7 @@ router.beforeEach((to, from, next) => {
   else{
     // Store.commit('setUserIsAuthenticated', false);
     console.log('router check else')
+    // Store.commit('setUserLoginAuthentication', JSON.parse(localStorage.getItem('jerp_logged_user')));
     next();
   }
   // next();

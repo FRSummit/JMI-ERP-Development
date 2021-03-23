@@ -9,6 +9,10 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
   state: {
     userIsAuthorized: false,
+    userData: [],
+    
+    // INVOICE CHALLAN SUMMERY
+    INVOICE_CAHLLAN_SUMMERY__NEW_GATE_PASS_CREATED: null,
   },
   actions: {
     // loginChecker({ commit }, loginData) {
@@ -26,6 +30,9 @@ export const store = new Vuex.Store({
       // console.log('method: setUserIsAuthenticated()');
       state.userIsAuthorized = replacement;
     },
+    setUserLoginAuthentication(state, value) {
+      state.userData = value
+    }
     // loginRequest(state, user) {
     //     state.status = { loggingIn: true };
     //     state.user = user;

@@ -1,5 +1,5 @@
-// import ComaSeparatedDigits from '../ComaSeparatedDigits'
-// const comaSeparatedDigits = new ComaSeparatedDigits()
+import ComaSeparatedDigits from '../ComaSeparatedDigits'
+const comaSeparatedDigits = new ComaSeparatedDigits()
 
 export default class PP_InvoiceChallanSummeryTD_Type1 {
     
@@ -85,7 +85,7 @@ export default class PP_InvoiceChallanSummeryTD_Type1 {
         style += ''
               + '@page {'
               +     'size: 8.5in 11in;'
-              +     'margin: 5mm 10mm 10mm 15mm; border: 1px solid #000000'
+              +     'margin: 5mm 10mm 5mm 15mm; border: 1px solid #000000'
               + '}'
               +
               + '@media print {'
@@ -204,7 +204,7 @@ export default class PP_InvoiceChallanSummeryTD_Type1 {
                                             '<td>' + Object.entries(data)[i][j][k].pack_size + '</td>' +
                                             '<td style="text-align: right;">' + Object.entries(data)[i][j][k].unit_price + '</td>' +
                                             '<td>' + Object.entries(data)[i][j][k].stock + '</td>' +
-                                            '<td style="text-align: right;">' + Object.entries(data)[i][j][k].value + '</td>' +
+                                            '<td style="text-align: right;">' + comaSeparatedDigits.comaSeparateLakh(Math.round(Object.entries(data)[i][j][k].value)) + '</td>' +
                                         '</tr>'
                     }
                 }

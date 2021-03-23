@@ -8,7 +8,7 @@ export default class PP_InvoiceChallanSummeryTD_Type1 {
         mywindow.document.write(''
                             + '<html>'
                             +     '<head>'
-                            +         '<title>' + 'Gate Pass' + '</title>'
+                            +         '<title>' + 'Invoice Summery' + '</title>'
                             +         '<style>'
                             +               this.addStylePrint_3()
                             +         '</style>'
@@ -19,25 +19,20 @@ export default class PP_InvoiceChallanSummeryTD_Type1 {
                             +                 '<table style="">'
                             +                     '<thead>'
                             +                         '<tr style="">'
-                            +                             '<td colspan="5" style="">'
-                            +                                 '<p style="display: inline-block; float: left;"><span class="label">SR</span><span class="label-value">: ' + (summery ? (summery.gp_for ? (summery.gp_for) : '') : '') + '</span></p>'
+                            +                             '<td colspan="6" style="">'
+                            +                                 '<p style="display: inline-block; float: left;"><span class="label">No. of Invoices</span><span class="label-value">: ' + (summery ? (summery.invoice_count ? (summery.invoice_count) : '') : '') + '</span></p>'
+                            +                                 '<p style="display: inline-block; float: right;"><span class="label">Depot</span><span class="label-value">: ' + (summery ? (summery.depo_name ? (summery.depo_name) : '') : '') + '</span></p>'
                             +                             '</td>'
                             +                         '</tr>'
                             +                         '<tr style="">'
-                            +                             '<td colspan="5" style="">'
-                            +                                 '<p style="display: inline-block; float: left;"><span class="label">Vehical No</span><span class="label-value">: ' + (summery ? (summery.vehicale_id ? (summery.vehicale_id) : '') : '') + '</span></p>'
+                            +                             '<td colspan="6" style="">'
+                            +                                 '<p style="display: inline-block; float: left;"><span class="label">DS No</span><span class="label-value">: ' + (summery ? (summery.ds_no ? (summery.ds_no) : '') : '') + '</span></p>'
                             +                                 '<p style="display: inline-block; float: right;"><span class="label">Delivery Date</span><span class="label-value">: ' + (summery ? (summery.delivery_date ? (summery.delivery_date).split(' ')[0] : '') : '') + '</span></p>'
                             +                             '</td>'
                             +                         '</tr>'
                             +                         '<tr style="">'
-                            +                             '<td colspan="5" style="">'
-                            +                                 '<p style="display: inline-block; float: left;"><span class="label">Gate Pass Type</span><span class="label-value">: ' + (summery ? (summery.gate_pass_type ? (summery.gate_pass_type) : '') : '') + '</span></p>'
-                            +                                 '<p style="display: inline-block; float: right;"><span class="label">Ref. No</span><span class="label-value">: ' + (summery ? (summery.gp_no ? (summery.gp_no) : '') : '') + '</span></p>'
-                            +                             '</td>'
-                            +                         '</tr>'
-                            +                         '<tr style="">'
-                            +                             '<td colspan="5" style="padding-bottom: 10px;">'
-                            +                                 '<p style="display: inline-block; text-align: left;">Description: ' + (summery ? (summery.gp_description ? (summery.gp_description) : '') : '') + '</p>'
+                            +                             '<td colspan="6" style="padding-bottom: 20px;">'
+                            +                                 '<p style="display: inline-block; float: left;"><span class="label">Territory</span><span class="label-value">: ' + (summery ? (summery.territory_id ? (summery.territory_id) : '') : '') + '</span></p>'
                             +                             '</td>'
                             +                         '</tr>'
                             +                         this.create_table_header(table_header)
@@ -46,10 +41,10 @@ export default class PP_InvoiceChallanSummeryTD_Type1 {
                             +                         this.create_table_body_data(table_data)
 
                             +                         '<tr style="page-break-inside: avoid; page-break-after: always;">'
-                            +                             '<td colspan="5" style="padding-top: 40px;">'
-                            +                                 '<p style="display: inline-block; width: 33%; font-size: 14px; text-align: left;"><span class="label">Issued By</span></p>'
-                            +                                 '<p style="display: inline-block; width: 33%; font-size: 14px;"><span class="label">Checked By</span></p>'
-                            +                                 '<p style="display: inline-block; width: 33%; font-size: 14px; text-align: right;"><span class="label">Received By</span></p>'
+                            +                             '<td colspan="6" style="padding-top: 40px;">'
+                            +                                 '<p style="display: inline-block; width: 33%; font-size: 14px; text-align: left;"><span class="label" style="text-align: center; display: inline-block; width: 120px; border-bottom: 1px solid #000000;">Issued By</span></p>'
+                            +                                 '<p style="display: inline-block; width: 33%; font-size: 14px;"><span class="label" style="text-align: center; display: inline-block; width: 120px; border-bottom: 1px solid #000000;">Checked By</span></p>'
+                            +                                 '<p style="display: inline-block; width: 33%; font-size: 14px; text-align: right;"><span class="label" style="text-align: center; display: inline-block; width: 120px; border-bottom: 1px solid #000000;">Received By</span></p>'
                             +                             '</td>'
                             +                         '</tr>'
                             +                     '</tbody>'
@@ -134,20 +129,40 @@ export default class PP_InvoiceChallanSummeryTD_Type1 {
         return '<tr>' + '<th  style="border: 1px solid #000000;">' + 'Sl No.' + '</th>' + result + '</tr>'
     }
     
-    create_table_body_data(table_data) {        
+    create_table_body_data(table_data) {    
         let result = ''
-        for(let i=0; i<table_data.length; i++) {
-            result +=   ''
-                    +   '<tr style="page-break-before: always;">'
-                    +       '<td style="border: 1px solid #000000;">' + (i + 1) + '</td>'
-                    +       '<td style="border: 1px solid #000000;">' + table_data[i].code + '</td>'
-                    +       '<td style="border: 1px solid #000000; text-align: left;">' + table_data[i].prod_name + '</td>'
-                    +       '<td style="border: 1px solid #000000;">' + table_data[i].pack_size + '</td>'
-                    // +       '<td style=" text-align: right;">' + table_data[i].amount !== null ? comaSeparatedDigits.comaSeparate(table_data[i].amount) : '' + '</td>'
-                    +       '<td style="border: 1px solid #000000; text-align: right;">' + table_data[i].invoice_qty + '</td>'
-                    +   '</tr>'
-        }
+        // for(let i=0; i<table_data.length; i++) {
+            result += this.createTableGroup(table_data)
+            // result += this.createTableGroup(table_data[i])
+        // }
         
+        return result
+
+
+    }
+
+    createTableGroup(data) {
+        let result = ''
+        // if(data[0] ? (data[0].user_info ? (data[0].user_info.get_adm_user ? (data[0].user_info.get_adm_user.name) : false) : false) : false) {
+        //     result += '' +
+        //             '<tr>' +
+        //                 '<td colspan="6" style="text-align: left;"><p style="display: inline-block;"><span class="label">SPE/MIO</span><span class="label-value">: ' + data[0].user_info.get_adm_user.name + '</span></p></td>' +
+        //             '</tr>'
+
+            for(let i=0; i<data.length; i++) {
+                result += '' +
+                        '<tr>' +
+                            '<td style="border: 1px solid #000000;">' + (i + 1) + '</td>' +
+                            '<td style="border: 1px solid #000000; text-align: left;">' + data[i].prod_name + '</td>' +
+                            '<td style="border: 1px solid #000000;">' + data[i].batch + '</td>' +
+                            '<td style="border: 1px solid #000000;">' + data[i].pack_size + '</td>' +
+                            '<td style="border: 1px solid #000000;">' + data[i].mfg_date + '</td>' +
+                            '<td style="border: 1px solid #000000;">' + data[i].exp_date + '</td>' +
+                            '<td style="border: 1px solid #000000;">' + data[i].qty + '</td>' +
+                        '</tr>'
+            }
+        // }
+
         return result
     }
 }

@@ -158,6 +158,7 @@ export default {
           }
           this.DS_GATEPASS = res.data.gate_pass_data ? (res.data.gate_pass_data.gate_pass_details ? (res.data.gate_pass_data.gate_pass_details) : []) : []
           this.DS_GATEPASS_HEADERS = res.data.header
+          this.$store.state.INVOICE_CAHLLAN_SUMMERY__NEW_GATE_PASS_CREATED = new Date()
         })
         .catch(err => {
           console.log(err)
@@ -179,7 +180,7 @@ export default {
       // console.log(this.DS_SUMMERY_FROM_LEFT.gate_pass_id)
       if( (this.DS_SUMMERY_FROM_LEFT.gate_pass_id === null) && (newVal === 2) ) {
         this.gate_pass_proceed_modal_popup = true
-      } else {
+      } else if(newVal === 2) {
         this.DS_GATE_PASS_DETAILS__FROM_SERVICE(this.INVOICE_ID_FROM_LEFT)
       }
     }

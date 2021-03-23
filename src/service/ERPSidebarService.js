@@ -792,13 +792,41 @@ export default class PostService {
 
   // -------------------------------------------------------------------------------------------
   // STOCK REPORT
-  async getPresentPositionStockReport__STOCK_REPORT(gp_id) {
-    console.log(gp_id)
+  async getPresentPositionStockReport__STOCK_REPORT() {
     let web_menu_url = '/api/web/present-position-stock-report'
     return await axios(web_menu_url, {
       method: 'GET',
       headers: {
         'Authorization': token_type + ' ' + token
+      }
+    })
+  }
+
+  // -------------------------------------------------------------------------------------------
+  // DELIVERY GRN - GRN INFO DETAILS
+  async getGRN_InfoByGRN_No__DELIVERY_GRN(grn_no) {
+    let web_menu_url = '/api/web/grn-info-by-grn-no'
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+      params: {
+        grn_no: grn_no
+      }
+    })
+  }
+
+  // DELIVERY GRN - RETURN GRN
+  async getReturnGRN__DELIVERY_GRN(grn_no) {
+    let web_menu_url = '/api/web/receive-grn'
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+      params: {
+        grn_no: grn_no
       }
     })
   }
