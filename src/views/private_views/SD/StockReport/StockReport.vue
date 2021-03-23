@@ -31,7 +31,7 @@
               <td>{{ prod.pack_size }}</td>
               <td style="text-align: right;">{{ prod.unit_price }}</td>
               <td>{{ prod.stock }}</td>
-              <td style="text-align: right;">{{ prod.value }}</td>
+              <td style="text-align: right;">{{ comaSeparatedValue(prod.value) }}</td>
             </tr>
           </tbody>
         </table>
@@ -53,6 +53,8 @@ import ERPSidebarService from '../../../../service/ERPSidebarService'
 const service = new ERPSidebarService()
 import PP_Stock_Report from '../../../../functions/Print_Func/PP_Stock_Report'
 const pp_Stock_Report = new PP_Stock_Report()
+import ComaSeparatedDigits from '../../../../functions/ComaSeparatedDigits'
+const comaSeparatedDigits = new ComaSeparatedDigits()
 
 export default {
   components: {
@@ -89,6 +91,9 @@ export default {
     },
     createMFG_EXP_Date(dt) {
         return this.dateFormat2(dt)
+    },
+    comaSeparatedValue(value) {
+      return comaSeparatedDigits.comaSeparateLakh(Math.round(value))
     },
     printAllClickHandler() {
       let header = {
