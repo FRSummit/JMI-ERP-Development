@@ -725,7 +725,7 @@ export default {
             this.add_comment_popup = false
         },
         proceedCommentModalClickHandler() {
-            console.log(this.customer_address)
+            console.log(this.customer_comment)
         },
         // ------------------------------------------------------------------------------------------
         // SPLICE PRODUCT 
