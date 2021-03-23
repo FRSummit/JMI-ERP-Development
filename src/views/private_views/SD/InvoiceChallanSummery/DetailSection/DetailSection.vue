@@ -179,7 +179,7 @@ export default {
       // console.log(this.DS_SUMMERY_FROM_LEFT.gate_pass_id)
       if( (this.DS_SUMMERY_FROM_LEFT.gate_pass_id === null) && (newVal === 2) ) {
         this.gate_pass_proceed_modal_popup = true
-      } else {
+      } else if(newVal === 2) {
         this.DS_GATE_PASS_DETAILS__FROM_SERVICE(this.INVOICE_ID_FROM_LEFT)
       }
     }
