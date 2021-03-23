@@ -339,7 +339,7 @@
             <div class="modal-popup-section-inner order-proceed-modal-inner">
                 <div id="progressbar" class="jmi-progressbar">
                     <v-progress-circular indeterminate color="primary"></v-progress-circular>
-                    <p>Order creating inprogress</p>
+                    <p>{{ order_creating_progressbar_msg ? order_creating_progressbar_msg : 'Order creating inprogress' }}</p>
                 </div>
             </div>
         </div>
@@ -416,6 +416,7 @@ export default {
             on_change_reg_area_tt: null,
             SALSE_AREA_ID: null,
             order_creating_progressbar: false,
+            order_creating_progressbar_msg: null,
             CUSTOMER_ID_FROM_LEFT: null,
         }
     },
@@ -802,12 +803,22 @@ export default {
                         }
                     }
                 })
+                .catch(err => {
+                    if(err) {
+                        alert('Server Problem 500. Please hit again.')
+                    }
+                })
         },
         async DIC_WISE_USERS__FROM_SERVICE() {
             await service.getDICWiseUsers_MonthlyDeliveryPlan()
                 .then(res => {
                     console.log(res.data)
                     this.sr_list = res.data.users.da
+                })
+                .catch(err => {
+                    if(err) {
+                        alert('Server Problem 500. Please hit again.')
+                    }
                 })
         },
         async FIND_PRODUCT_OFFER__FROM_SERVICE(prod_db_list) {
@@ -827,8 +838,13 @@ export default {
                     // console.log(this.SELECTED_ORDERED_PRODUCTS__STORE)
                     this.GENERATE_ORDERED_PRODUCTS_DETAILS_LIST_FROM_PRODUCT_OFFER_RESPONSE()
                 })
+                .catch(err => {
+                    if(err) {
+                        alert('Server Problem 500. Please hit again.')
+                    }
+                })
         },
-        async CREATE_OFFER__FROM_SERVICE(prod_db_list) {
+        async CREATE_ORDER__FROM_SERVICE(prod_db_list) {
             let sbu_id = parseInt(JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.sbu_id)
             let customer_id = parseInt(this.customer_data ? this.customer_data.customer_id : 0)
             console.log(prod_db_list)
@@ -838,7 +854,14 @@ export default {
                 .then(res => {
                     console.log(res.data)
                     this.proceed_modal_popup = false
-                    this.order_creating_progressbar = false
+                    if(res.data.response_code === 201) {
+                        this.order_creating_progressbar_msg = res.data.message
+
+                        setTimeout( () => {
+                            this.order_creating_progressbar = false
+                            this.order_creating_progressbar_msg = null
+                        }, 1000)
+                    }
                     // this.$router.push('/features/local_sales/order_approval')
                     this.defaultAllThisComponentData()
                 }).catch(err => {
@@ -852,6 +875,11 @@ export default {
                     // console.log(res.data.product_list)
                     this.ALL_PRODUCTS_LIST_2 = res.data.product_list
                     return res.data.product_list
+                })
+                .catch(err => {
+                    if(err) {
+                        alert('Server Problem 500. Please hit again.')
+                    }
                 })
         },
         async AREA_LIST_BY_USER__FROM_SERVICE() {
@@ -885,6 +913,11 @@ export default {
                                 // }
                             // }
                         }, 100)
+                    }
+                })
+                .catch(err => {
+                    if(err) {
+                        alert('Server Problem 500. Please hit again.')
                     }
                 })
         },
@@ -1053,7 +1086,7 @@ export default {
             // CALL SERVICE IMPLEMENTATION FUNCTION
             this.proceed_modal_popup = false
             this.order_creating_progressbar = true
-            await this.CREATE_OFFER__FROM_SERVICE(prod_db_list)
+            await this.CREATE_ORDER__FROM_SERVICE(prod_db_list)
         },
         // -------------------------------------------------------------------------------------------------
         // Default Functionality
