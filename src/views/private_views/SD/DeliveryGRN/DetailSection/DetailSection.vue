@@ -33,7 +33,7 @@
                   <v-tabs-items v-model="tab" class="tab-container" style="">
                     <v-tab-item v-for="(status, i) in status_list" :key="i">
                       <v-card color="basil" flat>
-                        <v-card v-if="status.status_name === 'Institution'"><DetailsDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="SCHEDULE_DETAILS_LIST" :HEADER_DATA="HEADER_DATA" /></v-card>
+                        <v-card v-if="status.status_name === 'Institution'"><DetailsDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="SCHEDULE_DETAILS_LIST" :HEADER_DATA="HEADER_DATA" v-on:return_grn_btn_click="returnGrnBtnClick" /></v-card>
                         <!-- <v-card v-if="status.status_name === 'Chemist'"><DetailsDataList :tab="status.status_name" :SCHEDULE_DETAILS_LIST="SCHEDULE_DETAILS_LIST_CHEMIST" :HEADER_DATA="HEADER_DATA" /></v-card> -->
                         <!-- <v-card v-if="status.status_name === 'Add Invoice to DS'"><AddInvoiceToDS :tab="status.status_name" :INVOICE_FOR_CURRENT_DS_LIST="INVOICE_FOR_CURRENT_DS_LIST" v-on:cancel_from_add_invoice_to_ds="cancelFromAddInvoiceToDS" v-on:ADD_INVOICE_TO_CURRENT_SCHEDULE="addInvoiceToCurrentSchedule"/></v-card> -->
                       </v-card>
@@ -165,6 +165,10 @@ export default {
       console.log(this.markers);
     },
 
+    returnGrnBtnClick() {
+      this.$emit('return_grn_btn_click')
+    },
+
     // addCurrentLocation(p) {
     //   let position = {
     //     lat: p.coords.latitude,
@@ -172,10 +176,10 @@ export default {
     //   };
     //   this.markers.push({ position, title: "test" });
     // },
-    cancelFromAddInvoiceToDS() {
-      console.log('cancel btn clicked')
-      document.querySelector('.packing-tab.v-tab').click()
-    },
+    // cancelFromAddInvoiceToDS() {
+    //   console.log('cancel btn clicked')
+    //   document.querySelector('.packing-tab.v-tab').click()
+    // },
     // addInvoiceToCurrentSchedule(value) {
     //   this.$emit('ADD_INVOICE_TO_CURRENT_SCHEDULE', value)
     // }

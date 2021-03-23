@@ -10,7 +10,8 @@
             <DetailSection 
               :SCHEDULE_DETAILS_LIST="SCHEDULE_DETAILS_LIST"
               :INVOICE_FOR_CURRENT_DS_LIST="INVOICE_FOR_CURRENT_DS_LIST"
-              :HEADER_DATA="HEADER_DATA" />
+              :HEADER_DATA="HEADER_DATA"
+              v-on:return_grn_btn_click="returnGrnBtnClick" />
           </div>
         </div>
       </div>
@@ -104,6 +105,20 @@ export default {
             setTimeout( () => {
               this.loading_popup_modal = false
             }, 1500)
+          }
+        })
+    },
+    async returnGrnBtnClick() {
+      await service.getReturnGRN__DELIVERY_GRN(this.CURRENT_SCHEDULE_ID)
+        .then(res => {
+          console.log(res.data)
+          if(res.data.response_code === 200) {
+            this.loading_message = 'Return GRN Success'
+            this.loading_popup_modal = true
+            setTimeout( () => {
+              this.loading_popup_modal = false
+              this.loading_message = null
+            }, 2000)
           }
         })
     },

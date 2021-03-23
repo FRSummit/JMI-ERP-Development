@@ -30,6 +30,9 @@
           </table>
         </div>
       </div>
+      <div style="text-align: center; padding-top: 10px; border-top: 1px solid #E9F2FB;">
+        <button class="jmi-confirm-btn" style="width: 200px;" @click="returnGRNClickHandler">Return GRN</button>
+      </div>
     </div>
   </div>
 </template>
@@ -119,6 +122,9 @@ export default {
     jmiDateFormat(dt) {
       return globalDateFormat.dateFormatT3(dt)
     },
+    returnGRNClickHandler() {
+      this.$emit('return_grn_btn_click')
+    }
   },
 };
 </script>
