@@ -122,7 +122,8 @@ export default {
       // datetime: '',
       // range: ''
       INVOICE_LIST: [],
-      // PROJECT_STORE_STATE__INVOICE_CAHLLAN_SUMMERY__NEW_GATE_PASS_CREATED : this.$store.state.INVOICE_CAHLLAN_SUMMERY__NEW_GATE_PASS_CREATED,
+      SELECTED_INDEX: null,
+      SELECTED_DS: false,
     };
   },
   created() {
@@ -144,6 +145,8 @@ export default {
       console.log(this.selectedDA);
     },
     invoiceClickHandler(invoice, index) {
+      this.SELECTED_INDEX = null
+      this.SELECTED_INDEX = index
             let length = document.getElementsByClassName('invoice-challan-summery-section-list').length
             for(let i=0; i<length; i++) {
                 document.querySelector('#invoice-challan-summery-section-list-' + i).className = 'invoice-challan-summery-section-list'
@@ -171,6 +174,10 @@ export default {
         .then(res => {
           console.log(res.data)
           this.INVOICE_LIST = res.data.schedule_list
+          if(this.SELECTED_INDEX && this.SELECTED_DS) {
+            this.SELECTED_DS = false
+            this.$emit('updated_ds_from_left', res.data.schedule_list[this.SELECTED_INDEX])
+          }
         })
     }
   },
@@ -182,6 +189,7 @@ export default {
   watch: {
     async PROJECT_STORE_STATE__INVOICE_CAHLLAN_SUMMERY__NEW_GATE_PASS_CREATED(newVal, oldVal) {
       if(newVal !== oldVal) {
+        this.SELECTED_DS = true
         await this.DELIVERY_SCHEDULE_LIST__FROM_SERVICE()
       }
     }
