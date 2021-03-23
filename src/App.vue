@@ -12,6 +12,7 @@ export default {
     MasterLayout,
   },
   mounted() {
+    console.log(window.location.pathname)
     // window.onpopstate = () => {
     //   if (
     //     window.localStorage.getItem("jerp_logged_user") !== null &&
@@ -22,6 +23,18 @@ export default {
     // };
   },
   methods: {},
+  // computed: {
+  //   current_pathname() {
+  //     return this.$router.pathname
+  //   }
+  // },
+  // watch: {
+  //   current_pathname(newVal) {
+  //     if(newVal) {
+  //       console.log(newVal)
+  //     }
+  //   }
+  // }
 };
 </script>
 

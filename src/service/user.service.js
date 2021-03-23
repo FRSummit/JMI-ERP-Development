@@ -1,5 +1,6 @@
 import env from '../environment'
 // import { authHeader } from '../router/auth-header'
+// import Store from '../store/index'
 
 export const userService = {
     login,
@@ -26,6 +27,7 @@ function login(username, password) {
                 // console.log('inside token')
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('jerp_logged_user', JSON.stringify(user));
+                // console.log(Store.state)
             }
             // console.log('done user service')
 
