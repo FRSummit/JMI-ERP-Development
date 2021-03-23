@@ -67,6 +67,7 @@ export default {
       loading_popup_modal: false,
       loading_message: null,
       warehouse: null,
+      warehouse_address: null,
     };
   },
   created() {
@@ -92,7 +93,7 @@ export default {
     printAllClickHandler() {
       let header = {
         title: JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.sbu_name,
-        address: JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.address,
+        address: this.warehouse_address,
         subtitle: "Present Stock Position"
       }
       let table_header = [
@@ -113,17 +114,20 @@ export default {
     // SERVICE CALL
     async PRESENT_POSITION_STOCK_REPORT__FROM_SERVICE() {
       this.stock_list = []
-      this.warehouse = []
+      this.warehouse = null
+      this.warehouse_address = null
       service.getPresentPositionStockReport__STOCK_REPORT()
         .then(res => {
           console.log(res.data)
           this.stock_list = res.data.stock_info
           this.warehouse = res.data.warehouse
+          this.warehouse_address = res.data.warehouse_address
         })
         .catch(err => {
           if(err) {
             this.stock_list = []
-            this.warehouse = []
+      this.warehouse = null
+      this.warehouse_address = null
             this.loading_message = 'Request failed to load or no data found'
             this.loading_popup_modal = true
             setTimeout( () => {
