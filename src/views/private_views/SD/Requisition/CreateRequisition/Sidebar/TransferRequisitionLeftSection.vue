@@ -5,7 +5,7 @@
             <div class="header">  
                <div class="row1">
                     <div class="form-group"><i class="fa fa-search"></i>
-                        <input type="text" placeholder="Search by Name, ID No" class="form-control">
+                        <input type="text" placeholder="Search by Name, ID No" id="search-filter" class="form-control" v-on:keyup="searchKeyUpHandler">
                     </div>
                     <span class="filter_search"><i class="fa fa-filter"> </i> </span>
                </div>
@@ -23,6 +23,7 @@
                         <div class="row1">
                             <h5>{{ item.title }}</h5>
                             <span>{{ item.qty }}</span>
+                            <span class="search_by_item hide">{{ item.title }} {{ item.qty }} {{ item.desc }}</span>
                         </div>
                         <div class="row2">
                             <p>{{ item.desc }}</p>
@@ -38,6 +39,8 @@
 <script>
 import DemoData from '../../DemoData'
 const demoData = new DemoData()
+import JMIFilter from '.././../../../../../functions/JMIFIlter'
+const jmiFilter = new JMIFilter()
 
 export default {
     props: [],
@@ -61,6 +64,15 @@ export default {
             } else {
                 checkbox_selector.checked = true
             }
+        },
+        searchKeyUpHandler(value) {
+            console.log(value.key)
+            let input = document.getElementById("search-filter");
+            let filter = input.value.toUpperCase();
+            let list = document.querySelectorAll('.card_body')
+            let txt_selector = "search_by_item"
+
+            jmiFilter.searchById_LeftSidebar(filter, list, txt_selector)
         }
     },
     watch: {}
