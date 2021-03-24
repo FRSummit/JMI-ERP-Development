@@ -299,8 +299,8 @@ export default {
       // console.log(token)
       // console.log(this.$store.state.userData)
 
-      this.WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE(token)
-      this.SYSTEM_WEB_MENU__FROM_SERVICE()
+      await this.SYSTEM_WEB_MENU__FROM_SERVICE()
+      await this.WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE(token)
       this.loadNotification()
     },
     loadNotification() {
