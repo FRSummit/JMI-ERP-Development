@@ -30,7 +30,7 @@
           </table>
         </div>
       </div>
-      <div style="text-align: center; padding-top: 10px; border-top: 1px solid #E9F2FB;">
+      <div style="text-align: center; padding-top: 10px; border-top: 1px solid #E9F2FB;" v-if="GRN_DATA.is_completed === 'N'">
         <button class="jmi-confirm-btn" style="width: 200px;" @click="returnGRNClickHandler">Return GRN</button>
       </div>
     </div>
@@ -47,7 +47,7 @@ import PP_PackingSummeryAll_T2_GRN from '../../../../../../functions/Print_Func/
 const pp_PackingSummeryAll_T2_GRN = new PP_PackingSummeryAll_T2_GRN()
 
 export default {
-  props: ["tab", "SCHEDULE_DETAILS_LIST", "HEADER_DATA"],
+  props: ["tab", "GRN_DATA", "SCHEDULE_DETAILS_LIST", "HEADER_DATA"],
   components: {},
   data() {
     return {

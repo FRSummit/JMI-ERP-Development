@@ -9,6 +9,11 @@ let FRSAPIURL = env.apiBaseUrlFRS
 
 export default class PostService {
 
+  getToken() {
+    token = JSON.parse(localStorage.getItem('jerp_logged_user')) ? JSON.parse(localStorage.getItem('jerp_logged_user')).accessToken : null
+    token_type = JSON.parse(localStorage.getItem('jerp_logged_user')) ? JSON.parse(localStorage.getItem('jerp_logged_user')).token_type : null
+  }
+
   // JMI ERP LOGIN
   async login(username, password) {
     // let body = {
@@ -27,6 +32,7 @@ export default class PostService {
     let web_menu_url = '/api/system/WebMenu'
     // token = JSON.parse(localStorage.getItem('jerp_logged_user')).accessToken
     // console.log(token)
+    this.getToken()
     return await axios(web_menu_url, {
       method: 'GET',
       headers: {
@@ -354,8 +360,9 @@ export default class PostService {
   }
 
   // CREATE ORDER - SUBMIT ORDER TO CREATE - SEND SELECTED PRODUCT LIST
-  async getCreateOrder_CreateOrderDetailsSection(prod_db_list, sbu_id, customer_id, date, sales_area_id) {
+  async getCreateOrder_CreateOrderDetailsSection(prod_db_list, sbu_id, customer_id, date, sales_area_id, delivery_address, order_note) {
     console.log(JSON.stringify(prod_db_list))
+    console.log(delivery_address + '    ' + order_note)
     let web_menu_url = '/api/mobile/create-order'
     return await axios(web_menu_url, {
       method: 'POST',
@@ -367,7 +374,9 @@ export default class PostService {
         customer_id: customer_id,
         sbu_id: sbu_id,
         date: date,
-        sales_area_id: sales_area_id
+        sales_area_id: sales_area_id,
+        delivery_address: delivery_address,
+        order_note: order_note
       },
     })
   }
@@ -632,7 +641,7 @@ export default class PostService {
   }
 
   // -------------------------------------------------------------------------------------------
-  // DELEVERIES - LEFT SECTION
+  // DELEVERIES - LEFT SECTION - DS LIST
   async getPendingDeliveredInvoiceList_DELEVERIES() {
     let web_menu_url = '/api/web/pending-delivered-invoice-list'
     return await axios(web_menu_url, {
@@ -643,7 +652,7 @@ export default class PostService {
     })
   }
 
-  // DELEVERIES - LEFT SECTION
+  // DELEVERIES - LEFT SECTION - SINGLE DS BY ID
   async getPendingDeliverInvoiceDetailsByInvocieId_DELEVERIES(invoice_id) {
     let web_menu_url = '/api/web/pending-deliver-invoice-details/' + invoice_id
     return await axios(web_menu_url, {
@@ -654,7 +663,7 @@ export default class PostService {
     })
   }
 
-  // DELEVERIES - DETAILS SECTION
+  // DELEVERIES - DETAILS SECTION - SAVE
   async getSaveInvoiceDeliveryInfo_DELIVERIES(invoice_id, invoice_dtl, cash, cheque, net_payable_amount, base64_img, img_name, file_path, object_type) {
     console.log(invoice_id)
     console.log(invoice_dtl)
@@ -682,7 +691,7 @@ export default class PostService {
     })
   }
 
-  // DELEVERIES - DETAILS SECTION
+  // DELEVERIES - DETAILS SECTION - FILE TYPE
   async getElementListByCode_Deliveries() {
     // let code = 14
     let web_menu_url = '/api/common/element-list-by-code'
@@ -693,6 +702,22 @@ export default class PostService {
       },
       params: {
         code_key: 'BLOB_OBJ_TYPE'
+      }
+    })
+  }
+
+  // DELEVERIES - DETAILS SECTION - CANCEL
+  async geSaveCancelDeliveryInfo_Deliveries(invoice_id, invoice_details) {
+    // let code = 14
+    let web_menu_url = '/api/web/save-cancel-invoice-delivery-info'
+    return await axios(web_menu_url, {
+      method: 'POST',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+      params: {
+        invoice_id: invoice_id,
+        invoice_details: JSON.stringify(invoice_details)
       }
     })
   }
@@ -712,7 +737,7 @@ export default class PostService {
   // -------------------------------------------------------------------------------------------
   // CUSTOMER - CUSTOMER LIST
   async getCommonAllCustomerList_CUSTOMER_LIST() {
-    let web_menu_url = 'api/common/all-customer-list'
+    let web_menu_url = '/api/common/all-customer-list'
     return await axios(web_menu_url, {
       method: 'GET',
       headers: {
@@ -828,6 +853,29 @@ export default class PostService {
       params: {
         grn_no: grn_no
       }
+    })
+  }
+
+  // -------------------------------------------------------------------------------------------
+  // REQUISITION - TRANSFER
+  async getStockRequisitionList_TRANSFER_REQUISITION() {
+    let web_menu_url = '/api/web/stock-requisition-list'
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+    })
+  }
+
+  // REQUISITION - TRANSFER
+  async getStockRequisitionDetail_TRANSFER_REQUISITION(requisition_id) {
+    let web_menu_url = '/api/web/stock-requisition-detail/' + requisition_id
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
     })
   }
 

@@ -235,6 +235,9 @@ export default {
     currentRouteName(name) {
       if (name !== "Login") {
         this.privatePage = true;
+      } else if(name === "Login") {
+        this.privatePage = false;
+        // localStorage.removeItem('jerp_logged_user');
       }
     },
     sidebarHoverOver() {
@@ -299,8 +302,8 @@ export default {
       // console.log(token)
       // console.log(this.$store.state.userData)
 
-      this.WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE(token)
-      this.SYSTEM_WEB_MENU__FROM_SERVICE()
+      await this.SYSTEM_WEB_MENU__FROM_SERVICE()
+      await this.WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE(token)
       this.loadNotification()
     },
     loadNotification() {
@@ -348,7 +351,7 @@ export default {
               // }, 2000)
               // console.log(err)
               if(this.WEB_MENU.length === 0) {
-                window.location.reload()
+                // window.location.reload()
               }
             }
         })

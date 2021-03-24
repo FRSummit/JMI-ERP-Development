@@ -18,7 +18,7 @@
                       class="form-control"
                     />
                     <label class="blmd-label">Email or Username</label>
-                    <img class="blmd-icon" src="../../../assets/icons/email_icon.svg" alt="email">
+                    <img class="blmd-icon" src="../../../assets/icons/mail-icon.png" alt="email">
                   </div>
                 </div>
                 <div class="input-group blmd-form">
@@ -32,7 +32,7 @@
                       class="form-control"
                     />
                     <label class="blmd-label">Password</label>
-                    <img class="blmd-icon" src="../../../assets/icons/pass_icon.svg" alt="key">
+                    <img class="blmd-icon" src="../../../assets/icons/mail-password-icon.png" alt="key">
                     <div class="password-show-hide hide" id="password-show-hide" @click="passwordShowHide">
                       <div v-show="showPass"><i class="fas fa-eye"></i></div>
                       <div v-show="!showPass"><i class="fas fa-eye-slash"></i></div>
@@ -43,7 +43,7 @@
               </div>
               <div class="remember-section">
                   <input type="checkbox" v-model="checkedCategories" @change="rememberLoginCredentials">
-                  <label>Remember login credentials</label>
+                  <label>Remember me</label>
               </div>
               <div class="col-sm-12 text-center login-btn">
                 <button

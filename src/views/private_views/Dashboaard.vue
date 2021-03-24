@@ -69,6 +69,12 @@
       <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
         <router-link to="/features/local_sales/delivery_grn">Delivery GRN</router-link>
       </div>
+      <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
+        <router-link to="/features/local_sales/transfer-requisition">Transfer Requisition</router-link>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
+        <router-link to="/features/local_sales/create-requisition">Create Requisition</router-link>
+      </div>
     </div>
     
     <br />
@@ -121,8 +127,13 @@ export default {
     // window.onhashchange = function(){
     //     window.location.hash = "no-back-button";
     // }
+    // window.history.forward();
+    // this.noBack()
   },
   methods: {
+    noBack() {
+      window.history.forward();
+    },
     print() {
       console.log("working");
       this.$htmlToPaper("printMe", null, () => {

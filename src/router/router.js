@@ -232,6 +232,20 @@ export const router = new VueRouter({
       name: 'Delivery GRN',
       component: () => import('../views/private_views/SD/DeliveryGRN/DeliveryGRN.vue')
     },
+    // --------------------------------------------------------------------------------------
+    // REQUISITION - TRANSFER
+    {
+      path: '/features/local_sales/transfer-requisition',
+      name: 'Transfer Requisition',
+      component: () => import('../views/private_views/SD/Requisition/TransferRequisition/TransferRequisition.vue')
+    },
+    // --------------------------------------------------------------------------------------
+    // REQUISITION - CREATE
+    {
+      path: '/features/local_sales/create-requisition',
+      name: 'Create Requisition',
+      component: () => import('../views/private_views/SD/Requisition/CreateRequisition/CreateRequisition.vue')
+    },
 
     // --------------------------------------------------------------------------------------
     // 404 PAGES
