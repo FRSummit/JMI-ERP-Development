@@ -20,11 +20,11 @@
                 <div class="card_body" v-for="(item, i) in items" :key="i" @click="singleItemClickHandler(item, i)">
                     <div class="row1">
                         <h5>{{ item.requisition_no }}</h5>
-                        <p>{{ item.date }}</p>
+                        <p>{{ (item.req_date).split(' ')[0] }}</p>
                         <p class="search_by_item hide">{{ item.requisition_no }} {{ item.date }} {{ item.requisition }} {{ item.area }} {{ item.req_status }}</p>
                     </div>
                     <div class="row2">
-                        <p>{{ item.requisition }}</p>
+                        <p>{{ item.req_to_info.area_name }}</p>
                     </div>
                     <div class="row3">
                         <p>Requisition To: <span>{{ item.area }}</span></p>
