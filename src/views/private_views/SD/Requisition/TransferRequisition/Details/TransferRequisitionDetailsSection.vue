@@ -60,10 +60,12 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(item, i) in items" :key="i">
+                                <!-- <tr v-for="(item, i) in items" :key="i"> -->
+                                <tr v-for="(item, i) in SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS" :key="i">
                                     <td>
                                         <div class="product">
-                                        <p class="name">{{ item.name }}<span>{{ item.qty }}</span></p>
+                                        <!-- <p class="name">{{ item..prod_info.prod_name }}<span> {{ item.qty }}</span></p> -->
+                                        <p class="name">{{ item.prod_info.prod_name }}</p>
                                         <p class="type">{{ item.type }}</p>
                                         </div>
                                     </td>
@@ -79,7 +81,7 @@
                                         <form method='POST' action='#'>
                                             <div class="quantity-input">
                                                 <input class='minus' type='button' value='-' field='quantity' />
-                                                <input class='quantity' type='text' name='quantity' placeholder="0" />
+                                                <input class='quantity' type='text' name='quantity' placeholder="0" :value="item.req_qty" />
                                                 <input class='plus' type='button' value='+' field='quantity' />
                                             </div>
                                         </form>
@@ -108,12 +110,12 @@ import DemoData from '../../DemoData'
 const demoData = new DemoData()
 
 export default {
-    props: [],
+    props: ["SELECTED_REQUISITION_DETAILS", "SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS"],
     components: {},
     data() {
         return {
             items: [],
-            initial_stage: true,
+            initial_stage: false,
         }
     },
     computed: {},

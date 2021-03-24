@@ -17,18 +17,18 @@
             
             <!--Start Secondary Sidebar Content Area--> 
             <div class="content jmi-scroll-section">
-                <div class="card_body" v-for="(item, i) in items" :key="i">
+                <div class="card_body" v-for="(item, i) in items" :key="i" @click="singleItemClickHandler(item, i)">
                     <div class="row1">
-                        <h5>{{ item.title }}</h5>
+                        <h5>{{ item.requisition_no }}</h5>
                         <p>{{ item.date }}</p>
-                        <p class="search_by_item hide">{{ item.title }} {{ item.date }} {{ item.requisition }} {{ item.area }} {{ item.status }}</p>
+                        <p class="search_by_item hide">{{ item.requisition_no }} {{ item.date }} {{ item.requisition }} {{ item.area }} {{ item.req_status }}</p>
                     </div>
                     <div class="row2">
                         <p>{{ item.requisition }}</p>
                     </div>
                     <div class="row3">
                         <p>Requisition To: <span>{{ item.area }}</span></p>
-                        <p class="status" :class="item.status.toLowerCase()"> <i class="fa fa-square mr-1"></i>{{ item.status }}</p>
+                        <p class="status" :class="item.req_status.toLowerCase()"> <i class="fa fa-square mr-1"></i>{{ item.req_status }}</p>
                     </div>
                 </div>
             </div>
@@ -38,10 +38,12 @@
 </template>
 
 <script>
-import DemoData from '../../DemoData'
-const demoData = new DemoData()
+// import DemoData from '../../DemoData'
+// const demoData = new DemoData()
 import JMIFilter from '.././../../../../../functions/JMIFIlter'
 const jmiFilter = new JMIFilter()
+import ERPService from '../../../../../../service/ERPSidebarService'
+const service = new ERPService()
 
 export default {
     props: [],
@@ -53,8 +55,9 @@ export default {
     },
     computed: {},
     created() {},
-    mounted() {
-        this.items = demoData.demo_data().requisition_items
+    async mounted() {
+        // this.items = demoData.demo_data().requisition_items
+        await this.SOTCK_REQUISITION_LIST__FROM_SERVICE()
     },
     methods: {
         searchKeyUpHandler(value) {
@@ -65,6 +68,28 @@ export default {
             let txt_selector = "search_by_item"
 
             jmiFilter.searchById_LeftSidebar(filter, list, txt_selector)
+        },
+        singleItemClickHandler(item, i) {
+            console.log('index : ' + i)
+            console.log(item)
+            this.$emit('SINGLE_ITEM_SELECTED', item)
+        },
+        // ---------------------------------------------------------------------------
+        // SERVICE CALL
+        async SOTCK_REQUISITION_LIST__FROM_SERVICE() {
+            this.items = []
+            await service.getStockRequisitionList_TRANSFER_REQUISITION()
+                .then(res => {
+                    // console.log(res.data)
+                    this.items = res.data.transfer_info
+                    console.log(this.items)
+                })
+                .catch(err => {
+                    if(err) {
+                        this.items = []
+                        alert('Server Error 500. ' + err)
+                    }
+                })
         }
     },
     watch: {}

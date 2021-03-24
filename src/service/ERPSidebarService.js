@@ -737,7 +737,7 @@ export default class PostService {
   // -------------------------------------------------------------------------------------------
   // CUSTOMER - CUSTOMER LIST
   async getCommonAllCustomerList_CUSTOMER_LIST() {
-    let web_menu_url = 'api/common/all-customer-list'
+    let web_menu_url = '/api/common/all-customer-list'
     return await axios(web_menu_url, {
       method: 'GET',
       headers: {
@@ -853,6 +853,29 @@ export default class PostService {
       params: {
         grn_no: grn_no
       }
+    })
+  }
+
+  // -------------------------------------------------------------------------------------------
+  // REQUISITION - TRANSFER
+  async getStockRequisitionList_TRANSFER_REQUISITION() {
+    let web_menu_url = '/api/web/stock-requisition-list'
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+    })
+  }
+
+  // REQUISITION - TRANSFER
+  async getStockRequisitionDetail_TRANSFER_REQUISITION(requisition_id) {
+    let web_menu_url = '/api/web/stock-requisition-detail/' + requisition_id
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
     })
   }
 
