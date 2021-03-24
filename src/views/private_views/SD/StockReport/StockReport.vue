@@ -81,7 +81,7 @@ export default {
   },
   methods: {
     createBreadcrumbData() {
-      this.pathName = [{ name: "Features" }, { name: "Local Sales" }, { name: "vs" },];
+      this.pathName = [{ name: "Features" }, { name: "Local Sales" }, { name: "Stock Report" },];
       // this.pathName = breadcrumbFunctions.jmiERPBreadcrumb(window.location.pathname)
     },
     dateFormat2(d) {

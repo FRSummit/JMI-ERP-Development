@@ -232,6 +232,13 @@ export const router = new VueRouter({
       name: 'Delivery GRN',
       component: () => import('../views/private_views/SD/DeliveryGRN/DeliveryGRN.vue')
     },
+    // --------------------------------------------------------------------------------------
+    // DELIVERY GRN
+    {
+      path: '/features/local_sales/transfer-requisition',
+      name: 'Transfer Requisition',
+      component: () => import('../views/private_views/SD/TransferRequisition/TransferRequisition.vue')
+    },
 
     // --------------------------------------------------------------------------------------
     // 404 PAGES
