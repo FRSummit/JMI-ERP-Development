@@ -45,19 +45,6 @@ export default {
     singleRequisitorItemSelected(item) {
       console.log('item')
       this.SELECTED_REQUISITION_DATA.push(item)
-      // if(this.SELECTED_REQUISITION_DATA.length > 0) {
-      //   for (let [i, tt] of this.SELECTED_REQUISITION_DATA.entries()) {
-      //     if (tt.id === item.id) {
-      //       console.log('matched : ' + tt.id + '    ' + item.id)
-      //       this.SELECTED_REQUISITION_DATA.splice(i, 1);
-      //     } else {
-      //       console.log('not matched')
-      //       this.SELECTED_REQUISITION_DATA.push(item)
-      //     }
-      //   }
-      // } else {
-      //   // this.SELECTED_REQUISITION_DATA.push(item)
-      // }
     },
     singleRequisitorItemRemoved(item) {
       for (let [i, tt] of this.SELECTED_REQUISITION_DATA.entries()) {
