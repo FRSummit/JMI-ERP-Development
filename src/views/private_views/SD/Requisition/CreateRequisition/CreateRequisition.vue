@@ -3,8 +3,11 @@
     <Heading :pathName="pathName" :routeName="routeName" />
     <!-- <div class="transfer-requisition-inner"> -->
     <div class="layout-body">
-      <CreateRequisitionLeftSection />
-      <CreateRequisitionDetailsSection />
+      <CreateRequisitionLeftSection
+        v-on:SINGLE_REQUISITOR_ITEM_SELECTED="singleRequisitorItemSelected"
+        v-on:SINGLE_REQUISITOR_ITEM_REMOVED="singleRequisitorItemRemoved" />
+      <CreateRequisitionDetailsSection
+        :SELECTED_REQUISITION_DATA="SELECTED_REQUISITION_DATA" />
     </div>
   </div>
 </template>
@@ -25,6 +28,7 @@ export default {
       routeName: "Create Requisition",
       parentPath: "Local Sales",
       pathName: [],
+      SELECTED_REQUISITION_DATA: []
     };
   },
   created() {
@@ -37,6 +41,31 @@ export default {
     createBreadcrumbData() {
       this.pathName = [{ name: "Features" }, { name: "Local Sales" }, { name: "Create Requisition" }];
       // this.pathName = breadcrumbFunctions.jmiERPBreadcrumb(window.location.pathname)
+    },
+    singleRequisitorItemSelected(item) {
+      console.log('item')
+      this.SELECTED_REQUISITION_DATA.push(item)
+      // if(this.SELECTED_REQUISITION_DATA.length > 0) {
+      //   for (let [i, tt] of this.SELECTED_REQUISITION_DATA.entries()) {
+      //     if (tt.id === item.id) {
+      //       console.log('matched : ' + tt.id + '    ' + item.id)
+      //       this.SELECTED_REQUISITION_DATA.splice(i, 1);
+      //     } else {
+      //       console.log('not matched')
+      //       this.SELECTED_REQUISITION_DATA.push(item)
+      //     }
+      //   }
+      // } else {
+      //   // this.SELECTED_REQUISITION_DATA.push(item)
+      // }
+    },
+    singleRequisitorItemRemoved(item) {
+      for (let [i, tt] of this.SELECTED_REQUISITION_DATA.entries()) {
+        if (tt.id === item.id) {
+          console.log('matched : ' + tt.id + '    ' + item.id)
+          this.SELECTED_REQUISITION_DATA.splice(i, 1);
+        }
+      }
     },
   },
 };

@@ -21,7 +21,7 @@
                     <input :id="'card_body_input_' + i" type="checkbox" :name="item.title" :value="item.title">
                     <label for="product-1" class="check-item">
                         <div class="row1">
-                            <h5>{{ item.title }}</h5>
+                            <h5>{{ item.mdcn_name }}</h5>
                             <span>{{ item.qty }}</span>
                             <span class="search_by_item hide">{{ item.title }} {{ item.qty }} {{ item.desc }}</span>
                         </div>
@@ -53,7 +53,7 @@ export default {
     computed: {},
     created() {},
     mounted() {
-        this.items = demoData.demo_data().create_requisition_items
+        this.items = demoData.demo_data().requisition_items
     },
     methods: {
         itemClickHandler(item, i) {
@@ -61,8 +61,10 @@ export default {
             let checkbox_selector = document.querySelector('#card_body_input_' + i)
             if(checkbox_selector.checked === true) {
                 checkbox_selector.checked = false
+                this.$emit('SINGLE_REQUISITOR_ITEM_REMOVED', item)
             } else {
                 checkbox_selector.checked = true
+                this.$emit('SINGLE_REQUISITOR_ITEM_SELECTED', item)
             }
         },
         searchKeyUpHandler(value) {

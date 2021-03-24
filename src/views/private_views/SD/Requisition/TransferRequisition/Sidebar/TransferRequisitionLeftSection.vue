@@ -54,7 +54,7 @@ export default {
     computed: {},
     created() {},
     mounted() {
-        this.items = demoData.demo_data().transfer_requisition_items
+        this.items = demoData.demo_data().requisition_items
     },
     methods: {
         searchKeyUpHandler(value) {

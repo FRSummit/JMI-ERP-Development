@@ -40,10 +40,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(item, i) in items" :key="i">
+                        <tr v-for="(item, i) in SELECTED_REQUISITION_DATA ? SELECTED_REQUISITION_DATA : items" :key="i">
+                        <!-- <tr v-for="(item, i) in items" :key="i"> -->
                             <td>
                                 <div class="product">
-                                <p class="name">{{ item.name }}<span>{{ item.qty }}</span></p>
+                                <p class="name">{{ item.mdcn_name }}<span>{{ item.qty }}</span></p>
                                 <p class="type">{{ item.type }}</p>
                                 </div>
                             </td>
@@ -88,14 +89,18 @@ import DemoData from '../../DemoData'
 const demoData = new DemoData()
 
 export default {
-    props: [],
+    props: ["SELECTED_REQUISITION_DATA"],
     components: {},
     data() {
         return {
             items: []
         }
     },
-    computed: {},
+    computed: {
+        REQUISITION_DATA() {
+            return this.SELECTED_REQUISITION_DATA
+        }
+    },
     created() {},
     mounted() {
         this.items = demoData.demo_data().create_requisition_items_table_data
