@@ -371,10 +371,17 @@ export default {
         // ------------------------------------------------------------------------------------------
         // Service Implementation
         async ALL_DELIVERIES_INVOICE_LIST__FROM_SERVICE() {
+            this.ALL_PENDING_ORDERS_CUSTOMER_LIST = []
             await service.getPendingDeliveredInvoiceList_DELEVERIES()
                 .then(res => {
                     console.log(res.data)
                     this.ALL_PENDING_ORDERS_CUSTOMER_LIST = res.data.invoice_list
+                })
+                .catch(err => {
+                    if(err) {
+                        this.ALL_PENDING_ORDERS_CUSTOMER_LIST = []
+                        alert('Server error 500. ' + err)
+                    }
                 })
         },
         async APPROVE_ALL_SELECTED_ORDER__FROM_SERVICE() {
@@ -403,20 +410,21 @@ export default {
             }
         }
     },
+    computed: {
+        DELIVERIES__CANCEL_ORDER_FLAG() {
+        return this.$store.state.DELIVERIES__CANCEL_ORDER_TIME_STAMP
+        }
+    },
     watch: {
-    //     async rejected_order_id(newVal, oldVal) {
-    //         if(newVal !== oldVal) {
-    //             await this.ALL_DELIVERIES_INVOICE_LIST__FROM_SERVICE()
-    //             let length = document.getElementsByClassName('customer-section-list').length
-    //             for(let i=0; i<length; i++) {
-    //                 document.querySelector('#customer-section-list-' + i).className = 'customer-section-list'
-    //             }
-    //         }
-    //     }
         SAVED_INVOICE_DELIVERY_INFO_FROM_RIGHT(newVal, oldVal) {
             console.log('saved invoice delivery info')
             if(newVal !== oldVal) {
                 document.querySelector('#search-filter').value = null
+            }
+        },
+        async DELIVERIES__CANCEL_ORDER_FLAG(newVal, oldVal) {
+            if(newVal !== oldVal) {
+                await this.ALL_DELIVERIES_INVOICE_LIST__FROM_SERVICE()
             }
         }
     }

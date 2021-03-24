@@ -1,14 +1,10 @@
 <template>
     <div id="deliveries-details-section" class="deliveries-details-section">
         <div class="deliveries-details-section-inner">
-            <!-- <div class="print-section" v-if="SHOW_PRINT_ICON">
-                <span class="print-icon" @click="printInvoiceClickHandler"><i class="zmdi zmdi-print"></i></span>
-            </div> -->
             <div class="title-section">
                 <div class="row">
                     <div class="col-lg-3 col-md-4 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Invoice No:</span><span class="id">{{ PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.invoice_no : "" }}</span></p></div>
                     <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer:</span><span class="jmi-lvl-value id">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? PENDING_ORDER_DATA_BY_ID.sbu_customer_info.display_name : '') : '' }}</span></p></div>
-                    <!-- <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer:</span><span class="jmi-lvl-value id url" @click="customerDetailsClickHandler">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? PENDING_ORDER_DATA_BY_ID.sbu_customer_info.display_name : '') : '' }}</span></p></div> -->
                     <div class="col-lg-3 col-md-4 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Phone:</span> <span class="jmi-lvl-value">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_info.person_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_info.person_info.phone ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_info.person_info.phone) : '') : '') : '') : '') : '' }}</span></p></div>
                 </div>
                 <div class="row">
@@ -46,7 +42,6 @@
                         </thead>
                         <tbody>
                             <div class="table-data-rows"><div id="progressbar" class="jmi-progressbar" v-if="!ORDERED_TABLE_DATA__INIT_LIST || !PENDING_ORDER_DATA_BY_ID">
-                                    <!-- <v-progress-circular indeterminate color="primary"></v-progress-circular> -->
                                     <p>Please select an order</p>
                                 </div>
                                 <div v-if="PENDING_ORDER_DATA_BY_ID && ORDERED_TABLE_DATA__INIT_LIST">
@@ -63,15 +58,6 @@
                                         <!-- Quantity Column -->
                                         <td :id="'order-data-table-tr-td-' + i">
                                             <span v-if="!(data.deal_type === 'F' && data.net_amount === '0')">
-                                                <!-- <span class="single_qty quantity-setup">
-                                                    <span class="qty" v-if="( parseInt(data.net_qty) <= parseInt(data.available_stock) ) || (data.available_stock === null)">{{ data.qty }}</span>
-                                                    <span class="qty" v-if="parseInt(data.net_qty) > parseInt(data.available_stock)" :class="parseInt(data.net_qty) > parseInt(data.available_stock) ? 'jmi-stock-out' : ''">{{ data.qty }}
-                                                        <span class="tool-tip">
-                                                            <p class="txt">Stock:<span>{{ data.available_stock }}</span></p>
-                                                            <p class="txt">In Transit: <span>{{ data.transit_stock }}</span></p>
-                                                        </span>
-                                                    </span>
-                                                </span> -->
                                                 <span class="single_qty quantity-setup">
                                                     <span class="qty">{{ data.qty }}</span>
                                                 </span>
@@ -144,7 +130,8 @@
             <!-- Bottom Subtotal & Attachment Section -->
             <div class="submit-section" v-if="ORDERED_TABLE_DATA__INIT_LIST && PENDING_ORDER_DATA_BY_ID">
                 <div class="submit-section-inner">
-                    <span class="proceed-order" @click="deliveryOrderClickHandler">Delivered Order</span>
+                    <span class="cancel-order" @click="cancelDeliveryOrderClickHandler" v-if="NO_PRODUCT_IN_CART_TO_DELIVER">Cancel Order</span>
+                    <span class="proceed-order" @click="deliveryOrderClickHandler" v-if="!NO_PRODUCT_IN_CART_TO_DELIVER">Delivered Order</span>
                 </div>
             </div>
             <!-- Current Outstanding Modal -->
@@ -193,121 +180,6 @@
                     </div>
                 </div>
             </div>
-            <!-- Customer Name click Modal -->
-            <!-- <div class="customer-details-modal-section" v-if="customer_details_modal">
-                <div class="customer-details-modal-section-inner" v-click-outside="customerDetailsModalOutsideClick">
-                    <div class="top-section">
-                        <div class="top-section-inner">
-                            <div class="logo">
-                                <img src="../../../../../assets/icons/user.png" alt="logo">
-                            </div>
-                            <div class="title-section">
-                                <p class="name">{{ SHOW_CUSTOMER_PROFILE ? SHOW_CUSTOMER_PROFILE.display_name : '' }}<span class="tik-icon"><i class="zmdi zmdi-check"></i></span></p>
-                                <p class="id">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.order_no) : '' }}</p>
-                            </div>
-                            <div class="tab-section">
-                                <div class="tab-section-inner">
-                                    <b-tabs class="mt-3 deliveries-customer-details">
-                                        <b-tab title="Basic" active>
-                                            <div class="basic-section">
-                                                <div class="basic-section-inner">
-                                                    <p class="basic-data"><span class="lvl">Customer Name:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? SHOW_CUSTOMER_PROFILE.display_name : '' }}</span></p>
-                                                    <p class="basic-data"><span class="lvl">Contact Number:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_info ? (SHOW_CUSTOMER_PROFILE.customer_info.person_info ? (SHOW_CUSTOMER_PROFILE.customer_info.person_info.phone ? (SHOW_CUSTOMER_PROFILE.customer_info.person_info.phone) : '') : '') : '') : '' }}</span></p>
-                                                    <p class="basic-data"><span class="lvl">Email Address:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_info ? (SHOW_CUSTOMER_PROFILE.customer_info.person_info ? (SHOW_CUSTOMER_PROFILE.customer_info.person_info.email ? (SHOW_CUSTOMER_PROFILE.customer_info.person_info.email) : '') : '') : '') : '' }}</span></p>
-                                                    <p class="basic-data"><span class="lvl">Address:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_info ? (SHOW_CUSTOMER_PROFILE.customer_info.person_info ? (SHOW_CUSTOMER_PROFILE.customer_info.person_info.address ? (SHOW_CUSTOMER_PROFILE.customer_info.person_info.address) : '') : '') : '') : '' }}</span></p>
-                                                    <p class="basic-data"><span class="lvl">Customer Type:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_info ? (SHOW_CUSTOMER_PROFILE.customer_info.customer_type ? (SHOW_CUSTOMER_PROFILE.customer_info.customer_type.description) : '') : '') : '' }}</span></p>
-                                                    <p class="basic-data"><span class="lvl">Sales Area:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_area_info ? (SHOW_CUSTOMER_PROFILE.customer_area_info.sales_area ? (SHOW_CUSTOMER_PROFILE.customer_area_info.sales_area.area_name ? (SHOW_CUSTOMER_PROFILE.customer_area_info.sales_area.area_name) : '') : '') : '') : '' }}</span></p>
-                                                    <p class="basic-data"><span class="lvl">Sales Center:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_area_info ? (SHOW_CUSTOMER_PROFILE.customer_area_info.sales_area ? (SHOW_CUSTOMER_PROFILE.customer_area_info.sales_area.area_name ? (SHOW_CUSTOMER_PROFILE.customer_area_info.sales_area.area_name) : '') : '') : '') : '' }}</span></p>
-                                                    <p class="basic-data"><span class="lvl">Type of Payment:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.credit_flag === 'Y' ? 'Cash' : 'Credit') : '' }}</span></p>
-                                                </div>
-                                            </div>
-                                        </b-tab>
-                                        <b-tab title="Accounts">
-                                            <div class="account-section">
-                                                <div class="account-section-inner">
-                                                    <div class="jmi-row">
-                                                        <p class="jmi-col_33"><span class="jmi-lvl">Total Order:</span><span class="jmi-lvl-value">{{ SHOW_CUSTOMER_PROFILE ? SHOW_CUSTOMER_PROFILE.total_order : '' }}</span></p>
-                                                        <p class="jmi-col_33"><span class="jmi-lvl">Total Invoice:</span><span class="jmi-lvl-value">{{ SHOW_CUSTOMER_PROFILE ? SHOW_CUSTOMER_PROFILE.total_invoice : '' }}</span></p>
-                                                        <p class="jmi-col_33"><span class="jmi-lvl">In Transit:</span><span class="jmi-lvl-value">{{ SHOW_CUSTOMER_PROFILE ? SHOW_CUSTOMER_PROFILE.total_order : '' }}</span></p>
-                                                    </div>
-                                                    <div class="jmi-row">
-                                                        <p class="jmi-col_33"><span class="jmi-lvl">Credit Limit:</span><span class="jmi-lvl-value">{{ SHOW_CUSTOMER_PROFILE ? SHOW_CUSTOMER_PROFILE.total_order : '' }}</span></p>
-                                                        <p class="jmi-col_33"><span class="jmi-lvl">Current Outstanding:</span><span class="jmi-lvl-value">{{ SHOW_CUSTOMER_PROFILE ? SHOW_CUSTOMER_PROFILE.total_order : '' }}</span></p>
-                                                        <p class="jmi-col_33"><span class="jmi-lvl">Available Limit:</span><span class="jmi-lvl-value">{{ SHOW_CUSTOMER_PROFILE ? SHOW_CUSTOMER_PROFILE.total_order : '' }}</span></p>
-                                                    </div>
-                                                    <div class="jmi-row">
-                                                        <p class="jmi-col_33"><span class="jmi-lvl">Transactions History</span></p>
-                                                        <p class="jmi-col_50"><span class="prev"><i class="zmdi zmdi-skip-previous"></i></span><span class="account-history-date">December 2020</span><span class="next"><i class="zmdi zmdi-skip-next"></i></span></p>
-                                                    </div>
-                                                    <div class="accounts-data">
-                                                        <div class="accounts-data-inner">
-                                                            <div class="data-head">
-                                                                <div class="jmi-row">
-                                                                    <p class="jmi-col_20"><span class="jmi-data-head-lvl">Date</span></p>
-                                                                    <p class="jmi-col_50"><span class="jmi-data-head-lvl">Particular</span></p>
-                                                                    <p class="jmi-col_15"><span class="jmi-data-head-lvl">Debit</span></p>
-                                                                    <p class="jmi-col_15"><span class="jmi-data-head-lvl">Credit</span></p>
-                                                                </div>
-                                                            </div>
-                                                            <div class="data-body">
-                                                                <div class="jmi-row" v-for="(a, i) in account_data_list" :key="i">
-                                                                    <p class="jmi-col_20"><span class="jmi-data-head-lvl">{{ a.date }}</span></p>
-                                                                    <p class="jmi-col_50"><span class="jmi-data-head-lvl" :class="a.particular">{{ a.particular }}</span> (<span class="account-data-inv">{{ a.inv }}</span>)</p>
-                                                                    <p class="jmi-col_15"><span class="jmi-data-head-lvl">{{ a.debit }}</span></p>
-                                                                    <p class="jmi-col_15"><span class="jmi-data-head-lvl">{{ a.credit }}</span></p>
-                                                                </div>
-                                                            </div>
-                                                            <div class="jmi-row">
-                                                                <p class="jmi-col_70"><span class="ac-ttl-txt">Total:</span></p>
-                                                                <p class="jmi-col_15 ac-ttl-debit">20000</p>
-                                                                <p class="jmi-col_15 ac-ttl-credit">20000</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </b-tab>
-                                        <b-tab title="Business">
-                                            <div class="business-section">
-                                                <div class="business-section-inner">
-                                                    <p class="business-data"><span class="lvl">Vat Registration Number:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_info ? (SHOW_CUSTOMER_PROFILE.customer_info.vat_reg_no ? SHOW_CUSTOMER_PROFILE.customer_info.vat_reg_no : '') : '') : '' }}</span></p>
-                                                    <p class="business-data"><span class="lvl">Trade License:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_info ? (SHOW_CUSTOMER_PROFILE.customer_info.trade_licence_no ? SHOW_CUSTOMER_PROFILE.customer_info.trade_licence_no : '') : '') : '' }}</span></p>
-                                                    <p class="business-data"><span class="lvl">VIN:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_info ? (SHOW_CUSTOMER_PROFILE.customer_info.vin_no ? SHOW_CUSTOMER_PROFILE.customer_info.vin_no : '') : '') : '' }}</span></p>
-                                                    <p class="business-data"><span class="lvl">TIN:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_info ? (SHOW_CUSTOMER_PROFILE.customer_info.tin_no ? SHOW_CUSTOMER_PROFILE.customer_info.tin_no : '') : '') : '' }}</span></p>
-                                                    <p class="business-data"><span class="lvl">BIN:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_info ? (SHOW_CUSTOMER_PROFILE.customer_info.bin_no ? SHOW_CUSTOMER_PROFILE.customer_info.bin_no : '') : '') : '' }}</span></p>
-                                                </div>
-                                            </div>
-                                        </b-tab>
-                                        <b-tab title="Location">
-                                            <div class="location-section">
-                                                <div class="location-section-inner">
-                                                    <gmap-map :center="center" :zoom="14"
-                                                        style="width: 100%; height: 300px; border-radius: 2px;"
-                                                        >
-                                                        <gmap-marker :key="index" v-for="(m, index) in markers" :position="m.position"
-                                                            @click="centerClick(m, index)"
-                                                        ></gmap-marker>
-                                                        <gmap-info-window
-                                                            :options="infoOptions"
-                                                            :position="infoWindowPos"
-                                                            :opened="infoWinOpen"
-                                                            @closeclick="infoWinOpen=false"
-                                                        >
-                                                            <div v-html="infoContent"></div>
-                                                        </gmap-info-window>
-                                                    </gmap-map>
-                                                    <p class="location-details"><span class="icon"><i class="zmdi zmdi-pin"></i></span>{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_info ? (SHOW_CUSTOMER_PROFILE.customer_info.person_info ? (SHOW_CUSTOMER_PROFILE.customer_info.person_info.address ? (SHOW_CUSTOMER_PROFILE.customer_info.person_info.address) : '') : '') : '') : '' }}</p>
-                                                    <p class="union-type"><span>Dummy: Micro Union</span></p>
-                                                </div>
-                                            </div>
-                                        </b-tab>
-                                    </b-tabs>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
         </div>
         <!-- Delete Product From Main Table Modal -->
         <div class="modal-popup-section order-proceed-modal" v-if="delete_product_from_table_popup_modal">
@@ -348,19 +220,15 @@
                                         </div>
                                         <div class="imvoice-amount">
                                             <p class="jmi-lvl">Due Amount:</p>
-                                            <!-- <p class="jmi-lvl-value">{{ Number(cash_due_amount).toFixed(2) }}</p> -->
                                             <p id="cash-due-amount-selector" class="jmi-lvl-value">{{ Number(parseFloat(grand_total) - parseFloat(cash_receive_amount) ).toFixed(2) }}</p>
                                         </div>
                                     </div>
                                     <div class="row receiver-amount">
                                         <p class="jmi-lvl">Type Receiver Amount</p>
                                         <input type="number" id="deliveries_cash_receiver_amount" class="jmi-lvl-value" v-model="cash_receive_amount"  step="any" />
-                                        <!-- <input type="number" id="deliveries_cash_receiver_amount" class="jmi-lvl-value" v-model="cash_receive_amount" v-on:keyup="deliveries_cash_receiver_amount_KeyUp_ordered_table($event)" step="any" v-on:keydown="deliveries_cash_receiver_amount_KeyDown_ordered_table($event, i)"> -->
                                     </div>
                                 </div>
                             </b-tab>
-                            <!-- <b-tab title="Cheque" v-if="CHEQUE_TAB_VISIBLE === true"> -->
-                            <!-- <b-tab title="Cheque" v-if="parseFloat(cash_due_amount) > 0"> -->
                             <b-tab title="Cheque">
                                 <div class="tab-inner cheque">
                                     <div class="row">
@@ -370,12 +238,10 @@
                                         </div>
                                         <div class="imvoice-amount" style="width: 33%;">
                                             <p class="jmi-lvl">Cash Amount:</p>
-                                            <!-- <p class="jmi-lvl-value">{{ Number(cheque_due_amount).toFixed(2) }}</p> -->
                                             <p class="jmi-lvl-value">{{ Number(cash_receive_amount).toFixed(2) }}</p>
                                         </div>
                                         <div class="imvoice-amount" style="width: 33%;">
                                             <p class="jmi-lvl">Due Amount:</p>
-                                            <!-- <p class="jmi-lvl-value">{{ Number(cheque_due_amount).toFixed(2) }}</p> -->
                                             <p type="number" id="cheque-due-amount-selector" class="jmi-lvl-value">{{ Number(parseFloat(grand_total) - parseFloat(cash_receive_amount) - parseFloat(cheque_receive_amount) ).toFixed(2) }}</p>
                                         </div>
                                     </div>
@@ -387,7 +253,6 @@
                                         <div class="jmi-inline-block right-alg">
                                             <p class="jmi-lvl">Type Receiver Amount</p>
                                             <input type="number" id="deliveries_cheque_receiver_amount" class="jmi-lvl-value" v-model="cheque_receive_amount" />
-                                            <!-- <input type="number" id="deliveries_cheque_receiver_amount" class="jmi-lvl-value" v-model="cheque_receive_amount" v-on:keyup="deliveries_cheque_receiver_amount_KeyUp_ordered_table($event)" min="1" step="1" v-on:keydown="deliveries_cheque_receiver_amount_KeyDown_ordered_table($event, i)" pattern="[0-9]*"> -->
                                         </div>
                                     </div>
                                     <div class="row">
@@ -395,7 +260,6 @@
                                             <p class="jmi-lvl">Enter cheque Number</p>
                                             <input type="text" v-model="cheque_cheque_number">
                                         </div>
-                                        <!-- <div class="jmi-inline-block right-alg"> -->
                                         <div class="jmi-inline-block">
                                             <p class="jmi-lvl">Attach File (File Should be jpg, png)</p>
                                             <p class="jmi-lvl" style="color: #C11616; font-size: 10px;" v-if="UPLOADED_IMAGE_DATA_BASE_64_IS_PRESENT">* Please insert cheque image</p>
@@ -502,14 +366,6 @@
                 </div>
             </div>
         </div>
-        <!--  -->
-        <!-- Order Approved Message -->
-        <!-- <div id="update-successfully-modal" class="modal-popup-section update-successfully-modal" v-if="approved_single_order_modal">
-            <div class="modal-popup-section-inner update-successfully-modal-inner">
-                <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
-                <p class="popup-text">{{ ORDER_SUCCESS_MESSAGE }}</p>
-            </div>
-        </div> -->
         <!-- Delivery Success Message -->
         <div id="update-successfully-modal" class="modal-popup-section update-successfully-modal" v-if="delivery_success_or_not_msg_modal">
             <div class="modal-popup-section-inner update-successfully-modal-inner">
@@ -521,8 +377,7 @@
 </template>
 
 <script>
-// import AdvancedSearch from 'vue-advanced-search'
-import * as VueGoogleMaps from 'vue2-google-maps'
+// import * as VueGoogleMaps from 'vue2-google-maps'
 import JMIFilter from '.././../../../../functions/JMIFIlter'
 const jmiFilter = new JMIFilter()
 import ERPService from '../../../../../service/ERPSidebarService'
@@ -531,7 +386,6 @@ const service = new ERPService()
 export default {
     props: ["pending_order_list_by_id", "INVOICE_ID_FROM_LEFT"],
     components: {
-        // AdvancedSearch 
     },
     data() {
         return {
@@ -835,25 +689,25 @@ export default {
             rounding_adjustment: 0.00,
             grand_total: 0.00,
             // Map Data
-            center: { lat: 23.74289, lng: 90.39597 },
-            markers: [
-                {
-                position: {
-                    lat: 23.74289,
-                    lng: 90.39597,
-                },
-                title: "Teting",
-                    name: "House of Aleida Greve",
-                    description: "Mymensingh, Dhaka",
-                    date_build: "2016-1-1",
-                },
-            ],
-            places: [],
-            currentPlace: null,
-            directionsService: null,
-            directionsRenderer: null,
-            InfoWindow: VueGoogleMaps.InfoWindow,
-            Map: VueGoogleMaps.Map,
+            // center: { lat: 23.74289, lng: 90.39597 },
+            // markers: [
+            //     {
+            //     position: {
+            //         lat: 23.74289,
+            //         lng: 90.39597,
+            //     },
+            //     title: "Teting",
+            //         name: "House of Aleida Greve",
+            //         description: "Mymensingh, Dhaka",
+            //         date_build: "2016-1-1",
+            //     },
+            // ],
+            // places: [],
+            // currentPlace: null,
+            // directionsService: null,
+            // directionsRenderer: null,
+            // InfoWindow: VueGoogleMaps.InfoWindow,
+            // Map: VueGoogleMaps.Map,
             // This Component Dynamic Data Starts here
             sr_add_modal: false,
             selected_sr: null,
@@ -903,6 +757,7 @@ export default {
             UPLOADED_IMAGE_DATA_BASE_64_IS_PRESENT: false,
             file_types_list: [],
             file_type_on_change: null,
+            NO_PRODUCT_IN_CART_TO_DELIVER: false
         }
     },
     async created() {
@@ -1000,7 +855,23 @@ export default {
                     this.delete_product_from_table_popup_modal = false
                 }
             }
+            this.checkOrderTableDataList()
             this.createSubtotalCalculation()
+        },
+        //------------------------------------------------------------------------------------------
+        // Order Table is Empty
+        checkOrderTableDataList() {
+            console.log('I am here')
+            let count = null
+            for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST.length; i++) {
+                console.log(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty)
+                count += parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty)
+            }
+            console.log(count)
+            if(count === 0) {
+                console.log('count is 0')
+                this.NO_PRODUCT_IN_CART_TO_DELIVER = true
+            }
         },
         //------------------------------------------------------------------------------------------
         // Order Submition Actions
@@ -1015,39 +886,12 @@ export default {
         deliveryOrderModalConfirmClickHandler() {
             console.log('deliveryOrderModalConfirmClickHandler')
             let invoice_id = this.INVOICE_ID_FROM_LEFT
-            /*let product = {
-                prod_id: [],
-                invoiced_qty: [],
-                delivered_qty: [],
-            }
-            let collection = {
-                net_payable_amount: null,	
-                cash_collection: null,
-                check_collection: null,
-                collected_amount: null,
-                due_amount: null
-            }
-            for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST_NOT_CHANGEABLE.length; i++) {
-                product.prod_id.push( this.ORDERED_TABLE_DATA__INIT_LIST_NOT_CHANGEABLE[i].product_info.id )
-                product.invoiced_qty.push( parseInt(this.ORDERED_TABLE_DATA__INIT_LIST_NOT_CHANGEABLE[i].net_qty) )
-                product.delivered_qty.push( parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) + parseInt( parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) / parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on) ) )
-            }
-            collection.net_payable_amount = Number(this.grand_total).toFixed(2)
-            collection.cash_collection = Number(this.cash_receive_amount).toFixed(2)
-            collection.check_collection = Number(this.cheque_receive_amount).toFixed(2)
-            collection.collected_amount = Number(this.cash_receive_amount + this.cheque_receive_amount).toFixed(2)
-            collection.due_amount = Number(this.grand_total - (this.cash_receive_amount + this.cheque_receive_amount)).toFixed(2)*/
-
             let invoice_dtl = []
             let get_init_data_from_localstorage = localStorage.getItem('jerp_delivery_details_not_chandable_ordered_data') ? JSON.parse(localStorage.getItem('jerp_delivery_details_not_chandable_ordered_data')) : this.ORDERED_TABLE_DATA__INIT_LIST_NOT_CHANGEABLE
             console.log(get_init_data_from_localstorage)
             for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST_NOT_CHANGEABLE.length; i++) {
                 let invoice_details = {
                     prod_id: this.ORDERED_TABLE_DATA__INIT_LIST_NOT_CHANGEABLE[i].product_info.id,
-                    // dlv_qty: this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on ? parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) + parseInt( parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) / parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on) ) : this.ORDERED_TABLE_DATA__INIT_LIST[i].qty,
-
-                    // ret_qty: parseInt(get_init_data_from_localstorage[i].qty) - parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty),
-                    // ret_bonus_qty: this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on ? parseInt(get_init_data_from_localstorage[i].bonus_qty) - parseInt( parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) / parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on) ) : null
                     dlv_qty: this.ORDERED_TABLE_DATA__INIT_LIST[i].qty,
                     current_bonus_qty: this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on ? ( parseInt( parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) / parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on) ) ) : 0
                 }
@@ -1058,6 +902,19 @@ export default {
             let net_payable_amount = Number(this.grand_total).toFixed(2)
 
             this.SAVE_INVOICE_DELIVERY_INFO__FROM_SERVICE(invoice_id, invoice_dtl, cash, cheque, net_payable_amount)
+        },
+        //------------------------------------------------------------------------------------------
+        // Cancel This Delivery
+        cancelDeliveryOrderClickHandler() {
+            let invoice_details = []
+            for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST.length; i++) {
+                let single_invoice_details = {
+                    prod_id: this.ORDERED_TABLE_DATA__INIT_LIST[i].product_info.id
+                }
+                invoice_details.push(single_invoice_details)
+            }
+            console.log(invoice_details)
+            this.CANCEL_THIS_DELIVERY__FROM_SERVICE(invoice_details)
         },
         //------------------------------------------------------------------------------------------
         // Increase Autofield Selected Ordered Product
@@ -1117,7 +974,7 @@ export default {
         },
         //------------------------------------------------------------------------------------------
         // Customer Details Modal - Location
-        centerClick(marker, index) {
+        /*centerClick(marker, index) {
             console.log(marker.position.lat + '    ' + marker.position.lng + '    ' + index)
             // VueGoogleMaps.InfoWindow.open(this.Map, m);
             this.infoWindowPos = marker.position;
@@ -1183,7 +1040,7 @@ export default {
                 }
             })
             console.log(this.markers)
-        },
+        },*/
         // --------------------------------------------------------------------------------------------
         // Filter - Order Approval add product modal
         searchKeyUpAddProductHandler() {
@@ -1271,6 +1128,25 @@ export default {
                     }, 2000)
                 })*/
         },
+        CANCEL_THIS_DELIVERY__FROM_SERVICE(invoice_details) {
+            service.geSaveCancelDeliveryInfo_Deliveries(this.INVOICE_ID_FROM_LEFT, invoice_details)
+                .then(res => {
+                    console.log(res.data)
+                    if(res.data.response_code === 200) {
+                        this.delivery_success_or_not_msg_modal = true
+                        this.delivery_success_or_not_msg = 'Successfully removed this order'
+                        this.$store.state.DELIVERIES__CANCEL_ORDER_TIME_STAMP = new Date()
+                        this.defaultAllThisComponentData()
+                        setTimeout( () => {
+                            this.delivery_success_or_not_msg_modal = false
+                            this.delivery_success_or_not_msg = null
+                        }, 2000)
+                    }
+                })
+                .catch(err => {
+                    alert('Server Error 500. ' + err)
+                })
+        },
         // ----------------------------------------------------------------------------------------------
         // Bottom Row Calculation
         // Create Secondary Subtotal
@@ -1315,6 +1191,7 @@ export default {
                 this.UPLOADED_IMAGE_NAME = null
                 this.UPLOADED_IMAGE_DATA_BASE_64 = null
                 this.UPLOADED_IMAGE_DATA_BASE_64_IS_PRESENT = false
+                this.NO_PRODUCT_IN_CART_TO_DELIVER = false
                 console.log('default component')
                 console.log(this.ORDERED_TABLE_DATA__INIT_LIST.length)
 
@@ -1474,6 +1351,7 @@ export default {
         async pending_order_list_by_id(newVal, oldVal){
             console.log('changes' + newVal)
             console.log('changes' + oldVal)
+            this.NO_PRODUCT_IN_CART_TO_DELIVER = false
             localStorage.removeItem("jerp_delivery_details_not_chandable_ordered_data");
             setTimeout( () => {
                 console.log(this.pending_order_list_by_id.invoice_details)
@@ -1484,8 +1362,8 @@ export default {
                 localStorage.setItem('jerp_delivery_details_not_chandable_ordered_data', JSON.stringify(this.pending_order_list_by_id.invoice_details))
                 this.ORDER_CREATED_BY = this.pending_order_list_by_id.created_by
                 this.ORDER_AUTH_USER = this.pending_order_list_by_id.auth_user
-                console.log(this.PENDING_ORDER_DATA_BY_ID.is_verified)
-                console.log(this.INVOICE_ID_FROM_LEFT)
+                // console.log(this.PENDING_ORDER_DATA_BY_ID.is_verified)
+                // console.log(this.INVOICE_ID_FROM_LEFT)
                 this.createSubtotalCalculation()
 
                 /*let qty_edit_static_lists = document.querySelectorAll('.single_qty.quantity-setup')

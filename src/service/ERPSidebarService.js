@@ -641,7 +641,7 @@ export default class PostService {
   }
 
   // -------------------------------------------------------------------------------------------
-  // DELEVERIES - LEFT SECTION
+  // DELEVERIES - LEFT SECTION - DS LIST
   async getPendingDeliveredInvoiceList_DELEVERIES() {
     let web_menu_url = '/api/web/pending-delivered-invoice-list'
     return await axios(web_menu_url, {
@@ -652,7 +652,7 @@ export default class PostService {
     })
   }
 
-  // DELEVERIES - LEFT SECTION
+  // DELEVERIES - LEFT SECTION - SINGLE DS BY ID
   async getPendingDeliverInvoiceDetailsByInvocieId_DELEVERIES(invoice_id) {
     let web_menu_url = '/api/web/pending-deliver-invoice-details/' + invoice_id
     return await axios(web_menu_url, {
@@ -663,7 +663,7 @@ export default class PostService {
     })
   }
 
-  // DELEVERIES - DETAILS SECTION
+  // DELEVERIES - DETAILS SECTION - SAVE
   async getSaveInvoiceDeliveryInfo_DELIVERIES(invoice_id, invoice_dtl, cash, cheque, net_payable_amount, base64_img, img_name, file_path, object_type) {
     console.log(invoice_id)
     console.log(invoice_dtl)
@@ -691,7 +691,7 @@ export default class PostService {
     })
   }
 
-  // DELEVERIES - DETAILS SECTION
+  // DELEVERIES - DETAILS SECTION - FILE TYPE
   async getElementListByCode_Deliveries() {
     // let code = 14
     let web_menu_url = '/api/common/element-list-by-code'
@@ -702,6 +702,22 @@ export default class PostService {
       },
       params: {
         code_key: 'BLOB_OBJ_TYPE'
+      }
+    })
+  }
+
+  // DELEVERIES - DETAILS SECTION - CANCEL
+  async geSaveCancelDeliveryInfo_Deliveries(invoice_id, invoice_details) {
+    // let code = 14
+    let web_menu_url = '/api/web/save-cancel-invoice-delivery-info'
+    return await axios(web_menu_url, {
+      method: 'POST',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+      params: {
+        invoice_id: invoice_id,
+        invoice_details: JSON.stringify(invoice_details)
       }
     })
   }
