@@ -575,6 +575,15 @@
                 <p class="popup-text">Please reject this order.</p>
             </div>
         </div>
+        <!-- Comment Popup -->
+        <div class="modal-popup-section order-proceed-modal order-create-comment" v-if="show_comment_popup">
+            <div class="modal-popup-section-inner order-proceed-modal-inner" style="top: 20%;">
+                <p class="jmi-popup-title comment-text" style="position: relative;">Order Note<span class="jmi-popup-title-close-icon" @click="closeShowCommentPopup"><i class="zmdi zmdi-close"></i></span></p>
+                <div class="popup-submit-section">
+                    <p class="jmi-popup-description jmi-scroll-section">{{ customer_comment ? customer_comment : 'No Comment' }}</p>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -948,6 +957,8 @@ export default {
             DISABLE_SUBMISSION_BTN: false,
             STOCK_TRANSIT_VALIDATION: false,
             removing_last_product_from_cart: false,
+            show_comment_popup: false,
+            customer_comment: null,
         }
     },
     async created() {
@@ -1790,7 +1801,15 @@ export default {
             }
         },
         showCommentClickHandler() {
-            console.log('showCommentClickHandler')
+            if(this.show_comment_popup) {
+                this.show_comment_popup = false
+            } else {
+                this.show_comment_popup = true
+                this.customer_comment = this.pending_order_list_by_id.order_details
+            }
+        },
+        closeShowCommentPopup() {
+            this.show_comment_popup = false
         }
     },
     watch: { 

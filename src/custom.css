@@ -57,7 +57,7 @@ input[type="checkbox"] {
 #stock-report-t1.stock-report-t1 .jmi-table thead {}
 
 #stock-report-t1.stock-report-t1 .stock-report-t1-inner {
-    padding: 40px 20px 20px;
+    padding : 40px 20px 20px;
     position: relative;
 }
 
@@ -88,9 +88,9 @@ input[type="checkbox"] {
 }
 
 #stock-report-t1.stock-report-t1 .stock-report-t1-inner .stock-report-t1-inner-tablse-section {
-    padding: 10px 10px 0;
-    box-shadow: 0px 0px 8px #026cd11a;
-    border-radius: 8px;
+    padding          : 10px 10px 0;
+    box-shadow       : 0px 0px 8px #026cd11a;
+    border-radius    : 8px;
     height           : calc(100vh - (74px + 44px + 32px + 62px));
     overflow         : auto;
     -webkit-flex-flow: row wrap;
@@ -172,6 +172,7 @@ input[type="checkbox"] {
 #jmi-search-section.jmi-search-section input:focus {
     box-shadow: none;
 }
+
 /* JMI SEARCH - LEFT SIDE ENDS */
 /* ---------------------------------------------------------------------------- */
 
@@ -2810,6 +2811,33 @@ button.jmi-confirm-btn {
 
 button.jmi-confirm-btn:focus {
     background-color: #026CD1 !important;
+}
+
+.jmi-popup-title {
+    font-size    : 14px;
+    color        : #026CD1;
+    text-align   : left;
+    margin-bottom: 10px;
+    font-weight  : bold;
+}
+
+.jmi-popup-title-close-icon {
+    position: absolute;
+    top     : 0;
+    right   : 0;
+    color   : #000000;
+}
+
+.jmi-popup-title-close-icon i {
+    font-size: 18px;
+    cursor   : pointer;
+}
+
+.jmi-popup-description {
+    font-size    : 14px;
+    color        : #000000;
+    text-align   : left;
+    margin-bottom: 10px;
 }
 
 /* SCROLL */
