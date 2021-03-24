@@ -39,7 +39,7 @@
 <script>
 import DemoData from '../../DemoData'
 const demoData = new DemoData()
-import JMIFilter from '.././../../../../../functions/JMIFIlter'
+import JMIFilter from '../../../../../../functions/JMIFIlter'
 const jmiFilter = new JMIFilter()
 
 export default {

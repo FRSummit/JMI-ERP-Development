@@ -244,7 +244,7 @@ export const router = new VueRouter({
     {
       path: '/features/local_sales/create-requisition',
       name: 'Create Requisition',
-      component: () => import('../views/private_views/SD/Requisition/CreateRequisition/TransferRequisition.vue')
+      component: () => import('../views/private_views/SD/Requisition/CreateRequisition/CreateRequisition.vue')
     },
 
     // --------------------------------------------------------------------------------------

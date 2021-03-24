@@ -3,22 +3,22 @@
     <Heading :pathName="pathName" :routeName="routeName" />
     <!-- <div class="transfer-requisition-inner"> -->
     <div class="layout-body">
-      <TransferRequisitionLeftSection />
-      <TransferRequisitionDetailsSection />
+      <CreateRequisitionLeftSection />
+      <CreateRequisitionDetailsSection />
     </div>
   </div>
 </template>
 
 <script>
 import Heading from "../../../../../components/master_layout/HeadingTitleBreadcrumbT3/HeadingTitleBreadcrumb";
-import TransferRequisitionLeftSection from "./Sidebar/TransferRequisitionLeftSection";
-import TransferRequisitionDetailsSection from "./Details/TransferRequisitionDetailsSection";
+import CreateRequisitionLeftSection from "./Sidebar/CreateRequisitionLeftSection";
+import CreateRequisitionDetailsSection from "./Details/CreateRequisitionDetailsSection";
 
 export default {
   components: {
     Heading,
-    TransferRequisitionLeftSection,
-    TransferRequisitionDetailsSection,
+    CreateRequisitionLeftSection,
+    CreateRequisitionDetailsSection,
   },
   data() {
     return {
