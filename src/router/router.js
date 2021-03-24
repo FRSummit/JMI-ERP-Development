@@ -237,7 +237,7 @@ export const router = new VueRouter({
     {
       path: '/features/local_sales/transfer-requisition',
       name: 'Transfer Requisition',
-      component: () => import('../views/private_views/SD/TransferRequisition/TransferRequisition.vue')
+      component: () => import('../views/private_views/SD/Requisition/TransferRequisition/TransferRequisition.vue')
     },
 
     // --------------------------------------------------------------------------------------

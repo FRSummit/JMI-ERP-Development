@@ -5,7 +5,7 @@
                 <div class="col-12">
                     <div class="empty-body">
                         <div class="empty_data">
-                            <img src="../../../../../assets/images/transfer-requisition/no_info.png" alt="Icon">
+                            <img src="../../../../../../assets/images/transfer-requisition/no_info.png" alt="Icon">
                             <h5>No information to show</h5>
                             <p>Select from the left bar</p>
                             <p>Or</p>
