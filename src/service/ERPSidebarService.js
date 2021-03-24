@@ -9,6 +9,11 @@ let FRSAPIURL = env.apiBaseUrlFRS
 
 export default class PostService {
 
+  getToken() {
+    token = JSON.parse(localStorage.getItem('jerp_logged_user')) ? JSON.parse(localStorage.getItem('jerp_logged_user')).accessToken : null
+    token_type = JSON.parse(localStorage.getItem('jerp_logged_user')) ? JSON.parse(localStorage.getItem('jerp_logged_user')).token_type : null
+  }
+
   // JMI ERP LOGIN
   async login(username, password) {
     // let body = {
@@ -27,6 +32,7 @@ export default class PostService {
     let web_menu_url = '/api/system/WebMenu'
     // token = JSON.parse(localStorage.getItem('jerp_logged_user')).accessToken
     // console.log(token)
+    this.getToken()
     return await axios(web_menu_url, {
       method: 'GET',
       headers: {

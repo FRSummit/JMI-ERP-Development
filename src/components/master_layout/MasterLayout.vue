@@ -348,7 +348,7 @@ export default {
               // }, 2000)
               // console.log(err)
               if(this.WEB_MENU.length === 0) {
-                window.location.reload()
+                // window.location.reload()
               }
             }
         })
