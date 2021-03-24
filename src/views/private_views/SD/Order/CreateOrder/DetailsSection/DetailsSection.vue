@@ -141,7 +141,7 @@
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
                                 <tr class="subtotal bottom-total" v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">
-                                    <td style="width: 50%;"><span class="add-order-attachment-section add-order" @click="addCommentClickHandler"><i class="zmdi zmdi-plus"></i>Comment</span></td>
+                                    <td style="width: 50%;"><span class="add-order-attachment-section add-order" @click="addCommentClickHandler"><i class="zmdi zmdi-plus"></i>Order Note</span></td>
                                     <td style="width: 25%;">(+) Vat</td>
                                     <td style="width: 15%;">{{ Number(vat_total).toFixed(2) }}</td>
                                     <td style="width: 10%; min-width: 70px;"></td>
@@ -347,7 +347,7 @@
         <!-- Comment Popup -->
         <div class="modal-popup-section order-proceed-modal order-create-comment" v-if="add_comment_popup">
             <div class="modal-popup-section-inner order-proceed-modal-inner">
-                <p class="comment-text">Add Comment</p>
+                <p class="comment-text">Order Note</p>
                 <div class="popup-submit-section">
                     <textarea class="customer_comment" v-model="customer_comment" cols="30" rows="10"></textarea>
                     <div class="popup-cancel-btn-section" @click="cancelCommentModalClickHandler">

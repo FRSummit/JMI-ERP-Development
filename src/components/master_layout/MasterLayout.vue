@@ -235,6 +235,9 @@ export default {
     currentRouteName(name) {
       if (name !== "Login") {
         this.privatePage = true;
+      } else if(name === "Login") {
+        this.privatePage = false;
+        // localStorage.removeItem('jerp_logged_user');
       }
     },
     sidebarHoverOver() {

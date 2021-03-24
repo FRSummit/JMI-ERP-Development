@@ -121,8 +121,13 @@ export default {
     // window.onhashchange = function(){
     //     window.location.hash = "no-back-button";
     // }
+    // window.history.forward();
+    // this.noBack()
   },
   methods: {
+    noBack() {
+      window.history.forward();
+    },
     print() {
       console.log("working");
       this.$htmlToPaper("printMe", null, () => {
