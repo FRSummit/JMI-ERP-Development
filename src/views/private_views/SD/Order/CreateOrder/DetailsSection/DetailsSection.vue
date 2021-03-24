@@ -726,6 +726,7 @@ export default {
         },
         proceedCommentModalClickHandler() {
             console.log(this.customer_comment)
+            this.add_comment_popup = false
         },
         // ------------------------------------------------------------------------------------------
         // SPLICE PRODUCT 
@@ -881,7 +882,7 @@ export default {
             console.log(prod_db_list)
             console.log(sbu_id + '  ' + customer_id + '  ' + this.on_change_reg_area_tt)
 
-            await service.getCreateOrder_CreateOrderDetailsSection(prod_db_list, sbu_id, customer_id, this.createYYYYDDMM(), this.on_change_reg_area_tt)
+            await service.getCreateOrder_CreateOrderDetailsSection(prod_db_list, sbu_id, customer_id, this.createYYYYDDMM(), this.on_change_reg_area_tt, this.customer_address, this.customer_comment)
                 .then(res => {
                     console.log(res.data)
                     this.proceed_modal_popup = false
@@ -1194,38 +1195,7 @@ export default {
             return this.customer_data ? (this.customer_data.customer_address ? (this.customer_data.customer_address) : '') : ''
         }
     },
-    watch: { 
-        // Garbase
-        // customer_data: (newVal, oldVal) => {
-        //      console.log('Prop changed: ', newVal, ' | was: ', oldVal)
-        //      if( newVal && oldVal) {
-        //         if(newVal.customer_id !== oldVal.customer_id) {
-        //             console.log('Prop changed: ', newVal.customer_id, ' | was: ', oldVal.customer_id)
-        //             // this.ORDERED_TABLE_DATA__INIT_LIST = []
-        //             // this.ORDERED_TABLE_DATA__MODIFIED_LIST = []
-        //             // this.ORDERED_TABLE_DATA__CONFIRM_LIST = []
-        //             // this.auto_field_data = []
-        //             // this.SELECTED_ORDERED_PRODUCTS__INIT_LIST = []
-        //             // this.SELECTED_ORDERED_PRODUCTS__STORE = []
-        //             // this.RESPONSE_ORDERED_PRODUCTS__STORE = []
-        //             this.test()
-        //         }
-        //     }
-        // },
-        // deep: true
-        
-        // customer_data: {
-        //     handler: (newVal, oldVal) => {
-        //         if( newVal && oldVal) {
-        //             if(newVal.customer_id !== oldVal.customer_id) {
-        //                 // this.test(newVal, oldVal)
-        //             }
-        //         }
-        //     },
-        //     deep: true,
-        //     immediate: true,
-        // }
-
+    watch: {
         // customer_data(newVal, oldVal){
         customer_data(newVal){
             this.CUSTOMER_ID_FROM_LEFT = newVal.customer_id
@@ -1235,29 +1205,12 @@ export default {
             if( newVal) {
                 // if(newVal.customer_id !== oldVal.customer_id) {
                 if(newVal.customer_id) {
-                    // this.customer_address = newVal.customer_info ? (newVal.customer_info.customer_address ? newVal.customer_info.customer_address : '') : ''
-                    // this.customer_address = newVal ? (newVal.credit_flag ? (newVal.credit_flag === "Y" ? "Credit" : "Cash") : '') : ""
-                    // console.log('this.customer_address : ' + this.customer_address)
                     this.SALSE_AREA_ID = newVal.customer_area_info ? (newVal.customer_area_info.sales_area_id ? (newVal.customer_area_info.sales_area_id) : null) : null
-                    // console.log(this.SALSE_AREA_ID)
-                    // this.REGION_AREA_TERRITORY_LIST = []
-                    // this.selectREG_AREA_TT(this.SALSE_AREA_ID)
-                    // this.AREA_LIST_BY_USER__FROM_SERVICE(newVal.customer_id)
                     this.AREA_LIST_BY_USER__FROM_SERVICE()
                     this.defaultAllThisComponentData()
                 }
             }
         },
-        // ORDERED_TABLE_DATA__INIT_LIST(newVal, oldVal) {
-        //     // console.log(newVal)
-        //     // console.log(oldVal)
-        //     if( newVal && oldVal) {
-        //         // if(newVal.customer_id !== oldVal.customer_id) {
-        //         //     this.defaultAllThisComponentData()
-        //         // }
-        //         console.log('changes')
-        //     }
-        // }
     }
 }
 </script>

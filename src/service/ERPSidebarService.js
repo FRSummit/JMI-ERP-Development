@@ -360,8 +360,9 @@ export default class PostService {
   }
 
   // CREATE ORDER - SUBMIT ORDER TO CREATE - SEND SELECTED PRODUCT LIST
-  async getCreateOrder_CreateOrderDetailsSection(prod_db_list, sbu_id, customer_id, date, sales_area_id) {
+  async getCreateOrder_CreateOrderDetailsSection(prod_db_list, sbu_id, customer_id, date, sales_area_id, delivery_address, order_note) {
     console.log(JSON.stringify(prod_db_list))
+    console.log(delivery_address + '    ' + order_note)
     let web_menu_url = '/api/mobile/create-order'
     return await axios(web_menu_url, {
       method: 'POST',
@@ -373,7 +374,9 @@ export default class PostService {
         customer_id: customer_id,
         sbu_id: sbu_id,
         date: date,
-        sales_area_id: sales_area_id
+        sales_area_id: sales_area_id,
+        delivery_address: delivery_address,
+        order_note: order_note
       },
     })
   }

@@ -1,24 +1,16 @@
 <template>
     <div id="order-approval-details-section" class="order-approval-details-section">
-        <!-- <div id="progressbar" class="jmi-progressbar" v-if="!ORDERED_TABLE_DATA__INIT_LIST">
-            <v-progress-circular indeterminate color="primary"></v-progress-circular>
-            <p>Please select an order</p>
-        </div> -->
         <div class="order-approval-details-section-inner">
             <div class="print-section" v-if="SHOW_PRINT_ICON">
-                <!-- <p class="print-text"><span class="invoice-section">Invoice No: <span class="inv_no">{{ PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.order_no : "" }}</span></span></p> -->
                 <span class="print-icon" @click="printInvoiceClickHandler"><i class="zmdi zmdi-print"></i></span>
             </div>
             <div class="title-section">
                 <div class="row">
-                    <!-- <div class="col-lg-4 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Order ID:</span><span class="id">{{ PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.order_no : "000" }}</span><span class="customer-type" v-if="ORDERED_TABLE_DATA__INIT_LIST"></span></p></div> -->
                     <div class="col-lg-3 col-md-4 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Order ID:</span><span class="id">{{ PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.order_no : "" }}</span></p></div>
                     <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer:</span><span class="jmi-lvl-value id url" @click="customerDetailsClickHandler">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? PENDING_ORDER_DATA_BY_ID.sbu_customer_info.display_name : '') : '' }}</span></p></div>
                     <div class="col-lg-3 col-md-4 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Status:</span> <span class="jmi-lvl-value">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.is_approved === 'N' ? 'Pending' : '') : '' }}</span></p></div>
                 </div>
                 <div class="row">
-                    <!-- <div class="col-lg-12 col-md-12 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><span class="jmi-lvl-value address">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_info.customer_address ? PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_info.customer_address : 'Null') : 'Dummy: Address' }}</span></p></div> -->
-                    <!-- <div class="col-lg-3 col-md-4 col-sm-12"><p class="jmi-title">Territory ID: <span class="jmi-lvl-value">{{ PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.territory_id : '' }}</span></p></div> -->
                     <div class="col-lg-3 col-md-4 col-sm-12"><p class="jmi-title">Territory: <span class="jmi-lvl-value">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.get_sales_area ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.get_sales_area.display_code) : '') : '') : '') : '') : '' }}</span></p></div>
                     <div class="col-lg-9 col-md-8 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><span class="jmi-lvl-value address">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_info ? PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_info.customer_address ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_info.customer_address) : '' : '') : '') : '' }}</span></p></div>
                     
@@ -27,37 +19,13 @@
             
             <div class="header-summery-section">
                 <div class="header-summery-section-inner">
-                <!-- <div class="container"> -->
-                    <!-- <div class="row"> -->
-                        <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Current Outstanding:</span><span class="jmi-lvl-value url" @click="currentOutstandingClickHandler">Dummy: 200500</span></p></div> -->
-                        <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Order Placed:</span> <span class="jmi-lvl-value"></span></p></div> -->
-                        <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Status:</span> <span class="jmi-lvl-value">Pending</span></p></div> -->
-                        <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title"><span class="jmi-lvl">Status:</span> <span class="jmi-lvl-value">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.is_approved === 'N' ? 'Pending' : '') : '' }}</span></p></div> -->
-                        <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title">Area: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80" >{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.get_sales_area ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.get_sales_area.area_name) : '') : '') : '') : '') : '' }}</span></p></div> -->
-                        <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title">Territory ID: <span class="jmi-lvl-value">{{ PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.territory_id : '' }}</span></p></div> -->
-                    <!-- </div> -->
                     <div class="row">
-                        <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="jmi-title">Territory: <span class="jmi-lvl-value">DHK0301-Dhanmondi 32</span></p></div> -->
                         <div class="col-lg-3 col-md-6 col-sm-6"><p class="am">AM: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info.name) : '') : '') : '') : '') : '' }}</span></p></div>
                         <div class="col-lg-3 col-md-6 col-sm-6"><p class="mio">MIO: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info.name) : '') : '') : '') : '') : '') : '') : '' }}</span></p></div>
                         <div class="col-lg-3 col-md-6 col-sm-6" style="line-height: 1;">
-                            <!-- <div class="sr" style="display: table-cell; width: 33%; padding-right: 20px; padding-bottom: 0; vertical-align: middle;">
-                                <span style="display: inline-block; width: 15%; font-size: 14px; float: left; line-height:1; padding-top: 6px;">SR: </span>
-                                <div class="select-options" style="display: inline-block; width: 50%; min-width: 120px; font-size: 14px;">
-                                    <span class="right-icon"
-                                        ><i class="fas fa-chevron-right"></i
-                                    ></span>
-                                    <select title="Pick a customer" class="selectpicker" v-model="on_change_SR_dropdown" @change="onChangeSRDropdown()">
-                                        <option v-for="(sr, m) in sr_list" :key="m">
-                                        {{ sr.name }}
-                                        </option>
-                                    </select>
-                                </div>
-                            </div> -->
                             <div class="sr" style="display: table-cell; width: 33%; padding-right: 20px; padding-bottom: 0; line-height: 1;">
                                 <span class="jmi-lvl">SR: </span>
-                                <p class="selectpicker-pera"> 
-                                    <!-- <span class="jmi-lvl-value">{{ selected_sr }}</span> -->
+                                <p class="selectpicker-pera">
                                     <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_70" @click="srAddIconClickHandler">{{ selected_sr }}</span>
                                     <span class="sr-modal" v-if="sr_add_modal">
                                         <span class="sr-modal-inner" v-click-outside="srModalSectionOutsideClick">
@@ -69,15 +37,10 @@
                                     </span>
                                     <span class="sr-add-icon" @click="srAddIconClickHandler"><i class="zmdi zmdi-plus"></i></span>
                                 </p>
-                                <!-- <span class="sr-add-icon" @click="srAddIconClickHandler"><i class="zmdi zmdi-plus"></i></span> -->
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6 right_side_row"><p class="delivery-dt"><span class="jmi-lvl" style="font-size: 15px;">Delivery:</span> <span class="jmi-lvl-value"><input type="date" v-model="header_date" id="expected-delivery-date" placeholder="09/12/2020" /></span></p></div>
-                        <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="delivery-dt"><span class="jmi-lvl">Exp D D:</span> <span class="jmi-lvl-value">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.order_date ? (PENDING_ORDER_DATA_BY_ID.order_date).split(' ')[0] : 'Date Not Found') : 'Not Found' }}</span></p></div> -->
                     </div>
-                    <!-- <div class="row">
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="delivery-dt"><span class="jmi-lvl">Exp D D:</span> <span class="jmi-lvl-value"><input type="date" id="expected-delivery-date" placeholder="09/12/2020"/></span></p></div>
-                    </div> -->
                 </div>
             </div>
             <!-- Order Table -->
@@ -86,8 +49,6 @@
                     <table class="table jmi-order-table" id="order-data-table" cellspacing="0" width="100%">
                         <thead>
                             <tr>
-                                <!-- <th style="border: none" v-for="(head, i) in order_table_header" :key="i">{{ head }}</th>
-                                <th style="border: none"></th> -->
                                 <th>Name</th>
                                 <th>Trade Price<span class="with-vat">(With VAT)</span></th>
                                 <th>Quantity</th>
@@ -99,10 +60,7 @@
                         </thead>
                         <tbody>
                             <div class="table-data-rows">
-                                <!-- <tr v-for="(data, i) in order_table_data" :key="i"> -->
-                                <!-- <tr v-for="(data, i) in PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.order_details : null" :key="i"> -->
                                 <div id="progressbar" class="jmi-progressbar" v-if="!ORDERED_TABLE_DATA__INIT_LIST || !PENDING_ORDER_DATA_BY_ID">
-                                    <!-- <v-progress-circular indeterminate color="primary"></v-progress-circular> -->
                                     <p>Please select an order</p>
                                 </div>
                                 <div v-if="PENDING_ORDER_DATA_BY_ID && ORDERED_TABLE_DATA__INIT_LIST">
@@ -140,8 +98,6 @@
                                         </td>
                                         <!-- Discount Column -->
                                         <td>
-                                            <!-- <span v-if="!data.row_class">{{ data ? (data.offer ? (data.offer.offer ? (data.offer.offer.discount_percentage ? (data.offer.offer.discount_percentage) : 0) : 0) : 0) : 0 }}%</span>
-                                            <span v-if="data.row_class"></span> -->
                                             <span v-if="!(data.deal_type === 'F' && data.net_amount === '0')">{{ data ? (data.offer ? (data.offer.offer ? (data.offer.offer.discount_percentage ? Number(data.offer.offer.discount_percentage).toFixed(2) : 0) : 0) : 0) : 0 }}%</span>
                                         </td>
                                         <!-- Bonus Column -->
@@ -149,7 +105,6 @@
                                             <span>{{ data.offer.offer_type === "bonus" ? parseInt(data.qty / (data.offer.offer.bonus_on)) : data.bonus_qty }}</span>
                                         </td>
                                         <!-- Total Price Column -->
-                                        <!-- <td>{{ Number(data.tp).toFixed(2) }}</td> -->
                                         <td>
                                             <span v-if="!(data.deal_type === 'F' && data.net_amount === '0')">{{ Number((data.unit_tp) * (data.qty)).toFixed(2) }}</span>
                                         </td>
@@ -162,100 +117,42 @@
                                         </td>
                                     </tr>
                                 </div>
-                                <!-- -------- IF ANY PRODUCT ADDED -------- -->
-                                <!-- <tr :id="'order-data-table-tr_2-' + i" v-for="(data, i) in ORDERED_TABLE_DATA__INIT_LIST_2" :key="i">
-                                    <td>
-                                        <span>{{ data ? data.prod_name : '' }}</span>
-                                        <span>Unit Price: {{ data.base_tp }}</span>
-                                        <span v-if="data.row_class" :class="data.row_class">Free Product</span>
-                                    </td>
-                                    <td>
-                                        <span v-if="!data.row_class">{{ data ? Number(parseFloat(data.base_tp) + parseFloat(data.base_vat)).toFixed(2) : 0 }}</span>
-                                        <span v-if="data.row_class"></span>
-                                    </td>
-                                    <td :id="'order-data-table-tr-td_2-' + i">
-                                        <span class="single_qty quantity-setup">
-                                            <span class="qty">{{ data.quantity }}</span>
-                                        </span>
-                                        <span class="qty_editable quantity-setup hide" style="border: 1px solid #026CD1;">
-                                            <span class="qty-increase" @click="decreaseOrderedItemClickHandler_2(data, i)"><i class="zmdi zmdi-minus" :class="data.quantity < 2 ? 'jmi-deactive-btn' : ''"></i></span>
-                                            <span class="qty">{{ data ? (data.quantity ? data.quantity : 0) : 0 }}</span>
-                                            <span class="qty-decrease" @click="increaseOrderedItemClickHandler_2(data, i)"><i class="zmdi zmdi-plus"></i></span>
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span v-if="!data.row_class">{{ data ? (data.offer.discount_percentage ? data.offer.discount_percentage : 0) : 0 }}%</span>
-                                        <span v-if="data.row_class"></span>
-                                    </td>
-                                    <td>
-                                        <span v-if="!data.row_class">{{ data ? (data.offer.bonus_qty ? parseInt(data.quantity / data.offer.bonus_on) : 0) : 0 }}</span>
-                                        <span v-if="data.row_class">{{ data ? (data.offer.free_prod_qty ? parseInt(data.quantity / data.offer.free_req_qty) : 0) : 0 }}</span>
-                                    </td>
-                                    <td>
-                                        <span v-if="!data.row_class">{{ data ? (data.price_now_per_qty * data.quantity).toFixed(2) : 0 }}</span>
-                                        <span v-if="data.row_class"></span>
-                                    </td>
-                                    <td class="row-action jmi-tr-td-option" style="min-width: 70px; text-align: right;">
-                                        <span class="icon edit-icon" @click="editOrderitemClickHandler_2(data, i)"><i class="zmdi zmdi-edit"></i></span>
-                                        <span class="icon delete-icon" @click="deleteOrderitemClickHandler_2(data, i)"><i class="fas fa-trash-alt"></i></span>
-                                    </td>
-                                </tr> -->
-                                <!-- -------- IF ANY PRODUCT ADDED -------- -->
                             </div>
                             <!-- Bottom Total Section -->
                             <div class="jmi-table-subtotal-btm-section" v-if="PENDING_ORDER_DATA_BY_ID && ORDERED_TABLE_DATA__INIT_LIST">
                                 <tr class="subtotal bottom-total" style="border-top: 1px solid #BFCFE2;">
                                     <td style="width: 50%;"><span class="add-order-attachment-section add-order" @click="addOrderClickHandler" v-if="parseInt(ORDER_CREATED_BY) === parseInt(ORDER_AUTH_USER)"><i class="zmdi zmdi-plus"></i>Add Products</span></td>
                                     <td style="width: 25%;"><span>Subtotal</span></td>
-                                    <!-- <td style="width: 15%;"><span>{{ ( Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.gross_tp : 0).toFixed(2) ) }}</span></td> -->
                                     <td style="width: 15%;"><span>{{ Number(sub_total).toFixed(2) }}</span></td>
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
                                 <tr class="subtotal bottom-total">
-                                    <td style="width: 50%;"></td>
+                                    <td style="width: 50%;"><span class="add-order-attachment-section add-order" @click="showCommentClickHandler">Show Order Note</span></td>
                                     <td style="width: 25%;">(+) Vat</td>
-                                    <!-- <td style="width: 15%;">{{ Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.total_vat : 0).toFixed(2) }}</td> -->
                                     <td style="width: 15%;">{{ Number(vat_total).toFixed(2) }}</td>
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
                                 <tr class="subtotal bottom-total">
                                     <td style="width: 50%;"></td>
                                     <td style="width: 25%;">Gross Total</td>
-                                    <!-- <td style="width: 15%;">{{ Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.gross_total : 0).toFixed(2) }}</td> -->
                                     <td style="width: 15%;">{{ Number(gross_total).toFixed(2) }}</td>
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
                                 <tr class="subtotal bottom-total">
                                     <td style="width: 50%;"><span class="add-order-attachment-section add-attachment" @click="addAttachmentClickHandler"><i class="zmdi zmdi-attachment-alt"></i>Attachment</span></td>
                                     <td style="width: 25%;">(-) Discount</td>
-                                    <!-- <td style="width: 15%;">{{ Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.total_discount : 0).toFixed(2) }}</td> -->
                                     <td style="width: 15%;">{{ Number(discount_total).toFixed(2) }}</td>
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
-                                <!-- <tr class="subtotal bottom-total">
-                                    <td style="width: 50%;"></td>
-                                    <td style="width: 25%;">(+/-) Rounding Adjustment</td>
-                                    <td style="width: 15%;">{{ Number(rounding_adjustment).toFixed(2) }}</td>
-                                    <td style="width: 10%; min-width: 70px;"></td>
-                                </tr> -->
                                 <tr class="grand-total bottom-total" style="border-top: 1px solid #BFCFE2;">
                                     <td style="width: 50%; text-align: left;">
                                         <span class="order-forward hide" @click="orderForwardClickHandler"><i class="zmdi zmdi-fast-forward"></i>Order Forward</span>
                                         <span class="order-reject" @click="orderRejectClickHandler">Reject Order</span>
                                     </td>
                                     <td style="width: 25%;">Grand Total</td>
-                                    <!-- <td style="width: 15%;">{{ Number(PENDING_ORDER_DATA_BY_ID ? PENDING_ORDER_DATA_BY_ID.net_total : 0).toFixed(2) }}</td> -->
                                     <td style="width: 15%;">{{ Number(grand_total).toFixed(2) }}</td>
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
-                                <!-- <tr class="grand-total bottom-total">
-                                    <td style="width: 50%; text-align: left;">
-                                        <span class="ptint-inv-jmi" @click="printInvoiceClickHandler">Print Invoice</span>
-                                    </td>
-                                    <td style="width: 25%;"></td>
-                                    <td style="width: 15%;"></td>
-                                    <td style="width: 10%; min-width: 70px;"></td>
-                                </tr> -->
                             </div>
                         </tbody>
                     </table>
@@ -514,7 +411,6 @@
                                                     <p class="basic-data"><span class="lvl">Customer Type:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_info ? (SHOW_CUSTOMER_PROFILE.customer_info.customer_type ? (SHOW_CUSTOMER_PROFILE.customer_info.customer_type.description) : '') : '') : '' }}</span></p>
                                                     <p class="basic-data"><span class="lvl">Sales Area:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_area_info ? (SHOW_CUSTOMER_PROFILE.customer_area_info.sales_area ? (SHOW_CUSTOMER_PROFILE.customer_area_info.sales_area.area_name ? (SHOW_CUSTOMER_PROFILE.customer_area_info.sales_area.area_name) : '') : '') : '') : '' }}</span></p>
                                                     <p class="basic-data"><span class="lvl">Sales Center:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_area_info ? (SHOW_CUSTOMER_PROFILE.customer_area_info.sales_area ? (SHOW_CUSTOMER_PROFILE.customer_area_info.sales_area.area_name ? (SHOW_CUSTOMER_PROFILE.customer_area_info.sales_area.area_name) : '') : '') : '') : '' }}</span></p>
-                                                    <!-- <p class="basic-data"><span class="lvl">Credit Limit:</span><span class="lvl-value">2,00,000</span></p> -->
                                                     <p class="basic-data"><span class="lvl">Type of Payment:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.credit_flag === 'Y' ? 'Cash' : 'Credit') : '' }}</span></p>
                                                 </div>
                                             </div>
@@ -683,9 +579,7 @@
 </template>
 
 <script>
-// import AdvancedSearch from 'vue-advanced-search'
 import * as VueGoogleMaps from 'vue2-google-maps'
-
 import JMIFilter from '.././../../../../../functions/JMIFIlter'
 const jmiFilter = new JMIFilter()
 
@@ -695,13 +589,9 @@ const service = new ERPService()
 import PP_Invoice_Type_1 from '../../../../../../functions/Print_Func/PP_Invoice_Type_1'
 const ppInvoice_Type_1 = new PP_Invoice_Type_1()
 
-// import DemoPrintData from './DemoPrintData'
-// const demoPrintData = new DemoPrintData()
-
 export default {
     props: ["pending_order_list_by_id", "order_id_from_left_side"],
     components: {
-        // AdvancedSearch 
     },
     data() {
         return {
@@ -1026,7 +916,6 @@ export default {
             directionsRenderer: null,
             InfoWindow: VueGoogleMaps.InfoWindow,
             Map: VueGoogleMaps.Map,
-
             // This Component Dynamic Data Starts here
             sr_add_modal: false,
             selected_sr: null,
@@ -1062,13 +951,12 @@ export default {
         }
     },
     async created() {
-        // console.log(this.pending_order_list_by_id)
-    },
-    async mounted() {
         this.$getLocation({})
         .then( coordinates => {
             console.log(coordinates)
         })
+    },
+    async mounted() {
         await this.DIC_WISE_USERS__FROM_SERVICE()
     },
     methods: {
@@ -1119,16 +1007,12 @@ export default {
                 this.DISABLE_SUBMISSION_BTN = true 
             }
             this.createSubtotalCalculation()
-            // this.UPDATE_BTN_TRUE = true
-            // this.createSubtotalCalculation()
-            // Free Product row quantity increase
             if(data.offer.offer_type === "free") {
                 let bonus = parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[index + 1].bonus_qty)
                 bonus = parseInt(parseInt(data.qty) / parseInt(data.offer.offer.free_req_qty))
                 this.ORDERED_TABLE_DATA__INIT_LIST[index + 1].bonus_qty = bonus
             }
             console.log(data.offer.offer.free_req_qty)
-            // console.log(this.ORDERED_TABLE_DATA__INIT_LIST[index + 1].bonus_qty)
             console.log(data.qty)
         },
         // Decrease Table Row's Single Product/Order
@@ -1156,12 +1040,6 @@ export default {
             console.log(data + '    ' + index)
             data.quantity++
             this.UPDATE_BTN_ENABLE = true
-            // this.UPDATE_BTN_TRUE = true
-            // this.createSubtotalCalculation()
-            // Free Product row quantity increase
-            // if(data.offer_type === "free") {
-            //     this.ORDERED_TABLE_DATA__INIT_LIST[index + 1].quantity++
-            // }
         },
         // Decrease Table Row's Single Product/Order
         decreaseOrderedItemClickHandler_2(data, index) {
@@ -1169,13 +1047,7 @@ export default {
             if(data.quantity > 1) {
                 data.quantity--
                 this.UPDATE_BTN_ENABLE = true
-                // this.UPDATE_BTN_TRUE = true
-                // this.createSubtotalCalculation()
             }
-            // Free Product row quantity decrease
-            // if(data.offer_type === "free") {
-            //     this.ORDERED_TABLE_DATA__INIT_LIST[index + 1].quantity--
-            // }
         },
         // Ordered Table Quantity input keyup & keydown
         quantityKeyUp_ordered_table(data, value, i) {
@@ -1188,7 +1060,6 @@ export default {
             }
             data.qty = selector.value
             this.UPDATE_BTN_ENABLE = true
-            // this.UPDATE_BTN_TRUE = true
             console.log(data.net_qty)
             console.log(data.available_stock)
             if(parseInt(data.net_qty) > parseInt(data.available_stock) && parseInt(data.available_stock) > 0) {
@@ -1207,17 +1078,14 @@ export default {
         // Edit Table Row's Single Product/Order
         editOrderitemClickHandler(data, index) {
             this.DIC_OR_MIO_OR_AM_USER_QTY_COUNT = data.qty
-            // this.UPDATE_QUANTITY_ENABLE_1 = true
             console.log(this.DIC_OR_MIO_OR_AM_USER_QTY_COUNT)
             console.log(data + '    ' + index + '    auth-created: ' + this.ORDER_CREATED_BY + '  ' + this.ORDER_AUTH_USER)
-            // console.log(data.qty)
             let selector_qty_1 = document.querySelector('#order-data-table-tr-' + index + ' #order-data-table-tr-td-' + index + ' .single_qty')
             let selector_qty_2 = document.querySelector('#order-data-table-tr-' + index + ' #order-data-table-tr-td-' + index + ' .qty_editable')
             selector_qty_1.className = 'single_qty quantity-setup hide '
             selector_qty_2.className = 'qty_editable quantity-setup'
         },
         editOrderitemClickHandler_2(data, index) {
-            // this.UPDATE_QUANTITY_ENABLE_2 = true
             console.log(data + '    ' + index)
             console.log(data + '    ' + index)
             let selector_qty_1 = document.querySelector('#order-data-table-tr_2-' + index + ' #order-data-table-tr-td_2-' + index + ' .single_qty')
@@ -1243,16 +1111,7 @@ export default {
                 for (let [i, tt] of this.ORDERED_TABLE_DATA__INIT_LIST.entries()) {
                     if (tt.product_id === this.delete_product_from_table_popup_modal_data.product_id) {
                         this.ORDERED_TABLE_DATA__INIT_LIST.splice(i, 1);
-                        // for(let [x, y] of this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.entries()) {
-                        //     if (y.prod_id === this.delete_product_from_table_popup_modal_data.product_id) {
-                        //         this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.splice(x, 1);
-                        //     }
-                        // }
                         this.DELETED_PRODUCT_LIST__FROM_ORDERED_TABLE_DATA__INIT_LIST.push(this.delete_product_from_table_popup_modal_data)
-                        // Free Product row delete
-                        // if(data.offer_type === "free") {
-                        //     this.ORDERED_TABLE_DATA__INIT_LIST.splice(i, 1);
-                        // }
                     }
                 }
                 await this.DESTROY_ORDER_DETAILS_BY_ID__FROM_SERVICE(this.delete_product_from_table_popup_modal_data.id)
@@ -1264,9 +1123,6 @@ export default {
                     this.removing_last_product_from_cart = false
                 }, 2000)
             }
-            // console.log(this.delete_product_from_table_popup_modal_data)
-            // this.delete_product_from_table_popup_modal_data = null
-            // console.log(this.delete_product_from_table_popup_modal_data)
         },
         deleteOrderitemClickHandler_2(data, index) {
             console.log(data + '    ' + index)
@@ -1330,8 +1186,6 @@ export default {
             console.log('update order')
             console.log(this.ORDERED_TABLE_DATA__INIT_LIST)
             console.log(this.ORDERED_TABLE_DATA__INIT_LIST_2)
-            // this.UPDATE_QUANTITY_ENABLE_1 = false
-            // this.UPDATE_QUANTITY_ENABLE_2 = false
 
             let prod_list = []
             for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST.length; i++) {
@@ -1441,9 +1295,6 @@ export default {
             this.add_order_modal = false
         },
         async addItemsFromModalClickHandler() {
-            // console.log('add items from modal')
-            // console.log(this.SELECTED_ORDERED_PRODUCTS__INIT_LIST)
-            // this.SELECTED_ORDERED_PRODUCTS__STORE = this.SELECTED_ORDERED_PRODUCTS__INIT_LIST
             if(this.SELECTED_ORDERED_PRODUCTS__STORE.length > 0) {
                 for(let i=0; i<this.SELECTED_ORDERED_PRODUCTS__INIT_LIST.length; i++) {
                     this.SELECTED_ORDERED_PRODUCTS__STORE.push(this.SELECTED_ORDERED_PRODUCTS__INIT_LIST[i])
@@ -1461,8 +1312,6 @@ export default {
                 prod_db_list.push(prod_obj)
             }
             console.log(prod_db_list)
-            // CALL SERVICE IMPLEMENTATION FUNCTION
-            // await this.FIND_PRODUCT_OFFER__FROM_SERVICE(prod_db_list)
             this.ADD_PRODUCT_FROM_AUTOFILL_SECOND_FULL_PERAM(prod_db_list)
             // Close Modal
             if(prod_db_list.length > 0) {
@@ -1631,9 +1480,6 @@ export default {
                 .then(res => {
                     console.log(res.data)
                     this.PRODUCT_MODAL_DATA_LIST = res.data.product_list
-                    // console.log(this.SELECTED_ORDERED_PRODUCTS__STORE.length)
-                    // console.log(this.PRODUCT_MODAL_DATA_LIST.length)
-                    // console.log(this.SELECTED_ORDERED_PRODUCTS__STORE)
                     if(this.SELECTED_ORDERED_PRODUCTS__STORE.length > 0) {
                         for(let i=0; i<this.PRODUCT_MODAL_DATA_LIST.length; i++) {
                             for(let j=0; j<this.SELECTED_ORDERED_PRODUCTS__STORE.length; j++) {
@@ -1733,9 +1579,6 @@ export default {
             await service.getAddNewProdOnExistOrderByOrderId_OrderApproval(this.order_id_from_left_side, prod_db_list)
                 .then(res => {
                     console.log(res.data)
-                    /*this.ORDERED_TABLE_DATA__INIT_LIST = []
-                    this.ORDERED_TABLE_DATA__INIT_LIST = res.data.order.order_details
-                    this.createSubtotalCalculation()*/
                     this.$emit('reload_this_order', this.order_id_from_left_side)
                 })
                 .catch(err => {
@@ -1801,19 +1644,6 @@ export default {
             } else {
                 this.approve_product_confirmation_popup_modal = false
             }
-            /*await service.getApproveSingleOrderByOrderId_OrderApproval(this.order_id_from_left_side)
-                .then(res => {
-                    console.log(res.data)
-                    this.approve_product_confirmation_popup_modal = false
-                    this.approved_single_order_modal = true
-                    this.ORDER_SUCCESS_MESSAGE = res.data.message
-                    this.$emit('single_order_approved', this.order_id_from_left_side)
-                    this.defaultAllThisComponentData()
-                    setTimeout( () => {
-                        this.approved_single_order_modal = false
-                        this.ORDER_SUCCESS_MESSAGE = null
-                    }, 2000)
-                })*/
         },
         async PRINT_THIS_ORDER_DETAILS__INVOICE__FROM_SERVICE() {
             await service.getPrintOrderDetails_OrderApproval_INVOICE(this.order_id_from_left_side)
@@ -1849,10 +1679,6 @@ export default {
         },
         // -----------------------------------------------------------------------------------------------
         async GENERATE_ORDERED_PRODUCTS_DETAILS_LIST_FROM_PRODUCT_OFFER_RESPONSE() {
-            // if(this.UPDATE_ORDER_CLICKED) {
-            //     this.ORDERED_TABLE_DATA__INIT_LIST = []
-            //     this.UPDATE_ORDER_CLICKED = false
-            // }
             if(this.SELECTED_ORDERED_PRODUCTS__STORE.length > 0 && this.RESPONSE_ORDERED_PRODUCTS__STORE.length > 0) {
                 for (let i=0; i<this.SELECTED_ORDERED_PRODUCTS__STORE.length; i++) {
                     for(let j=0; j<this.RESPONSE_ORDERED_PRODUCTS__STORE.length; j++) {
@@ -1907,8 +1733,6 @@ export default {
                 this.PENDING_ORDER_DATA_BY_ID = null
                 this.ORDERED_TABLE_DATA__INIT_LIST = []
                 this.ORDERED_TABLE_DATA__INIT_LIST_2 = []
-                // this.ORDERED_TABLE_DATA__MODIFIED_LIST = []
-                // this.ORDERED_TABLE_DATA__CONFIRM_LIST = []
                 this.PRODUCT_MODAL_DATA_LIST = []
                 this.SELECTED_ORDERED_PRODUCTS__INIT_LIST = []
                 this.SELECTED_ORDERED_PRODUCTS__STORE = []
@@ -1965,24 +1789,22 @@ export default {
                 }
             }
         },
+        showCommentClickHandler() {
+            console.log('showCommentClickHandler')
+        }
     },
     watch: { 
         async pending_order_list_by_id(newVal, oldVal){
             console.log('changes' + newVal)
             console.log('changes' + oldVal)
             console.log('SR DA ID ' + this.pending_order_list_by_id.da_id)
-            // if()
-            // console.log(this.pending_order_list_by_id.order_details)
-            // await this.defaultAllThisComponentData()
             setTimeout( () => {
                 console.log(this.pending_order_list_by_id.order_date)
-                // console.log(this.pending_order_list_by_id)
                 this.SHOW_PRINT_ICON = true
                 this.PENDING_ORDER_DATA_BY_ID = this.pending_order_list_by_id
                 this.ORDERED_TABLE_DATA__INIT_LIST = this.pending_order_list_by_id.order_details
                 this.set_Or_Change_SR(this.pending_order_list_by_id.da_id)
                 this.set_Or_Change_Date(this.pending_order_list_by_id.order_date)
-                // this.ORDER_CREATED_BY = 101
                 this.ORDER_CREATED_BY = this.pending_order_list_by_id.created_by
                 this.ORDER_AUTH_USER = this.pending_order_list_by_id.auth_user
                 console.log(this.PENDING_ORDER_DATA_BY_ID.is_verified)
@@ -1990,12 +1812,6 @@ export default {
                 this.createSubtotalCalculation()
                 console.log(this.ORDERED_TABLE_DATA__INIT_LIST)
             }, 100)
-            // if( newVal && oldVal) {
-            //     if(newVal.customer_id !== oldVal.customer_id) {
-            //         this.defaultAllThisComponentData()
-            //         console.log(this.pending_order_list_by_id.order_details)
-            //     }
-            // }
         },
     }
 }
