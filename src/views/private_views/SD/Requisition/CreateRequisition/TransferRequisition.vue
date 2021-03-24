@@ -15,7 +15,6 @@ import TransferRequisitionLeftSection from "./Sidebar/TransferRequisitionLeftSec
 import TransferRequisitionDetailsSection from "./Details/TransferRequisitionDetailsSection";
 
 export default {
-    props: [],
   components: {
     Heading,
     TransferRequisitionLeftSection,
@@ -23,12 +22,11 @@ export default {
   },
   data() {
     return {
-      routeName: "Transfer Requisition",
+      routeName: "Create Requisition",
       parentPath: "Local Sales",
       pathName: [],
     };
   },
-    computed: {},
   created() {
     this.$emit("routeName", this.$route.name);
     this.createBreadcrumbData();
@@ -38,11 +36,10 @@ export default {
   },
   methods: {
     createBreadcrumbData() {
-      this.pathName = [{ name: "Features" }, { name: "Local Sales" }, { name: "Transfer Requisition" }];
+      this.pathName = [{ name: "Features" }, { name: "Local Sales" }, { name: "Create Requisition" }];
       // this.pathName = breadcrumbFunctions.jmiERPBreadcrumb(window.location.pathname)
     },
   },
-  watch: {}
 };
 </script>
 

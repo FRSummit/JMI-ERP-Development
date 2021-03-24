@@ -1,6 +1,6 @@
 <template>
     <div class="transfer-requisition-sidebar">
-        <div class="layout-sidebar requisition">
+        <div class="layout-sidebar create-requisition">
             <!-- Start Secondary Sidebar Header Area-->  
             <div class="header">  
                <div class="row1">
@@ -16,19 +16,18 @@
             <!--End Secondary Sidebar Header Area-->  
             
             <!--Start Secondary Sidebar Content Area--> 
-            <div class="content jmi-scroll-section">
+            <div class="content jmi-scroll-section">                
                 <div class="card_body" v-for="(item, i) in items" :key="i">
-                    <div class="row1">
-                        <h5>{{ item.title }}</h5>
-                        <p>{{ item.date }}</p>
-                    </div>
-                    <div class="row2">
-                        <p>{{ item.requisition }}</p>
-                    </div>
-                    <div class="row3">
-                        <p>Requisition To: <span>{{ item.area }}</span></p>
-                        <p class="status" :class="item.status.toLowerCase()"> <i class="fa fa-square mr-1"></i>{{ item.status }}</p>
-                    </div>
+                    <input id="product-1" type="checkbox" name="product" value="product-1">
+                    <label for="product-1" class="check-item">
+                        <div class="row1">
+                            <h5>{{ item.title }}</h5>
+                            <span>{{ item.qty }}</span>
+                        </div>
+                        <div class="row2">
+                            <p>{{ item.desc }}</p>
+                        </div>
+                    </label> 
                 </div>
             </div>
             <!--End Secondary Sidebar Content Area--> 
@@ -51,7 +50,7 @@ export default {
     computed: {},
     created() {},
     mounted() {
-        this.items = demoData.demo_data().transfer_requisition_items
+        this.items = demoData.demo_data().create_requisition_items
     },
     methods: {},
     watch: {}
@@ -62,14 +61,14 @@ export default {
 .transfer-requisition-sidebar {
     height: calc(100vh - (74px + 54px + 32px));
 }
-.layout-sidebar.requisition .header .row1 {
+.layout-sidebar.create-requisition .header .row1 {
     height: 38px;
 }
-.layout-sidebar.requisition .header .row1 .form-group {
+.layout-sidebar.create-requisition .header .row1 .form-group {
     /* overflow: hidden; */
     height: 38px;
 }
-.layout-sidebar.requisition .header .row1 .form-group svg {
+.layout-sidebar.create-requisition .header .row1 .form-group svg {
     position: absolute;
     top: 12px;
     left: 10px;
@@ -82,15 +81,15 @@ export default {
     margin: 0;
     font-size: 14px;
 }
-.layout-sidebar.requisition .header .row2 h5 {
+.layout-sidebar.create-requisition .header .row2 h5 {
     font-weight: 500;
 }
-.layout-sidebar.requisition .content .card_body .row1 h5 {
+.layout-sidebar.create-requisition .content .card_body .row1 h5 {
     margin: 0;
     font-weight: 500;
     line-height: 1.2;
 }
-.layout-sidebar.requisition .content .card_body .row1 h5 {
+.layout-sidebar.create-requisition .content .card_body .row1 h5 {
     line-height: 1.5;
 }
 .jmi-scroll-section {

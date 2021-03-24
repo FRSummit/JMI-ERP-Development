@@ -10,7 +10,7 @@
                             <p>Select from the left bar</p>
                             <p>Or</p>
                             <a>
-                                <button type="button" class="btn btn-primary btn-global">
+                                <button type="button" class="btn btn-primary btn-global" @click="createRequisitionClickHandler">
                                     <i class="fa fa-plus mr-2"></i>
                                     Create Requisition
                                 </button>
@@ -22,6 +22,16 @@
         </div>
     </div>
 </template>
+
+<script>
+export default {
+    methods: {
+        createRequisitionClickHandler() {
+            this.$router.push('/features/local_sales/create-requisition')
+        }
+    }
+}
+</script>
 
 <style scoped>
 .transfer-requisition-details {

@@ -72,6 +72,9 @@
       <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
         <router-link to="/features/local_sales/transfer-requisition">Transfer Requisition</router-link>
       </div>
+      <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
+        <router-link to="/features/local_sales/create-requisition">Create Requisition</router-link>
+      </div>
     </div>
     
     <br />
