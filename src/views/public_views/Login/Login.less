@@ -15,21 +15,29 @@
 @link:rgb(221, 221, 221);
 @defaultBlueText: #026CD1;
 #login.login {
-  margin-right: 60px;
+  // margin-right: 60px;
+  position: fixed;
+  top: calc((100vh / 2) - 300px);
+  left: calc((100vw / 2) - 212px);
 }
 .container {
   width: 100%;
-  margin: 0 auto;
+  // margin: 0 auto;
+  margin: 0;
   // margin-top: 50px;
   // margin-top: 10%;
 }
-.inner-cont {
-  max-width: 500px;
-  margin: 0 auto;
+.inner-cont,
+.col-md-6 {
+  // max-width: 500px;
+  width: 400px;
+  // margin: 0 auto;
+  margin: 0;
 }
 .blmd-wrapp{
+    width: 400px;
     height:auto;
-    margin-bottom: 10vh;
+    // margin-bottom: 10vh;
     background: @white;
     padding:1em 0;
     position: relative;
