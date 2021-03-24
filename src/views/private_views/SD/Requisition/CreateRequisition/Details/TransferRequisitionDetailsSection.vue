@@ -6,7 +6,7 @@
               <div class="row requition_header"> 
                   <div class="col-12 header_top">
                       <h5>ID: <span>#</span></h5>
-                      <a class="edit" href=""><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                      <a class="edit" href=""><i class="zmdi zmdi-edit"></i></a>
                   </div>
                   <div class="col-lg-3 col-md-3 col-12">
                       <p>Requisition From: <span class="text-data">Rangpur</span></p>
@@ -65,16 +65,16 @@
                                 </form>
                             </td>
                             <td>
-                                <a class="edit" href=""><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                <a class="remove" href=""><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                <a class="edit"><i class="zmdi zmdi-edit"></i></a>
+                                <a class="remove"><i class="fas fa-trash-alt"></i></a>
                             </td>
                         </tr>
                     </tbody>
                 </table>
               </div>
               <div class="row requition_footer">
-                <a href="./transfer-requition-index.html"><button type="button" class="btn btn-primary btn-global btn-draft mx-2">Save As Draft</button></a>
-                <a href="./transfer-requition-2.html"><button type="button" class="btn btn-primary btn-global mx-2">Send Request</button></a>
+                <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2">Save As Draft</button></a>
+                <a><button type="button" class="btn btn-primary btn-global mx-2">Send Request</button></a>
                 
               </div>
           </div>
@@ -106,7 +106,7 @@ export default {
 </script>
 
 <style scoped>
-transfer-requisition-details {
+.transfer-requisition-details {
     height: calc(100vh - (74px + 54px + 32px));
 }
 .layout-container {
@@ -126,6 +126,28 @@ transfer-requisition-details {
     width: 54%;
     display: inline-block !important;
     min-width: unset;
+}
+.header_top .edit i {
+    font-size: 16px;
+    cursor: pointer;
+}
+table tbody td a {
+    cursor: pointer;
+}
+table tbody td a.edit i {
+    font-size: 16px;
+}
+table tbody td a.remove {
+    width: 30px;
+    height: 30px;
+    background-color: #f5bec6;
+    border-radius: 50%;
+    padding-top: 8px;
+}
+table tbody td a.remove svg {
+    color: #df2a43;
+    width: 14px;
+    height: 14px;
 }
 .quantity-input {
     border: 1px solid #E2EDFA;
@@ -155,5 +177,9 @@ transfer-requisition-details {
     background: #026cd1;
     font-size: 14px;
     text-transform: unset;
+    box-shadow: none
+}
+.row.requition_footer a:first-child .btn.btn-primary.btn-global {
+    color: #000000;
 }
 </style>

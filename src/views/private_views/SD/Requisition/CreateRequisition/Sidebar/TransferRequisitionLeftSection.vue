@@ -17,8 +17,8 @@
             
             <!--Start Secondary Sidebar Content Area--> 
             <div class="content jmi-scroll-section">                
-                <div class="card_body" v-for="(item, i) in items" :key="i">
-                    <input id="product-1" type="checkbox" name="product" value="product-1">
+                <div class="card_body" v-for="(item, i) in items" :key="i" @click="itemClickHandler(item, i)">
+                    <input :id="'card_body_input_' + i" type="checkbox" :name="item.title" :value="item.title">
                     <label for="product-1" class="check-item">
                         <div class="row1">
                             <h5>{{ item.title }}</h5>
@@ -52,7 +52,17 @@ export default {
     mounted() {
         this.items = demoData.demo_data().create_requisition_items
     },
-    methods: {},
+    methods: {
+        itemClickHandler(item, i) {
+            console.log(item)
+            let checkbox_selector = document.querySelector('#card_body_input_' + i)
+            if(checkbox_selector.checked === true) {
+                checkbox_selector.checked = false
+            } else {
+                checkbox_selector.checked = true
+            }
+        }
+    },
     watch: {}
 }
 </script>

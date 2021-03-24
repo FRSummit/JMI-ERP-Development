@@ -32,7 +32,6 @@ export default {
     this.createBreadcrumbData();
   },
   async mounted() {
-    await this.PRESENT_POSITION_STOCK_REPORT__FROM_SERVICE();
   },
   methods: {
     createBreadcrumbData() {
