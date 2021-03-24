@@ -112,51 +112,51 @@ export default {
 .layout-container {
     height: calc(100vh - (74px + 54px + 32px));
 }
-.requition_header h5 {
-    margin: 0;
-}
 .requition_area .requition_header .header_top {
     padding: 0;
 }
-.requition_header .form-group label {
+.requition_area .requition_header h5 {
+    margin: 0;
+}
+.requition_area .requition_header .form-group label {
     display: inline-block;
     width: 45%;
 }
-.requition_header .form-group .form-control-sm {
+.requition_area .requition_header .form-group .form-control-sm {
     width: 54%;
     display: inline-block !important;
     min-width: unset;
 }
-.header_top .edit i {
+.requition_area .header_top .edit i {
     font-size: 16px;
     cursor: pointer;
 }
-table tbody td a {
+.requition_area table tbody td a {
     cursor: pointer;
 }
-table tbody td a.edit i {
+.requition_area table tbody td a.edit i {
     font-size: 16px;
 }
-table tbody td a.remove {
+.requition_area table tbody td a.remove {
     width: 30px;
     height: 30px;
     background-color: #f5bec6;
     border-radius: 50%;
     padding-top: 8px;
 }
-table tbody td a.remove svg {
+.requition_area table tbody td a.remove svg {
     color: #df2a43;
     width: 14px;
     height: 14px;
 }
-.quantity-input {
+.requition_area .quantity-input {
     border: 1px solid #E2EDFA;
 }
-.quantity-input input {
+.requition_area .quantity-input input {
     border: none;
     height: 28px;
 }
-.quantity-input input:focus {
+.requition_area .quantity-input input:focus {
     outline           : 0 !important;
     outline-offset    : 0 !important;
     -moz-box-shadow   : none !important;
@@ -164,22 +164,22 @@ table tbody td a.remove svg {
     box-shadow        : none !important;
     border: none !important;
 }
-.quantity-input .quantity {
+.requition_area .quantity-input .quantity {
     height: 28px;
     margin: 0;
     border-bottom: none;
     font-size: 14px;
 }
-.row.requition_content table tbody {
+.requition_area .row.requition_content table tbody {
     height: calc(100vh - (74px + 54px + 32px + (290px)));
 }
-.btn.btn-primary.btn-global {
+.requition_area .btn.btn-primary.btn-global {
     background: #026cd1;
     font-size: 14px;
     text-transform: unset;
     box-shadow: none
 }
-.row.requition_footer a:first-child .btn.btn-primary.btn-global {
+.requition_area .row.requition_footer a:first-child .btn.btn-primary.btn-global {
     color: #000000;
 }
 </style>
