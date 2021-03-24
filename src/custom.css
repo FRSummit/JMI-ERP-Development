@@ -2875,6 +2875,10 @@ button.jmi-confirm-btn:focus {
     margin: 0;
 }
 
+#login.login .blmd-form .form-control {
+    color: #28324b !important;
+}
+
 /* Login */
 /* --------------------------------------------------------------------------------------- */
 

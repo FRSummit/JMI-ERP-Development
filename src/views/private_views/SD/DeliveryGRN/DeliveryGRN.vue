@@ -11,6 +11,7 @@
               :SCHEDULE_DETAILS_LIST="SCHEDULE_DETAILS_LIST"
               :INVOICE_FOR_CURRENT_DS_LIST="INVOICE_FOR_CURRENT_DS_LIST"
               :HEADER_DATA="HEADER_DATA"
+              :GRN_DATA="GRN_DATA"
               v-on:return_grn_btn_click="returnGrnBtnClick" />
           </div>
         </div>
@@ -48,6 +49,7 @@ export default {
       pathName: [],
       // info_modal_schedult_count: false,
       // schedule_count: null,
+      GRN_DATA: [],
       SCHEDULE_DETAILS_LIST: [],
       INVOICE_FOR_CURRENT_DS_LIST: [],
       DS_ID: null,
@@ -85,6 +87,7 @@ export default {
       service.getGRN_InfoByGRN_No__DELIVERY_GRN(grn_no)
         .then(res => {
           console.log(res.data)
+          this.GRN_DATA = res.data.grn_info
           this.SCHEDULE_DETAILS_LIST = res.data.grn_info.grn_detail
           this.HEADER_DATA = res.data.header
           console.log(this.SCHEDULE_DETAILS_LIST)

@@ -1805,7 +1805,7 @@ export default {
                 this.show_comment_popup = false
             } else {
                 this.show_comment_popup = true
-                this.customer_comment = this.pending_order_list_by_id.order_details
+                this.customer_comment = this.pending_order_list_by_id.order_note
             }
         },
         closeShowCommentPopup() {
