@@ -45,7 +45,7 @@
                             <td>
                                 <div class="product">
                                     <p class="name">{{ item.prod_code }} - {{ item.prod_name }}<span>{{ item.prod_class }}</span></p>
-                                    <p class="type">Unit Price: {{ item.base_tp }} - {{ item.base_uom }}</p>
+                                    <p class="type">Unit Price: {{ item.base_tp }}</p>
                                 </div>
                             </td>
                             <td>
