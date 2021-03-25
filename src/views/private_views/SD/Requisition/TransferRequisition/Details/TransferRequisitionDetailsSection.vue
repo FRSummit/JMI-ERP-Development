@@ -53,10 +53,10 @@
                         <table class="col-12">
                             <thead>
                                 <tr>
-                                <th>Name</th>
-                                <th>Unit</th>
-                                <th>Quantity</th>
-                                <th></th>
+                                    <th>Name</th>
+                                    <th>Unit</th>
+                                    <th>Quantity</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
