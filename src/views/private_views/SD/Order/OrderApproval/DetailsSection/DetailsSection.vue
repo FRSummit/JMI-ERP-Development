@@ -1629,14 +1629,17 @@ export default {
             console.log(this.selected_sr_id)
             console.log(this.header_date)
             console.log(this.order_id_from_left_side)
+            let order_details = []
             let order_approval_details = {
                 id: this.order_id_from_left_side,
                 da_id: this.selected_sr_id,
                 est_delivery_date: this.header_date,
             }
+            order_details.push(order_approval_details)
+            console.log(order_details)
             if(this.STOCK_TRANSIT_VALIDATION === false) {
                 // await service.getApproveSingleOrderByOrderId_OrderApproval(this.order_id_from_left_side)
-                await service.getApproveSingleOrderByOrderId_OrderApproval(order_approval_details)
+                await service.getApproveSingleOrderByOrderId_OrderApproval(order_details)
                     .then(res => {
                         console.log(res.data)
                         if(res.data.response_code === 200) {
