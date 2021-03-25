@@ -478,7 +478,7 @@ export default class PostService {
     // let web_menu_url = '/api/web/approve-single-order/' + order_id
     let web_menu_url = '/api/web/approve-single-order'
     return await axios(web_menu_url, {
-      method: 'GET',
+      method: 'POST',
       headers: {
         'Authorization': token_type + ' ' + token
       },
