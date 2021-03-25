@@ -59,9 +59,9 @@
                             <td>
                                 <form>
                                     <div class="quantity-input">
-                                        <input class='minus' type='button' value='-' field='quantity' @click="decreaseRequisitionQtyClickHandler(item)" />
+                                        <input class='minus' type='button' value='-' field='quantity' @click="decreaseRequisitionQtyClickHandler(item, i)" />
                                         <input class='quantity' type='number' name='quantity' placeholder="0" :value="item.req_qty" :id="'req_qty_' + i" v-on:keyup="reqQtyKeyUpEventHandler(item, $event, i)" v-on:keydown="reqQtyKeyDownEventHandler($event, i)" />
-                                        <input class='plus' type='button' value='+' field='quantity' @click="increaseRequisitionQtyClickHandler(item)" />
+                                        <input class='plus' type='button' value='+' field='quantity' @click="increaseRequisitionQtyClickHandler(item, i)" />
                                     </div>
                                 </form>
                             </td>
@@ -97,9 +97,9 @@ export default {
         }
     },
     computed: {
-        REQUISITION_DATA() {
-            return this.SELECTED_REQUISITION_DATA
-        }
+        // REQUISITION_DATA() {
+        //     return this.SELECTED_REQUISITION_DATA
+        // }
     },
     created() {},
     mounted() {
@@ -107,16 +107,17 @@ export default {
     },
     methods: {
         editRequisitionClickHandler() {},
-        decreaseRequisitionQtyClickHandler(item) {
-            console.log(item)
+        decreaseRequisitionQtyClickHandler(item, index) {
             if(item.req_qty > 1) {
                 item.req_qty--
             }
+            let selector = document.querySelector('#create-requisition #req_qty_' + index)
+            selector.value = item.req_qty
         },
-        increaseRequisitionQtyClickHandler(item) {
-            console.log(item.req_qty)
+        increaseRequisitionQtyClickHandler(item, index) {
             item.req_qty++
-            console.log(item.req_qty)
+            let selector = document.querySelector('#create-requisition #req_qty_' + index)
+            selector.value = item.req_qty
         },
         reqQtyKeyUpEventHandler(item, event, index) {
             console.log(event)

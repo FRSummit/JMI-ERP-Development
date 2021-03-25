@@ -106,8 +106,8 @@
 </template>
 
 <script>
-import DemoData from '../../DemoData'
-const demoData = new DemoData()
+// import DemoData from '../../DemoData'
+// const demoData = new DemoData()
 import GlobalDateFormat from '.././../../../../../functions/GlobalDateFormat'
 const globalDateFormat = new GlobalDateFormat()
 
@@ -123,7 +123,7 @@ export default {
     computed: {},
     created() {},
     mounted() {
-        this.items = demoData.demo_data().create_requisition_items_table_data
+        // this.items = demoData.demo_data().create_requisition_items_table_data
     },
     methods: {
         createRequisitionClickHandler() {
