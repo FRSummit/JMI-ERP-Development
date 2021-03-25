@@ -882,24 +882,37 @@ export default {
             console.log(prod_db_list)
             console.log(sbu_id + '  ' + customer_id + '  ' + this.on_change_reg_area_tt)
 
-            await service.getCreateOrder_CreateOrderDetailsSection(prod_db_list, sbu_id, customer_id, this.createYYYYDDMM(), this.on_change_reg_area_tt, this.customer_address, this.customer_comment)
-                .then(res => {
-                    console.log(res.data)
-                    this.proceed_modal_popup = false
-                    if(res.data.response_code === 201) {
-                        this.order_creating_progressbar_msg = res.data.message
+            console.log(this.on_change_reg_area_tt)
 
-                        setTimeout( () => {
-                            this.order_creating_progressbar = false
-                            this.order_creating_progressbar_msg = null
-                        }, 1000)
-                    }
-                    // this.$router.push('/features/local_sales/order_approval')
-                    this.defaultAllThisComponentData()
-                }).catch(err => {
-                    alert('Order creating problem : ' + err)
+            if(this.on_change_reg_area_tt) {
+                await service.getCreateOrder_CreateOrderDetailsSection(prod_db_list, sbu_id, customer_id, this.createYYYYDDMM(), this.on_change_reg_area_tt, this.customer_address, this.customer_comment)
+                    .then(res => {
+                        console.log(res.data)
+                        this.proceed_modal_popup = false
+                        if(res.data.response_code === 201) {
+                            this.order_creating_progressbar_msg = res.data.message
+
+                            setTimeout( () => {
+                                this.order_creating_progressbar = false
+                                this.order_creating_progressbar_msg = null
+                            }, 1000)
+                        }
+                        // this.$router.push('/features/local_sales/order_approval')
+                        this.defaultAllThisComponentData()
+                    }).catch(err => {
+                        alert('Order creating problem : ' + err)
+                        this.order_creating_progressbar = false
+                    })
+            } else {
+                this.order_creating_progressbar_msg = 'You forgot to select territory. Please add one from Order Territory.'
+
+                setTimeout( () => {
                     this.order_creating_progressbar = false
-                })
+                    this.order_creating_progressbar_msg = null
+                }, 2500)
+            }
+            
+
         },
         async getAllProduct() {
             await service.getSearchProductDataList_CreateOrderDetailsSection()
