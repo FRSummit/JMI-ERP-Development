@@ -1630,9 +1630,9 @@ export default {
             console.log(this.header_date)
             console.log(this.order_id_from_left_side)
             let order_approval_details = {
-                order_id: this.order_id_from_left_side,
-                date: this.header_date,
-                sr_id: this.selected_sr_id,
+                id: this.order_id_from_left_side,
+                est_delivery_date: this.header_date,
+                da_id: this.selected_sr_id,
             }
             if(this.STOCK_TRANSIT_VALIDATION === false) {
                 // await service.getApproveSingleOrderByOrderId_OrderApproval(this.order_id_from_left_side)
