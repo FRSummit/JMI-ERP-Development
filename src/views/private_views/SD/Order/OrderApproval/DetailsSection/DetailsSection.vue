@@ -1637,7 +1637,7 @@ export default {
             }
             order_details.push(order_approval_details)
             console.log(order_details)
-            if(this.STOCK_TRANSIT_VALIDATION === false) {
+            if(this.STOCK_TRANSIT_VALIDATION === false && (this.selected_sr_id && this.header_date)) {
                 // await service.getApproveSingleOrderByOrderId_OrderApproval(this.order_id_from_left_side)
                 await service.getApproveSingleOrderByOrderId_OrderApproval(order_details)
                     .then(res => {
@@ -1670,6 +1670,12 @@ export default {
                     })
             } else {
                 this.approve_product_confirmation_popup_modal = false
+                this.approved_single_order_modal = true
+                this.ORDER_SUCCESS_MESSAGE = 'No SR or Date selected. Please add SR'
+                setTimeout( () => {
+                    this.approved_single_order_modal = false
+                    this.ORDER_SUCCESS_MESSAGE = null
+                }, 2000) 
             }
         },
         async PRINT_THIS_ORDER_DETAILS__INVOICE__FROM_SERVICE() {
