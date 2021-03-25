@@ -139,6 +139,6 @@ export default {
     line-height: 1.5;
 }
 .jmi-scroll-section {
-    height: calc(100vh - (74px + 54px + 32px + 108px)) !important;
+    height: calc(100vh - (74px + 54px + 32px + 110px)) !important;
 }
 </style>
