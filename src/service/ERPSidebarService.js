@@ -473,14 +473,18 @@ export default class PostService {
   }
 
   // Order Approval - APPROVE SINGLE ORDER BY ORDER ID (FINAL) - DETAILS SECTION
-  async getApproveSingleOrderByOrderId_OrderApproval(order_id) {
-    console.log(order_id)
-    let web_menu_url = '/api/web/approve-single-order/' + order_id
+  async getApproveSingleOrderByOrderId_OrderApproval(order_approval_details) {
+    console.log(JSON.stringify(order_approval_details))
+    // let web_menu_url = '/api/web/approve-single-order/' + order_id
+    let web_menu_url = '/api/web/approve-single-order'
     return await axios(web_menu_url, {
-      method: 'GET',
+      method: 'POST',
       headers: {
         'Authorization': token_type + ' ' + token
       },
+      params: {
+        orders: JSON.stringify(order_approval_details)
+      }
     })
   }
 
@@ -876,6 +880,47 @@ export default class PostService {
       headers: {
         'Authorization': token_type + ' ' + token
       },
+    })
+  }
+
+  // REQUISITION - CREATE
+  async getRequisitionProductList_CREATE_REQUISITION() {
+    let web_menu_url = '/api/web/requisition-product-list'
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+    })
+  }
+
+  // REQUISITION - CREATE
+  async getAllDepotUnderSBU_CREATE_REQUISITION() {
+    let web_menu_url = '/api/web/all-depot-under-sbu'
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+    })
+  }
+
+  // REQUISITION - CREATE - SAVE
+  async getSaveNewRequisition_CREATE_REQUISITION(wh_from, req_status, prod_info) {
+    console.log(wh_from)
+    console.log(req_status)
+    console.log(JSON.stringify(prod_info))
+    let web_menu_url = '/api/web/save-new-requisition'
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+      params: {
+        wh_from: wh_from,
+        req_status: req_status,
+        prod_info: JSON.stringify(prod_info)
+      }
     })
   }
 

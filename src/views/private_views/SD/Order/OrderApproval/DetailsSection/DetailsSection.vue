@@ -31,7 +31,7 @@
                                         <span class="sr-modal-inner" v-click-outside="srModalSectionOutsideClick">
                                             <span class="jmi-title">Select SR</span>
                                             <span class="sr-loop" v-for="(sr, m) in SR_LIST__DA" :key="m">
-                                                <span  class="sr-name" @click="selectedSRClickHandler(sr.name)">{{ sr.name }}</span>
+                                                <span  class="sr-name" @click="selectedSRClickHandler(sr)">{{ sr.name }}</span>
                                             </span>
                                         </span>
                                     </span>
@@ -928,6 +928,7 @@ export default {
             // This Component Dynamic Data Starts here
             sr_add_modal: false,
             selected_sr: null,
+            selected_sr_id: null,
             PENDING_ORDER_DATA_BY_ID: null,
             SELECTED_ORDERED_PRODUCTS__INIT_LIST: [],
             SELECTED_ORDERED_PRODUCTS__STORE: [],
@@ -985,7 +986,10 @@ export default {
             this.sr_add_modal = false
         },
         selectedSRClickHandler(value) {
-            this.selected_sr = value
+            console.log(value)
+            console.log(value.id)
+            this.selected_sr = value.name
+            this.selected_sr_id = value.id
             this.sr_add_modal = false
         },
         expectedDateCalendarClick() {
@@ -1622,8 +1626,20 @@ export default {
             this.check_STOCK_TRANSIT_VALIDATION()
             console.log(this.STOCK_TRANSIT_VALIDATION)
             this.approve_product_confirmation_popup_modal = false
-            if(this.STOCK_TRANSIT_VALIDATION === false) {
-                await service.getApproveSingleOrderByOrderId_OrderApproval(this.order_id_from_left_side)
+            console.log(this.selected_sr_id)
+            console.log(this.header_date)
+            console.log(this.order_id_from_left_side)
+            let order_details = []
+            let order_approval_details = {
+                id: this.order_id_from_left_side,
+                da_id: this.selected_sr_id,
+                est_delivery_date: this.header_date,
+            }
+            order_details.push(order_approval_details)
+            console.log(order_details)
+            if(this.STOCK_TRANSIT_VALIDATION === false && (this.selected_sr_id && this.header_date)) {
+                // await service.getApproveSingleOrderByOrderId_OrderApproval(this.order_id_from_left_side)
+                await service.getApproveSingleOrderByOrderId_OrderApproval(order_details)
                     .then(res => {
                         console.log(res.data)
                         if(res.data.response_code === 200) {
@@ -1654,6 +1670,12 @@ export default {
                     })
             } else {
                 this.approve_product_confirmation_popup_modal = false
+                this.approved_single_order_modal = true
+                this.ORDER_SUCCESS_MESSAGE = 'No SR or Date selected. Please add SR'
+                setTimeout( () => {
+                    this.approved_single_order_modal = false
+                    this.ORDER_SUCCESS_MESSAGE = null
+                }, 2000) 
             }
         },
         async PRINT_THIS_ORDER_DETAILS__INVOICE__FROM_SERVICE() {
@@ -1754,6 +1776,7 @@ export default {
                 this.ORDER_CREATED_BY = null
                 this.ORDER_AUTH_USER = null
                 this.selected_sr = null
+                this.selected_sr_id = null
                 this.header_date = null
                 this.reject_order_modal_popup = false
                 this.SHOW_PRINT_ICON = false
@@ -1773,6 +1796,7 @@ export default {
             for(let i=0; i<this.SR_LIST__DA.length; i++) {
                 if(this.SR_LIST__DA[i].id === parseInt(da_id)) {
                     this.selected_sr = this.SR_LIST__DA[i].name
+                    this.selected_sr_id = this.SR_LIST__DA[i].id
                 }
             }
         },
@@ -1817,6 +1841,8 @@ export default {
             console.log('changes' + newVal)
             console.log('changes' + oldVal)
             console.log('SR DA ID ' + this.pending_order_list_by_id.da_id)
+            this.selected_sr = null
+            this.selected_sr_id = null
             setTimeout( () => {
                 console.log(this.pending_order_list_by_id.order_date)
                 this.SHOW_PRINT_ICON = true

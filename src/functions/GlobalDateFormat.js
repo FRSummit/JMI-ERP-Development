@@ -16,4 +16,9 @@ export default class GlobalDateFormat {
         var t = new Date(d);
         return monthShortNames[t.getMonth()] + ' ' + t.getFullYear().toString();
     }
+
+    dateFormatT4(d) {
+        var t = new Date(d);
+        return t.getDate() + ' ' + monthShortNames[t.getMonth()] + ' ' + t.getFullYear().toString();
+    }
 }

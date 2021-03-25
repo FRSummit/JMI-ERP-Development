@@ -1,5 +1,5 @@
 <template>
-    <div class="transfer-requisition-sidebar">
+    <div class="create-requisition-sidebar">
         <div class="layout-sidebar create-requisition">
             <!-- Start Secondary Sidebar Header Area-->  
             <div class="header">  
@@ -10,7 +10,7 @@
                     <span class="filter_search"><i class="fa fa-filter"> </i> </span>
                </div>
                <div class="row2">
-                    <h5>Pending Requisitions: <span>200</span></h5>
+                    <h5>Pending Requisitions: <span>{{ items.length ? items.length : '' }}</span></h5>
                </div>
             </div>
             <!--End Secondary Sidebar Header Area-->  
@@ -21,12 +21,12 @@
                     <input :id="'card_body_input_' + i" type="checkbox" :name="item.title" :value="item.title">
                     <label for="product-1" class="check-item">
                         <div class="row1">
-                            <h5>{{ item.mdcn_name }}</h5>
-                            <span>{{ item.qty }}</span>
-                            <span class="search_by_item hide">{{ item.title }} {{ item.qty }} {{ item.desc }}</span>
+                            <h5>{{ item.prod_code }} - {{ item.prod_name }}</h5>
+                            <span>{{ item.prod_class }}</span>
+                            <span class="search_by_item hide">{{ item.prod_code }} {{ item.prod_name }} {{ item.prod_class }} {{ item.base_tp }} {{ item.prod_id }} {{ item.base_vat }} {{ item.base_uom }}</span>
                         </div>
                         <div class="row2">
-                            <p>{{ item.desc }}</p>
+                            <p>Unit Price: {{ item.base_tp }} - {{ item.base_uom }}</p>
                         </div>
                     </label> 
                 </div>
@@ -37,10 +37,12 @@
 </template>
 
 <script>
-import DemoData from '../../DemoData'
-const demoData = new DemoData()
+// import DemoData from '../../DemoData'
+// const demoData = new DemoData()
 import JMIFilter from '../../../../../../functions/JMIFIlter'
 const jmiFilter = new JMIFilter()
+import ERPService from '../../../../../../service/ERPSidebarService'
+const service = new ERPService()
 
 export default {
     props: [],
@@ -52,12 +54,15 @@ export default {
     },
     computed: {},
     created() {},
-    mounted() {
-        this.items = demoData.demo_data().requisition_items
+    async mounted() {
+        // this.items = demoData.demo_data().requisition_items
+        await this.SOTCK_REQUISITION_PRODUCT_LIST__FROM_SERVICE()
     },
     methods: {
         itemClickHandler(item, i) {
             console.log(item)
+            // item.req_qty = 0
+            Object.assign(item, {req_qty: 0})
             let checkbox_selector = document.querySelector('#card_body_input_' + i)
             if(checkbox_selector.checked === true) {
                 checkbox_selector.checked = false
@@ -75,6 +80,23 @@ export default {
             let txt_selector = "search_by_item"
 
             jmiFilter.searchById_LeftSidebar(filter, list, txt_selector)
+        },
+        // ----------------------------------------------------------------------------------
+        // SERVICE CALL
+        async SOTCK_REQUISITION_PRODUCT_LIST__FROM_SERVICE() {
+            this.items = []
+            await service.getRequisitionProductList_CREATE_REQUISITION()
+                .then(res => {
+                    console.log(res.data)
+                    this.items = res.data.product_list
+                    console.log(this.items)
+                })
+                .catch(err => {
+                    if(err) {
+                        this.items = []
+                        alert('Server Error 500. ' + err)
+                    }
+                })
         }
     },
     watch: {}
@@ -117,6 +139,6 @@ export default {
     line-height: 1.5;
 }
 .jmi-scroll-section {
-    height: calc(100vh - (74px + 54px + 32px + 108px)) !important;
+    height: calc(100vh - (74px + 54px + 32px + 110px)) !important;
 }
 </style>
