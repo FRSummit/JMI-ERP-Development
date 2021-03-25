@@ -21,12 +21,12 @@
                     <input :id="'card_body_input_' + i" type="checkbox" :name="item.title" :value="item.title">
                     <label for="product-1" class="check-item">
                         <div class="row1">
-                            <h5>{{ item.mdcn_name }}</h5>
-                            <span>{{ item.qty }}</span>
-                            <span class="search_by_item hide">{{ item.title }} {{ item.qty }} {{ item.desc }}</span>
+                            <h5>{{ item.prod_code }} - {{ item.prod_name }}</h5>
+                            <span>{{ item.prod_class }}</span>
+                            <span class="search_by_item hide">{{ item.prod_code }} {{ item.prod_name }} {{ item.prod_class }} {{ item.base_tp }} {{ item.prod_id }} {{ item.base_vat }} {{ item.base_uom }}</span>
                         </div>
                         <div class="row2">
-                            <p>{{ item.desc }}</p>
+                            <p>Unit Price: {{ item.base_tp }} - {{ item.base_uom }}</p>
                         </div>
                     </label> 
                 </div>
@@ -37,10 +37,12 @@
 </template>
 
 <script>
-import DemoData from '../../DemoData'
-const demoData = new DemoData()
+// import DemoData from '../../DemoData'
+// const demoData = new DemoData()
 import JMIFilter from '../../../../../../functions/JMIFIlter'
 const jmiFilter = new JMIFilter()
+import ERPService from '../../../../../../service/ERPSidebarService'
+const service = new ERPService()
 
 export default {
     props: [],
@@ -52,8 +54,9 @@ export default {
     },
     computed: {},
     created() {},
-    mounted() {
-        this.items = demoData.demo_data().requisition_items
+    async mounted() {
+        // this.items = demoData.demo_data().requisition_items
+        await this.SOTCK_REQUISITION_PRODUCT_LIST__FROM_SERVICE()
     },
     methods: {
         itemClickHandler(item, i) {
@@ -75,6 +78,23 @@ export default {
             let txt_selector = "search_by_item"
 
             jmiFilter.searchById_LeftSidebar(filter, list, txt_selector)
+        },
+        // ----------------------------------------------------------------------------------
+        // SERVICE CALL
+        async SOTCK_REQUISITION_PRODUCT_LIST__FROM_SERVICE() {
+            this.items = []
+            await service.getRequisitionProductList_CREATE_REQUISITION()
+                .then(res => {
+                    console.log(res.data)
+                    this.items = res.data.product_list
+                    console.log(this.items)
+                })
+                .catch(err => {
+                    if(err) {
+                        this.items = []
+                        alert('Server Error 500. ' + err)
+                    }
+                })
         }
     },
     watch: {}

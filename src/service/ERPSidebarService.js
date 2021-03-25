@@ -879,6 +879,17 @@ export default class PostService {
     })
   }
 
+  // REQUISITION - CREATE
+  async getRequisitionProductList_CREATE_REQUISITION() {
+    let web_menu_url = '/api/web/requisition-product-list'
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+    })
+  }
+
   // -------------------------------------------------------------------------------------------
 
   // -------------------------------------------------------------------------------------------
