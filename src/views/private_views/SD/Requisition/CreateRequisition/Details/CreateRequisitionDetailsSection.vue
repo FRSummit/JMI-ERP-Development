@@ -16,9 +16,9 @@
                                 <label for="requisition_to" class="col-form-label">Requisition To:</label>
                                 <select class="form-control-sm" id="requisition_to">
                                     <option >Select Area</option>
-                                    <option>Dhaka</option>
-                                    <option>Rangpur</option>
-                                    <option>Rajshahi</option>
+                                    <option v-for="(depot, i) in DEPOT_LIST" :key="i">{{ depot.wh_name }}</option>
+                                    <!-- <option>Rangpur</option>
+                                    <option>Rajshahi</option> -->
                                 </select>
                             </div>
                         </div>
@@ -92,13 +92,16 @@
 <script>
 // import DemoData from '../../DemoData'
 // const demoData = new DemoData()
+import ERPService from '../../../../../../service/ERPSidebarService'
+const service = new ERPService()
 
 export default {
     props: ["SELECTED_REQUISITION_DATA"],
     components: {},
     data() {
         return {
-            items: []
+            items: [],
+            DEPOT_LIST: [],
         }
     },
     computed: {
@@ -107,8 +110,9 @@ export default {
         // }
     },
     created() {},
-    mounted() {
+    async mounted() {
         // this.items = demoData.demo_data().create_requisition_items_table_data
+        await this.ALL_DEPOT_UNDER_SBU__FROM_SERVICE()
     },
     methods: {
         editRequisitionClickHandler() {},
@@ -146,6 +150,22 @@ export default {
         singleItemDeleteClickHandler() {},
         saveAsDraftClickHandler() {},
         sendRequestClickHandler() {},
+        // -----------------------------------------------------
+        // SERVICE CALL
+        async ALL_DEPOT_UNDER_SBU__FROM_SERVICE() {
+            this.DEPOT_LIST = []
+            await service.getAllDepotUnderSBU_CREATE_REQUISITION()
+                .then(res => {
+                    console.log(res.data)
+                    this.DEPOT_LIST = res.data.wh_info
+                })
+                .catch(err => {
+                    if(err) {
+                        this.DEPOT_LIST = []
+                        console.log(err)
+                    }
+                })
+        }
     },
     watch: {}
 }
