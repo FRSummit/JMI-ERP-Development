@@ -44,18 +44,23 @@
                         <!-- <tr v-for="(item, i) in items" :key="i"> -->
                             <td>
                                 <div class="product">
-                                <p class="name">{{ item.prod_code }} - {{ item.prod_name }}<span>{{ item.prod_class }}</span></p>
-                                <p class="type">Unit Price: {{ item.base_tp }} - {{ item.base_uom }}</p>
+                                    <p class="name">{{ item.prod_code }} - {{ item.prod_name }}<span>{{ item.prod_class }}</span></p>
+                                    <p class="type">Unit Price: {{ item.base_tp }} - {{ item.base_uom }}</p>
                                 </div>
                             </td>
                             <td>
+                                <div class="product">
+                                    <p class="type">{{ item.base_uom }}</p>
+                                </div>
+                            </td>
+                            <!-- <td>
                                 <select class="form-control-sm" id="unit">
                                 <option >Select Unit</option>
                                 <option>Box</option>
                                 <option>Box 2</option>
                                 <option>Box 3</option>
                                 </select>
-                            </td>
+                            </td> -->
                             <td>
                                 <form>
                                     <div class="quantity-input">
@@ -183,7 +188,7 @@ export default {
     height: 30px;
     background-color: #f5bec6;
     border-radius: 50%;
-    padding-top: 8px;
+    padding-top: 6px;
 }
 .requition_area table tbody td a.remove svg {
     color: #df2a43;

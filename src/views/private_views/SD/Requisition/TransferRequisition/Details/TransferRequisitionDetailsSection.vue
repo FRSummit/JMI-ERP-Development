@@ -64,19 +64,24 @@
                                 <tr v-for="(item, i) in SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS" :key="i">
                                     <td>
                                         <div class="product">
-                                        <!-- <p class="name">{{ item..prod_info.prod_name }}<span> {{ item.qty }}</span></p> -->
-                                        <p class="name">{{ item.prod_info.prod_name }}</p>
-                                        <p class="type">{{ item.type ? item.type : 'Dummy Paricatamole' }}</p>
+                                            <!-- <p class="name">{{ item..prod_info.prod_name }}<span> {{ item.qty }}</span></p> -->
+                                            <p class="name">{{ item.prod_info.prod_name }}</p>
+                                            <p class="type">{{ item.type ? item.type : 'Dummy Paricatamole' }}</p>
                                         </div>
                                     </td>
                                     <td>
-                                        <select class="form-control-sm" id="unit">
-                                        <option >Select Unit</option>
-                                        <option>Box</option>
-                                        <option>Box 2</option>
-                                        <option>Box 3</option>
-                                        </select>
+                                        <div class="product">
+                                            <p class="type">{{ item.element_info ? item.element_info.element_name : '' }}</p>
+                                        </div>
                                     </td>
+                                    <!-- <td>
+                                        <select class="form-control-sm" id="unit">
+                                            <option >Select Unit</option>
+                                            <option>Box</option>
+                                            <option>Box 2</option>
+                                            <option>Box 3</option>
+                                        </select>
+                                    </td> -->
                                     <td>
                                         <form>
                                             <div class="quantity-input">
