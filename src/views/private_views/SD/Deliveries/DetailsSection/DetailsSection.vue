@@ -225,7 +225,7 @@
                                     </div>
                                     <div class="row receiver-amount">
                                         <p class="jmi-lvl">Type Receiver Amount</p>
-                                        <input type="number" id="deliveries_cash_receiver_amount" class="jmi-lvl-value" v-model="cash_receive_amount"  step="any" />
+                                        <input type="number" id="deliveries_cash_receiver_amount" class="jmi-lvl-value" v-model="cash_receive_amount"  step="any" v-on:keydown="deliveries_cash_receiver_amount_KeyDown_ordered_table($event)" v-on:keyup="deliveries_cash_receiver_amount_KeyUp_ordered_table($event)" />
                                     </div>
                                 </div>
                             </b-tab>
@@ -1249,28 +1249,45 @@ export default {
         // CHEQUE
         deliveries_cash_receiver_amount_KeyUp_ordered_table(value) {
             console.log(value.key)
-            // this.cash_due_amount
+            // // this.cash_due_amount
+            console.log(this.grand_total)
             let selector = document.querySelector('#deliveries_cash_receiver_amount')
-            if(parseInt(selector.value) === 0) {
-                selector.value = 0
-            } else if((selector.value).toString() === '') {
-                selector.value = 0
-            }
             console.log(selector.value)
-            this.cash_receive_amount = parseFloat(selector.value)
-            this.cash_due_amount = parseFloat(this.grand_total) - parseFloat(selector.value)
-
-            if(this.cash_due_amount.toString().charAt(0) === '-') {
-                document.querySelector('#cash-due-amount-selector').className = 'jmi-lvl-value jmi-warning'
-                document.querySelector('#cheque-due-amount-selector').className = 'jmi-lvl-value jmi-warning'
+            if(parseFloat(selector.value) > parseFloat(this.grand_total)) {
+                console.log('more')
+                selector.value = (parseFloat(selector.value)/10).toFixed()
+                this.cash_receive_amount = selector.value
             } else {
-                document.querySelector('#cash-due-amount-selector').className = 'jmi-lvl-value'
-                document.querySelector('#cheque-due-amount-selector').className = 'jmi-lvl-value'
+                console.log('less')
             }
+            // if(parseInt(selector.value) === 0) {
+            //     selector.value = 0
+            // } 
+            if((selector.value).toString() === '') {
+                selector.value = 0
+                this.cash_receive_amount = selector.value
+            }
+            // console.log(selector.value)
+            // this.cash_receive_amount = parseFloat(selector.value)
+            // this.cash_due_amount = parseFloat(this.grand_total) - parseFloat(selector.value)
+
+            // if(this.cash_due_amount.toString().charAt(0) === '-') {
+            //     document.querySelector('#cash-due-amount-selector').className = 'jmi-lvl-value jmi-warning'
+            //     document.querySelector('#cheque-due-amount-selector').className = 'jmi-lvl-value jmi-warning'
+            // } else {
+            //     document.querySelector('#cash-due-amount-selector').className = 'jmi-lvl-value'
+            //     document.querySelector('#cheque-due-amount-selector').className = 'jmi-lvl-value'
+            // }
         },
         deliveries_cash_receiver_amount_KeyDown_ordered_table(value) {
             console.log(value.key)
             // let selector = document.querySelector('#deliveries_cash_receiver_amount')
+            // console.log(selector.value)
+            // if(parseFloat(selector.value) > this.grand_total) {
+            //     // value.preventDefault()
+            //     selector.value.slice(1)
+            //     console.log('more')
+            // }
             // if(selector.value.charAt(0) === '-') {
 
             // }
@@ -1278,6 +1295,9 @@ export default {
             // if(value.keyCode === 190 || value.keyCode === 110) {
             //     value.preventDefault()
             // }
+            if(value.keyCode === 109 || value.keyCode === 189) {
+                value.preventDefault()
+            }
         },
         // CHEQUE
         deliveries_cheque_receiver_amount_KeyUp_ordered_table(value) {
