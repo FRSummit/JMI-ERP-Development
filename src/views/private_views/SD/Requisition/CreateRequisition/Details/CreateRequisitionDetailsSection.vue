@@ -1,12 +1,12 @@
 <template>
-    <div class="transfer-requisition-details">
+    <div class="create-requisition-details">
         <div class="layout-container">
           <div class="container-fluid">
             <div class="col-12 requition_area">
               <div class="row requition_header"> 
                   <div class="col-12 header_top">
                       <h5>ID: <span>#</span></h5>
-                      <a class="edit" href=""><i class="zmdi zmdi-edit"></i></a>
+                      <a class="edit" @click="editRequisitionClickHandler"><i class="zmdi zmdi-edit"></i></a>
                   </div>
                   <div class="col-lg-3 col-md-3 col-12">
                       <p>Requisition From: <span class="text-data">Rangpur</span></p>
@@ -44,8 +44,8 @@
                         <!-- <tr v-for="(item, i) in items" :key="i"> -->
                             <td>
                                 <div class="product">
-                                <p class="name">{{ item.mdcn_name }}<span>{{ item.qty }}</span></p>
-                                <p class="type">{{ item.type }}</p>
+                                <p class="name">{{ item.prod_code }} - {{ item.prod_name }}<span>{{ item.prod_class }}</span></p>
+                                <p class="type">Unit Price: {{ item.base_tp }} - {{ item.base_uom }}</p>
                                 </div>
                             </td>
                             <td>
@@ -57,25 +57,25 @@
                                 </select>
                             </td>
                             <td>
-                                <form method='POST' action='#'>
+                                <form>
                                     <div class="quantity-input">
-                                        <input class='minus' type='button' value='-' field='quantity' />
-                                        <input class='quantity' type='text' name='quantity' placeholder="0" />
-                                        <input class='plus' type='button' value='+' field='quantity' />
+                                        <input class='minus' type='button' value='-' field='quantity' @click="decreaseRequisitionQtyClickHandler(item)" />
+                                        <input class='quantity' type='number' name='quantity' placeholder="0" :value="item.req_qty" :id="'req_qty_' + i" v-on:keyup="reqQtyKeyUpEventHandler(item, $event, i)" v-on:keydown="reqQtyKeyDownEventHandler($event, i)" />
+                                        <input class='plus' type='button' value='+' field='quantity' @click="increaseRequisitionQtyClickHandler(item)" />
                                     </div>
                                 </form>
                             </td>
                             <td>
-                                <a class="edit"><i class="zmdi zmdi-edit"></i></a>
-                                <a class="remove"><i class="fas fa-trash-alt"></i></a>
+                                <a class="edit" @click="singleItemEditClickHandler"><i class="zmdi zmdi-edit"></i></a>
+                                <a class="remove" @click="singleItemDeleteClickHandler"><i class="fas fa-trash-alt"></i></a>
                             </td>
                         </tr>
                     </tbody>
                 </table>
               </div>
               <div class="row requition_footer">
-                <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2">Save As Draft</button></a>
-                <a><button type="button" class="btn btn-primary btn-global mx-2">Send Request</button></a>
+                <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="saveAsDraftClickHandler">Save As Draft</button></a>
+                <a><button type="button" class="btn btn-primary btn-global mx-2" @click="sendRequestClickHandler">Send Request</button></a>
                 
               </div>
           </div>
@@ -85,8 +85,8 @@
 </template>
 
 <script>
-import DemoData from '../../DemoData'
-const demoData = new DemoData()
+// import DemoData from '../../DemoData'
+// const demoData = new DemoData()
 
 export default {
     props: ["SELECTED_REQUISITION_DATA"],
@@ -103,9 +103,42 @@ export default {
     },
     created() {},
     mounted() {
-        this.items = demoData.demo_data().create_requisition_items_table_data
+        // this.items = demoData.demo_data().create_requisition_items_table_data
     },
-    methods: {},
+    methods: {
+        editRequisitionClickHandler() {},
+        decreaseRequisitionQtyClickHandler(item) {
+            console.log(item)
+            if(item.req_qty > 1) {
+                item.req_qty--
+            }
+        },
+        increaseRequisitionQtyClickHandler(item) {
+            console.log(item.req_qty)
+            item.req_qty++
+            console.log(item.req_qty)
+        },
+        reqQtyKeyUpEventHandler(item, event, index) {
+            console.log(event)
+            let selector = document.querySelector('#create-requisition #req_qty_' + index)
+            if(parseInt(selector.value) === 0) {
+                selector.value = 1
+            } else if((selector.value).toString() === '') {
+                selector.value = 1
+            }
+            item.req_qty = selector.value
+        },
+        reqQtyKeyDownEventHandler(event, index) {
+            console.log(index)
+            if(event.keyCode === 190 || event.keyCode === 110) {
+                event.preventDefault()
+            }
+        },
+        singleItemEditClickHandler() {},
+        singleItemDeleteClickHandler() {},
+        saveAsDraftClickHandler() {},
+        sendRequestClickHandler() {},
+    },
     watch: {}
 }
 </script>

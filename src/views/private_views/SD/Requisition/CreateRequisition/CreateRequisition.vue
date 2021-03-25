@@ -1,5 +1,5 @@
 <template>
-  <div id="transfer-requisition" class="transfer-requisition">
+  <div id="create-requisition" class="create-requisition">
     <Heading :pathName="pathName" :routeName="routeName" />
     <!-- <div class="transfer-requisition-inner"> -->
     <div class="layout-body">

@@ -78,7 +78,7 @@
                                         </select>
                                     </td>
                                     <td>
-                                        <form method='POST' action='#'>
+                                        <form>
                                             <div class="quantity-input">
                                                 <input class='minus' type='button' value='-' field='quantity' @click="decreaseRequisitionQtyClickHandler(item)" />
                                                 <input class='quantity' type='number' name='quantity' placeholder="0" :value="item.req_qty" :id="'req_qty_' + i" v-on:keyup="reqQtyKeyUpEventHandler(item, $event, i)" v-on:keydown="reqQtyKeyDownEventHandler($event, i)" />
@@ -95,8 +95,8 @@
                         </table>
                     </div>
                     <div class="row requition_footer">
-                        <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2">Save As Draft</button></a>
-                        <a><button type="button" class="btn btn-primary btn-global mx-2">Send Request</button></a>
+                        <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="saveAsDraftClickHandler">Save As Draft</button></a>
+                        <a><button type="button" class="btn btn-primary btn-global mx-2" @click="sendRequestClickHandler">Send Request</button></a>
                         
                     </div>
                 </div>
@@ -159,6 +159,8 @@ export default {
         },
         singleItemEditClickHandler() {},
         singleItemDeleteClickHandler() {},
+        saveAsDraftClickHandler() {},
+        sendRequestClickHandler() {},
     },
     watch: {}
 }

@@ -1,5 +1,5 @@
 <template>
-    <div class="transfer-requisition-sidebar">
+    <div class="create-requisition-sidebar">
         <div class="layout-sidebar create-requisition">
             <!-- Start Secondary Sidebar Header Area-->  
             <div class="header">  
@@ -61,6 +61,7 @@ export default {
     methods: {
         itemClickHandler(item, i) {
             console.log(item)
+            item.req_qty = 0
             let checkbox_selector = document.querySelector('#card_body_input_' + i)
             if(checkbox_selector.checked === true) {
                 checkbox_selector.checked = false
