@@ -14,9 +14,9 @@
                         <div class="col-lg-4 col-md-3 col-12">
                             <div class="form-group">
                                 <label for="requisition_to" class="col-form-label">Requisition To:</label>
-                                <select class="form-control-sm" id="requisition_to">
+                                <select class="form-control-sm" id="requisition_to" v-model="wh_from" @change="onChangeWH()">
                                     <option >Select Area</option>
-                                    <option v-for="(depot, i) in DEPOT_LIST" :key="i">{{ depot.wh_name }}</option>
+                                    <option v-for="(depot, i) in DEPOT_LIST" :key="i" :value="depot.id">{{ depot.wh_name }}</option>
                                     <!-- <option>Rangpur</option>
                                     <option>Rajshahi</option> -->
                                 </select>
@@ -78,12 +78,36 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="row requition_footer">
+                    <div class="row requition_footer" v-if="SELECTED_REQUISITION_DATA.length ? SELECTED_REQUISITION_DATA.length > 0 : false">
                         <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="saveAsDraftClickHandler">Save As Draft</button></a>
                         <a><button type="button" class="btn btn-primary btn-global mx-2" @click="sendRequestClickHandler">Send Request</button></a>
                         
                     </div>
                 </div>
+            </div>
+        </div>
+        <!-- Proceed Modal -->
+        <div class="modal-popup-section order-proceed-modal" v-if="proceed_modal_popup">
+            <div class="modal-popup-section-inner order-proceed-modal-inner">
+                <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
+                <p class="popup-text">Are you sure?</p>
+                <p class="popup-desc">{{ proceed_modal_popup_msg }}</p>
+                <span class="divider"></span>
+                <div class="popup-submit-section">
+                    <div class="popup-cancel-btn-section" @click="cancelOrderModalClickHandler">
+                        <span>Cancel</span>
+                    </div>
+                    <div class="popup-confirm-btn-section" @click="proceedOrderModalClickHandler">
+                        <span>Proceed</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Status Modal -->
+        <div id="update-successfully-modal" class="modal-popup-section update-successfully-modal" v-if="status_modal">
+            <div class="modal-popup-section-inner update-successfully-modal-inner">
+                <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
+                <p class="popup-text">{{ status_modal_msg ? status_modal_msg : '' }}</p>
             </div>
         </div>
     </div>
@@ -101,13 +125,29 @@ export default {
     data() {
         return {
             items: [],
+            wh_from: null,
             DEPOT_LIST: [],
+            popup_modal_for__save_or_send: null,
+            proceed_modal_popup: false,
+            proceed_modal_popup_msg: null,
+            status_modal: false,
+            status_modal_msg: null,
         }
     },
     computed: {
-        // REQUISITION_DATA() {
-        //     return this.SELECTED_REQUISITION_DATA
-        // }
+        REQUISITION_DATA_TO_SAVE_OR_SEND() {
+            let prod_info = []
+            if(this.SELECTED_REQUISITION_DATA.length ? this.SELECTED_REQUISITION_DATA.length > 0 : false) {
+                for(let i=0; i<this.SELECTED_REQUISITION_DATA.length; i++) {
+                    let prods = {
+                        prod_id: this.SELECTED_REQUISITION_DATA[i].prod_id,
+                        req_qty: this.SELECTED_REQUISITION_DATA[i].req_qty
+                    }
+                    prod_info.push(prods)
+                }
+            }
+            return prod_info
+        }
     },
     created() {},
     async mounted() {
@@ -116,6 +156,9 @@ export default {
     },
     methods: {
         editRequisitionClickHandler() {},
+        onChangeWH() {
+            console.log(this.wh_from)
+        },
         decreaseRequisitionQtyClickHandler(item, index) {
             // console.log(index)
             if(item.req_qty > 1) {
@@ -148,8 +191,39 @@ export default {
         },
         singleItemEditClickHandler() {},
         singleItemDeleteClickHandler() {},
-        saveAsDraftClickHandler() {},
-        sendRequestClickHandler() {},
+        saveAsDraftClickHandler() {
+            if(this.proceed_modal_popup) {
+                this.proceed_modal_popup = false
+            } else {
+                this.popup_modal_for__save_or_send = 'SAVE'
+                this.proceed_modal_popup_msg = 'You want to save the requisition.'
+                this.proceed_modal_popup = true
+            }
+        },
+        sendRequestClickHandler() {
+            if(this.proceed_modal_popup) {
+                this.proceed_modal_popup = false
+            } else {
+                this.popup_modal_for__save_or_send = 'SEND'
+                this.proceed_modal_popup_msg = 'You want to send the requisition.'
+                this.proceed_modal_popup = true
+            }
+        },
+        cancelOrderModalClickHandler() {
+            this.proceed_modal_popup = false
+        },
+        async proceedOrderModalClickHandler() {
+            let wh_from = this.wh_from
+            this.status_modal = true
+            this.proceed_modal_popup = false
+            if(this.popup_modal_for__save_or_send === 'SAVE') {
+                let req_status = 'D'
+                await this.SAVE_NEW_REQUISITION__FROM_SERVICE(wh_from, req_status)
+            } else if(this.popup_modal_for__save_or_send === 'SEND') {
+                let req_status = 'S'
+                await this.SEND_NEW_REQUISITION__FROM_SERVICE(wh_from, req_status)
+            }
+        },
         // -----------------------------------------------------
         // SERVICE CALL
         async ALL_DEPOT_UNDER_SBU__FROM_SERVICE() {
@@ -165,7 +239,49 @@ export default {
                         console.log(err)
                     }
                 })
-        }
+        },
+        async SAVE_NEW_REQUISITION__FROM_SERVICE(wh_from, req_status) {
+            console.log('SAVE_NEW_REQUISITION__FROM_SERVICE')
+            this.popup_modal_for__save_or_send = null
+            console.log(this.REQUISITION_DATA_TO_SAVE_OR_SEND)
+            service.getSaveNewRequisition_CREATE_REQUISITION(wh_from, req_status, this.REQUISITION_DATA_TO_SAVE_OR_SEND)
+                .then(res => {
+                    console.log(res.data)
+                    if(res.data.response_code === 200 || res.data.response_code === 201) {
+                        this.status_modal_msg = 'Requisition saved successfully'
+                        this.SELECTED_REQUISITION_DATA = []
+                        setTimeout( () => {
+                            this.status_modal = false
+                            this.status_modal_msg = null
+                        }, 2000)
+                    }
+                })
+                .catch(err => {
+                    if(err) {
+                        console.log(err)
+                        // this.status_modal_msg = 'Server problem'
+                        // setTimeout( () => {
+                        //     this.status_modal = false
+                        //     this.status_modal_msg = null
+                        // }, 2000)
+                    }
+                })
+        },
+        async SEND_NEW_REQUISITION__FROM_SERVICE(wh_from, req_status) {
+            console.log('SEND_NEW_REQUISITION__FROM_SERVICE')
+            console.log(wh_from + '    ' + req_status)
+            this.popup_modal_for__save_or_send = null
+            console.log(this.REQUISITION_DATA_TO_SAVE_OR_SEND)
+            // service.getSendNewRequisition_CREATE_REQUISITION(wh_from, req_status, prod_info)
+            //     .then(res => {
+            //         console.log(res.data)
+            //     })
+            //     .catch(err => {
+            //         if(err) {
+            //             console.log(err)
+            //         }
+            //     })
+        },
     },
     watch: {}
 }

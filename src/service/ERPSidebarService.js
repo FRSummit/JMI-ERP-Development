@@ -905,6 +905,25 @@ export default class PostService {
     })
   }
 
+  // REQUISITION - CREATE - SAVE
+  async getSaveNewRequisition_CREATE_REQUISITION(wh_from, req_status, prod_info) {
+    console.log(wh_from)
+    console.log(req_status)
+    console.log(JSON.stringify(prod_info))
+    let web_menu_url = '/api/web/save-new-requisition'
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+      params: {
+        wh_from: wh_from,
+        req_status: req_status,
+        prod_info: JSON.stringify(prod_info)
+      }
+    })
+  }
+
   // -------------------------------------------------------------------------------------------
 
   // -------------------------------------------------------------------------------------------
