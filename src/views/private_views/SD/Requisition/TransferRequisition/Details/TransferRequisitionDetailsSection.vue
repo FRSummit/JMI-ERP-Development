@@ -25,8 +25,8 @@
                 <div class="col-12 requition_area">
                     <div class="row requition_header"> 
                         <div class="col-12 header_top">
-                            <h5>ID: <span>#</span></h5>
-                            <a class="edit" href=""><i class="zmdi zmdi-edit"></i></a>
+                            <h5>Requisition No: <span>{{ SELECTED_REQUISITION_DETAILS.transfer_no ? SELECTED_REQUISITION_DETAILS.transfer_no : '' }}</span></h5>
+                            <a class="edit" @click="editRequisitionClickHandler"><i class="zmdi zmdi-edit"></i></a>
                         </div>
                         <div class="col-lg-3 col-md-3 col-12">
                             <p>Requisition From: <span class="text-data">Rangpur</span></p>
@@ -43,10 +43,10 @@
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-3 col-12">
-                            <p>Requisition Date: <span class="text-data">10/01/2021</span></p>
+                            <p>Requisition Date: <span class="text-data">{{ SELECTED_REQUISITION_DETAILS.req_date ? formatDate(SELECTED_REQUISITION_DETAILS.req_date) : '' }}</span></p>
                         </div>
                         <div class="col-lg-2 col-md-2 col-12">
-                            <p>Status: <span class="draft"></span></p>
+                            <p>Status: <span class="draft">{{ SELECTED_REQUISITION_DETAILS.req_status ? SELECTED_REQUISITION_DETAILS.req_status : '' }}</span></p>
                         </div>
                     </div>
                     <div class="row requition_content">
@@ -66,7 +66,7 @@
                                         <div class="product">
                                         <!-- <p class="name">{{ item..prod_info.prod_name }}<span> {{ item.qty }}</span></p> -->
                                         <p class="name">{{ item.prod_info.prod_name }}</p>
-                                        <p class="type">{{ item.type }}</p>
+                                        <p class="type">{{ item.type ? item.type : 'Dummy Paricatamole' }}</p>
                                         </div>
                                     </td>
                                     <td>
@@ -80,15 +80,15 @@
                                     <td>
                                         <form method='POST' action='#'>
                                             <div class="quantity-input">
-                                                <input class='minus' type='button' value='-' field='quantity' />
-                                                <input class='quantity' type='text' name='quantity' placeholder="0" :value="item.req_qty" />
-                                                <input class='plus' type='button' value='+' field='quantity' />
+                                                <input class='minus' type='button' value='-' field='quantity' @click="decreaseRequisitionQtyClickHandler(item)" />
+                                                <input class='quantity' type='number' name='quantity' placeholder="0" :value="item.req_qty" :id="'req_qty_' + i" v-on:keyup="reqQtyKeyUpEventHandler(item, $event, i)" v-on:keydown="reqQtyKeyDownEventHandler($event, i)" />
+                                                <input class='plus' type='button' value='+' field='quantity' @click="increaseRequisitionQtyClickHandler(item)" />
                                             </div>
                                         </form>
                                     </td>
                                     <td>
-                                        <a class="edit"><i class="zmdi zmdi-edit"></i></a>
-                                        <a class="remove"><i class="fas fa-trash-alt"></i></a>
+                                        <a class="edit" @click="singleItemEditClickHandler"><i class="zmdi zmdi-edit"></i></a>
+                                        <a class="remove" @click="singleItemDeleteClickHandler"><i class="fas fa-trash-alt"></i></a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -108,6 +108,8 @@
 <script>
 import DemoData from '../../DemoData'
 const demoData = new DemoData()
+import GlobalDateFormat from '.././../../../../../functions/GlobalDateFormat'
+const globalDateFormat = new GlobalDateFormat()
 
 export default {
     props: ["SELECTED_REQUISITION_DETAILS", "SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS"],
@@ -126,7 +128,37 @@ export default {
     methods: {
         createRequisitionClickHandler() {
             this.$router.push('/features/local_sales/create-requisition')
-        }
+        },
+        formatDate(date) {
+            return globalDateFormat.dateFormatT4(date)
+        },
+        editRequisitionClickHandler() {},
+        decreaseRequisitionQtyClickHandler(item) {
+            if(item.req_qty > 1) {
+                item.req_qty--
+            }
+        },
+        increaseRequisitionQtyClickHandler(item) {
+            item.req_qty++
+        },
+        reqQtyKeyUpEventHandler(item, event, index) {
+            console.log(event)
+            let selector = document.querySelector('#transfer-requisition #req_qty_' + index)
+            if(parseInt(selector.value) === 0) {
+                selector.value = 1
+            } else if((selector.value).toString() === '') {
+                selector.value = 1
+            }
+            item.req_qty = selector.value
+        },
+        reqQtyKeyDownEventHandler(event, index) {
+            console.log(index)
+            if(event.keyCode === 190 || event.keyCode === 110) {
+                event.preventDefault()
+            }
+        },
+        singleItemEditClickHandler() {},
+        singleItemDeleteClickHandler() {},
     },
     watch: {}
 }
@@ -180,7 +212,7 @@ export default {
     height: 30px;
     background-color: #f5bec6;
     border-radius: 50%;
-    padding-top: 8px;
+    padding-top: 6px;
 }
 .requition_area table tbody td a.remove svg {
     color: #df2a43;
@@ -209,7 +241,7 @@ export default {
     font-size: 14px;
 }
 .requition_area .row.requition_content table tbody {
-    height: calc(100vh - (74px + 54px + 32px + (290px)));
+    height: calc(100vh - (74px + 54px + 32px + (296px)));
 }
 .requition_area .btn.btn-primary.btn-global {
     background: #026cd1;

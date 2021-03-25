@@ -176,7 +176,7 @@ export default {
     font-size: 14px;
 }
 .requition_area .row.requition_content table tbody {
-    height: calc(100vh - (74px + 54px + 32px + (290px)));
+    height: calc(100vh - (74px + 54px + 32px + (296px)));
 }
 .requition_area .btn.btn-primary.btn-global {
     background: #026cd1;
