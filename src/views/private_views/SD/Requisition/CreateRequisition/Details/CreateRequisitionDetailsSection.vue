@@ -108,6 +108,7 @@ export default {
     methods: {
         editRequisitionClickHandler() {},
         decreaseRequisitionQtyClickHandler(item, index) {
+            // console.log(index)
             if(item.req_qty > 1) {
                 item.req_qty--
             }
@@ -115,6 +116,7 @@ export default {
             selector.value = item.req_qty
         },
         increaseRequisitionQtyClickHandler(item, index) {
+            // console.log(index)
             item.req_qty++
             let selector = document.querySelector('#create-requisition #req_qty_' + index)
             selector.value = item.req_qty

@@ -10,7 +10,7 @@
                     <span class="filter_search"><i class="fa fa-filter"> </i> </span>
                </div>
                <div class="row2">
-                    <h5>Pending Requisitions: <span>200</span></h5>
+                    <h5>Pending Requisitions: <span>{{ items.length ? items.length : '' }}</span></h5>
                </div>
             </div>
             <!--End Secondary Sidebar Header Area-->  
@@ -61,7 +61,8 @@ export default {
     methods: {
         itemClickHandler(item, i) {
             console.log(item)
-            item.req_qty = 0
+            // item.req_qty = 0
+            Object.assign(item, {req_qty: 0})
             let checkbox_selector = document.querySelector('#card_body_input_' + i)
             if(checkbox_selector.checked === true) {
                 checkbox_selector.checked = false
