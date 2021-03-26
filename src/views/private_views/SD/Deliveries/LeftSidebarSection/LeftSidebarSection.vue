@@ -42,7 +42,8 @@
                         <div class="customer-id-type-section">
                             <div class="customer-id-type-section-inner">
                                 <div class="id-section">
-                                    <p class="customer-id">INV{{ customer ? (customer.id ? (customer.id) : '' ) : "" }}</p>
+                                    <p class="customer-id">{{ customer ? (customer.invoice_no ? (customer.invoice_no) : '' ) : "" }}</p>
+                                    <!-- <p class="customer-id">INV{{ customer ? (customer.id ? (customer.id) : '' ) : "" }}</p> -->
                                 </div>
                                 <div class="jmi-status-section_t_1">
                                     <!-- <p class="customer-type"><span class="type">{{ customer ? (customer.order_date).split(' ')[0] : "" }}</span></p> -->
