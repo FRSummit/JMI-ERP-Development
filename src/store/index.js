@@ -15,6 +15,8 @@ export const store = new Vuex.Store({
     INVOICE_CAHLLAN_SUMMERY__NEW_GATE_PASS_CREATED: null,
     // DELIVERIES - CANCEL ORDER
     DELIVERIES__CANCEL_ORDER_TIME_STAMP: null,
+    // REQUISITION - CREATE
+    DESELECT_ALL_SELECTED_PRODUCT: null
   },
   actions: {
     // loginChecker({ commit }, loginData) {

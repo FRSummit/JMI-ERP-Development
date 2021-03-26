@@ -52,7 +52,11 @@ export default {
             items: []
         }
     },
-    computed: {},
+    computed: {
+        DESELECT_ALL_PRODUCT() {
+            return this.$store.state.DESELECT_ALL_SELECTED_PRODUCT
+        }
+    },
     created() {},
     async mounted() {
         // this.items = demoData.demo_data().requisition_items
@@ -81,6 +85,14 @@ export default {
 
             jmiFilter.searchById_LeftSidebar(filter, list, txt_selector)
         },
+        deselectAllSelectedProduct() {
+            for(let i=0; i<this.items.length; i++) {
+                let checkbox_selector = document.querySelector('#card_body_input_' + i)
+                if(checkbox_selector.checked === true) {
+                    checkbox_selector.checked = false
+                }
+            }
+        },
         // ----------------------------------------------------------------------------------
         // SERVICE CALL
         async SOTCK_REQUISITION_PRODUCT_LIST__FROM_SERVICE() {
@@ -99,7 +111,13 @@ export default {
                 })
         }
     },
-    watch: {}
+    watch: {
+        DESELECT_ALL_PRODUCT(newVal, oldVal) {
+            if(newVal !== oldVal) {
+                this.deselectAllSelectedProduct()
+            }
+        }
+    }
 }
 </script>
 
