@@ -24,7 +24,7 @@
                         <p class="search_by_item hide">{{ item.requisition_no }} {{ item.date }} {{ item.requisition }} {{ item.area }} {{ item.req_status }}</p>
                     </div>
                     <div class="row2">
-                        <p>{{ item.req_to_info.area_name }}</p>
+                        <p>{{ item.req_to_info ? item.req_to_info.area_name : '' }}</p>
                     </div>
                     <div class="row3">
                         <p>Requisition To: <span>{{ item.area }}</span></p>
