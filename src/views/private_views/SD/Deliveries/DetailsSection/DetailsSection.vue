@@ -117,7 +117,7 @@
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
                                 <tr class="grand-total bottom-total" style="border-top: 1px solid #BFCFE2;">
-                                    <td style="width: 50%; text-align: left;"></td>
+                                    <td style="width: 50%; text-align: left;"><input type="checkbox" v-model="set_payment_all_due" @change="dueAllCheckboxOnChangeHandler"><span class="payent-due">Full Payment DUE</span></td>
                                     <td style="width: 25%;">Grand Total</td>
                                     <td style="width: 15%;">{{ Number(grand_total).toFixed(2) }}</td>
                                     <td style="width: 10%; min-width: 70px;"></td>
@@ -757,7 +757,8 @@ export default {
             UPLOADED_IMAGE_DATA_BASE_64_IS_PRESENT: false,
             file_types_list: [],
             file_type_on_change: null,
-            NO_PRODUCT_IN_CART_TO_DELIVER: false
+            NO_PRODUCT_IN_CART_TO_DELIVER: false,
+            set_payment_all_due: false,
         }
     },
     async created() {
@@ -876,7 +877,33 @@ export default {
         //------------------------------------------------------------------------------------------
         // Order Submition Actions
         deliveryOrderClickHandler() {
-            this.approve_product_confirmation_popup_modal = true
+            if(this.set_payment_all_due) {
+                console.log(this.set_payment_all_due)
+                this.createAllDUePamentAndProds()
+            } else {
+                console.log(this.set_payment_all_due)
+                this.approve_product_confirmation_popup_modal = true
+            }
+        },
+        createAllDUePamentAndProds() {
+            console.log('createAllDUePamentAndProds')
+            let invoice_id = this.INVOICE_ID_FROM_LEFT
+            let invoice_dtl = []
+            let get_init_data_from_localstorage = localStorage.getItem('jerp_delivery_details_not_chandable_ordered_data') ? JSON.parse(localStorage.getItem('jerp_delivery_details_not_chandable_ordered_data')) : this.ORDERED_TABLE_DATA__INIT_LIST_NOT_CHANGEABLE
+            console.log(get_init_data_from_localstorage)
+            for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST_NOT_CHANGEABLE.length; i++) {
+                let invoice_details = {
+                    prod_id: this.ORDERED_TABLE_DATA__INIT_LIST_NOT_CHANGEABLE[i].product_info.id,
+                    dlv_qty: this.ORDERED_TABLE_DATA__INIT_LIST[i].qty,
+                    current_bonus_qty: this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on ? ( parseInt( parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) / parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on) ) ) : 0
+                }
+                invoice_dtl.push(invoice_details)
+            }
+            let cash = 0
+            let cheque = 0
+            let net_payable_amount = Number(this.grand_total).toFixed(2)
+
+            this.SAVE_INVOICE_DELIVERY_INFO_AS_DUE__FROM_SERVICE(invoice_id, invoice_dtl, cash, cheque, net_payable_amount)
         },
         // ----------------------------------------------------------------------------------------
         // Delivery Order Popup
@@ -1128,6 +1155,13 @@ export default {
                     }, 2000)
                 })*/
         },
+        SAVE_INVOICE_DELIVERY_INFO_AS_DUE__FROM_SERVICE(invoice_id, invoice_dtl, cash, cheque, net_payable_amount) {
+            console.log(invoice_id)
+            console.log(invoice_dtl)
+            console.log(cash)
+            console.log(cheque)
+            console.log(net_payable_amount)
+        },
         CANCEL_THIS_DELIVERY__FROM_SERVICE(invoice_details) {
             service.geSaveCancelDeliveryInfo_Deliveries(this.INVOICE_ID_FROM_LEFT, invoice_details)
                 .then(res => {
@@ -1365,7 +1399,10 @@ export default {
             // Draw the image
             ctx.drawImage(img, 0, 0);
             return canvas.toDataURL('image/jpeg');
-        }
+        },
+        dueAllCheckboxOnChangeHandler() {
+            console.log(this.set_payment_all_due)
+        },
     },
     watch: { 
         async pending_order_list_by_id(newVal, oldVal){
