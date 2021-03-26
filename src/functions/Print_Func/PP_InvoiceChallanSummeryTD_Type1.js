@@ -3,7 +3,7 @@
 
 export default class PP_InvoiceChallanSummeryTD_Type1 {
     
-    print_invoice(table_header, table_data, summery) {
+    print_invoice(title, table_header, table_data, summery) {
         var mywindow = window.open('', 'PRINT'); 
         mywindow.document.write(''
                             + '<html>'
@@ -18,23 +18,11 @@ export default class PP_InvoiceChallanSummeryTD_Type1 {
                             +             '<div class="print-section-inner">'
                             +                 '<table style="">'
                             +                     '<thead>'
-                            // +                         '<tr style="">'
-                            // +                             '<td colspan="5" style="">'
-                            // +                                 '<p style="display: inline-block; float: left;"><span class="label">Depot Name</span><span class="label-value">: ' + 'Dummy Depot Name' + '</span></p>'
-                            // +                             '</td>'
-                            // +                         '</tr>'
-                            // +                         '<tr style="">'
-                            // +                             '<td colspan="5" style="">'
-                            // +                                 '<p style="display: inline-block; float: left;"><span class="label">DA Name</span><span class="label-value">: ' + 'Dummy DA Name' + '</span></p>'
-                            // +                                 '<p style="display: inline-block; float: right;"><span class="label">Vehical No</span><span class="label-value">: ' + 'Dummy 123456' + '</span></p>'
-                            // +                             '</td>'
-                            // +                         '</tr>'
-                            // +                         '<tr style="">'
-                            // +                             '<td colspan="5" style="padding-bottom: 10px;">'
-                            // +                                 '<p style="display: inline-block; float: left;"><span class="label">Schedule Date</span><span class="label-value">: ' + 'Dummy 123456' + '</span></p>'
-                            // +                                 '<p style="display: inline-block; float: right;"><span class="label">Driver Name</span><span class="label-value">: ' + 'Dummy Driver Name' + '</span></p>'
-                            // +                             '</td>'
-                            // +                         '</tr>'
+                            +                         '<tr style="">'
+                            +                             '<td colspan="6" style="">'
+                            +                                 '<p style="display: inline-block; text-align: center; font-size: 16px; text-decoration: underline;">' + title + '</p>'
+                            +                             '</td>'
+                            +                         '</tr>'
                             +                         '<tr style="">'
                             +                             '<td colspan="5" style="">'
                             +                                 '<p style="display: inline-block; float: left;"><span class="label">No. of Invoices</span><span class="label-value">: ' + (summery ? (summery.invoice_count ? (summery.invoice_count) : '') : '') + '</span></p>'
