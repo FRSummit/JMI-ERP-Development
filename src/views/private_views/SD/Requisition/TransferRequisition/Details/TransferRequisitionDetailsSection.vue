@@ -137,7 +137,16 @@ export default {
         formatDate(date) {
             return globalDateFormat.dateFormatT4(date)
         },
-        editRequisitionClickHandler() {},
+        editRequisitionClickHandler() {
+            console.log('editRequisitionClickHandler')
+            console.log(this.SELECTED_REQUISITION_DETAILS)
+            if(this.SELECTED_REQUISITION_DETAILS.id) {
+                this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT = this.SELECTED_REQUISITION_DETAILS
+                this.$router.push('/features/local_sales/create-requisition')
+            } else {
+                alert('Please select a requisitor from left.')
+            }
+        },
         decreaseRequisitionQtyClickHandler(item) {
             if(item.req_qty > 1) {
                 item.req_qty--

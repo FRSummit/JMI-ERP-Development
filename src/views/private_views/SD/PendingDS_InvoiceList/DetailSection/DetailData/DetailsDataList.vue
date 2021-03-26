@@ -121,6 +121,7 @@ export default {
     printAllInvoiceClickHandler() {
       console.log('print ALl')
       console.log(this.tab)
+      let title = 'Invoice Summary'
       let table_header = [
         {th:"INVOICE No", style:''},
         {th:"CUSTOMER TYPE", style:''},
@@ -138,7 +139,7 @@ export default {
         }
         table_data.push(table_single_data)
       }
-      pp_InvoiceChallanSummeryTD_Type1.print_invoice(table_header, table_data, this.HEADER_DATA)
+      pp_InvoiceChallanSummeryTD_Type1.print_invoice(title, table_header, table_data, this.HEADER_DATA)
       console.log(table_data)
     },
     checkCustomerType(customer_type) {

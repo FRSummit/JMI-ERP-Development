@@ -150,6 +150,7 @@ export default {
       console.log('print ALl : ' + this.tab)
       console.log(this.tab)
       if(this.tab === 'INVOICE' || this.tab === 'CHALLAN') {
+        let title = 'Invoice & Challan Summary'
         let table_header = [
           {th:"INVOICE No", style:''},
           {th:"CUSTOMER TYPE", style:''},
@@ -167,9 +168,10 @@ export default {
           }
           table_data.push(table_single_data)
         }
-        pp_InvoiceChallanSummeryTD_Type1.print_invoice(table_header, table_data, this.HEADER_DATA)
+        pp_InvoiceChallanSummeryTD_Type1.print_invoice(title, table_header, table_data, this.HEADER_DATA)
         console.log(table_data)
       } else if(this.tab === 'GATE PASS') {
+        let title = 'Gate Pass'
         let table_header = [
           {th:"Code", style:''},
           {th:"Product Name", style:'text-align: left;'},
@@ -187,7 +189,7 @@ export default {
           }
           table_data.push(table_single_data)
         }
-        pp_InvoiceChallanSummeryTD_GatePass.print_invoice(table_header, table_data, this.HEADER_DATA)
+        pp_InvoiceChallanSummeryTD_GatePass.print_invoice(title, table_header, table_data, this.HEADER_DATA)
         console.log(table_data)
       }
     },

@@ -1090,6 +1090,20 @@ input[type="checkbox"] {
     color        : #026CD1;
 }
 
+#deliveries-details-section span.payent-due {
+    padding-left  : 8px;
+    font-size     : 14px;
+    font-weight   : normal;
+    cursor        : unset !important;
+    height        : auto;
+    vertical-align: text-bottom;
+}
+
+#deliveries-details-section span.payent-due::before,
+#deliveries-details-section span.payent-due::after {
+    display: none;
+}
+
 /* Default JMI STYLES TABLE, ROW, COLUMN */
 .jmi-row {
     display: table;

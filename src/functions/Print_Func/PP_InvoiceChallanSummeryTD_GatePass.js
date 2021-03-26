@@ -3,7 +3,7 @@
 
 export default class PP_InvoiceChallanSummeryTD_Type1 {
     
-    print_invoice(table_header, table_data, summery) {
+    print_invoice(title, table_header, table_data, summery) {
         var mywindow = window.open('', 'PRINT'); 
         mywindow.document.write(''
                             + '<html>'
@@ -18,6 +18,11 @@ export default class PP_InvoiceChallanSummeryTD_Type1 {
                             +             '<div class="print-section-inner">'
                             +                 '<table style="">'
                             +                     '<thead>'
+                            +                         '<tr style="">'
+                            +                             '<td colspan="6" style="">'
+                            +                                 '<p style="display: inline-block; text-align: center; font-size: 16px; text-decoration: underline;">' + title + '</p>'
+                            +                             '</td>'
+                            +                         '</tr>'
                             +                         '<tr style="">'
                             +                             '<td colspan="5" style="">'
                             +                                 '<p style="display: inline-block; float: left;"><span class="label">SR</span><span class="label-value">: ' + (summery ? (summery.gp_for ? (summery.gp_for) : '') : '') + '</span></p>'

@@ -55,6 +55,18 @@ export default {
       }
     },
   },
+    computed: {
+        DESELECT_ALL_PRODUCT() {
+            return this.$store.state.DESELECT_ALL_SELECTED_PRODUCT
+        }
+    },
+    watch: {
+        DESELECT_ALL_PRODUCT(newVal, oldVal) {
+            if(newVal !== oldVal) {
+                this.SELECTED_REQUISITION_DATA = []
+            }
+        }
+    }
 };
 </script>
 
