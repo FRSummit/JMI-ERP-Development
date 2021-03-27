@@ -105,6 +105,7 @@
     justify-content : space-between;
     background-color: var(--white);
     border-bottom   : 1px solid var(--border-color);
+    cursor          : pointer;
 }
 
 .layout-sidebar.requisition .content .card_body:hover,

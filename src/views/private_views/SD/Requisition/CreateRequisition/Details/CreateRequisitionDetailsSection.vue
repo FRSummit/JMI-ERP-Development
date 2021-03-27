@@ -152,7 +152,12 @@ export default {
             return prod_info
         },
         PREVIOUS_ROUTE_NAME() {
-            return this.$store.state.REQUISITION_PREVIOUS_COMPONENT_NAME_TO_CREATE
+            if(this.$store.state.REQUISITION_PREVIOUS_COMPONENT_NAME_TO_CREATE) {
+                return this.$store.state.REQUISITION_PREVIOUS_COMPONENT_NAME_TO_CREATE
+            } else {
+                return 'Create Requisition'
+            }
+            
         }
     },
     created() {},
@@ -239,7 +244,7 @@ export default {
             this.proceed_modal_popup = false
         },
         async proceedOrderModalClickHandler() {
-            let wh_from = this.wh_from
+            let wh_from = this.wh_from ? this.wh_from : this.SELECTED_REQUISITION_DATA.wh_from
             this.status_modal = true
             this.proceed_modal_popup = false
             if(this.popup_modal_for__save_or_send === 'SAVE') {
@@ -268,6 +273,15 @@ export default {
                 await this.UPDATE_SEND_NEW_REQUISITION__FROM_SERVICE(requisition_id, wh_from, req_status)
             }
         },
+        changeThisComponent() {
+            if(this.$store.state.REQUISITION_PREVIOUS_COMPONENT_NAME_TO_CREATE === 'Transfer Requisition') {
+                this.$router.push('/features/local_sales/transfer-requisition')
+            } else if(this.$store.state.REQUISITION_PREVIOUS_COMPONENT_NAME_TO_CREATE === 'Approve Requisition') {
+                this.$router.push('/features/local_sales/approve-requisition')
+            } else {
+                this.$router.push('/features/local_sales/transfer-requisition')
+            }
+        },
         // -----------------------------------------------------
         // SERVICE CALL
         async ALL_DEPOT_UNDER_SBU__FROM_SERVICE() {
@@ -276,6 +290,15 @@ export default {
                 .then(res => {
                     console.log(res.data)
                     this.DEPOT_LIST = res.data.wh_info
+                    setTimeout( () => {
+                        for(let i=0; i<this.DEPOT_LIST.length; i++) {
+                            if(parseInt(this.DEPOT_LIST[i].id) === 211) {
+                                document.getElementById('requisition_to').selectedIndex = i
+                                console.log(this.DEPOT_LIST[i].id)
+                                console.log(this.DEPOT_LIST[i].wh_name)
+                            }
+                        }
+                    }, 1000)
                 })
                 .catch(err => {
                     if(err) {
@@ -299,6 +322,7 @@ export default {
                             this.status_modal = false
                             this.status_modal_msg = null
                         }, 2000)
+                        this.changeThisComponent()
                     }
                 })
                 .catch(err => {
@@ -328,6 +352,7 @@ export default {
                             this.status_modal = false
                             this.status_modal_msg = null
                         }, 2000)
+                        this.changeThisComponent()
                     }
                 })
                 .catch(err => {
@@ -356,6 +381,7 @@ export default {
                             this.status_modal = false
                             this.status_modal_msg = null
                         }, 2000)
+                        this.changeThisComponent()
                     }
                 })
                 .catch(err => {
@@ -385,6 +411,7 @@ export default {
                             this.status_modal = false
                             this.status_modal_msg = null
                         }, 2000)
+                        this.changeThisComponent()
                     }
                 })
                 .catch(err => {
