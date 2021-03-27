@@ -107,7 +107,7 @@ export default {
         itemClickHandler(item, i) {
             console.log(item)
             // item.req_qty = 0
-            Object.assign(item, {req_qty: 0})
+            Object.assign(item, {req_qty: 1})
             let checkbox_selector = document.querySelector('#card_body_input_' + i)
             if(checkbox_selector.checked === true) {
                 checkbox_selector.checked = false

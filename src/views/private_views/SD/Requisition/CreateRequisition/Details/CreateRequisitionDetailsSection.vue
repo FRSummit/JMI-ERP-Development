@@ -78,10 +78,13 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="row requition_footer" v-if="SELECTED_REQUISITION_DATA.length ? SELECTED_REQUISITION_DATA.length > 0 : false">
+                    <div class="row requition_footer" v-if="(SELECTED_REQUISITION_DATA.length ? SELECTED_REQUISITION_DATA.length > 0 : false) && (PREVIOUS_ROUTE_NAME === 'Create Requisition' || PREVIOUS_ROUTE_NAME === 'Transfer Requisition')">
                         <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="saveAsDraftClickHandler">Save As Draft</button></a>
                         <a><button type="button" class="btn btn-primary btn-global mx-2" @click="sendRequestClickHandler">Send Request</button></a>
-                        
+                    </div>
+                    <div class="row requition_footer" v-if="(SELECTED_REQUISITION_DATA.length ? SELECTED_REQUISITION_DATA.length > 0 : false) && (PREVIOUS_ROUTE_NAME === 'Approve Requisition')">
+                        <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="saveAsSubmitClickHandler">Save As Submit</button></a>
+                        <a><button type="button" class="btn btn-primary btn-global mx-2" @click="approveRequestClickHandler">Approve</button></a>
                     </div>
                 </div>
             </div>
@@ -147,6 +150,9 @@ export default {
                 }
             }
             return prod_info
+        },
+        PREVIOUS_ROUTE_NAME() {
+            return this.$store.state.REQUISITION_PREVIOUS_COMPONENT_NAME_TO_CREATE
         }
     },
     created() {},
@@ -191,6 +197,7 @@ export default {
         },
         singleItemEditClickHandler() {},
         singleItemDeleteClickHandler() {},
+        // FOR CREATE OR TRANSFER REQUISITION
         saveAsDraftClickHandler() {
             if(this.proceed_modal_popup) {
                 this.proceed_modal_popup = false
@@ -206,6 +213,25 @@ export default {
             } else {
                 this.popup_modal_for__save_or_send = 'SEND'
                 this.proceed_modal_popup_msg = 'You want to send the requisition.'
+                this.proceed_modal_popup = true
+            }
+        },
+        // FOR APPROVE REQUISITION
+        saveAsSubmitClickHandler() {
+            if(this.proceed_modal_popup) {
+                this.proceed_modal_popup = false
+            } else {
+                this.popup_modal_for__save_or_send = 'SUBMIT'
+                this.proceed_modal_popup_msg = 'You want to submit the requisition.'
+                this.proceed_modal_popup = true
+            }
+        },
+        approveRequestClickHandler() {
+            if(this.proceed_modal_popup) {
+                this.proceed_modal_popup = false
+            } else {
+                this.popup_modal_for__save_or_send = 'APPROVE'
+                this.proceed_modal_popup_msg = 'You want to approve the requisition.'
                 this.proceed_modal_popup = true
             }
         },
@@ -232,6 +258,14 @@ export default {
                 } else {
                     await this.SEND_NEW_REQUISITION__FROM_SERVICE(wh_from, req_status)
                 }
+            } else if(this.popup_modal_for__save_or_send === 'SUBMIT') {
+                let req_status = 'S'
+                let requisition_id = this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT.id
+                await this.UPDATE_SAVE_NEW_REQUISITION__FROM_SERVICE(requisition_id, wh_from, req_status)
+            } else if(this.popup_modal_for__save_or_send === 'APPROVE') {
+                let req_status = 'A'
+                let requisition_id = this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT.id
+                await this.UPDATE_SEND_NEW_REQUISITION__FROM_SERVICE(requisition_id, wh_from, req_status)
             }
         },
         // -----------------------------------------------------
