@@ -257,7 +257,7 @@ export const router = new VueRouter({
     // REQUISITION - Verified
     {
       path: '/features/local_sales/verified-requisition',
-      name: 'Approve Requisition',
+      name: 'Verified Requisition',
       component: () => import('../views/private_views/SD/Requisition/VerifiedRequisition/VerifiedRequisition.vue')
     },
 

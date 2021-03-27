@@ -26,7 +26,7 @@
                     <div class="row requition_header"> 
                         <div class="col-12 header_top">
                             <h5>Requisition No: <span>{{ SELECTED_REQUISITION_DETAILS.transfer_no ? SELECTED_REQUISITION_DETAILS.transfer_no : '' }}</span></h5>
-                            <a class="edit" @click="editRequisitionClickHandler"><i class="zmdi zmdi-edit"></i></a>
+                            <a class="edit" @click="editRequisitionClickHandler" v-if="SELECTED_REQUISITION_DETAILS ? (SELECTED_REQUISITION_DETAILS.req_status === 'SUBMIT' ? true : false) : false"><i class="zmdi zmdi-edit"></i></a>
                         </div>
                         <div class="col-lg-3 col-md-3 col-12">
                             <p>Requisition From: <span class="text-data">Rangpur</span></p>
@@ -187,13 +187,17 @@ export default {
         },
         editRequisitionClickHandler() {
             console.log('editRequisitionClickHandler')
-            // console.log(this.SELECTED_REQUISITION_DETAILS)
-            // if(this.SELECTED_REQUISITION_DETAILS.id) {
-            //     this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT = this.SELECTED_REQUISITION_DETAILS
-            //     this.$router.push('/features/local_sales/create-requisition')
-            // } else {
-            //     alert('Please select a requisitor from left.')
-            // }
+            console.log(this.SELECTED_REQUISITION_DETAILS)
+            if(this.SELECTED_REQUISITION_DETAILS.id) {
+                this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT = null
+                this.$store.state.REQUISITION_PREVIOUS_COMPONENT_NAME_TO_CREATE = null
+                
+                this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT = this.SELECTED_REQUISITION_DETAILS
+                this.$store.state.REQUISITION_PREVIOUS_COMPONENT_NAME_TO_CREATE = this.$route.name
+                this.$router.push('/features/local_sales/create-requisition')
+            } else {
+                alert('Please select a requisitor from left.')
+            }
         },
         onChangeWH() {
             console.log(this.wh_from)
@@ -202,26 +206,21 @@ export default {
             console.log(index)
             if(item.req_qty > 1) {
                 item.req_qty--
-                // this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS[index].req_qty--
             }
         },
         increaseRequisitionQtyClickHandler(item, index) {
             console.log(index)
             item.req_qty++
-            // this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS[index].req_qty++
         },
         reqQtyKeyUpEventHandler(item, event, index) {
             console.log(event)
             let selector = document.querySelector('#approve-requisition #req_qty_' + index)
             if(parseInt(selector.value) === 0) {
                 selector.value = 1
-                // this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS[index].req_qty = selector.value
             } else if((selector.value).toString() === '') {
                 selector.value = 1
-                // this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS[index].req_qty = selector.value
             }
             item.req_qty = selector.value
-            // this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS[index].req_qty = selector.value
         },
         reqQtyKeyDownEventHandler(event, index) {
             console.log(index)
@@ -256,12 +255,14 @@ export default {
             let wh_from = this.wh_from ? this.wh_from : this.SELECTED_REQUISITION_DETAILS.wh_from
             this.status_modal = true
             this.proceed_modal_popup = false
+            let requisition_id = this.SELECTED_REQUISITION_DETAILS.id
+            console.log()
             if(this.popup_modal_for__save_or_send === 'SAVE') {
                 let req_status = 'S'
-                await this.SAVE_REQUISITION__FROM_SERVICE(wh_from, req_status)
+                await this.SAVE_REQUISITION__FROM_SERVICE(requisition_id, wh_from, req_status)
             } else if(this.popup_modal_for__save_or_send === 'SEND') {
                 let req_status = 'A'
-                await this.APPROVE_REQUISITION__FROM_SERVICE(wh_from, req_status)
+                await this.APPROVE_REQUISITION__FROM_SERVICE(requisition_id, wh_from, req_status)
             }
         },
         // -----------------------------------------------------
@@ -280,11 +281,11 @@ export default {
                     }
                 })
         },
-        async SAVE_REQUISITION__FROM_SERVICE(wh_from, req_status) {
+        async SAVE_REQUISITION__FROM_SERVICE(requisition_id, wh_from, req_status) {
             console.log('SAVE_REQUISITION__FROM_SERVICE')
             this.popup_modal_for__save_or_send = null
             console.log(this.REQUISITION_DATA_TO_SAVE_OR_SEND)
-            service.getSaveNewRequisition_CREATE_REQUISITION(wh_from, req_status, this.REQUISITION_DATA_TO_SAVE_OR_SEND)
+            service.getUpdateNewRequisition_CREATE_REQUISITION(requisition_id, wh_from, req_status, this.REQUISITION_DATA_TO_SAVE_OR_SEND)
                 .then(res => {
                     console.log(res.data)
                     if(res.data.response_code === 200 || res.data.response_code === 201) {
@@ -308,12 +309,12 @@ export default {
                     }
                 })
         },
-        async APPROVE_REQUISITION__FROM_SERVICE(wh_from, req_status) {
+        async APPROVE_REQUISITION__FROM_SERVICE(requisition_id, wh_from, req_status) {
             console.log('APPROVE_REQUISITION__FROM_SERVICE')
             console.log(wh_from + '    ' + req_status)
             this.popup_modal_for__save_or_send = null
             console.log(this.REQUISITION_DATA_TO_SAVE_OR_SEND)
-            service.getSaveNewRequisition_CREATE_REQUISITION(wh_from, req_status, this.REQUISITION_DATA_TO_SAVE_OR_SEND)
+            service.getUpdateNewRequisition_CREATE_REQUISITION(requisition_id, wh_from, req_status, this.REQUISITION_DATA_TO_SAVE_OR_SEND)
                 .then(res => {
                     console.log(res.data)
                     if(res.data.response_code === 200 || res.data.response_code === 201) {

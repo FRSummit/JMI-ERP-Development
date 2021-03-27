@@ -26,7 +26,7 @@
                     <div class="row requition_header"> 
                         <div class="col-12 header_top">
                             <h5>Requisition No: <span>{{ SELECTED_REQUISITION_DETAILS.transfer_no ? SELECTED_REQUISITION_DETAILS.transfer_no : '' }}</span></h5>
-                            <a class="edit" @click="editRequisitionClickHandler"><i class="zmdi zmdi-edit"></i></a>
+                            <a class="edit" @click="editRequisitionClickHandler" v-if="SELECTED_REQUISITION_DETAILS ? (SELECTED_REQUISITION_DETAILS.req_status === 'DRAFT' ? true : false) : false"><i class="zmdi zmdi-edit"></i></a>
                         </div>
                         <div class="col-lg-3 col-md-3 col-12">
                             <p>Requisition From: <span class="text-data">Rangpur</span></p>
@@ -141,7 +141,11 @@ export default {
             console.log('editRequisitionClickHandler')
             console.log(this.SELECTED_REQUISITION_DETAILS)
             if(this.SELECTED_REQUISITION_DETAILS.id) {
+                this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT = null
+                this.$store.state.REQUISITION_PREVIOUS_COMPONENT_NAME_TO_CREATE = null
+                
                 this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT = this.SELECTED_REQUISITION_DETAILS
+                this.$store.state.REQUISITION_PREVIOUS_COMPONENT_NAME_TO_CREATE = this.$route.name
                 this.$router.push('/features/local_sales/create-requisition')
             } else {
                 alert('Please select a requisitor from left.')

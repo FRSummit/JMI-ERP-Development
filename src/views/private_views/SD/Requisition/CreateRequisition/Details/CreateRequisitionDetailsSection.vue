@@ -6,7 +6,7 @@
                     <div class="row requition_header"> 
                         <div class="col-12 header_top">
                             <h5>ID: <span>#</span></h5>
-                            <a class="edit" @click="editRequisitionClickHandler"><i class="zmdi zmdi-edit"></i></a>
+                            <a class="edit hide" @click="editRequisitionClickHandler"><i class="zmdi zmdi-edit"></i></a>
                         </div>
                         <div class="col-lg-3 col-md-3 col-12">
                             <p>Requisition From: <span class="text-data">Rangpur</span></p>
