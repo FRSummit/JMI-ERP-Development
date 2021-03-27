@@ -945,6 +945,18 @@ export default class PostService {
   }
 
   // -------------------------------------------------------------------------------------------
+  // REQUISITION - APPROVE
+  async getApproveRequisitionList_TRANSFER_REQUISITION() {
+    let web_menu_url = '/api/web/submitted-stock-requisition-list'
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+    })
+  }
+
+  // -------------------------------------------------------------------------------------------
 
   // -------------------------------------------------------------------------------------------
 
