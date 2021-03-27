@@ -29,19 +29,20 @@
                             <a class="edit" @click="editRequisitionClickHandler" v-if="SELECTED_REQUISITION_DETAILS ? (SELECTED_REQUISITION_DETAILS.req_status === 'SUBMIT' ? true : false) : false"><i class="zmdi zmdi-edit"></i></a>
                         </div>
                         <div class="col-lg-3 col-md-3 col-12">
-                            <p>Requisition From: <span class="text-data">Rangpur</span></p>
+                            <p>Requisition From: <span class="text-data">{{ SELECTED_REQUISITION_DETAILS_WH_NAME }}</span></p>
                         </div>
-                        <div class="col-lg-4 col-md-3 col-12">
+                        <div class="col-lg-3 col-md-3 col-12">
+                            <p>Requisition To: <span class="text-data">Rangpur</span></p>
+                        </div>
+                        <!-- <div class="col-lg-4 col-md-3 col-12">
                             <div class="form-group">
                                 <label for="requisition_to" class="col-form-label">Requisition To:</label>
                                 <select class="form-control-sm" id="requisition_to" v-model="wh_from" @change="onChangeWH()">
                                     <option >Select Area</option>
                                     <option v-for="(depot, i) in DEPOT_LIST" :key="i" :value="depot.id">{{ depot.wh_name }}</option>
-                                    <!-- <option>Rangpur</option>
-                                    <option>Rajshahi</option> -->
                                 </select>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="col-lg-3 col-md-3 col-12">
                             <p>Requisition Date: <span class="text-data">{{ SELECTED_REQUISITION_DETAILS.req_date ? formatDate(SELECTED_REQUISITION_DETAILS.req_date) : '' }}</span></p>
                         </div>
