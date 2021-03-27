@@ -246,6 +246,13 @@ export const router = new VueRouter({
       name: 'Create Requisition',
       component: () => import('../views/private_views/SD/Requisition/CreateRequisition/CreateRequisition.vue')
     },
+    // --------------------------------------------------------------------------------------
+    // REQUISITION - Approve
+    {
+      path: '/features/local_sales/approve-requisition',
+      name: 'Approve Requisition',
+      component: () => import('../views/private_views/SD/Requisition/ApproveRequisition/ApproveRequisition.vue')
+    },
 
     // --------------------------------------------------------------------------------------
     // 404 PAGES

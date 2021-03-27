@@ -19,7 +19,7 @@ export const store = new Vuex.Store({
     DESELECT_ALL_SELECTED_PRODUCT: null,
     // REQUISITION - TRANSFER
     SELECTED_REQUISITION_DATA_TO_EDIT: null,
-    SELECTED_REQUISITION_DATA_TO_EDIT_FLAG: null,
+    SELECTED_REQUISITION_DATA_TO_EDIT_FLAG: false,
   },
   actions: {
     // loginChecker({ commit }, loginData) {
