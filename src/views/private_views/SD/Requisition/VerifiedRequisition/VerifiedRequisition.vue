@@ -1,11 +1,11 @@
 <template>
-  <div id="transfer-requisition" class="transfer-requisition">
+  <div id="approve-requisition" class="transfer-requisition">
     <Heading :pathName="pathName" :routeName="routeName" />
     <!-- <div class="transfer-requisition-inner"> -->
     <div class="layout-body">
-      <TransferRequisitionLeftSection 
+      <VerifiedRequisitionLeftSection 
         v-on:SINGLE_ITEM_SELECTED="singleItemClicked"/>
-      <TransferRequisitionDetailsSection 
+      <VerifiedRequisitionDetailsSection 
         :SELECTED_REQUISITION_DETAILS="SELECTED_REQUISITION_DETAILS"
         :SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS="SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS"
         :SELECTED_REQUISITION_DETAILS_WH_NAME="SELECTED_REQUISITION_DETAILS_WH_NAME" />
@@ -15,8 +15,8 @@
 
 <script>
 import Heading from "../../../../../components/master_layout/HeadingTitleBreadcrumbT3/HeadingTitleBreadcrumb";
-import TransferRequisitionLeftSection from "./Sidebar/TransferRequisitionLeftSection";
-import TransferRequisitionDetailsSection from "./Details/TransferRequisitionDetailsSection";
+import VerifiedRequisitionLeftSection from "./Sidebar/VerifiedRequisitionLeftSection";
+import VerifiedRequisitionDetailsSection from "./Details/VerifiedRequisitionDetailsSection";
 
 import ERPService from '../../../../../service/ERPSidebarService'
 const service = new ERPService()
@@ -25,12 +25,12 @@ export default {
   props: [],
   components: {
     Heading,
-    TransferRequisitionLeftSection,
-    TransferRequisitionDetailsSection,
+    VerifiedRequisitionLeftSection,
+    VerifiedRequisitionDetailsSection,
   },
   data() {
     return {
-      routeName: "Transfer Requisition",
+      routeName: "Verified Requisition",
       parentPath: "Local Sales",
       pathName: [],
       SELECTED_REQUISITION_DETAILS: [],
@@ -47,7 +47,7 @@ export default {
   },
   methods: {
     createBreadcrumbData() {
-      this.pathName = [{ name: "Features" }, { name: "Local Sales" }, { name: "Transfer Requisition" }];
+      this.pathName = [{ name: "Features" }, { name: "Local Sales" }, { name: "Verified Requisition" }];
       // this.pathName = breadcrumbFunctions.jmiERPBreadcrumb(window.location.pathname)
     },
     async singleItemClicked(item) {
@@ -59,6 +59,7 @@ export default {
     async STOCK_REQUISITION_DETAILS__FROM_SERVICE(requisition_id) {
       this.SELECTED_REQUISITION_DETAILS = []
       this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS = [] 
+      this.SELECTED_REQUISITION_DETAILS_WH_NAME = null
       service.getStockRequisitionDetail_TRANSFER_REQUISITION(requisition_id)
         .then(res => {
           console.log(res.data)
@@ -69,8 +70,8 @@ export default {
         .catch(err => {
           if(err) {
             this.SELECTED_REQUISITION_DETAILS = []
-            this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS = [] 
-            this.SELECTED_REQUISITION_DETAILS_WH_NAME = null
+            this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS = []
+            this.SELECTED_REQUISITION_DETAILS_WH_NAME = null 
             alert('Server Error 500. ' + err)
           }
         })

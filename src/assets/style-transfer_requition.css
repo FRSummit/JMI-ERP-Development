@@ -93,9 +93,19 @@
     color: var(--yellow) !important;
 }
 
-.layout-sidebar.requisition .submited,
-.layout-container .requition_area .submited {
+.layout-sidebar.requisition .submit,
+.layout-container .requition_area .submit {
     color: var(--blue) !important;
+}
+
+.layout-sidebar.requisition .approve,
+.layout-container .requition_area .approve {
+    color: #026CD1 !important;
+}
+
+.layout-sidebar.requisition .approved,
+.layout-container .requition_area .approved {
+    color: #02d151 !important;
 }
 
 .layout-sidebar.requisition .content .card_body {
@@ -105,6 +115,7 @@
     justify-content : space-between;
     background-color: var(--white);
     border-bottom   : 1px solid var(--border-color);
+    cursor          : pointer;
 }
 
 .layout-sidebar.requisition .content .card_body:hover,

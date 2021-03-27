@@ -26,12 +26,15 @@
                     <div class="row requition_header"> 
                         <div class="col-12 header_top">
                             <h5>Requisition No: <span>{{ SELECTED_REQUISITION_DETAILS.transfer_no ? SELECTED_REQUISITION_DETAILS.transfer_no : '' }}</span></h5>
-                            <a class="edit" @click="editRequisitionClickHandler"><i class="zmdi zmdi-edit"></i></a>
+                            <a class="edit" @click="editRequisitionClickHandler" v-if="SELECTED_REQUISITION_DETAILS ? (SELECTED_REQUISITION_DETAILS.req_status === 'DRAFT' ? true : false) : false"><i class="zmdi zmdi-edit"></i></a>
                         </div>
                         <div class="col-lg-3 col-md-3 col-12">
-                            <p>Requisition From: <span class="text-data">Rangpur</span></p>
+                            <p>Requisition From: <span class="text-data">{{ SELECTED_REQUISITION_DETAILS_WH_NAME }}</span></p>
                         </div>
-                        <div class="col-lg-4 col-md-3 col-12">
+                        <div class="col-lg-3 col-md-3 col-12">
+                            <p>Requisition To: <span class="text-data">Rangpur</span></p>
+                        </div>
+                        <!-- <div class="col-lg-4 col-md-3 col-12">
                             <div class="form-group">
                             <label for="requisition_to" class="col-form-label">Requisition To:</label>
                             <select class="form-control-sm" id="requisition_to">
@@ -41,7 +44,7 @@
                                 <option>Rajshahi</option>
                             </select>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="col-lg-3 col-md-3 col-12">
                             <p>Requisition Date: <span class="text-data">{{ SELECTED_REQUISITION_DETAILS.req_date ? formatDate(SELECTED_REQUISITION_DETAILS.req_date) : '' }}</span></p>
                         </div>
@@ -100,8 +103,9 @@
                         </table>
                     </div>
                     <div class="row requition_footer">
-                        <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="saveAsDraftClickHandler">Save As Draft</button></a>
-                        <a><button type="button" class="btn btn-primary btn-global mx-2" @click="sendRequestClickHandler">Send Request</button></a>
+                        <!-- <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="saveAsDraftClickHandler">Save As Draft</button></a>
+                        <a><button type="button" class="btn btn-primary btn-global mx-2" @click="sendRequestClickHandler">Send Request</button></a> -->
+                        <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="createRequisitionClickHandler">Create Requisition</button></a>
                         
                     </div>
                 </div>
@@ -117,7 +121,7 @@ import GlobalDateFormat from '.././../../../../../functions/GlobalDateFormat'
 const globalDateFormat = new GlobalDateFormat()
 
 export default {
-    props: ["SELECTED_REQUISITION_DETAILS", "SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS"],
+    props: ["SELECTED_REQUISITION_DETAILS", "SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS", "SELECTED_REQUISITION_DETAILS_WH_NAME"],
     components: {},
     data() {
         return {
@@ -141,7 +145,11 @@ export default {
             console.log('editRequisitionClickHandler')
             console.log(this.SELECTED_REQUISITION_DETAILS)
             if(this.SELECTED_REQUISITION_DETAILS.id) {
+                this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT = null
+                this.$store.state.REQUISITION_PREVIOUS_COMPONENT_NAME_TO_CREATE = null
+                
                 this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT = this.SELECTED_REQUISITION_DETAILS
+                this.$store.state.REQUISITION_PREVIOUS_COMPONENT_NAME_TO_CREATE = this.$route.name
                 this.$router.push('/features/local_sales/create-requisition')
             } else {
                 alert('Please select a requisitor from left.')

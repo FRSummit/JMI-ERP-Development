@@ -883,7 +883,7 @@ export default class PostService {
     })
   }
 
-  // REQUISITION - CREATE
+  // REQUISITION - CREATE - TRANSFER
   async getRequisitionProductList_CREATE_REQUISITION() {
     let web_menu_url = '/api/web/requisition-product-list'
     return await axios(web_menu_url, {
@@ -894,7 +894,7 @@ export default class PostService {
     })
   }
 
-  // REQUISITION - CREATE
+  // REQUISITION - CREATE - AREA LIST
   async getAllDepotUnderSBU_CREATE_REQUISITION() {
     let web_menu_url = '/api/web/all-depot-under-sbu'
     return await axios(web_menu_url, {
@@ -905,7 +905,7 @@ export default class PostService {
     })
   }
 
-  // REQUISITION - CREATE - SAVE
+  // REQUISITION - CREATE - SAVE / SEND
   async getSaveNewRequisition_CREATE_REQUISITION(wh_from, req_status, prod_info) {
     console.log(wh_from)
     console.log(req_status)
@@ -921,6 +921,38 @@ export default class PostService {
         req_status: req_status,
         prod_info: JSON.stringify(prod_info)
       }
+    })
+  }
+
+  // REQUISITION - CREATE - EDIT
+  async getUpdateNewRequisition_CREATE_REQUISITION(requisition_id, wh_from, req_status, prod_info) {
+    console.log(requisition_id)
+    console.log(wh_from)
+    console.log(req_status)
+    console.log(JSON.stringify(prod_info))
+    let web_menu_url = '/api/web/update-new-requisition/' + requisition_id
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+      params: {
+        wh_from: wh_from,
+        req_status: req_status,
+        prod_info: JSON.stringify(prod_info)
+      }
+    })
+  }
+
+  // -------------------------------------------------------------------------------------------
+  // REQUISITION - APPROVE
+  async getApproveRequisitionList_TRANSFER_REQUISITION() {
+    let web_menu_url = '/api/web/submitted-stock-requisition-list'
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
     })
   }
 

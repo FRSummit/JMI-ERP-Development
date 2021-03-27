@@ -1,32 +1,53 @@
 <template>
-    <div class="create-requisition-details">
+    <div class="approve-requisition-details">
         <div class="layout-container">
-            <div class="container-fluid">
+                <!-- No Data -->
+            <div class="container-fluid no_table_data" v-if="initial_stage">
+                <div class="col-12">
+                    <div class="empty-body">
+                        <div class="empty_data">
+                            <img src="../../../../../../assets/images/transfer-requisition/no_info.png" alt="Icon">
+                            <h5>No information to show</h5>
+                            <p>Select from the left bar</p>
+                            <p>Or</p>
+                            <a>
+                                <button type="button" class="btn btn-primary btn-global" @click="createRequisitionClickHandler">
+                                    <i class="fa fa-plus mr-2"></i>
+                                    Create Requisition
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- With Data -->
+            <div class="container-fluid" v-if="!initial_stage">
                 <div class="col-12 requition_area">
                     <div class="row requition_header"> 
                         <div class="col-12 header_top">
-                            <h5>ID: <span>#</span></h5>
+                            <h5>Requisition No: <span>{{ SELECTED_REQUISITION_DETAILS.transfer_no ? SELECTED_REQUISITION_DETAILS.transfer_no : '' }}</span></h5>
                             <a class="edit hide" @click="editRequisitionClickHandler"><i class="zmdi zmdi-edit"></i></a>
                         </div>
                         <div class="col-lg-3 col-md-3 col-12">
-                            <p>Requisition From: <span class="text-data">Rangpur</span></p>
+                            <p>Requisition From: <span class="text-data">{{ SELECTED_REQUISITION_DETAILS_WH_NAME }}</span></p>
                         </div>
-                        <div class="col-lg-4 col-md-3 col-12">
+                        <div class="col-lg-3 col-md-3 col-12">
+                            <p>Requisition To: <span class="text-data">Rangpur</span></p>
+                        </div>
+                        <!-- <div class="col-lg-4 col-md-3 col-12">
                             <div class="form-group">
                                 <label for="requisition_to" class="col-form-label">Requisition To:</label>
                                 <select class="form-control-sm" id="requisition_to" v-model="wh_from" @change="onChangeWH()">
                                     <option >Select Area</option>
                                     <option v-for="(depot, i) in DEPOT_LIST" :key="i" :value="depot.id">{{ depot.wh_name }}</option>
-                                    <!-- <option>Rangpur</option>
-                                    <option>Rajshahi</option> -->
                                 </select>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="col-lg-3 col-md-3 col-12">
-                            <p>Requisition Date: <span class="text-data">10/01/2021</span></p>
+                            <p>Requisition Date: <span class="text-data">{{ SELECTED_REQUISITION_DETAILS.req_date ? formatDate(SELECTED_REQUISITION_DETAILS.req_date) : '' }}</span></p>
                         </div>
                         <div class="col-lg-2 col-md-2 col-12">
-                            <p>Status: <span class="draft"></span></p>
+                            <p>Status: <span class="draft">{{ SELECTED_REQUISITION_DETAILS.req_status ? SELECTED_REQUISITION_DETAILS.req_status : '' }}</span></p>
                         </div>
                     </div>
                     <div class="row requition_content">
@@ -40,25 +61,26 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(item, i) in SELECTED_REQUISITION_DATA ? SELECTED_REQUISITION_DATA : items" :key="i">
                                 <!-- <tr v-for="(item, i) in items" :key="i"> -->
+                                <tr v-for="(item, i) in SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS" :key="i">
                                     <td>
                                         <div class="product">
-                                            <p class="name">{{ item.prod_code }} - {{ item.prod_name }}<span> {{ item.prod_class }}</span></p>
-                                            <p class="type">Unit Price: {{ item.base_tp }}</p>
+                                            <!-- <p class="name">{{ item..prod_info.prod_name }}<span> {{ item.qty }}</span></p> -->
+                                            <p class="name">{{ item.prod_info.prod_name }}</p>
+                                            <p class="type">{{ item.type ? item.type : 'Dummy Paricatamole' }}</p>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="product">
-                                            <p class="type">{{ item.base_uom }}</p>
+                                            <p class="type">{{ item.element_info ? item.element_info.element_name : '' }}</p>
                                         </div>
                                     </td>
                                     <!-- <td>
                                         <select class="form-control-sm" id="unit">
-                                        <option >Select Unit</option>
-                                        <option>Box</option>
-                                        <option>Box 2</option>
-                                        <option>Box 3</option>
+                                            <option >Select Unit</option>
+                                            <option>Box</option>
+                                            <option>Box 2</option>
+                                            <option>Box 3</option>
                                         </select>
                                     </td> -->
                                     <td>
@@ -78,13 +100,10 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="row requition_footer" v-if="(SELECTED_REQUISITION_DATA.length ? SELECTED_REQUISITION_DATA.length > 0 : false) && (PREVIOUS_ROUTE_NAME === 'Create Requisition' || PREVIOUS_ROUTE_NAME === 'Transfer Requisition')">
+                    <div class="row requition_footer">
                         <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="saveAsDraftClickHandler">Save As Draft</button></a>
-                        <a><button type="button" class="btn btn-primary btn-global mx-2" @click="sendRequestClickHandler">Send Request</button></a>
-                    </div>
-                    <div class="row requition_footer" v-if="(SELECTED_REQUISITION_DATA.length ? SELECTED_REQUISITION_DATA.length > 0 : false) && (PREVIOUS_ROUTE_NAME === 'Approve Requisition')">
-                        <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="saveAsSubmitClickHandler">Save As Submit</button></a>
-                        <a><button type="button" class="btn btn-primary btn-global mx-2" @click="approveRequestClickHandler">Approve</button></a>
+                        <a><button type="button" class="btn btn-primary btn-global mx-2" @click="sendRequestClickHandler">Approve</button></a>
+                        
                     </div>
                 </div>
             </div>
@@ -119,15 +138,18 @@
 <script>
 // import DemoData from '../../DemoData'
 // const demoData = new DemoData()
+import GlobalDateFormat from '../../../../../../functions/GlobalDateFormat'
+const globalDateFormat = new GlobalDateFormat()
 import ERPService from '../../../../../../service/ERPSidebarService'
 const service = new ERPService()
 
 export default {
-    props: ["SELECTED_REQUISITION_DATA"],
+    props: ["SELECTED_REQUISITION_DETAILS", "SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS"],
     components: {},
     data() {
         return {
             items: [],
+            initial_stage: false,
             wh_from: null,
             DEPOT_LIST: [],
             popup_modal_for__save_or_send: null,
@@ -140,24 +162,16 @@ export default {
     computed: {
         REQUISITION_DATA_TO_SAVE_OR_SEND() {
             let prod_info = []
-            if(this.SELECTED_REQUISITION_DATA.length ? this.SELECTED_REQUISITION_DATA.length > 0 : false) {
-                for(let i=0; i<this.SELECTED_REQUISITION_DATA.length; i++) {
+            if(this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS.length ? this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS.length > 0 : false) {
+                for(let i=0; i<this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS.length; i++) {
                     let prods = {
-                        prod_id: this.SELECTED_REQUISITION_DATA[i].prod_id,
-                        req_qty: this.SELECTED_REQUISITION_DATA[i].req_qty
+                        prod_id: this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS[i].prod_id,
+                        req_qty: this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS[i].req_qty
                     }
                     prod_info.push(prods)
                 }
             }
             return prod_info
-        },
-        PREVIOUS_ROUTE_NAME() {
-            if(this.$store.state.REQUISITION_PREVIOUS_COMPONENT_NAME_TO_CREATE) {
-                return this.$store.state.REQUISITION_PREVIOUS_COMPONENT_NAME_TO_CREATE
-            } else {
-                return 'Create Requisition'
-            }
-            
         }
     },
     created() {},
@@ -166,33 +180,49 @@ export default {
         await this.ALL_DEPOT_UNDER_SBU__FROM_SERVICE()
     },
     methods: {
-        editRequisitionClickHandler() {},
+        createRequisitionClickHandler() {
+            this.$router.push('/features/local_sales/create-requisition')
+        },
+        formatDate(date) {
+            return globalDateFormat.dateFormatT4(date)
+        },
+        editRequisitionClickHandler() {
+            console.log('editRequisitionClickHandler')
+            // console.log(this.SELECTED_REQUISITION_DETAILS)
+            // if(this.SELECTED_REQUISITION_DETAILS.id) {
+            //     this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT = this.SELECTED_REQUISITION_DETAILS
+            //     this.$router.push('/features/local_sales/create-requisition')
+            // } else {
+            //     alert('Please select a requisitor from left.')
+            // }
+        },
         onChangeWH() {
             console.log(this.wh_from)
         },
         decreaseRequisitionQtyClickHandler(item, index) {
-            // console.log(index)
+            console.log(index)
             if(item.req_qty > 1) {
                 item.req_qty--
+                // this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS[index].req_qty--
             }
-            let selector = document.querySelector('#create-requisition #req_qty_' + index)
-            selector.value = item.req_qty
         },
         increaseRequisitionQtyClickHandler(item, index) {
-            // console.log(index)
+            console.log(index)
             item.req_qty++
-            let selector = document.querySelector('#create-requisition #req_qty_' + index)
-            selector.value = item.req_qty
+            // this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS[index].req_qty++
         },
         reqQtyKeyUpEventHandler(item, event, index) {
             console.log(event)
-            let selector = document.querySelector('#create-requisition #req_qty_' + index)
+            let selector = document.querySelector('#approve-requisition #req_qty_' + index)
             if(parseInt(selector.value) === 0) {
                 selector.value = 1
+                // this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS[index].req_qty = selector.value
             } else if((selector.value).toString() === '') {
                 selector.value = 1
+                // this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS[index].req_qty = selector.value
             }
             item.req_qty = selector.value
+            // this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS[index].req_qty = selector.value
         },
         reqQtyKeyDownEventHandler(event, index) {
             console.log(index)
@@ -202,7 +232,6 @@ export default {
         },
         singleItemEditClickHandler() {},
         singleItemDeleteClickHandler() {},
-        // FOR CREATE OR TRANSFER REQUISITION
         saveAsDraftClickHandler() {
             if(this.proceed_modal_popup) {
                 this.proceed_modal_popup = false
@@ -221,65 +250,19 @@ export default {
                 this.proceed_modal_popup = true
             }
         },
-        // FOR APPROVE REQUISITION
-        saveAsSubmitClickHandler() {
-            if(this.proceed_modal_popup) {
-                this.proceed_modal_popup = false
-            } else {
-                this.popup_modal_for__save_or_send = 'SUBMIT'
-                this.proceed_modal_popup_msg = 'You want to submit the requisition.'
-                this.proceed_modal_popup = true
-            }
-        },
-        approveRequestClickHandler() {
-            if(this.proceed_modal_popup) {
-                this.proceed_modal_popup = false
-            } else {
-                this.popup_modal_for__save_or_send = 'APPROVE'
-                this.proceed_modal_popup_msg = 'You want to approve the requisition.'
-                this.proceed_modal_popup = true
-            }
-        },
         cancelOrderModalClickHandler() {
             this.proceed_modal_popup = false
         },
         async proceedOrderModalClickHandler() {
-            let wh_from = this.wh_from ? this.wh_from : this.SELECTED_REQUISITION_DATA.wh_from
+            let wh_from = this.wh_from ? this.wh_from : this.SELECTED_REQUISITION_DETAILS.wh_from
             this.status_modal = true
             this.proceed_modal_popup = false
             if(this.popup_modal_for__save_or_send === 'SAVE') {
-                let req_status = 'D'
-                if(this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT !== null ? this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT.id : false) {
-                    let requisition_id = this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT.id
-                    await this.UPDATE_SAVE_NEW_REQUISITION__FROM_SERVICE(requisition_id, wh_from, req_status)
-                } else {
-                    await this.SAVE_NEW_REQUISITION__FROM_SERVICE(wh_from, req_status)
-                }
+                let req_status = 'S'
+                await this.SAVE_REQUISITION__FROM_SERVICE(wh_from, req_status)
             } else if(this.popup_modal_for__save_or_send === 'SEND') {
-                let req_status = 'S'
-                if(this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT !== null ? this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT.id : false) {
-                    let requisition_id = this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT.id
-                    await this.UPDATE_SEND_NEW_REQUISITION__FROM_SERVICE(requisition_id, wh_from, req_status)
-                } else {
-                    await this.SEND_NEW_REQUISITION__FROM_SERVICE(wh_from, req_status)
-                }
-            } else if(this.popup_modal_for__save_or_send === 'SUBMIT') {
-                let req_status = 'S'
-                let requisition_id = this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT.id
-                await this.UPDATE_SAVE_NEW_REQUISITION__FROM_SERVICE(requisition_id, wh_from, req_status)
-            } else if(this.popup_modal_for__save_or_send === 'APPROVE') {
                 let req_status = 'A'
-                let requisition_id = this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT.id
-                await this.UPDATE_SEND_NEW_REQUISITION__FROM_SERVICE(requisition_id, wh_from, req_status)
-            }
-        },
-        changeThisComponent() {
-            if(this.$store.state.REQUISITION_PREVIOUS_COMPONENT_NAME_TO_CREATE === 'Transfer Requisition') {
-                this.$router.push('/features/local_sales/transfer-requisition')
-            } else if(this.$store.state.REQUISITION_PREVIOUS_COMPONENT_NAME_TO_CREATE === 'Approve Requisition') {
-                this.$router.push('/features/local_sales/approve-requisition')
-            } else {
-                this.$router.push('/features/local_sales/transfer-requisition')
+                await this.APPROVE_REQUISITION__FROM_SERVICE(wh_from, req_status)
             }
         },
         // -----------------------------------------------------
@@ -290,15 +273,6 @@ export default {
                 .then(res => {
                     console.log(res.data)
                     this.DEPOT_LIST = res.data.wh_info
-                    setTimeout( () => {
-                        for(let i=0; i<this.DEPOT_LIST.length; i++) {
-                            if(parseInt(this.DEPOT_LIST[i].id) === 211) {
-                                document.getElementById('requisition_to').selectedIndex = i
-                                console.log(this.DEPOT_LIST[i].id)
-                                console.log(this.DEPOT_LIST[i].wh_name)
-                            }
-                        }
-                    }, 1000)
                 })
                 .catch(err => {
                     if(err) {
@@ -307,8 +281,8 @@ export default {
                     }
                 })
         },
-        async SAVE_NEW_REQUISITION__FROM_SERVICE(wh_from, req_status) {
-            console.log('SAVE_NEW_REQUISITION__FROM_SERVICE')
+        async SAVE_REQUISITION__FROM_SERVICE(wh_from, req_status) {
+            console.log('SAVE_REQUISITION__FROM_SERVICE')
             this.popup_modal_for__save_or_send = null
             console.log(this.REQUISITION_DATA_TO_SAVE_OR_SEND)
             service.getSaveNewRequisition_CREATE_REQUISITION(wh_from, req_status, this.REQUISITION_DATA_TO_SAVE_OR_SEND)
@@ -322,7 +296,6 @@ export default {
                             this.status_modal = false
                             this.status_modal_msg = null
                         }, 2000)
-                        this.changeThisComponent()
                     }
                 })
                 .catch(err => {
@@ -336,8 +309,8 @@ export default {
                     }
                 })
         },
-        async SEND_NEW_REQUISITION__FROM_SERVICE(wh_from, req_status) {
-            console.log('SEND_NEW_REQUISITION__FROM_SERVICE')
+        async APPROVE_REQUISITION__FROM_SERVICE(wh_from, req_status) {
+            console.log('APPROVE_REQUISITION__FROM_SERVICE')
             console.log(wh_from + '    ' + req_status)
             this.popup_modal_for__save_or_send = null
             console.log(this.REQUISITION_DATA_TO_SAVE_OR_SEND)
@@ -352,66 +325,6 @@ export default {
                             this.status_modal = false
                             this.status_modal_msg = null
                         }, 2000)
-                        this.changeThisComponent()
-                    }
-                })
-                .catch(err => {
-                    if(err) {
-                        console.log(err)
-                        this.status_modal_msg = 'Server problem 500'
-                        setTimeout( () => {
-                            this.status_modal = false
-                            this.status_modal_msg = null
-                        }, 2000)
-                    }
-                })
-        },
-        async UPDATE_SAVE_NEW_REQUISITION__FROM_SERVICE(requisition_id, wh_from, req_status) {
-            console.log('SAVE_NEW_REQUISITION__FROM_SERVICE')
-            this.popup_modal_for__save_or_send = null
-            console.log(this.REQUISITION_DATA_TO_SAVE_OR_SEND)
-            service.getUpdateNewRequisition_CREATE_REQUISITION(requisition_id, wh_from, req_status, this.REQUISITION_DATA_TO_SAVE_OR_SEND)
-                .then(res => {
-                    console.log(res.data)
-                    if(res.data.response_code === 200 || res.data.response_code === 201) {
-                        this.status_modal_msg = 'Requisition saved successfully'
-                        this.SELECTED_REQUISITION_DATA = []
-                        this.$store.state.DESELECT_ALL_SELECTED_PRODUCT = new Date
-                        setTimeout( () => {
-                            this.status_modal = false
-                            this.status_modal_msg = null
-                        }, 2000)
-                        this.changeThisComponent()
-                    }
-                })
-                .catch(err => {
-                    if(err) {
-                        console.log(err)
-                        this.status_modal_msg = 'Server problem 500'
-                        setTimeout( () => {
-                            this.status_modal = false
-                            this.status_modal_msg = null
-                        }, 2000)
-                    }
-                })
-        },
-        async UPDATE_SEND_NEW_REQUISITION__FROM_SERVICE(requisition_id, wh_from, req_status) {
-            console.log('SEND_NEW_REQUISITION__FROM_SERVICE')
-            console.log(wh_from + '    ' + req_status)
-            this.popup_modal_for__save_or_send = null
-            console.log(this.REQUISITION_DATA_TO_SAVE_OR_SEND)
-            service.getUpdateNewRequisition_CREATE_REQUISITION(requisition_id, wh_from, req_status, this.REQUISITION_DATA_TO_SAVE_OR_SEND)
-                .then(res => {
-                    console.log(res.data)
-                    if(res.data.response_code === 200 || res.data.response_code === 201) {
-                        this.status_modal_msg = 'Requisition send successfully'
-                        this.SELECTED_REQUISITION_DATA = []
-                        this.$store.state.DESELECT_ALL_SELECTED_PRODUCT = new Date
-                        setTimeout( () => {
-                            this.status_modal = false
-                            this.status_modal_msg = null
-                        }, 2000)
-                        this.changeThisComponent()
                     }
                 })
                 .catch(err => {
@@ -437,6 +350,17 @@ export default {
 .layout-container {
     height: calc(100vh - (74px + 54px + 32px));
 }
+
+/* Create Btn Section */
+.container-fluid.no_table_data {
+    margin-top: calc( ( (100vh - (74px + 54px + 32px)) / 2) - 120px );
+}
+.btn.btn-primary.btn-global {
+    background: #026cd1;
+    font-size: 14px;
+    text-transform: unset;
+}
+/* Data Section */
 .requition_area .requition_header .header_top {
     padding: 0;
 }
