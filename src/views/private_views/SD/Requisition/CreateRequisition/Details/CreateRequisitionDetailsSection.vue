@@ -218,10 +218,20 @@ export default {
             this.proceed_modal_popup = false
             if(this.popup_modal_for__save_or_send === 'SAVE') {
                 let req_status = 'D'
-                await this.SAVE_NEW_REQUISITION__FROM_SERVICE(wh_from, req_status)
+                if(this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT !== null ? this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT.id : false) {
+                    let requisition_id = this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT.id
+                    await this.UPDATE_SAVE_NEW_REQUISITION__FROM_SERVICE(requisition_id, wh_from, req_status)
+                } else {
+                    await this.SAVE_NEW_REQUISITION__FROM_SERVICE(wh_from, req_status)
+                }
             } else if(this.popup_modal_for__save_or_send === 'SEND') {
                 let req_status = 'S'
-                await this.SEND_NEW_REQUISITION__FROM_SERVICE(wh_from, req_status)
+                if(this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT !== null ? this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT.id : false) {
+                    let requisition_id = this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT.id
+                    await this.UPDATE_SEND_NEW_REQUISITION__FROM_SERVICE(requisition_id, wh_from, req_status)
+                } else {
+                    await this.SEND_NEW_REQUISITION__FROM_SERVICE(wh_from, req_status)
+                }
             }
         },
         // -----------------------------------------------------
@@ -260,11 +270,11 @@ export default {
                 .catch(err => {
                     if(err) {
                         console.log(err)
-                        // this.status_modal_msg = 'Server problem'
-                        // setTimeout( () => {
-                        //     this.status_modal = false
-                        //     this.status_modal_msg = null
-                        // }, 2000)
+                        this.status_modal_msg = 'Server problem 500'
+                        setTimeout( () => {
+                            this.status_modal = false
+                            this.status_modal_msg = null
+                        }, 2000)
                     }
                 })
         },
@@ -289,11 +299,68 @@ export default {
                 .catch(err => {
                     if(err) {
                         console.log(err)
-                        // this.status_modal_msg = 'Server problem'
-                        // setTimeout( () => {
-                        //     this.status_modal = false
-                        //     this.status_modal_msg = null
-                        // }, 2000)
+                        this.status_modal_msg = 'Server problem 500'
+                        setTimeout( () => {
+                            this.status_modal = false
+                            this.status_modal_msg = null
+                        }, 2000)
+                    }
+                })
+        },
+        async UPDATE_SAVE_NEW_REQUISITION__FROM_SERVICE(requisition_id, wh_from, req_status) {
+            console.log('SAVE_NEW_REQUISITION__FROM_SERVICE')
+            this.popup_modal_for__save_or_send = null
+            console.log(this.REQUISITION_DATA_TO_SAVE_OR_SEND)
+            service.getUpdateNewRequisition_CREATE_REQUISITION(requisition_id, wh_from, req_status, this.REQUISITION_DATA_TO_SAVE_OR_SEND)
+                .then(res => {
+                    console.log(res.data)
+                    if(res.data.response_code === 200 || res.data.response_code === 201) {
+                        this.status_modal_msg = 'Requisition saved successfully'
+                        this.SELECTED_REQUISITION_DATA = []
+                        this.$store.state.DESELECT_ALL_SELECTED_PRODUCT = new Date
+                        setTimeout( () => {
+                            this.status_modal = false
+                            this.status_modal_msg = null
+                        }, 2000)
+                    }
+                })
+                .catch(err => {
+                    if(err) {
+                        console.log(err)
+                        this.status_modal_msg = 'Server problem 500'
+                        setTimeout( () => {
+                            this.status_modal = false
+                            this.status_modal_msg = null
+                        }, 2000)
+                    }
+                })
+        },
+        async UPDATE_SEND_NEW_REQUISITION__FROM_SERVICE(requisition_id, wh_from, req_status) {
+            console.log('SEND_NEW_REQUISITION__FROM_SERVICE')
+            console.log(wh_from + '    ' + req_status)
+            this.popup_modal_for__save_or_send = null
+            console.log(this.REQUISITION_DATA_TO_SAVE_OR_SEND)
+            service.getUpdateNewRequisition_CREATE_REQUISITION(requisition_id, wh_from, req_status, this.REQUISITION_DATA_TO_SAVE_OR_SEND)
+                .then(res => {
+                    console.log(res.data)
+                    if(res.data.response_code === 200 || res.data.response_code === 201) {
+                        this.status_modal_msg = 'Requisition send successfully'
+                        this.SELECTED_REQUISITION_DATA = []
+                        this.$store.state.DESELECT_ALL_SELECTED_PRODUCT = new Date
+                        setTimeout( () => {
+                            this.status_modal = false
+                            this.status_modal_msg = null
+                        }, 2000)
+                    }
+                })
+                .catch(err => {
+                    if(err) {
+                        console.log(err)
+                        this.status_modal_msg = 'Server problem 500'
+                        setTimeout( () => {
+                            this.status_modal = false
+                            this.status_modal_msg = null
+                        }, 2000)
                     }
                 })
         },

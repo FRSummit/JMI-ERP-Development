@@ -76,6 +76,8 @@ export default {
                     }
                 }
             }
+            // this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT = null
+            // this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT_FLAG = true
         } else {
             console.log('no data')
         }
