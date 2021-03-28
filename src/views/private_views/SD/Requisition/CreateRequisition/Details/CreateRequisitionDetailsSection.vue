@@ -144,6 +144,7 @@ export default {
             status_modal_msg: null,
             DATA_DEPOT_NAME_FROM_TR_AR: null,
             REQ_STATUS: null,
+            STORED_DATA: null
         }
     },
     computed: {
@@ -180,6 +181,7 @@ export default {
         console.log(this.$store.state.REQUISITION_PREVIOUS_COMPONENT_NAME_TO_CREATE)
         if(this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT !== null ? this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT.id : false) {
             console.log(this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT)
+            this.STORED_DATA = this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT
             this.DATA_DEPOT_NAME_FROM_TR_AR = this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT.req_from_info.area_name
             this.REQ_STATUS = this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT.req_status
             
@@ -193,6 +195,22 @@ export default {
         }
 
         await this.ALL_DEPOT_UNDER_SBU__FROM_SERVICE()
+
+        setTimeout( () => {
+            if(this.STORED_DATA !== null ? this.STORED_DATA.id : false) {
+                for(let i=0; i<this.DEPOT_LIST.length; i++) {
+                    console.log(this.STORED_DATA.req_to_info.id)
+                    if(this.DEPOT_LIST[i].id === this.STORED_DATA.req_to_info.id) {
+                        console.log('matched')
+                        document.getElementById('requisition_to').selectedIndex = i
+                        this.wh_from = this.DEPOT_LIST[i].id
+
+                        console.log(document.getElementById('requisition_to').selectedIndex)
+                        console.log(this.wh_from)
+                    }
+                }
+            }
+        }, 2000)
     },
     methods: {
         editRequisitionClickHandler() {},
