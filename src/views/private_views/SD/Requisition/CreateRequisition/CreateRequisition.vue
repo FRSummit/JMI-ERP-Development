@@ -5,8 +5,10 @@
     <div class="layout-body">
       <CreateRequisitionLeftSection
         v-on:SINGLE_REQUISITOR_ITEM_SELECTED="singleRequisitorItemSelected"
-        v-on:SINGLE_REQUISITOR_ITEM_REMOVED="singleRequisitorItemRemoved" />
+        v-on:SINGLE_REQUISITOR_ITEM_REMOVED="singleRequisitorItemRemoved"
+        v-on:DEPOT_NAME="depotNameFromList" />
       <CreateRequisitionDetailsSection
+        :DEPOT_NAME="DEPOT_NAME"
         :SELECTED_REQUISITION_DATA="SELECTED_REQUISITION_DATA"
         v-on:SINGLE_ITEM_REMOVE_FROM_TABLE="singleItemRemoveFromTable" />
     </div>
@@ -29,6 +31,7 @@ export default {
       routeName: "Create Requisition",
       parentPath: "Local Sales",
       pathName: [],
+      DEPOT_NAME: null,
       SELECTED_REQUISITION_DATA: []
     };
   },
@@ -42,6 +45,9 @@ export default {
     createBreadcrumbData() {
       this.pathName = [{ name: "Features" }, { name: "Local Sales" }, { name: "Create Requisition" }];
       // this.pathName = breadcrumbFunctions.jmiERPBreadcrumb(window.location.pathname)
+    },
+    depotNameFromList(value) {
+      this.DEPOT_NAME = value
     },
     singleRequisitorItemSelected(item) {
       console.log('item')

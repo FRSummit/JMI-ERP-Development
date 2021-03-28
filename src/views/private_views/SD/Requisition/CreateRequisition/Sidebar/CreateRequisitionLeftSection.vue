@@ -49,7 +49,7 @@ export default {
     components: {},
     data() {
         return {
-            items: []
+            items: [],
         }
     },
     computed: {
@@ -155,6 +155,7 @@ export default {
                 .then(res => {
                     console.log(res.data)
                     this.items = res.data.product_list
+                    this.$emit('DEPOT_NAME', res.data.depot_name)
                     console.log(this.items)
                 })
                 .catch(err => {

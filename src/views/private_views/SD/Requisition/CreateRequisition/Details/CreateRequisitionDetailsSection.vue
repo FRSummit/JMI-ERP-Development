@@ -9,7 +9,7 @@
                             <a class="edit hide" @click="editRequisitionClickHandler"><i class="zmdi zmdi-edit"></i></a>
                         </div> -->
                         <div class="col-lg-3 col-md-3 col-12">
-                            <p>Requisition From: <span class="text-data"></span></p>
+                            <p>Requisition From: <span class="text-data">{{ DEPOT_NAME ? DEPOT_NAME : '' }}</span></p>
                             <!-- <div class="form-group">
                                 <label for="requisition_to" class="col-form-label">Requisition From:</label>
                                 <select class="form-control-sm" id="requisition_from" v-model="wh_from" @change="onChangeWH()">
@@ -128,7 +128,7 @@ import ERPService from '../../../../../../service/ERPSidebarService'
 const service = new ERPService()
 
 export default {
-    props: ["SELECTED_REQUISITION_DATA"],
+    props: ["DEPOT_NAME", "SELECTED_REQUISITION_DATA"],
     components: {},
     data() {
         return {
