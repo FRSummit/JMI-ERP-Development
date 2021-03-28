@@ -18,11 +18,11 @@
             <!--Start Secondary Sidebar Content Area--> 
             <div class="content jmi-scroll-section">                
                 <div class="card_body" v-for="(item, i) in items" :key="i" @click="itemClickHandler(item, i)">
-                    <input :id="'card_body_input_' + i" type="checkbox" :name="item.title" :value="item.title">
+                    <input :id="'card_body_input_' + i" type="checkbox">
                     <label for="product-1" class="check-item">
                         <div class="row1">
                             <h5>{{ item.prod_code }} - {{ item.prod_name }}</h5>
-                            <span>{{ item.prod_class }}</span>
+                            <!-- <span>{{ item.prod_class }}</span> -->
                             <span class="search_by_item hide">{{ item.prod_code }} {{ item.prod_name }} {{ item.prod_class }} {{ item.base_tp }} {{ item.prod_id }} {{ item.base_vat }} {{ item.base_uom }}</span>
                         </div>
                         <div class="row2">
@@ -104,6 +104,19 @@ export default {
         }
     },
     methods: {
+        checkboxClick(item, i) {
+            console.log(item)
+            console.log(i)
+            // Object.assign(item, {req_qty: 1})
+            // let checkbox_selector = document.querySelector('#card_body_input_' + i)
+            // if(checkbox_selector.checked === true) {
+            //     checkbox_selector.checked = false
+            //     this.$emit('SINGLE_REQUISITOR_ITEM_REMOVED', item)
+            // } else {
+            //     checkbox_selector.checked = true
+            //     this.$emit('SINGLE_REQUISITOR_ITEM_SELECTED', item)
+            // }
+        },
         itemClickHandler(item, i) {
             console.log(item)
             // item.req_qty = 0

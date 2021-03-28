@@ -4,29 +4,34 @@
             <div class="container-fluid">
                 <div class="col-12 requition_area">
                     <div class="row requition_header"> 
-                        <div class="col-12 header_top">
+                        <!-- <div class="col-12 header_top">
                             <h5>ID: <span>#</span></h5>
                             <a class="edit hide" @click="editRequisitionClickHandler"><i class="zmdi zmdi-edit"></i></a>
+                        </div> -->
+                        <div class="col-lg-3 col-md-3 col-12">
+                            <p>Requisition From: <span class="text-data"></span></p>
+                            <!-- <div class="form-group">
+                                <label for="requisition_to" class="col-form-label">Requisition From:</label>
+                                <select class="form-control-sm" id="requisition_from" v-model="wh_from" @change="onChangeWH()">
+                                    <option >Select Area</option>
+                                    <option v-for="(depot, i) in DEPOT_LIST" :key="i" :value="depot.id">{{ depot.wh_name }}</option>
+                                </select>
+                            </div> -->
                         </div>
                         <div class="col-lg-3 col-md-3 col-12">
-                            <p>Requisition From: <span class="text-data">Rangpur</span></p>
-                        </div>
-                        <div class="col-lg-4 col-md-3 col-12">
                             <div class="form-group">
                                 <label for="requisition_to" class="col-form-label">Requisition To:</label>
                                 <select class="form-control-sm" id="requisition_to" v-model="wh_from" @change="onChangeWH()">
                                     <option >Select Area</option>
                                     <option v-for="(depot, i) in DEPOT_LIST" :key="i" :value="depot.id">{{ depot.wh_name }}</option>
-                                    <!-- <option>Rangpur</option>
-                                    <option>Rajshahi</option> -->
                                 </select>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-3 col-12">
-                            <p>Requisition Date: <span class="text-data">10/01/2021</span></p>
+                        <div class="col-lg-4 col-md-3 col-12">
+                            <p>Requisition Date: <span class="text-data"><input type="date"></span></p>
                         </div>
                         <div class="col-lg-2 col-md-2 col-12">
-                            <p>Status: <span class="draft"></span></p>
+                            <p>Status: <span class="draft">Draft</span></p>
                         </div>
                     </div>
                     <div class="row requition_content">
@@ -36,7 +41,7 @@
                                     <th>Name</th>
                                     <th>Unit</th>
                                     <th>Quantity</th>
-                                    <th></th>
+                                    <!-- <th></th> -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -44,7 +49,7 @@
                                 <!-- <tr v-for="(item, i) in items" :key="i"> -->
                                     <td>
                                         <div class="product">
-                                            <p class="name">{{ item.prod_code }} - {{ item.prod_name }}<span> {{ item.prod_class }}</span></p>
+                                            <p class="name">{{ item.prod_code }} - {{ item.prod_name }}<span> </span></p>
                                             <p class="type">Unit Price: {{ item.base_tp }}</p>
                                         </div>
                                     </td>
@@ -70,10 +75,10 @@
                                             </div>
                                         </form>
                                     </td>
-                                    <td>
+                                    <!-- <td>
                                         <a class="edit" @click="singleItemEditClickHandler"><i class="zmdi zmdi-edit"></i></a>
                                         <a class="remove" @click="singleItemDeleteClickHandler"><i class="fas fa-trash-alt"></i></a>
-                                    </td>
+                                    </td> -->
                                 </tr>
                             </tbody>
                         </table>
@@ -129,6 +134,7 @@ export default {
         return {
             items: [],
             wh_from: null,
+            wh_to: null,
             DEPOT_LIST: [],
             popup_modal_for__save_or_send: null,
             proceed_modal_popup: false,
@@ -169,6 +175,7 @@ export default {
         editRequisitionClickHandler() {},
         onChangeWH() {
             console.log(this.wh_from)
+            console.log(this.wh_to)
         },
         decreaseRequisitionQtyClickHandler(item, index) {
             // console.log(index)
@@ -286,6 +293,7 @@ export default {
         // SERVICE CALL
         async ALL_DEPOT_UNDER_SBU__FROM_SERVICE() {
             this.DEPOT_LIST = []
+            this.wh_from = null
             await service.getAllDepotUnderSBU_CREATE_REQUISITION()
                 .then(res => {
                     console.log(res.data)
@@ -293,7 +301,9 @@ export default {
                     setTimeout( () => {
                         for(let i=0; i<this.DEPOT_LIST.length; i++) {
                             if(parseInt(this.DEPOT_LIST[i].id) === 211) {
+                                // document.getElementById('requisition_from').selectedIndex = i
                                 document.getElementById('requisition_to').selectedIndex = i
+                                this.wh_from = this.DEPOT_LIST[i].id
                                 console.log(this.DEPOT_LIST[i].id)
                                 console.log(this.DEPOT_LIST[i].wh_name)
                             }
@@ -445,12 +455,18 @@ export default {
 }
 .requition_area .requition_header .form-group label {
     display: inline-block;
-    width: 45%;
+    /* width: 45%; */
+    margin-right: 4px;
 }
 .requition_area .requition_header .form-group .form-control-sm {
     width: 54%;
     display: inline-block !important;
     min-width: unset;
+}
+.requition_area .requition_header input[type=date] {
+    width: 50%;
+    height: auto;
+    border: none;
 }
 .requition_area .header_top .edit i {
     font-size: 16px;
