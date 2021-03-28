@@ -28,7 +28,7 @@
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-3 col-12">
-                            <p>Requisition Date: <span class="text-data"><input type="date"></span></p>
+                            <p>Requisition Date: <span class="text-data"><input type="date" v-model="requisition_date"></span></p>
                         </div>
                         <div class="col-lg-2 col-md-2 col-12">
                             <p>Status: <span class="draft">Draft</span></p>
@@ -135,6 +135,7 @@ export default {
             items: [],
             wh_from: null,
             wh_to: null,
+            requisition_date: null,
             DEPOT_LIST: [],
             popup_modal_for__save_or_send: null,
             proceed_modal_popup: false,
@@ -169,6 +170,12 @@ export default {
     created() {},
     async mounted() {
         // this.items = demoData.demo_data().create_requisition_items_table_data
+        let now = new Date();
+        let day = ("0" + now.getDate()).slice(-2);
+        let month = ("0" + (now.getMonth() + 1)).slice(-2);
+        let today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+        this.requisition_date = today
+
         await this.ALL_DEPOT_UNDER_SBU__FROM_SERVICE()
     },
     methods: {
