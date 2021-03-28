@@ -9,7 +9,7 @@
                             <a class="edit hide" @click="editRequisitionClickHandler"><i class="zmdi zmdi-edit"></i></a>
                         </div> -->
                         <div class="col-lg-3 col-md-3 col-12">
-                            <p>Requisition From: <span class="text-data">{{ DEPOT_NAME ? DEPOT_NAME : '' }}</span></p>
+                            <p>Requisition From: <span class="text-data">{{ DATA_DEPOT_NAME_FROM_TR_AR ? DATA_DEPOT_NAME_FROM_TR_AR : (DEPOT_NAME ? DEPOT_NAME : '') }}</span></p>
                             <!-- <div class="form-group">
                                 <label for="requisition_to" class="col-form-label">Requisition From:</label>
                                 <select class="form-control-sm" id="requisition_from" v-model="wh_from" @change="onChangeWH()">
@@ -31,7 +31,7 @@
                             <p>Requisition Date: <span class="text-data"><input type="date" v-model="requisition_date"></span></p>
                         </div>
                         <div class="col-lg-2 col-md-2 col-12">
-                            <p>Status: <span class="draft">Draft</span></p>
+                            <p>Status: <span class="draft">{{ REQ_STATUS ? REQ_STATUS : 'DRAFT' }}</span></p>
                         </div>
                     </div>
                     <div class="row requition_content">
@@ -142,6 +142,8 @@ export default {
             proceed_modal_popup_msg: null,
             status_modal: false,
             status_modal_msg: null,
+            DATA_DEPOT_NAME_FROM_TR_AR: null,
+            REQ_STATUS: null,
         }
     },
     computed: {
@@ -164,8 +166,7 @@ export default {
             } else {
                 return 'Create Requisition'
             }
-            
-        }
+        },
     },
     created() {},
     async mounted() {
@@ -175,6 +176,21 @@ export default {
         let month = ("0" + (now.getMonth() + 1)).slice(-2);
         let today = now.getFullYear()+"-"+(month)+"-"+(day) ;
         this.requisition_date = today
+
+        console.log(this.$store.state.REQUISITION_PREVIOUS_COMPONENT_NAME_TO_CREATE)
+        if(this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT !== null ? this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT.id : false) {
+            console.log(this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT)
+            this.DATA_DEPOT_NAME_FROM_TR_AR = this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT.req_from_info.area_name
+            this.REQ_STATUS = this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT.req_status
+            
+            let now = new Date(this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT.req_date);
+            let day = ("0" + now.getDate()).slice(-2);
+            let month = ("0" + (now.getMonth() + 1)).slice(-2);
+            let today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+            this.requisition_date = today
+        } else {
+            console.log('no data')
+        }
 
         await this.ALL_DEPOT_UNDER_SBU__FROM_SERVICE()
     },
