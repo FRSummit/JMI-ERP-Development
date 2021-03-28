@@ -17,9 +17,9 @@
             
             <!--Start Secondary Sidebar Content Area--> 
             <div class="content jmi-scroll-section">                
-                <div class="card_body" v-for="(item, i) in items" :key="i" @click="itemClickHandler(item, i)">
-                    <input :id="'card_body_input_' + i" type="checkbox">
-                    <label for="product-1" class="check-item">
+                <div class="card_body" v-for="(item, i) in items" :key="i">
+                    <input :id="'card_body_input_' + i" type="checkbox" @change="checkboxClickHandler(item, i)">
+                    <label for="product-1" class="check-item" @click="itemClickHandler(item, i)">
                         <div class="row1">
                             <h5>{{ item.prod_code }} - {{ item.prod_name }}</h5>
                             <!-- <span>{{ item.prod_class }}</span> -->
@@ -104,18 +104,18 @@ export default {
         }
     },
     methods: {
-        checkboxClick(item, i) {
+        checkboxClickHandler(item, i) {
             console.log(item)
             console.log(i)
-            // Object.assign(item, {req_qty: 1})
-            // let checkbox_selector = document.querySelector('#card_body_input_' + i)
-            // if(checkbox_selector.checked === true) {
-            //     checkbox_selector.checked = false
-            //     this.$emit('SINGLE_REQUISITOR_ITEM_REMOVED', item)
-            // } else {
-            //     checkbox_selector.checked = true
-            //     this.$emit('SINGLE_REQUISITOR_ITEM_SELECTED', item)
-            // }
+            Object.assign(item, {req_qty: 1})
+            let checkbox_selector = document.querySelector('#card_body_input_' + i)
+            if(checkbox_selector.checked === true) {
+                console.log('true')
+                this.$emit('SINGLE_REQUISITOR_ITEM_SELECTED', item)
+            } else {
+                console.log('false')
+                this.$emit('SINGLE_REQUISITOR_ITEM_REMOVED', item)
+            }
         },
         itemClickHandler(item, i) {
             console.log(item)
