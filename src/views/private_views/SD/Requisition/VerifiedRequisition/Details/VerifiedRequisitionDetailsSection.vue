@@ -25,14 +25,14 @@
                 <div class="col-12 requition_area">
                     <div class="row requition_header"> 
                         <div class="col-12 header_top">
-                            <h5>Requisition No: <span>{{ SELECTED_REQUISITION_DETAILS.transfer_no ? SELECTED_REQUISITION_DETAILS.transfer_no : '' }}</span></h5>
+                            <h5>Requisition No: <span>{{ SELECTED_REQUISITION_DETAILS.requisition_no ? SELECTED_REQUISITION_DETAILS.requisition_no : '' }}</span></h5>
                             <a class="edit hide" @click="editRequisitionClickHandler"><i class="zmdi zmdi-edit"></i></a>
                         </div>
                         <div class="col-lg-3 col-md-3 col-12">
                             <p>Requisition From: <span class="text-data">{{ SELECTED_REQUISITION_DETAILS_WH_NAME }}</span></p>
                         </div>
                         <div class="col-lg-3 col-md-3 col-12">
-                            <p>Requisition To: <span class="text-data">Rangpur</span></p>
+                            <p>Requisition To: <span class="text-data">{{ SELECTED_REQUISITION_DETAILS.req_to ? SELECTED_REQUISITION_DETAILS.req_to : '' }}</span></p>
                         </div>
                         <!-- <div class="col-lg-4 col-md-3 col-12">
                             <div class="form-group">
@@ -86,9 +86,9 @@
                                     <td>
                                         <form>
                                             <div class="quantity-input">
-                                                <input class='minus' type='button' value='-' field='quantity' @click="decreaseRequisitionQtyClickHandler(item, i)" />
-                                                <input class='quantity' type='number' name='quantity' placeholder="0" :value="item.req_qty" :id="'req_qty_' + i" v-on:keyup="reqQtyKeyUpEventHandler(item, $event, i)" v-on:keydown="reqQtyKeyDownEventHandler($event, i)" />
-                                                <input class='plus' type='button' value='+' field='quantity' @click="increaseRequisitionQtyClickHandler(item, i)" />
+                                                <input class='minus hide' type='button' value='-' field='quantity' @click="decreaseRequisitionQtyClickHandler(item, i)" />
+                                                <input class='quantity' type='number' name='quantity' placeholder="0" :value="item.req_qty" :id="'req_qty_' + i" v-on:keyup="reqQtyKeyUpEventHandler(item, $event, i)" v-on:keydown="reqQtyKeyDownEventHandler($event, i)" readonly/>
+                                                <input class='plus hide' type='button' value='+' field='quantity' @click="increaseRequisitionQtyClickHandler(item, i)" />
                                             </div>
                                         </form>
                                     </td>

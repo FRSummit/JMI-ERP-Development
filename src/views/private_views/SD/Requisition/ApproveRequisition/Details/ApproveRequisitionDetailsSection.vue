@@ -25,14 +25,14 @@
                 <div class="col-12 requition_area">
                     <div class="row requition_header"> 
                         <div class="col-12 header_top">
-                            <h5>Requisition No: <span>{{ SELECTED_REQUISITION_DETAILS.transfer_no ? SELECTED_REQUISITION_DETAILS.transfer_no : '' }}</span></h5>
+                            <h5>Requisition No: <span>{{ SELECTED_REQUISITION_DETAILS.requisition_no ? SELECTED_REQUISITION_DETAILS.requisition_no : '' }}</span></h5>
                             <a class="edit" @click="editRequisitionClickHandler" v-if="SELECTED_REQUISITION_DETAILS ? (SELECTED_REQUISITION_DETAILS.req_status === 'SUBMIT' ? true : false) : false"><i class="zmdi zmdi-edit"></i></a>
                         </div>
                         <div class="col-lg-3 col-md-3 col-12">
                             <p>Requisition From: <span class="text-data">{{ SELECTED_REQUISITION_DETAILS_WH_NAME }}</span></p>
                         </div>
                         <div class="col-lg-3 col-md-3 col-12">
-                            <p>Requisition To: <span class="text-data">Rangpur</span></p>
+                            <p>Requisition To: <span class="text-data">{{ SELECTED_REQUISITION_DETAILS.req_to ? SELECTED_REQUISITION_DETAILS.req_to : '' }}</span></p>
                         </div>
                         <!-- <div class="col-lg-4 col-md-3 col-12">
                             <div class="form-group">
