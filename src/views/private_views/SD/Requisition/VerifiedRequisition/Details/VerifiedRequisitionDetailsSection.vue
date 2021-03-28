@@ -144,7 +144,7 @@ import ERPService from '../../../../../../service/ERPSidebarService'
 const service = new ERPService()
 
 export default {
-    props: ["SELECTED_REQUISITION_DETAILS", "SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS"],
+    props: ["SELECTED_REQUISITION_DETAILS", "SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS", "SELECTED_REQUISITION_DETAILS_WH_NAME"],
     components: {},
     data() {
         return {
