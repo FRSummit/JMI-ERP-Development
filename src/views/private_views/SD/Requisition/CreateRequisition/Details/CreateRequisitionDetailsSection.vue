@@ -196,8 +196,8 @@ export default {
 
         await this.ALL_DEPOT_UNDER_SBU__FROM_SERVICE()
 
-        setTimeout( () => {
-            if(this.STORED_DATA !== null ? this.STORED_DATA.id : false) {
+        if(this.STORED_DATA !== null ? this.STORED_DATA.id : false) {
+            setTimeout( () => {
                 for(let i=0; i<this.DEPOT_LIST.length; i++) {
                     console.log(this.STORED_DATA.req_to_info.id)
                     if(this.DEPOT_LIST[i].id === this.STORED_DATA.req_to_info.id) {
@@ -209,8 +209,8 @@ export default {
                         console.log(this.wh_from)
                     }
                 }
-            }
-        }, 2000)
+            }, 2000)
+        }
     },
     methods: {
         editRequisitionClickHandler() {},
