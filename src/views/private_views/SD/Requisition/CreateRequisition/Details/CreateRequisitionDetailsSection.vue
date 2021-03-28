@@ -41,7 +41,7 @@
                                     <th>Name</th>
                                     <th>Unit</th>
                                     <th>Quantity</th>
-                                    <!-- <th></th> -->
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -75,10 +75,10 @@
                                             </div>
                                         </form>
                                     </td>
-                                    <!-- <td>
-                                        <a class="edit" @click="singleItemEditClickHandler"><i class="zmdi zmdi-edit"></i></a>
-                                        <a class="remove" @click="singleItemDeleteClickHandler"><i class="fas fa-trash-alt"></i></a>
-                                    </td> -->
+                                    <td>
+                                        <!-- <a class="edit" @click="singleItemEditClickHandler"><i class="zmdi zmdi-edit"></i></a> -->
+                                        <a class="remove" @click="singleItemDeleteClickHandler(item, i)"><i class="fas fa-trash-alt"></i></a>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -208,7 +208,10 @@ export default {
             }
         },
         singleItemEditClickHandler() {},
-        singleItemDeleteClickHandler() {},
+        singleItemDeleteClickHandler(item, i) {
+            console.log(i)
+            this.$emit('SINGLE_ITEM_REMOVE_FROM_TABLE', item, i)
+        },
         // FOR CREATE OR TRANSFER REQUISITION
         saveAsDraftClickHandler() {
             if(this.proceed_modal_popup) {

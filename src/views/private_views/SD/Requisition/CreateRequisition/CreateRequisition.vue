@@ -7,7 +7,8 @@
         v-on:SINGLE_REQUISITOR_ITEM_SELECTED="singleRequisitorItemSelected"
         v-on:SINGLE_REQUISITOR_ITEM_REMOVED="singleRequisitorItemRemoved" />
       <CreateRequisitionDetailsSection
-        :SELECTED_REQUISITION_DATA="SELECTED_REQUISITION_DATA" />
+        :SELECTED_REQUISITION_DATA="SELECTED_REQUISITION_DATA"
+        v-on:SINGLE_ITEM_REMOVE_FROM_TABLE="singleItemRemoveFromTable" />
     </div>
   </div>
 </template>
@@ -54,6 +55,11 @@ export default {
         }
       }
     },
+    singleItemRemoveFromTable(item, i) {
+      this.singleRequisitorItemRemoved(item)
+      let checkbox_selector = document.querySelector('#card_body_input_' + i)
+      checkbox_selector.checked = false
+    }
   },
     computed: {
         DESELECT_ALL_PRODUCT() {
