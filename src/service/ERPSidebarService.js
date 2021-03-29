@@ -945,7 +945,7 @@ export default class PostService {
   }
 
   // -------------------------------------------------------------------------------------------
-  // REQUISITION - APPROVE
+  // REQUISITION - TRANSFER APPROVE - LEFT SECTION
   async getApproveRequisitionList_TRANSFER_REQUISITION() {
     let web_menu_url = '/api/web/submitted-stock-requisition-list'
     return await axios(web_menu_url, {
