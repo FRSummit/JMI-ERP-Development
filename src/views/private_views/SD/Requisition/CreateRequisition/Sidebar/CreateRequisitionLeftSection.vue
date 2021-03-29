@@ -100,7 +100,7 @@ export default {
                 }
             }
             this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT = null
-            this.$store.state.REQUISITION_PREVIOUS_COMPONENT_NAME_TO_CREATE = null
+            // this.$store.state.REQUISITION_PREVIOUS_COMPONENT_NAME_TO_CREATE = null
         } else {
             console.log('no data')
         }

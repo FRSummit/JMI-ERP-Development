@@ -144,7 +144,7 @@ export default {
             status_modal_msg: null,
             DATA_DEPOT_NAME_FROM_TR_AR: null,
             REQ_STATUS: null,
-            STORED_DATA: null
+            STORED_DATA: null,
         }
     },
     computed: {
@@ -182,10 +182,10 @@ export default {
         if(this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT !== null ? this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT.id : false) {
             console.log(this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT)
             this.STORED_DATA = this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT
-            this.DATA_DEPOT_NAME_FROM_TR_AR = this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT.req_from_info.area_name
-            this.REQ_STATUS = this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT.req_status
+            this.DATA_DEPOT_NAME_FROM_TR_AR = this.STORED_DATA.req_from_info.area_name
+            this.REQ_STATUS = this.STORED_DATA.req_status
             
-            let now = new Date(this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT.req_date);
+            let now = new Date(this.STORED_DATA.req_date);
             let day = ("0" + now.getDate()).slice(-2);
             let month = ("0" + (now.getMonth() + 1)).slice(-2);
             let today = now.getFullYear()+"-"+(month)+"-"+(day) ;
@@ -300,31 +300,32 @@ export default {
             this.proceed_modal_popup = false
             if(this.popup_modal_for__save_or_send === 'SAVE') {
                 let req_status = 'D'
-                if(this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT !== null ? this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT.id : false) {
-                    let requisition_id = this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT.id
+                if(this.STORED_DATA !== null ? this.STORED_DATA.id : false) {
+                    let requisition_id = this.STORED_DATA.id
                     await this.UPDATE_SAVE_NEW_REQUISITION__FROM_SERVICE(requisition_id, wh_from, req_status)
                 } else {
                     await this.SAVE_NEW_REQUISITION__FROM_SERVICE(wh_from, req_status)
                 }
             } else if(this.popup_modal_for__save_or_send === 'SEND') {
                 let req_status = 'S'
-                if(this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT !== null ? this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT.id : false) {
-                    let requisition_id = this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT.id
+                if(this.STORED_DATA !== null ? this.STORED_DATA.id : false) {
+                    let requisition_id = this.STORED_DATA.id
                     await this.UPDATE_SEND_NEW_REQUISITION__FROM_SERVICE(requisition_id, wh_from, req_status)
                 } else {
                     await this.SEND_NEW_REQUISITION__FROM_SERVICE(wh_from, req_status)
                 }
             } else if(this.popup_modal_for__save_or_send === 'SUBMIT') {
                 let req_status = 'S'
-                let requisition_id = this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT.id
+                let requisition_id = this.STORED_DATA.id
                 await this.UPDATE_SAVE_NEW_REQUISITION__FROM_SERVICE(requisition_id, wh_from, req_status)
             } else if(this.popup_modal_for__save_or_send === 'APPROVE') {
                 let req_status = 'A'
-                let requisition_id = this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT.id
+                let requisition_id = this.STORED_DATA.id
                 await this.UPDATE_SEND_NEW_REQUISITION__FROM_SERVICE(requisition_id, wh_from, req_status)
             }
         },
         changeThisComponent() {
+            console.log(this.$store.state.REQUISITION_PREVIOUS_COMPONENT_NAME_TO_CREATE)
             if(this.$store.state.REQUISITION_PREVIOUS_COMPONENT_NAME_TO_CREATE === 'Transfer Requisition') {
                 this.$router.push('/features/local_sales/transfer-requisition')
             } else if(this.$store.state.REQUISITION_PREVIOUS_COMPONENT_NAME_TO_CREATE === 'Approve Requisition') {
