@@ -1,5 +1,5 @@
 <template>
-    <div class="approve-requisition-sidebar">
+    <div class="transfer-approve-requisition-sidebar">
         <div class="layout-sidebar requisition">
             <!-- Start Secondary Sidebar Header Area-->  
             <div class="header">  

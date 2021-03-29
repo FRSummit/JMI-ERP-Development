@@ -1,5 +1,5 @@
 <template>
-    <div class="approve-requisition-details">
+    <div class="transfer-verify-requisition-details">
         <div class="layout-container">
                 <!-- No Data -->
             <div class="container-fluid no_table_data" v-if="initial_stage">
@@ -374,6 +374,7 @@ export default {
 /* Data Section */
 .requition_area .requition_header .header_top {
     padding: 0;
+    margin-bottom: 10px;
 }
 .requition_area .requition_header h5 {
     margin: 0;
