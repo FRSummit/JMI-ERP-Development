@@ -29,10 +29,21 @@
                             <a class="edit" @click="editRequisitionClickHandler" v-if="SELECTED_REQUISITION_DETAILS ? (SELECTED_REQUISITION_DETAILS.req_status === 'SUBMIT' ? true : false) : false"><i class="zmdi zmdi-edit"></i></a>
                         </div>
                         <div class="col-lg-3 col-md-3 col-12">
-                            <p>Requisition From: <span class="text-data">{{ SELECTED_REQUISITION_DETAILS_WH_NAME }}</span></p>
+                            <!-- <p>Requisition From: <span class="text-data">{{ SELECTED_REQUISITION_DETAILS_WH_NAME }}</span></p> -->
+                            <p>Requisition From:
+                                <span class="text-data jmi-tool-tip-parent">
+                                    {{ SELECTED_REQUISITION_DETAILS.req_from_info ? (SELECTED_REQUISITION_DETAILS.req_from_info.wh_code ? SELECTED_REQUISITION_DETAILS.req_from_info.wh_code : '') : '' }}
+                                    <span class="text-data jmi-tool-tip">{{ SELECTED_REQUISITION_DETAILS.req_from_info ? (SELECTED_REQUISITION_DETAILS.req_from_info.wh_name ? SELECTED_REQUISITION_DETAILS.req_from_info.wh_name : '') : '' }}</span>
+                                </span>
+                            </p>
                         </div>
                         <div class="col-lg-3 col-md-3 col-12">
-                            <p>Requisition To: <span class="text-data">{{ SELECTED_REQUISITION_DETAILS.req_to ? SELECTED_REQUISITION_DETAILS.req_to : '' }}</span></p>
+                            <p>Requisition To:
+                                <span class="text-data jmi-tool-tip-parent">
+                                    {{ SELECTED_REQUISITION_DETAILS.req_to_info ? (SELECTED_REQUISITION_DETAILS.req_to_info.wh_code ? SELECTED_REQUISITION_DETAILS.req_to_info.wh_code : '') : '' }}
+                                    <span class="text-data jmi-tool-tip">{{ SELECTED_REQUISITION_DETAILS.req_to_info ? (SELECTED_REQUISITION_DETAILS.req_to_info.wh_name ? SELECTED_REQUISITION_DETAILS.req_to_info.wh_name : '') : '' }}</span>
+                                </span>
+                            </p>
                         </div>
                         <!-- <div class="col-lg-4 col-md-3 col-12">
                             <div class="form-group">

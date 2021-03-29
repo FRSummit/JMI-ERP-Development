@@ -29,10 +29,21 @@
                             <a class="edit hide" @click="editRequisitionClickHandler"><i class="zmdi zmdi-edit"></i></a>
                         </div>
                         <div class="col-lg-3 col-md-3 col-12">
-                            <p>Requisition From: <span class="text-data">{{ SELECTED_REQUISITION_DETAILS_WH_NAME }}</span></p>
+                            <!-- <p>Requisition From: <span class="text-data">{{ SELECTED_REQUISITION_DETAILS_WH_NAME }}</span></p> -->
+                            <p>Requisition From:
+                                <span class="text-data jmi-tool-tip-parent">
+                                    {{ SELECTED_REQUISITION_DETAILS.req_from_info ? (SELECTED_REQUISITION_DETAILS.req_from_info.wh_code ? SELECTED_REQUISITION_DETAILS.req_from_info.wh_code : '') : '' }}
+                                    <span class="text-data jmi-tool-tip">{{ SELECTED_REQUISITION_DETAILS.req_from_info ? (SELECTED_REQUISITION_DETAILS.req_from_info.wh_name ? SELECTED_REQUISITION_DETAILS.req_from_info.wh_name : '') : '' }}</span>
+                                </span>
+                            </p>
                         </div>
                         <div class="col-lg-3 col-md-3 col-12">
-                            <p>Requisition To: <span class="text-data">{{ SELECTED_REQUISITION_DETAILS.req_to ? SELECTED_REQUISITION_DETAILS.req_to : '' }}</span></p>
+                            <p>Requisition To:
+                                <span class="text-data jmi-tool-tip-parent">
+                                    {{ SELECTED_REQUISITION_DETAILS.req_to_info ? (SELECTED_REQUISITION_DETAILS.req_to_info.wh_code ? SELECTED_REQUISITION_DETAILS.req_to_info.wh_code : '') : '' }}
+                                    <span class="text-data jmi-tool-tip">{{ SELECTED_REQUISITION_DETAILS.req_to_info ? (SELECTED_REQUISITION_DETAILS.req_to_info.wh_name ? SELECTED_REQUISITION_DETAILS.req_to_info.wh_name : '') : '' }}</span>
+                                </span>
+                            </p>
                         </div>
                         <!-- <div class="col-lg-4 col-md-3 col-12">
                             <div class="form-group">
@@ -418,6 +429,7 @@ export default {
     margin: 0;
     border-bottom: none;
     font-size: 14px;
+    color: #000000;
 }
 .requition_area .row.requition_content table tbody {
     height: calc(100vh - (74px + 54px + 32px + (296px)));
