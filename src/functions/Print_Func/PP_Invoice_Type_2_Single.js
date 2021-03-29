@@ -401,7 +401,7 @@ export default class PP_Invoice_Type_2_Single {
                     +       '<td colspan="9" style="text-align: left;">' + '<p style="text-align: left; margin: 0;">In Word : ' + this.convert_number_to_word(Number(NET_PAYABLE_AFTER_ADJ).toFixed(0)) + '.</p>' + '</td>'
                     +       '<td colspan="2" style="text-align: right;">' + 'Gross TP :' + '</td>'
                     +       '<td style="text-align: right; border-bottom: 1px solid #000000;">' + '' + '</td>'
-                    +       '<td style="text-align: right; border-bottom: 1px solid #000000; padding-bottom: 2px;">' + comaSeparatedDigits.comaSeparate(data.inv_tp) + '</td>'
+                    +       '<td style="text-align: right; border-bottom: 1px solid #000000; padding-bottom: 2px;">' + comaSeparatedDigits.comaSeparate(Number(data.inv_tp).toFixed(2)) + '</td>'
                     +   '</tr>'
         return gross_tp
     }
@@ -418,7 +418,7 @@ export default class PP_Invoice_Type_2_Single {
                     +       '<td>' + '' + '</td>'
                     +       '<td colspan="5" style="text-align: right;">' + 'Less discount on TP :' + '</td>'
                     +       '<td style="text-align: right; border-bottom: 1px solid #000000;">' + '' + '</td>'
-                    +       '<td style="text-align: right; border-bottom: 1px solid #000000; padding-bottom: 2px;">' + comaSeparatedDigits.comaSeparate(data.inv_discount) + '</td>'
+                    +       '<td style="text-align: right; border-bottom: 1px solid #000000; padding-bottom: 2px;">' + comaSeparatedDigits.comaSeparate(Number(data.inv_discount).toFixed(2)) + '</td>'
                     +   '</tr>'
         return discount
     }
@@ -435,7 +435,7 @@ export default class PP_Invoice_Type_2_Single {
                     +       '<td>' + '' + '</td>'
                     +       '<td colspan="5" style="text-align: right;">' + 'Add VAT on TP :' + '</td>'
                     +       '<td style="text-align: right; border-bottom: 1px solid #000000;">' + '' + '</td>'
-                    +       '<td style="text-align: right; border-bottom: 1px solid #000000; padding-bottom: 2px;">' + comaSeparatedDigits.comaSeparate(data.inv_vat) + '</td>'
+                    +       '<td style="text-align: right; border-bottom: 1px solid #000000; padding-bottom: 2px;">' + comaSeparatedDigits.comaSeparate(Number(data.inv_vat).toFixed(2)) + '</td>'
                     +   '</tr>'
         return vat
     }
@@ -472,7 +472,7 @@ export default class PP_Invoice_Type_2_Single {
                     +       '<td>' + '' + '</td>'
                     +       '<td colspan="5" style="text-align: right;">' + 'Net Payable :' + '</td>'
                     +       '<td style="text-align: right; border-bottom: 1px solid #000000;">' + '' + '</td>'
-                    +       '<td style="text-align: right; border-bottom: 1px solid #000000; padding-bottom: 2px;">' + comaSeparatedDigits.comaSeparate(NET_PAYABLE_AFTER_ADJ) + '.00</td>'
+                    +       '<td style="text-align: right; border-bottom: 1px solid #000000; padding-bottom: 2px;">' + comaSeparatedDigits.comaSeparate(Number(NET_PAYABLE_AFTER_ADJ).toFixed(2)) + '.00</td>'
                     +   '</tr>'
         return net_payable
     }

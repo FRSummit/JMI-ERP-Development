@@ -1,5 +1,5 @@
-// import ComaSeparatedDigits from '../ComaSeparatedDigits'
-// const comaSeparatedDigits = new ComaSeparatedDigits()
+import ComaSeparatedDigits from '../ComaSeparatedDigits'
+const comaSeparatedDigits = new ComaSeparatedDigits()
 
 export default class PP_InvoiceChallanSummeryTD_Type1 {
     
@@ -147,8 +147,9 @@ export default class PP_InvoiceChallanSummeryTD_Type1 {
                     +       '<td style="border: 1px solid #000000;">' + table_data[i].invoice_id + '</td>'
                     +       '<td style="border: 1px solid #000000;">' + table_data[i].customer_type + '</td>'
                     +       '<td style="border: 1px solid #000000; text-align: left;">' + table_data[i].customer_name + '</td>'
-                    // +       '<td style=" text-align: right;">' + table_data[i].amount !== null ? comaSeparatedDigits.comaSeparate(table_data[i].amount) : '' + '</td>'
-                    +       '<td style="border: 1px solid #000000; text-align: right;">' + table_data[i].amount + '</td>'
+                    // +       '<td style=" text-align: right;">' + table_data[i].amount !== null ? comaSeparatedDigits.comaSeparate(Number(table_data[i].amount).toFixed(2)) : '' + '</td>'
+                    +       '<td style="border: 1px solid #000000; text-align: right;">' + comaSeparatedDigits.comaSeparate(Number(table_data[i].amount).toFixed(2)) + '</td>'
+                    // +       '<td style="border: 1px solid #000000; text-align: right;">' + Number(table_data[i].amount).toFixed(2) + '</td>'
                     +   '</tr>'
         }
         
