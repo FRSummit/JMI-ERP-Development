@@ -10,7 +10,8 @@
                 </div>
                 <div class="row">
                     <!-- <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><span class="jmi-lvl-value address">{{ customer_data ? customer_data.customer_info.customer_address !== null ? customer_data.customer_info.customer_address : "Null" : "" }}</span></p></div> -->
-                    <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><input class="jmi-lvl-value-input" v-model="customer_address" /></p></div>
+                    <!-- <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><input class="jmi-lvl-value-input" v-model="customer_address" /></p></div> -->
+                    <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><input class="jmi-lvl-value-input" v-model="SELECTED_CUSTOMER_ADDRESS" /></p></div>
                     <!-- <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title">Territory: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_70">{{ customer_data ? customer_data.customer_area_info.sales_force.get_sales_area.area_name : "" }}</span></p></div>                       -->
                     <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title">Order Territory: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_70" style="float: right;">
                         <div class="select-options jmi-select-options-section" style="width: 100%;">
@@ -436,6 +437,7 @@ export default {
             order_creating_progressbar_msg: null,
             CUSTOMER_ID_FROM_LEFT: null,
             add_comment_popup: false,
+            SELECTED_CUSTOMER_ADDRESS: null
         }
     },
     async created() {},
@@ -885,7 +887,8 @@ export default {
             console.log(this.on_change_reg_area_tt)
 
             if(this.on_change_reg_area_tt) {
-                await service.getCreateOrder_CreateOrderDetailsSection(prod_db_list, sbu_id, customer_id, this.createYYYYDDMM(), this.on_change_reg_area_tt, this.customer_address, this.customer_comment)
+                // await service.getCreateOrder_CreateOrderDetailsSection(prod_db_list, sbu_id, customer_id, this.createYYYYDDMM(), this.on_change_reg_area_tt, this.customer_address, this.customer_comment)
+                await service.getCreateOrder_CreateOrderDetailsSection(prod_db_list, sbu_id, customer_id, this.createYYYYDDMM(), this.on_change_reg_area_tt, this.SELECTED_CUSTOMER_ADDRESS, this.customer_comment)
                     .then(res => {
                         console.log(res.data)
                         this.proceed_modal_popup = false
@@ -1219,6 +1222,7 @@ export default {
                 // if(newVal.customer_id !== oldVal.customer_id) {
                 if(newVal.customer_id) {
                     this.SALSE_AREA_ID = newVal.customer_area_info ? (newVal.customer_area_info.sales_area_id ? (newVal.customer_area_info.sales_area_id) : null) : null
+                    this.SELECTED_CUSTOMER_ADDRESS = newVal.customer_address ? newVal.customer_address : ''
                     this.AREA_LIST_BY_USER__FROM_SERVICE()
                     this.defaultAllThisComponentData()
                 }
