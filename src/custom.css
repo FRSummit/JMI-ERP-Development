@@ -52,6 +52,21 @@ input[type="checkbox"] {
     text-align: center;
 }
 
+.text-data.jmi-tool-tip-parent {
+    position: relative;
+}
+.text-data.jmi-tool-tip {
+    display: none;
+    position: absolute;
+    top: -14px;
+    left: -50px;
+    /* background: #AAC0D9; */
+}
+.text-data.jmi-tool-tip-parent:hover .text-data.jmi-tool-tip {
+    display: block;
+    width: 350px;
+}
+
 /* --------------------------------------------------------------------- */
 /* STOCK REPORT STARTS */
 #stock-report-t1.stock-report-t1 .jmi-table thead {}

@@ -25,14 +25,28 @@
                 <div class="col-12 requition_area">
                     <div class="row requition_header"> 
                         <div class="col-12 header_top">
-                            <h5>Requisition No: <span>{{ SELECTED_REQUISITION_DETAILS.transfer_no ? SELECTED_REQUISITION_DETAILS.transfer_no : '' }}</span></h5>
-                            <a class="edit" @click="editRequisitionClickHandler" v-if="SELECTED_REQUISITION_DETAILS ? (SELECTED_REQUISITION_DETAILS.req_status === 'DRAFT' ? true : false) : false"><i class="zmdi zmdi-edit"></i></a>
+                            <h5>Requisition No: <span>{{ SELECTED_REQUISITION_DETAILS.requisition_no ? SELECTED_REQUISITION_DETAILS.requisition_no : '' }}</span></h5>
+                            <span>
+                                <a class="edit create-new" @click="createRequisitionClickHandler" >Create New</a>
+                                <a class="edit" @click="editRequisitionClickHandler" v-if="SELECTED_REQUISITION_DETAILS ? (SELECTED_REQUISITION_DETAILS.req_status === 'DRAFT' ? true : false) : false"><i class="zmdi zmdi-edit"></i></a>
+                            </span>
                         </div>
                         <div class="col-lg-3 col-md-3 col-12">
-                            <p>Requisition From: <span class="text-data">{{ SELECTED_REQUISITION_DETAILS_WH_NAME }}</span></p>
+                            <!-- <p>Requisition From: <span class="text-data">{{ SELECTED_REQUISITION_DETAILS_WH_NAME }}</span></p> -->
+                            <p>Requisition From:
+                                <span class="text-data jmi-tool-tip-parent">
+                                    {{ SELECTED_REQUISITION_DETAILS.req_from_info ? (SELECTED_REQUISITION_DETAILS.req_from_info.wh_code ? SELECTED_REQUISITION_DETAILS.req_from_info.wh_code : '') : '' }}
+                                    <span class="text-data jmi-tool-tip">{{ SELECTED_REQUISITION_DETAILS.req_from_info ? (SELECTED_REQUISITION_DETAILS.req_from_info.wh_name ? SELECTED_REQUISITION_DETAILS.req_from_info.wh_name : '') : '' }}</span>
+                                </span>
+                            </p>
                         </div>
                         <div class="col-lg-3 col-md-3 col-12">
-                            <p>Requisition To: <span class="text-data">Rangpur</span></p>
+                            <p>Requisition To:
+                                <span class="text-data jmi-tool-tip-parent">
+                                    {{ SELECTED_REQUISITION_DETAILS.req_to_info ? (SELECTED_REQUISITION_DETAILS.req_to_info.wh_code ? SELECTED_REQUISITION_DETAILS.req_to_info.wh_code : '') : '' }}
+                                    <span class="text-data jmi-tool-tip">{{ SELECTED_REQUISITION_DETAILS.req_to_info ? (SELECTED_REQUISITION_DETAILS.req_to_info.wh_name ? SELECTED_REQUISITION_DETAILS.req_to_info.wh_name : '') : '' }}</span>
+                                </span>
+                            </p>
                         </div>
                         <!-- <div class="col-lg-4 col-md-3 col-12">
                             <div class="form-group">
@@ -59,7 +73,7 @@
                                     <th>Name</th>
                                     <th>Unit</th>
                                     <th>Quantity</th>
-                                    <th></th>
+                                    <!-- <th></th> -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -88,21 +102,21 @@
                                     <td>
                                         <form>
                                             <div class="quantity-input">
-                                                <input class='minus' type='button' value='-' field='quantity' @click="decreaseRequisitionQtyClickHandler(item)" />
-                                                <input class='quantity' type='number' name='quantity' placeholder="0" :value="item.req_qty" :id="'req_qty_' + i" v-on:keyup="reqQtyKeyUpEventHandler(item, $event, i)" v-on:keydown="reqQtyKeyDownEventHandler($event, i)" />
-                                                <input class='plus' type='button' value='+' field='quantity' @click="increaseRequisitionQtyClickHandler(item)" />
+                                                <input class='minus hide' type='button' value='-' field='quantity' @click="decreaseRequisitionQtyClickHandler(item)" />
+                                                <input class='quantity' type='number' readonly style="color: #000000;" name='quantity' placeholder="0" :value="item.req_qty" :id="'req_qty_' + i" v-on:keyup="reqQtyKeyUpEventHandler(item, $event, i)" v-on:keydown="reqQtyKeyDownEventHandler($event, i)" />
+                                                <input class='plus hide' type='button' value='+' field='quantity' @click="increaseRequisitionQtyClickHandler(item)" />
                                             </div>
                                         </form>
                                     </td>
-                                    <td>
-                                        <a class="edit" @click="singleItemEditClickHandler"><i class="zmdi zmdi-edit"></i></a>
-                                        <a class="remove" @click="singleItemDeleteClickHandler"><i class="fas fa-trash-alt"></i></a>
-                                    </td>
+                                    <!-- <td>
+                                        <a class="edit hide" @click="singleItemEditClickHandler"><i class="zmdi zmdi-edit"></i></a>
+                                        <a class="remove hide" @click="singleItemDeleteClickHandler"><i class="fas fa-trash-alt"></i></a>
+                                    </td> -->
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                    <div class="row requition_footer">
+                    <div class="row requition_footer hide">
                         <!-- <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="saveAsDraftClickHandler">Save As Draft</button></a>
                         <a><button type="button" class="btn btn-primary btn-global mx-2" @click="sendRequestClickHandler">Send Request</button></a> -->
                         <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="createRequisitionClickHandler">Create Requisition</button></a>
@@ -265,7 +279,8 @@ export default {
     font-size: 14px;
 }
 .requition_area .row.requition_content table tbody {
-    height: calc(100vh - (74px + 54px + 32px + (296px)));
+    /* height: calc(100vh - (74px + 54px + 32px + (296px))); */
+    height: calc(100vh - (74px + 54px + 32px + (230px)));
 }
 .requition_area .btn.btn-primary.btn-global {
     background: #026cd1;
@@ -275,5 +290,15 @@ export default {
 }
 .requition_area .row.requition_footer a:first-child .btn.btn-primary.btn-global {
     color: #000000;
+}
+.container-fluid .edit {
+    display: inline-block;
+}
+.container-fluid .edit.create-new {
+    cursor: pointer;
+    margin-right: 20px;
+}
+.container-fluid .edit.create-new:hover {
+    color: #026cd1;
 }
 </style>
