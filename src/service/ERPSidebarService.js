@@ -860,6 +860,17 @@ export default class PostService {
     })
   }
 
+  // DELIVERY GRN SR
+  async getCompleteDeliveryScheduleListByDA__DELIVERY_GRN_SR() {
+    let web_menu_url = '/api/web/complete-delivery-schedule-list-by-da'
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+    })
+  }
+
   // -------------------------------------------------------------------------------------------
   // REQUISITION - TRANSFER
   async getStockRequisitionList_TRANSFER_REQUISITION() {

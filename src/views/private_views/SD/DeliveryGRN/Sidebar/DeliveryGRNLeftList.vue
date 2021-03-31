@@ -163,10 +163,17 @@ export default {
     // --------------------------------------------------------------------------------------
     // Service CALL
     async DELIVERY_SCHEDULE_LIST__FROM_SERVICE() {
-      service.getDeliveryScheduleList_DELIVERY_SCHEDULING_INVOICE_CHALLAN_PRINTING()
+      this.INVOICE_LIST = []
+      // service.getDeliveryScheduleList_DELIVERY_SCHEDULING_INVOICE_CHALLAN_PRINTING()
+      service.getCompleteDeliveryScheduleListByDA__DELIVERY_GRN_SR()
         .then(res => {
           console.log(res.data)
           this.INVOICE_LIST = res.data.schedule_list
+        })
+        .catch(err => {
+          if(err) {
+            this.INVOICE_LIST = []
+          }
         })
     }
   },
