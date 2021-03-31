@@ -30,7 +30,7 @@
                     <div class="quantity-input">
                       <input class='minus' type='button' value='-' field='quantity' @click="decreaseRequisitionQtyClickHandler(schedule, i)" />
                       <input class='quantity' type='number' name='quantity' placeholder="0" :value="schedule.grn_qty" :id="'req_qty_' + i" v-on:keyup="reqQtyKeyUpEventHandler(schedule, $event, i)" v-on:keydown="reqQtyKeyDownEventHandler($event, i)" />
-                      <input class='plus' type='button' value='+' field='quantity' @click="increaseRequisitionQtyClickHandler(schedule, i)" />
+                      <input class='plus hide' type='button' value='+' field='quantity' @click="increaseRequisitionQtyClickHandler(schedule, i)" />
                     </div>
                   </form>
                 </td>
@@ -142,7 +142,8 @@ export default {
     },
     increaseRequisitionQtyClickHandler(item, i) {
       console.log(i)
-      item.grn_qty++
+      console.log(item)
+      // item.grn_qty++
     },
     reqQtyKeyUpEventHandler(item, event, i) {
       console.log(event)
