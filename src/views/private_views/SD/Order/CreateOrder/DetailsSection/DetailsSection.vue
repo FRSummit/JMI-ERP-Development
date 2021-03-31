@@ -860,7 +860,8 @@ export default {
             let customer_id = parseInt(this.customer_data ? this.customer_data.customer_id : 0)
             let yyyy = new Date().getFullYear()
             let mm = (new Date().getMonth() + 1) < 10 ? ("0" + (new Date().getMonth() + 1)) : (new Date().getMonth() + 1)
-            let dd = (new Date().getDate() + 1) < 10 ? ("0" + (new Date().getDate() + 1)) : (new Date().getDate() + 1) 
+            // let dd = (new Date().getDate() + 1) < 10 ? ("0" + (new Date().getDate() + 1)) : (new Date().getDate() + 1) 
+            let dd = (new Date().getDate()) < 10 ? ( "0" + (new Date().getDate()) ) : new Date().getDate() 
             let date = yyyy + '-' + mm + '-' + dd
             
             await service.getFindProductOffer_CreateOrderDetailsSection(prod_db_list, sbu_id, customer_id, date)
@@ -1160,7 +1161,8 @@ export default {
         createYYYYDDMM() {
             let yyyy = new Date().getFullYear()
             let mm = (new Date().getMonth() + 1) < 10 ? ("0" + (new Date().getMonth() + 1)) : (new Date().getMonth() + 1)
-            let dd = (new Date().getDate() + 1) < 10 ? ("0" + (new Date().getDate() + 1)) : (new Date().getDate() + 1) 
+            // let dd = (new Date().getDate() + 1) < 10 ? ("0" + (new Date().getDate() + 1)) : (new Date().getDate() + 1) 
+            let dd = (new Date().getDate() ) < 10 ? ("0" + (new Date().getDate()) ) : new Date().getDate() 
             let date = yyyy + '-' + mm + '-' + dd
             return date
         },
