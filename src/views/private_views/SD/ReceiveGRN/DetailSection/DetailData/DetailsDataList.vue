@@ -30,9 +30,9 @@
           </table>
         </div>
       </div>
-      <!-- <div style="text-align: center; padding-top: 10px; border-top: 1px solid #E9F2FB;" v-if="GRN_DATA.is_completed === 'N'">
+      <div style="text-align: center; padding-top: 10px; border-top: 1px solid #E9F2FB;" v-if="GRN_DATA.is_completed === 'N'">
         <button class="jmi-confirm-btn" style="width: 200px;" @click="returnGRNClickHandler">Return GRN</button>
-      </div> -->
+      </div>
     </div>
   </div>
 </template>
