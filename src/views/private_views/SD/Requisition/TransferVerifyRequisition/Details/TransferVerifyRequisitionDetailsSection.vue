@@ -1,5 +1,5 @@
 <template>
-    <div class="approve-requisition-details">
+    <div class="transfer-verify-requisition-details">
         <div class="layout-container">
                 <!-- No Data -->
             <div class="container-fluid no_table_data" v-if="initial_stage">
@@ -26,13 +26,24 @@
                     <div class="row requition_header"> 
                         <div class="col-12 header_top">
                             <h5>Requisition No: <span>{{ SELECTED_REQUISITION_DETAILS.requisition_no ? SELECTED_REQUISITION_DETAILS.requisition_no : '' }}</span></h5>
-                            <a class="edit hide" @click="editRequisitionClickHandler"><i class="zmdi zmdi-edit"></i></a>
+                            <a class="edit" @click="editRequisitionClickHandler"><i class="zmdi zmdi-edit"></i></a>
                         </div>
                         <div class="col-lg-3 col-md-3 col-12">
-                            <p>Requisition From: <span class="text-data">{{ SELECTED_REQUISITION_DETAILS_WH_NAME }}</span></p>
+                            <!-- <p>Requisition From: <span class="text-data">{{ SELECTED_REQUISITION_DETAILS_WH_NAME }}</span></p> -->
+                            <p>Requisition From:
+                                <span class="text-data jmi-tool-tip-parent">
+                                    {{ SELECTED_REQUISITION_DETAILS.req_from_info ? (SELECTED_REQUISITION_DETAILS.req_from_info.wh_code ? SELECTED_REQUISITION_DETAILS.req_from_info.wh_code : '') : '' }}
+                                    <span class="text-data jmi-tool-tip">{{ SELECTED_REQUISITION_DETAILS.req_from_info ? (SELECTED_REQUISITION_DETAILS.req_from_info.wh_name ? SELECTED_REQUISITION_DETAILS.req_from_info.wh_name : '') : '' }}</span>
+                                </span>
+                            </p>
                         </div>
                         <div class="col-lg-3 col-md-3 col-12">
-                            <p>Requisition To: <span class="text-data">{{ SELECTED_REQUISITION_DETAILS.req_to ? SELECTED_REQUISITION_DETAILS.req_to : '' }}</span></p>
+                            <p>Requisition To:
+                                <span class="text-data jmi-tool-tip-parent">
+                                    {{ SELECTED_REQUISITION_DETAILS.req_to_info ? (SELECTED_REQUISITION_DETAILS.req_to_info.wh_code ? SELECTED_REQUISITION_DETAILS.req_to_info.wh_code : '') : '' }}
+                                    <span class="text-data jmi-tool-tip">{{ SELECTED_REQUISITION_DETAILS.req_to_info ? (SELECTED_REQUISITION_DETAILS.req_to_info.wh_name ? SELECTED_REQUISITION_DETAILS.req_to_info.wh_name : '') : '' }}</span>
+                                </span>
+                            </p>
                         </div>
                         <!-- <div class="col-lg-4 col-md-3 col-12">
                             <div class="form-group">
@@ -57,7 +68,7 @@
                                     <th>Name</th>
                                     <th>Unit</th>
                                     <th>Quantity</th>
-                                    <th></th>
+                                    <!-- <th></th> -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -92,18 +103,18 @@
                                             </div>
                                         </form>
                                     </td>
-                                    <td>
+                                    <!-- <td>
                                         <a class="edit" @click="singleItemEditClickHandler"><i class="zmdi zmdi-edit"></i></a>
                                         <a class="remove" @click="singleItemDeleteClickHandler"><i class="fas fa-trash-alt"></i></a>
-                                    </td>
+                                    </td> -->
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="row requition_footer">
-                        <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="saveAsDraftClickHandler">Save As Draft</button></a>
-                        <a><button type="button" class="btn btn-primary btn-global mx-2" @click="sendRequestClickHandler">Approve</button></a>
-                        
+                        <!-- <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="saveAsDraftClickHandler">Save As Draft</button></a>
+                        <a><button type="button" class="btn btn-primary btn-global mx-2" @click="sendRequestClickHandler">Approve</button></a> -->
+                        <a><button type="button" class="btn btn-primary btn-global mx-2" @click="saveAsVerifyClickHandler" style="color: #FFFFFF;">Save As Verify</button></a>
                     </div>
                 </div>
             </div>
@@ -188,13 +199,13 @@ export default {
         },
         editRequisitionClickHandler() {
             console.log('editRequisitionClickHandler')
-            // console.log(this.SELECTED_REQUISITION_DETAILS)
-            // if(this.SELECTED_REQUISITION_DETAILS.id) {
-            //     this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT = this.SELECTED_REQUISITION_DETAILS
-            //     this.$router.push('/features/local_sales/create-requisition')
-            // } else {
-            //     alert('Please select a requisitor from left.')
-            // }
+            console.log(this.SELECTED_REQUISITION_DETAILS)
+            if(this.SELECTED_REQUISITION_DETAILS.id) {
+                this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT = this.SELECTED_REQUISITION_DETAILS
+                this.$router.push('/features/local_sales/create-requisition')
+            } else {
+                alert('Please select a requisitor from left.')
+            }
         },
         onChangeWH() {
             console.log(this.wh_from)
@@ -209,20 +220,16 @@ export default {
         increaseRequisitionQtyClickHandler(item, index) {
             console.log(index)
             item.req_qty++
-            // this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS[index].req_qty++
         },
         reqQtyKeyUpEventHandler(item, event, index) {
             console.log(event)
             let selector = document.querySelector('#approve-requisition #req_qty_' + index)
             if(parseInt(selector.value) === 0) {
                 selector.value = 1
-                // this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS[index].req_qty = selector.value
             } else if((selector.value).toString() === '') {
                 selector.value = 1
-                // this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS[index].req_qty = selector.value
             }
             item.req_qty = selector.value
-            // this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS[index].req_qty = selector.value
         },
         reqQtyKeyDownEventHandler(event, index) {
             console.log(index)
@@ -232,24 +239,25 @@ export default {
         },
         singleItemEditClickHandler() {},
         singleItemDeleteClickHandler() {},
-        saveAsDraftClickHandler() {
-            if(this.proceed_modal_popup) {
-                this.proceed_modal_popup = false
-            } else {
-                this.popup_modal_for__save_or_send = 'SAVE'
-                this.proceed_modal_popup_msg = 'You want to save the requisition.'
-                this.proceed_modal_popup = true
-            }
-        },
-        sendRequestClickHandler() {
-            if(this.proceed_modal_popup) {
-                this.proceed_modal_popup = false
-            } else {
-                this.popup_modal_for__save_or_send = 'SEND'
-                this.proceed_modal_popup_msg = 'You want to send the requisition.'
-                this.proceed_modal_popup = true
-            }
-        },
+        // saveAsDraftClickHandler() {
+        //     if(this.proceed_modal_popup) {
+        //         this.proceed_modal_popup = false
+        //     } else {
+        //         this.popup_modal_for__save_or_send = 'SAVE'
+        //         this.proceed_modal_popup_msg = 'You want to save the requisition.'
+        //         this.proceed_modal_popup = true
+        //     }
+        // },
+        // sendRequestClickHandler() {
+        //     if(this.proceed_modal_popup) {
+        //         this.proceed_modal_popup = false
+        //     } else {
+        //         this.popup_modal_for__save_or_send = 'SEND'
+        //         this.proceed_modal_popup_msg = 'You want to send the requisition.'
+        //         this.proceed_modal_popup = true
+        //     }
+        // },
+        saveAsVerifyClickHandler() {},
         cancelOrderModalClickHandler() {
             this.proceed_modal_popup = false
         },
@@ -363,6 +371,7 @@ export default {
 /* Data Section */
 .requition_area .requition_header .header_top {
     padding: 0;
+    margin-bottom: 10px;
 }
 .requition_area .requition_header h5 {
     margin: 0;
@@ -418,6 +427,7 @@ export default {
     margin: 0;
     border-bottom: none;
     font-size: 14px;
+    color: #000000;
 }
 .requition_area .row.requition_content table tbody {
     height: calc(100vh - (74px + 54px + 32px + (296px)));

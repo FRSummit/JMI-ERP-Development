@@ -196,21 +196,22 @@ export default {
 
         await this.ALL_DEPOT_UNDER_SBU__FROM_SERVICE()
 
-        if(this.STORED_DATA !== null ? this.STORED_DATA.id : false) {
-            setTimeout( () => {
-                for(let i=0; i<this.DEPOT_LIST.length; i++) {
-                    console.log(this.STORED_DATA.req_to_info.id)
-                    if(this.DEPOT_LIST[i].id === this.STORED_DATA.req_to_info.id) {
-                        console.log('matched')
-                        document.getElementById('requisition_to').selectedIndex = i
-                        this.wh_from = this.DEPOT_LIST[i].id
+        // if(this.STORED_DATA !== null ? this.STORED_DATA.id : false) {
+        //     setTimeout( () => {
+        //         for(let i=0; i<this.DEPOT_LIST.length; i++) {
+        //             console.log(this.STORED_DATA.req_to_info.id)
+        //             if(this.DEPOT_LIST[i].id === this.STORED_DATA.req_to_info.id) {
+        //                 console.log('matched : ' + this.DEPOT_LIST[i].id)
+        //                 console.log(this.DEPOT_LIST[i].wh_name)
+        //                 document.getElementById('requisition_to').selectedIndex = i
+        //                 this.wh_from = this.DEPOT_LIST[i].id
 
-                        console.log(document.getElementById('requisition_to').selectedIndex)
-                        console.log(this.wh_from)
-                    }
-                }
-            }, 2000)
-        }
+        //                 console.log(document.getElementById('requisition_to').selectedIndex)
+        //                 console.log(this.wh_from)
+        //             }
+        //         }
+        //     }, 2000)
+        // }
     },
     methods: {
         editRequisitionClickHandler() {},
@@ -334,6 +335,22 @@ export default {
                 this.$router.push('/features/local_sales/transfer-requisition')
             }
         },
+        selectWareHouse() {
+            if(this.STORED_DATA !== null ? this.STORED_DATA.id : false) {
+                for(let i=0; i<this.DEPOT_LIST.length; i++) {
+                    console.log(this.STORED_DATA.req_to_info.id)
+                    if(this.DEPOT_LIST[i].id === this.STORED_DATA.req_to_info.id) {
+                        console.log('matched : ' + this.DEPOT_LIST[i].id)
+                        console.log(this.DEPOT_LIST[i].wh_name)
+                        document.getElementById('requisition_to').selectedIndex = i
+                        this.wh_from = this.DEPOT_LIST[i].id
+
+                        console.log(document.getElementById('requisition_to').selectedIndex)
+                        console.log(this.wh_from)
+                    }
+                }
+            }
+        },
         // -----------------------------------------------------
         // SERVICE CALL
         async ALL_DEPOT_UNDER_SBU__FROM_SERVICE() {
@@ -351,6 +368,8 @@ export default {
                                 this.wh_from = this.DEPOT_LIST[i].id
                                 console.log(this.DEPOT_LIST[i].id)
                                 console.log(this.DEPOT_LIST[i].wh_name)
+
+                                this.selectWareHouse()
                             }
                         }
                     }, 1000)
