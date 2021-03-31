@@ -44,7 +44,7 @@ export default {
   },
   data() {
     return {
-      routeName: "Delivery GRN",
+      routeName: "Receive GRN",
       parentPath: "Local Sales",
       pathName: [],
       // info_modal_schedult_count: false,
@@ -68,7 +68,7 @@ export default {
   },
   methods: {
     createBreadcrumbData() {
-      this.pathName = [{name: "Features"},{ name: "Local Sales" }, { name: "Delivery GRN" }];
+      this.pathName = [{name: "Features"},{ name: "Local Sales" }, { name: "Receive GRN" }];
       // this.pathName = breadcrumbFunctions.jmiERPBreadcrumb(window.location.pathname)
     },
     async invoiceIdFromLeftHandler(val) {

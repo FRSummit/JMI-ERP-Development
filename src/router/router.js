@@ -236,7 +236,7 @@ export const router = new VueRouter({
     // RECEIVE GRN
     {
       path: '/features/local_sales/receive_grn',
-      name: 'Delivery GRN',
+      name: 'Receive GRN',
       component: () => import('../views/private_views/SD/ReceiveGRN/ReceiveGRN.vue')
     },
     // --------------------------------------------------------------------------------------
