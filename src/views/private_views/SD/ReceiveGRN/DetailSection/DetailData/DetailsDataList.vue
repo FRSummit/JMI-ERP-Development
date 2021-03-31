@@ -24,7 +24,16 @@
                 <td>{{ schedule.prod_info ? (schedule.prod_info.com_pack_size ? (schedule.prod_info.com_pack_size) : '') : '' }}</td>
                 <td>{{ schedule.whss_info ? (schedule.whss_info.mfg_date ? jmiDateFormat(schedule.whss_info.mfg_date) : '') : '' }}</td>
                 <td>{{ schedule.whss_info ? (schedule.whss_info.exp_date ? jmiDateFormat(schedule.whss_info.exp_date) : '') : '' }}</td>
-                <td>{{ schedule.grn_qty }}</td>
+                <!-- <td>{{ schedule.grn_qty }}</td> -->
+                <td>
+                  <form>
+                    <div class="quantity-input">
+                      <input class='minus' type='button' value='-' field='quantity' @click="decreaseRequisitionQtyClickHandler(schedule, i)" />
+                      <input class='quantity' type='number' name='quantity' placeholder="0" :value="schedule.grn_qty" :id="'req_qty_' + i" v-on:keyup="reqQtyKeyUpEventHandler(schedule, $event, i)" v-on:keydown="reqQtyKeyDownEventHandler($event, i)" />
+                      <input class='plus' type='button' value='+' field='quantity' @click="increaseRequisitionQtyClickHandler(schedule, i)" />
+                    </div>
+                  </form>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -124,11 +133,65 @@ export default {
     },
     returnGRNClickHandler() {
       this.$emit('return_grn_btn_click')
-    }
+    },
+    decreaseRequisitionQtyClickHandler(item, i) {
+      console.log(i)
+      if(item.grn_qty > 1) {
+        item.grn_qty--
+      }
+    },
+    increaseRequisitionQtyClickHandler(item, i) {
+      console.log(i)
+      item.grn_qty++
+    },
+    reqQtyKeyUpEventHandler(item, event, i) {
+      console.log(event)
+      let selector = document.querySelector('#detail-data-list #req_qty_' + i)
+      if(parseInt(selector.value) === 0) {
+        selector.value = 1
+      } else if((selector.value).toString() === '') {
+        selector.value = 1
+      }
+      item.grn_qty = selector.value
+    },
+    reqQtyKeyDownEventHandler(event, i) {
+      console.log(i)
+      if(event.keyCode === 190 || event.keyCode === 110) {
+        event.preventDefault()
+      }
+    },
   },
 };
 </script>
 
 <style lang="less" scoped>
 @import url("./DetailData.less");
+</style>
+
+<style scoped>
+.quantity-input {
+    border: 1px solid #E2EDFA;
+}
+.quantity-input input:hover {
+    background: #FFFFFF;
+}
+.quantity-input input {
+    border: none;
+    height: 28px;
+}
+.quantity-input input:focus {
+    outline           : 0 !important;
+    outline-offset    : 0 !important;
+    -moz-box-shadow   : none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow        : none !important;
+    border: none !important;
+}
+.quantity-input .quantity {
+    height: 28px;
+    margin: 0;
+    border-bottom: none;
+    font-size: 14px;
+}
+
 </style>
