@@ -84,11 +84,13 @@ export default {
       this.DA_ID = null
       this.DS_ID = null
       this.HEADER_DATA = []
+      localStorage.removeItem('jmi_return_grn_data_list')
       service.getGRN_InfoByGRN_No__DELIVERY_GRN(grn_no)
         .then(res => {
           console.log(res.data)
           this.GRN_DATA = res.data.grn_info
           this.SCHEDULE_DETAILS_LIST = res.data.grn_info.grn_detail
+          localStorage.setItem('jmi_return_grn_data_list', JSON.stringify(res.data.grn_info.grn_detail))
           this.HEADER_DATA = res.data.header
           console.log(this.SCHEDULE_DETAILS_LIST)
           console.log(this.HEADER_DATA)
@@ -103,6 +105,7 @@ export default {
             this.DA_ID = null
             this.DS_ID = null
             this.HEADER_DATA = []
+            localStorage.removeItem('jmi_return_grn_data_list')
             this.loading_message = 'Request failed to load or no data found'
             this.loading_popup_modal = true
             setTimeout( () => {
@@ -115,6 +118,7 @@ export default {
       await service.getReturnGRN__DELIVERY_GRN(this.CURRENT_SCHEDULE_ID)
         .then(res => {
           console.log(res.data)
+          localStorage.removeItem('jmi_return_grn_data_list')
           if(res.data.response_code === 200) {
             this.loading_message = 'Return GRN Success'
             this.loading_popup_modal = true

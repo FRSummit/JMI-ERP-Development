@@ -30,7 +30,7 @@
                     <div class="quantity-input">
                       <input class='minus' type='button' value='-' field='quantity' @click="decreaseRequisitionQtyClickHandler(schedule, i)" />
                       <input class='quantity' type='number' name='quantity' placeholder="0" :value="schedule.grn_qty" :id="'req_qty_' + i" v-on:keyup="reqQtyKeyUpEventHandler(schedule, $event, i)" v-on:keydown="reqQtyKeyDownEventHandler($event, i)" />
-                      <input class='plus hide' type='button' value='+' field='quantity' @click="increaseRequisitionQtyClickHandler(schedule, i)" />
+                      <input class='plus' type='button' value='+' field='quantity' @click="increaseRequisitionQtyClickHandler(schedule, i)" />
                     </div>
                   </form>
                 </td>
@@ -141,9 +141,14 @@ export default {
       }
     },
     increaseRequisitionQtyClickHandler(item, i) {
-      console.log(i)
-      console.log(item)
+      // console.log(i)
+      // console.log(item)
+      let original_grn_qty = JSON.parse(localStorage.getItem('jmi_return_grn_data_list'))[i].grn_qty
+      // console.log(original_grn_qty)
       // item.grn_qty++
+      if(parseInt(item.grn_qty) < parseInt(original_grn_qty)) {
+        item.grn_qty++
+      }
     },
     reqQtyKeyUpEventHandler(item, event, i) {
       console.log(event)
@@ -154,6 +159,11 @@ export default {
         selector.value = 1
       }
       item.grn_qty = selector.value
+
+      let original_grn_qty = JSON.parse(localStorage.getItem('jmi_return_grn_data_list'))[i].grn_qty
+      if(parseInt(selector.value) > parseInt(original_grn_qty)) {
+        item.grn_qty = original_grn_qty
+      }
     },
     reqQtyKeyDownEventHandler(event, i) {
       console.log(i)
