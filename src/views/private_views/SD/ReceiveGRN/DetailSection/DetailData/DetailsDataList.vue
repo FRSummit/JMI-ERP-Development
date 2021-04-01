@@ -24,15 +24,24 @@
                 <td>{{ schedule.prod_info ? (schedule.prod_info.com_pack_size ? (schedule.prod_info.com_pack_size) : '') : '' }}</td>
                 <td>{{ schedule.whss_info ? (schedule.whss_info.mfg_date ? jmiDateFormat(schedule.whss_info.mfg_date) : '') : '' }}</td>
                 <td>{{ schedule.whss_info ? (schedule.whss_info.exp_date ? jmiDateFormat(schedule.whss_info.exp_date) : '') : '' }}</td>
-                <td>{{ schedule.grn_qty }}</td>
+                <!-- <td>{{ schedule.grn_qty }}</td> -->
+                <td>
+                  <form>
+                    <div class="quantity-input">
+                      <input class='minus' type='button' value='-' field='quantity' @click="decreaseRequisitionQtyClickHandler(schedule, i)" />
+                      <input class='quantity' type='number' name='quantity' placeholder="0" :value="schedule.grn_qty" :id="'req_qty_' + i" v-on:keyup="reqQtyKeyUpEventHandler(schedule, $event, i)" v-on:keydown="reqQtyKeyDownEventHandler($event, i)" />
+                      <input class='plus' type='button' value='+' field='quantity' @click="increaseRequisitionQtyClickHandler(schedule, i)" />
+                    </div>
+                  </form>
+                </td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
-      <!-- <div style="text-align: center; padding-top: 10px; border-top: 1px solid #E9F2FB;" v-if="GRN_DATA.is_completed === 'N'">
+      <div style="text-align: center; padding-top: 10px; border-top: 1px solid #E9F2FB;" v-if="GRN_DATA.is_completed === 'N'">
         <button class="jmi-confirm-btn" style="width: 200px;" @click="returnGRNClickHandler">Return GRN</button>
-      </div> -->
+      </div>
     </div>
   </div>
 </template>
@@ -124,11 +133,76 @@ export default {
     },
     returnGRNClickHandler() {
       this.$emit('return_grn_btn_click')
-    }
+    },
+    decreaseRequisitionQtyClickHandler(item, i) {
+      console.log(i)
+      if(item.grn_qty > 1) {
+        item.grn_qty--
+      }
+    },
+    increaseRequisitionQtyClickHandler(item, i) {
+      // console.log(i)
+      // console.log(item)
+      let original_grn_qty = JSON.parse(localStorage.getItem('jmi_return_grn_data_list'))[i].grn_qty
+      // console.log(original_grn_qty)
+      // item.grn_qty++
+      if(parseInt(item.grn_qty) < parseInt(original_grn_qty)) {
+        item.grn_qty++
+      }
+    },
+    reqQtyKeyUpEventHandler(item, event, i) {
+      console.log(event)
+      let selector = document.querySelector('#detail-data-list #req_qty_' + i)
+      if(parseInt(selector.value) === 0) {
+        selector.value = 1
+      } else if((selector.value).toString() === '') {
+        selector.value = 1
+      }
+      item.grn_qty = selector.value
+
+      let original_grn_qty = JSON.parse(localStorage.getItem('jmi_return_grn_data_list'))[i].grn_qty
+      if(parseInt(selector.value) > parseInt(original_grn_qty)) {
+        item.grn_qty = original_grn_qty
+      }
+    },
+    reqQtyKeyDownEventHandler(event, i) {
+      console.log(i)
+      if(event.keyCode === 190 || event.keyCode === 110) {
+        event.preventDefault()
+      }
+    },
   },
 };
 </script>
 
 <style lang="less" scoped>
 @import url("./DetailData.less");
+</style>
+
+<style scoped>
+.quantity-input {
+    border: 1px solid #E2EDFA;
+}
+.quantity-input input:hover {
+    background: #FFFFFF;
+}
+.quantity-input input {
+    border: none;
+    height: 28px;
+}
+.quantity-input input:focus {
+    outline           : 0 !important;
+    outline-offset    : 0 !important;
+    -moz-box-shadow   : none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow        : none !important;
+    border: none !important;
+}
+.quantity-input .quantity {
+    height: 28px;
+    margin: 0;
+    border-bottom: none;
+    font-size: 14px;
+}
+
 </style>

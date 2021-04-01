@@ -1441,6 +1441,7 @@ export default {
         },
         cancelDuePaymentConfirmationClickHandler() {
             this.all_due_payment_confirmation_popup_modal = false
+            this.set_payment_all_due = false
             document.querySelector('#deliveries-details-section #set_payment_all_due').checked = false
         },
         confirmDuePaymentConfirmationClickHandler() {
