@@ -8,6 +8,7 @@
           v-on:selected_user_schedule_plan="selectedUserSchedulePlan"
           v-on:SELECTED_DA_ID="selectedSRIdFromLeft"
           v-on:SELECTED_DATE="selectedDateIdFromLeft"
+          v-on:pending_delivery_schedule_inv_list="pendingDeliveryScheduleInvListFromLeft"
         />
         <div class="delivery-scheduling-detail-section">
           <div class="delivery-scheduling-detail-inner">
@@ -42,6 +43,7 @@ export default {
       pathName: [],
       SR_ID_FROM_LEFT_LIST: null,
       SELECTED_DATE_LEFT_LIST: null,
+      PENDING_DELIVERY_SCHEDULE_INV_LIST_FROM_LEFT: [],
     };
   },
   created() {
@@ -59,9 +61,19 @@ export default {
     selectedDateIdFromLeft(value) {
       this.SELECTED_DATE_LEFT_LIST = value
     },
+    pendingDeliveryScheduleInvListFromLeft(value) {
+      this.PENDING_DELIVERY_SCHEDULE_INV_LIST_FROM_LEFT = []
+      this.PENDING_DELIVERY_SCHEDULE_INV_LIST_FROM_LEFT = value
+    },
     async createDeliveryScheduleClickHandler() {
+      // console.log(this.PENDING_DELIVERY_SCHEDULE_INV_LIST_FROM_LEFT)
       if(this.SR_ID_FROM_LEFT_LIST !== null && this.SELECTED_DATE_LEFT_LIST !== null) {
-        await this.CREATE_DELIVERY_SCHEDULE_INVOICE_LIST_BY_DA(this.SR_ID_FROM_LEFT_LIST, this.SELECTED_DATE_LEFT_LIST)
+        if(this.PENDING_DELIVERY_SCHEDULE_INV_LIST_FROM_LEFT.length > 0) {
+          await this.CREATE_DELIVERY_SCHEDULE_INVOICE_LIST_BY_DA(this.SR_ID_FROM_LEFT_LIST, this.SELECTED_DATE_LEFT_LIST)
+        } else {
+          alert('No schedule found to create.')
+        }
+        
       } else {
         alert('Please select SR and Date')
       }

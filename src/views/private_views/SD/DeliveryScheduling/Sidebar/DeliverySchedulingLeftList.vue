@@ -230,10 +230,17 @@ export default {
     // -------------------------------------------------------------------------------------
     // SERVICE CALLING
     async DIC_WISE_USERS__FROM_SERVICE() {
+      this.DA_list = []
       await service.getDICWiseUsers_MonthlyDeliveryPlan()
         .then(res => {
           console.log(res.data)
           this.DA_list = res.data.users.da
+        })
+        .catch(err => {
+          if(err) {
+            console.log(err)
+            this.DA_list = []
+          }
         })
     },
     async PENDING_DELIVERY_SCHEDULE_DELIVERY_LIST__FROM_SERVICE() {
@@ -242,6 +249,13 @@ export default {
         .then(res => {
           console.log(res.data)
           this.PENDING_DELIVERY_SCHEDULE_INV_LIST = res.data.invoice_info
+          this.$emit('pending_delivery_schedule_inv_list', res.data.invoice_info)
+        })
+        .catch(err => {
+          if(err) {
+            console.log(err)
+            this.PENDING_DELIVERY_SCHEDULE_INV_LIST = []
+          }
         })
     },
     async PENDING_DELIVERY_SCHEDULE_INVOICE_LIST_BY_DA_ID__FROM_SERVICE(da_id) {
@@ -255,6 +269,13 @@ export default {
           } else {
             console.log('else')
           }
+          this.$emit('pending_delivery_schedule_inv_list', res.data.invoice_info)
+        })
+        .catch(err => {
+          if(err) {
+            console.log(err)
+            this.PENDING_DELIVERY_SCHEDULE_INV_LIST = []
+          }
         })
     },
     async PENDING_DELIVERY_SCHEDULE_INVOICE_LIST_BY_DA(da_id, from_date, to_date) {
@@ -263,6 +284,13 @@ export default {
         .then(res => {
           console.log(res.data)
           this.PENDING_DELIVERY_SCHEDULE_INV_LIST = res.data.invoice_info
+          this.$emit('pending_delivery_schedule_inv_list', res.data.invoice_info)
+        })
+        .catch(err => {
+          if(err) {
+            console.log(err)
+            this.PENDING_DELIVERY_SCHEDULE_INV_LIST = []
+          }
         })
     }
   },
