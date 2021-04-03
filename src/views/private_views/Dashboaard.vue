@@ -87,6 +87,12 @@
       <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
         <router-link to="/features/local_sales/transfer-approve-requisition">Transfer Approve</router-link>
       </div>
+      <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
+        <router-link to="/features/local_sales/all-products">All Products</router-link>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
+        <router-link to="/features/local_sales/prod-details">Product Details</router-link>
+      </div>
     </div>
     
     <br />

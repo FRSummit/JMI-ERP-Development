@@ -274,6 +274,20 @@ export const router = new VueRouter({
       name: 'Transfer Approve Requisition',
       component: () => import('../views/private_views/SD/Requisition/TransferApproveRequisition/TransferApproveRequisition.vue')
     },
+    // --------------------------------------------------------------------------------------
+    // PRODUCTS - ALL PRODUCTS
+    {
+      path: '/features/local_sales/all-products',
+      name: 'Products List',
+      component: () => import('../views/private_views/SD/Products/ProductsList/Products.vue')
+    },
+    // --------------------------------------------------------------------------------------
+    // PRODUCTS - PRODUCTS DETAILS
+    {
+      path: '/features/local_sales/prod-details',
+      name: 'Product Details',
+      component: () => import('../views/private_views/SD/Products/ProductDetails/ProductDetails.vue')
+    },
 
     // --------------------------------------------------------------------------------------
     // 404 PAGES
