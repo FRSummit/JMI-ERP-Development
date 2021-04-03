@@ -1,6 +1,6 @@
 <template>
   <div id="product-details" class="product-details">
-    <Heading />
+    <Heading :pathName="pathName" :routeName="routeName" />
     <ProductDetailsSidebar />
     <ProductDetailsDetails />
   </div>
