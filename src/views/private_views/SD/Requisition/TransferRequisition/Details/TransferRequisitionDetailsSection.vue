@@ -116,13 +116,21 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="row requition_footer hide">
+                    <div class="row requition_footer">
                         <!-- <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="saveAsDraftClickHandler">Save As Draft</button></a>
                         <a><button type="button" class="btn btn-primary btn-global mx-2" @click="sendRequestClickHandler">Send Request</button></a> -->
-                        <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="createRequisitionClickHandler">Create Requisition</button></a>
+                        <a><button type="button" class="btn btn-primary btn-global mx-2" @click="saveAsVerifyClickHandler" style="color: #FFFFFF;">Save As Verify</button></a>
+                        <!-- <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="createRequisitionClickHandler">Create Requisition</button></a> -->
                         
                     </div>
                 </div>
+            </div>
+        </div>
+        <!-- Success Message -->
+        <div id="update-successfully-modal" class="modal-popup-section update-successfully-modal" v-if="success_or_not_msg_modal">
+            <div class="modal-popup-section-inner update-successfully-modal-inner">
+                <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
+                <p class="popup-text">{{ success_or_not_msg }}</p>
             </div>
         </div>
     </div>
@@ -133,6 +141,8 @@
 // const demoData = new DemoData()
 import GlobalDateFormat from '.././../../../../../functions/GlobalDateFormat'
 const globalDateFormat = new GlobalDateFormat()
+import ERPService from '../../../../../../service/ERPSidebarService'
+const service = new ERPService()
 
 export default {
     props: ["SELECTED_REQUISITION_DETAILS", "SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS", "SELECTED_REQUISITION_DETAILS_WH_NAME"],
@@ -141,6 +151,8 @@ export default {
         return {
             items: [],
             initial_stage: false,
+            success_or_not_msg_modal: false,
+            success_or_not_msg: null,
         }
     },
     computed: {},
@@ -197,6 +209,32 @@ export default {
         singleItemDeleteClickHandler() {},
         saveAsDraftClickHandler() {},
         sendRequestClickHandler() {},
+        async saveAsVerifyClickHandler() {
+            // console.log(this.SELECTED_REQUISITION_DETAILS)
+            await this.SAVE_TRANSFER_VERIFY__FROM_SERVICE(this.SELECTED_REQUISITION_DETAILS.id)
+        },
+        // ----------------------------------------------------------------
+        // SERVICE CALL
+        async SAVE_TRANSFER_VERIFY__FROM_SERVICE(req_no) {
+            await service.getSaveTransferVerify_TRANSFER_REQUISITION(req_no)
+                .then(res => {
+                    console.log(res.data)
+                    if(res.data.response_code === 200) {
+                        this.$store.state.TRANSFER_REQUISITION__VERIFY_REQUISITION = new Date()
+                        this.success_or_not_msg_modal = true
+                        this.success_or_not_msg = res.data.message
+                        setTimeout( () => {
+                            this.success_or_not_msg_modal = false
+                            this.success_or_not_msg = null
+                        }, 2000)
+                    }
+                })
+                .catch(err => {
+                    if(err) {
+                        alert('Server Error 500. ' + err)
+                    }
+                })
+        }
     },
     watch: {}
 }
@@ -204,10 +242,10 @@ export default {
 
 <style scoped>
 .transfer-requisition-details {
-    height: calc(100vh - (74px + 54px + 32px));
+    height: calc(100vh - (74px + 54px + 32px + 14px));
 }
 .layout-container {
-    height: calc(100vh - (74px + 54px + 32px));
+    height: calc(100vh - (74px + 54px + 32px + 14px));
 }
 
 /* Create Btn Section */
@@ -300,5 +338,8 @@ export default {
 }
 .container-fluid .edit.create-new:hover {
     color: #026cd1;
+}
+.requition_footer {
+    margin-bottom: 0;
 }
 </style>
