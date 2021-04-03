@@ -19,9 +19,9 @@
       <!--End Secondary Sidebar Header Area-->
       <!--Start Secondary Sidebar Content Area-->
       <div class="content">
-        <div class="card_body">
+        <div class="card_body" v-for="(item, i) in 20" :key="i">
           <div class="row1">
-            <h5>Ace® Power - 500mg Ace®</h5>
+            <h5>{{ i + 1 }} Ace® Power - 500mg Ace®</h5>
             <p class="new_product">New</p>
           </div>
           <div class="row2">
@@ -34,7 +34,7 @@
           </div>
         </div>
 
-        <div class="card_body">
+        <!-- <div class="card_body">
           <div class="row1">
             <h5>Ace® Power - 500mg</h5>
             <p class="new_product">New</p>
@@ -167,7 +167,7 @@
             <p>Paracetamol</p>
             <p>Last Updated: 20-Sep-20200</p>
           </div>
-        </div>
+        </div> -->
       </div>
       <!--End Secondary Sidebar Content Area-->
       <!-- End Secondary Sidebar Area-->
