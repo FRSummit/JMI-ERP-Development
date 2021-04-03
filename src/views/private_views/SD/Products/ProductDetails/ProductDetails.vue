@@ -1,8 +1,10 @@
 <template>
   <div id="product-details" class="product-details">
     <Heading :pathName="pathName" :routeName="routeName" />
-    <ProductDetailsSidebar />
-    <ProductDetailsDetails />
+    <div class="layout-body">
+      <ProductDetailsSidebar />
+      <ProductDetailsDetails />
+    </div>
   </div>
 </template>
 

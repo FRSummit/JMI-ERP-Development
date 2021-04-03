@@ -1,0 +1,263 @@
+/* ----------------------------------------------------------------------------------------- */
+/*-------- Start Schroll Style --------*/
+::-webkit-scrollbar {
+    width: 1px;
+  }
+  ::-webkit-scrollbar-track {
+    background: none;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--blue);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background:var(--blue);
+  }
+/*-------- End Schroll Style --------*/
+
+h1, h2, h3, h4, h5, h6, p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+a:hover { 
+    text-decoration: none; 
+    color: #000000;
+} 
+
+/*-------- Start Status Color --------*/
+/* .active{
+    color: var(--blue)!important;
+} */
+.available{
+    color:#28A411!important;
+}
+.occupied{
+    color:#FCC428!important;
+}
+.dcr_complete{
+    color:var(--blue)!important;
+}
+/*-------- End Status Color --------*/
+
+/*-------- Start Form Style --------*/
+.form-group label{
+   color: var(--blue);
+   font-size: var(--font14);
+}
+.form-group input{
+    border-radius: 2px;
+    border: 1px solid  var(--border-color);
+}
+.form-group input::placeholder{
+    font-size: var(--font14) ;
+    color: #AAC0D9;
+}
+.form-group input:focus{
+    border-color: var(--blue)!important;
+    box-shadow: none;
+}
+.form-group textarea {
+    padding-left: 10px;
+    border-radius: 2px;
+    border: 1px solid  var(--border-color);
+}
+.form-group textarea::placeholder{
+    font-size: var(--font14) ;
+    color: #AAC0D9;
+}
+.form-group textarea:focus{
+    outline: none !important;
+    border-color: var(--blue)!important;
+    box-shadow: none;
+}
+.form-group select {
+    border-radius: 2px;
+    font-size: var(--font14) ;
+    border: 1px solid var(--border-color);
+}
+.form-group select::placeholder{
+    font-size: var(--font14) ;
+    color: #AAC0D9;
+}
+.form-group select:focus{
+    outline: none !important;
+    border-color: var(--blue)!important;
+    box-shadow: none;
+}
+/*-------- End Form Style --------*/
+
+/*-------- Start Button Style Area --------*/
+button:focus{
+    outline: none !important;
+    box-shadow: none!important;
+}
+/* start jerp common button */
+.btn-global {
+    width: 160px;
+    height: 40px;
+    padding: 0px 10px;
+    font-size:var(--font14);
+    background-color: var(--blue);
+    border-radius: 2px;
+    border:none;
+    transition: all 0.3s ease 0s;
+    
+}
+.btn-global:hover {
+    background-color:#0285ff;
+}
+/* end jerp common button */
+/*-------- End Button Style Area --------*/
+:root {
+    --blue: #026CD1;
+    --white: #ffffff;
+    --ice-white:#FBFCFE;
+    --bluish-white:#E2EDFA;
+    --border-color:#E2EDFA;
+    --red:#DF2A43;
+    --redish-white:#F5BEC6;
+    --yellow:#FCC428;
+    --yellowish-white:#FFF7E3;
+    --green: #28A411;
+    --text-red:#DF2A43;
+    --text-black:#36454F;
+    --text-label:#36454F;
+    --font22: 22px;
+    --font20: 20px;
+    --font18: 18px;
+    --font16: 16px;
+    --font14: 14px;
+    --font12: 12px;
+    --font10: 10px;
+    --navbar-height:74px;
+    --breadcrumb-height:86px;
+    --used-height: calc(var(--navbar-height) + var(--breadcrumb-height) + 25px);
+    --layout-menubar-width:74px;
+    --sidebar-width:300px;
+    --sidebar-width-extend: calc(var(--sidebar-width) + 100px);;
+  }
+@media screen and (max-width: 1440px) { 
+:root {
+    --font22: 21px;
+    --font20: 19px;
+    --font18: 17px;
+    --font16: 15px;
+    --font14: 12px;
+    --font12: 11px;
+    --font10: 9px;
+    --navbar-height:64px;
+    --breadcrumb-height:66px;
+    --layout-menubar-width:64px;
+    --sidebar-width:260px;
+    }
+}
+@media screen and (max-width: 768px) { 
+:root {
+    --font22: 20px;
+    --font20: 18px;
+    --font18: 16px;
+    --font16: 14px;
+    --font14: 12px;
+    --font12: 10px;
+    --font10: 8px;
+    }
+}
+/*-------- Start Layout Area --------*/
+.grid-container{
+    background-color: transparent;
+    height: 100vh;
+    display: grid;
+    grid-template-rows: var(--navbar-height) var(--breadcrumb-height) auto 25px;
+    grid-template-columns: var(--layout-menubar-width) auto;
+}
+.layout-navbar{
+    grid-column: 1/-1;
+    background-color: var(--ice-white);
+    box-shadow: 0px 0px 5px #026CD129;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+.layout-menubar{
+    grid-row: 2/4;
+    background-color: var(--ice-white);
+    box-shadow: 1px 5px 5px #026CD129;
+    z-index: 1001;
+}
+.layout-menubar:hover{
+    width: 300px;
+}
+.layout-breadcrumb{
+    grid-column: 2/-1;
+    display: flex;
+    align-items: center;
+    background-color: var(--white);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: var(--navbar-height);
+    z-index: 999;
+}
+.layout-footer{
+    grid-row: 4/-1;
+    grid-column: 1/-1;
+    background-color: var(--blue);
+    z-index: 1002;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+}
+.layout-body{
+    display: grid;
+    grid-template-columns: min-content auto ;
+}
+.layout-sidebar{
+    background-color: transparent;
+}
+.layout-container{
+    height: calc( 100vh - var(--used-height) );;
+    overflow-y: auto;
+    background-color: transparent;
+}
+@media screen and (max-width: 768px) { 
+    .grid-container{
+        display: grid;
+        grid-template-rows: var(--navbar-height) var(--breadcrumb-height) auto 25px;
+        grid-template-columns: auto;
+        }
+    .layout-menubar{
+        display: none;
+        }
+    .layout-breadcrumb{
+        grid-column: auto;
+        background-color: var(--white);
+        border-bottom: 1px solid var(--border-color);
+        }
+    .layout-body{
+        display: grid;
+        grid-template-columns:auto ;
+        grid-auto-rows: 230px auto;
+        }
+    .layout-sidebar{
+        height: 232px;
+        background-color: transparent;
+        padding-bottom: 5px;
+        border-bottom: 1px solid var(--border-color);
+        }
+    .layout-container{
+        background-color: transparent;
+        }
+}
+/*-------- End Layout Area --------*/
+
+/*-------- Start Breadcrumb Area --------*/
+.breadcrumb_area h5 {
+    font-size: var(--font20) ;
+    padding: .2rem 1rem;
+}
+.breadcrumb_area .breadcrumb {
+    font-size: var(--font12) ;
+    background: unset;
+    padding: .2rem 1rem;
+    margin: 0px;
+}
+/*-------- End Breadcrumb Area --------*/
+/* ----------------------------------------------------------------------------------------- */

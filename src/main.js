@@ -27,6 +27,10 @@ import 'print-js'
 import * as VueGoogleMaps from "vue2-google-maps";
 // import VueGoogleMap from 'vuejs-google-maps'
 import VueGeolocation from 'vue-browser-geolocation'
+
+import './assets/css/styles.css'
+import './assets/css/styles_page_included.css'
+
 // const options = {
 //   name: '_blank',
 //   specs: [
