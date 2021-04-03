@@ -17,7 +17,7 @@
                 <button
                   type="button"
                   class="btn btn-primary btn-global"
-                  @click="createRequisitionClickHandler"
+                  @click="createNewProductClickHandler"
                 >
                   <i class="fa fa-plus mr-2"></i>
                   Create New Product
@@ -41,7 +41,12 @@ export default {
   computed: {},
   created() {},
   mounted() {},
-  methods: {},
+  methods: {
+    createNewProductClickHandler() {
+      console.log("createNewProductClickHandler")
+    //   this.$router.push('/features/local_sales/create-new-product')
+    },
+  },
   watch: {},
 };
 </script>

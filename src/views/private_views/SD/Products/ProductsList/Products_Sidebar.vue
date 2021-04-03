@@ -1,8 +1,6 @@
 <template>
   <div id="products-sidebar" class="products-sidebar">
     <div class="layout-sidebar product">
-      <!-- Start Secondary Sidebar Area-->
-      <!-- Start Secondary Sidebar Header Area-->
       <div class="header">
         <div class="row1">
           <div class="form-group">
@@ -16,8 +14,6 @@
           <span class="filter_search"><i class="fa fa-filter"> </i> </span>
         </div>
       </div>
-      <!--End Secondary Sidebar Header Area-->
-      <!--Start Secondary Sidebar Content Area-->
       <div class="content">
         <div class="card_body" v-for="(item, i) in 20" :key="i">
           <div class="row1">
