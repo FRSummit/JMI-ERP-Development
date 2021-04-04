@@ -1002,6 +1002,18 @@ export default class PostService {
   }
 
   // -------------------------------------------------------------------------------------------
+  // REQUISITION - TRANSFER APPROVE - LEFT LIST
+  async getVerifiedStockRequisitionList_TRANSFER_APPROVE_REQUISITION() {
+    let web_menu_url = '/api/web/verified-stock-requisition-list'
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+    })
+  }
+
+  // -------------------------------------------------------------------------------------------
 
   // -------------------------------------------------------------------------------------------
 

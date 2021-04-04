@@ -78,7 +78,7 @@ export default {
         // SERVICE CALL
         async SOTCK_REQUISITION_LIST__FROM_SERVICE() {
             this.items = []
-            await service.getApproveRequisitionList_TRANSFER_REQUISITION()
+            await service.getVerifiedStockRequisitionList_TRANSFER_APPROVE_REQUISITION()
                 .then(res => {
                     console.log(res.data)
                     this.items = res.data.transfer_info
