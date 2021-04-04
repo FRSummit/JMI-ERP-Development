@@ -68,7 +68,7 @@
                                     <th>Name</th>
                                     <th>Unit</th>
                                     <th>Quantity</th>
-                                    <!-- <th>Stock</th> -->
+                                    <th>Stock</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -103,12 +103,13 @@
                                                 <input class='plus hide' type='button' value='+' field='quantity' @click="increaseRequisitionQtyClickHandler(item, i)" />
                                             </div>
                                         </form>
+                                        <!-- <p class="type">{{ item.req_qty }}</p> -->
                                     </td>
-                                    <!-- <td>
+                                    <td>
                                         <div class="product">
-                                            <p class="type">{{ item.element_info ? item.element_info.element_name : '' }}</p>
+                                            <p class="type">{{ item.available_stock }}</p>
                                         </div>
-                                    </td> -->
+                                    </td>
                                     <td>
                                         <a class="edit" @click="singleItemEditClickHandler"><i class="zmdi zmdi-edit"></i></a>
                                         <a class="remove" @click="singleItemDeleteClickHandler"><i class="fas fa-trash-alt"></i></a>
@@ -448,5 +449,29 @@ export default {
 }
 .requition_area .row.requition_footer a:first-child .btn.btn-primary.btn-global {
     color: #000000;
+}
+
+.requition_content table tr th,
+.requition_content table tr td {
+    flex-basis: 20%;
+}
+
+.requition_content table tr th:first-child,
+.requition_content table tr td:first-child {
+    flex-basis: 25%;
+}
+
+.requition_content table tr th:last-child,
+.requition_content table tr td:last-child {
+    flex-basis: 15%;
+}
+
+.requition_content table tr td:last-child a {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.requition_content table tr td:last-child a:last-child {
+    padding-left: 7px;
 }
 </style>
