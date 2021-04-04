@@ -53,7 +53,11 @@ export default {
             items: []
         }
     },
-    computed: {},
+    computed: {
+        // LOAD_STOCK_REQUISITION_LIST() {
+        //     return this.$store.state.TRANSFER_REQUISITION__VERIFY_REQUISITION
+        // }
+    },
     created() {},
     async mounted() {
         // this.items = demoData.demo_data().requisition_items
@@ -92,7 +96,14 @@ export default {
                 })
         }
     },
-    watch: {}
+    watch: {
+        // LOAD_STOCK_REQUISITION_LIST(newVal) {
+        //     if(newVal) {
+        //         console.log(newVal)
+        //         this.SOTCK_REQUISITION_LIST__FROM_SERVICE()
+        //     }
+        // }
+    }
 }
 </script>
 

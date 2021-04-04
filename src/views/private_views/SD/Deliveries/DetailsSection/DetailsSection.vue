@@ -220,7 +220,7 @@
                                         </div>
                                         <div class="imvoice-amount">
                                             <p class="jmi-lvl">Due Amount:</p>
-                                            <p id="cash-due-amount-selector" class="jmi-lvl-value">{{ Number(parseFloat(grand_total) - parseFloat(cash_receive_amount) ).toFixed(2) }}</p>
+                                            <p id="cash-due-amount-selector" class="jmi-lvl-value">{{ Number(parseFloat(grand_total.toFixed(2)) - parseFloat(cash_receive_amount) ).toFixed(2) }}</p>
                                         </div>
                                     </div>
                                     <div class="row receiver-amount">
@@ -242,7 +242,7 @@
                                         </div>
                                         <div class="imvoice-amount" style="width: 33%;">
                                             <p class="jmi-lvl">Due Amount:</p>
-                                            <p type="number" id="cheque-due-amount-selector" class="jmi-lvl-value">{{ Number(parseFloat(grand_total) - parseFloat(cash_receive_amount) - parseFloat(cheque_receive_amount) ).toFixed(2) }}</p>
+                                            <p type="number" id="cheque-due-amount-selector" class="jmi-lvl-value">{{ Number(parseFloat(grand_total.toFixed(2)) - (parseFloat(cash_receive_amount) + parseFloat(cheque_receive_amount)) ).toFixed(2) }}</p>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -252,7 +252,7 @@
                                         </div>
                                         <div class="jmi-inline-block right-alg">
                                             <p class="jmi-lvl">Type Receiver Amount</p>
-                                            <input type="number" id="deliveries_cheque_receiver_amount" class="jmi-lvl-value" v-model="cheque_receive_amount" />
+                                            <input type="number" id="deliveries_cheque_receiver_amount" class="jmi-lvl-value" v-model="cheque_receive_amount" v-on:keydown="deliveries_cheque_receiver_amount_KeyDown_ordered_table($event)" v-on:keyup="deliveries_cheque_receiver_amount_KeyUp_ordered_table($event)" />
                                         </div>
                                     </div>
                                     <div class="row">
@@ -1317,10 +1317,13 @@ export default {
         deliveries_cash_receiver_amount_KeyUp_ordered_table(value) {
             console.log(value.key)
             // // this.cash_due_amount
-            console.log(this.grand_total)
+            console.log(this.grand_total.toFixed(2))
             let selector = document.querySelector('#deliveries_cash_receiver_amount')
             console.log(selector.value)
-            if(parseFloat(selector.value) > parseFloat(this.grand_total)) {
+            if(selector.value.charAt(0) === '0') {
+                selector.value = selector.value.substring(1)
+            }
+            if(parseFloat(selector.value) > parseFloat(this.grand_total.toFixed(2))) {
                 console.log('more')
                 selector.value = (parseFloat(selector.value)/10).toFixed()
                 this.cash_receive_amount = selector.value
@@ -1371,13 +1374,34 @@ export default {
             console.log(value.key)
             // this.cash_due_amount
             let selector = document.querySelector('#deliveries_cheque_receiver_amount')
+            if(selector.value.charAt(0) === '0') {
+                selector.value = selector.value.substring(1)
+            }
+            if((parseFloat(selector.value) + parseFloat(this.cash_receive_amount)) > parseFloat(this.grand_total.toFixed(2))) {
+                console.log('more')
+                selector.value = (parseFloat(selector.value)/10).toFixed()
+                this.cheque_receive_amount = selector.value
+            } else {
+                console.log('less')
+            }
+
+
             if(parseInt(selector.value) === 0) {
                 selector.value = 0
             } else if((selector.value).toString() === '') {
                 selector.value = 0
             }
             this.cheque_receive_amount = parseFloat(selector.value)
-            this.cheque_due_amount = parseFloat(this.grand_total) - this.cash_receive_amount - parseFloat(selector.value)
+            this.cheque_due_amount = parseFloat(this.grand_total.toFixed(2)) - (parseFloat(this.cash_receive_amount) + parseFloat(this.cheque_receive_amount))
+
+
+            console.log('.......................')
+            console.log(parseFloat(this.grand_total.toFixed(2)))
+            console.log(parseFloat(this.cash_receive_amount) + this.cheque_receive_amount)
+            console.log(parseFloat(this.grand_total.toFixed(2)) - (parseFloat(this.cash_receive_amount) + parseFloat(this.cheque_receive_amount)))
+            console.log(this.cheque_due_amount)
+            console.log('.......................')
+
 
             if(this.cheque_due_amount.toString().charAt(0) === '-') {
                 document.querySelector('#cash-due-amount-selector').className = 'jmi-lvl-value jmi-warning'

@@ -22,7 +22,7 @@
             </div>
             <!-- With Data -->
             <div class="container-fluid" v-if="!initial_stage">
-                <div class="col-12 requition_area">
+                <div class="col-12 requition_area" v-if="SELECTED_REQUISITION_DETAILS.id">
                     <div class="row requition_header"> 
                         <div class="col-12 header_top">
                             <h5>Requisition No: <span>{{ SELECTED_REQUISITION_DETAILS.requisition_no ? SELECTED_REQUISITION_DETAILS.requisition_no : '' }}</span></h5>
@@ -143,6 +143,13 @@
                 <p class="popup-text">{{ status_modal_msg ? status_modal_msg : '' }}</p>
             </div>
         </div>
+        <!-- Success Message -->
+        <div id="update-successfully-modal" class="modal-popup-section update-successfully-modal" v-if="success_or_not_msg_modal">
+            <div class="modal-popup-section-inner update-successfully-modal-inner">
+                <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
+                <p class="popup-text">{{ success_or_not_msg }}</p>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -168,6 +175,8 @@ export default {
             proceed_modal_popup_msg: null,
             status_modal: false,
             status_modal_msg: null,
+            success_or_not_msg_modal: false,
+            success_or_not_msg: null,
         }
     },
     computed: {
@@ -257,7 +266,9 @@ export default {
         //         this.proceed_modal_popup = true
         //     }
         // },
-        saveAsVerifyClickHandler() {},
+        async saveAsVerifyClickHandler() {
+            await this.SAVE_TRANSFER_VERIFY__FROM_SERVICE(this.SELECTED_REQUISITION_DETAILS.id)
+        },
         cancelOrderModalClickHandler() {
             this.proceed_modal_popup = false
         },
@@ -346,6 +357,26 @@ export default {
                     }
                 })
         },
+        async SAVE_TRANSFER_VERIFY__FROM_SERVICE(req_no) {
+            await service.getSaveTransferVerify_TRANSFER_REQUISITION(req_no)
+                .then(res => {
+                    console.log(res.data)
+                    if(res.data.response_code === 200) {
+                        this.$store.state.TRANSFER_REQUISITION__VERIFY_REQUISITION = new Date()
+                        this.success_or_not_msg_modal = true
+                        this.success_or_not_msg = res.data.message
+                        setTimeout( () => {
+                            this.success_or_not_msg_modal = false
+                            this.success_or_not_msg = null
+                        }, 2000)
+                    }
+                })
+                .catch(err => {
+                    if(err) {
+                        alert('Server Error 500. ' + err)
+                    }
+                })
+        }
     },
     watch: {}
 }

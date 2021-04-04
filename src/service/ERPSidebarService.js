@@ -916,6 +916,17 @@ export default class PostService {
     })
   }
 
+  // REQUISITION - TRANSFER VERIFY
+  async getSaveTransferVerify_TRANSFER_REQUISITION(req_id) {
+    let web_menu_url = '/api/web/save-transfer-verify/' + req_id
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+    })
+  }
+
   // REQUISITION - CREATE - AREA LIST
   async getAllDepotUnderSBU_CREATE_REQUISITION() {
     let web_menu_url = '/api/web/all-depot-under-sbu'
