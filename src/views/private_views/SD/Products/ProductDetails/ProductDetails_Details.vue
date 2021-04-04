@@ -22,7 +22,7 @@
                               <div class="modal-content">
                                   <div class="modal-header">
                                   <h5 class="modal-title" id="changePhoto">Change Photo</h5>
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="changePhotoModalCloseClickHandler">
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="changePhotoModalCloseClickHandler" style="width: 50px;">
                                       <span aria-hidden="true">&times;</span>
                                   </button>
                                   </div>
@@ -750,6 +750,9 @@ export default {
 }
 
 #product-details-details #tab-detail-attributes button.btn.btn-primary.btn-block {
+    background-color: #0062cc;
+}
+#product-details-details #change-photo .modal-footer button.btn.btn-primary {
     background-color: #0062cc;
 }
 </style>
