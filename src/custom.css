@@ -47,6 +47,11 @@ input[type="checkbox"] {
     color: #000000;
 }
 
+.jmi-padding-0-10,
+#product-details-details #tab-competitors .jmi-padding-0-10 {
+    padding: 0 10px;
+}
+
 .jmi-table tbody tr {
     border-bottom: none;
 }
