@@ -16,7 +16,7 @@
                     <p class="generic-name">JMI1361465</p>
                     <p class="product-code">Code: <span>45352666647</span></p>
                   </div>
-                          <!-- Start Change Photo Modal -->
+                    <!-- Start Change Photo Modal -->
                           <div class="modal" id="change-photo" tabindex="-1" role="dialog" aria-labelledby="changePhoto" aria-hidden="true">
                               <div class="modal-dialog modal-dialog-centered" role="document">
                               <div class="modal-content">
@@ -69,7 +69,8 @@
                           <a class="nav-link" id="details-single-tab" data-toggle="tab" href="#tab-ledger">Ledger</a>
                       </li>
                       <li class="nav-item">
-                          <a class="nav-link disabled" id="details-single-tab" data-toggle="tab" href="#tab-stock-position">Stock Position</a>
+                          <!-- <a class="nav-link disabled" id="details-single-tab" data-toggle="tab" href="#tab-stock-position">Stock Position</a> -->
+                          <a class="nav-link" id="details-single-tab" data-toggle="tab" href="#tab-stock-position">Stock Position</a>
                       </li>
                       <li class="nav-item">
                           <a class="nav-link" id="details-single-tab" data-toggle="tab" href="#tab-documents">Documents</a>
@@ -237,7 +238,7 @@
                                     <a class="nav-link" id="attr-single-items" href="#attribute3" data-toggle="tab">Pharmacology</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="attr-single-items" href="#attribute4" data-toggle="tab">Dosage & Administration</a>
+                                    <a class="nav-link" id="attr-single-items" href="#attribute4" data-toggle="tab">Dosage &amp; Administration</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="attr-single-items" href="#attribute5" data-toggle="tab">Indication</a>
@@ -276,7 +277,7 @@
                                     <a class="nav-link" id="attr-single-items" href="#attribute11" data-toggle="tab">Pharmacology</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="attr-single-items" href="#attribute12" data-toggle="tab">Dosage & Administration</a>
+                                    <a class="nav-link" id="attr-single-items" href="#attribute12" data-toggle="tab">Dosage &amp; Administration</a>
                                 </li>
                             </ul>
                             </div>
@@ -287,7 +288,8 @@
                             <div class="tab-pane active" id="attribute1">
                                 <div class="attribute-header">
                                     <h5>Indiction</h5>
-                                    <a class="btn-edit btn-active" href=""><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                    <!-- <a class="btn-edit btn-active" href=""><i class="fa fa-pencil" aria-hidden="true"></i></a> -->
+                                    <a class="btn-edit btn-active" href=""><i class="zmdi zmdi-edit"></i></a>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-12 form-group">
@@ -300,7 +302,7 @@
                             <div class="tab-pane" id="attribute2">
                                 <div class="attribute-header">
                                     <h5>Therapeutic Class</h5>
-                                    <a class="btn-edit" href=""><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                    <a class="btn-edit" href=""><i class="zmdi zmdi-edit"></i></a>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-12 form-group">
@@ -312,61 +314,61 @@
                             <div class="tab-pane" id="attribute3">
                                 <div class="attribute-header">
                                     <h5>Pharmacology</h5>
-                                    <a class="btn-edit" href=""><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                    <a class="btn-edit" href=""><i class="zmdi zmdi-edit"></i></a>
                                 </div>
                             </div>
                             <div class="tab-pane" id="attribute4">
                                 <div class="attribute-header">
-                                    <h5>Dosage & Administration</h5>
-                                    <a class="btn-edit" href=""><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                    <h5>Dosage &amp; Administration</h5>
+                                    <a class="btn-edit" href=""><i class="zmdi zmdi-edit"></i></a>
                                 </div>
                             </div>
                             <div class="tab-pane" id="attribute5">
                                 <div class="attribute-header">
                                     <h5>Indiction</h5>
-                                    <a class="btn-edit" href=""><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                    <a class="btn-edit" href=""><i class="zmdi zmdi-edit"></i></a>
                                 </div>
                             </div>
                             <div class="tab-pane" id="attribute6">
                                 <div class="attribute-header">
                                     <h5>Indiction</h5>
-                                    <a class="btn-edit" href=""><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                    <a class="btn-edit" href=""><i class="zmdi zmdi-edit"></i></a>
                                 </div>
                             </div>
                             <div class="tab-pane" id="attribute7">
                                 <div class="attribute-header">
                                     <h5>Indiction</h5>
-                                    <a class="btn-edit" href=""><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                    <a class="btn-edit" href=""><i class="zmdi zmdi-edit"></i></a>
                                 </div>
                             </div>
                             <div class="tab-pane" id="attribute8">
                                 <div class="attribute-header">
                                     <h5>Indiction</h5>
-                                    <a class="btn-edit" href=""><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                    <a class="btn-edit" href=""><i class="zmdi zmdi-edit"></i></a>
                                 </div>
                                 </div>
                             <div class="tab-pane" id="attribute9">
                                 <div class="attribute-header">
                                     <h5>Indiction</h5>
-                                    <a class="btn-edit" href=""><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                    <a class="btn-edit" href=""><i class="zmdi zmdi-edit"></i></a>
                                 </div>
                             </div>
                             <div class="tab-pane" id="attribute10">
                                 <div class="attribute-header">
                                     <h5>Indiction</h5>
-                                    <a class="btn-edit" href=""><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                    <a class="btn-edit" href=""><i class="zmdi zmdi-edit"></i></a>
                                 </div>
                             </div>
                             <div class="tab-pane" id="attribute11">
                                 <div class="attribute-header">
                                     <h5>Indiction</h5>
-                                    <a class="btn-edit" href=""><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                    <a class="btn-edit" href=""><i class="zmdi zmdi-edit"></i></a>
                                 </div>
                             </div>
                             <div class="tab-pane" id="attribute12">
                                 <div class="attribute-header">
                                     <h5>Indiction</h5>
-                                    <a class="btn-edit" href=""><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                    <a class="btn-edit" href=""><i class="zmdi zmdi-edit"></i></a>
                                 </div>
                                 </div>
                             </div>
@@ -381,7 +383,7 @@
                               <h5>Product Information</h5>
                               <div class="btn-group">
                                   <button class="btn btn-primary btn-save" href="#" role="button">Save</button>
-                                  <a class="btn-edit btn-active" href=""><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                  <a class="btn-edit btn-active" href=""><i class="zmdi zmdi-edit"></i></a>
                               </div>
                           </div>
 
@@ -423,7 +425,7 @@
                           <div class="tab-content-header">
                               <h5>Offers</h5>
                               <div class="btn-group">
-                                  <button class="btn btn-primary btn-create" data-toggle="modal" data-target=".create-offer-modal" role="button"><i class="fa fa-plus" aria-hidden="true"></i> Create Offer</button>
+                                  <button class="btn btn-primary btn-create" data-toggle="modal" data-target=".create-offer-modal" role="button"><i class="fa fa-plus" aria-hidden="true" style="margin-right: 4px;"></i> Create Offer</button>
                               </div>
                               <!------------ Start Create Offer Modal------------>
                               <div class="modal create-offer-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -487,7 +489,7 @@
                                   <td>20/11/2020 - 06/07/2021</td>
                                   <td><p class="status active"> <i class="fa fa-square mr-1" aria-hidden="true"></i>Active</p></td>
                                   <td>Mehedi Hassan</td>
-                                  <td class="action-btn"><span class="fa fa-pencil" data-toggle="tooltip" data-placement="bottom" title="Edit"></span> <span class="inactive fa fa-arrow-down" data-toggle="tooltip" data-placement="bottom" title="Inactive"></span></td>
+                                  <td class="action-btn"><span><a class="btn-edit btn-active" style="width: 20px; border-radius: 50%; cursor: pointer;"><i class="zmdi zmdi-edit"></i></a></span> <span class="inactive fa fa-arrow-down" data-toggle="tooltip" data-placement="bottom" title="Inactive"></span></td>
                               </tr>
                               <tr>
                                   <td>01</td>
@@ -496,7 +498,7 @@
                                   <td>20/11/2020 - 06/07/2021</td>
                                   <td><p class="status inactive"> <i class="fa fa-square mr-1" aria-hidden="true"></i>Inactive</p></td>
                                   <td>Mehedi Hassan</td>
-                                  <td class="action-btn"><span class="fa fa-pencil" data-toggle="tooltip" data-placement="bottom" title="Edit"></span> <span class="active fa fa-arrow-up" data-toggle="tooltip" data-placement="bottom" title="Active"></span></td>
+                                  <td class="action-btn"><span><a class="btn-edit btn-active" style="width: 20px; border-radius: 50%; cursor: pointer;"><i class="zmdi zmdi-edit"></i></a></span> <span class="active fa fa-arrow-up" data-toggle="tooltip" data-placement="bottom" title="Active"></span></td>
                               </tr>
                               <tr>
                                   <td>01</td>
@@ -505,7 +507,7 @@
                                   <td>20/11/2020 - 06/07/2021</td>
                                   <td><p class="status active"> <i class="fa fa-square mr-1" aria-hidden="true"></i>Active</p></td>
                                   <td>Mehedi Hassan</td>
-                                  <td class="action-btn"><span class="fa fa-pencil" data-toggle="tooltip" data-placement="bottom" title="Edit"></span> <span class="inactive fa fa-arrow-down" data-toggle="tooltip" data-placement="bottom" title="Inactive"></span></td>
+                                  <td class="action-btn"><span><a class="btn-edit btn-active" style="width: 20px; border-radius: 50%; cursor: pointer;"><i class="zmdi zmdi-edit"></i></a></span> <span class="inactive fa fa-arrow-down" data-toggle="tooltip" data-placement="bottom" title="Inactive"></span></td>
                               </tr>
                               </tbody>
                           </table>
@@ -518,7 +520,7 @@
                               <h5>Competitors</h5>
                               <div class="btn-group">
                                 <button class="btn btn-primary btn-save" href="#" role="button">Save</button>
-                                <a class="btn-edit btn-active" href=""><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                <a class="btn-edit btn-active" href=""><i class="zmdi zmdi-edit"></i></a>
                             </div>
                           </div>
                           <div class="scroll-competitor-list">
@@ -652,7 +654,7 @@
                               <h5>Ledger</h5>
                               <div class="btn-group">
                                 <button class="btn btn-primary btn-save" href="#" role="button">Save</button>
-                                <a class="btn-edit" href=""><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                <a class="btn-edit" href=""><i class="zmdi zmdi-edit"></i></a>
                             </div>
                           </div> 
                       </div>
@@ -662,7 +664,7 @@
                               <h5>Stock Position</h5>
                               <div class="btn-group">
                                 <button class="btn btn-primary btn-save" href="#" role="button">Save</button>
-                                <a class="btn-edit" href=""><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                <a class="btn-edit" href=""><i class="zmdi zmdi-edit"></i></a>
                             </div>
                           </div>
                       </div>
@@ -671,7 +673,7 @@
                               <h5>Documents</h5>
                               <div class="btn-group">
                                 <button class="btn btn-primary btn-save" href="#" role="button">Save</button>
-                                <a class="btn-edit" href=""><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                <a class="btn-edit" href=""><i class="zmdi zmdi-edit"></i></a>
                             </div>
                           </div>
                       </div>
@@ -740,5 +742,9 @@ export default {
     -webkit-box-shadow: none !important;
     box-shadow        : none !important;
     /* border: none !important; */
+}
+
+#product-details-details #tab-detail-attributes button.btn.btn-primary.btn-block {
+    background-color: #0062cc;
 }
 </style>

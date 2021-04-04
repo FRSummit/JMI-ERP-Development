@@ -40,6 +40,12 @@ input[type="checkbox"] {
     color         : #026CD1;
     pointer-events: auto !important;
 }
+#product-details-details #tab-detail-attributes input[type="checkbox"] {
+    position      : absolute !important;
+}
+#product-details-details #tab-detail-attributes label {
+    color: #000000;
+}
 
 .jmi-table tbody tr {
     border-bottom: none;
