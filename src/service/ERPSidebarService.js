@@ -916,6 +916,7 @@ export default class PostService {
     })
   }
 
+  // REQUISITION - TRANSFER VERIFY
   async getSaveTransferVerify_TRANSFER_REQUISITION(req_id) {
     let web_menu_url = '/api/web/save-transfer-verify/' + req_id
     return await axios(web_menu_url, {

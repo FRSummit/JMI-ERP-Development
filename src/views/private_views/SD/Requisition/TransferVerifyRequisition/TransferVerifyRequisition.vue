@@ -38,7 +38,11 @@ export default {
       SELECTED_REQUISITION_DETAILS_WH_NAME: null,
     };
   },
-    computed: {},
+    computed: {
+        LOAD_STOCK_REQUISITION_LIST() {
+            return this.$store.state.TRANSFER_REQUISITION__VERIFY_REQUISITION
+        }
+    },
   created() {
     this.$emit("routeName", this.$route.name);
     this.createBreadcrumbData();
@@ -77,7 +81,15 @@ export default {
         })
     },
   },
-  watch: {}
+    watch: {
+        LOAD_STOCK_REQUISITION_LIST(newVal) {
+            if(newVal) {
+              this.SELECTED_REQUISITION_DETAILS = []
+              this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS = [] 
+              this.SELECTED_REQUISITION_DETAILS_WH_NAME = null
+            }
+        }
+    }
 };
 </script>
 

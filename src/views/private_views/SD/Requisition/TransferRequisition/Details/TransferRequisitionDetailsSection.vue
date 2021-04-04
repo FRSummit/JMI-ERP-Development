@@ -116,7 +116,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="row requition_footer">
+                    <div class="row requition_footer hide">
                         <!-- <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="saveAsDraftClickHandler">Save As Draft</button></a>
                         <a><button type="button" class="btn btn-primary btn-global mx-2" @click="sendRequestClickHandler">Send Request</button></a> -->
                         <a><button type="button" class="btn btn-primary btn-global mx-2" @click="saveAsVerifyClickHandler" style="color: #FFFFFF;">Save As Verify</button></a>
@@ -211,11 +211,11 @@ export default {
         sendRequestClickHandler() {},
         async saveAsVerifyClickHandler() {
             // console.log(this.SELECTED_REQUISITION_DETAILS)
-            await this.SAVE_TRANSFER_VERIFY__FROM_SERVICE(this.SELECTED_REQUISITION_DETAILS.id)
+            // await this.SAVE_TRANSFER_VERIFY__FROM_SERVICE(this.SELECTED_REQUISITION_DETAILS.id)
         },
         // ----------------------------------------------------------------
         // SERVICE CALL
-        async SAVE_TRANSFER_VERIFY__FROM_SERVICE(req_no) {
+        /*async SAVE_TRANSFER_VERIFY__FROM_SERVICE(req_no) {
             await service.getSaveTransferVerify_TRANSFER_REQUISITION(req_no)
                 .then(res => {
                     console.log(res.data)
@@ -234,7 +234,7 @@ export default {
                         alert('Server Error 500. ' + err)
                     }
                 })
-        }
+        }*/
     },
     watch: {}
 }

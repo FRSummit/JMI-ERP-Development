@@ -54,9 +54,9 @@ export default {
         }
     },
     computed: {
-        LOAD_STOCK_REQUISITION_LIST() {
-            return this.$store.state.TRANSFER_REQUISITION__VERIFY_REQUISITION
-        }
+        // LOAD_STOCK_REQUISITION_LIST() {
+        //     return this.$store.state.TRANSFER_REQUISITION__VERIFY_REQUISITION
+        // }
     },
     created() {},
     async mounted() {
@@ -97,12 +97,12 @@ export default {
         }
     },
     watch: {
-        LOAD_STOCK_REQUISITION_LIST(newVal) {
-            if(newVal) {
-                console.log(newVal)
-                this.SOTCK_REQUISITION_LIST__FROM_SERVICE()
-            }
-        }
+        // LOAD_STOCK_REQUISITION_LIST(newVal) {
+        //     if(newVal) {
+        //         console.log(newVal)
+        //         this.SOTCK_REQUISITION_LIST__FROM_SERVICE()
+        //     }
+        // }
     }
 }
 </script>
