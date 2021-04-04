@@ -22,7 +22,7 @@
             </div>
             <!-- With Data -->
             <div class="container-fluid" v-if="!initial_stage">
-                <div class="col-12 requition_area">
+                <div class="col-12 requition_area" v-if="SELECTED_REQUISITION_DETAILS.id">
                     <div class="row requition_header"> 
                         <div class="col-12 header_top">
                             <h5>Requisition No: <span>{{ SELECTED_REQUISITION_DETAILS.requisition_no ? SELECTED_REQUISITION_DETAILS.requisition_no : '' }}</span></h5>
