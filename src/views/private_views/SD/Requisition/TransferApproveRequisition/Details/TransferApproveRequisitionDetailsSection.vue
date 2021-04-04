@@ -68,6 +68,7 @@
                                     <th>Name</th>
                                     <th>Unit</th>
                                     <th>Quantity</th>
+                                    <!-- <th>Stock</th> -->
                                     <th></th>
                                 </tr>
                             </thead>
@@ -103,6 +104,11 @@
                                             </div>
                                         </form>
                                     </td>
+                                    <!-- <td>
+                                        <div class="product">
+                                            <p class="type">{{ item.element_info ? item.element_info.element_name : '' }}</p>
+                                        </div>
+                                    </td> -->
                                     <td>
                                         <a class="edit" @click="singleItemEditClickHandler"><i class="zmdi zmdi-edit"></i></a>
                                         <a class="remove" @click="singleItemDeleteClickHandler"><i class="fas fa-trash-alt"></i></a>
