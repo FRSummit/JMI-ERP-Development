@@ -43,8 +43,115 @@
                   
                   <!-- <div class="col-lg-6 col-12 d-flex align-items-center justify-content-end"> -->
                   <div class="col-lg-6 d-flex align-items-center justify-content-end">
-                      <a @click="createNewProductClickHandler"> <button type="button" class="btn btn-primary btn-global"> <i class="fa fa-plus mr-2"> </i>Create New Product</button></a>
+                      <!-- <a @click="createNewProductClickHandler"> <button type="button" class="btn btn-primary btn-global"> <i class="fa fa-plus mr-2"> </i>Add Product</button></a> -->
+                      <button type="button" class="btn-global create-product" data-toggle="modal" data-target="#classification-modal"> <i class="fa fa-plus mr-2"> </i>Add Product</button>
                   </div>
+
+                  <!-- Start Classification Modal Area -->
+                <div class="modal" id="classification-modal" tabindex="-1" role="dialog" aria-labelledby="classification" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="margin: 0;">
+                        <div class="modal-content" style="padding: 14px 0;">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Add Product</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="width: 50px;">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row" style="margin-bottom: 0;">
+                                <div class="col-6" style="padding-top: 0; padding-bottom: 0;">
+                                <div class="product-list" style="padding-top: 0; padding-bottom: 0;">
+                                    <div class="form-group" style="padding-left: 0; padding-right: 0;"><i class="fa fa-search"> </i><input type="text" placeholder="Search by Name, ID No" class="form-control" style="padding-left: 30px;"></div>
+                                    <div class="product-list-inner" style="margin-top: 0;">
+                                        <div class="product-card2">
+                                            <div class="row1"><h5>Ace® Power - 500mg</h5> <p>Code: <span>NP2125</span></p></div>
+                                            <div class="row2"><p>Paracetamol</p></div>
+                                        </div>
+                            
+                                        <div class="product-card2">
+                                            <div class="row1"><h5>Ace® Power - 500mg</h5> <p>Code: <span>NP2125</span></p></div>
+                                            <div class="row2"><p>Paracetamol</p></div>
+                                        </div>
+                            
+                                        <div class="product-card2">
+                                            <div class="row1"><h5>Ace® Power - 500mg</h5> <p>Code: <span>NP2125</span></p></div>
+                                            <div class="row2"><p>Paracetamol</p></div>
+                                        </div>
+                            
+                                        <div class="product-card2">
+                                            <div class="row1"><h5>Ace® Power - 500mg</h5> <p>Code: <span>NP2125</span></p></div>
+                                            <div class="row2"><p>Paracetamol</p></div>
+                                        </div>
+                            
+                                        <div class="product-card2">
+                                            <div class="row1"><h5>Ace® Power - 500mg</h5> <p>Code: <span>NP2125</span></p></div>
+                                            <div class="row2"><p>Paracetamol</p></div>
+                                        </div>
+                            
+                                        <div class="product-card2">
+                                            <div class="row1"><h5>Ace® Power - 500mg</h5> <p>Code: <span>NP2125</span></p></div>
+                                            <div class="row2"><p>Paracetamol</p></div>
+                                        </div>
+                            
+                                        <div class="product-card2">
+                                            <div class="row1"><h5>Ace® Power - 500mg</h5> <p>Code: <span>NP2125</span></p></div>
+                                            <div class="row2"><p>Paracetamol</p></div>
+                                        </div>
+                            
+                                        <div class="product-card2">
+                                            <div class="row1"><h5>Ace® Power - 500mg</h5> <p>Code: <span>NP2125</span></p></div>
+                                            <div class="row2"><p>Paracetamol</p></div>
+                                        </div>
+                            
+                                        <div class="product-card2">
+                                            <div class="row1"><h5>Ace® Power - 500mg</h5> <p>Code: <span>NP2125</span></p></div>
+                                            <div class="row2"><p>Paracetamol</p></div>
+                                        </div>
+                            
+                                        <div class="product-card2">
+                                            <div class="row1"><h5>Ace® Power - 500mg</h5> <p>Code: <span>NP2125</span></p></div>
+                                            <div class="row2"><p>Paracetamol</p></div>
+                                        </div>
+                            
+                                        <div class="product-card2">
+                                            <div class="row1"><h5>Ace® Power - 500mg</h5> <p>Code: <span>NP2125</span></p></div>
+                                            <div class="row2"><p>Paracetamol</p></div>
+                                        </div>
+                            
+                                        <div class="product-card2">
+                                            <div class="row1"><h5>Ace® Power - 500mg</h5> <p>Code: <span>NP2125</span></p></div>
+                                            <div class="row2"><p>Paracetamol</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="col-6">
+                                    
+                                    <div class="product-selected">
+                                        <div class="row1"><h5>Ace® Power - 500mg</h5> <p>Code: <span>NP2125</span></p></div>
+                                        <div class="row2"><p>Paracetamol</p></div>
+                                    </div>
+
+                                    <div class="form-group mt-2">
+                                        <label for="product_class">Product Class</label>
+                                        <select class="form-control" id="unit">
+                                            <option>Select Class</option>
+                                            <option>High Priority</option>
+                                            <option>Star Priority</option>
+                                            <option>Low Priority</option>
+                                            <option>New Product</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer justify-content-center">
+                            <button type="button" class="btn btn-primary btn-global">Save</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Classification Modal Area -->
               </div>
 
               <div class="row product-details-tab">
@@ -754,5 +861,13 @@ export default {
 }
 #product-details-details #change-photo .modal-footer button.btn.btn-primary {
     background-color: #0062cc;
+}
+
+#product-details-details #classification-modal .form-group svg {
+    position: absolute;
+    top: 25px;
+    left: 10px;
+    color: #AAC0D9;
+    font-size: var(--font14);
 }
 </style>
