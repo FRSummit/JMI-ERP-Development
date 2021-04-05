@@ -18,7 +18,7 @@
         <div class="card_body" v-for="(item, i) in prods_list" :key="i">
           <div class="row1">
             <h5>{{ item.prod_name }}</h5>
-            <p class="new_product">New</p>
+            <p class="new_product">{{ item.prod_class }}</p>
           </div>
           <div class="row2">
             <p>Code: {{ item.prod_code }}</p>
