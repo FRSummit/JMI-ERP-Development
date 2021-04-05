@@ -100,7 +100,7 @@
                             </div>
                         </div>
                         <div class="modal-footer justify-content-center">
-                            <button type="button" class="btn btn-primary btn-global">Save</button>
+                            <button type="button" class="btn btn-primary btn-global modal-prod-save-btn">Save</button>
                         </div>
                         </div>
                     </div>
@@ -904,5 +904,17 @@ export default {
     left: 10px;
     color: #AAC0D9;
     font-size: var(--font14);
+}
+button.modal-prod-save-btn {
+    background: #0062cc;
+}
+button.btn-global.create-product:focus,
+button.modal-prod-save-btn:focus {
+    background: #0062cc;
+}
+
+button.btn-global.create-product:hover,
+button.modal-prod-save-btn:hover {
+    background: #0062cc;
 }
 </style>
