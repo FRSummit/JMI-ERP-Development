@@ -84,7 +84,7 @@
                             </thead>
                             <tbody>
                                 <!-- <tr v-for="(item, i) in items" :key="i"> -->
-                                <tr v-for="(item, i) in SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS" :key="i">
+                                <tr v-for="(item, i) in SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS" :key="i" :class="checkStockAvailablity(parseInt(item.req_qty), parseInt(item.available_stock))">
                                     <td>
                                         <div class="product">
                                             <!-- <p class="name">{{ item..prod_info.prod_name }}<span> {{ item.qty }}</span></p> -->
@@ -109,7 +109,7 @@
                                         <form>
                                             <div class="quantity-input">
                                                 <input class='minus' type='button' value='-' field='quantity' @click="decreaseRequisitionQtyClickHandler(item, i)" />
-                                                <input class='quantity' type='number' name='quantity' placeholder="0" :value="item.req_qty" :id="'req_qty_' + i" v-on:keyup="reqQtyKeyUpEventHandler(item, $event, i)" v-on:keydown="reqQtyKeyDownEventHandler($event, i)" readonly/>
+                                                <input class='quantity' type='number' name='quantity' placeholder="0" :value="item.req_qty" :id="'req_qty_' + i" v-on:keyup="reqQtyKeyUpEventHandler(item, $event, i)" v-on:keydown="reqQtyKeyDownEventHandler($event, i)" />
                                                 <input class='plus hide' type='button' value='+' field='quantity' @click="increaseRequisitionQtyClickHandler(item, i)" />
                                             </div>
                                         </form>
@@ -128,7 +128,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="row requition_footer" v-if="SELECTED_REQUISITION_DETAILS.id ? true : false">
+                    <div class="row requition_footer" v-if="(SELECTED_REQUISITION_DETAILS.id ? true : false) && (parseInt(item.req_qty) <= parseInt(item.available_stock))">
                         <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="saveAsDraftClickHandler">Save As Draft</button></a>
                         <a><button type="button" class="btn btn-primary btn-global mx-2" @click="sendRequestClickHandler">Approve</button></a>
                         
@@ -229,6 +229,9 @@ export default {
         },
         onChangeDriver() {
             console.log(this.wh_from)
+        },
+        checkStockAvailablity(req_qty, available_stock) {
+            return req_qty > available_stock ? 'out-of-stock' : ''
         },
         decreaseRequisitionQtyClickHandler(item, index) {
             console.log(index)
@@ -507,5 +510,8 @@ export default {
 
 .requition_content table tr td:last-child a:last-child {
     padding-left: 7px;
+}
+.out-of-stock {
+    background-color: #f5bec6;
 }
 </style>
