@@ -43,8 +43,69 @@
                   
                   <!-- <div class="col-lg-6 col-12 d-flex align-items-center justify-content-end"> -->
                   <div class="col-lg-6 d-flex align-items-center justify-content-end">
-                      <a @click="createNewProductClickHandler"> <button type="button" class="btn btn-primary btn-global"> <i class="fa fa-plus mr-2"> </i>Create New Product</button></a>
+                      <!-- <a @click="createNewProductClickHandler"> <button type="button" class="btn btn-primary btn-global"> <i class="fa fa-plus mr-2"> </i>Add Product</button></a> -->
+                      <button type="button" class="btn-global create-product" data-toggle="modal" data-target="#classification-modal"> <i class="fa fa-plus mr-2"> </i>Add Product</button>
                   </div>
+
+                  <!-- Start Classification Modal Area -->
+                <div class="modal" id="classification-modal" tabindex="-1" role="dialog" aria-labelledby="classification" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="margin: 0;">
+                        <div class="modal-content" style="padding: 14px 0;">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Add Product</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="width: 50px;">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row" style="margin-bottom: 0;">
+                                <div class="col-6" style="padding-top: 0; padding-bottom: 0;">
+                                    <div class="product-list" style="padding-top: 0; padding-bottom: 0;">
+                                        <div class="form-group" style="padding-left: 0; padding-right: 0;"><i class="fa fa-search"> </i><input type="text" placeholder="Search by Name, ID No" class="form-control" style="padding-left: 30px;"></div>
+                                        <div class="product-list-inner" style="margin-top: 0;">
+                                            <div class="product-card2" v-for="(item, i) in 177" :key="i">
+                                                <div class="row1"><h5>Ace® Power - 500mg</h5> <p>Code: <span>NP2125</span></p></div>
+                                                <div class="row2"><p>Paracetamol</p></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6" style="padding-top: 0; padding-bottom: 0;">
+                                    
+                                    <div class="product-list" style="padding-top: 0; padding-bottom: 0;">
+                                        <div class="product-list-inner" style="margin-top: 0; height: 320px;">
+                                
+                                            <div class="product-card2" v-for="(item, i) in 20" :key="i">
+                                                <div class="row1"><h5>Ace® Power - 500mg</h5> <p>Code: <span>NP2125</span></p></div>
+                                                <div class="row2"><p>Paracetamol</p></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="product-selected">
+                                        <div class="row1"><h5>Ace® Power - 500mg</h5> <p>Code: <span>NP2125</span></p></div>
+                                        <div class="row2"><p>Paracetamol</p></div>
+                                    </div> -->
+
+                                    <!-- <div class="form-group mt-2">
+                                        <label for="product_class">Product Class</label>
+                                        <select class="form-control" id="unit">
+                                            <option>Select Class</option>
+                                            <option>High Priority</option>
+                                            <option>Star Priority</option>
+                                            <option>Low Priority</option>
+                                            <option>New Product</option>
+                                        </select>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer justify-content-center">
+                            <button type="button" class="btn btn-primary btn-global modal-prod-save-btn">Save</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Classification Modal Area -->
               </div>
 
               <div class="row product-details-tab">
@@ -198,89 +259,170 @@
                       <div class="row attributes-vertical-tab">
                         <div class="col-lg-3">
                             <div class="attribute-list">
-                            <div class="attribute-list-header">
-                                <h5>Detail Attributes</h5>
-                                <a class="menu" data-toggle="collapse" data-target="#taglist" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-list"></i></a>
-                            </div>
-
-                            <ul class="nav nav-tabs flex-column" id="attribute-items">
-                                <div class="collapse" id="taglist">
-                                    <div class="single-tag">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                            <label class="form-check-label" for="flexCheckDefault">Indication</label>
-                                        </div>
-                                    </div>
-
-                                    <div class="single-tag">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheck1">
-                                            <label class="form-check-label" for="flexCheck1">Therapeutic Class</label>
-                                        </div>
-                                    </div>
-
-                                    <div class="single-tag">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheck2">
-                                            <label class="form-check-label" for="flexCheck2">Therapeutic Class</label>
-                                        </div>
-                                    </div>
-                                    <button type="button" class="btn btn-primary btn-block">Save</button>
+                                <div class="attribute-list-header">
+                                    <h5>Detail Attributes</h5>
+                                    <a class="menu" data-toggle="modal" data-target="#manage-attribute-modal"><i class="fa fa-list"></i></a>
                                 </div>
 
-                                <li class="nav-item">
-                                    <a class="nav-link active" id="attr-single-items" href="#attribute1" data-toggle="tab">Indication</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="attr-single-items" href="#attribute2" data-toggle="tab">Therapeutic Class</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="attr-single-items" href="#attribute3" data-toggle="tab">Pharmacology</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="attr-single-items" href="#attribute4" data-toggle="tab">Dosage &amp; Administration</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="attr-single-items" href="#attribute5" data-toggle="tab">Indication</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="attr-single-items" href="#attribute6" data-toggle="tab">Therapeutic Class</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="attr-single-items" href="#attribute7" data-toggle="tab">Pharmacology</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="attr-single-items" href="#attribute8" data-toggle="tab">Dosage & Administration</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="attr-single-items" href="#attribute9" data-toggle="tab">Indication</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="attr-single-items" href="#attribute10" data-toggle="tab">Therapeutic Class</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="attr-single-items" href="#attribute11" data-toggle="tab">Pharmacology</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="attr-single-items" href="#attribute12" data-toggle="tab">Dosage & Administration</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="attr-single-items" href="#attribute8" data-toggle="tab">Dosage & Administration</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="attr-single-items" href="#attribute9" data-toggle="tab">Indication</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="attr-single-items" href="#attribute10" data-toggle="tab">Therapeutic Class</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="attr-single-items" href="#attribute11" data-toggle="tab">Pharmacology</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="attr-single-items" href="#attribute12" data-toggle="tab">Dosage &amp; Administration</a>
-                                </li>
-                            </ul>
+                                <ul class="nav nav-tabs flex-column" id="attribute-items">
+                                    <!-- <div class="collapse" id="taglist">
+                                        <div class="single-tag">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">Indication</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="single-tag">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheck1">
+                                                <label class="form-check-label" for="flexCheck1">Therapeutic Class</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="single-tag">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheck2">
+                                                <label class="form-check-label" for="flexCheck2">Therapeutic Class</label>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="btn btn-primary btn-block">Save</button>
+                                    </div> -->
+
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="attr-single-items" href="#attribute1" data-toggle="tab">Indication</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="attr-single-items" href="#attribute2" data-toggle="tab">Therapeutic Class</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="attr-single-items" href="#attribute3" data-toggle="tab">Pharmacology</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="attr-single-items" href="#attribute4" data-toggle="tab">Dosage &amp; Administration</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="attr-single-items" href="#attribute5" data-toggle="tab">Indication</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="attr-single-items" href="#attribute6" data-toggle="tab">Therapeutic Class</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="attr-single-items" href="#attribute7" data-toggle="tab">Pharmacology</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="attr-single-items" href="#attribute8" data-toggle="tab">Dosage &amp; Administration</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="attr-single-items" href="#attribute9" data-toggle="tab">Indication</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="attr-single-items" href="#attribute10" data-toggle="tab">Therapeutic Class</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="attr-single-items" href="#attribute11" data-toggle="tab">Pharmacology</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="attr-single-items" href="#attribute12" data-toggle="tab">Dosage & Administration</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="attr-single-items" href="#attribute8" data-toggle="tab">Dosage & Administration</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="attr-single-items" href="#attribute9" data-toggle="tab">Indication</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="attr-single-items" href="#attribute10" data-toggle="tab">Therapeutic Class</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="attr-single-items" href="#attribute11" data-toggle="tab">Pharmacology</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="attr-single-items" href="#attribute12" data-toggle="tab">Dosage &amp; Administration</a>
+                                    </li>
+                                </ul>
                             </div>
+                            <!-- Start Manage Attribute Modal -->
+                            <div class="modal" id="manage-attribute-modal" tabindex="-1" role="dialog" aria-labelledby="manageattribute" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="margin: 0;">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Manage Attribute</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div id="manage-attribute-tab">
+                                            <ul class="nav nav-tabs  mb-3" id="lineTab" role="tablist">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" id="underline-home-tab" data-toggle="tab" href="#add-attribute" role="tab"
+                                                        aria-controls="add-attribute" aria-selected="true">Add Attribute</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="create-attribute-tab" data-toggle="tab" href="#create-attribute" role="tab"
+                                                        aria-controls="create-attribute" aria-selected="false">Create New Attribute</a>
+                                                </li>
+                                            </ul>
+                                        
+                                            <div class="tab-content">
+
+                                            <div class="tab-pane fade show active" id="add-attribute" role="tabpanel" aria-labelledby="add-attribute-tab">
+                                                <div class="single-tag">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                        <label class="form-check-label" for="flexCheckDefault">Indication</label>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="single-tag">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheck1">
+                                                        <label class="form-check-label" for="flexCheck1">Therapeutic Class</label>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="single-tag">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheck2">
+                                                        <label class="form-check-label" for="flexCheck2">Therapeutic Class</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="tab-pane fade" id="create-attribute" role="tabpanel" aria-labelledby="create-attribute-tab">
+                                            <div class="row">
+                                                <div class="col-lg-4 form-group">
+                                                    <label for="indiction_1">Attribute For</label>
+                                                    <select class="form-control" id="unit">
+                                                        <option>This Product</option>
+                                                        <option>Global Attribute</option>
+                                                        <option>Box 2</option>
+                                                        <option>Box 3</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="col-lg-8 form-group">
+                                                    <label for="imported_from">Attribute Title</label>
+                                                    <input type="text" class="form-control" id="attribute-title" placeholder="Enter Attribute Title">
+                                                </div>
+                                                <div class="col-lg-12 form-group">
+                                                    <label for="indiction_1">Attribute Description</label>
+                                                    <textarea class="form-control" id="attribute-description" rows="6" placeholder="Enter Attribute Description"></textarea>
+                                                </div>
+                                            </div>
+                                            </div>
+        
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer justify-content-center">
+                                        <button type="button" class="btn btn-primary btn-global">Save Changes</button>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Manage Attribute Modal -->
                         </div>
                         <div class="col-lg-9">
                             <div class="tab-content attribute-content">
@@ -754,5 +896,25 @@ export default {
 }
 #product-details-details #change-photo .modal-footer button.btn.btn-primary {
     background-color: #0062cc;
+}
+
+#product-details-details #classification-modal .form-group svg {
+    position: absolute;
+    top: 25px;
+    left: 10px;
+    color: #AAC0D9;
+    font-size: var(--font14);
+}
+button.modal-prod-save-btn {
+    background: #0062cc;
+}
+button.btn-global.create-product:focus,
+button.modal-prod-save-btn:focus {
+    background: #0062cc;
+}
+
+button.btn-global.create-product:hover,
+button.modal-prod-save-btn:hover {
+    background: #0062cc;
 }
 </style>

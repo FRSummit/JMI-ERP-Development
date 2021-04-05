@@ -54,7 +54,11 @@ export default {
             items: []
         }
     },
-    computed: {},
+    computed: {
+        RELOAD_STOCK_REQUISITION_LIST() {
+            return this.$store.state.TRANSFER_APPROVE_REQUISITION__RELOAD_LEFT_SECTION
+        }
+    },
     created() {},
     async mounted() {
         // this.items = demoData.demo_data().requisition_items
@@ -93,7 +97,14 @@ export default {
                 })
         }
     },
-    watch: {}
+    watch: {
+        RELOAD_STOCK_REQUISITION_LIST(newVal) {
+            console.log(newVal)
+            if(newVal) {
+                this.SOTCK_REQUISITION_LIST__FROM_SERVICE()
+            }
+        }
+    }
 }
 </script>
 
