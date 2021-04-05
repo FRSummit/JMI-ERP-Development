@@ -27,8 +27,9 @@
                         <p>{{ item.req_to_info ? item.req_to_info.area_name : '' }}</p>
                     </div>
                     <div class="row3">
-                        <p>Requisition To: <span>{{ item.area }}</span></p>
-                        <p class="status" :class="item.req_status.toLowerCase()"> <i class="fa fa-square mr-1"></i>{{ item.req_status }}</p>
+                        <p>Requisition To: <span>{{ item.wh_from_info ? item.wh_from_info.area_name : '' }}</span></p>
+                        <!-- <p class="status" :class="item.req_status.toLowerCase()"> <i class="fa fa-square mr-1"></i>{{ item.req_status }}</p> -->
+                        <p class="status" :class="item.tr_status.toLowerCase()"> <i class="fa fa-square mr-1"></i>{{ item.tr_status === 'TRANSFER VERIFIED' ? 'TV' : '' }}</p>
                     </div>
                 </div>
             </div>
@@ -78,7 +79,7 @@ export default {
         // SERVICE CALL
         async SOTCK_REQUISITION_LIST__FROM_SERVICE() {
             this.items = []
-            await service.getApproveRequisitionList_TRANSFER_REQUISITION()
+            await service.getVerifiedStockRequisitionList_TRANSFER_APPROVE_REQUISITION()
                 .then(res => {
                     console.log(res.data)
                     this.items = res.data.transfer_info
@@ -133,5 +134,8 @@ export default {
 }
 .jmi-scroll-section {
     height: calc(100vh - (74px + 54px + 32px + 108px)) !important;
+}
+.requisition .status.transfer.verified {
+    color: #02d151;
 }
 </style>

@@ -27,7 +27,7 @@
                         <p>{{ item.req_to_info ? item.req_to_info.area_name : '' }}</p>
                     </div>
                     <div class="row3">
-                        <p>Requisition To: <span>{{ item.area }}</span></p>
+                        <p>Requisition To: <span>{{ item.wh_from_info ? item.wh_from_info.area_name : '' }}</span></p>
                         <p class="status" :class="item.req_status.toLowerCase()"> <i class="fa fa-square mr-1"></i>{{ item.req_status }}</p>
                     </div>
                 </div>

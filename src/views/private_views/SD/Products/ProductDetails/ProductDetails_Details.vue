@@ -22,7 +22,7 @@
                               <div class="modal-content">
                                   <div class="modal-header">
                                   <h5 class="modal-title" id="changePhoto">Change Photo</h5>
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="changePhotoModalCloseClickHandler">
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="changePhotoModalCloseClickHandler" style="width: 50px;">
                                       <span aria-hidden="true">&times;</span>
                                   </button>
                                   </div>
@@ -521,12 +521,12 @@
                               <div class="btn-group">
                                 <button class="btn btn-primary btn-save" href="#" role="button">Save</button>
                                 <a class="btn-edit btn-active" href=""><i class="zmdi zmdi-edit"></i></a>
-                            </div>
+                              </div>
                           </div>
                           <div class="scroll-competitor-list">
                             <div class="row">
                             <!-- Start Competitorr Card Area --> 
-                            <div class="col-lg-3 col-md-6 col-12">
+                            <div class="col-lg-3 col-md-6 col-12 jmi-padding-0-10">
                                 <div class="competitor-card">
                                     <div class="product-info"> 
                                         <img class="product-img" src="../../../../../assets/images/avater.png" alt="Image">
@@ -541,7 +541,8 @@
                                         <p class="price">TP: <span>60.00</span> | MRP: <span>100.00</span></p>
                                         </div>
                                         <div class="m-share">
-                                            <i class="fa fa-line-chart good" aria-hidden="true"></i>
+                                            <!-- <i class="fa fa-line-chart good" aria-hidden="true"></i> -->
+                                            <i class="zmdi zmdi-chart good"></i>
                                             <p>12%</p>
                                         </div>
                                     </div>
@@ -550,7 +551,7 @@
                             <!-- End Competitorr Card Area --> 
                            
                             <!-- Start Competitorr Card Area --> 
-                            <div class="col-lg-3 col-md-6 col-12">
+                            <div class="col-lg-3 col-md-6 col-12 jmi-padding-0-10">
                                 <div class="competitor-card">
                                     <div class="product-info"> 
                                         <img class="product-img" src="../../../../../assets/images/avater.png" alt="Image">
@@ -565,7 +566,8 @@
                                         <p class="price">TP: <span>60.00</span> | MRP: <span>100.00</span></p>
                                         </div>
                                         <div class="m-share">
-                                            <i class="fa fa-line-chart bad" aria-hidden="true"></i>
+                                            <!-- <i class="fa fa-line-chart bad" aria-hidden="true"></i> -->
+                                            <i class="zmdi zmdi-chart bad"></i>
                                             <p>12%</p>
                                         </div>
                                     </div>
@@ -574,7 +576,7 @@
                             <!-- End Competitorr Card Area --> 
 
                             <!-- Start Competitorr Card Area --> 
-                            <div class="col-lg-3 col-md-6 col-12">
+                            <div class="col-lg-3 col-md-6 col-12 jmi-padding-0-10">
                                 <div class="competitor-card">
                                     <div class="product-info"> 
                                         <img class="product-img" src="../../../../../assets/images/avater.png" alt="Image">
@@ -589,7 +591,8 @@
                                         <p class="price">TP: <span>60.00</span> | MRP: <span>100.00</span></p>
                                         </div>
                                         <div class="m-share">
-                                            <i class="fa fa-line-chart" aria-hidden="true"></i>
+                                            <!-- <i class="fa fa-line-chart" aria-hidden="true"></i> -->
+                                            <i class="zmdi zmdi-chart"></i>
                                             <p>12%</p>
                                         </div>
                                     </div>
@@ -598,7 +601,7 @@
                             <!-- End Competitorr Card Area --> 
 
                             <!-- Start Competitorr Card Area --> 
-                            <div class="col-lg-3 col-md-6 col-12">
+                            <div class="col-lg-3 col-md-6 col-12 jmi-padding-0-10">
                                 <div class="competitor-card">
                                     <div class="product-info"> 
                                         <img class="product-img" src="../../../../../assets/images/avater.png" alt="Image">
@@ -613,7 +616,8 @@
                                         <p class="price">TP: <span>60.00</span> | MRP: <span>100.00</span></p>
                                         </div>
                                         <div class="m-share">
-                                            <i class="fa fa-line-chart" aria-hidden="true"></i>
+                                            <!-- <i class="fa fa-line-chart" aria-hidden="true"></i> -->
+                                            <i class="zmdi zmdi-chart"></i>
                                             <p>12%</p>
                                         </div>
                                     </div>
@@ -622,7 +626,7 @@
                             <!-- End Competitorr Card Area --> 
                            
                             <!-- Start Competitorr Card Area --> 
-                            <div class="col-lg-3 col-md-6 col-12">
+                            <div class="col-lg-3 col-md-6 col-12 jmi-padding-0-10">
                                 <div class="competitor-card">
                                     <div class="product-info"> 
                                         <img class="product-img" src="../../../../../assets/images/avater.png" alt="Image">
@@ -637,7 +641,8 @@
                                         <p class="price">TP: <span>60.00</span> | MRP: <span>100.00</span></p>
                                         </div>
                                         <div class="m-share">
-                                            <i class="fa fa-line-chart" aria-hidden="true"></i>
+                                            <!-- <i class="fa fa-line-chart" aria-hidden="true"></i> -->
+                                            <i class="zmdi zmdi-chart"></i>
                                             <p>12%</p>
                                         </div>
                                     </div>
@@ -745,6 +750,9 @@ export default {
 }
 
 #product-details-details #tab-detail-attributes button.btn.btn-primary.btn-block {
+    background-color: #0062cc;
+}
+#product-details-details #change-photo .modal-footer button.btn.btn-primary {
     background-color: #0062cc;
 }
 </style>
