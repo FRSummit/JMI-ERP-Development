@@ -1024,6 +1024,22 @@ export default class PostService {
     })
   }
 
+  // REQUISITION - TRANSFER APPROVE - DETAILS - APPROVING
+  async getApproveTransferRequisition_TRANSFER_APPROVE_REQUISITION(transfer_id, driver_id) {
+    console.log(transfer_id + '    ' + driver_id)
+    let web_menu_url = '/api/web/approve-transfer-requisition'
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+      params: {
+        transfer_id: transfer_id,
+        driver_id: driver_id
+      }
+    })
+  }
+
   // -------------------------------------------------------------------------------------------
 
   // -------------------------------------------------------------------------------------------

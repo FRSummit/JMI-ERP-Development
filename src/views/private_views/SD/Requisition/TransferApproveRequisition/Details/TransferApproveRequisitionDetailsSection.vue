@@ -30,9 +30,9 @@
                             <div class="col-lg-4 col-md-4 col-12">
                                 <div class="form-group">
                                     <label for="requisition_to" class="col-form-label">Driver</label>
-                                    <select class="form-control-sm" id="requisition_to" v-model="wh_from" @change="onChangeWH()">
+                                    <select class="form-control-sm" id="requisition_to" v-model="driver_user_id" @change="onChangeDriver()">
                                         <option >Select driver</option>
-                                        <option v-for="(driver, i) in DRIVER_LIST" :key="i" :value="driver.id">{{ driver.get_adm_user ? driver.get_adm_user.name : '' }}</option>
+                                        <option v-for="(driver, i) in DRIVER_LIST" :key="i" :value="driver.user_id">{{ driver.get_adm_user ? driver.get_adm_user.name : '' }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -68,7 +68,7 @@
                         </div>
                         <div class="col-lg-2 col-md-2 col-12">
                             <!-- <p>Status: <span class="draft">{{ SELECTED_REQUISITION_DETAILS.req_status ? SELECTED_REQUISITION_DETAILS.req_status : '' }}</span></p> -->
-                            <p>Status: <span :class="SELECTED_REQUISITION_DETAILS.tr_status.toLowerCase()">{{ SELECTED_REQUISITION_DETAILS.tr_status ? SELECTED_REQUISITION_DETAILS.tr_status : '' }}</span></p>
+                            <p>Status: <span :class="SELECTED_REQUISITION_DETAILS.tr_status ? SELECTED_REQUISITION_DETAILS.tr_status.toLowerCase() : 'draft'">{{ SELECTED_REQUISITION_DETAILS.tr_status ? SELECTED_REQUISITION_DETAILS.tr_status : '' }}</span></p>
                         </div>
                     </div>
                     <div class="row requition_content">
@@ -128,7 +128,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="row requition_footer">
+                    <div class="row requition_footer" v-if="SELECTED_REQUISITION_DETAILS.id ? true : false">
                         <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="saveAsDraftClickHandler">Save As Draft</button></a>
                         <a><button type="button" class="btn btn-primary btn-global mx-2" @click="sendRequestClickHandler">Approve</button></a>
                         
@@ -178,6 +178,7 @@ export default {
         return {
             items: [],
             DRIVER_LIST: [],
+            driver_user_id: null,
             initial_stage: false,
             wh_from: null,
             DEPOT_LIST: [],
@@ -226,7 +227,7 @@ export default {
             //     alert('Please select a requisitor from left.')
             // }
         },
-        onChangeWH() {
+        onChangeDriver() {
             console.log(this.wh_from)
         },
         decreaseRequisitionQtyClickHandler(item, index) {
@@ -276,7 +277,7 @@ export default {
                 this.proceed_modal_popup = false
             } else {
                 this.popup_modal_for__save_or_send = 'SEND'
-                this.proceed_modal_popup_msg = 'You want to send the requisition.'
+                this.proceed_modal_popup_msg = 'You want to approve the requisition.'
                 this.proceed_modal_popup = true
             }
         },
@@ -291,8 +292,12 @@ export default {
                 let req_status = 'S'
                 await this.SAVE_REQUISITION__FROM_SERVICE(wh_from, req_status)
             } else if(this.popup_modal_for__save_or_send === 'SEND') {
-                let req_status = 'A'
-                await this.APPROVE_REQUISITION__FROM_SERVICE(wh_from, req_status)
+                if(this.driver_user_id !== null) {
+                    await this.APPROVE_REQUISITION__FROM_SERVICE(this.SELECTED_REQUISITION_DETAILS.id, this.driver_user_id)
+                } else {
+                    alert('Please select driver')
+                    this.status_modal = false
+                }
             }
         },
         // -----------------------------------------------------
@@ -334,8 +339,9 @@ export default {
                     console.log(res.data)
                     if(res.data.response_code === 200 || res.data.response_code === 201) {
                         this.status_modal_msg = 'Requisition saved successfully'
-                        this.SELECTED_REQUISITION_DATA = []
-                        this.$store.state.DESELECT_ALL_SELECTED_PRODUCT = new Date
+                        this.SELECTED_REQUISITION_DETAILS = []
+                        this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS = []
+                        this.$store.state.TRANSFER_APPROVE_REQUISITION__RELOAD_LEFT_SECTION = new Date()
                         setTimeout( () => {
                             this.status_modal = false
                             this.status_modal_msg = null
@@ -353,18 +359,19 @@ export default {
                     }
                 })
         },
-        async APPROVE_REQUISITION__FROM_SERVICE(wh_from, req_status) {
+        async APPROVE_REQUISITION__FROM_SERVICE(transfer_id, driver_usr_id) {
             console.log('APPROVE_REQUISITION__FROM_SERVICE')
-            console.log(wh_from + '    ' + req_status)
+            console.log(transfer_id + '    ' + driver_usr_id)
             this.popup_modal_for__save_or_send = null
-            console.log(this.REQUISITION_DATA_TO_SAVE_OR_SEND)
-            service.getSaveNewRequisition_CREATE_REQUISITION(wh_from, req_status, this.REQUISITION_DATA_TO_SAVE_OR_SEND)
+            service.getApproveTransferRequisition_TRANSFER_APPROVE_REQUISITION(transfer_id, driver_usr_id)
                 .then(res => {
                     console.log(res.data)
                     if(res.data.response_code === 200 || res.data.response_code === 201) {
-                        this.status_modal_msg = 'Requisition send successfully'
-                        this.SELECTED_REQUISITION_DATA = []
-                        this.$store.state.DESELECT_ALL_SELECTED_PRODUCT = new Date
+                        this.status_modal_msg = 'Requisition approve successfully'
+                        this.SELECTED_REQUISITION_DETAILS = []
+                        this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS = []
+                        this.driver_user_id = null
+                        this.$store.state.TRANSFER_APPROVE_REQUISITION__RELOAD_LEFT_SECTION = new Date
                         setTimeout( () => {
                             this.status_modal = false
                             this.status_modal_msg = null
