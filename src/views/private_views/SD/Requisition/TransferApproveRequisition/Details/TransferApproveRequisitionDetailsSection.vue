@@ -27,6 +27,15 @@
                         <div class="col-12 header_top">
                             <h5>Requisition No: <span>{{ SELECTED_REQUISITION_DETAILS.requisition_no ? SELECTED_REQUISITION_DETAILS.requisition_no : '' }}</span></h5>
                             <a class="edit hide" @click="editRequisitionClickHandler"><i class="zmdi zmdi-edit"></i></a>
+                            <div class="col-lg-4 col-md-4 col-12">
+                                <div class="form-group">
+                                    <label for="requisition_to" class="col-form-label">Driver</label>
+                                    <select class="form-control-sm" id="requisition_to" v-model="wh_from" @change="onChangeWH()">
+                                        <option >Select driver</option>
+                                        <option v-for="(driver, i) in DRIVER_LIST" :key="i" :value="driver.id">{{ driver.get_adm_user ? driver.get_adm_user.name : '' }}</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-lg-3 col-md-3 col-12">
                             <!-- <p>Requisition From: <span class="text-data">{{ SELECTED_REQUISITION_DETAILS_WH_NAME }}</span></p> -->
@@ -58,7 +67,8 @@
                             <p>Requisition Date: <span class="text-data">{{ SELECTED_REQUISITION_DETAILS.req_date ? formatDate(SELECTED_REQUISITION_DETAILS.req_date) : '' }}</span></p>
                         </div>
                         <div class="col-lg-2 col-md-2 col-12">
-                            <p>Status: <span class="draft">{{ SELECTED_REQUISITION_DETAILS.req_status ? SELECTED_REQUISITION_DETAILS.req_status : '' }}</span></p>
+                            <!-- <p>Status: <span class="draft">{{ SELECTED_REQUISITION_DETAILS.req_status ? SELECTED_REQUISITION_DETAILS.req_status : '' }}</span></p> -->
+                            <p>Status: <span :class="SELECTED_REQUISITION_DETAILS.tr_status.toLowerCase()">{{ SELECTED_REQUISITION_DETAILS.tr_status ? SELECTED_REQUISITION_DETAILS.tr_status : '' }}</span></p>
                         </div>
                     </div>
                     <div class="row requition_content">
@@ -167,6 +177,7 @@ export default {
     data() {
         return {
             items: [],
+            DRIVER_LIST: [],
             initial_stage: false,
             wh_from: null,
             DEPOT_LIST: [],
@@ -196,6 +207,7 @@ export default {
     async mounted() {
         // this.items = demoData.demo_data().create_requisition_items_table_data
         await this.ALL_DEPOT_UNDER_SBU__FROM_SERVICE()
+        await this.DEPOT_DRIVER_LIST__FROM_SERVICE()
     },
     methods: {
         createRequisitionClickHandler() {
@@ -299,6 +311,20 @@ export default {
                     }
                 })
         },
+        async DEPOT_DRIVER_LIST__FROM_SERVICE() {
+            this.DRIVER_LIST = []
+            await service.getDepotDriverList_TRANSFER_APPROVE_REQUISITION()
+                .then(res => {
+                    console.log(res.data)
+                    this.DRIVER_LIST = res.data.driver_list
+                })
+                .catch(err => {
+                    if(err) {
+                        this.DRIVER_LIST = []
+                        console.log(err)
+                    }
+                })
+        },
         async SAVE_REQUISITION__FROM_SERVICE(wh_from, req_status) {
             console.log('SAVE_REQUISITION__FROM_SERVICE')
             this.popup_modal_for__save_or_send = null
@@ -387,10 +413,10 @@ export default {
 }
 .requition_area .requition_header .form-group label {
     display: inline-block;
-    width: 45%;
+    width: 25%;
 }
 .requition_area .requition_header .form-group .form-control-sm {
-    width: 54%;
+    width: 74%;
     display: inline-block !important;
     min-width: unset;
 }

@@ -98,6 +98,11 @@
     color: var(--blue) !important;
 }
 
+.layout-sidebar.requisition .submitted,
+.layout-container .requition_area .submitted {
+    color: var(--blue) !important;
+}
+
 .layout-sidebar.requisition .approve,
 .layout-container .requition_area .approve {
     color: #026CD1 !important;
@@ -106,6 +111,10 @@
 .layout-sidebar.requisition .approved,
 .layout-container .requition_area .approved {
     color: #02d151 !important;
+}
+.layout-sidebar.requisition .transfer.verified,
+.layout-container .requition_area .transfer.verified {
+    color: #026CD1 !important;
 }
 
 .layout-sidebar.requisition .content .card_body {
