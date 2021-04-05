@@ -31,7 +31,7 @@
                                 <div class="form-group">
                                     <label for="requisition_to" class="col-form-label">Driver</label>
                                     <select class="form-control-sm" id="requisition_to" v-model="driver_user_id" @change="onChangeDriver()">
-                                        <option >Select driver</option>
+                                        <!-- <option >Select driver</option> -->
                                         <option v-for="(driver, i) in DRIVER_LIST" :key="i" :value="driver.user_id">{{ driver.get_adm_user ? driver.get_adm_user.name : '' }}</option>
                                     </select>
                                 </div>
@@ -108,7 +108,7 @@
                                     <td>
                                         <form>
                                             <div class="quantity-input">
-                                                <input class='minus hide' type='button' value='-' field='quantity' @click="decreaseRequisitionQtyClickHandler(item, i)" />
+                                                <input class='minus' type='button' value='-' field='quantity' @click="decreaseRequisitionQtyClickHandler(item, i)" />
                                                 <input class='quantity' type='number' name='quantity' placeholder="0" :value="item.req_qty" :id="'req_qty_' + i" v-on:keyup="reqQtyKeyUpEventHandler(item, $event, i)" v-on:keydown="reqQtyKeyDownEventHandler($event, i)" readonly/>
                                                 <input class='plus hide' type='button' value='+' field='quantity' @click="increaseRequisitionQtyClickHandler(item, i)" />
                                             </div>
@@ -289,8 +289,8 @@ export default {
             this.status_modal = true
             this.proceed_modal_popup = false
             if(this.popup_modal_for__save_or_send === 'SAVE') {
-                let req_status = 'S'
-                await this.SAVE_REQUISITION__FROM_SERVICE(wh_from, req_status)
+                let req_status = null
+                await this.SAVE_REQUISITION__FROM_SERVICE(this.SELECTED_REQUISITION_DETAILS.id, wh_from, req_status)
             } else if(this.popup_modal_for__save_or_send === 'SEND') {
                 if(this.driver_user_id !== null) {
                     await this.APPROVE_REQUISITION__FROM_SERVICE(this.SELECTED_REQUISITION_DETAILS.id, this.driver_user_id)
@@ -330,11 +330,12 @@ export default {
                     }
                 })
         },
-        async SAVE_REQUISITION__FROM_SERVICE(wh_from, req_status) {
+        async SAVE_REQUISITION__FROM_SERVICE(transfer_id, wh_from, req_status) {
             console.log('SAVE_REQUISITION__FROM_SERVICE')
             this.popup_modal_for__save_or_send = null
+            console.log(transfer_id + '  ' + wh_from + '  ' + req_status)
             console.log(this.REQUISITION_DATA_TO_SAVE_OR_SEND)
-            service.getSaveNewRequisition_CREATE_REQUISITION(wh_from, req_status, this.REQUISITION_DATA_TO_SAVE_OR_SEND)
+            service.getUpdateNewRequisition_CREATE_REQUISITION(transfer_id, wh_from, req_status, this.REQUISITION_DATA_TO_SAVE_OR_SEND)
                 .then(res => {
                     console.log(res.data)
                     if(res.data.response_code === 200 || res.data.response_code === 201) {
