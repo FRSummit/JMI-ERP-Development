@@ -60,79 +60,33 @@
                         <div class="modal-body">
                             <div class="row" style="margin-bottom: 0;">
                                 <div class="col-6" style="padding-top: 0; padding-bottom: 0;">
-                                <div class="product-list" style="padding-top: 0; padding-bottom: 0;">
-                                    <div class="form-group" style="padding-left: 0; padding-right: 0;"><i class="fa fa-search"> </i><input type="text" placeholder="Search by Name, ID No" class="form-control" style="padding-left: 30px;"></div>
-                                    <div class="product-list-inner" style="margin-top: 0;">
-                                        <div class="product-card2">
-                                            <div class="row1"><h5>Ace® Power - 500mg</h5> <p>Code: <span>NP2125</span></p></div>
-                                            <div class="row2"><p>Paracetamol</p></div>
-                                        </div>
-                            
-                                        <div class="product-card2">
-                                            <div class="row1"><h5>Ace® Power - 500mg</h5> <p>Code: <span>NP2125</span></p></div>
-                                            <div class="row2"><p>Paracetamol</p></div>
-                                        </div>
-                            
-                                        <div class="product-card2">
-                                            <div class="row1"><h5>Ace® Power - 500mg</h5> <p>Code: <span>NP2125</span></p></div>
-                                            <div class="row2"><p>Paracetamol</p></div>
-                                        </div>
-                            
-                                        <div class="product-card2">
-                                            <div class="row1"><h5>Ace® Power - 500mg</h5> <p>Code: <span>NP2125</span></p></div>
-                                            <div class="row2"><p>Paracetamol</p></div>
-                                        </div>
-                            
-                                        <div class="product-card2">
-                                            <div class="row1"><h5>Ace® Power - 500mg</h5> <p>Code: <span>NP2125</span></p></div>
-                                            <div class="row2"><p>Paracetamol</p></div>
-                                        </div>
-                            
-                                        <div class="product-card2">
-                                            <div class="row1"><h5>Ace® Power - 500mg</h5> <p>Code: <span>NP2125</span></p></div>
-                                            <div class="row2"><p>Paracetamol</p></div>
-                                        </div>
-                            
-                                        <div class="product-card2">
-                                            <div class="row1"><h5>Ace® Power - 500mg</h5> <p>Code: <span>NP2125</span></p></div>
-                                            <div class="row2"><p>Paracetamol</p></div>
-                                        </div>
-                            
-                                        <div class="product-card2">
-                                            <div class="row1"><h5>Ace® Power - 500mg</h5> <p>Code: <span>NP2125</span></p></div>
-                                            <div class="row2"><p>Paracetamol</p></div>
-                                        </div>
-                            
-                                        <div class="product-card2">
-                                            <div class="row1"><h5>Ace® Power - 500mg</h5> <p>Code: <span>NP2125</span></p></div>
-                                            <div class="row2"><p>Paracetamol</p></div>
-                                        </div>
-                            
-                                        <div class="product-card2">
-                                            <div class="row1"><h5>Ace® Power - 500mg</h5> <p>Code: <span>NP2125</span></p></div>
-                                            <div class="row2"><p>Paracetamol</p></div>
-                                        </div>
-                            
-                                        <div class="product-card2">
-                                            <div class="row1"><h5>Ace® Power - 500mg</h5> <p>Code: <span>NP2125</span></p></div>
-                                            <div class="row2"><p>Paracetamol</p></div>
-                                        </div>
-                            
-                                        <div class="product-card2">
-                                            <div class="row1"><h5>Ace® Power - 500mg</h5> <p>Code: <span>NP2125</span></p></div>
-                                            <div class="row2"><p>Paracetamol</p></div>
+                                    <div class="product-list" style="padding-top: 0; padding-bottom: 0;">
+                                        <div class="form-group" style="padding-left: 0; padding-right: 0;"><i class="fa fa-search"> </i><input type="text" placeholder="Search by Name, ID No" class="form-control" style="padding-left: 30px;"></div>
+                                        <div class="product-list-inner" style="margin-top: 0;">
+                                            <div class="product-card2" v-for="(item, i) in 177" :key="i">
+                                                <div class="row1"><h5>Ace® Power - 500mg</h5> <p>Code: <span>NP2125</span></p></div>
+                                                <div class="row2"><p>Paracetamol</p></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                </div>
-                                <div class="col-6">
+                                <div class="col-6" style="padding-top: 0; padding-bottom: 0;">
                                     
-                                    <div class="product-selected">
+                                    <div class="product-list" style="padding-top: 0; padding-bottom: 0;">
+                                        <div class="product-list-inner" style="margin-top: 0; height: 320px;">
+                                
+                                            <div class="product-card2" v-for="(item, i) in 20" :key="i">
+                                                <div class="row1"><h5>Ace® Power - 500mg</h5> <p>Code: <span>NP2125</span></p></div>
+                                                <div class="row2"><p>Paracetamol</p></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="product-selected">
                                         <div class="row1"><h5>Ace® Power - 500mg</h5> <p>Code: <span>NP2125</span></p></div>
                                         <div class="row2"><p>Paracetamol</p></div>
-                                    </div>
+                                    </div> -->
 
-                                    <div class="form-group mt-2">
+                                    <!-- <div class="form-group mt-2">
                                         <label for="product_class">Product Class</label>
                                         <select class="form-control" id="unit">
                                             <option>Select Class</option>
@@ -141,7 +95,7 @@
                                             <option>Low Priority</option>
                                             <option>New Product</option>
                                         </select>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
