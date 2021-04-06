@@ -84,7 +84,6 @@
                                         </div>
                                         <!-- <div class="product-list-inner" style="margin-top: 0; height: 320px;"> -->
                                         <div class="product-list-inner" style="margin-top: 0; height: 234px;">
-                                
                                             <div class="product-card2" v-for="(item, i) in SELECTED_PRODUCTS_LIST__PRODUCT_MODAL" :key="i">
                                                 <div class="row1"><h5>{{ item.prod_name }}</h5> <p>Code: <span>{{ item.prod_code }}</span></p></div>
                                                 <div class="row2"><p><span v-for="(elem, j) in item.element" :key="j">{{ elem.element_name }}</span></p></div>
