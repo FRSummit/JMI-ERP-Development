@@ -15,7 +15,7 @@
         </div>
       </div>
       <div class="content">
-        <div class="card_body" v-for="(item, i) in prods_list" :key="i">
+        <div :id="'card_body_' + i" class="card_body" v-for="(item, i) in prods_list" :key="i" @click="singleCardItemClickHandler(item, i)">
           <div class="row1">
             <h5>{{ item.prod_name }}</h5>
             <p class="new_product">{{ item.prod_class }}</p>
@@ -52,6 +52,21 @@ export default {
     await this.SEARCH_PRODUCT_DATA_LIST__FROM_SERVICE()
   },
   methods: {
+    singleCardItemClickHandler(item, index) {
+      console.log(index)
+      console.log(item)
+
+      let length = document.querySelectorAll('#products-sidebar .card_body').length
+      for(let i=0; i<length; i++) {
+        document.querySelector('#card_body_' + i).className = 'card_body'
+      }
+      if(document.querySelector('#card_body_' + index).className === 'card_body') {
+        document.querySelector('#card_body_' + index).className = 'card_body jmi-active'
+      } else {
+        document.querySelector('#card_body_' + index).className = 'card_body'
+      }
+      // this.$emit("select_customer_by_customer_code", customer.customer_info.id)
+    },
     // ---------------------------------------------------------------------------
     // SERVICE CALL
     async SEARCH_PRODUCT_DATA_LIST__FROM_SERVICE() {

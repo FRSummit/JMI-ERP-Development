@@ -112,6 +112,7 @@
 .layout-container .requition_area .approved {
     color: #02d151 !important;
 }
+
 .layout-sidebar.requisition .transfer.verified,
 .layout-container .requition_area .transfer.verified {
     color: #026CD1 !important;
@@ -269,6 +270,7 @@
     align-items     : center;
     background-color: var(--white);
     border-bottom   : 1px solid var(--border-color);
+    cursor          : pointer;
 }
 
 .layout-sidebar.create-requisition .content .card_body:hover {
