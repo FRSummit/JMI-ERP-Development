@@ -334,6 +334,7 @@
     justify-content : space-between;
     background-color: var(--white);
     border-bottom   : 1px solid var(--border-color);
+    cursor          : pointer;
 }
 
 .modal-body .product-list .product-list-inner .product-card2:hover,

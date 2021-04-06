@@ -8,7 +8,9 @@
             <input
               type="text"
               placeholder="Search by Name, ID No"
+              id="search-filter"
               class="form-control"
+              v-on:keyup="searchKeyUpHandler"
             />
           </div>
           <span class="filter_search"><i class="fa fa-filter"> </i> </span>
@@ -28,6 +30,7 @@
             <p><span v-for="(elem, j) in item.element" :key="j">{{ elem.element_name }}</span></p>
             <!-- <p>Last Updated: 20-Sep-2020</p> -->
           </div>
+          <p class="jmi-search-key hide">{{ createSearchString(item) }}</p>
         </div>
       </div>
     </div>
@@ -37,6 +40,8 @@
 <script>
 import ERPSidebarService from "../../../../../service/ERPSidebarService";
 const service = new ERPSidebarService();
+import JMIFilter from '../../../../../functions/JMIFIlter'
+const jmiFilter = new JMIFilter()
 
 export default {
   props: [],
@@ -66,6 +71,24 @@ export default {
         document.querySelector('#card_body_' + index).className = 'card_body'
       }
       // this.$emit("select_customer_by_customer_code", customer.customer_info.id)
+    },
+    // ---------------------------------------------------------------------------
+    // FILTER
+    createSearchString(item) {
+      let elements = ''
+      for(let i=0; i<item.element.length; i++) {
+        elements += item.element[i].code_id + ' ' + item.element[i].element_name + ' '
+      }
+      return item.base_mrp + ' ' + item.base_tp + ' ' + item.base_vat + ' ' + item.code_id + ' ' + item.display_code + ' ' + item.id + ' ' + item.offer + ' ' + item.prod_class + ' ' + item.prod_code + ' ' + item.prod_id + ' ' + item.prod_name + ' ' + elements
+    },
+    searchKeyUpHandler(value) {
+        console.log(value.key)
+        let input = document.getElementById("search-filter");
+        let filter = input.value.toUpperCase();
+        let list = document.querySelectorAll('#product-details-sidebar .card_body')
+        let txt_selector = "jmi-search-key"
+
+        jmiFilter.searchById_LeftSidebar(filter, list, txt_selector)
     },
     // ---------------------------------------------------------------------------
     // SERVICE CALL
