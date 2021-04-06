@@ -127,4 +127,7 @@ export default {
 .jmi-scroll-section {
     height: calc(100vh - (74px + 54px + 32px + 108px)) !important;
 }
+.layout-sidebar.product .content .card_body .row1 .new_product {
+  padding: 2px 8px;
+}
 </style>

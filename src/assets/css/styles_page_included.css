@@ -108,7 +108,7 @@
     font-size       : var(--font10);
     color           : var(--white);
     padding         : 1px 6px;
-    background-color: rgb(53, 210, 126);
+    background-color: #026cd1;
     border-radius   : 50px;
 }
 
