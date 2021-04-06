@@ -1063,6 +1063,21 @@ export default class PostService {
     })
   }
 
+  // PRODUCT - PRODUCT DETAILS - CREATE NEW SBU PRODUCT
+  async getCreateNewSBUProduct_PRODUCTS_DETAILS(prod_id, prod_class_id) {
+    let web_menu_url = '/api/web/create-new-sbu-product'
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+      params: {
+        prod_id: prod_id,
+        prod_class_id: prod_class_id
+      }
+    })
+  }
+
   // -------------------------------------------------------------------------------------------
 
   // -------------------------------------------------------------------------------------------
