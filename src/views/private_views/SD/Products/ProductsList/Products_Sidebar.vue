@@ -25,9 +25,10 @@
             <p>TP: {{ item.base_tp }} | MRP: {{ item.base_mrp }}</p>
           </div>
           <div class="row3">
-            <p><span v-for="(elem, j) in item.element" :key="j">{{ elem.element_name }}</span></p>
+            <p><span v-for="(elem, j) in item.element" :key="j">{{ elem.element_name }}{{ checkElementLengthToSetComma(j, item.element) }}</span></p>
             <!-- <p>Last Updated: 20-Sep-2020</p> -->
           </div>
+          <p class="jmi-search-key hide">{{ createSearchString(item) }}</p>
         </div>
       </div>
     </div>
@@ -66,6 +67,18 @@ export default {
         document.querySelector('#card_body_' + index).className = 'card_body'
       }
       // this.$emit("select_customer_by_customer_code", customer.customer_info.id)
+    },
+    checkElementLengthToSetComma(j, element) {
+      return (j < element.length - 1) ? ', ' : ''
+    },
+    // ---------------------------------------------------------------------------
+    // FILTER
+    createSearchString(item) {
+      let elements = ''
+      for(let i=0; i<item.element.length; i++) {
+        elements += item.element[i].code_id + ' ' + item.element[i].element_name + ' '
+      }
+      return item.base_mrp + ' ' + item.base_tp + ' ' + item.base_vat + ' ' + item.code_id + ' ' + item.display_code + ' ' + item.id + ' ' + item.offer + ' ' + item.prod_class + ' ' + item.prod_code + ' ' + item.prod_id + ' ' + item.prod_name + ' ' + elements
     },
     // ---------------------------------------------------------------------------
     // SERVICE CALL

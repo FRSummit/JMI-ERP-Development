@@ -27,7 +27,7 @@
             <p>TP: {{ item.base_tp }} | MRP: {{ item.base_mrp }}</p>
           </div>
           <div class="row3">
-            <p><span v-for="(elem, j) in item.element" :key="j">{{ elem.element_name }}</span></p>
+            <p><span v-for="(elem, j) in item.element" :key="j"><span>{{ elem.element_name }}{{ checkElementLengthToSetComma(j, item.element) }}</span></span></p>
             <!-- <p>Last Updated: 20-Sep-2020</p> -->
           </div>
           <p class="jmi-search-key hide">{{ createSearchString(item) }}</p>
@@ -71,6 +71,9 @@ export default {
         document.querySelector('#card_body_' + index).className = 'card_body'
       }
       // this.$emit("select_customer_by_customer_code", customer.customer_info.id)
+    },
+    checkElementLengthToSetComma(j, element) {
+      return (j < element.length - 1) ? ', ' : ''
     },
     // ---------------------------------------------------------------------------
     // FILTER

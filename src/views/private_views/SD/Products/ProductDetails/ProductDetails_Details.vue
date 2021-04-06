@@ -65,7 +65,7 @@
                                         <div class="product-list-inner" style="margin-top: 0;">
                                             <div class="product-card2" v-for="(item, i) in PRODUCTS_LIST" :key="i" @click="singleProductClickFromProductList_ProductModal(item)">
                                                 <div class="row1"><h5>{{ item.prod_name }}</h5> <p>Code: <span>{{ item.prod_code }}</span></p></div>
-                                                <div class="row2"><p><span v-for="(elem, j) in item.element" :key="j">{{ elem.element_name }}</span></p></div>
+                                                <div class="row2"><p><span v-for="(elem, j) in item.element" :key="j">{{ elem.element_name }}{{ checkElementLengthToSetComma(j, item.element) }}</span></p></div>
                                                 <p class="jmi-search-key hide">{{ createSearchString(item) }}</p>
                                             </div>
                                         </div>
@@ -882,6 +882,9 @@ export default {
         },
         // ---------------------------------------------------------------------------
         // PRODUCT MODAL
+        checkElementLengthToSetComma(j, element) {
+        return (j < element.length - 1) ? ', ' : ''
+        },
         singleProductClickFromProductList_ProductModal(item) {
             this.SELECTED_PRODUCTS_LIST__PRODUCT_MODAL.push(item)
         },
@@ -907,7 +910,7 @@ export default {
         // SERVICE CALL
         async SEARCH_PRODUCT_DATA_LIST__FROM_SERVICE() {
         this.PRODUCTS_LIST = [];
-        await service.getSearchProductDataList_CreateOrderDetailsSection()
+        await service.getNewProductList_PRODUCTS_DETAILS()
             .then((res) => {
                 console.log(res.data);
                 this.PRODUCTS_LIST = res.data.product_list;
