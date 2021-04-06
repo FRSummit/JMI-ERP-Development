@@ -1040,6 +1040,17 @@ export default class PostService {
     })
   }
 
+  // PRODUCT - PRODUCT DETAILS - MODAL PRIORITY CLASS
+  async getProductClassElementList_PRODUCTS_DETAILS() {
+    let web_menu_url = '/api/web/product-class-element-list'
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
+
   // -------------------------------------------------------------------------------------------
 
   // -------------------------------------------------------------------------------------------

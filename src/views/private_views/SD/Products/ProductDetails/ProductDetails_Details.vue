@@ -79,10 +79,7 @@
                                             <label for="product_class">Product Class</label>
                                             <select class="form-control" id="unit">
                                                 <option>Select Class</option>
-                                                <option>High Priority</option>
-                                                <option>Star Priority</option>
-                                                <option>Low Priority</option>
-                                                <option>New Product</option>
+                                                <option v-for="(item, i) in PRIORITY_CLASS_PRODUCTS_MODAL" :key="i" :value="item.id">{{ item.element_name }}</option>
                                             </select>
                                         </div>
                                         <!-- <div class="product-list-inner" style="margin-top: 0; height: 320px;"> -->
@@ -858,6 +855,7 @@ export default {
     data() {
         return {
             PRODUCTS_LIST: [],
+            PRIORITY_CLASS_PRODUCTS_MODAL: [],
             SELECTED_PRODUCTS_LIST__PRODUCT_MODAL: []
         }
     },
@@ -865,6 +863,7 @@ export default {
     created() {},
     async mounted() {
         await this.SEARCH_PRODUCT_DATA_LIST__FROM_SERVICE()
+        await this.PRODUCT_CLASS_ELEMENT_LIST__FROM_SERVICE()
     },
     methods: {
         createNewProductClickHandler() {
@@ -918,6 +917,20 @@ export default {
             .catch((err) => {
                 if (err) {
                     this.PRODUCTS_LIST = [];
+                    alert("Server Error 500. " + err);
+                }
+            });
+        },
+        async PRODUCT_CLASS_ELEMENT_LIST__FROM_SERVICE() {
+        this.PRIORITY_CLASS_PRODUCTS_MODAL = [];
+        await service.getProductClassElementList_PRODUCTS_DETAILS()
+            .then((res) => {
+                console.log(res.data);
+                this.PRIORITY_CLASS_PRODUCTS_MODAL = res.data.code_elements;
+            })
+            .catch((err) => {
+                if (err) {
+                    this.PRIORITY_CLASS_PRODUCTS_MODAL = [];
                     alert("Server Error 500. " + err);
                 }
             });
