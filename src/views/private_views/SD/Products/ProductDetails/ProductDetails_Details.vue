@@ -73,7 +73,19 @@
                                 <div class="col-6" style="padding-top: 0; padding-bottom: 0;">
                                     
                                     <div class="product-list" style="padding-top: 0; padding-bottom: 0;">
-                                        <div class="product-list-inner" style="margin-top: 0; height: 320px;">
+                                        <!-- <div class="form-group mt-2"> -->
+                                        <div class="form-group">
+                                            <label for="product_class">Product Class</label>
+                                            <select class="form-control" id="unit">
+                                                <option>Select Class</option>
+                                                <option>High Priority</option>
+                                                <option>Star Priority</option>
+                                                <option>Low Priority</option>
+                                                <option>New Product</option>
+                                            </select>
+                                        </div>
+                                        <!-- <div class="product-list-inner" style="margin-top: 0; height: 320px;"> -->
+                                        <div class="product-list-inner" style="margin-top: 0; height: 234px;">
                                 
                                             <div class="product-card2" v-for="(item, i) in 20" :key="i">
                                                 <div class="row1"><h5>Ace® Power - 500mg</h5> <p>Code: <span>NP2125</span></p></div>
