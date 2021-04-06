@@ -15,173 +15,61 @@
         </div>
       </div>
       <div class="content">
-        <div class="card_body" v-for="(item, i) in 20" :key="i">
+        <div class="card_body" v-for="(item, i) in prods_list" :key="i">
           <div class="row1">
-            <h5>{{ i + 1 }} Ace® Power - 500mg Ace®</h5>
-            <p class="new_product">New</p>
+            <h5>{{ item.prod_name }}</h5>
+            <p class="new_product">{{ item.prod_class }}</p>
           </div>
           <div class="row2">
-            <p>Code: NP2125</p>
-            <p>TP: 60.00 | MRP: 100.00</p>
+            <p>Code: {{ item.prod_code }}</p>
+            <p>TP: {{ item.base_tp }} | MRP: {{ item.base_mrp }}</p>
           </div>
           <div class="row3">
-            <p>Paracetamol</p>
-            <p>Last Updated: 20-Sep-2020</p>
+            <p><span v-for="(elem, j) in item.element" :key="j">{{ elem.element_name }}</span></p>
+            <!-- <p>Last Updated: 20-Sep-2020</p> -->
           </div>
         </div>
-
-        <!-- <div class="card_body">
-          <div class="row1">
-            <h5>Ace® Power - 500mg</h5>
-            <p class="new_product">New</p>
-          </div>
-          <div class="row2">
-            <p>Code: NP2125</p>
-            <p>TP: 60.00 | MRP: 100.00</p>
-          </div>
-          <div class="row3">
-            <p>Paracetamol</p>
-            <p>Last Updated: 20-Sep-2020</p>
-          </div>
-        </div>
-
-        <div class="card_body">
-          <div class="row1">
-            <h5>Ace® Power - 500mg</h5>
-            <p class="new_product">New</p>
-          </div>
-          <div class="row2">
-            <p>Code: NP2125</p>
-            <p>TP: 60.00 | MRP: 100.00</p>
-          </div>
-          <div class="row3">
-            <p>Paracetamol</p>
-            <p>Last Updated: 20-Sep-2020</p>
-          </div>
-        </div>
-
-        <div class="card_body">
-          <div class="row1">
-            <h5>Ace® Power - 500mg</h5>
-            <p class="new_product">New</p>
-          </div>
-          <div class="row2">
-            <p>Code: NP2125</p>
-            <p>TP: 60.00 | MRP: 100.00</p>
-          </div>
-          <div class="row3">
-            <p>Paracetamol</p>
-            <p>Last Updated: 20-Sep-2020</p>
-          </div>
-        </div>
-
-        <div class="card_body">
-          <div class="row1">
-            <h5>Ace® Power - 500mg</h5>
-            <p class="new_product">New</p>
-          </div>
-          <div class="row2">
-            <p>Code: NP2125</p>
-            <p>TP: 60.00 | MRP: 100.00</p>
-          </div>
-          <div class="row3">
-            <p>Paracetamol</p>
-            <p>Last Updated: 20-Sep-2020</p>
-          </div>
-        </div>
-
-        <div class="card_body">
-          <div class="row1">
-            <h5>Ace® Power - 500mg</h5>
-            <p class="new_product">New</p>
-          </div>
-          <div class="row2">
-            <p>Code: NP2125</p>
-            <p>TP: 60.00 | MRP: 100.00</p>
-          </div>
-          <div class="row3">
-            <p>Paracetamol</p>
-            <p>Last Updated: 20-Sep-2020</p>
-          </div>
-        </div>
-
-        <div class="card_body">
-          <div class="row1">
-            <h5>Ace® Power - 500mg</h5>
-            <p class="new_product">New</p>
-          </div>
-          <div class="row2">
-            <p>Code: NP2125</p>
-            <p>TP: 60.00 | MRP: 100.00</p>
-          </div>
-          <div class="row3">
-            <p>Paracetamol</p>
-            <p>Last Updated: 20-Sep-2020</p>
-          </div>
-        </div>
-
-        <div class="card_body">
-          <div class="row1">
-            <h5>Ace® Power - 500mg</h5>
-            <p class="new_product">New</p>
-          </div>
-          <div class="row2">
-            <p>Code: NP2125</p>
-            <p>TP: 60.00 | MRP: 100.00</p>
-          </div>
-          <div class="row3">
-            <p>Paracetamol</p>
-            <p>Last Updated: 20-Sep-2020</p>
-          </div>
-        </div>
-
-        <div class="card_body">
-          <div class="row1">
-            <h5>Ace® Power - 500mg</h5>
-            <p class="new_product">New</p>
-          </div>
-          <div class="row2">
-            <p>Code: NP2125</p>
-            <p>TP: 60.00 | MRP: 100.00</p>
-          </div>
-          <div class="row3">
-            <p>Paracetamol</p>
-            <p>Last Updated: 20-Sep-2020</p>
-          </div>
-        </div>
-
-        <div class="card_body">
-          <div class="row1">
-            <h5>Ace® Power - 500mg</h5>
-            <p class="new_product">New</p>
-          </div>
-          <div class="row2">
-            <p>Code: NP2125</p>
-            <p>TP: 60.00 | MRP: 100.00</p>
-          </div>
-          <div class="row3">
-            <p>Paracetamol</p>
-            <p>Last Updated: 20-Sep-20200</p>
-          </div>
-        </div> -->
       </div>
-      <!--End Secondary Sidebar Content Area-->
-      <!-- End Secondary Sidebar Area-->
     </div>
   </div>
 </template>
 
 <script>
+import ERPSidebarService from "../../../../../service/ERPSidebarService";
+const service = new ERPSidebarService();
+
 export default {
   props: [],
   components: {},
   data() {
-    return {};
+    return {
+      prods_list: [],
+    };
   },
   computed: {},
   created() {},
-  mounted() {},
-  methods: {},
+  async mounted() {
+    await this.SEARCH_PRODUCT_DATA_LIST__FROM_SERVICE()
+  },
+  methods: {
+    // ---------------------------------------------------------------------------
+    // SERVICE CALL
+    async SEARCH_PRODUCT_DATA_LIST__FROM_SERVICE() {
+      this.prods_list = [];
+      await service.getSearchProductDataList_CreateOrderDetailsSection()
+        .then((res) => {
+          console.log(res.data);
+          this.prods_list = res.data.product_list;
+          console.log(this.prods_list);
+        })
+        .catch((err) => {
+          if (err) {
+            this.prods_list = [];
+            alert("Server Error 500. " + err);
+          }
+        });
+    },
+  },
   watch: {},
 };
 </script>
