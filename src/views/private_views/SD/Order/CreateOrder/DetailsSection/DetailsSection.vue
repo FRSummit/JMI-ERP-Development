@@ -839,7 +839,7 @@ export default {
                 })
                 .catch(err => {
                     if(err) {
-                        alert('Server Problem 500. Please hit again.')
+                        console.log('Server Problem 500. Please hit again.')
                     }
                 })
         },
@@ -851,7 +851,7 @@ export default {
                 })
                 .catch(err => {
                     if(err) {
-                        alert('Server Problem 500. Please hit again.')
+                        console.log('Server Problem 500. Please hit again.')
                     }
                 })
         },
@@ -875,7 +875,7 @@ export default {
                 })
                 .catch(err => {
                     if(err) {
-                        alert('Server Problem 500. Please hit again.')
+                        console.log('Server Problem 500. Please hit again.')
                     }
                 })
         },
@@ -927,7 +927,7 @@ export default {
                 })
                 .catch(err => {
                     if(err) {
-                        alert('Server Problem 500. Please hit again.')
+                        console.log('Server Problem 500. Please hit again.')
                     }
                 })
         },
@@ -966,7 +966,7 @@ export default {
                 })
                 .catch(err => {
                     if(err) {
-                        alert('Server Problem 500. Please hit again.')
+                        console.log('Server Problem 500. Please hit again.')
                     }
                 })
         },
