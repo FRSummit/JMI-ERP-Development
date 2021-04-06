@@ -84,7 +84,7 @@
                             </thead>
                             <tbody>
                                 <!-- <tr v-for="(item, i) in items" :key="i"> -->
-                                <tr v-for="(item, i) in SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS" :key="i" :class="checkStockAvailablity(parseInt(item.req_qty), parseInt(item.available_stock))">
+                                <tr v-for="(item, i) in SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS" :key="i" :class="checkStockAvailablity(item)">
                                     <td>
                                         <div class="product">
                                             <!-- <p class="name">{{ item..prod_info.prod_name }}<span> {{ item.qty }}</span></p> -->
@@ -128,7 +128,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="row requition_footer" v-if="(SELECTED_REQUISITION_DETAILS.id ? true : false) && (parseInt(item.req_qty) <= parseInt(item.available_stock))">
+                    <div class="row requition_footer" v-if="(SELECTED_REQUISITION_DETAILS.id ? true : false) && TAR_APPROVE_BTNS">
                         <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="saveAsDraftClickHandler">Save As Draft</button></a>
                         <a><button type="button" class="btn btn-primary btn-global mx-2" @click="sendRequestClickHandler">Approve</button></a>
                         
@@ -187,6 +187,7 @@ export default {
             proceed_modal_popup_msg: null,
             status_modal: false,
             status_modal_msg: null,
+            TAR_APPROVE_BTNS: false,
         }
     },
     computed: {
@@ -230,8 +231,9 @@ export default {
         onChangeDriver() {
             console.log(this.wh_from)
         },
-        checkStockAvailablity(req_qty, available_stock) {
-            return req_qty > available_stock ? 'out-of-stock' : ''
+        checkStockAvailablity(item) {
+            this.TAR_APPROVE_BTNS = parseInt(item.req_qty) > parseInt(item.available_stock) ? false : true
+            return parseInt(item.req_qty) > parseInt(item.available_stock) ? 'out-of-stock' : ''
         },
         decreaseRequisitionQtyClickHandler(item, index) {
             console.log(index)
@@ -375,7 +377,7 @@ export default {
                         this.SELECTED_REQUISITION_DETAILS = []
                         this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS = []
                         this.driver_user_id = null
-                        this.$store.state.TRANSFER_APPROVE_REQUISITION__RELOAD_LEFT_SECTION = new Date
+                        this.$store.state.TRANSFER_APPROVE_REQUISITION__RELOAD_LEFT_SECTION = new Date()
                         setTimeout( () => {
                             this.status_modal = false
                             this.status_modal_msg = null
