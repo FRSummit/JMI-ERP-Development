@@ -211,6 +211,9 @@ export default {
             }
             return prod_info
         },
+        DRIVER_LIST_MUTATION() {
+            return this.SELECTED_REQUISITION_DETAILS_DRIVER_LIST
+        }
     },
     created() {},
     async mounted() {
@@ -411,7 +414,18 @@ export default {
                 })
         },
     },
-    watch: {}
+    watch: {
+        DRIVER_LIST_MUTATION(driver_list) {
+            console.log(driver_list)
+            if(driver_list.length ? driver_list.length > 0 : false && this.driver_user_id === null) {
+                setTimeout( () => {
+                    var options = document.getElementById("driver_select_box").options;
+                    options[0].selected = true;
+                    this.driver_user_id = driver_list[0].user_id
+                }, 100)
+            }
+        }
+    }
 }
 </script>
 
