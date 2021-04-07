@@ -9,15 +9,20 @@
                             <a class="edit hide" @click="editRequisitionClickHandler"><i class="zmdi zmdi-edit"></i></a>
                         </div>
                         <div class="col-lg-3 col-md-3 col-12">
-                            <p>Requisition From: <span class="text-data">{{ DATA_DEPOT_NAME_FROM_TR_AR ? DATA_DEPOT_NAME_FROM_TR_AR : '' }}</span></p>
+                            <p>Requisition From:
+                                <span class="text-data jmi-tool-tip-parent">
+                                    {{ DATA_DEPOT_NAME_FROM_TR_AR ? DATA_DEPOT_NAME_FROM_TR_AR : '' }}
+                                    <span class="text-data jmi-tool-tip">{{ DATA_DEPOT_NAME_FROM_TR_AR_DTL ? DATA_DEPOT_NAME_FROM_TR_AR_DTL : '' }}</span>
+                                </span>
+                            </p>
                         </div>
                         <div class="col-lg-3 col-md-3 col-12">
                             <p>Requisition To: 
-                                <!-- <span class="text-data jmi-tool-tip-parent">
+                                <span class="text-data jmi-tool-tip-parent">
                                     {{ DATA_DEPOT_NAME_TO_TR_AR ? DATA_DEPOT_NAME_TO_TR_AR : '' }}
-                                    <span class="text-data jmi-tool-tip">{{ DATA_DEPOT_NAME_TO_TR_AR ? DATA_DEPOT_NAME_TO_TR_AR : '' }}</span>
-                                </span> -->
-                                <span class="text-data">{{ DATA_DEPOT_NAME_TO_TR_AR ? DATA_DEPOT_NAME_TO_TR_AR : '' }}</span></p>
+                                    <span class="text-data jmi-tool-tip">{{ DATA_DEPOT_NAME_TO_TR_AR_DTL ? DATA_DEPOT_NAME_TO_TR_AR_DTL : '' }}</span>
+                                </span>
+                            </p>
                         </div>
                         <div class="col-lg-4 col-md-3 col-12">
                             <p>Requisition Date: <span class="text-data"><input type="date" v-model="requisition_date"></span></p>
@@ -129,7 +134,9 @@ export default {
             status_modal: false,
             status_modal_msg: null,
             DATA_DEPOT_NAME_FROM_TR_AR: null,
+            DATA_DEPOT_NAME_FROM_TR_AR_DTL: null,
             DATA_DEPOT_NAME_TO_TR_AR: null,
+            DATA_DEPOT_NAME_TO_TR_AR_DTL: null,
             REQ_STATUS: null,
             STORED_DATA: null,
             REQUISITION_NO_: null,
@@ -171,7 +178,9 @@ export default {
             console.log(this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT)
             this.STORED_DATA = this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT
             this.DATA_DEPOT_NAME_FROM_TR_AR = this.STORED_DATA.req_from_info.wh_code
+            this.DATA_DEPOT_NAME_FROM_TR_AR_DTL = this.STORED_DATA.req_from_info.wh_name
             this.DATA_DEPOT_NAME_TO_TR_AR = this.STORED_DATA.req_to_info.wh_code
+            this.DATA_DEPOT_NAME_TO_TR_AR_DTL = this.STORED_DATA.req_to_info.wh_name
             this.REQ_STATUS = this.STORED_DATA.req_status
             this.REQUISITION_NO_ = this.STORED_DATA.requisition_no
             
