@@ -360,14 +360,15 @@ export default {
             }
         },
         changeThisComponent() {
-            console.log(this.$store.state.REQUISITION_PREVIOUS_COMPONENT_NAME_TO_CREATE)
+            /*console.log(this.$store.state.REQUISITION_PREVIOUS_COMPONENT_NAME_TO_CREATE)
             if(this.$store.state.REQUISITION_PREVIOUS_COMPONENT_NAME_TO_CREATE === 'Transfer Requisition') {
                 this.$router.push('/features/local_sales/transfer-requisition')
             } else if(this.$store.state.REQUISITION_PREVIOUS_COMPONENT_NAME_TO_CREATE === 'Approve Requisition') {
                 this.$router.push('/features/local_sales/approve-requisition')
             } else {
                 this.$router.push('/features/local_sales/transfer-requisition')
-            }
+            }*/
+            this.$router.push('/features/local_sales/verified-requisition')
         },
         selectWareHouse() {
             if(this.STORED_DATA !== null ? this.STORED_DATA.id : false) {
