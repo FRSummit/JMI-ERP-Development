@@ -303,7 +303,7 @@ export default {
                     if(res.data.response_code === 200 || res.data.response_code === 201) {
                         this.status_modal_msg = 'Requisition saved successfully'
                         this.SELECTED_REQUISITION_DATA = []
-                        this.$store.state.DESELECT_ALL_SELECTED_PRODUCT = new Date
+                        this.$store.state.DESELECT_ALL_SELECTED_PRODUCT = new Date()
                         setTimeout( () => {
                             this.status_modal = false
                             this.status_modal_msg = null
@@ -332,7 +332,7 @@ export default {
                     if(res.data.response_code === 200 || res.data.response_code === 201) {
                         this.status_modal_msg = 'Requisition send successfully'
                         this.SELECTED_REQUISITION_DATA = []
-                        this.$store.state.DESELECT_ALL_SELECTED_PRODUCT = new Date
+                        this.$store.state.DESELECT_ALL_SELECTED_PRODUCT = new Date()
                         setTimeout( () => {
                             this.status_modal = false
                             this.status_modal_msg = null

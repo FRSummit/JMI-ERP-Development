@@ -28,7 +28,7 @@
                     </div>
                     <div class="row3">
                         <p>Requisition To: <span>{{ item.area }}</span></p>
-                        <p class="status" :class="item.req_status.toLowerCase()"> <i class="fa fa-square mr-1"></i>{{ item.req_status }}</p>
+                        <p class="status" :class="item.req_status ? item.req_status.toLowerCase() : ''"> <i class="fa fa-square mr-1"></i>{{ item.req_status }}</p>
                     </div>
                 </div>
             </div>
@@ -54,9 +54,9 @@ export default {
         }
     },
     computed: {
-        // LOAD_STOCK_REQUISITION_LIST() {
-        //     return this.$store.state.TRANSFER_REQUISITION__VERIFY_REQUISITION
-        // }
+        LOAD_STOCK_REQUISITION_LIST() {
+            return this.$store.state.DESELECT_ALL_SELECTED_PRODUCT
+        }
     },
     created() {},
     async mounted() {
@@ -97,12 +97,12 @@ export default {
         }
     },
     watch: {
-        // LOAD_STOCK_REQUISITION_LIST(newVal) {
-        //     if(newVal) {
-        //         console.log(newVal)
-        //         this.SOTCK_REQUISITION_LIST__FROM_SERVICE()
-        //     }
-        // }
+        LOAD_STOCK_REQUISITION_LIST(newVal) {
+            if(newVal) {
+                console.log(newVal)
+                this.SOTCK_REQUISITION_LIST__FROM_SERVICE()
+            }
+        }
     }
 }
 </script>

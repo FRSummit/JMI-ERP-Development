@@ -116,11 +116,8 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="row requition_footer hide">
-                        <!-- <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="saveAsDraftClickHandler">Save As Draft</button></a>
-                        <a><button type="button" class="btn btn-primary btn-global mx-2" @click="sendRequestClickHandler">Send Request</button></a> -->
-                        <a><button type="button" class="btn btn-primary btn-global mx-2" @click="saveAsVerifyClickHandler" style="color: #FFFFFF;">Save As Verify</button></a>
-                        <!-- <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="createRequisitionClickHandler">Create Requisition</button></a> -->
+                    <div class="row requition_foote" v-if="(SELECTED_REQUISITION_DETAILS.id ? true : false) && (SELECTED_REQUISITION_DETAILS.req_status ? (SELECTED_REQUISITION_DETAILS.req_status.toUpperCase() === 'DRAFT' ? true : false) : false)">
+                        <a style="margin: 0 auto;"><button type="button" class="btn btn-primary btn-global mx-2" @click="saveAsApproveClickHandler" style="color: #FFFFFF;">Approve</button></a>
                         
                     </div>
                 </div>
@@ -133,6 +130,23 @@
                 <p class="popup-text">{{ success_or_not_msg }}</p>
             </div>
         </div>
+        <!-- Proceed Modal -->
+        <div class="modal-popup-section order-proceed-modal" v-if="proceed_modal_popup">
+            <div class="modal-popup-section-inner order-proceed-modal-inner">
+                <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
+                <p class="popup-text">Are you sure?</p>
+                <p class="popup-desc">{{ proceed_modal_popup_msg }}</p>
+                <span class="divider"></span>
+                <div class="popup-submit-section">
+                    <div class="popup-cancel-btn-section" @click="cancelOrderModalClickHandler">
+                        <span>Cancel</span>
+                    </div>
+                    <div class="popup-confirm-btn-section" @click="proceedOrderModalClickHandler">
+                        <span>Proceed</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -141,8 +155,8 @@
 // const demoData = new DemoData()
 import GlobalDateFormat from '.././../../../../../functions/GlobalDateFormat'
 const globalDateFormat = new GlobalDateFormat()
-// import ERPService from '../../../../../../service/ERPSidebarService'
-// const service = new ERPService()
+import ERPService from '../../../../../../service/ERPSidebarService'
+const service = new ERPService()
 
 export default {
     props: ["SELECTED_REQUISITION_DETAILS", "SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS", "SELECTED_REQUISITION_DETAILS_WH_NAME"],
@@ -153,9 +167,25 @@ export default {
             initial_stage: false,
             success_or_not_msg_modal: false,
             success_or_not_msg: null,
+            proceed_modal_popup: false,
+            proceed_modal_popup_msg: null,
         }
     },
-    computed: {},
+    computed: {
+        REQUISITION_DATA_TO_SAVE_OR_SEND() {
+            let prod_info = []
+            if(this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS.length ? this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS.length > 0 : false) {
+                for(let i=0; i<this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS.length; i++) {
+                    let prods = {
+                        prod_id: this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS[i].prod_id,
+                        req_qty: this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS[i].req_qty
+                    }
+                    prod_info.push(prods)
+                }
+            }
+            return prod_info
+        },
+    },
     created() {},
     mounted() {
         // this.items = demoData.demo_data().create_requisition_items_table_data
@@ -207,11 +237,23 @@ export default {
         },
         singleItemEditClickHandler() {},
         singleItemDeleteClickHandler() {},
-        saveAsDraftClickHandler() {},
-        sendRequestClickHandler() {},
-        async saveAsVerifyClickHandler() {
+        saveAsApproveClickHandler() {
             // console.log(this.SELECTED_REQUISITION_DETAILS)
-            // await this.SAVE_TRANSFER_VERIFY__FROM_SERVICE(this.SELECTED_REQUISITION_DETAILS.id)
+            if(this.proceed_modal_popup) {
+                this.proceed_modal_popup = false
+            } else {
+                this.proceed_modal_popup_msg = 'You want to approve the requisition.'
+                this.proceed_modal_popup = true
+            }
+        },
+        cancelOrderModalClickHandler() {
+            this.proceed_modal_popup = false
+        },
+        async proceedOrderModalClickHandler() {
+            let wh_from = this.wh_from ? this.wh_from : this.SELECTED_REQUISITION_DETAILS.wh_from
+            let req_status = 'S'
+            let requisition_id = this.SELECTED_REQUISITION_DETAILS.id
+            await this.SEND_NEW_REQUISITION__FROM_SERVICE(requisition_id, wh_from, req_status)
         },
         // ----------------------------------------------------------------
         // SERVICE CALL
@@ -235,6 +277,37 @@ export default {
                     }
                 })
         }*/
+        async SEND_NEW_REQUISITION__FROM_SERVICE(requisition_id, wh_from, req_status) {
+            console.log('SEND_NEW_REQUISITION__FROM_SERVICE')
+            console.log(wh_from + '    ' + req_status)
+            console.log(this.REQUISITION_DATA_TO_SAVE_OR_SEND)
+            this.proceed_modal_popup = false
+            this.success_or_not_msg_modal = true
+            this.success_or_not_msg = 'Requisition sending...'
+            service.getUpdateNewRequisition_CREATE_REQUISITION(requisition_id, wh_from, req_status, this.REQUISITION_DATA_TO_SAVE_OR_SEND)
+                .then(res => {
+                    console.log(res.data)
+                    if(res.data.response_code === 200 || res.data.response_code === 201) {
+                        this.success_or_not_msg = 'Requisition send successfully'
+                        this.SELECTED_REQUISITION_DATA = []
+                        this.$store.state.DESELECT_ALL_SELECTED_PRODUCT = new Date()
+                        setTimeout( () => {
+                            this.success_or_not_msg_modal = false
+                            this.success_or_not_msg = null
+                        }, 2000)
+                    }
+                })
+                .catch(err => {
+                    if(err) {
+                        console.log(err)
+                        this.success_or_not_msg = 'Server problem 500'
+                        setTimeout( () => {
+                            this.success_or_not_msg_modal = false
+                            this.success_or_not_msg = null
+                        }, 2000)
+                    }
+                })
+        },
     },
     watch: {}
 }
@@ -317,8 +390,8 @@ export default {
     font-size: 14px;
 }
 .requition_area .row.requition_content table tbody {
-    /* height: calc(100vh - (74px + 54px + 32px + (296px))); */
-    height: calc(100vh - (74px + 54px + 32px + (230px)));
+    height: calc(100vh - (74px + 54px + 32px + (296px)));
+    /* height: calc(100vh - (74px + 54px + 32px + (230px))); */
 }
 .requition_area .btn.btn-primary.btn-global {
     background: #026cd1;

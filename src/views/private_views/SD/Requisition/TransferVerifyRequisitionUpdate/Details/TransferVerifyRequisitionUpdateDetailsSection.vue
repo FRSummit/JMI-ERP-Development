@@ -4,28 +4,20 @@
             <div class="container-fluid">
                 <div class="col-12 requition_area">
                     <div class="row requition_header"> 
-                        <!-- <div class="col-12 header_top">
-                            <h5>ID: <span>#</span></h5>
+                        <div class="col-12 header_top">
+                            <h5>Requisition no: <span>{{ REQUISITION_NO_ }}</span></h5>
                             <a class="edit hide" @click="editRequisitionClickHandler"><i class="zmdi zmdi-edit"></i></a>
-                        </div> -->
-                        <div class="col-lg-3 col-md-3 col-12">
-                            <p>Requisition From: <span class="text-data">{{ DATA_DEPOT_NAME_FROM_TR_AR ? DATA_DEPOT_NAME_FROM_TR_AR : (DEPOT_NAME ? DEPOT_NAME : '') }}</span></p>
-                            <!-- <div class="form-group">
-                                <label for="requisition_to" class="col-form-label">Requisition From:</label>
-                                <select class="form-control-sm" id="requisition_from" v-model="wh_from" @change="onChangeWH()">
-                                    <option >Select Area</option>
-                                    <option v-for="(depot, i) in DEPOT_LIST" :key="i" :value="depot.id">{{ depot.wh_name }}</option>
-                                </select>
-                            </div> -->
                         </div>
                         <div class="col-lg-3 col-md-3 col-12">
-                            <div class="form-group">
-                                <label for="requisition_to" class="col-form-label">Requisition To:</label>
-                                <select class="form-control-sm" id="requisition_to" v-model="wh_from" @change="onChangeWH()">
-                                    <option >Select Area</option>
-                                    <option v-for="(depot, i) in DEPOT_LIST" :key="i" :value="depot.id">{{ depot.wh_name }}</option>
-                                </select>
-                            </div>
+                            <p>Requisition From: <span class="text-data">{{ DATA_DEPOT_NAME_FROM_TR_AR ? DATA_DEPOT_NAME_FROM_TR_AR : '' }}</span></p>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-12">
+                            <p>Requisition To: 
+                                <!-- <span class="text-data jmi-tool-tip-parent">
+                                    {{ DATA_DEPOT_NAME_TO_TR_AR ? DATA_DEPOT_NAME_TO_TR_AR : '' }}
+                                    <span class="text-data jmi-tool-tip">{{ DATA_DEPOT_NAME_TO_TR_AR ? DATA_DEPOT_NAME_TO_TR_AR : '' }}</span>
+                                </span> -->
+                                <span class="text-data">{{ DATA_DEPOT_NAME_TO_TR_AR ? DATA_DEPOT_NAME_TO_TR_AR : '' }}</span></p>
                         </div>
                         <div class="col-lg-4 col-md-3 col-12">
                             <p>Requisition Date: <span class="text-data"><input type="date" v-model="requisition_date"></span></p>
@@ -83,17 +75,8 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="row requition_footer" v-if="(SELECTED_REQUISITION_DATA.length ? SELECTED_REQUISITION_DATA.length > 0 : false) && (PREVIOUS_ROUTE_NAME === 'Create Requisition' || PREVIOUS_ROUTE_NAME === 'Transfer Requisition')">
-                        <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="saveAsDraftClickHandler">Save As Draft</button></a>
-                        <a><button type="button" class="btn btn-primary btn-global mx-2" @click="sendRequestClickHandler">Send Request</button></a>
-                    </div>
-                    <div class="row requition_footer" v-if="(SELECTED_REQUISITION_DATA.length ? SELECTED_REQUISITION_DATA.length > 0 : false) && (PREVIOUS_ROUTE_NAME === 'Approve Requisition')">
-                        <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="saveAsSubmitClickHandler">Save As Submit</button></a>
-                        <a><button type="button" class="btn btn-primary btn-global mx-2" @click="approveRequestClickHandler">Approve</button></a>
-                    </div>
-                    <div class="row requition_footer" v-if="(SELECTED_REQUISITION_DATA.length ? SELECTED_REQUISITION_DATA.length > 0 : false) && (PREVIOUS_ROUTE_NAME === 'Transfer Approve Requisition')">
-                        <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="saveAsDraftTARClickHandler">Save As Draft</button></a>
-                        <a><button type="button" class="btn btn-primary btn-global mx-2" @click="approveRequestTARClickHandler">Approve</button></a>
+                    <div class="row requition_footer" v-if="SELECTED_REQUISITION_DATA.length ? SELECTED_REQUISITION_DATA.length > 0 : false">
+                        <a><button type="button" class="btn btn-primary btn-global mx-2" @click="updateRequestTVRClickHandler" style="color: #FFFFFF;">Update</button></a>
                     </div>
                 </div>
             </div>
@@ -141,14 +124,15 @@ export default {
             wh_to: null,
             requisition_date: null,
             DEPOT_LIST: [],
-            popup_modal_for__save_or_send: null,
             proceed_modal_popup: false,
             proceed_modal_popup_msg: null,
             status_modal: false,
             status_modal_msg: null,
             DATA_DEPOT_NAME_FROM_TR_AR: null,
+            DATA_DEPOT_NAME_TO_TR_AR: null,
             REQ_STATUS: null,
             STORED_DATA: null,
+            REQUISITION_NO_: null,
         }
     },
     computed: {
@@ -186,8 +170,10 @@ export default {
         if(this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT !== null ? this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT.id : false) {
             console.log(this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT)
             this.STORED_DATA = this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT
-            this.DATA_DEPOT_NAME_FROM_TR_AR = this.STORED_DATA.req_from_info.area_name
+            this.DATA_DEPOT_NAME_FROM_TR_AR = this.STORED_DATA.req_from_info.wh_code
+            this.DATA_DEPOT_NAME_TO_TR_AR = this.STORED_DATA.req_to_info.wh_code
             this.REQ_STATUS = this.STORED_DATA.req_status
+            this.REQUISITION_NO_ = this.STORED_DATA.requisition_no
             
             let now = new Date(this.STORED_DATA.req_date);
             let day = ("0" + now.getDate()).slice(-2);
@@ -198,24 +184,7 @@ export default {
             console.log('no data')
         }
 
-        await this.ALL_DEPOT_UNDER_SBU__FROM_SERVICE()
-
-        // if(this.STORED_DATA !== null ? this.STORED_DATA.id : false) {
-        //     setTimeout( () => {
-        //         for(let i=0; i<this.DEPOT_LIST.length; i++) {
-        //             console.log(this.STORED_DATA.req_to_info.id)
-        //             if(this.DEPOT_LIST[i].id === this.STORED_DATA.req_to_info.id) {
-        //                 console.log('matched : ' + this.DEPOT_LIST[i].id)
-        //                 console.log(this.DEPOT_LIST[i].wh_name)
-        //                 document.getElementById('requisition_to').selectedIndex = i
-        //                 this.wh_from = this.DEPOT_LIST[i].id
-
-        //                 console.log(document.getElementById('requisition_to').selectedIndex)
-        //                 console.log(this.wh_from)
-        //             }
-        //         }
-        //     }, 2000)
-        // }
+        // await this.ALL_DEPOT_UNDER_SBU__FROM_SERVICE()
     },
     methods: {
         editRequisitionClickHandler() {},
@@ -258,60 +227,12 @@ export default {
             console.log(i)
             this.$emit('SINGLE_ITEM_REMOVE_FROM_TABLE', item, i)
         },
-        // FOR CREATE OR TRANSFER REQUISITION
-        saveAsDraftClickHandler() {
+        // FOR TRANSFER VERIFY REQUISITION
+        updateRequestTVRClickHandler() {
             if(this.proceed_modal_popup) {
                 this.proceed_modal_popup = false
             } else {
-                this.popup_modal_for__save_or_send = 'SAVE'
-                this.proceed_modal_popup_msg = 'You want to save the requisition.'
-                this.proceed_modal_popup = true
-            }
-        },
-        sendRequestClickHandler() {
-            if(this.proceed_modal_popup) {
-                this.proceed_modal_popup = false
-            } else {
-                this.popup_modal_for__save_or_send = 'SEND'
-                this.proceed_modal_popup_msg = 'You want to send the requisition.'
-                this.proceed_modal_popup = true
-            }
-        },
-        // FOR APPROVE REQUISITION
-        saveAsSubmitClickHandler() {
-            if(this.proceed_modal_popup) {
-                this.proceed_modal_popup = false
-            } else {
-                this.popup_modal_for__save_or_send = 'SUBMIT'
-                this.proceed_modal_popup_msg = 'You want to submit the requisition.'
-                this.proceed_modal_popup = true
-            }
-        },
-        approveRequestClickHandler() {
-            if(this.proceed_modal_popup) {
-                this.proceed_modal_popup = false
-            } else {
-                this.popup_modal_for__save_or_send = 'APPROVE'
-                this.proceed_modal_popup_msg = 'You want to approve the requisition.'
-                this.proceed_modal_popup = true
-            }
-        },
-        // FOR TRANSFER APPROVE REQUISITION
-        saveAsDraftTARClickHandler() {
-            if(this.proceed_modal_popup) {
-                this.proceed_modal_popup = false
-            } else {
-                this.popup_modal_for__save_or_send = 'DRAFT TAR'
-                this.proceed_modal_popup_msg = 'You want to save the requisition.'
-                this.proceed_modal_popup = true
-            }
-        },
-        approveRequestTARClickHandler() {
-            if(this.proceed_modal_popup) {
-                this.proceed_modal_popup = false
-            } else {
-                this.popup_modal_for__save_or_send = 'APPROVE TAR'
-                this.proceed_modal_popup_msg = 'You want to approve the requisition.'
+                this.proceed_modal_popup_msg = 'You want to update the requisition.'
                 this.proceed_modal_popup = true
             }
         },
@@ -320,113 +241,29 @@ export default {
             this.proceed_modal_popup = false
         },
         async proceedOrderModalClickHandler() {
-            let wh_from = this.wh_from ? this.wh_from : this.SELECTED_REQUISITION_DATA.wh_from
             this.status_modal = true
+            this.status_modal_msg = "Updating..."
             this.proceed_modal_popup = false
-            if(this.popup_modal_for__save_or_send === 'SAVE') {
-                let req_status = 'D'
-                if(this.STORED_DATA !== null ? this.STORED_DATA.id : false) {
-                    let requisition_id = this.STORED_DATA.id
-                    await this.UPDATE_SAVE_NEW_REQUISITION__FROM_SERVICE(requisition_id, wh_from, req_status)
-                } else {
-                    await this.SAVE_NEW_REQUISITION__FROM_SERVICE(wh_from, req_status)
-                }
-            } else if(this.popup_modal_for__save_or_send === 'SEND') {
-                let req_status = 'S'
-                if(this.STORED_DATA !== null ? this.STORED_DATA.id : false) {
-                    let requisition_id = this.STORED_DATA.id
-                    await this.UPDATE_SEND_NEW_REQUISITION__FROM_SERVICE(requisition_id, wh_from, req_status)
-                } else {
-                    await this.SEND_NEW_REQUISITION__FROM_SERVICE(wh_from, req_status)
-                }
-            } else if(this.popup_modal_for__save_or_send === 'SUBMIT') {
-                let req_status = 'S'
+            if(this.STORED_DATA !== null ? this.STORED_DATA.id : false) {
                 let requisition_id = this.STORED_DATA.id
-                await this.UPDATE_SAVE_NEW_REQUISITION__FROM_SERVICE(requisition_id, wh_from, req_status)
-            } else if(this.popup_modal_for__save_or_send === 'APPROVE') {
-                let req_status = 'A'
-                let requisition_id = this.STORED_DATA.id
-                await this.UPDATE_SEND_NEW_REQUISITION__FROM_SERVICE(requisition_id, wh_from, req_status)
-            } else if(this.popup_modal_for__save_or_send === 'DRAFT TAR') {
-                // let req_status = null
-                // let requisition_id = this.STORED_DATA.id
-                console.log(this.SELECTED_REQUISITION_DATA)
-                // await this.SAVE_REQUISITION__FROM_SERVICE(requisition_id, wh_from, req_status)
-            } else if(this.popup_modal_for__save_or_send === 'APPROVE TAR') {
-                // let req_status = 'A'
-                // let requisition_id = this.STORED_DATA.id
-                console.log(this.SELECTED_REQUISITION_DATA)
-                // await this.APPROVE_REQUISITION__FROM_SERVICE(requisition_id, wh_from, req_status)
+                await this.UPDATE_TRANSFER_VERIFY_REQUISITION__FROM_SERVICE(requisition_id)
+            } else {
+                alert('Requisition id not found')
             }
         },
         changeThisComponent() {
-            /*console.log(this.$store.state.REQUISITION_PREVIOUS_COMPONENT_NAME_TO_CREATE)
-            if(this.$store.state.REQUISITION_PREVIOUS_COMPONENT_NAME_TO_CREATE === 'Transfer Requisition') {
-                this.$router.push('/features/local_sales/transfer-requisition')
-            } else if(this.$store.state.REQUISITION_PREVIOUS_COMPONENT_NAME_TO_CREATE === 'Approve Requisition') {
-                this.$router.push('/features/local_sales/approve-requisition')
-            } else {
-                this.$router.push('/features/local_sales/transfer-requisition')
-            }*/
             this.$router.push('/features/local_sales/verified-requisition')
-        },
-        selectWareHouse() {
-            if(this.STORED_DATA !== null ? this.STORED_DATA.id : false) {
-                for(let i=0; i<this.DEPOT_LIST.length; i++) {
-                    console.log(this.STORED_DATA.req_to_info.id)
-                    if(this.DEPOT_LIST[i].id === this.STORED_DATA.req_to_info.id) {
-                        console.log('matched : ' + this.DEPOT_LIST[i].id)
-                        console.log(this.DEPOT_LIST[i].wh_name)
-                        document.getElementById('requisition_to').selectedIndex = i
-                        this.wh_from = this.DEPOT_LIST[i].id
-
-                        console.log(document.getElementById('requisition_to').selectedIndex)
-                        console.log(this.wh_from)
-                    }
-                }
-            }
         },
         // -----------------------------------------------------
         // SERVICE CALL
-        async ALL_DEPOT_UNDER_SBU__FROM_SERVICE() {
-            this.DEPOT_LIST = []
-            this.wh_from = null
-            await service.getAllDepotUnderSBU_CREATE_REQUISITION()
-                .then(res => {
-                    console.log(res.data)
-                    this.DEPOT_LIST = res.data.wh_info
-                    setTimeout( () => {
-                        for(let i=0; i<this.DEPOT_LIST.length; i++) {
-                            if(parseInt(this.DEPOT_LIST[i].id) === 211) {
-                                // document.getElementById('requisition_from').selectedIndex = i
-                                document.getElementById('requisition_to').selectedIndex = i
-                                this.wh_from = this.DEPOT_LIST[i].id
-                                console.log(this.DEPOT_LIST[i].id)
-                                console.log(this.DEPOT_LIST[i].wh_name)
-
-                                this.selectWareHouse()
-                            }
-                        }
-                    }, 1000)
-                })
-                .catch(err => {
-                    if(err) {
-                        this.DEPOT_LIST = []
-                        console.log(err)
-                    }
-                })
-        },
-        async SAVE_NEW_REQUISITION__FROM_SERVICE(wh_from, req_status) {
-            console.log('SAVE_NEW_REQUISITION__FROM_SERVICE')
-            this.popup_modal_for__save_or_send = null
+        async UPDATE_TRANSFER_VERIFY_REQUISITION__FROM_SERVICE(requisition_id) {
+            console.log(requisition_id)
             console.log(this.REQUISITION_DATA_TO_SAVE_OR_SEND)
-            service.getSaveNewRequisition_CREATE_REQUISITION(wh_from, req_status, this.REQUISITION_DATA_TO_SAVE_OR_SEND)
+            service.getUpdateNewRequisition_TRANSFER_VERIFY_REQUISITION_UPDATE(requisition_id, this.REQUISITION_DATA_TO_SAVE_OR_SEND)
                 .then(res => {
                     console.log(res.data)
                     if(res.data.response_code === 200 || res.data.response_code === 201) {
-                        this.status_modal_msg = 'Requisition saved successfully'
-                        this.SELECTED_REQUISITION_DATA = []
-                        this.$store.state.DESELECT_ALL_SELECTED_PRODUCT = new Date
+                        this.status_modal_msg = 'Requisition update successfully'
                         setTimeout( () => {
                             this.status_modal = false
                             this.status_modal_msg = null
@@ -444,157 +281,6 @@ export default {
                         }, 2000)
                     }
                 })
-        },
-        async SEND_NEW_REQUISITION__FROM_SERVICE(wh_from, req_status) {
-            console.log('SEND_NEW_REQUISITION__FROM_SERVICE')
-            console.log(wh_from + '    ' + req_status)
-            this.popup_modal_for__save_or_send = null
-            console.log(this.REQUISITION_DATA_TO_SAVE_OR_SEND)
-            service.getSaveNewRequisition_CREATE_REQUISITION(wh_from, req_status, this.REQUISITION_DATA_TO_SAVE_OR_SEND)
-                .then(res => {
-                    console.log(res.data)
-                    if(res.data.response_code === 200 || res.data.response_code === 201) {
-                        this.status_modal_msg = 'Requisition send successfully'
-                        this.SELECTED_REQUISITION_DATA = []
-                        this.$store.state.DESELECT_ALL_SELECTED_PRODUCT = new Date
-                        setTimeout( () => {
-                            this.status_modal = false
-                            this.status_modal_msg = null
-                        }, 2000)
-                        this.changeThisComponent()
-                    }
-                })
-                .catch(err => {
-                    if(err) {
-                        console.log(err)
-                        this.status_modal_msg = 'Server problem 500'
-                        setTimeout( () => {
-                            this.status_modal = false
-                            this.status_modal_msg = null
-                        }, 2000)
-                    }
-                })
-        },
-        async UPDATE_SAVE_NEW_REQUISITION__FROM_SERVICE(requisition_id, wh_from, req_status) {
-            console.log('SAVE_NEW_REQUISITION__FROM_SERVICE')
-            this.popup_modal_for__save_or_send = null
-            console.log(this.REQUISITION_DATA_TO_SAVE_OR_SEND)
-            service.getUpdateNewRequisition_CREATE_REQUISITION(requisition_id, wh_from, req_status, this.REQUISITION_DATA_TO_SAVE_OR_SEND)
-                .then(res => {
-                    console.log(res.data)
-                    if(res.data.response_code === 200 || res.data.response_code === 201) {
-                        this.status_modal_msg = 'Requisition saved successfully'
-                        this.SELECTED_REQUISITION_DATA = []
-                        this.$store.state.DESELECT_ALL_SELECTED_PRODUCT = new Date
-                        setTimeout( () => {
-                            this.status_modal = false
-                            this.status_modal_msg = null
-                        }, 2000)
-                        this.changeThisComponent()
-                    }
-                })
-                .catch(err => {
-                    if(err) {
-                        console.log(err)
-                        this.status_modal_msg = 'Server problem 500'
-                        setTimeout( () => {
-                            this.status_modal = false
-                            this.status_modal_msg = null
-                        }, 2000)
-                    }
-                })
-        },
-        async UPDATE_SEND_NEW_REQUISITION__FROM_SERVICE(requisition_id, wh_from, req_status) {
-            console.log('SEND_NEW_REQUISITION__FROM_SERVICE')
-            console.log(wh_from + '    ' + req_status)
-            this.popup_modal_for__save_or_send = null
-            console.log(this.REQUISITION_DATA_TO_SAVE_OR_SEND)
-            service.getUpdateNewRequisition_CREATE_REQUISITION(requisition_id, wh_from, req_status, this.REQUISITION_DATA_TO_SAVE_OR_SEND)
-                .then(res => {
-                    console.log(res.data)
-                    if(res.data.response_code === 200 || res.data.response_code === 201) {
-                        this.status_modal_msg = 'Requisition send successfully'
-                        this.SELECTED_REQUISITION_DATA = []
-                        this.$store.state.DESELECT_ALL_SELECTED_PRODUCT = new Date
-                        setTimeout( () => {
-                            this.status_modal = false
-                            this.status_modal_msg = null
-                        }, 2000)
-                        this.changeThisComponent()
-                    }
-                })
-                .catch(err => {
-                    if(err) {
-                        console.log(err)
-                        this.status_modal_msg = 'Server problem 500'
-                        setTimeout( () => {
-                            this.status_modal = false
-                            this.status_modal_msg = null
-                        }, 2000)
-                    }
-                })
-        },
-        // ----------------------------------------------------------
-        // TAR
-        async SAVE_REQUISITION__FROM_SERVICE(transfer_id, wh_from, req_status) {
-            console.log('SAVE_REQUISITION__FROM_SERVICE')
-            console.log(transfer_id + '  ' + wh_from + '  ' + req_status)
-            /*this.popup_modal_for__save_or_send = null
-            console.log(this.REQUISITION_DATA_TO_SAVE_OR_SEND)
-            service.getUpdateNewRequisition_CREATE_REQUISITION(transfer_id, wh_from, req_status, this.REQUISITION_DATA_TO_SAVE_OR_SEND)
-                .then(res => {
-                    console.log(res.data)
-                    if(res.data.response_code === 200 || res.data.response_code === 201) {
-                        this.status_modal_msg = 'Requisition saved successfully'
-                        this.SELECTED_REQUISITION_DETAILS = []
-                        this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS = []
-                        this.$store.state.TRANSFER_APPROVE_REQUISITION__RELOAD_LEFT_SECTION = new Date()
-                        setTimeout( () => {
-                            this.status_modal = false
-                            this.status_modal_msg = null
-                        }, 2000)
-                    }
-                })
-                .catch(err => {
-                    if(err) {
-                        console.log(err)
-                        this.status_modal_msg = 'Server problem 500'
-                        setTimeout( () => {
-                            this.status_modal = false
-                            this.status_modal_msg = null
-                        }, 2000)
-                    }
-                })*/
-        },
-        async APPROVE_REQUISITION__FROM_SERVICE(transfer_id, driver_usr_id) {
-            console.log('APPROVE_REQUISITION__FROM_SERVICE')
-            console.log(transfer_id + '    ' + driver_usr_id)
-            /*this.popup_modal_for__save_or_send = null
-            service.getApproveTransferRequisition_TRANSFER_APPROVE_REQUISITION(transfer_id, driver_usr_id)
-                .then(res => {
-                    console.log(res.data)
-                    if(res.data.response_code === 200 || res.data.response_code === 201) {
-                        this.status_modal_msg = 'Requisition approve successfully'
-                        this.SELECTED_REQUISITION_DETAILS = []
-                        this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS = []
-                        this.driver_user_id = null
-                        this.$store.state.TRANSFER_APPROVE_REQUISITION__RELOAD_LEFT_SECTION = new Date()
-                        setTimeout( () => {
-                            this.status_modal = false
-                            this.status_modal_msg = null
-                        }, 2000)
-                    }
-                })
-                .catch(err => {
-                    if(err) {
-                        console.log(err)
-                        this.status_modal_msg = 'Server problem 500'
-                        setTimeout( () => {
-                            this.status_modal = false
-                            this.status_modal_msg = null
-                        }, 2000)
-                    }
-                })*/
         },
     },
     watch: {}
