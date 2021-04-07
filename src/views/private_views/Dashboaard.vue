@@ -85,6 +85,10 @@
         <router-link to="/features/local_sales/verified-requisition">Transfer Verify</router-link>
       </div>
       <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
+        <!-- <router-link to="/features/local_sales/verified-requisition-update">Transfer Verify Update</router-link> -->
+        <a @click="transferVerifyUpdateClickHandler" style="cursor: pointer;">Transfer Verify Update</a>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
         <router-link to="/features/local_sales/transfer-approve-requisition">Transfer Approve</router-link>
       </div>
       <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
@@ -151,6 +155,9 @@ export default {
   methods: {
     noBack() {
       window.history.forward();
+    },
+    transferVerifyUpdateClickHandler() {
+      alert('Go to Transfer Verify Requisition page and edit data.')
     },
     print() {
       console.log("working");

@@ -211,7 +211,8 @@ export default {
             console.log(this.SELECTED_REQUISITION_DETAILS)
             if(this.SELECTED_REQUISITION_DETAILS.id) {
                 this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT = this.SELECTED_REQUISITION_DETAILS
-                this.$router.push('/features/local_sales/create-requisition')
+                // this.$router.push('/features/local_sales/create-requisition')
+                this.$router.push('/features/local_sales/verified-requisition-update')
             } else {
                 alert('Please select a requisitor from left.')
             }

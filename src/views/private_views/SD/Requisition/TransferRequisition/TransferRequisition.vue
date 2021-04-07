@@ -39,9 +39,9 @@ export default {
     };
   },
     computed: {
-        // LOAD_STOCK_REQUISITION_LIST() {
-        //     return this.$store.state.TRANSFER_REQUISITION__VERIFY_REQUISITION
-        // }
+        LOAD_STOCK_REQUISITION_LIST() {
+            return this.$store.state.DESELECT_ALL_SELECTED_PRODUCT
+        }
     },
   created() {
     this.$emit("routeName", this.$route.name);
@@ -81,13 +81,13 @@ export default {
     },
   },
     watch: {
-        // LOAD_STOCK_REQUISITION_LIST(newVal) {
-        //     if(newVal) {
-        //       this.SELECTED_REQUISITION_DETAILS = []
-        //       this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS = [] 
-        //       this.SELECTED_REQUISITION_DETAILS_WH_NAME = null
-        //     }
-        // }
+        LOAD_STOCK_REQUISITION_LIST(newVal) {
+            if(newVal) {
+              this.SELECTED_REQUISITION_DETAILS = []
+              this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS = [] 
+              this.SELECTED_REQUISITION_DETAILS_WH_NAME = null
+            }
+        }
     }
 };
 </script>

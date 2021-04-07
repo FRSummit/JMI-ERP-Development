@@ -44,13 +44,13 @@
                   <!-- <div class="col-lg-6 col-12 d-flex align-items-center justify-content-end"> -->
                   <div class="col-lg-6 d-flex align-items-center justify-content-end">
                       <!-- <a @click="createNewProductClickHandler"> <button type="button" class="btn btn-primary btn-global"> <i class="fa fa-plus mr-2"> </i>Add Product</button></a> -->
-                      <button type="button" class="btn-global create-product" data-toggle="modal" data-target="#classification-modal"> <i class="fa fa-plus mr-2"> </i>Add Product</button>
+                      <button type="button" class="btn-global create-product" data-toggle="modal" data-target="#classification-modal" @click="addProductBtnClickHandler"><i class="fa fa-plus mr-2"> </i>Add Product</button>
                   </div>
 
                   <!-- Start Classification Modal Area -->
                 <div class="modal" id="classification-modal" tabindex="-1" role="dialog" aria-labelledby="classification" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="margin: 0;">
-                        <div class="modal-content" style="padding: 14px 0;">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="margin: 0; display: contents;">
+                        <div class="modal-content" style="padding: 14px 0; border: 0;">
                         <div class="modal-header">
                             <h5 class="modal-title">Add Product</h5>
                             <button type="button" id="classification-modal-close-btn" class="close" data-dismiss="modal" aria-label="Close" style="width: 50px;">
@@ -74,26 +74,31 @@
                                 <div class="col-6" style="padding-top: 0; padding-bottom: 0;">
                                     
                                     <div class="product-list" style="padding-top: 0; padding-bottom: 0;">
-                                        <!-- <div class="form-group mt-2"> -->
-                                        <div class="form-group">
-                                            <label for="product_class">Product Class</label>
-                                            <select class="form-control" id="unit" v-model="prod_class_id_prod_modal" @change="onChangeProdClassIdProdModal">
-                                                <!-- <option>Select Class</option> -->
-                                                <option v-for="(item, i) in PRIORITY_CLASS_PRODUCTS_MODAL" :key="i" :value="item.id">{{ item.element_name }}</option>
-                                            </select>
-                                        </div>
                                         <!-- <div class="product-list-inner" style="margin-top: 0; height: 320px;"> -->
-                                        <div class="product-list-inner" style="margin-top: 0; height: 234px;">
+                                        <!-- <div class="product-list-inner" style="margin-top: 0; height: 234px;">
                                             <div class="product-card2" v-for="(item, i) in SELECTED_PRODUCTS_LIST__PRODUCT_MODAL" :key="i">
                                                 <div class="row1"><h5>{{ item.prod_name }}</h5> <p>Code: <span>{{ item.prod_code }}</span></p></div>
                                                 <div class="row2"><p><span v-for="(elem, j) in item.element" :key="j">{{ elem.element_name }}</span></p></div>
                                             </div>
-                                        </div>
+                                        </div> -->
+                                        <!-- <div class="form-group mt-2"> -->
+                                        <!-- <div class="form-group">
+                                            <label for="product_class">Product Class</label>
+                                            <select class="form-control" id="unit" v-model="prod_class_id_prod_modal" @change="onChangeProdClassIdProdModal">
+                                                <option v-for="(item, i) in PRIORITY_CLASS_PRODUCTS_MODAL" :key="i" :value="item.id">{{ item.element_name }}</option>
+                                            </select>
+                                        </div> -->
                                     </div>
-                                    <!-- <div class="product-selected">
-                                        <div class="row1"><h5>Ace® Power - 500mg</h5> <p>Code: <span>NP2125</span></p></div>
-                                        <div class="row2"><p>Paracetamol</p></div>
-                                    </div> -->
+                                    <div class="product-selected" v-for="(item, i) in SELECTED_PRODUCTS_LIST__PRODUCT_MODAL" :key="i">
+                                        <div class="row1"><h5>{{ item.prod_name }}</h5> <p>Code: <span>{{ item.prod_code }}</span></p></div>
+                                        <div class="row2"><p><span v-for="(elem, j) in item.element" :key="j">{{ elem.element_name }}</span></p></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="product_class">Product Class</label>
+                                        <select class="form-control" id="priority_class_prod_modal" v-model="prod_class_id_prod_modal" @change="onChangeProdClassIdProdModal">
+                                            <option v-for="(item, i) in PRIORITY_CLASS_PRODUCTS_MODAL" :key="i" :value="item.id">{{ item.element_name }}</option>
+                                        </select>
+                                    </div>
 
                                     <!-- <div class="form-group mt-2">
                                         <label for="product_class">Product Class</label>
@@ -894,6 +899,9 @@ export default {
         },
         // ---------------------------------------------------------------------------
         // PRODUCT MODAL
+        addProductBtnClickHandler() {
+            this.SELECTED_PRODUCTS_LIST__PRODUCT_MODAL = []
+        },
         checkElementLengthToSetComma(j, element) {
         return (j < element.length - 1) ? ', ' : ''
         },
@@ -955,6 +963,14 @@ export default {
                 .then((res) => {
                     console.log(res.data);
                     this.PRIORITY_CLASS_PRODUCTS_MODAL = res.data.code_elements;
+
+                    if(this.PRIORITY_CLASS_PRODUCTS_MODAL) {
+                        setTimeout( () => {
+                            var options = document.getElementById("priority_class_prod_modal").options;
+                            options[0].selected = true;
+                            this.prod_class_id_prod_modal = this.PRIORITY_CLASS_PRODUCTS_MODAL[0].id
+                        }, 200)
+                    }
                 })
                 .catch((err) => {
                     if (err) {

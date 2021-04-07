@@ -1002,6 +1002,21 @@ export default class PostService {
   }
 
   // -------------------------------------------------------------------------------------------
+  // REQUISITION - TRANSFER VERIFY UPDATE
+  async getUpdateNewRequisition_TRANSFER_VERIFY_REQUISITION_UPDATE(requisition_id, prod_info) {
+    let web_menu_url = '/api/web/update-new-requisition/' + requisition_id
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+      params: {
+        prod_info: JSON.stringify(prod_info)
+      }
+    })
+  }
+
+  // -------------------------------------------------------------------------------------------
   // REQUISITION - TRANSFER APPROVE - LEFT LIST
   async getVerifiedStockRequisitionList_TRANSFER_APPROVE_REQUISITION() {
     let web_menu_url = '/api/web/verified-stock-requisition-list'
@@ -1013,7 +1028,7 @@ export default class PostService {
     })
   }
 
-  // REQUISITION - TRANSFER APPROVE - DETAILS - DRIVER LIST
+  /*// REQUISITION - TRANSFER APPROVE - DETAILS - DRIVER LIST
   async getDepotDriverList_TRANSFER_APPROVE_REQUISITION() {
     let web_menu_url = '/api/web/depot-driver-list'
     return await axios(web_menu_url, {
@@ -1022,7 +1037,7 @@ export default class PostService {
         'Authorization': token_type + ' ' + token
       },
     })
-  }
+  }*/
 
   // REQUISITION - TRANSFER APPROVE - DETAILS - APPROVING
   async getApproveTransferRequisition_TRANSFER_APPROVE_REQUISITION(transfer_id, driver_id) {
