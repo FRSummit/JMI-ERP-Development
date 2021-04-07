@@ -63,6 +63,10 @@ input[type="checkbox"] {
     text-align: center;
 }
 
+.jmi-active {
+    background-color: #026CD11A !important;
+}
+
 .text-data.jmi-tool-tip-parent {
     position: relative;
 }

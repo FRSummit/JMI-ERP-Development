@@ -91,6 +91,10 @@
                         <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="saveAsSubmitClickHandler">Save As Submit</button></a>
                         <a><button type="button" class="btn btn-primary btn-global mx-2" @click="approveRequestClickHandler">Approve</button></a>
                     </div>
+                    <div class="row requition_footer" v-if="(SELECTED_REQUISITION_DATA.length ? SELECTED_REQUISITION_DATA.length > 0 : false) && (PREVIOUS_ROUTE_NAME === 'Transfer Approve Requisition')">
+                        <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="saveAsDraftTARClickHandler">Save As Draft</button></a>
+                        <a><button type="button" class="btn btn-primary btn-global mx-2" @click="approveRequestTARClickHandler">Approve</button></a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -292,6 +296,26 @@ export default {
                 this.proceed_modal_popup = true
             }
         },
+        // FOR TRANSFER APPROVE REQUISITION
+        saveAsDraftTARClickHandler() {
+            if(this.proceed_modal_popup) {
+                this.proceed_modal_popup = false
+            } else {
+                this.popup_modal_for__save_or_send = 'DRAFT TAR'
+                this.proceed_modal_popup_msg = 'You want to save the requisition.'
+                this.proceed_modal_popup = true
+            }
+        },
+        approveRequestTARClickHandler() {
+            if(this.proceed_modal_popup) {
+                this.proceed_modal_popup = false
+            } else {
+                this.popup_modal_for__save_or_send = 'APPROVE TAR'
+                this.proceed_modal_popup_msg = 'You want to approve the requisition.'
+                this.proceed_modal_popup = true
+            }
+        },
+        // -------------------------------------------------------------------
         cancelOrderModalClickHandler() {
             this.proceed_modal_popup = false
         },
@@ -323,6 +347,16 @@ export default {
                 let req_status = 'A'
                 let requisition_id = this.STORED_DATA.id
                 await this.UPDATE_SEND_NEW_REQUISITION__FROM_SERVICE(requisition_id, wh_from, req_status)
+            } else if(this.popup_modal_for__save_or_send === 'DRAFT TAR') {
+                // let req_status = null
+                // let requisition_id = this.STORED_DATA.id
+                console.log(this.SELECTED_REQUISITION_DATA)
+                // await this.SAVE_REQUISITION__FROM_SERVICE(requisition_id, wh_from, req_status)
+            } else if(this.popup_modal_for__save_or_send === 'APPROVE TAR') {
+                // let req_status = 'A'
+                // let requisition_id = this.STORED_DATA.id
+                console.log(this.SELECTED_REQUISITION_DATA)
+                // await this.APPROVE_REQUISITION__FROM_SERVICE(requisition_id, wh_from, req_status)
             }
         },
         changeThisComponent() {
@@ -498,6 +532,68 @@ export default {
                         }, 2000)
                     }
                 })
+        },
+        // ----------------------------------------------------------
+        // TAR
+        async SAVE_REQUISITION__FROM_SERVICE(transfer_id, wh_from, req_status) {
+            console.log('SAVE_REQUISITION__FROM_SERVICE')
+            console.log(transfer_id + '  ' + wh_from + '  ' + req_status)
+            /*this.popup_modal_for__save_or_send = null
+            console.log(this.REQUISITION_DATA_TO_SAVE_OR_SEND)
+            service.getUpdateNewRequisition_CREATE_REQUISITION(transfer_id, wh_from, req_status, this.REQUISITION_DATA_TO_SAVE_OR_SEND)
+                .then(res => {
+                    console.log(res.data)
+                    if(res.data.response_code === 200 || res.data.response_code === 201) {
+                        this.status_modal_msg = 'Requisition saved successfully'
+                        this.SELECTED_REQUISITION_DETAILS = []
+                        this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS = []
+                        this.$store.state.TRANSFER_APPROVE_REQUISITION__RELOAD_LEFT_SECTION = new Date()
+                        setTimeout( () => {
+                            this.status_modal = false
+                            this.status_modal_msg = null
+                        }, 2000)
+                    }
+                })
+                .catch(err => {
+                    if(err) {
+                        console.log(err)
+                        this.status_modal_msg = 'Server problem 500'
+                        setTimeout( () => {
+                            this.status_modal = false
+                            this.status_modal_msg = null
+                        }, 2000)
+                    }
+                })*/
+        },
+        async APPROVE_REQUISITION__FROM_SERVICE(transfer_id, driver_usr_id) {
+            console.log('APPROVE_REQUISITION__FROM_SERVICE')
+            console.log(transfer_id + '    ' + driver_usr_id)
+            /*this.popup_modal_for__save_or_send = null
+            service.getApproveTransferRequisition_TRANSFER_APPROVE_REQUISITION(transfer_id, driver_usr_id)
+                .then(res => {
+                    console.log(res.data)
+                    if(res.data.response_code === 200 || res.data.response_code === 201) {
+                        this.status_modal_msg = 'Requisition approve successfully'
+                        this.SELECTED_REQUISITION_DETAILS = []
+                        this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS = []
+                        this.driver_user_id = null
+                        this.$store.state.TRANSFER_APPROVE_REQUISITION__RELOAD_LEFT_SECTION = new Date()
+                        setTimeout( () => {
+                            this.status_modal = false
+                            this.status_modal_msg = null
+                        }, 2000)
+                    }
+                })
+                .catch(err => {
+                    if(err) {
+                        console.log(err)
+                        this.status_modal_msg = 'Server problem 500'
+                        setTimeout( () => {
+                            this.status_modal = false
+                            this.status_modal_msg = null
+                        }, 2000)
+                    }
+                })*/
         },
     },
     watch: {}

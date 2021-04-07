@@ -79,6 +79,7 @@
     justify-content : space-between;
     background-color: var(--white);
     border-bottom   : 1px solid var(--border-color);
+    cursor          : pointer;
 }
 
 .layout-sidebar.product .content .card_body:hover,
@@ -107,7 +108,7 @@
     font-size       : var(--font10);
     color           : var(--white);
     padding         : 1px 6px;
-    background-color: rgb(53, 210, 126);
+    background-color: #026cd1;
     border-radius   : 50px;
 }
 
@@ -333,6 +334,7 @@
     justify-content : space-between;
     background-color: var(--white);
     border-bottom   : 1px solid var(--border-color);
+    cursor          : pointer;
 }
 
 .modal-body .product-list .product-list-inner .product-card2:hover,

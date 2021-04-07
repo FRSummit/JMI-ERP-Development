@@ -27,11 +27,10 @@
                         <div class="col-12 header_top">
                             <h5>Requisition No: <span>{{ SELECTED_REQUISITION_DETAILS.requisition_no ? SELECTED_REQUISITION_DETAILS.requisition_no : '' }}</span></h5>
                             <a class="edit hide" @click="editRequisitionClickHandler"><i class="zmdi zmdi-edit"></i></a>
-                            <div class="col-lg-4 col-md-4 col-12">
+                            <div class="col-lg-3 col-md-3 col-12">
                                 <div class="form-group">
                                     <label for="requisition_to" class="col-form-label">Driver</label>
-                                    <select class="form-control-sm" id="requisition_to" v-model="driver_user_id" @change="onChangeDriver()">
-                                        <!-- <option >Select driver</option> -->
+                                    <select class="form-control-sm" id="driver_select_box" v-model="driver_user_id" @change="onChangeDriver()">
                                         <option v-for="(driver, i) in DRIVER_LIST" :key="i" :value="driver.user_id">{{ driver.get_adm_user ? driver.get_adm_user.name : '' }}</option>
                                     </select>
                                 </div>
@@ -79,12 +78,12 @@
                                     <th>Unit</th>
                                     <th>Quantity</th>
                                     <th>Stock</th>
-                                    <th></th>
+                                    <!-- <th></th> -->
                                 </tr>
                             </thead>
                             <tbody>
                                 <!-- <tr v-for="(item, i) in items" :key="i"> -->
-                                <tr v-for="(item, i) in SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS" :key="i" :class="checkStockAvailablity(parseInt(item.req_qty), parseInt(item.available_stock))">
+                                <tr v-for="(item, i) in SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS" :key="i" :class="checkStockAvailablity(item)">
                                     <td>
                                         <div class="product">
                                             <!-- <p class="name">{{ item..prod_info.prod_name }}<span> {{ item.qty }}</span></p> -->
@@ -108,8 +107,8 @@
                                     <td>
                                         <form>
                                             <div class="quantity-input">
-                                                <input class='minus' type='button' value='-' field='quantity' @click="decreaseRequisitionQtyClickHandler(item, i)" />
-                                                <input class='quantity' type='number' name='quantity' placeholder="0" :value="item.req_qty" :id="'req_qty_' + i" v-on:keyup="reqQtyKeyUpEventHandler(item, $event, i)" v-on:keydown="reqQtyKeyDownEventHandler($event, i)" />
+                                                <input class='minus hide' type='button' value='-' field='quantity' @click="decreaseRequisitionQtyClickHandler(item, i)" />
+                                                <input class='quantity' type='number' name='quantity' placeholder="0" :value="item.req_qty" :id="'req_qty_' + i" v-on:keyup="reqQtyKeyUpEventHandler(item, $event, i)" v-on:keydown="reqQtyKeyDownEventHandler($event, i)" readonly />
                                                 <input class='plus hide' type='button' value='+' field='quantity' @click="increaseRequisitionQtyClickHandler(item, i)" />
                                             </div>
                                         </form>
@@ -120,16 +119,16 @@
                                             <p class="type">{{ item.available_stock }}</p>
                                         </div>
                                     </td>
-                                    <td>
+                                    <!-- <td>
                                         <a class="edit" @click="singleItemEditClickHandler"><i class="zmdi zmdi-edit"></i></a>
                                         <a class="remove" @click="singleItemDeleteClickHandler"><i class="fas fa-trash-alt"></i></a>
-                                    </td>
+                                    </td> -->
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                    <div class="row requition_footer" v-if="(SELECTED_REQUISITION_DETAILS.id ? true : false) && (parseInt(item.req_qty) <= parseInt(item.available_stock))">
-                        <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="saveAsDraftClickHandler">Save As Draft</button></a>
+                    <div class="row requition_footer" v-if="(SELECTED_REQUISITION_DETAILS.id ? true : false) && TAR_APPROVE_BTNS">
+                        <a class="hide"><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="saveAsDraftClickHandler">Save As Draft</button></a>
                         <a><button type="button" class="btn btn-primary btn-global mx-2" @click="sendRequestClickHandler">Approve</button></a>
                         
                     </div>
@@ -187,6 +186,7 @@ export default {
             proceed_modal_popup_msg: null,
             status_modal: false,
             status_modal_msg: null,
+            TAR_APPROVE_BTNS: false,
         }
     },
     computed: {
@@ -202,7 +202,7 @@ export default {
                 }
             }
             return prod_info
-        }
+        },
     },
     created() {},
     async mounted() {
@@ -230,8 +230,9 @@ export default {
         onChangeDriver() {
             console.log(this.wh_from)
         },
-        checkStockAvailablity(req_qty, available_stock) {
-            return req_qty > available_stock ? 'out-of-stock' : ''
+        checkStockAvailablity(item) {
+            this.TAR_APPROVE_BTNS = parseInt(item.req_qty) > parseInt(item.available_stock) ? false : true
+            return parseInt(item.req_qty) > parseInt(item.available_stock) ? 'out-of-stock' : ''
         },
         decreaseRequisitionQtyClickHandler(item, index) {
             console.log(index)
@@ -325,6 +326,14 @@ export default {
                 .then(res => {
                     console.log(res.data)
                     this.DRIVER_LIST = res.data.driver_list
+
+                    if(this.DRIVER_LIST) {
+                        setTimeout( () => {
+                            var options = document.getElementById("driver_select_box").options;
+                            options[0].selected = true;
+                            this.driver_user_id = this.DRIVER_LIST[0].user_id
+                        }, 500)
+                    }
                 })
                 .catch(err => {
                     if(err) {
@@ -375,7 +384,7 @@ export default {
                         this.SELECTED_REQUISITION_DETAILS = []
                         this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS = []
                         this.driver_user_id = null
-                        this.$store.state.TRANSFER_APPROVE_REQUISITION__RELOAD_LEFT_SECTION = new Date
+                        this.$store.state.TRANSFER_APPROVE_REQUISITION__RELOAD_LEFT_SECTION = new Date()
                         setTimeout( () => {
                             this.status_modal = false
                             this.status_modal_msg = null

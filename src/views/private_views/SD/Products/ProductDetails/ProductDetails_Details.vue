@@ -53,7 +53,7 @@
                         <div class="modal-content" style="padding: 14px 0;">
                         <div class="modal-header">
                             <h5 class="modal-title">Add Product</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="width: 50px;">
+                            <button type="button" id="classification-modal-close-btn" class="close" data-dismiss="modal" aria-label="Close" style="width: 50px;">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -61,11 +61,12 @@
                             <div class="row" style="margin-bottom: 0;">
                                 <div class="col-6" style="padding-top: 0; padding-bottom: 0;">
                                     <div class="product-list" style="padding-top: 0; padding-bottom: 0;">
-                                        <div class="form-group" style="padding-left: 0; padding-right: 0;"><i class="fa fa-search"> </i><input type="text" placeholder="Search by Name, ID No" class="form-control" style="padding-left: 30px;"></div>
+                                        <div class="form-group" style="padding-left: 0; padding-right: 0;"><i class="fa fa-search"> </i><input type="text" placeholder="Search by Name, ID No" id="products-modal-search-filter" v-on:keyup="searchKeyUpHandlerProductModal" class="form-control" style="padding-left: 30px;"></div>
                                         <div class="product-list-inner" style="margin-top: 0;">
-                                            <div class="product-card2" v-for="(item, i) in 177" :key="i">
-                                                <div class="row1"><h5>Ace® Power - 500mg</h5> <p>Code: <span>NP2125</span></p></div>
-                                                <div class="row2"><p>Paracetamol</p></div>
+                                            <div class="product-card2" v-for="(item, i) in PRODUCTS_LIST" :key="i" @click="singleProductClickFromProductList_ProductModal(item)">
+                                                <div class="row1"><h5>{{ item.prod_name }}</h5> <p>Code: <span>{{ item.prod_code }}</span></p></div>
+                                                <div class="row2"><p><span v-for="(elem, j) in item.element" :key="j">{{ elem.element_name }}{{ checkElementLengthToSetComma(j, item.element) }}</span></p></div>
+                                                <p class="jmi-search-key hide">{{ createSearchString(item) }}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -73,11 +74,19 @@
                                 <div class="col-6" style="padding-top: 0; padding-bottom: 0;">
                                     
                                     <div class="product-list" style="padding-top: 0; padding-bottom: 0;">
-                                        <div class="product-list-inner" style="margin-top: 0; height: 320px;">
-                                
-                                            <div class="product-card2" v-for="(item, i) in 20" :key="i">
-                                                <div class="row1"><h5>Ace® Power - 500mg</h5> <p>Code: <span>NP2125</span></p></div>
-                                                <div class="row2"><p>Paracetamol</p></div>
+                                        <!-- <div class="form-group mt-2"> -->
+                                        <div class="form-group">
+                                            <label for="product_class">Product Class</label>
+                                            <select class="form-control" id="unit" v-model="prod_class_id_prod_modal" @change="onChangeProdClassIdProdModal">
+                                                <!-- <option>Select Class</option> -->
+                                                <option v-for="(item, i) in PRIORITY_CLASS_PRODUCTS_MODAL" :key="i" :value="item.id">{{ item.element_name }}</option>
+                                            </select>
+                                        </div>
+                                        <!-- <div class="product-list-inner" style="margin-top: 0; height: 320px;"> -->
+                                        <div class="product-list-inner" style="margin-top: 0; height: 234px;">
+                                            <div class="product-card2" v-for="(item, i) in SELECTED_PRODUCTS_LIST__PRODUCT_MODAL" :key="i">
+                                                <div class="row1"><h5>{{ item.prod_name }}</h5> <p>Code: <span>{{ item.prod_code }}</span></p></div>
+                                                <div class="row2"><p><span v-for="(elem, j) in item.element" :key="j">{{ elem.element_name }}</span></p></div>
                                             </div>
                                         </div>
                                     </div>
@@ -100,7 +109,7 @@
                             </div>
                         </div>
                         <div class="modal-footer justify-content-center">
-                            <button type="button" class="btn btn-primary btn-global modal-prod-save-btn">Save</button>
+                            <button type="button" class="btn btn-primary btn-global modal-prod-save-btn" @click="saveNewSBUProductClickHandler">Save</button>
                         </div>
                         </div>
                     </div>
@@ -830,36 +839,166 @@
             </div>
           </div>
         </div>
+        <!-- Order Creating Modal -->
+        <div class="modal-popup-section order-proceed-modal" v-if="prod_creating_progressbar">
+            <div class="modal-popup-section-inner order-proceed-modal-inner">
+                <div id="progressbar" class="jmi-progressbar">
+                    <v-progress-circular indeterminate color="primary"></v-progress-circular>
+                    <p>{{ prod_creating_progressbar_msg ? prod_creating_progressbar_msg : 'Product creating inprogress' }}</p>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
+import ERPSidebarService from "../../../../../service/ERPSidebarService";
+const service = new ERPSidebarService();
+import JMIFilter from '../../../../../functions/JMIFIlter'
+const jmiFilter = new JMIFilter()
+
 export default {
     props: [],
     components: {},
     data() {
-        return {}
+        return {
+            PRODUCTS_LIST: [],
+            PRIORITY_CLASS_PRODUCTS_MODAL: [],
+            SELECTED_PRODUCTS_LIST__PRODUCT_MODAL: [],
+            prod_class_id_prod_modal: null,
+            prod_creating_progressbar: false,
+            prod_creating_progressbar_msg: null,
+        }
     },
     computed: {},
     created() {},
-    mounted() {},
+    async mounted() {
+        await this.SEARCH_PRODUCT_DATA_LIST__FROM_SERVICE()
+        await this.PRODUCT_CLASS_ELEMENT_LIST__FROM_SERVICE()
+    },
     methods: {
-      createNewProductClickHandler() {
-          console.log('createNewProductClickHandler')
-      },
-      changePhotoModalCloseClickHandler() {
-        console.log('changePhotoModalCloseClickHandler')
-      },
-      changePhotoSaveBtnClickHandler() {
-        console.log('changePhotoSaveBtnClickHandler')
-      },
-      saveBtnClickHandler() {
-        console.log('saveBtnClickHandler')
-      },
-      editBtnClickHandler() {
-        console.log('editBtnClickHandler')
-      },
+        createNewProductClickHandler() {
+            console.log('createNewProductClickHandler')
+        },
+        changePhotoModalCloseClickHandler() {
+            console.log('changePhotoModalCloseClickHandler')
+        },
+        changePhotoSaveBtnClickHandler() {
+            console.log('changePhotoSaveBtnClickHandler')
+        },
+        saveBtnClickHandler() {
+            console.log('saveBtnClickHandler')
+        },
+        editBtnClickHandler() {
+            console.log('editBtnClickHandler')
+        },
+        // ---------------------------------------------------------------------------
+        // PRODUCT MODAL
+        checkElementLengthToSetComma(j, element) {
+        return (j < element.length - 1) ? ', ' : ''
+        },
+        singleProductClickFromProductList_ProductModal(item) {
+            this.SELECTED_PRODUCTS_LIST__PRODUCT_MODAL = []
+            this.SELECTED_PRODUCTS_LIST__PRODUCT_MODAL.push(item)
+        },
+        onChangeProdClassIdProdModal() {
+            console.log(this.prod_class_id_prod_modal)
+        },
+        async saveNewSBUProductClickHandler() {
+            if(this.prod_class_id_prod_modal && this.SELECTED_PRODUCTS_LIST__PRODUCT_MODAL.length > 0) {
+                console.log('save btn clicked')
+                let prod_id = this.SELECTED_PRODUCTS_LIST__PRODUCT_MODAL[0].id
+                let prod_class_id = this.prod_class_id_prod_modal
+                await this.CREATE_NEW_SBU_PRODUCT__FROM_SERVICE(prod_id, prod_class_id)
+            } else {
+                alert('Product or Product class is empty. Please select both.')
+            }
+        },
+        // ---------------------------------------------------------------------------
+        // FILTER
+        createSearchString(item) {
+            let elements = ''
+            for(let i=0; i<item.element.length; i++) {
+                elements += item.element[i].code_id + ' ' + item.element[i].element_name + ' '
+            }
+            return item.base_mrp + ' ' + item.base_tp + ' ' + item.base_vat + ' ' + item.code_id + ' ' + item.display_code + ' ' + item.id + ' ' + item.offer + ' ' + item.prod_class + ' ' + item.prod_code + ' ' + item.prod_id + ' ' + item.prod_name + ' ' + elements
+        },
+        searchKeyUpHandlerProductModal(value) {
+            console.log(value.key)
+            let input = document.getElementById("products-modal-search-filter");
+            let filter = input.value.toUpperCase();
+            let list = document.querySelectorAll('#product-details-details #classification-modal .modal-body .product-card2')
+            let txt_selector = "jmi-search-key"
 
+            jmiFilter.searchById_LeftSidebar(filter, list, txt_selector)
+        },
+        // ---------------------------------------------------------------------------
+        // SERVICE CALL
+        async SEARCH_PRODUCT_DATA_LIST__FROM_SERVICE() {
+            this.PRODUCTS_LIST = [];
+            await service.getNewProductList_PRODUCTS_DETAILS()
+                .then((res) => {
+                    console.log(res.data);
+                    this.PRODUCTS_LIST = res.data.product_list;
+                    console.log(this.PRODUCTS_LIST);
+                })
+                .catch((err) => {
+                    if (err) {
+                        this.PRODUCTS_LIST = [];
+                        alert("Server Error 500. " + err);
+                    }
+                });
+        },
+        async PRODUCT_CLASS_ELEMENT_LIST__FROM_SERVICE() {
+            this.PRIORITY_CLASS_PRODUCTS_MODAL = [];
+            await service.getProductClassElementList_PRODUCTS_DETAILS()
+                .then((res) => {
+                    console.log(res.data);
+                    this.PRIORITY_CLASS_PRODUCTS_MODAL = res.data.code_elements;
+                })
+                .catch((err) => {
+                    if (err) {
+                        this.PRIORITY_CLASS_PRODUCTS_MODAL = [];
+                        alert("Server Error 500. " + err);
+                    }
+                });
+        },
+        async CREATE_NEW_SBU_PRODUCT__FROM_SERVICE(prod_id, prod_class_id) {
+            await service.getCreateNewSBUProduct_PRODUCTS_DETAILS(prod_id, prod_class_id)
+                .then((res) => {
+                    console.log(res.data);
+                    if(res.data.response_code === 200 || res.data.response_code === 201) {
+                        this.prod_class_id_prod_modal = null
+                        this.SELECTED_PRODUCTS_LIST__PRODUCT_MODAL = []
+                        document.getElementById('classification-modal-close-btn').click()
+                        this.prod_creating_progressbar = true
+                        this.prod_creating_progressbar_msg = res.data.message
+                        setTimeout( () => {
+                            this.prod_creating_progressbar = false
+                            this.prod_creating_progressbar_msg = null
+                        }, 1000)
+                    } else {
+                        // this.prod_class_id_prod_modal = null
+                        // this.SELECTED_PRODUCTS_LIST__PRODUCT_MODAL = []
+                        // document.getElementById('classification-modal-close-btn').click()
+                        this.prod_creating_progressbar = true
+                        this.prod_creating_progressbar_msg = res.data.message
+                        setTimeout( () => {
+                            this.prod_creating_progressbar = false
+                            this.prod_creating_progressbar_msg = null
+                        }, 1000)
+                    }
+                })
+                .catch((err) => {
+                    if (err) {
+                        alert('Creating new product problem : ' + err)
+                        this.prod_creating_progressbar = false
+                        this.prod_class_id_prod_modal = null
+                        this.SELECTED_PRODUCTS_LIST__PRODUCT_MODAL = []
+                        document.getElementById('classification-modal-close-btn').click()
+                    }
+                });
+        },
     },
     watch: {},
 }

@@ -15,7 +15,7 @@
         </div>
       </div>
       <div class="content">
-        <div class="card_body" v-for="(item, i) in prods_list" :key="i">
+        <div :id="'card_body_' + i" class="card_body" v-for="(item, i) in prods_list" :key="i" @click="singleCardItemClickHandler(item, i)">
           <div class="row1">
             <h5>{{ item.prod_name }}</h5>
             <p class="new_product">{{ item.prod_class }}</p>
@@ -25,9 +25,10 @@
             <p>TP: {{ item.base_tp }} | MRP: {{ item.base_mrp }}</p>
           </div>
           <div class="row3">
-            <p><span v-for="(elem, j) in item.element" :key="j">{{ elem.element_name }}</span></p>
+            <p><span v-for="(elem, j) in item.element" :key="j">{{ elem.element_name }}{{ checkElementLengthToSetComma(j, item.element) }}</span></p>
             <!-- <p>Last Updated: 20-Sep-2020</p> -->
           </div>
+          <p class="jmi-search-key hide">{{ createSearchString(item) }}</p>
         </div>
       </div>
     </div>
@@ -52,6 +53,33 @@ export default {
     await this.SEARCH_PRODUCT_DATA_LIST__FROM_SERVICE()
   },
   methods: {
+    singleCardItemClickHandler(item, index) {
+      console.log(index)
+      console.log(item)
+
+      let length = document.querySelectorAll('#products-sidebar .card_body').length
+      for(let i=0; i<length; i++) {
+        document.querySelector('#card_body_' + i).className = 'card_body'
+      }
+      if(document.querySelector('#card_body_' + index).className === 'card_body') {
+        document.querySelector('#card_body_' + index).className = 'card_body jmi-active'
+      } else {
+        document.querySelector('#card_body_' + index).className = 'card_body'
+      }
+      // this.$emit("select_customer_by_customer_code", customer.customer_info.id)
+    },
+    checkElementLengthToSetComma(j, element) {
+      return (j < element.length - 1) ? ', ' : ''
+    },
+    // ---------------------------------------------------------------------------
+    // FILTER
+    createSearchString(item) {
+      let elements = ''
+      for(let i=0; i<item.element.length; i++) {
+        elements += item.element[i].code_id + ' ' + item.element[i].element_name + ' '
+      }
+      return item.base_mrp + ' ' + item.base_tp + ' ' + item.base_vat + ' ' + item.code_id + ' ' + item.display_code + ' ' + item.id + ' ' + item.offer + ' ' + item.prod_class + ' ' + item.prod_code + ' ' + item.prod_id + ' ' + item.prod_name + ' ' + elements
+    },
     // ---------------------------------------------------------------------------
     // SERVICE CALL
     async SEARCH_PRODUCT_DATA_LIST__FROM_SERVICE() {
@@ -111,5 +139,8 @@ export default {
 }
 .jmi-scroll-section {
     height: calc(100vh - (74px + 54px + 32px + 108px)) !important;
+}
+.layout-sidebar.product .content .card_body .row1 .new_product {
+  padding: 2px 8px;
 }
 </style>

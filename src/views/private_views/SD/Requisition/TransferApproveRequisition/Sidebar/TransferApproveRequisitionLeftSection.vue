@@ -92,7 +92,7 @@ export default {
                 .catch(err => {
                     if(err) {
                         this.items = []
-                        alert('Server Error 500. ' + err)
+                        console.log('Server Error 500. ' + err)
                     }
                 })
         }
