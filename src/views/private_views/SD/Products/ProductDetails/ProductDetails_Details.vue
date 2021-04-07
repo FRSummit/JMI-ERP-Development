@@ -49,8 +49,8 @@
 
                   <!-- Start Classification Modal Area -->
                 <div class="modal" id="classification-modal" tabindex="-1" role="dialog" aria-labelledby="classification" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="margin: 0;">
-                        <div class="modal-content" style="padding: 14px 0;">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="margin: 0; display: contents;">
+                        <div class="modal-content" style="padding: 14px 0; border: 0;">
                         <div class="modal-header">
                             <h5 class="modal-title">Add Product</h5>
                             <button type="button" id="classification-modal-close-btn" class="close" data-dismiss="modal" aria-label="Close" style="width: 50px;">
