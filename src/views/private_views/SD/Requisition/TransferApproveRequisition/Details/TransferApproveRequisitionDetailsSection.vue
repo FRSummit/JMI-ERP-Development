@@ -27,11 +27,19 @@
                         <div class="col-12 header_top">
                             <h5>Requisition No: <span>{{ SELECTED_REQUISITION_DETAILS.requisition_no ? SELECTED_REQUISITION_DETAILS.requisition_no : '' }}</span></h5>
                             <a class="edit hide" @click="editRequisitionClickHandler"><i class="zmdi zmdi-edit"></i></a>
-                            <div class="col-lg-3 col-md-3 col-12">
+                            <!-- <div class="col-lg-3 col-md-3 col-12">
                                 <div class="form-group">
                                     <label for="requisition_to" class="col-form-label">Driver</label>
                                     <select class="form-control-sm" id="driver_select_box" v-model="driver_user_id" @change="onChangeDriver()">
                                         <option v-for="(driver, i) in DRIVER_LIST" :key="i" :value="driver.user_id">{{ driver.get_adm_user ? driver.get_adm_user.name : '' }}</option>
+                                    </select>
+                                </div>
+                            </div> -->
+                            <div class="col-lg-3 col-md-3 col-12">
+                                <div class="form-group">
+                                    <label for="requisition_to" class="col-form-label">Driver</label>
+                                    <select class="form-control-sm" id="driver_select_box" v-model="driver_user_id" @change="onChangeDriver()">
+                                        <option v-for="(driver, i) in SELECTED_REQUISITION_DETAILS_DRIVER_LIST" :key="i" :value="driver.user_id">{{ driver.get_adm_user ? driver.get_adm_user.name : '' }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -171,12 +179,12 @@ import ERPService from '../../../../../../service/ERPSidebarService'
 const service = new ERPService()
 
 export default {
-    props: ["SELECTED_REQUISITION_DETAILS", "SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS", "SELECTED_REQUISITION_DETAILS_WH_NAME"],
+    props: ["SELECTED_REQUISITION_DETAILS", "SELECTED_REQUISITION_DETAILS_DRIVER_LIST", "SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS", "SELECTED_REQUISITION_DETAILS_WH_NAME"],
     components: {},
     data() {
         return {
             items: [],
-            DRIVER_LIST: [],
+            // DRIVER_LIST: [],
             driver_user_id: null,
             initial_stage: false,
             wh_from: null,
@@ -208,7 +216,7 @@ export default {
     async mounted() {
         // this.items = demoData.demo_data().create_requisition_items_table_data
         await this.ALL_DEPOT_UNDER_SBU__FROM_SERVICE()
-        await this.DEPOT_DRIVER_LIST__FROM_SERVICE()
+        /* await this.DEPOT_DRIVER_LIST__FROM_SERVICE() */
     },
     methods: {
         createRequisitionClickHandler() {
@@ -320,7 +328,7 @@ export default {
                     }
                 })
         },
-        async DEPOT_DRIVER_LIST__FROM_SERVICE() {
+        /*async DEPOT_DRIVER_LIST__FROM_SERVICE() {
             this.DRIVER_LIST = []
             await service.getDepotDriverList_TRANSFER_APPROVE_REQUISITION()
                 .then(res => {
@@ -341,7 +349,7 @@ export default {
                         console.log(err)
                     }
                 })
-        },
+        },*/
         async SAVE_REQUISITION__FROM_SERVICE(transfer_id, wh_from, req_status) {
             console.log('SAVE_REQUISITION__FROM_SERVICE')
             this.popup_modal_for__save_or_send = null

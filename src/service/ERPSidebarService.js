@@ -1013,7 +1013,7 @@ export default class PostService {
     })
   }
 
-  // REQUISITION - TRANSFER APPROVE - DETAILS - DRIVER LIST
+  /*// REQUISITION - TRANSFER APPROVE - DETAILS - DRIVER LIST
   async getDepotDriverList_TRANSFER_APPROVE_REQUISITION() {
     let web_menu_url = '/api/web/depot-driver-list'
     return await axios(web_menu_url, {
@@ -1022,7 +1022,7 @@ export default class PostService {
         'Authorization': token_type + ' ' + token
       },
     })
-  }
+  }*/
 
   // REQUISITION - TRANSFER APPROVE - DETAILS - APPROVING
   async getApproveTransferRequisition_TRANSFER_APPROVE_REQUISITION(transfer_id, driver_id) {
