@@ -268,6 +268,13 @@ export const router = new VueRouter({
       component: () => import('../views/private_views/SD/Requisition/TransferVerifyRequisition/TransferVerifyRequisition.vue')
     },
     // --------------------------------------------------------------------------------------
+    // REQUISITION - Verified Update
+    {
+      path: '/features/local_sales/verified-requisition-update',
+      name: 'Transfer Verify Requisition Update',
+      component: () => import('../views/private_views/SD/Requisition/TransferVerifyRequisitionUpdate/TransferVerifyRequisitionUpdate.vue')
+    },
+    // --------------------------------------------------------------------------------------
     // REQUISITION - Transfer Approve
     {
       path: '/features/local_sales/transfer-approve-requisition',

@@ -85,6 +85,9 @@
         <router-link to="/features/local_sales/verified-requisition">Transfer Verify</router-link>
       </div>
       <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
+        <router-link to="/features/local_sales/verified-requisition-update">Transfer Verify Update</router-link>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
         <router-link to="/features/local_sales/transfer-approve-requisition">Transfer Approve</router-link>
       </div>
       <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
