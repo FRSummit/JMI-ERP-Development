@@ -1004,7 +1004,7 @@ export default class PostService {
   // -------------------------------------------------------------------------------------------
   // REQUISITION - TRANSFER VERIFY UPDATE
   async getUpdateNewRequisition_TRANSFER_VERIFY_REQUISITION_UPDATE(requisition_id, prod_info) {
-    let web_menu_url = '/api/web/update-new-requisition/' + requisition_id
+    let web_menu_url = '/api/web/update-transfer-verify-requisition/' + requisition_id
     return await axios(web_menu_url, {
       method: 'GET',
       headers: {
