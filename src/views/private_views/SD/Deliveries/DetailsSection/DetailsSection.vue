@@ -246,17 +246,20 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="jmi-inline-block hide">
+                                        <!-- <div class="jmi-inline-block hide"> -->
+                                        <div class="jmi-inline-block">
                                             <p class="jmi-lvl">Select date</p>
                                             <input type="date" class="jmi-lvl-value" v-model="cheque_tab_date">
                                         </div>
-                                        <div class="jmi-inline-block right-alg">
+                                        <!-- <div class="jmi-inline-block right-alg"> -->
+                                        <div class="jmi-inline-block">
                                             <p class="jmi-lvl">Type Receiver Amount</p>
                                             <input type="number" id="deliveries_cheque_receiver_amount" class="jmi-lvl-value" v-model="cheque_receive_amount" v-on:keydown="deliveries_cheque_receiver_amount_KeyDown_ordered_table($event)" v-on:keyup="deliveries_cheque_receiver_amount_KeyUp_ordered_table($event)" />
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="jmi-inline-block hide">
+                                        <!-- <div class="jmi-inline-block hide"> -->
+                                        <div class="jmi-inline-block">
                                             <p class="jmi-lvl">Enter cheque Number</p>
                                             <input type="text" v-model="cheque_cheque_number">
                                         </div>
@@ -265,7 +268,7 @@
                                             <p class="jmi-lvl" style="color: #C11616; font-size: 10px;" v-if="UPLOADED_IMAGE_DATA_BASE_64_IS_PRESENT">* Please insert cheque image</p>
                                             <input type="file" class="jmi-lvl-value" @change="imageChooseEventHandler($event)" accept="image/x-png,image/gif,image/jpeg">
                                         </div>
-                                        <div class="select-options jmi-inline-block right-alg">
+                                        <div class="select-options jmi-inline-block right-alg hide">
                                             <p class="jmi-lvl" style="float: unset;">Select file type</p>
                                             <span class="right-icon"><i class="fas fa-chevron-right"></i></span>
                                             <select title="Pick a customer" class="selectpicker" v-model="file_type_on_change" @change="onChangeFileTypeDropdown()">
@@ -280,7 +283,9 @@
                                     </div>
                                 </div>
                             </b-tab>
-                            <b-tab title="Deposit Slip" v-if="DEPOSIT_TAB_VISIBLE">
+                            <!-- <b-tab title="Deposit Slip" v-if="DEPOSIT_TAB_VISIBLE"> -->
+                            <!-- <b-tab title="Deposit Slip"> -->
+                            <b-tab title="EFTN">
                                 <div class="tab-inner cheque">
                                     <div class="row">
                                         <div class="imvoice-amount">
@@ -292,40 +297,56 @@
                                             <p class="jmi-lvl-value">10000</p>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="jmi-inline-block">
+                                    <div class="row receiver-amount">
+                                        <!-- <div class="jmi-inline-block">
                                             <p class="jmi-lvl">Select date</p>
                                             <input type="text" v-model="receiver_amount">
+                                        </div> -->
+                                        <!-- <div class="jmi-inline-block right-alg"> -->
+                                            <p class="jmi-lvl">EFTN Amount</p>
+                                            <input type="number" id="deliveries_eftn_receiver_amount" class="jmi-lvl-value" v-model="receiver_amount">
+                                            <!-- <input type="number" id="deliveries_cash_receiver_amount" class="jmi-lvl-value" v-model="cash_receive_amount"  step="any" v-on:keydown="deliveries_cash_receiver_amount_KeyDown_ordered_table($event)" v-on:keyup="deliveries_cash_receiver_amount_KeyUp_ordered_table($event)" /> -->
+                                        <!-- </div> -->
+                                    </div>
+                                    <div class="row">
+                                        <div class="jmi-inline-block">
+                                            <p class="jmi-lvl">EFTN Bank</p>
+                                            <input type="number" v-model="receiver_amount">
                                         </div>
-                                        <div class="jmi-inline-block right-alg">
-                                            <p class="jmi-lvl">Type Receiver Amount</p>
-                                            <input type="text" v-model="receiver_amount">
+                                        <div class="jmi-inline-block">
+                                            <p class="jmi-lvl">EFTN A/C Number</p>
+                                            <input type="number" v-model="receiver_amount">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="jmi-inline-block">
-                                            <p class="jmi-lvl">Attach File (File Should be jpg, png, pdf)</p>
+                                            <p class="jmi-lvl">EFTN Ref. number</p>
                                             <input type="text" v-model="receiver_amount">
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <!-- <div class="row">
                                         <img src="https://static6.depositphotos.com/1005979/577/i/600/depositphotos_5777799-stock-photo-blank-check-with-open-space.jpg" alt="">
-                                    </div>
+                                    </div> -->
                                 </div>
                             </b-tab>
-                            <b-tab title="Adjustment" v-if="ADJUSTMENT_TAB_VISIBLE">
+                            <!-- <b-tab title="Adjustment" v-if="ADJUSTMENT_TAB_VISIBLE"> -->
+                            <b-tab title="Challan">
                                 <div class="tab-inner cheque"> 
                                     <div class="row">
-                                        <div class="jmi-inline-block">
+                                        <!-- <div class="jmi-inline-block">
                                             <p class="jmi-lvl">Attach File (File Should be jpg, png, pdf)</p>
                                             <input type="text" v-model="receiver_amount">
                                         </div>
                                         <div class="jmi-inline-block right-alg">
                                             <p class="jmi-lvl">VAT Chalan.pdf</p>
                                             <input type="text" v-model="receiver_amount">
+                                        </div> -->
+                                        <div class="imvoice-amount" style="width: 100%;">
+                                            <p class="jmi-lvl">Invoice VAT:</p>
+                                            <p class="jmi-lvl-value">10000</p>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <!-- <div class="row">
                                         <div class="jmi-inline-block">
                                             <p class="jmi-lvl">Attach File (File Should be jpg, png, pdf)</p>
                                             <input type="text" v-model="receiver_amount">
@@ -334,25 +355,17 @@
                                             <p class="jmi-lvl">ABC Chalan.pdf</p>
                                             <input type="text" v-model="receiver_amount">
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="row">
                                         <div class="jmi-inline-block">
-                                            <p class="jmi-lvl">Attach File (File Should be jpg, png, pdf)</p>
-                                            <input type="text" v-model="receiver_amount">
-                                        </div>
-                                        <div class="jmi-inline-block right-alg">
-                                            <p class="jmi-lvl">Credit Memo.pdf</p>
-                                            <input type="text" v-model="receiver_amount">
+                                            <p class="jmi-lvl">Attach File (File Should be jpg, png)</p>
+                                            <p class="jmi-lvl" style="color: #C11616; font-size: 10px;" v-if="UPLOADED_IMAGE_DATA_BASE_64_IS_PRESENT">* Please insert cheque image</p>
+                                            <input type="file" class="jmi-lvl-value" @change="imageChooseEventHandler($event)" accept="image/x-png,image/gif,image/jpeg">
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="jmi-inline-block">
-                                            <p class="jmi-lvl">Attach File (File Should be jpg, png, pdf)</p>
-                                            <input type="text" v-model="receiver_amount">
-                                        </div>
-                                        <div class="jmi-inline-block right-alg">
-                                            <p class="jmi-lvl">Collection Memo.pdf</p>
-                                            <input type="text" v-model="receiver_amount">
+                                        <div class="img-section">
+                                            <img id="challan_image">
                                         </div>
                                     </div>
                                 </div>
@@ -1436,6 +1449,12 @@ export default {
             let output = document.querySelector('#cheque_image')
             output.src = URL.createObjectURL(event.target.files[0])
             output.onload = () => {
+                URL.revokeObjectURL(output.src)
+            }
+            
+            let output2 = document.querySelector('#challan_image')
+            output2.src = URL.createObjectURL(event.target.files[0])
+            output2.onload = () => {
                 URL.revokeObjectURL(output.src)
             }
             // this.UPLOADED_IMAGE_NAME = event.target.files[0].name
