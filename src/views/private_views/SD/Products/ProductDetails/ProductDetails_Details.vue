@@ -986,6 +986,7 @@ export default {
                     console.log(res.data);
                     if(res.data.response_code === 200 || res.data.response_code === 201) {
                         this.SEARCH_PRODUCT_DATA_LIST__FROM_SERVICE()
+                        this.PRODUCT_CLASS_ELEMENT_LIST__FROM_SERVICE()
                         this.prod_class_id_prod_modal = null
                         this.SELECTED_PRODUCTS_LIST__PRODUCT_MODAL = []
                         document.getElementById('classification-modal-close-btn').click()
