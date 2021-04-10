@@ -111,7 +111,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="row requition_footer">
+                    <div class="row requition_footer" v-if="SELECTED_REQUISITION_DETAILS.id ? true : false">
                         <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="saveAsDraftClickHandler">Save As Draft</button></a>
                         <a><button type="button" class="btn btn-primary btn-global mx-2" @click="sendRequestClickHandler">Approve</button></a>
                         

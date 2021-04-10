@@ -27,7 +27,7 @@
                         <div class="col-12 header_top">
                             <h5>Requisition No: <span>{{ SELECTED_REQUISITION_DETAILS.requisition_no ? SELECTED_REQUISITION_DETAILS.requisition_no : '' }}</span></h5>
                             <span>
-                                <a class="edit create-new" @click="createRequisitionClickHandler" >Create New</a>
+                                <a class="edit create-new" @click="createRequisitionClickHandler" style="color: #026cd1">Create New</a>
                                 <a class="edit" @click="editRequisitionClickHandler" v-if="SELECTED_REQUISITION_DETAILS ? (SELECTED_REQUISITION_DETAILS.req_status === 'DRAFT' ? true : false) : false"><i class="zmdi zmdi-edit"></i></a>
                             </span>
                         </div>
@@ -63,7 +63,7 @@
                             <p>Requisition Date: <span class="text-data">{{ SELECTED_REQUISITION_DETAILS.req_date ? formatDate(SELECTED_REQUISITION_DETAILS.req_date) : '' }}</span></p>
                         </div>
                         <div class="col-lg-2 col-md-2 col-12">
-                            <p>Status: <span class="draft">{{ SELECTED_REQUISITION_DETAILS.req_status ? SELECTED_REQUISITION_DETAILS.req_status : '' }}</span></p>
+                            <p>Status: <span class="draft" :class="SELECTED_REQUISITION_DETAILS.req_status ? SELECTED_REQUISITION_DETAILS.req_status.toLowerCase() : ''">{{ SELECTED_REQUISITION_DETAILS.req_status ? SELECTED_REQUISITION_DETAILS.req_status : '' }}</span></p>
                         </div>
                     </div>
                     <div class="row requition_content">
