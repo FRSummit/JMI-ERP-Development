@@ -374,7 +374,7 @@
                         </b-tabs>
                         <div class="submit-section">
                             <button class="cancel" @click="deliveryOrderModalCancelClickHandler">Cancel</button>
-                            <button class="confirm" @click="deliveryOrderModalConfirmClickHandler" v-if="cash_receive_amount > 0 || cheque_receive_amount > 0">Proceed</button>
+                            <button class="confirm" @click="deliveryOrderModalConfirmClickHandler" v-if="cash_receive_amount > 0 || cheque_receive_amount > 0 || eftn_receive_amount > 0">Proceed</button>
                         </div>
                     </div>
                 </div>
@@ -968,7 +968,19 @@ export default {
             let cheque = Number(this.cheque_receive_amount).toFixed(2)
             let net_payable_amount = Number(this.grand_total).toFixed(2)
 
-            this.SAVE_INVOICE_DELIVERY_INFO__FROM_SERVICE(invoice_id, invoice_dtl, cash, cheque, net_payable_amount)
+            
+
+            if(parseFloat(this.eftn_receive_amount) > 0) {
+                if(this.eftn_bank_name && this.eftn_bank_ac_no && this.eftn_reference_no) {
+                    this.SAVE_INVOICE_DELIVERY_INFO__FROM_SERVICE(invoice_id, invoice_dtl, cash, cheque, net_payable_amount)
+                } else {
+                    alert('EFTN Bank name, EFTN A/C No & EFTN reference no should not be null')
+                }
+            } else {
+                this.SAVE_INVOICE_DELIVERY_INFO__FROM_SERVICE(invoice_id, invoice_dtl, cash, cheque, net_payable_amount)
+            }
+
+            // this.SAVE_INVOICE_DELIVERY_INFO__FROM_SERVICE(invoice_id, invoice_dtl, cash, cheque, net_payable_amount)
         },
         //------------------------------------------------------------------------------------------
         // Cancel This Delivery
@@ -1185,21 +1197,6 @@ export default {
                     }, 2000)
                 })
             // }
-            /*await service.getSaveInvoiceDeliveryInfo_DELIVERIES(invoice_id, invoice_dtl, cash, cheque, net_payable_amount)
-                .then(res => {
-                    console.log(res.data)
-                    if(res.data.response_code === 200) {
-                        localStorage.removeItem("jerp_delivery_details_not_chandable_ordered_data")
-                    //     this.$emit('invoice_delivery_info_saved', this.INVOICE_ID_FROM_LEFT)
-                    }
-                    this.approve_product_confirmation_popup_modal = false
-                    this.delivery_success_or_not_msg_modal = true
-                    this.delivery_success_or_not_msg = res.data.message
-                    setTimeout( ()=> {
-                        this.$router.push('/features/users/dashboard')
-                        this.delivery_success_or_not_msg_modal = false
-                    }, 2000)
-                })*/
         },
         async SAVE_INVOICE_DELIVERY_INFO_AS_DUE__FROM_SERVICE(invoice_id, invoice_dtl, cash, cheque, net_payable_amount) {
             console.log(invoice_id)
