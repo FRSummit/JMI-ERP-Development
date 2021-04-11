@@ -1043,16 +1043,27 @@ export default {
             console.log(this.offer_type_offers_modal)
             switch(this.offer_type_offers_modal) {
                 case "Percentage Discount":
+                    this.togglingOnChangeOfferTypeOfferModal('percentage_discount')
                     break
                 case "Fixed Discount":
+                    this.togglingOnChangeOfferTypeOfferModal('fixed_discount')
                     break
                 case "Bonus Product":
+                    this.togglingOnChangeOfferTypeOfferModal('bonus_product')
                     break
                 case "Free Product":
+                    this.togglingOnChangeOfferTypeOfferModal('free_product')
                     break
                 default:
                     break
             }
+        },
+        togglingOnChangeOfferTypeOfferModal(selector) {
+            let selector_list = ['percentage_discount', 'fixed_discount', 'bonus_product', 'free_product']
+            for(let i=0; i<selector_list.length; i++) {
+                document.getElementById(selector_list[i]).style.display = 'none'
+            }
+            document.getElementById(selector).style.display = 'block'
         },
         // ---------------------------------------------------------------------------
         createNewProductClickHandler() {
