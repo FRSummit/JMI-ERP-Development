@@ -74,20 +74,6 @@
                                 <div class="col-6" style="padding-top: 0; padding-bottom: 0;">
                                     
                                     <div class="product-list" style="padding-top: 0; padding-bottom: 0;">
-                                        <!-- <div class="product-list-inner" style="margin-top: 0; height: 320px;"> -->
-                                        <!-- <div class="product-list-inner" style="margin-top: 0; height: 234px;">
-                                            <div class="product-card2" v-for="(item, i) in SELECTED_PRODUCTS_LIST__PRODUCT_MODAL" :key="i">
-                                                <div class="row1"><h5>{{ item.prod_name }}</h5> <p>Code: <span>{{ item.prod_code }}</span></p></div>
-                                                <div class="row2"><p><span v-for="(elem, j) in item.element" :key="j">{{ elem.element_name }}</span></p></div>
-                                            </div>
-                                        </div> -->
-                                        <!-- <div class="form-group mt-2"> -->
-                                        <!-- <div class="form-group">
-                                            <label for="product_class">Product Class</label>
-                                            <select class="form-control" id="unit" v-model="prod_class_id_prod_modal" @change="onChangeProdClassIdProdModal">
-                                                <option v-for="(item, i) in PRIORITY_CLASS_PRODUCTS_MODAL" :key="i" :value="item.id">{{ item.element_name }}</option>
-                                            </select>
-                                        </div> -->
                                     </div>
                                     <div class="product-selected" v-for="(item, i) in SELECTED_PRODUCTS_LIST__PRODUCT_MODAL" :key="i">
                                         <div class="row1"><h5>{{ item.prod_name }}</h5> <p>Code: <span>{{ item.prod_code }}</span></p></div>
@@ -96,6 +82,7 @@
                                     <div class="form-group">
                                         <label for="product_class">Product Class</label>
                                         <select class="form-control" id="priority_class_prod_modal" v-model="prod_class_id_prod_modal" @change="onChangeProdClassIdProdModal">
+                                            <option :value="null" selected>Select Class</option>
                                             <option v-for="(item, i) in PRIORITY_CLASS_PRODUCTS_MODAL" :key="i" :value="item.id">{{ item.element_name }}</option>
                                         </select>
                                     </div>
@@ -359,7 +346,7 @@
                             <!-- Start Manage Attribute Modal -->
                             <div class="modal" id="manage-attribute-modal" tabindex="-1" role="dialog" aria-labelledby="manageattribute" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="margin: 0;">
-                                    <div class="modal-content">
+                                    <div class="modal-content" style="border: none;">
                                     <div class="modal-header">
                                         <h5 class="modal-title">Manage Attribute</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -444,8 +431,8 @@
                             <div class="tab-pane active" id="attribute1">
                                 <div class="attribute-header">
                                     <h5>Indiction</h5>
-                                    <!-- <a class="btn-edit btn-active" href=""><i class="fa fa-pencil" aria-hidden="true"></i></a> -->
-                                    <a class="btn-edit btn-active" href=""><i class="zmdi zmdi-edit"></i></a>
+                                    <!-- <a class="btn-edit btn-active" ><i class="fa fa-pencil" aria-hidden="true"></i></a> -->
+                                    <a class="btn-edit btn-active"><i class="zmdi zmdi-edit"></i></a>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-12 form-group">
@@ -458,7 +445,7 @@
                             <div class="tab-pane" id="attribute2">
                                 <div class="attribute-header">
                                     <h5>Therapeutic Class</h5>
-                                    <a class="btn-edit" href=""><i class="zmdi zmdi-edit"></i></a>
+                                    <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-12 form-group">
@@ -470,61 +457,61 @@
                             <div class="tab-pane" id="attribute3">
                                 <div class="attribute-header">
                                     <h5>Pharmacology</h5>
-                                    <a class="btn-edit" href=""><i class="zmdi zmdi-edit"></i></a>
+                                    <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
                                 </div>
                             </div>
                             <div class="tab-pane" id="attribute4">
                                 <div class="attribute-header">
                                     <h5>Dosage &amp; Administration</h5>
-                                    <a class="btn-edit" href=""><i class="zmdi zmdi-edit"></i></a>
+                                    <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
                                 </div>
                             </div>
                             <div class="tab-pane" id="attribute5">
                                 <div class="attribute-header">
                                     <h5>Indiction</h5>
-                                    <a class="btn-edit" href=""><i class="zmdi zmdi-edit"></i></a>
+                                    <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
                                 </div>
                             </div>
                             <div class="tab-pane" id="attribute6">
                                 <div class="attribute-header">
                                     <h5>Indiction</h5>
-                                    <a class="btn-edit" href=""><i class="zmdi zmdi-edit"></i></a>
+                                    <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
                                 </div>
                             </div>
                             <div class="tab-pane" id="attribute7">
                                 <div class="attribute-header">
                                     <h5>Indiction</h5>
-                                    <a class="btn-edit" href=""><i class="zmdi zmdi-edit"></i></a>
+                                    <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
                                 </div>
                             </div>
                             <div class="tab-pane" id="attribute8">
                                 <div class="attribute-header">
                                     <h5>Indiction</h5>
-                                    <a class="btn-edit" href=""><i class="zmdi zmdi-edit"></i></a>
+                                    <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
                                 </div>
                                 </div>
                             <div class="tab-pane" id="attribute9">
                                 <div class="attribute-header">
                                     <h5>Indiction</h5>
-                                    <a class="btn-edit" href=""><i class="zmdi zmdi-edit"></i></a>
+                                    <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
                                 </div>
                             </div>
                             <div class="tab-pane" id="attribute10">
                                 <div class="attribute-header">
                                     <h5>Indiction</h5>
-                                    <a class="btn-edit" href=""><i class="zmdi zmdi-edit"></i></a>
+                                    <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
                                 </div>
                             </div>
                             <div class="tab-pane" id="attribute11">
                                 <div class="attribute-header">
                                     <h5>Indiction</h5>
-                                    <a class="btn-edit" href=""><i class="zmdi zmdi-edit"></i></a>
+                                    <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
                                 </div>
                             </div>
                             <div class="tab-pane" id="attribute12">
                                 <div class="attribute-header">
                                     <h5>Indiction</h5>
-                                    <a class="btn-edit" href=""><i class="zmdi zmdi-edit"></i></a>
+                                    <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
                                 </div>
                                 </div>
                             </div>
@@ -538,8 +525,8 @@
                           <div class="tab-content-header">
                               <h5>Product Information</h5>
                               <div class="btn-group">
-                                  <button class="btn btn-primary btn-save" href="#" role="button">Save</button>
-                                  <a class="btn-edit btn-active" href=""><i class="zmdi zmdi-edit"></i></a>
+                                  <button class="btn btn-primary btn-save"  role="button">Save</button>
+                                  <a class="btn-edit btn-active" ><i class="zmdi zmdi-edit"></i></a>
                               </div>
                           </div>
 
@@ -584,43 +571,47 @@
                                   <button class="btn btn-primary btn-create" data-toggle="modal" data-target=".create-offer-modal" role="button"><i class="fa fa-plus" aria-hidden="true" style="margin-right: 4px;"></i> Create Offer</button>
                               </div>
                               <!------------ Start Create Offer Modal------------>
-                              <div class="modal create-offer-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                              <div class="modal-dialog modal-lg modal-dialog-centered">
-                                  <div class="modal-content">
-                                      <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalCenterTitle">Create Offer</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span>
-                                        </button>
-                                      </div>
-                                      <div class="modal-body">
-                                          <div class="row">
-                                              <div class="col-lg-4 form-group">
-                                                  <label for="offer_type">Offer Type</label>
-                                                  <select class="form-control" id="offer_type">
-                                                      <option >Percentage Discount</option>
-                                                      <option>Fixed Discount</option>
-                                                      <option>Bonus Product</option>
-                                                      <option>Free Product</option>
-                                                    </select>
-                                              </div>
-                                              <div class="col-lg-4 form-group">
-                                                  <label for="offer_name">Offer Name</label>
-                                                  <input type="text" class="form-control" id="offer_name" placeholder="Enter Offer Name">
-                                              </div>
-                                              <div class="col-lg-4 form-group">
-                                                  <label for="date_range">Start & End Date</label>
-                                                  <input type="date" class="form-control" id="date_range" placeholder="DD/MM/YY - DD/MM/YY">
-                                              </div>
-                                          </div>
+                              <div class="modal create-offer-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="width: 70%; height: 50%;">
+                                <div class="modal-dialog modal-lg modal-dialog-centered">
+                                    <div class="modal-content" style="border: none;">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalCenterTitle">Create Offer</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-lg-4 form-group">
+                                                    <label for="offer_type">Offer Type</label>
+                                                    <select class="form-control" id="offer_type">
+                                                        <option :value="null" selected>Select an option</option>
+                                                        <option >Percentage Discount</option>
+                                                        <option>Fixed Discount</option>
+                                                        <option>Bonus Product</option>
+                                                        <option>Free Product</option>
+                                                        </select>
+                                                </div>
+                                                <div class="col-lg-4 form-group">
+                                                    <label for="offer_name">Offer Name</label>
+                                                    <input type="text" class="form-control" id="offer_name" placeholder="Enter Offer Name">
+                                                </div>
+                                                <div class="col-lg-4 form-group">
+                                                    <label for="date_range">Start &amp; End Date</label>
+                                                    <input type="date" class="form-control" id="date_range" placeholder="DD/MM/YY - DD/MM/YY">
+                                                </div>
+                                            </div>
 
-                                      </div>
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
-                                      </div>
+                                        </div>
+                                        <!-- <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                        </div> -->
+                                        <div class="modal-footer justify-content-center">
+                                            <button type="button" class="btn btn-primary btn-global">Create Offer</button>
+                                        </div>
                                     </div>
-                              </div>
+                                </div>
                               </div>
                               <!------------ End Create Offer Modal------------>
                           </div>
@@ -675,8 +666,8 @@
                           <div class="tab-content-header">
                               <h5>Competitors</h5>
                               <div class="btn-group">
-                                <button class="btn btn-primary btn-save" href="#" role="button">Save</button>
-                                <a class="btn-edit btn-active" href=""><i class="zmdi zmdi-edit"></i></a>
+                                <button class="btn btn-primary btn-save"  role="button">Save</button>
+                                <a class="btn-edit btn-active" ><i class="zmdi zmdi-edit"></i></a>
                               </div>
                           </div>
                           <div class="scroll-competitor-list">
@@ -814,8 +805,8 @@
                           <div class="tab-content-header">
                               <h5>Ledger</h5>
                               <div class="btn-group">
-                                <button class="btn btn-primary btn-save" href="#" role="button">Save</button>
-                                <a class="btn-edit" href=""><i class="zmdi zmdi-edit"></i></a>
+                                <button class="btn btn-primary btn-save"  role="button">Save</button>
+                                <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
                             </div>
                           </div> 
                       </div>
@@ -824,8 +815,8 @@
                           <div class="tab-content-header">
                               <h5>Stock Position</h5>
                               <div class="btn-group">
-                                <button class="btn btn-primary btn-save" href="#" role="button">Save</button>
-                                <a class="btn-edit" href=""><i class="zmdi zmdi-edit"></i></a>
+                                <button class="btn btn-primary btn-save"  role="button">Save</button>
+                                <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
                             </div>
                           </div>
                       </div>
@@ -833,8 +824,8 @@
                           <div class="tab-content-header">
                               <h5>Documents</h5>
                               <div class="btn-group">
-                                <button class="btn btn-primary btn-save" href="#" role="button">Save</button>
-                                <a class="btn-edit" href=""><i class="zmdi zmdi-edit"></i></a>
+                                <button class="btn btn-primary btn-save"  role="button">Save</button>
+                                <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
                             </div>
                           </div>
                       </div>
@@ -965,13 +956,13 @@ export default {
                     console.log(res.data);
                     this.PRIORITY_CLASS_PRODUCTS_MODAL = res.data.code_elements;
 
-                    if(this.PRIORITY_CLASS_PRODUCTS_MODAL) {
-                        setTimeout( () => {
-                            var options = document.getElementById("priority_class_prod_modal").options;
-                            options[0].selected = true;
-                            this.prod_class_id_prod_modal = this.PRIORITY_CLASS_PRODUCTS_MODAL[0].id
-                        }, 200)
-                    }
+                    // if(this.PRIORITY_CLASS_PRODUCTS_MODAL) {
+                    //     setTimeout( () => {
+                    //         var options = document.getElementById("priority_class_prod_modal").options;
+                    //         options[0].selected = true;
+                    //         this.prod_class_id_prod_modal = this.PRIORITY_CLASS_PRODUCTS_MODAL[0].id
+                    //     }, 200)
+                    // }
                 })
                 .catch((err) => {
                     if (err) {

@@ -654,6 +654,7 @@
     color            : var(--blue);
     border-radius    : 100px;
     background-color : var(--bluish-white);
+    cursor           : pointer;
 }
 
 #attributes-vertical-tab .attribute-list #attribute-items {
@@ -1209,6 +1210,7 @@
     color            : var(--blue);
     border-radius    : 100px;
     background-color : var(--bluish-white);
+    cursor           : pointer;
 }
 
 /*# sourceMappingURL=product2.css.map */
