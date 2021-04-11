@@ -9,7 +9,7 @@
                 <div class="product-header-info"> 
                   <div class="product-img">
                     <a data-toggle="modal" data-target="#change-photo" >Change</a>
-                    <img src="../../../../../assets/images/avater.png" alt="Image">
+                    <img src="../../../../../assets/images/products/product_placeholder.png" alt="Image">
                   </div>
                   <div class="info">
                     <h5 class="product-name">{{ SELECTED_PROD_DETAILS ? (SELECTED_PROD_DETAILS.product_info ? SELECTED_PROD_DETAILS.product_info.prod_name : '') : '' }}<span class="tag">{{ SELECTED_PROD_DETAILS ? (SELECTED_PROD_DETAILS.prod_class_info ? SELECTED_PROD_DETAILS.prod_class_info.element_name : '') : '' }}</span></h5>
@@ -154,7 +154,7 @@
                               <div class="row">
                                   <div class="col-lg-9 form-group">
                                       <label for="product-description">Product Description</label>
-                                      <textarea class="form-control" id="product-description" rows="3" placeholder="Enter Product Description"></textarea>
+                                      <textarea v-model="product_description" class="form-control" id="product-description" rows="3" placeholder="Enter Product Description"></textarea>
                                   </div>
                               </div>
                               <div class="row">
@@ -305,7 +305,7 @@
                                     <li class="nav-item">
                                         <a class="nav-link" id="attr-single-items" href="#attribute5" data-toggle="tab">Indication</a>
                                     </li>
-                                    <li class="nav-item">
+                                    <!-- <li class="nav-item">
                                         <a class="nav-link" id="attr-single-items" href="#attribute6" data-toggle="tab">Therapeutic Class</a>
                                     </li>
                                     <li class="nav-item">
@@ -324,10 +324,10 @@
                                         <a class="nav-link" id="attr-single-items" href="#attribute11" data-toggle="tab">Pharmacology</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="attr-single-items" href="#attribute12" data-toggle="tab">Dosage & Administration</a>
+                                        <a class="nav-link" id="attr-single-items" href="#attribute12" data-toggle="tab">Dosage &amp; Administration</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="attr-single-items" href="#attribute8" data-toggle="tab">Dosage & Administration</a>
+                                        <a class="nav-link" id="attr-single-items" href="#attribute8" data-toggle="tab">Dosage &amp; Administration</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" id="attr-single-items" href="#attribute9" data-toggle="tab">Indication</a>
@@ -340,7 +340,7 @@
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" id="attr-single-items" href="#attribute12" data-toggle="tab">Dosage &amp; Administration</a>
-                                    </li>
+                                    </li> -->
                                 </ul>
                             </div>
                             <!-- Start Manage Attribute Modal -->
@@ -428,92 +428,92 @@
                         <div class="col-lg-9">
                             <div class="tab-content attribute-content">
 
-                            <div class="tab-pane active" id="attribute1">
-                                <div class="attribute-header">
-                                    <h5>Indiction</h5>
-                                    <!-- <a class="btn-edit btn-active" ><i class="fa fa-pencil" aria-hidden="true"></i></a> -->
-                                    <a class="btn-edit btn-active"><i class="zmdi zmdi-edit"></i></a>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-12 form-group">
-                                        <label for="indiction_1">Indiction 1</label>
-                                        <textarea class="form-control" id="indiction_1" rows="6" placeholder="Enter Product Indiction"></textarea>
+                                <div class="tab-pane active" id="attribute1">
+                                    <div class="attribute-header">
+                                        <h5>Indiction</h5>
+                                        <!-- <a class="btn-edit btn-active" ><i class="fa fa-pencil" aria-hidden="true"></i></a> -->
+                                        <a class="btn-edit btn-active"><i class="zmdi zmdi-edit"></i></a>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12 form-group">
+                                            <label for="indiction_1">Indiction 1</label>
+                                            <textarea class="form-control" id="indiction_1" rows="6" placeholder="Enter Product Indiction"></textarea>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="tab-pane" id="attribute2">
-                                <div class="attribute-header">
-                                    <h5>Therapeutic Class</h5>
-                                    <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-12 form-group">
-                                        <label for="indiction_1">Therapeutic Class</label>
-                                        <textarea class="form-control" id="indiction_1" rows="6" placeholder="Enter Product Indiction" readonly></textarea>
+                                <div class="tab-pane" id="attribute2">
+                                    <div class="attribute-header">
+                                        <h5>Therapeutic Class</h5>
+                                        <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12 form-group">
+                                            <label for="indiction_1">Therapeutic Class</label>
+                                            <textarea class="form-control" id="indiction_1" rows="6" placeholder="Enter Product Indiction" readonly></textarea>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="tab-pane" id="attribute3">
-                                <div class="attribute-header">
-                                    <h5>Pharmacology</h5>
-                                    <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
+                                <div class="tab-pane" id="attribute3">
+                                    <div class="attribute-header">
+                                        <h5>Pharmacology</h5>
+                                        <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="tab-pane" id="attribute4">
-                                <div class="attribute-header">
-                                    <h5>Dosage &amp; Administration</h5>
-                                    <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
+                                <div class="tab-pane" id="attribute4">
+                                    <div class="attribute-header">
+                                        <h5>Dosage &amp; Administration</h5>
+                                        <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="tab-pane" id="attribute5">
-                                <div class="attribute-header">
-                                    <h5>Indiction</h5>
-                                    <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
+                                <div class="tab-pane" id="attribute5">
+                                    <div class="attribute-header">
+                                        <h5>Indiction</h5>
+                                        <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="tab-pane" id="attribute6">
-                                <div class="attribute-header">
-                                    <h5>Indiction</h5>
-                                    <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
+                                <!-- <div class="tab-pane" id="attribute6">
+                                    <div class="attribute-header">
+                                        <h5>Indiction</h5>
+                                        <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="tab-pane" id="attribute7">
-                                <div class="attribute-header">
-                                    <h5>Indiction</h5>
-                                    <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
+                                <div class="tab-pane" id="attribute7">
+                                    <div class="attribute-header">
+                                        <h5>Indiction</h5>
+                                        <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="tab-pane" id="attribute8">
-                                <div class="attribute-header">
-                                    <h5>Indiction</h5>
-                                    <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
+                                <div class="tab-pane" id="attribute8">
+                                    <div class="attribute-header">
+                                        <h5>Indiction</h5>
+                                        <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
+                                    </div>
+                                    </div>
+                                <div class="tab-pane" id="attribute9">
+                                    <div class="attribute-header">
+                                        <h5>Indiction</h5>
+                                        <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
+                                    </div>
                                 </div>
+                                <div class="tab-pane" id="attribute10">
+                                    <div class="attribute-header">
+                                        <h5>Indiction</h5>
+                                        <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
+                                    </div>
                                 </div>
-                            <div class="tab-pane" id="attribute9">
-                                <div class="attribute-header">
-                                    <h5>Indiction</h5>
-                                    <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
+                                <div class="tab-pane" id="attribute11">
+                                    <div class="attribute-header">
+                                        <h5>Indiction</h5>
+                                        <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="tab-pane" id="attribute10">
-                                <div class="attribute-header">
-                                    <h5>Indiction</h5>
-                                    <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
-                                </div>
-                            </div>
-                            <div class="tab-pane" id="attribute11">
-                                <div class="attribute-header">
-                                    <h5>Indiction</h5>
-                                    <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
-                                </div>
-                            </div>
-                            <div class="tab-pane" id="attribute12">
-                                <div class="attribute-header">
-                                    <h5>Indiction</h5>
-                                    <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
-                                </div>
-                                </div>
+                                <div class="tab-pane" id="attribute12">
+                                    <div class="attribute-header">
+                                        <h5>Indiction</h5>
+                                        <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
+                                    </div>
+                                </div> -->
                             </div>
                         </div>
                       </div>
@@ -584,13 +584,13 @@
                                             <div class="row">
                                                 <div class="col-lg-4 form-group">
                                                     <label for="offer_type">Offer Type</label>
-                                                    <select class="form-control" id="offer_type">
+                                                    <select class="form-control" id="offer_type" v-model="offer_type_offers_modal" @change="onChangeOfferTypeOfferModal">
                                                         <option :value="null" selected>Select an option</option>
-                                                        <option >Percentage Discount</option>
+                                                        <option>Percentage Discount</option>
                                                         <option>Fixed Discount</option>
                                                         <option>Bonus Product</option>
                                                         <option>Free Product</option>
-                                                        </select>
+                                                    </select>
                                                 </div>
                                                 <div class="col-lg-4 form-group">
                                                     <label for="offer_name">Offer Name</label>
@@ -599,6 +599,109 @@
                                                 <div class="col-lg-4 form-group">
                                                     <label for="date_range">Start &amp; End Date</label>
                                                     <input type="date" class="form-control" id="date_range" placeholder="DD/MM/YY - DD/MM/YY">
+                                                </div>
+                                            </div>
+
+                                            
+                                            <!-- Percentage Discount -->
+                                            <div class="row" id="percentage_discount" style="display: none;">
+                                                <div class="col-12"><h5>Percentage Discount</h5><hr></div>
+                                                <div class="col-lg-4 form-group">
+                                                    <label for="quantity">Minimum Buy QTY</label>
+                                                    <div class="input-group">
+                                                        <input type="number" class="form-control" placeholder="Enter Quantity" aria-describedby="addon1" required>
+                                                        <div class="input-group-append">
+                                                        <span class="input-group-text" id="addon1">Box</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-4 form-group">
+                                                    <label for="discount">Discount</label>
+                                                    <div class="input-group">
+                                                        <input type="number" class="form-control" placeholder="Enter Discount" aria-describedby="basic-addon2" required>
+                                                        <div class="input-group-append">
+                                                        <span class="input-group-text" id="basic-addon2">%</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Fixed Discount -->
+                                            <div class="row" id="fixed_discount" style="display: none;">
+                                                <div class="col-12"><h5>Fixed Discount</h5><hr></div>
+                                                <div class="col-lg-4 form-group">
+                                                    <label for="offer_name">Minimum Buy QTY</label>
+                                                    <div class="input-group">
+                                                        <input type="number" class="form-control" placeholder="Enter Quantity" aria-describedby="addon1" required>
+                                                        <div class="input-group-append">
+                                                        <span class="input-group-text" id="addon1">Box</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 form-group">
+                                                    <label for="date_range">Discount TP</label>
+                                                    <div class="input-group">
+                                                        <input type="number" class="form-control" placeholder="Enter Discount" aria-describedby="basic-addon2" required>
+                                                        <div class="input-group-append">
+                                                        <span class="input-group-text" id="basic-addon2">%</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Bonus Product -->
+                                            <div class="row" id="bonus_product" style="display: none;">
+                                                <div class="col-12"><h5>Bonus Product</h5><hr></div>
+                                                <div class="col-lg-4 form-group">
+                                                    <label for="offer_name">Minimum Buy QTY</label>
+                                                    <div class="input-group">
+                                                        <input type="number" class="form-control" placeholder="Enter Quantity" aria-describedby="addon1" required>
+                                                        <div class="input-group-append">
+                                                        <span class="input-group-text" id="addon1">Box</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 form-group">
+                                                    <label for="date_range">Bonus QTY</label>
+                                                    <div class="input-group">
+                                                        <input type="number" class="form-control" placeholder="Enter Quantity" aria-describedby="addon1" required>
+                                                        <div class="input-group-append">
+                                                        <span class="input-group-text" id="addon1">Box</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Free Product -->
+                                            <div class="row" id="free_product" style="display: none;">
+                                                <div class="col-12"><h5>Free Product</h5><hr></div>
+                                                <div class="col-lg-4 form-group">
+                                                    <label for="offer_name">Minimum Buy QTY</label>
+                                                    <div class="input-group">
+                                                        <input type="number" class="form-control" placeholder="Enter Quantity" aria-describedby="addon1" required>
+                                                        <div class="input-group-append">
+                                                        <span class="input-group-text" id="addon1">Box</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 form-group">
+                                                    <label for="date_range">Free Product</label>
+                                                    <select class="form-control">
+                                                        <option value="">Select Product</option>
+                                                        <option value="">Product 1</option>
+                                                        <option value="">Product 2</option>
+                                                        <option value="">Product 3</option>
+                                                        <option value="">Product 4</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-4 form-group">
+                                                    <label for="date_range">Free QTY</label>
+                                                    <div class="input-group">
+                                                        <input type="number" class="form-control" placeholder="Enter Quantity" aria-describedby="addon1" required>
+                                                        <div class="input-group-append">
+                                                        <span class="input-group-text" id="addon1">Box</span>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
 
@@ -866,6 +969,7 @@ export default {
             prod_creating_progressbar_msg: null,
 
             // Product Basic Tab Content Area
+            product_description: null,
             product_name: null,
             product_group: null,
             other_code: null,
@@ -890,8 +994,8 @@ export default {
             shelf_life: null,
             imported_from: null,
 
-
-
+            // Offers Tab Content Area
+            offer_type_offers_modal: null,
         }
     },
     computed: {},
@@ -908,6 +1012,7 @@ export default {
         },
         // Product Basic Tab Content Area
         setProductBasicTabContentArea(prod_details) {
+            this.product_description = prod_details.product_info.prod_description
             this.product_name = prod_details.product_info.prod_name
             this.product_group = prod_details.product_info.prod_group
             this.other_code = prod_details.product_info.other_code
@@ -931,7 +1036,23 @@ export default {
             this.total_stock = prod_details.product_info.total_stock
             this.owner_sbu_id = prod_details.product_info.owner_sbu_id
             this.shelf_life = prod_details.product_info.have_shelf_life
-            this.imported_from = null
+            this.imported_from = prod_details.is_imported
+        },
+        // Offers Tab Content Area
+        onChangeOfferTypeOfferModal() {
+            console.log(this.offer_type_offers_modal)
+            switch(this.offer_type_offers_modal) {
+                case "Percentage Discount":
+                    break
+                case "Fixed Discount":
+                    break
+                case "Bonus Product":
+                    break
+                case "Free Product":
+                    break
+                default:
+                    break
+            }
         },
         // ---------------------------------------------------------------------------
         createNewProductClickHandler() {
