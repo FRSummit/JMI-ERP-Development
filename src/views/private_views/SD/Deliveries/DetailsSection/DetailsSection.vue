@@ -246,17 +246,20 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="jmi-inline-block hide">
+                                        <!-- <div class="jmi-inline-block hide"> -->
+                                        <div class="jmi-inline-block">
                                             <p class="jmi-lvl">Select date</p>
                                             <input type="date" class="jmi-lvl-value" v-model="cheque_tab_date">
                                         </div>
-                                        <div class="jmi-inline-block right-alg">
+                                        <!-- <div class="jmi-inline-block right-alg"> -->
+                                        <div class="jmi-inline-block">
                                             <p class="jmi-lvl">Type Receiver Amount</p>
                                             <input type="number" id="deliveries_cheque_receiver_amount" class="jmi-lvl-value" v-model="cheque_receive_amount" v-on:keydown="deliveries_cheque_receiver_amount_KeyDown_ordered_table($event)" v-on:keyup="deliveries_cheque_receiver_amount_KeyUp_ordered_table($event)" />
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="jmi-inline-block hide">
+                                        <!-- <div class="jmi-inline-block hide"> -->
+                                        <div class="jmi-inline-block">
                                             <p class="jmi-lvl">Enter cheque Number</p>
                                             <input type="text" v-model="cheque_cheque_number">
                                         </div>
@@ -265,7 +268,7 @@
                                             <p class="jmi-lvl" style="color: #C11616; font-size: 10px;" v-if="UPLOADED_IMAGE_DATA_BASE_64_IS_PRESENT">* Please insert cheque image</p>
                                             <input type="file" class="jmi-lvl-value" @change="imageChooseEventHandler($event)" accept="image/x-png,image/gif,image/jpeg">
                                         </div>
-                                        <div class="select-options jmi-inline-block right-alg">
+                                        <div class="select-options jmi-inline-block right-alg hide">
                                             <p class="jmi-lvl" style="float: unset;">Select file type</p>
                                             <span class="right-icon"><i class="fas fa-chevron-right"></i></span>
                                             <select title="Pick a customer" class="selectpicker" v-model="file_type_on_change" @change="onChangeFileTypeDropdown()">
@@ -280,52 +283,71 @@
                                     </div>
                                 </div>
                             </b-tab>
-                            <b-tab title="Deposit Slip" v-if="DEPOSIT_TAB_VISIBLE">
+                            <!-- <b-tab title="Deposit Slip" v-if="DEPOSIT_TAB_VISIBLE"> -->
+                            <!-- <b-tab title="Deposit Slip"> -->
+                            <b-tab title="EFTN">
                                 <div class="tab-inner cheque">
                                     <div class="row">
                                         <div class="imvoice-amount">
                                             <p class="jmi-lvl">Invoice Amount:</p>
-                                            <p class="jmi-lvl-value">10000</p>
+                                            <p class="jmi-lvl-value">{{ Number(grand_total).toFixed(2) }}</p>
                                         </div>
                                         <div class="imvoice-amount">
-                                            <p class="jmi-lvl">Invoice Amount:</p>
-                                            <p class="jmi-lvl-value">10000</p>
+                                            <p class="jmi-lvl">Due Amount:</p>
+                                            <!-- <p class="jmi-lvl-value">10000</p> -->
+                                            <p type="number" id="eftn-due-amount-selector" class="jmi-lvl-value">{{ Number(parseFloat(grand_total.toFixed(2)) - (parseFloat(cash_receive_amount) + parseFloat(cheque_receive_amount) + parseFloat(eftn_receive_amount)) ).toFixed(2) }}</p>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="jmi-inline-block">
+                                    <div class="row receiver-amount">
+                                        <!-- <div class="jmi-inline-block">
                                             <p class="jmi-lvl">Select date</p>
                                             <input type="text" v-model="receiver_amount">
+                                        </div> -->
+                                        <!-- <div class="jmi-inline-block right-alg"> -->
+                                            <p class="jmi-lvl">EFTN Amount</p>
+                                            <input type="number" id="deliveries_eftn_receiver_amount" class="jmi-lvl-value" v-model="eftn_receive_amount"  step="any" v-on:keydown="deliveries_eftn_receiver_amount_KeyDown_ordered_table($event)" v-on:keyup="deliveries_eftn_receiver_amount_KeyUp_ordered_table($event)" />
+                                            <!-- <input type="number" id="deliveries_cash_receiver_amount" class="jmi-lvl-value" v-model="cash_receive_amount"  step="any" v-on:keydown="deliveries_cash_receiver_amount_KeyDown_ordered_table($event)" v-on:keyup="deliveries_cash_receiver_amount_KeyUp_ordered_table($event)" /> -->
+                                        <!-- </div> -->
+                                    </div>
+                                    <div class="row">
+                                        <div class="jmi-inline-block">
+                                            <p class="jmi-lvl">EFTN Bank</p>
+                                            <input type="number" v-model="eftn_bank_name">
                                         </div>
-                                        <div class="jmi-inline-block right-alg">
-                                            <p class="jmi-lvl">Type Receiver Amount</p>
-                                            <input type="text" v-model="receiver_amount">
+                                        <div class="jmi-inline-block">
+                                            <p class="jmi-lvl">EFTN A/C Number</p>
+                                            <input type="number" v-model="eftn_bank_ac_no">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="jmi-inline-block">
-                                            <p class="jmi-lvl">Attach File (File Should be jpg, png, pdf)</p>
-                                            <input type="text" v-model="receiver_amount">
+                                            <p class="jmi-lvl">EFTN Ref. number</p>
+                                            <input type="text" v-model="eftn_reference_no">
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <!-- <div class="row">
                                         <img src="https://static6.depositphotos.com/1005979/577/i/600/depositphotos_5777799-stock-photo-blank-check-with-open-space.jpg" alt="">
-                                    </div>
+                                    </div> -->
                                 </div>
                             </b-tab>
-                            <b-tab title="Adjustment" v-if="ADJUSTMENT_TAB_VISIBLE">
+                            <!-- <b-tab title="Adjustment" v-if="ADJUSTMENT_TAB_VISIBLE"> -->
+                            <b-tab title="Challan">
                                 <div class="tab-inner cheque"> 
                                     <div class="row">
-                                        <div class="jmi-inline-block">
+                                        <!-- <div class="jmi-inline-block">
                                             <p class="jmi-lvl">Attach File (File Should be jpg, png, pdf)</p>
                                             <input type="text" v-model="receiver_amount">
                                         </div>
                                         <div class="jmi-inline-block right-alg">
                                             <p class="jmi-lvl">VAT Chalan.pdf</p>
                                             <input type="text" v-model="receiver_amount">
+                                        </div> -->
+                                        <div class="imvoice-amount" style="width: 100%;">
+                                            <p class="jmi-lvl">Invoice VAT:</p>
+                                            <p class="jmi-lvl-value">10000</p>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <!-- <div class="row">
                                         <div class="jmi-inline-block">
                                             <p class="jmi-lvl">Attach File (File Should be jpg, png, pdf)</p>
                                             <input type="text" v-model="receiver_amount">
@@ -334,25 +356,17 @@
                                             <p class="jmi-lvl">ABC Chalan.pdf</p>
                                             <input type="text" v-model="receiver_amount">
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="row">
                                         <div class="jmi-inline-block">
-                                            <p class="jmi-lvl">Attach File (File Should be jpg, png, pdf)</p>
-                                            <input type="text" v-model="receiver_amount">
-                                        </div>
-                                        <div class="jmi-inline-block right-alg">
-                                            <p class="jmi-lvl">Credit Memo.pdf</p>
-                                            <input type="text" v-model="receiver_amount">
+                                            <p class="jmi-lvl">Attach File (File Should be jpg, png)</p>
+                                            <p class="jmi-lvl" style="color: #C11616; font-size: 10px;" v-if="UPLOADED_IMAGE_DATA_BASE_64_IS_PRESENT">* Please insert cheque image</p>
+                                            <input type="file" class="jmi-lvl-value" @change="imageChooseEventHandler($event)" accept="image/x-png,image/gif,image/jpeg">
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="jmi-inline-block">
-                                            <p class="jmi-lvl">Attach File (File Should be jpg, png, pdf)</p>
-                                            <input type="text" v-model="receiver_amount">
-                                        </div>
-                                        <div class="jmi-inline-block right-alg">
-                                            <p class="jmi-lvl">Collection Memo.pdf</p>
-                                            <input type="text" v-model="receiver_amount">
+                                        <div class="img-section">
+                                            <img id="challan_image">
                                         </div>
                                     </div>
                                 </div>
@@ -360,7 +374,7 @@
                         </b-tabs>
                         <div class="submit-section">
                             <button class="cancel" @click="deliveryOrderModalCancelClickHandler">Cancel</button>
-                            <button class="confirm" @click="deliveryOrderModalConfirmClickHandler" v-if="cash_receive_amount > 0 || cheque_receive_amount > 0">Proceed</button>
+                            <button class="confirm" @click="deliveryOrderModalConfirmClickHandler" v-if="cash_receive_amount > 0 || cheque_receive_amount > 0 || eftn_receive_amount > 0">Proceed</button>
                         </div>
                     </div>
                 </div>
@@ -761,11 +775,19 @@ export default {
             // DELIVERIES ORDER TAB
             cash_due_amount: 0.0,
             cash_receive_amount: 0.0,
+
             CHEQUE_TAB_VISIBLE: false,
             cheque_due_amount: 0.0,
             cheque_cheque_number: null,
             cheque_receive_amount: 0.0,
             cheque_tab_date: null,
+
+            eftn_due_amount: 0.0,
+            eftn_receive_amount: 0.0,
+            eftn_bank_name: null,
+            eftn_bank_ac_no: null,
+            eftn_reference_no: null,
+
             DEPOSIT_TAB_VISIBLE: false,
             ADJUSTMENT_TAB_VISIBLE: false,
             delivery_success_or_not_msg_modal: false,
@@ -946,7 +968,19 @@ export default {
             let cheque = Number(this.cheque_receive_amount).toFixed(2)
             let net_payable_amount = Number(this.grand_total).toFixed(2)
 
-            this.SAVE_INVOICE_DELIVERY_INFO__FROM_SERVICE(invoice_id, invoice_dtl, cash, cheque, net_payable_amount)
+            
+
+            if(parseFloat(this.eftn_receive_amount) > 0) {
+                if(this.eftn_bank_name && this.eftn_bank_ac_no && this.eftn_reference_no) {
+                    this.SAVE_INVOICE_DELIVERY_INFO__FROM_SERVICE(invoice_id, invoice_dtl, cash, cheque, net_payable_amount)
+                } else {
+                    alert('EFTN Bank name, EFTN A/C No & EFTN reference no should not be null')
+                }
+            } else {
+                this.SAVE_INVOICE_DELIVERY_INFO__FROM_SERVICE(invoice_id, invoice_dtl, cash, cheque, net_payable_amount)
+            }
+
+            // this.SAVE_INVOICE_DELIVERY_INFO__FROM_SERVICE(invoice_id, invoice_dtl, cash, cheque, net_payable_amount)
         },
         //------------------------------------------------------------------------------------------
         // Cancel This Delivery
@@ -1141,7 +1175,13 @@ export default {
                 console.log(this.UPLOADED_IMAGE_NAME)
                 console.log(this.file_type_on_change)
                 let file_path = '/customers/cheque/'
-                await service.getSaveInvoiceDeliveryInfo_DELIVERIES(invoice_id, invoice_dtl, cash, cheque, net_payable_amount, this.UPLOADED_IMAGE_DATA_BASE_64, this.UPLOADED_IMAGE_NAME, file_path, this.file_type_on_change)
+
+                let eftn_amt = this.eftn_receive_amount
+                let eftn_bank = this.eftn_bank_name
+                let eftn_ac_no = this.eftn_bank_ac_no
+                let eftn_ref_no = this.eftn_reference_no
+                console.log(eftn_amt + '    ' + eftn_bank + '    ' + eftn_ac_no + '    ' + eftn_ref_no)
+                await service.getSaveInvoiceDeliveryInfo_DELIVERIES(invoice_id, invoice_dtl, cash, cheque, net_payable_amount, this.UPLOADED_IMAGE_DATA_BASE_64, this.UPLOADED_IMAGE_NAME, file_path, this.file_type_on_change, eftn_amt, eftn_bank, eftn_ac_no, eftn_ref_no)
                 .then(res => {
                     console.log(res.data)
                     if(res.data.response_code === 200) {
@@ -1157,21 +1197,6 @@ export default {
                     }, 2000)
                 })
             // }
-            /*await service.getSaveInvoiceDeliveryInfo_DELIVERIES(invoice_id, invoice_dtl, cash, cheque, net_payable_amount)
-                .then(res => {
-                    console.log(res.data)
-                    if(res.data.response_code === 200) {
-                        localStorage.removeItem("jerp_delivery_details_not_chandable_ordered_data")
-                    //     this.$emit('invoice_delivery_info_saved', this.INVOICE_ID_FROM_LEFT)
-                    }
-                    this.approve_product_confirmation_popup_modal = false
-                    this.delivery_success_or_not_msg_modal = true
-                    this.delivery_success_or_not_msg = res.data.message
-                    setTimeout( ()=> {
-                        this.$router.push('/features/users/dashboard')
-                        this.delivery_success_or_not_msg_modal = false
-                    }, 2000)
-                })*/
         },
         async SAVE_INVOICE_DELIVERY_INFO_AS_DUE__FROM_SERVICE(invoice_id, invoice_dtl, cash, cheque, net_payable_amount) {
             console.log(invoice_id)
@@ -1418,6 +1443,57 @@ export default {
             //     value.preventDefault()
             // }
         },
+        // EFTN
+        deliveries_eftn_receiver_amount_KeyUp_ordered_table(value) {
+            console.log(value.key)
+            // this.cash_due_amount
+            let selector = document.querySelector('#deliveries_eftn_receiver_amount')
+            if(selector.value.charAt(0) === '0') {
+                selector.value = selector.value.substring(1)
+            }
+            if((parseFloat(selector.value) + parseFloat(this.cash_receive_amount) + parseFloat(this.cheque_receive_amount)) > parseFloat(this.grand_total.toFixed(2))) {
+                console.log('more')
+                selector.value = (parseFloat(selector.value)/10).toFixed()
+                this.eftn_receive_amount = selector.value
+            } else {
+                console.log('less')
+            }
+
+
+            if(parseInt(selector.value) === 0) {
+                selector.value = 0
+            } else if((selector.value).toString() === '') {
+                selector.value = 0
+            }
+            this.eftn_receive_amount = parseFloat(selector.value)
+            this.eftn_due_amount = parseFloat(this.grand_total.toFixed(2)) - (parseFloat(this.cash_receive_amount) + parseFloat(this.cheque_receive_amount) + parseFloat(this.eftn_receive_amount))
+
+
+            // console.log('.......................')
+            // console.log(parseFloat(this.grand_total.toFixed(2)))
+            // console.log(parseFloat(this.cash_receive_amount) + this.cheque_receive_amount)
+            // console.log(parseFloat(this.grand_total.toFixed(2)) - (parseFloat(this.cash_receive_amount) + parseFloat(this.cheque_receive_amount)))
+            // console.log(this.cheque_due_amount)
+            // console.log('.......................')
+
+
+            if(this.eftn_due_amount.toString().charAt(0) === '-') {
+                document.querySelector('#cash-due-amount-selector').className = 'jmi-lvl-value jmi-warning'
+                document.querySelector('#cheque-due-amount-selector').className = 'jmi-lvl-value jmi-warning'
+                document.querySelector('#eftn-due-amount-selector').className = 'jmi-lvl-value jmi-warning'
+            } else {
+                document.querySelector('#cash-due-amount-selector').className = 'jmi-lvl-value'
+                document.querySelector('#cheque-due-amount-selector').className = 'jmi-lvl-value'
+                document.querySelector('#eftn-due-amount-selector').className = 'jmi-lvl-value'
+            }
+        },
+        deliveries_eftn_receiver_amount_KeyDown_ordered_table(value) {
+            console.log(value.key)
+            // this.cash_due_amount
+            // if(value.keyCode === 190 || value.keyCode === 110) {
+            //     value.preventDefault()
+            // }
+        },
         imageChooseEventHandler(event) {
             this.imageChooseEventHandler_2(event)
             this.UPLOADED_IMAGE_NAME = null
@@ -1436,6 +1512,12 @@ export default {
             let output = document.querySelector('#cheque_image')
             output.src = URL.createObjectURL(event.target.files[0])
             output.onload = () => {
+                URL.revokeObjectURL(output.src)
+            }
+
+            let output2 = document.querySelector('#challan_image')
+            output2.src = URL.createObjectURL(event.target.files[0])
+            output2.onload = () => {
                 URL.revokeObjectURL(output.src)
             }
             // this.UPLOADED_IMAGE_NAME = event.target.files[0].name

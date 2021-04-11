@@ -668,13 +668,14 @@ export default class PostService {
   }
 
   // DELEVERIES - DETAILS SECTION - SAVE
-  async getSaveInvoiceDeliveryInfo_DELIVERIES(invoice_id, invoice_dtl, cash, cheque, net_payable_amount, base64_img, img_name, file_path, object_type) {
+  async getSaveInvoiceDeliveryInfo_DELIVERIES(invoice_id, invoice_dtl, cash, cheque, net_payable_amount, base64_img, img_name, file_path, object_type, eftn_amt, eftn_bank, eftn_ac_no, eftn_ref_no) {
     console.log(invoice_id)
     console.log(invoice_dtl)
     console.log(cash)
     console.log(cheque)
     console.log(net_payable_amount)
     console.log(object_type)
+    console.log(eftn_amt + '    ' + eftn_bank + '    ' + eftn_ac_no + '    ' + eftn_ref_no)
     let web_menu_url = '/api/web/save-invoice-delivery-info'
     return await axios(web_menu_url, {
       method: 'POST',
@@ -690,7 +691,12 @@ export default class PostService {
         base64_encoded_file: base64_img,
         file_original_name: img_name,
         file_upload_path: file_path,
-        object_type: object_type
+        object_type: object_type,
+
+        eftn_amt: eftn_amt,
+        eftn_bank: eftn_bank,
+        eftn_ac_no: eftn_ac_no,
+        eftn_ref_no: eftn_ref_no
       }
     })
   }
@@ -1080,6 +1086,8 @@ export default class PostService {
 
   // PRODUCT - PRODUCT DETAILS - CREATE NEW SBU PRODUCT
   async getCreateNewSBUProduct_PRODUCTS_DETAILS(prod_id, prod_class_id) {
+    console.log('prod_id : ' + prod_id)
+    console.log('prod_class_id : ' + prod_class_id)
     let web_menu_url = '/api/web/create-new-sbu-product'
     return await axios(web_menu_url, {
       method: 'GET',

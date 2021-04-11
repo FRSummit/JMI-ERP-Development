@@ -85,7 +85,7 @@
                     </div>
                     <div class="row requition_footer" v-if="(SELECTED_REQUISITION_DATA.length ? SELECTED_REQUISITION_DATA.length > 0 : false) && (PREVIOUS_ROUTE_NAME === 'Create Requisition' || PREVIOUS_ROUTE_NAME === 'Transfer Requisition')">
                         <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="saveAsDraftClickHandler">Save As Draft</button></a>
-                        <a><button type="button" class="btn btn-primary btn-global mx-2" @click="sendRequestClickHandler">Send Request</button></a>
+                        <a><button type="button" class="btn btn-primary btn-global mx-2" @click="sendRequestClickHandler">Submit</button></a>
                     </div>
                     <div class="row requition_footer" v-if="(SELECTED_REQUISITION_DATA.length ? SELECTED_REQUISITION_DATA.length > 0 : false) && (PREVIOUS_ROUTE_NAME === 'Approve Requisition')">
                         <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="saveAsSubmitClickHandler">Save As Submit</button></a>
