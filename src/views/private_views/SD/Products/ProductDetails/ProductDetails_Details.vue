@@ -954,9 +954,9 @@ export default {
         addProductBtnClickHandler() {
             this.SELECTED_PRODUCTS_LIST__PRODUCT_MODAL = []
         },
-        checkElementLengthToSetComma(j, element) {
-        return (j < element.length - 1) ? ', ' : ''
-        },
+        // checkElementLengthToSetComma(j, element) {
+        // return (j < element.length - 1) ? ', ' : ''
+        // },
         singleProductClickFromProductList_ProductModal(item) {
             console.log(item)
             this.SELECTED_PRODUCTS_LIST__PRODUCT_MODAL = []
