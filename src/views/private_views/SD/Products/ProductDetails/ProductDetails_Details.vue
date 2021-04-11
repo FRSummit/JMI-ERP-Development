@@ -160,95 +160,95 @@
                               <div class="row">
                                   <div class="col-lg-3 form-group">
                                       <label for="product_name">Product Name</label>
-                                      <input type="text" class="form-control" id="product_name" placeholder="Enter Product Name">
+                                      <input type="text" v-model="product_name" class="form-control" id="product_name" placeholder="Enter Product Name">
                                   </div>
                                   <div class="col-lg-3 form-group">
                                       <label for="product_group">Product Group</label>
-                                      <input type="text" class="form-control" id="product_group" placeholder="Enter Product Group">
+                                      <input type="text" v-model="product_group" class="form-control" id="product_group" placeholder="Enter Product Group">
                                   </div>
                                   <div class="col-lg-3 form-group">
                                       <label for="other_code">Other Code</label>
-                                      <input type="text" class="form-control" id="other_code" placeholder="Enter Other Code">
+                                      <input type="text" v-model="other_code" class="form-control" id="other_code" placeholder="Enter Other Code">
                                   </div>
                                   <div class="col-lg-3 form-group">
                                       <label for="product_type">Product Type</label>
-                                      <input type="text" class="form-control" id="product_type" placeholder="Enter Product Type">
+                                      <input type="text" v-model="product_type" class="form-control" id="product_type" placeholder="Enter Product Type">
                                   </div>
                                   <div class="col-lg-3 form-group">
                                       <label for="product_code">Product Code</label>
-                                      <input type="text" class="form-control" id="product_code" placeholder="Enter Product Code">
+                                      <input type="text" v-model="product_code" class="form-control" id="product_code" placeholder="Enter Product Code">
                                   </div>
                                   <div class="col-lg-3 form-group">
                                       <label for="old_code">Old Code</label>
-                                      <input type="text" class="form-control" id="old_code" placeholder="Enter Old Code">
+                                      <input type="text" v-model="old_code" class="form-control" id="old_code" placeholder="Enter Old Code">
                                   </div>
                                   <div class="col-lg-3 form-group">
                                       <label for="manufacturer">Manufacturer</label>
-                                      <input type="text" class="form-control" id="manufacturer" placeholder="Enter Manufacturer Name">
+                                      <input type="text" v-model="manufacture" class="form-control" id="manufacturer" placeholder="Enter Manufacturer Name">
                                   </div>
                                   <div class="col-lg-3 form-group">
                                       <label for="vendor">Vendor</label>
-                                      <input type="text" class="form-control" id="vendor" placeholder="Enter Vendor Name">
+                                      <input type="text" v-model="vendor" class="form-control" id="vendor" placeholder="Enter Vendor Name">
                                   </div>
                                   <div class="col-lg-3 form-group">
                                       <label for="4p_code">4P Code</label>
-                                      <input type="text" class="form-control" id="4p_code" placeholder="Enter 4P Code">
+                                      <input type="text" v-model="code_4p" class="form-control" id="4p_code" placeholder="Enter 4P Code">
                                   </div>
                                   <div class="col-lg-3 form-group">
                                       <label for="country_origin">Country Origin</label>
-                                      <input type="text" class="form-control" id="country_origin" placeholder="Enter Country Origin">
+                                      <input type="text" v-model="country_origin" class="form-control" id="country_origin" placeholder="Enter Country Origin">
                                   </div>
                                   <div class="col-lg-3 form-group">
                                       <label for="batch_size">Batch Size</label>
-                                      <input type="text" class="form-control" id="batch_size" placeholder="Batch Size">
+                                      <input type="text" v-model="batch_size" class="form-control" id="batch_size" placeholder="Batch Size">
                                   </div>
                                   <div class="col-lg-3 form-group">
                                       <label for="cost_goods_per_unit">Cost of Goods per Unit</label>
-                                      <input type="text" class="form-control" id="cost_goods_per_unit" placeholder="Enter Cost of Goods per Unit">
+                                      <input type="text" v-model="cost_goods_per_unit" class="form-control" id="cost_goods_per_unit" placeholder="Enter Cost of Goods per Unit">
                                   </div>
                                   <div class="col-lg-3 form-group">
                                       <label for="commercial_unit_measure">Commercial Unit of Measure</label>
-                                      <input type="text" class="form-control" id="commercial_unit_measure" placeholder="Enter Commercial Unit of Measure">
+                                      <input type="text" v-model="commercial_unit_measure" class="form-control" id="commercial_unit_measure" placeholder="Enter Commercial Unit of Measure">
                                   </div>
                                   <div class="col-lg-3 form-group">
                                       <label for="ims_code">IMS Code</label>
-                                      <input type="text" class="form-control" id="ims_code" placeholder="Enter IMS Code">
+                                      <input type="text" v-model="ims_code" class="form-control" id="ims_code" placeholder="Enter IMS Code">
                                   </div>
                                   <div class="col-lg-3 form-group">
                                       <label for="commercial_unit_measure_quantity">Commercial Unit of Measure Quantity</label>
-                                      <input type="text" class="form-control" id="commercial_unit_measure_quantity" placeholder="Enter Commercial Unit of Measure Quantity">
+                                      <input type="text" v-model="commercial_unit_measure_quantity" class="form-control" id="commercial_unit_measure_quantity" placeholder="Enter Commercial Unit of Measure Quantity">
                                   </div>
                                   <div class="col-lg-3 form-group">
                                       <label for="commercial_pack_size">Commercial Pack Size</label>
-                                      <input type="text" class="form-control" id="commercial_pack_size" placeholder="Enter Commercial Pack Size">
+                                      <input type="text" v-model="commercial_pack_size" class="form-control" id="commercial_pack_size" placeholder="Enter Commercial Pack Size">
                                   </div>
                                   <div class="col-lg-3 form-group">
                                       <label for="hs_code">HS Code</label>
-                                      <input type="text" class="form-control" id="hs_code" placeholder="Enter HS Code">
+                                      <input type="text" v-model="hs_code" class="form-control" id="hs_code" placeholder="Enter HS Code">
                                   </div>
                                   <div class="col-lg-3 form-group">
                                       <label for="export_unit_measure">Export Unit of Measure</label>
-                                      <input type="text" class="form-control" id="export_unit_measure" placeholder="Enter Export Unit of Measure">
+                                      <input type="text" v-model="export_unit_measure" class="form-control" id="export_unit_measure" placeholder="Enter Export Unit of Measure">
                                   </div>
                                   <div class="col-lg-3 form-group">
                                       <label for="export_pack_size">Export Pack Size</label>
-                                      <input type="text" class="form-control" id="export_pack_size" placeholder="Enter Export Pack Size">
+                                      <input type="text" v-model="export_pack_size" class="form-control" id="export_pack_size" placeholder="Enter Export Pack Size">
                                   </div>
                                   <div class="col-lg-3 form-group">
                                       <label for="total_stock">Total Stock</label>
-                                      <input type="text" class="form-control" id="total_stock" placeholder="Enter Total Stock">
+                                      <input type="text" v-model="total_stock" class="form-control" id="total_stock" placeholder="Enter Total Stock">
                                   </div>
                                   <div class="col-lg-3 form-group">
                                       <label for="owner_sbu_id">Owner SBU ID</label>
-                                      <input type="text" class="form-control" id="owner_sbu_id" placeholder="Enter Owner SBU ID">
+                                      <input type="text" v-model="owner_sbu_id" class="form-control" id="owner_sbu_id" placeholder="Enter Owner SBU ID">
                                   </div>
                                   <div class="col-lg-3 form-group">
                                       <label for="shelf_life">Shelf Life</label>
-                                      <input type="text" class="form-control" id="shelf_life" placeholder="Enter Shelf Life">
+                                      <input type="text" v-model="shelf_life" class="form-control" id="shelf_life" placeholder="Enter Shelf Life">
                                   </div>
                                   <div class="col-lg-3 form-group">
                                       <label for="imported_from">Imported From</label>
-                                      <input type="text" class="form-control" id="imported_from" placeholder="Enter Imported From">
+                                      <input type="text" v-model="imported_from" class="form-control" id="imported_from" placeholder="Enter Imported From">
                                   </div>
                               </div>
                           </form>
@@ -864,6 +864,34 @@ export default {
             prod_class_id_prod_modal: null,
             prod_creating_progressbar: false,
             prod_creating_progressbar_msg: null,
+
+            // Product Basic Tab Content Area
+            product_name: null,
+            product_group: null,
+            other_code: null,
+            product_type: null,
+            product_code: null,
+            old_code: null,
+            manufacture: null,
+            vendor: null,
+            code_4p: null,
+            country_origin: null,
+            batch_size: null,
+            cost_goods_per_unit: null,
+            commercial_unit_measure: null,
+            ims_code: null,
+            commercial_unit_measure_quantity: null,
+            commercial_pack_size: null,
+            hs_code: null,
+            export_unit_measure: null,
+            export_pack_size: null,
+            total_stock: null,
+            owner_sbu_id: null,
+            shelf_life: null,
+            imported_from: null,
+
+
+
         }
     },
     computed: {},
@@ -877,6 +905,33 @@ export default {
         // HTML ATTRIBUTES
         checkElementLengthToSetComma(index, element) {
         return (index < element.length - 1) ? ', ' : ''
+        },
+        // Product Basic Tab Content Area
+        setProductBasicTabContentArea(prod_details) {
+            this.product_name = prod_details.product_info.prod_name
+            this.product_group = prod_details.product_info.prod_group
+            this.other_code = prod_details.product_info.other_code
+            this.product_type = prod_details.product_info.prod_type
+            this.product_code = prod_details.product_info.prod_code
+            this.old_code = prod_details.product_info.old_code
+            this.manufacture = prod_details.product_info.manufacturer
+            this.vendor = prod_details.product_info.vendors
+            this.code_4p = prod_details.product_info.code_4p
+            this.country_origin = prod_details.product_info.country_origin
+            this.batch_size = prod_details.product_info.batch_size
+            this.cost_goods_per_unit = prod_details.product_info.unit_cog
+            this.commercial_unit_measure = prod_details.product_info.com_uom
+            this.ims_code = prod_details.product_info.code_ims
+            this.commercial_unit_measure_quantity = prod_details.product_info.com_uom_qty
+            this.commercial_pack_size = prod_details.product_info.com_pack_size
+            this.hs_code = prod_details.product_info.hs_code
+
+            this.export_unit_measure = prod_details.product_info.exp_uom
+            this.export_pack_size = prod_details.product_info.exp_pack_size
+            this.total_stock = prod_details.product_info.total_stock
+            this.owner_sbu_id = prod_details.product_info.owner_sbu_id
+            this.shelf_life = prod_details.product_info.have_shelf_life
+            this.imported_from = null
         },
         // ---------------------------------------------------------------------------
         createNewProductClickHandler() {
@@ -1016,7 +1071,14 @@ export default {
                 });
         },
     },
-    watch: {},
+    watch: {
+        SELECTED_PROD_DETAILS(newVal) {
+            if(newVal) {
+                console.log(newVal)
+                this.setProductBasicTabContentArea(newVal)
+            }
+        }
+    },
 }
 </script>
 
