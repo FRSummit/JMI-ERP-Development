@@ -571,8 +571,8 @@
                                   <button class="btn btn-primary btn-create" data-toggle="modal" data-target=".create-offer-modal" role="button"><i class="fa fa-plus" aria-hidden="true" style="margin-right: 4px;"></i> Create Offer</button>
                               </div>
                               <!------------ Start Create Offer Modal------------>
-                              <div class="modal create-offer-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="width: 70%; height: 50%;">
-                                <div class="modal-dialog modal-lg modal-dialog-centered">
+                              <div class="modal create-offer-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="width: 70%; height: 302px;">
+                                <div class="modal-dialog modal-lg modal-dialog-centered" style="margin: 0;">
                                     <div class="modal-content" style="border: none;">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="exampleModalCenterTitle">Create Offer</h5>
