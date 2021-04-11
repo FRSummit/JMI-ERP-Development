@@ -12,9 +12,9 @@
                     <img src="../../../../../assets/images/avater.png" alt="Image">
                   </div>
                   <div class="info">
-                    <h5 class="product-name">Ace® Power 500mg<span class="tag">New</span></h5>
-                    <p class="generic-name">JMI1361465</p>
-                    <p class="product-code">Code: <span>45352666647</span></p>
+                    <h5 class="product-name">{{ SELECTED_PROD_DETAILS ? (SELECTED_PROD_DETAILS.product_info ? SELECTED_PROD_DETAILS.product_info.prod_name : '') : '' }}<span class="tag">{{ SELECTED_PROD_DETAILS ? (SELECTED_PROD_DETAILS.prod_class_info ? SELECTED_PROD_DETAILS.prod_class_info.element_name : '') : '' }}</span></h5>
+                    <p class="generic-name" v-for="(element, i) in SELECTED_PROD_DETAILS ? (SELECTED_PROD_DETAILS.prod_attr_element) : 0" :key="i">{{ element.element_name }}{{ checkElementLengthToSetComma(i, element) }}</p>
+                    <p class="product-code">Code: <span>{{ SELECTED_PROD_DETAILS ? (SELECTED_PROD_DETAILS.product_info ? SELECTED_PROD_DETAILS.product_info.prod_code : '') : '' }}</span></p>
                   </div>
                     <!-- Start Change Photo Modal -->
                           <div class="modal" id="change-photo" tabindex="-1" role="dialog" aria-labelledby="changePhoto" aria-hidden="true">
@@ -854,7 +854,7 @@ import JMIFilter from '../../../../../functions/JMIFIlter'
 const jmiFilter = new JMIFilter()
 
 export default {
-    props: [],
+    props: ["SELECTED_PROD_DETAILS"],
     components: {},
     data() {
         return {
@@ -873,6 +873,12 @@ export default {
         await this.PRODUCT_CLASS_ELEMENT_LIST__FROM_SERVICE()
     },
     methods: {
+        // ---------------------------------------------------------------------------
+        // HTML ATTRIBUTES
+        checkElementLengthToSetComma(index, element) {
+        return (index < element.length - 1) ? ', ' : ''
+        },
+        // ---------------------------------------------------------------------------
         createNewProductClickHandler() {
             console.log('createNewProductClickHandler')
         },

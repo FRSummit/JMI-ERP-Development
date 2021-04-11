@@ -1012,7 +1012,7 @@
     font-size       : var(--font10);
     color           : var(--white);
     padding         : 2px 6px;
-    background-color: #35d27e;
+    background-color: var(--blue);
     border-radius   : 50px;
     margin          : 0px 0px 0px 15px;
 }
