@@ -77,7 +77,8 @@
                                         <!-- Quantity Column -->
                                         <td :id="'order-data-table-tr-td-' + i">
                                             <span v-if="!(data.deal_type === 'F' && data.net_amount === '0')">
-                                                <span class="single_qty quantity-setup" v-if="STOCK_TRANSIT_VALIDATION === false">
+                                                <!-- <span class="single_qty quantity-setup" v-if="STOCK_TRANSIT_VALIDATION === false"> -->
+                                                <span class="single_qty quantity-setup" v-if="( parseInt(data.net_qty) > (parseInt(data.available_stock) + parseInt(data.transit_stock)) )">
                                                     <span class="qty" v-if="( parseInt(data.net_qty) <= parseInt(data.available_stock) ) || (data.available_stock === null)">{{ data.qty }}</span>
                                                     <span class="qty" v-if="parseInt(data.net_qty) > parseInt(data.available_stock)" :class="parseInt(data.net_qty) > parseInt(data.available_stock) ? 'jmi-stock-out' : ''">{{ data.qty }}
                                                         <span class="tool-tip">
@@ -86,7 +87,8 @@
                                                         </span>
                                                     </span>
                                                 </span>
-                                                <span class="single_qty quantity-setup" v-if="STOCK_TRANSIT_VALIDATION === true">
+                                                <!-- <span class="single_qty quantity-setup" v-if="STOCK_TRANSIT_VALIDATION === true"> -->
+                                                <span class="single_qty quantity-setup" v-if="( parseInt(data.net_qty) < (parseInt(data.available_stock) + parseInt(data.transit_stock)) )">
                                                     <span class="qty">{{ data.qty }}</span>
                                                 </span>
                                                 <span class="qty_editable quantity-setup hide" style="border: 1px solid #026CD1;">
@@ -1637,8 +1639,14 @@ export default {
             }
             order_details.push(order_approval_details)
             console.log(order_details)
+            console.log('--------------------------------------')
+            console.log(this.STOCK_TRANSIT_VALIDATION)
+            console.log(this.selected_sr_id)
+            console.log(this.header_date)
+            console.log('--------------------------------------')
             if(this.STOCK_TRANSIT_VALIDATION === false && (this.selected_sr_id && this.header_date)) {
                 // await service.getApproveSingleOrderByOrderId_OrderApproval(this.order_id_from_left_side)
+                // alert('access')
                 await service.getApproveSingleOrderByOrderId_OrderApproval(order_details)
                     .then(res => {
                         console.log(res.data)
@@ -1671,7 +1679,11 @@ export default {
             } else {
                 this.approve_product_confirmation_popup_modal = false
                 this.approved_single_order_modal = true
-                this.ORDER_SUCCESS_MESSAGE = 'No SR or Date selected. Please add SR'
+                if(this.STOCK_TRANSIT_VALIDATION === true) {
+                    this.ORDER_SUCCESS_MESSAGE = 'Stock unavailable'
+                } else {
+                    this.ORDER_SUCCESS_MESSAGE = 'No SR or Date selected. Please add SR'
+                }
                 setTimeout( () => {
                     this.approved_single_order_modal = false
                     this.ORDER_SUCCESS_MESSAGE = null
@@ -1817,12 +1829,14 @@ export default {
         check_STOCK_TRANSIT_VALIDATION() {
             this.STOCK_TRANSIT_VALIDATION = false
             for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST.length; i++) {
+                // alert(parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].net_qty) + '    ' + parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].available_stock) + '    ' + parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].transit_stock))
                 if(parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].net_qty) > (parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].available_stock) + parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].transit_stock)) ) {
                     this.STOCK_TRANSIT_VALIDATION = true
                 } else {
                     this.STOCK_TRANSIT_VALIDATION = false
                 }
             }
+            // alert(this.STOCK_TRANSIT_VALIDATION)
         },
         showCommentClickHandler() {
             if(this.show_comment_popup) {
