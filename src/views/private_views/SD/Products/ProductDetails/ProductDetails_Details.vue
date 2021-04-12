@@ -3,943 +3,849 @@
       <div class="layout-container">
         <div class="container-fluid">
           <div class="col-12 product-body">
-            <div class="row product-header"> 
-              <!-- <div class="col-lg-6 col-12"> -->
-              <div class="col-lg-6">
-                <div class="product-header-info"> 
-                  <div class="product-img">
-                    <a data-toggle="modal" data-target="#change-photo" >Change</a>
-                    <img src="../../../../../assets/images/products/product_placeholder.png" alt="Image">
-                  </div>
-                  <div class="info">
-                    <h5 class="product-name">{{ SELECTED_PROD_DETAILS ? (SELECTED_PROD_DETAILS.product_info ? SELECTED_PROD_DETAILS.product_info.prod_name : '') : '' }}<span class="tag">{{ SELECTED_PROD_DETAILS ? (SELECTED_PROD_DETAILS.prod_class_info ? SELECTED_PROD_DETAILS.prod_class_info.element_name : '') : '' }}</span></h5>
-                    <p class="generic-name" v-for="(element, i) in SELECTED_PROD_DETAILS ? (SELECTED_PROD_DETAILS.prod_attr_element) : 0" :key="i">{{ element.element_name }}{{ checkElementLengthToSetComma(i, element) }}</p>
-                    <p class="product-code">Code: <span>{{ SELECTED_PROD_DETAILS ? (SELECTED_PROD_DETAILS.product_info ? SELECTED_PROD_DETAILS.product_info.prod_code : '') : '' }}</span></p>
-                  </div>
-                    <!-- Start Change Photo Modal -->
-                          <div class="modal" id="change-photo" tabindex="-1" role="dialog" aria-labelledby="changePhoto" aria-hidden="true">
-                              <div class="modal-dialog modal-dialog-centered" role="document">
-                              <div class="modal-content">
-                                  <div class="modal-header">
-                                  <h5 class="modal-title" id="changePhoto">Change Photo</h5>
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="changePhotoModalCloseClickHandler" style="width: 50px;">
-                                      <span aria-hidden="true">&times;</span>
-                                  </button>
-                                  </div>
-                                    <form class="modal-body">
-                                        <div class="form-group">
-                                          <input type="file" class="form-control-file" id="exampleFormControlFile1">
-                                        </div>
-                                      </form>
-                                  <div class="modal-footer justify-content-center">
-                                      <button type="button" class="btn btn-primary" @click="changePhotoSaveBtnClickHandler">Save Changes</button>
-                                  </div>
-                              </div>
-                              </div>
-                          </div>
-                          <!-- Start Change Photo Modal -->
-                      </div>
-                  </div>
-                  
-                  <!-- <div class="col-lg-6 col-12 d-flex align-items-center justify-content-end"> -->
-                  <div class="col-lg-6 d-flex align-items-center justify-content-end">
-                      <!-- <a @click="createNewProductClickHandler"> <button type="button" class="btn btn-primary btn-global"> <i class="fa fa-plus mr-2"> </i>Add Product</button></a> -->
-                      <button type="button" class="btn-global create-product" data-toggle="modal" data-target="#classification-modal" @click="addProductBtnClickHandler"><i class="fa fa-plus mr-2"> </i>Add Product</button>
-                  </div>
-
-                  <!-- Start Classification Modal Area -->
-                <div class="modal" id="classification-modal" tabindex="-1" role="dialog" aria-labelledby="classification" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="margin: 0; display: contents;">
-                        <div class="modal-content" style="padding: 14px 0; border: 0;">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Add Product</h5>
-                            <button type="button" id="classification-modal-close-btn" class="close" data-dismiss="modal" aria-label="Close" style="width: 50px;">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                <div class="row product-header"> 
+                <!-- <div class="col-lg-6 col-12"> -->
+                <div class="col-lg-6">
+                    <div class="product-header-info"> 
+                        <div class="product-img">
+                            <a data-toggle="modal" data-target="#change-photo" >Change</a>
+                            <img src="../../../../../assets/images/products/product_placeholder.png" alt="Image">
                         </div>
-                        <div class="modal-body">
-                            <div class="row" style="margin-bottom: 0;">
-                                <div class="col-6" style="padding-top: 0; padding-bottom: 0;">
-                                    <div class="product-list" style="padding-top: 0; padding-bottom: 0;">
-                                        <div class="form-group" style="padding-left: 0; padding-right: 0;"><i class="fa fa-search"> </i><input type="text" placeholder="Search by Name, ID No" id="products-modal-search-filter" v-on:keyup="searchKeyUpHandlerProductModal" class="form-control" style="padding-left: 30px;"></div>
-                                        <div class="product-list-inner" style="margin-top: 0;">
-                                            <div class="product-card2" v-for="(item, i) in PRODUCTS_LIST" :key="i" @click="singleProductClickFromProductList_ProductModal(item)">
+                        <div class="info" v-if="SELECTED_PROD_DETAILS">
+                            <h5 class="product-name">{{ SELECTED_PROD_DETAILS ? (SELECTED_PROD_DETAILS.product_info ? SELECTED_PROD_DETAILS.product_info.prod_name : '') : '' }}<span class="tag">{{ SELECTED_PROD_DETAILS ? (SELECTED_PROD_DETAILS.prod_class_info ? SELECTED_PROD_DETAILS.prod_class_info.element_name : '') : '' }}</span></h5>
+                            <p class="generic-name" v-for="(element, i) in SELECTED_PROD_DETAILS ? (SELECTED_PROD_DETAILS.prod_attr_element) : 0" :key="i">{{ element.element_name }}{{ checkElementLengthToSetComma(i, element) }}</p>
+                            <p class="product-code">Code: <span>{{ SELECTED_PROD_DETAILS ? (SELECTED_PROD_DETAILS.product_info ? SELECTED_PROD_DETAILS.product_info.prod_code : '') : '' }}</span></p>
+                        </div>
+                        <!-- Start Change Photo Modal -->
+                            <div class="modal" id="change-photo" tabindex="-1" role="dialog" aria-labelledby="changePhoto" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title" id="changePhoto">Change Photo</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="changePhotoModalCloseClickHandler" style="width: 50px;">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    </div>
+                                        <form class="modal-body">
+                                            <div class="form-group">
+                                            <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                                            </div>
+                                        </form>
+                                    <div class="modal-footer justify-content-center">
+                                        <button type="button" class="btn btn-primary" @click="changePhotoSaveBtnClickHandler">Save Changes</button>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            <!-- Start Change Photo Modal -->
+                        </div>
+                    </div>
+                    
+                    <!-- <div class="col-lg-6 col-12 d-flex align-items-center justify-content-end"> -->
+                    <div class="col-lg-6 d-flex align-items-center justify-content-end">
+                        <!-- <a @click="createNewProductClickHandler"> <button type="button" class="btn btn-primary btn-global"> <i class="fa fa-plus mr-2"> </i>Add Product</button></a> -->
+                        <button type="button" class="btn-global create-product" data-toggle="modal" data-target="#classification-modal" @click="addProductBtnClickHandler"><i class="fa fa-plus mr-2"> </i>Add Product</button>
+                    </div>
+
+                    <!-- Start Classification Modal Area -->
+                    <div class="modal" id="classification-modal" tabindex="-1" role="dialog" aria-labelledby="classification" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="margin: 0; display: contents;">
+                            <div class="modal-content" style="padding: 14px 0; border: 0;">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Add Product</h5>
+                                    <button type="button" id="classification-modal-close-btn" class="close" data-dismiss="modal" aria-label="Close" style="width: 50px;">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row" style="margin-bottom: 0;">
+                                        <div class="col-6" style="padding-top: 0; padding-bottom: 0;">
+                                            <div class="product-list" style="padding-top: 0; padding-bottom: 0;">
+                                                <div class="form-group" style="padding-left: 0; padding-right: 0;"><i class="fa fa-search"> </i><input type="text" placeholder="Search by Name, ID No" id="products-modal-search-filter" v-on:keyup="searchKeyUpHandlerProductModal" class="form-control" style="padding-left: 30px;"></div>
+                                                <div class="product-list-inner" style="margin-top: 0;">
+                                                    <div class="product-card2" v-for="(item, i) in PRODUCTS_LIST" :key="i" @click="singleProductClickFromProductList_ProductModal(item)">
+                                                        <div class="row1"><h5>{{ item.prod_name }}</h5> <p>Code: <span>{{ item.prod_code }}</span></p></div>
+                                                        <div class="row2"><p><span v-for="(elem, j) in item.element" :key="j">{{ elem.element_name }}{{ checkElementLengthToSetComma(j, item.element) }}</span></p></div>
+                                                        <p class="jmi-search-key hide">{{ createSearchString(item) }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6" style="padding-top: 0; padding-bottom: 0;">
+                                            
+                                            <div class="product-list" style="padding-top: 0; padding-bottom: 0;">
+                                            </div>
+                                            <div class="product-selected" v-for="(item, i) in SELECTED_PRODUCTS_LIST__PRODUCT_MODAL" :key="i">
                                                 <div class="row1"><h5>{{ item.prod_name }}</h5> <p>Code: <span>{{ item.prod_code }}</span></p></div>
-                                                <div class="row2"><p><span v-for="(elem, j) in item.element" :key="j">{{ elem.element_name }}{{ checkElementLengthToSetComma(j, item.element) }}</span></p></div>
-                                                <p class="jmi-search-key hide">{{ createSearchString(item) }}</p>
+                                                <div class="row2"><p><span v-for="(elem, j) in item.element" :key="j">{{ elem.element_name }}</span></p></div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="product_class">Product Class</label>
+                                                <select class="form-control" id="priority_class_prod_modal" v-model="prod_class_id_prod_modal" @change="onChangeProdClassIdProdModal">
+                                                    <option :value="null" selected>Select Class</option>
+                                                    <option v-for="(item, i) in PRIORITY_CLASS_PRODUCTS_MODAL" :key="i" :value="item.id">{{ item.element_name }}</option>
+                                                </select>
+                                            </div>
+
+                                            <!-- <div class="form-group mt-2">
+                                                <label for="product_class">Product Class</label>
+                                                <select class="form-control" id="unit">
+                                                    <option>Select Class</option>
+                                                    <option>High Priority</option>
+                                                    <option>Star Priority</option>
+                                                    <option>Low Priority</option>
+                                                    <option>New Product</option>
+                                                </select>
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer justify-content-center">
+                                    <button type="button" class="btn btn-primary btn-global modal-prod-save-btn" @click="saveNewSBUProductClickHandler">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Classification Modal Area -->
+                </div>
+
+                <div id="progressbar" class="jmi-progressbar" v-if="!SELECTED_PROD_DETAILS">
+                    <!-- <v-progress-circular indeterminate color="primary"></v-progress-circular> -->
+                    <p>Please select a product</p>
+                </div>
+
+                <div class="row product-details-tab" v-if="SELECTED_PROD_DETAILS">
+                    <div class="col-12">
+                        <ul class="nav nav-tabs nav-justified" id="xxxs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="details-single-tab" data-toggle="tab" href="#tab-basic">Basic</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="details-single-tab" data-toggle="tab" href="#tab-detail-attributes">Detail</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="details-single-tab" data-toggle="tab" href="#tab-pricing">Pricing</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="details-single-tab" data-toggle="tab" href="#tab-offers">Offers</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="details-single-tab" data-toggle="tab" href="#tab-competitors">Competitors</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="details-single-tab" data-toggle="tab" href="#tab-ledger">Ledger</a>
+                            </li>
+                            <li class="nav-item">
+                                <!-- <a class="nav-link disabled" id="details-single-tab" data-toggle="tab" href="#tab-stock-position">Stock Position</a> -->
+                                <a class="nav-link" id="details-single-tab" data-toggle="tab" href="#tab-stock-position">Stock Position</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="details-single-tab" data-toggle="tab" href="#tab-documents">Documents</a>
+                            </li>
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <!------------ Start Product Basic Tab Content Area ------------>
+                            <div id="tab-basic" class="tab-pane active">
+                                <div class="tab-content-header">
+                                    <h5>Product Information</h5>
+                                    <div class="btn-group">
+                                        <button class="btn btn-primary btn-save" @click="saveBtnClickHandler" role="button">Save</button>
+                                        <a class="btn-edit btn-active" @click="editBtnClickHandler"><i class="zmdi zmdi-edit"></i></a>
+                                    </div>
+                                </div>
+                                <form class="inner-scroll">
+                                    <div class="row">
+                                        <div class="col-lg-9 form-group">
+                                            <label for="product-description">Product Description</label>
+                                            <textarea v-model="product_description" class="form-control" id="product-description" rows="3" placeholder="Enter Product Description"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 form-group">
+                                            <label for="product_name">Product Name</label>
+                                            <input type="text" v-model="product_name" class="form-control" id="product_name" placeholder="Enter Product Name">
+                                        </div>
+                                        <div class="col-lg-3 form-group">
+                                            <label for="product_group">Product Group</label>
+                                            <input type="text" v-model="product_group" class="form-control" id="product_group" placeholder="Enter Product Group">
+                                        </div>
+                                        <div class="col-lg-3 form-group">
+                                            <label for="other_code">Other Code</label>
+                                            <input type="text" v-model="other_code" class="form-control" id="other_code" placeholder="Enter Other Code">
+                                        </div>
+                                        <div class="col-lg-3 form-group">
+                                            <label for="product_type">Product Type</label>
+                                            <input type="text" v-model="product_type" class="form-control" id="product_type" placeholder="Enter Product Type">
+                                        </div>
+                                        <div class="col-lg-3 form-group">
+                                            <label for="product_code">Product Code</label>
+                                            <input type="text" v-model="product_code" class="form-control" id="product_code" placeholder="Enter Product Code">
+                                        </div>
+                                        <div class="col-lg-3 form-group">
+                                            <label for="old_code">Old Code</label>
+                                            <input type="text" v-model="old_code" class="form-control" id="old_code" placeholder="Enter Old Code">
+                                        </div>
+                                        <div class="col-lg-3 form-group">
+                                            <label for="manufacturer">Manufacturer</label>
+                                            <input type="text" v-model="manufacture" class="form-control" id="manufacturer" placeholder="Enter Manufacturer Name">
+                                        </div>
+                                        <div class="col-lg-3 form-group">
+                                            <label for="vendor">Vendor</label>
+                                            <input type="text" v-model="vendor" class="form-control" id="vendor" placeholder="Enter Vendor Name">
+                                        </div>
+                                        <div class="col-lg-3 form-group">
+                                            <label for="4p_code">4P Code</label>
+                                            <input type="text" v-model="code_4p" class="form-control" id="4p_code" placeholder="Enter 4P Code">
+                                        </div>
+                                        <div class="col-lg-3 form-group">
+                                            <label for="country_origin">Country Origin</label>
+                                            <input type="text" v-model="country_origin" class="form-control" id="country_origin" placeholder="Enter Country Origin">
+                                        </div>
+                                        <div class="col-lg-3 form-group">
+                                            <label for="batch_size">Batch Size</label>
+                                            <input type="text" v-model="batch_size" class="form-control" id="batch_size" placeholder="Batch Size">
+                                        </div>
+                                        <div class="col-lg-3 form-group">
+                                            <label for="cost_goods_per_unit">Cost of Goods per Unit</label>
+                                            <input type="text" v-model="cost_goods_per_unit" class="form-control" id="cost_goods_per_unit" placeholder="Enter Cost of Goods per Unit">
+                                        </div>
+                                        <div class="col-lg-3 form-group">
+                                            <label for="commercial_unit_measure">Commercial Unit of Measure</label>
+                                            <input type="text" v-model="commercial_unit_measure" class="form-control" id="commercial_unit_measure" placeholder="Enter Commercial Unit of Measure">
+                                        </div>
+                                        <div class="col-lg-3 form-group">
+                                            <label for="ims_code">IMS Code</label>
+                                            <input type="text" v-model="ims_code" class="form-control" id="ims_code" placeholder="Enter IMS Code">
+                                        </div>
+                                        <div class="col-lg-3 form-group">
+                                            <label for="commercial_unit_measure_quantity">Commercial Unit of Measure Quantity</label>
+                                            <input type="text" v-model="commercial_unit_measure_quantity" class="form-control" id="commercial_unit_measure_quantity" placeholder="Enter Commercial Unit of Measure Quantity">
+                                        </div>
+                                        <div class="col-lg-3 form-group">
+                                            <label for="commercial_pack_size">Commercial Pack Size</label>
+                                            <input type="text" v-model="commercial_pack_size" class="form-control" id="commercial_pack_size" placeholder="Enter Commercial Pack Size">
+                                        </div>
+                                        <div class="col-lg-3 form-group">
+                                            <label for="hs_code">HS Code</label>
+                                            <input type="text" v-model="hs_code" class="form-control" id="hs_code" placeholder="Enter HS Code">
+                                        </div>
+                                        <div class="col-lg-3 form-group">
+                                            <label for="export_unit_measure">Export Unit of Measure</label>
+                                            <input type="text" v-model="export_unit_measure" class="form-control" id="export_unit_measure" placeholder="Enter Export Unit of Measure">
+                                        </div>
+                                        <div class="col-lg-3 form-group">
+                                            <label for="export_pack_size">Export Pack Size</label>
+                                            <input type="text" v-model="export_pack_size" class="form-control" id="export_pack_size" placeholder="Enter Export Pack Size">
+                                        </div>
+                                        <div class="col-lg-3 form-group">
+                                            <label for="total_stock">Total Stock</label>
+                                            <input type="text" v-model="total_stock" class="form-control" id="total_stock" placeholder="Enter Total Stock">
+                                        </div>
+                                        <div class="col-lg-3 form-group">
+                                            <label for="owner_sbu_id">Owner SBU ID</label>
+                                            <input type="text" v-model="owner_sbu_id" class="form-control" id="owner_sbu_id" placeholder="Enter Owner SBU ID">
+                                        </div>
+                                        <div class="col-lg-3 form-group">
+                                            <label for="shelf_life">Shelf Life</label>
+                                            <input type="text" v-model="shelf_life" class="form-control" id="shelf_life" placeholder="Enter Shelf Life">
+                                        </div>
+                                        <div class="col-lg-3 form-group">
+                                            <label for="imported_from">Imported From</label>
+                                            <input type="text" v-model="imported_from" class="form-control" id="imported_from" placeholder="Enter Imported From">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!------------ End Product Basic Tab Content Area ------------>
+
+                            <!------------ Start Detail Attributes Tab Content Area ------------>    
+                            <div id="tab-detail-attributes" class="tab-pane">
+                                <div class="row attributes-vertical-tab">
+                                    <div class="col-lg-3">
+                                        <div class="attribute-list">
+                                            <div class="attribute-list-header">
+                                                <h5>Detail Attributes</h5>
+                                                <a class="menu" data-toggle="modal" data-target="#manage-attribute-modal"><i class="fa fa-list"></i></a>
+                                            </div>
+
+                                            <ul class="nav nav-tabs flex-column" id="attribute-items">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" id="attr-single-items" href="#attribute1" data-toggle="tab">Strength</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="attr-single-items" href="#attribute2" data-toggle="tab">Generic Name</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="attr-single-items" href="#attribute3" data-toggle="tab">Therapeutic Class</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="attr-single-items" href="#attribute4" data-toggle="tab">Dosage &amp; Administration</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- Start Manage Attribute Modal -->
+                                        <div class="modal" id="manage-attribute-modal" tabindex="-1" role="dialog" aria-labelledby="manageattribute" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="margin: 0;">
+                                                <div class="modal-content" style="border: none;">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Manage Attribute</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div id="manage-attribute-tab">
+                                                        <ul class="nav nav-tabs  mb-3" id="lineTab" role="tablist">
+                                                            <li class="nav-item">
+                                                                <a class="nav-link active" id="underline-home-tab" data-toggle="tab" href="#add-attribute" role="tab"
+                                                                    aria-controls="add-attribute" aria-selected="true">Add Attribute</a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a class="nav-link" id="create-attribute-tab" data-toggle="tab" href="#create-attribute" role="tab"
+                                                                    aria-controls="create-attribute" aria-selected="false">Create New Attribute</a>
+                                                            </li>
+                                                        </ul>
+                                                    
+                                                        <div class="tab-content">
+
+                                                        <div class="tab-pane fade show active" id="add-attribute" role="tabpanel" aria-labelledby="add-attribute-tab">
+                                                            <div class="single-tag">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                                    <label class="form-check-label" for="flexCheckDefault">Indication</label>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            <div class="single-tag">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheck1">
+                                                                    <label class="form-check-label" for="flexCheck1">Therapeutic Class</label>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            <div class="single-tag">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheck2">
+                                                                    <label class="form-check-label" for="flexCheck2">Therapeutic Class</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="tab-pane fade" id="create-attribute" role="tabpanel" aria-labelledby="create-attribute-tab">
+                                                        <div class="row">
+                                                            <div class="col-lg-4 form-group">
+                                                                <label for="indiction_1">Attribute For</label>
+                                                                <select class="form-control" id="unit">
+                                                                    <option>This Product</option>
+                                                                    <option>Global Attribute</option>
+                                                                    <option>Box 2</option>
+                                                                    <option>Box 3</option>
+                                                                </select>
+                                                            </div>
+
+                                                            <div class="col-lg-8 form-group">
+                                                                <label for="imported_from">Attribute Title</label>
+                                                                <input type="text" class="form-control" id="attribute-title" placeholder="Enter Attribute Title">
+                                                            </div>
+                                                            <div class="col-lg-12 form-group">
+                                                                <label for="indiction_1">Attribute Description</label>
+                                                                <textarea class="form-control" id="attribute-description" rows="6" placeholder="Enter Attribute Description"></textarea>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                    
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer justify-content-center">
+                                                    <button type="button" class="btn btn-primary btn-global">Save Changes</button>
+                                                </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- End Manage Attribute Modal -->
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <div class="tab-content attribute-content">
+
+                                            <div class="tab-pane active" id="attribute1">
+                                                <div class="attribute-header">
+                                                    <h5>Strength</h5>
+                                                    <!-- <a class="btn-edit btn-active" ><i class="fa fa-pencil" aria-hidden="true"></i></a> -->
+                                                    <a class="btn-edit btn-active"><i class="zmdi zmdi-edit"></i></a>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-12 form-group">
+                                                        <label for="indiction_1">Strength</label>
+                                                        <textarea class="form-control" v-model="prod_dtl_element_strength" id="indiction_1" rows="6" placeholder="Enter Product Indiction" readonly></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="tab-pane" id="attribute2">
+                                                <div class="attribute-header">
+                                                    <h5>Generic Name</h5>
+                                                    <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-12 form-group">
+                                                        <label for="indiction_1">Generic Name</label>
+                                                        <textarea class="form-control" v-model="prod_dtl_element_generic_name" id="indiction_1" rows="6" placeholder="Enter Product Indiction" readonly></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane" id="attribute3">
+                                                <div class="attribute-header">
+                                                    <h5>Therapeutic Class</h5>
+                                                    <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-12 form-group">
+                                                        <label for="indiction_1">Therapeutic Class</label>
+                                                        <textarea class="form-control" v-model="prod_dtl_element_thrp_class" id="indiction_1" rows="6" placeholder="Enter Product Indiction" readonly></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane" id="attribute4">
+                                                <div class="attribute-header">
+                                                    <h5>Dosage &amp; Administration</h5>
+                                                    <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-12 form-group">
+                                                        <label for="indiction_1">Dosage &amp; Administration</label>
+                                                        <textarea class="form-control" v-model="prod_dtl_element_dosage_form" id="indiction_1" rows="6" placeholder="Enter Product Indiction" readonly></textarea>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-6" style="padding-top: 0; padding-bottom: 0;">
-                                    
-                                    <div class="product-list" style="padding-top: 0; padding-bottom: 0;">
+                            </div>
+                            <!------------ End Detail Attributes Tab Content Area ------------>
+                            
+                            <!------------ Start Pricing Tab Content Area ------------>
+                            <div id="tab-pricing" class="tab-pane">
+                                <div class="tab-content-header">
+                                    <h5>Product Information</h5>
+                                    <div class="btn-group">
+                                        <button class="btn btn-primary btn-save"  role="button">Save</button>
+                                        <a class="btn-edit btn-active" ><i class="zmdi zmdi-edit"></i></a>
                                     </div>
-                                    <div class="product-selected" v-for="(item, i) in SELECTED_PRODUCTS_LIST__PRODUCT_MODAL" :key="i">
-                                        <div class="row1"><h5>{{ item.prod_name }}</h5> <p>Code: <span>{{ item.prod_code }}</span></p></div>
-                                        <div class="row2"><p><span v-for="(elem, j) in item.element" :key="j">{{ elem.element_name }}</span></p></div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="product_class">Product Class</label>
-                                        <select class="form-control" id="priority_class_prod_modal" v-model="prod_class_id_prod_modal" @change="onChangeProdClassIdProdModal">
-                                            <option :value="null" selected>Select Class</option>
-                                            <option v-for="(item, i) in PRIORITY_CLASS_PRODUCTS_MODAL" :key="i" :value="item.id">{{ item.element_name }}</option>
-                                        </select>
-                                    </div>
+                                </div>
 
-                                    <!-- <div class="form-group mt-2">
-                                        <label for="product_class">Product Class</label>
-                                        <select class="form-control" id="unit">
-                                            <option>Select Class</option>
-                                            <option>High Priority</option>
-                                            <option>Star Priority</option>
-                                            <option>Low Priority</option>
-                                            <option>New Product</option>
-                                        </select>
-                                    </div> -->
+                                <div class="row">
+                                    <div class="col-lg-3 form-group">
+                                        <label for="trade_price">Trade Price</label>
+                                        <input type="text" v-model="prod_price_tab_trade_price" class="form-control" id="trade_price" placeholder="Enter Trade Price">
+                                    </div>
+                                    <div class="col-lg-3 form-group">
+                                        <label for="manufacture_price">Manufacture Price</label>
+                                        <input type="text" v-model="prod_price_tab_manufacture_price" class="form-control" id="manufacture_price" placeholder="Enter Manufacture Price">
+                                    </div>
+                                    <div class="col-lg-3 form-group">
+                                        <label for="maximum_retail_price">Maximum Retail Price</label>
+                                        <input type="text" v-model="prod_price_tab_max_retail_price" class="form-control" id="maximum_retail_price" placeholder="Enter Maximum Retail Price">
+                                    </div>
+                                    <div class="col-lg-3 form-group">
+                                        <label for="maximum_trade_price">Maximum Trade Price</label>
+                                        <input type="text" v-model="prod_price_tab_max_trade_price" class="form-control" id="maximum_trade_price" placeholder="Enter Maximum Trade Price">
+                                    </div>
+                                    <div class="col-lg-3 form-group">
+                                        <label for="minimum_trade_price">Minimum Trade Price</label>
+                                        <input type="text" v-model="prod_price_tab_min_trade_price" class="form-control" id="minimum_trade_price" placeholder="Enter Minimum Trade Price">
+                                    </div>
+                                    <div class="col-lg-3 form-group">
+                                        <label for="vat">Vat</label>
+                                        <input type="number" v-model="prod_price_tab_vat" min="0" max="100" class="form-control" id="vat" placeholder="Enter Vat">
+                                    </div>
+                                    <div class="col-lg-3 form-group">
+                                        <label for="vat_ptc">Vat PTC</label>
+                                        <input type="text" v-model="prod_price_tab_vat_pct" class="form-control" id="vat_ptc" placeholder="Enter Vat PTC">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="modal-footer justify-content-center">
-                            <button type="button" class="btn btn-primary btn-global modal-prod-save-btn" @click="saveNewSBUProductClickHandler">Save</button>
-                        </div>
+                            <!------------ End Pricing Tab Content Area ------------>
+
+                            <!------------ Start Offers Tab Content Area ------------>
+                            <div id="tab-offers" class="tab-pane">
+                                <div class="tab-content-header">
+                                    <h5>Offers</h5>
+                                    <div class="btn-group">
+                                        <button class="btn btn-primary btn-create" data-toggle="modal" data-target=".create-offer-modal" role="button"><i class="fa fa-plus" aria-hidden="true" style="margin-right: 4px;"></i> Create Offer</button>
+                                    </div>
+                                    <!------------ Start Create Offer Modal------------>
+                                    <!-- <div class="modal create-offer-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="width: 70%; height: 302px;"> -->
+                                    <div class="modal create-offer-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="width: 70%;">
+                                        <div class="modal-dialog modal-lg modal-dialog-centered" style="margin: 0; max-width: unset;">
+                                            <div class="modal-content" style="border: none;">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalCenterTitle">Create Offer</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <div class="col-lg-4 form-group">
+                                                            <label for="offer_type">Offer Type</label>
+                                                            <select class="form-control" id="offer_type" v-model="offer_type_offers_modal" @change="onChangeOfferTypeOfferModal">
+                                                                <option :value="null" selected>Select an option</option>
+                                                                <option>Percentage Discount</option>
+                                                                <option>Fixed Discount</option>
+                                                                <option>Bonus Product</option>
+                                                                <option>Free Product</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-lg-4 form-group">
+                                                            <label for="offer_name">Offer Name</label>
+                                                            <input type="text" class="form-control" id="offer_name" placeholder="Enter Offer Name">
+                                                        </div>
+                                                        <div class="col-lg-4 form-group">
+                                                            <label for="date_range">Start &amp; End Date</label>
+                                                            <input type="date" class="form-control" id="date_range" placeholder="DD/MM/YY - DD/MM/YY">
+                                                        </div>
+                                                    </div>
+
+                                                    
+                                                    <!-- Percentage Discount -->
+                                                    <!-- <div class="row" id="percentage_discount" style="display: none;"> -->
+                                                    <div class="row hide" id="percentage_discount">
+                                                        <div class="col-12"><h5>Percentage Discount</h5><hr></div>
+                                                        <div class="col-lg-4 form-group">
+                                                            <label for="quantity">Minimum Buy QTY</label>
+                                                            <div class="input-group">
+                                                                <input type="number" class="form-control" placeholder="Enter Quantity" aria-describedby="addon1" required>
+                                                                <div class="input-group-append">
+                                                                <span class="input-group-text" id="addon1">Box</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-4 form-group">
+                                                            <label for="discount">Discount</label>
+                                                            <div class="input-group">
+                                                                <input type="number" class="form-control" placeholder="Enter Discount" aria-describedby="basic-addon2" required>
+                                                                <div class="input-group-append">
+                                                                <span class="input-group-text" id="basic-addon2">%</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Fixed Discount -->
+                                                    <!-- <div class="row" id="fixed_discount" style="display: none;"> -->
+                                                    <div class="row hide" id="fixed_discount">
+                                                        <div class="col-12"><h5>Fixed Discount</h5><hr></div>
+                                                        <div class="col-lg-4 form-group">
+                                                            <label for="offer_name">Minimum Buy QTY</label>
+                                                            <div class="input-group">
+                                                                <input type="number" class="form-control" placeholder="Enter Quantity" aria-describedby="addon1" required>
+                                                                <div class="input-group-append">
+                                                                <span class="input-group-text" id="addon1">Box</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4 form-group">
+                                                            <label for="date_range">Discount TP</label>
+                                                            <div class="input-group">
+                                                                <input type="number" class="form-control" placeholder="Enter Discount" aria-describedby="basic-addon2" required>
+                                                                <div class="input-group-append">
+                                                                <span class="input-group-text" id="basic-addon2">%</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Bonus Product -->
+                                                    <!-- <div class="row" id="bonus_product" style="display: none;"> -->
+                                                    <div class="row hide" id="bonus_product">
+                                                        <div class="col-12"><h5>Bonus Product</h5><hr></div>
+                                                        <div class="col-lg-4 form-group">
+                                                            <label for="offer_name">Minimum Buy QTY</label>
+                                                            <div class="input-group">
+                                                                <input type="number" class="form-control" placeholder="Enter Quantity" aria-describedby="addon1" required>
+                                                                <div class="input-group-append">
+                                                                <span class="input-group-text" id="addon1">Box</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4 form-group">
+                                                            <label for="date_range">Bonus QTY</label>
+                                                            <div class="input-group">
+                                                                <input type="number" class="form-control" placeholder="Enter Quantity" aria-describedby="addon1" required>
+                                                                <div class="input-group-append">
+                                                                <span class="input-group-text" id="addon1">Box</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Free Product -->
+                                                    <!-- <div class="row" id="free_product" style="display: none;"> -->
+                                                    <div class="row hide" id="free_product">
+                                                        <div class="col-12"><h5>Free Product</h5><hr></div>
+                                                        <div class="col-lg-4 form-group">
+                                                            <label for="offer_name">Minimum Buy QTY</label>
+                                                            <div class="input-group">
+                                                                <input type="number" class="form-control" placeholder="Enter Quantity" aria-describedby="addon1" required>
+                                                                <div class="input-group-append">
+                                                                <span class="input-group-text" id="addon1">Box</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4 form-group">
+                                                            <label for="date_range">Free Product</label>
+                                                            <select class="form-control">
+                                                                <option value="">Select Product</option>
+                                                                <option value="">Product 1</option>
+                                                                <option value="">Product 2</option>
+                                                                <option value="">Product 3</option>
+                                                                <option value="">Product 4</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-lg-4 form-group">
+                                                            <label for="date_range">Free QTY</label>
+                                                            <div class="input-group">
+                                                                <input type="number" class="form-control" placeholder="Enter Quantity" aria-describedby="addon1" required>
+                                                                <div class="input-group-append">
+                                                                <span class="input-group-text" id="addon1">Box</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <!-- <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                                </div> -->
+                                                <div class="modal-footer justify-content-center">
+                                                    <button type="button" class="btn btn-primary btn-global">Create Offer</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!------------ End Create Offer Modal------------>
+                                </div>
+
+                                <table class="table offer-table">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">SL No</th>
+                                        <th scope="col">OFFER NAME</th>
+                                        <th scope="col">OFFER TYPE</th>
+                                        <th scope="col">DISCOUNT PERIOD</th>
+                                        <th scope="col">STATUS</th>
+                                        <th scope="col">CREATED BY</th>
+                                        <th scope="col">ACTION</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>01</td>
+                                        <td>New Year Discount Offer</td>
+                                        <td>Percentage Discount</td>
+                                        <td>20/11/2020 - 06/07/2021</td>
+                                        <td><p class="status active"> <i class="fa fa-square mr-1" aria-hidden="true"></i>Active</p></td>
+                                        <td>Mehedi Hassan</td>
+                                        <td class="action-btn"><span><a class="btn-edit btn-active" style="width: 20px; border-radius: 50%; cursor: pointer;"><i class="zmdi zmdi-edit"></i></a></span> <span class="inactive fa fa-arrow-down" data-toggle="tooltip" data-placement="bottom" title="Inactive"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>01</td>
+                                        <td>New Year Discount Offer</td>
+                                        <td>Percentage Discount</td>
+                                        <td>20/11/2020 - 06/07/2021</td>
+                                        <td><p class="status inactive"> <i class="fa fa-square mr-1" aria-hidden="true"></i>Inactive</p></td>
+                                        <td>Mehedi Hassan</td>
+                                        <td class="action-btn"><span><a class="btn-edit btn-active" style="width: 20px; border-radius: 50%; cursor: pointer;"><i class="zmdi zmdi-edit"></i></a></span> <span class="active fa fa-arrow-up" data-toggle="tooltip" data-placement="bottom" title="Active"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>01</td>
+                                        <td>New Year Discount Offer</td>
+                                        <td>Percentage Discount</td>
+                                        <td>20/11/2020 - 06/07/2021</td>
+                                        <td><p class="status active"> <i class="fa fa-square mr-1" aria-hidden="true"></i>Active</p></td>
+                                        <td>Mehedi Hassan</td>
+                                        <td class="action-btn"><span><a class="btn-edit btn-active" style="width: 20px; border-radius: 50%; cursor: pointer;"><i class="zmdi zmdi-edit"></i></a></span> <span class="inactive fa fa-arrow-down" data-toggle="tooltip" data-placement="bottom" title="Inactive"></span></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!------------ End Offers Tab Content Area ------------>
+
+                            <!------------ Start Competitors Tab Content Area ------------>    
+                            <div id="tab-competitors" class="tab-pane">
+                                <div class="tab-content-header">
+                                    <h5>Competitors</h5>
+                                    <div class="btn-group">
+                                        <button class="btn btn-primary btn-save"  role="button">Save</button>
+                                        <a class="btn-edit btn-active" ><i class="zmdi zmdi-edit"></i></a>
+                                    </div>
+                                </div>
+                                <div class="scroll-competitor-list">
+                                    <div class="row">
+                                    <!-- Start Competitorr Card Area --> 
+                                    <div class="col-lg-3 col-md-6 col-12 jmi-padding-0-10">
+                                        <div class="competitor-card">
+                                            <div class="product-info"> 
+                                                <img class="product-img" src="../../../../../assets/images/avater.png" alt="Image">
+                                                <div class="info">
+                                                    <p class="product-name">Atopen 500mg</p>
+                                                    <p class="generic-name">Paracetamol</p>
+                                                </div>
+                                            </div>
+                                            <div class="company-info">
+                                                <div class="c-info" >
+                                                <p class="company-name">Kemiko Pharmaceuticals Ltd.</p>
+                                                <p class="price">TP: <span>60.00</span> | MRP: <span>100.00</span></p>
+                                                </div>
+                                                <div class="m-share">
+                                                    <!-- <i class="fa fa-line-chart good" aria-hidden="true"></i> -->
+                                                    <i class="zmdi zmdi-chart good"></i>
+                                                    <p>12%</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Competitorr Card Area --> 
+                                
+                                    <!-- Start Competitorr Card Area --> 
+                                    <div class="col-lg-3 col-md-6 col-12 jmi-padding-0-10">
+                                        <div class="competitor-card">
+                                            <div class="product-info"> 
+                                                <img class="product-img" src="../../../../../assets/images/avater.png" alt="Image">
+                                                <div class="info">
+                                                    <p class="product-name">Atopen 500mg</p>
+                                                    <p class="generic-name">Paracetamol</p>
+                                                </div>
+                                            </div>
+                                            <div class="company-info">
+                                                <div class="c-info" >
+                                                <p class="company-name">Kemiko Pharmaceuticals Ltd.</p>
+                                                <p class="price">TP: <span>60.00</span> | MRP: <span>100.00</span></p>
+                                                </div>
+                                                <div class="m-share">
+                                                    <!-- <i class="fa fa-line-chart bad" aria-hidden="true"></i> -->
+                                                    <i class="zmdi zmdi-chart bad"></i>
+                                                    <p>12%</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Competitorr Card Area --> 
+
+                                    <!-- Start Competitorr Card Area --> 
+                                    <div class="col-lg-3 col-md-6 col-12 jmi-padding-0-10">
+                                        <div class="competitor-card">
+                                            <div class="product-info"> 
+                                                <img class="product-img" src="../../../../../assets/images/avater.png" alt="Image">
+                                                <div class="info">
+                                                    <p class="product-name">Atopen 500mg</p>
+                                                    <p class="generic-name">Paracetamol</p>
+                                                </div>
+                                            </div>
+                                            <div class="company-info">
+                                                <div class="c-info" >
+                                                <p class="company-name">Kemiko Pharmaceuticals Ltd.</p>
+                                                <p class="price">TP: <span>60.00</span> | MRP: <span>100.00</span></p>
+                                                </div>
+                                                <div class="m-share">
+                                                    <!-- <i class="fa fa-line-chart" aria-hidden="true"></i> -->
+                                                    <i class="zmdi zmdi-chart"></i>
+                                                    <p>12%</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Competitorr Card Area --> 
+
+                                    <!-- Start Competitorr Card Area --> 
+                                    <div class="col-lg-3 col-md-6 col-12 jmi-padding-0-10">
+                                        <div class="competitor-card">
+                                            <div class="product-info"> 
+                                                <img class="product-img" src="../../../../../assets/images/avater.png" alt="Image">
+                                                <div class="info">
+                                                    <p class="product-name">Atopen 500mg</p>
+                                                    <p class="generic-name">Paracetamol</p>
+                                                </div>
+                                            </div>
+                                            <div class="company-info">
+                                                <div class="c-info" >
+                                                <p class="company-name">Kemiko Pharmaceuticals Ltd.</p>
+                                                <p class="price">TP: <span>60.00</span> | MRP: <span>100.00</span></p>
+                                                </div>
+                                                <div class="m-share">
+                                                    <!-- <i class="fa fa-line-chart" aria-hidden="true"></i> -->
+                                                    <i class="zmdi zmdi-chart"></i>
+                                                    <p>12%</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Competitorr Card Area --> 
+                                
+                                    <!-- Start Competitorr Card Area --> 
+                                    <div class="col-lg-3 col-md-6 col-12 jmi-padding-0-10">
+                                        <div class="competitor-card">
+                                            <div class="product-info"> 
+                                                <img class="product-img" src="../../../../../assets/images/avater.png" alt="Image">
+                                                <div class="info">
+                                                    <p class="product-name">Atopen 500mg</p>
+                                                    <p class="generic-name">Paracetamol</p>
+                                                </div>
+                                            </div>
+                                            <div class="company-info">
+                                                <div class="c-info" >
+                                                <p class="company-name">Kemiko Pharmaceuticals Ltd.</p>
+                                                <p class="price">TP: <span>60.00</span> | MRP: <span>100.00</span></p>
+                                                </div>
+                                                <div class="m-share">
+                                                    <!-- <i class="fa fa-line-chart" aria-hidden="true"></i> -->
+                                                    <i class="zmdi zmdi-chart"></i>
+                                                    <p>12%</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Competitorr Card Area -->  
+                                </div>
+                                </div>
+                            </div>
+                            <!------------ End Competitors Tab Content Area ------------>  
+
+                            <div id="tab-ledger" class="tab-pane">
+                                <div class="tab-content-header">
+                                    <h5>Ledger</h5>
+                                    <div class="btn-group">
+                                        <button class="btn btn-primary btn-save"  role="button">Save</button>
+                                        <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
+                                    </div>
+                                </div> 
+                            </div>
+                                
+                            <div id="tab-stock-position" class="tab-pane ">
+                                <div class="tab-content-header">
+                                    <h5>Stock Position</h5>
+                                    <div class="btn-group">
+                                        <button class="btn btn-primary btn-save"  role="button">Save</button>
+                                        <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="tab-documents" class="tab-pane ">
+                                <div class="tab-content-header">
+                                    <h5>Documents</h5>
+                                    <div class="btn-group">
+                                        <button class="btn btn-primary btn-save"  role="button">Save</button>
+                                        <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <!-- End Classification Modal Area -->
-              </div>
-
-              <div class="row product-details-tab">
-                  <div class="col-12">
-                  <ul class="nav nav-tabs nav-justified" id="xxxs" role="tablist">
-                      <li class="nav-item">
-                          <a class="nav-link active" id="details-single-tab" data-toggle="tab" href="#tab-basic">Basic</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" id="details-single-tab" data-toggle="tab" href="#tab-detail-attributes">Detail</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" id="details-single-tab" data-toggle="tab" href="#tab-pricing">Pricing</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" id="details-single-tab" data-toggle="tab" href="#tab-offers">Offers</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" id="details-single-tab" data-toggle="tab" href="#tab-competitors">Competitors</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" id="details-single-tab" data-toggle="tab" href="#tab-ledger">Ledger</a>
-                      </li>
-                      <li class="nav-item">
-                          <!-- <a class="nav-link disabled" id="details-single-tab" data-toggle="tab" href="#tab-stock-position">Stock Position</a> -->
-                          <a class="nav-link" id="details-single-tab" data-toggle="tab" href="#tab-stock-position">Stock Position</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" id="details-single-tab" data-toggle="tab" href="#tab-documents">Documents</a>
-                      </li>
-                  </ul>
-
-                  <!-- Tab panes -->
-                  <div class="tab-content">
-                      <!------------ Start Product Basic Tab Content Area ------------>
-                      <div id="tab-basic" class="tab-pane active">
-                          <div class="tab-content-header">
-                              <h5>Product Information</h5>
-                              <div class="btn-group">
-                                  <button class="btn btn-primary btn-save" @click="saveBtnClickHandler" role="button">Save</button>
-                                  <a class="btn-edit btn-active" @click="editBtnClickHandler"><i class="zmdi zmdi-edit"></i></a>
-                              </div>
-                          </div>
-                          <form class="inner-scroll">
-                              <div class="row">
-                                  <div class="col-lg-9 form-group">
-                                      <label for="product-description">Product Description</label>
-                                      <textarea v-model="product_description" class="form-control" id="product-description" rows="3" placeholder="Enter Product Description"></textarea>
-                                  </div>
-                              </div>
-                              <div class="row">
-                                  <div class="col-lg-3 form-group">
-                                      <label for="product_name">Product Name</label>
-                                      <input type="text" v-model="product_name" class="form-control" id="product_name" placeholder="Enter Product Name">
-                                  </div>
-                                  <div class="col-lg-3 form-group">
-                                      <label for="product_group">Product Group</label>
-                                      <input type="text" v-model="product_group" class="form-control" id="product_group" placeholder="Enter Product Group">
-                                  </div>
-                                  <div class="col-lg-3 form-group">
-                                      <label for="other_code">Other Code</label>
-                                      <input type="text" v-model="other_code" class="form-control" id="other_code" placeholder="Enter Other Code">
-                                  </div>
-                                  <div class="col-lg-3 form-group">
-                                      <label for="product_type">Product Type</label>
-                                      <input type="text" v-model="product_type" class="form-control" id="product_type" placeholder="Enter Product Type">
-                                  </div>
-                                  <div class="col-lg-3 form-group">
-                                      <label for="product_code">Product Code</label>
-                                      <input type="text" v-model="product_code" class="form-control" id="product_code" placeholder="Enter Product Code">
-                                  </div>
-                                  <div class="col-lg-3 form-group">
-                                      <label for="old_code">Old Code</label>
-                                      <input type="text" v-model="old_code" class="form-control" id="old_code" placeholder="Enter Old Code">
-                                  </div>
-                                  <div class="col-lg-3 form-group">
-                                      <label for="manufacturer">Manufacturer</label>
-                                      <input type="text" v-model="manufacture" class="form-control" id="manufacturer" placeholder="Enter Manufacturer Name">
-                                  </div>
-                                  <div class="col-lg-3 form-group">
-                                      <label for="vendor">Vendor</label>
-                                      <input type="text" v-model="vendor" class="form-control" id="vendor" placeholder="Enter Vendor Name">
-                                  </div>
-                                  <div class="col-lg-3 form-group">
-                                      <label for="4p_code">4P Code</label>
-                                      <input type="text" v-model="code_4p" class="form-control" id="4p_code" placeholder="Enter 4P Code">
-                                  </div>
-                                  <div class="col-lg-3 form-group">
-                                      <label for="country_origin">Country Origin</label>
-                                      <input type="text" v-model="country_origin" class="form-control" id="country_origin" placeholder="Enter Country Origin">
-                                  </div>
-                                  <div class="col-lg-3 form-group">
-                                      <label for="batch_size">Batch Size</label>
-                                      <input type="text" v-model="batch_size" class="form-control" id="batch_size" placeholder="Batch Size">
-                                  </div>
-                                  <div class="col-lg-3 form-group">
-                                      <label for="cost_goods_per_unit">Cost of Goods per Unit</label>
-                                      <input type="text" v-model="cost_goods_per_unit" class="form-control" id="cost_goods_per_unit" placeholder="Enter Cost of Goods per Unit">
-                                  </div>
-                                  <div class="col-lg-3 form-group">
-                                      <label for="commercial_unit_measure">Commercial Unit of Measure</label>
-                                      <input type="text" v-model="commercial_unit_measure" class="form-control" id="commercial_unit_measure" placeholder="Enter Commercial Unit of Measure">
-                                  </div>
-                                  <div class="col-lg-3 form-group">
-                                      <label for="ims_code">IMS Code</label>
-                                      <input type="text" v-model="ims_code" class="form-control" id="ims_code" placeholder="Enter IMS Code">
-                                  </div>
-                                  <div class="col-lg-3 form-group">
-                                      <label for="commercial_unit_measure_quantity">Commercial Unit of Measure Quantity</label>
-                                      <input type="text" v-model="commercial_unit_measure_quantity" class="form-control" id="commercial_unit_measure_quantity" placeholder="Enter Commercial Unit of Measure Quantity">
-                                  </div>
-                                  <div class="col-lg-3 form-group">
-                                      <label for="commercial_pack_size">Commercial Pack Size</label>
-                                      <input type="text" v-model="commercial_pack_size" class="form-control" id="commercial_pack_size" placeholder="Enter Commercial Pack Size">
-                                  </div>
-                                  <div class="col-lg-3 form-group">
-                                      <label for="hs_code">HS Code</label>
-                                      <input type="text" v-model="hs_code" class="form-control" id="hs_code" placeholder="Enter HS Code">
-                                  </div>
-                                  <div class="col-lg-3 form-group">
-                                      <label for="export_unit_measure">Export Unit of Measure</label>
-                                      <input type="text" v-model="export_unit_measure" class="form-control" id="export_unit_measure" placeholder="Enter Export Unit of Measure">
-                                  </div>
-                                  <div class="col-lg-3 form-group">
-                                      <label for="export_pack_size">Export Pack Size</label>
-                                      <input type="text" v-model="export_pack_size" class="form-control" id="export_pack_size" placeholder="Enter Export Pack Size">
-                                  </div>
-                                  <div class="col-lg-3 form-group">
-                                      <label for="total_stock">Total Stock</label>
-                                      <input type="text" v-model="total_stock" class="form-control" id="total_stock" placeholder="Enter Total Stock">
-                                  </div>
-                                  <div class="col-lg-3 form-group">
-                                      <label for="owner_sbu_id">Owner SBU ID</label>
-                                      <input type="text" v-model="owner_sbu_id" class="form-control" id="owner_sbu_id" placeholder="Enter Owner SBU ID">
-                                  </div>
-                                  <div class="col-lg-3 form-group">
-                                      <label for="shelf_life">Shelf Life</label>
-                                      <input type="text" v-model="shelf_life" class="form-control" id="shelf_life" placeholder="Enter Shelf Life">
-                                  </div>
-                                  <div class="col-lg-3 form-group">
-                                      <label for="imported_from">Imported From</label>
-                                      <input type="text" v-model="imported_from" class="form-control" id="imported_from" placeholder="Enter Imported From">
-                                  </div>
-                              </div>
-                          </form>
-                      </div>
-                      <!------------ End Product Basic Tab Content Area ------------>
-
-                      <!------------ Start Detail Attributes Tab Content Area ------------>    
-                      <div id="tab-detail-attributes" class="tab-pane">
-                      <div class="row attributes-vertical-tab">
-                        <div class="col-lg-3">
-                            <div class="attribute-list">
-                                <div class="attribute-list-header">
-                                    <h5>Detail Attributes</h5>
-                                    <a class="menu" data-toggle="modal" data-target="#manage-attribute-modal"><i class="fa fa-list"></i></a>
-                                </div>
-
-                                <ul class="nav nav-tabs flex-column" id="attribute-items">
-                                    <!-- <div class="collapse" id="taglist">
-                                        <div class="single-tag">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                                <label class="form-check-label" for="flexCheckDefault">Indication</label>
-                                            </div>
-                                        </div>
-
-                                        <div class="single-tag">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="flexCheck1">
-                                                <label class="form-check-label" for="flexCheck1">Therapeutic Class</label>
-                                            </div>
-                                        </div>
-
-                                        <div class="single-tag">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="flexCheck2">
-                                                <label class="form-check-label" for="flexCheck2">Therapeutic Class</label>
-                                            </div>
-                                        </div>
-                                        <button type="button" class="btn btn-primary btn-block">Save</button>
-                                    </div> -->
-
-                                    <li class="nav-item">
-                                        <a class="nav-link active" id="attr-single-items" href="#attribute1" data-toggle="tab">Indication</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="attr-single-items" href="#attribute2" data-toggle="tab">Therapeutic Class</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="attr-single-items" href="#attribute3" data-toggle="tab">Pharmacology</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="attr-single-items" href="#attribute4" data-toggle="tab">Dosage &amp; Administration</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="attr-single-items" href="#attribute5" data-toggle="tab">Indication</a>
-                                    </li>
-                                    <!-- <li class="nav-item">
-                                        <a class="nav-link" id="attr-single-items" href="#attribute6" data-toggle="tab">Therapeutic Class</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="attr-single-items" href="#attribute7" data-toggle="tab">Pharmacology</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="attr-single-items" href="#attribute8" data-toggle="tab">Dosage &amp; Administration</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="attr-single-items" href="#attribute9" data-toggle="tab">Indication</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="attr-single-items" href="#attribute10" data-toggle="tab">Therapeutic Class</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="attr-single-items" href="#attribute11" data-toggle="tab">Pharmacology</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="attr-single-items" href="#attribute12" data-toggle="tab">Dosage &amp; Administration</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="attr-single-items" href="#attribute8" data-toggle="tab">Dosage &amp; Administration</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="attr-single-items" href="#attribute9" data-toggle="tab">Indication</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="attr-single-items" href="#attribute10" data-toggle="tab">Therapeutic Class</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="attr-single-items" href="#attribute11" data-toggle="tab">Pharmacology</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="attr-single-items" href="#attribute12" data-toggle="tab">Dosage &amp; Administration</a>
-                                    </li> -->
-                                </ul>
-                            </div>
-                            <!-- Start Manage Attribute Modal -->
-                            <div class="modal" id="manage-attribute-modal" tabindex="-1" role="dialog" aria-labelledby="manageattribute" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="margin: 0;">
-                                    <div class="modal-content" style="border: none;">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Manage Attribute</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div id="manage-attribute-tab">
-                                            <ul class="nav nav-tabs  mb-3" id="lineTab" role="tablist">
-                                                <li class="nav-item">
-                                                    <a class="nav-link active" id="underline-home-tab" data-toggle="tab" href="#add-attribute" role="tab"
-                                                        aria-controls="add-attribute" aria-selected="true">Add Attribute</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" id="create-attribute-tab" data-toggle="tab" href="#create-attribute" role="tab"
-                                                        aria-controls="create-attribute" aria-selected="false">Create New Attribute</a>
-                                                </li>
-                                            </ul>
-                                        
-                                            <div class="tab-content">
-
-                                            <div class="tab-pane fade show active" id="add-attribute" role="tabpanel" aria-labelledby="add-attribute-tab">
-                                                <div class="single-tag">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                                        <label class="form-check-label" for="flexCheckDefault">Indication</label>
-                                                    </div>
-                                                </div>
-                                                
-                                                <div class="single-tag">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheck1">
-                                                        <label class="form-check-label" for="flexCheck1">Therapeutic Class</label>
-                                                    </div>
-                                                </div>
-                                                
-                                                <div class="single-tag">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheck2">
-                                                        <label class="form-check-label" for="flexCheck2">Therapeutic Class</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="tab-pane fade" id="create-attribute" role="tabpanel" aria-labelledby="create-attribute-tab">
-                                            <div class="row">
-                                                <div class="col-lg-4 form-group">
-                                                    <label for="indiction_1">Attribute For</label>
-                                                    <select class="form-control" id="unit">
-                                                        <option>This Product</option>
-                                                        <option>Global Attribute</option>
-                                                        <option>Box 2</option>
-                                                        <option>Box 3</option>
-                                                    </select>
-                                                </div>
-
-                                                <div class="col-lg-8 form-group">
-                                                    <label for="imported_from">Attribute Title</label>
-                                                    <input type="text" class="form-control" id="attribute-title" placeholder="Enter Attribute Title">
-                                                </div>
-                                                <div class="col-lg-12 form-group">
-                                                    <label for="indiction_1">Attribute Description</label>
-                                                    <textarea class="form-control" id="attribute-description" rows="6" placeholder="Enter Attribute Description"></textarea>
-                                                </div>
-                                            </div>
-                                            </div>
-        
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer justify-content-center">
-                                        <button type="button" class="btn btn-primary btn-global">Save Changes</button>
-                                    </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Manage Attribute Modal -->
-                        </div>
-                        <div class="col-lg-9">
-                            <div class="tab-content attribute-content">
-
-                                <div class="tab-pane active" id="attribute1">
-                                    <div class="attribute-header">
-                                        <h5>Indiction</h5>
-                                        <!-- <a class="btn-edit btn-active" ><i class="fa fa-pencil" aria-hidden="true"></i></a> -->
-                                        <a class="btn-edit btn-active"><i class="zmdi zmdi-edit"></i></a>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-12 form-group">
-                                            <label for="indiction_1">Indiction 1</label>
-                                            <textarea class="form-control" id="indiction_1" rows="6" placeholder="Enter Product Indiction"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="tab-pane" id="attribute2">
-                                    <div class="attribute-header">
-                                        <h5>Therapeutic Class</h5>
-                                        <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-12 form-group">
-                                            <label for="indiction_1">Therapeutic Class</label>
-                                            <textarea class="form-control" id="indiction_1" rows="6" placeholder="Enter Product Indiction" readonly></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane" id="attribute3">
-                                    <div class="attribute-header">
-                                        <h5>Pharmacology</h5>
-                                        <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
-                                    </div>
-                                </div>
-                                <div class="tab-pane" id="attribute4">
-                                    <div class="attribute-header">
-                                        <h5>Dosage &amp; Administration</h5>
-                                        <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
-                                    </div>
-                                </div>
-                                <div class="tab-pane" id="attribute5">
-                                    <div class="attribute-header">
-                                        <h5>Indiction</h5>
-                                        <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
-                                    </div>
-                                </div>
-                                <!-- <div class="tab-pane" id="attribute6">
-                                    <div class="attribute-header">
-                                        <h5>Indiction</h5>
-                                        <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
-                                    </div>
-                                </div>
-                                <div class="tab-pane" id="attribute7">
-                                    <div class="attribute-header">
-                                        <h5>Indiction</h5>
-                                        <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
-                                    </div>
-                                </div>
-                                <div class="tab-pane" id="attribute8">
-                                    <div class="attribute-header">
-                                        <h5>Indiction</h5>
-                                        <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
-                                    </div>
-                                    </div>
-                                <div class="tab-pane" id="attribute9">
-                                    <div class="attribute-header">
-                                        <h5>Indiction</h5>
-                                        <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
-                                    </div>
-                                </div>
-                                <div class="tab-pane" id="attribute10">
-                                    <div class="attribute-header">
-                                        <h5>Indiction</h5>
-                                        <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
-                                    </div>
-                                </div>
-                                <div class="tab-pane" id="attribute11">
-                                    <div class="attribute-header">
-                                        <h5>Indiction</h5>
-                                        <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
-                                    </div>
-                                </div>
-                                <div class="tab-pane" id="attribute12">
-                                    <div class="attribute-header">
-                                        <h5>Indiction</h5>
-                                        <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
-                                    </div>
-                                </div> -->
-                            </div>
-                        </div>
-                      </div>
-                      </div>
-                      <!------------ End Detail Attributes Tab Content Area ------------>
-                      
-                      <!------------ Start Pricing Tab Content Area ------------>
-                      <div id="tab-pricing" class="tab-pane">
-                          <div class="tab-content-header">
-                              <h5>Product Information</h5>
-                              <div class="btn-group">
-                                  <button class="btn btn-primary btn-save"  role="button">Save</button>
-                                  <a class="btn-edit btn-active" ><i class="zmdi zmdi-edit"></i></a>
-                              </div>
-                          </div>
-
-                          <div class="row">
-                              <div class="col-lg-3 form-group">
-                                  <label for="trade_price">Trade Price</label>
-                                  <input type="text" class="form-control" id="trade_price" placeholder="Enter Trade Price">
-                              </div>
-                              <div class="col-lg-3 form-group">
-                                  <label for="manufacture_price">Manufacture Price</label>
-                                  <input type="text" class="form-control" id="manufacture_price" placeholder="Enter Manufacture Price">
-                              </div>
-                              <div class="col-lg-3 form-group">
-                                  <label for="maximum_retail_price">Maximum Retail Price</label>
-                                  <input type="text" class="form-control" id="maximum_retail_price" placeholder="Enter Maximum Retail Price">
-                              </div>
-                              <div class="col-lg-3 form-group">
-                                  <label for="maximum_trade_price">Maximum Trade Price</label>
-                                  <input type="text" class="form-control" id="maximum_trade_price" placeholder="Enter Maximum Trade Price">
-                              </div>
-                              <div class="col-lg-3 form-group">
-                                  <label for="minimum_trade_price">Minimum Trade Price</label>
-                                  <input type="text" class="form-control" id="minimum_trade_price" placeholder="Enter Minimum Trade Price">
-                              </div>
-                              <div class="col-lg-3 form-group">
-                                  <label for="vat">Vat</label>
-                                  <input type="number" min="0" max="100" class="form-control" id="vat" placeholder="Enter Vat">
-                              </div>
-                              <div class="col-lg-3 form-group">
-                                  <label for="vat_ptc">Vat PTC</label>
-                                  <input type="text" class="form-control" id="vat_ptc" placeholder="Enter Vat PTC">
-                              </div>
-                          </div>
-                      </div>
-                      <!------------ End Pricing Tab Content Area ------------>
-
-                      <!------------ Start Offers Tab Content Area ------------>
-                      <div id="tab-offers" class="tab-pane">
-                          <div class="tab-content-header">
-                              <h5>Offers</h5>
-                              <div class="btn-group">
-                                  <button class="btn btn-primary btn-create" data-toggle="modal" data-target=".create-offer-modal" role="button"><i class="fa fa-plus" aria-hidden="true" style="margin-right: 4px;"></i> Create Offer</button>
-                              </div>
-                              <!------------ Start Create Offer Modal------------>
-                              <!-- <div class="modal create-offer-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="width: 70%; height: 302px;"> -->
-                              <div class="modal create-offer-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="width: 70%;">
-                                <div class="modal-dialog modal-lg modal-dialog-centered" style="margin: 0; max-width: unset;">
-                                    <div class="modal-content" style="border: none;">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalCenterTitle">Create Offer</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="row">
-                                                <div class="col-lg-4 form-group">
-                                                    <label for="offer_type">Offer Type</label>
-                                                    <select class="form-control" id="offer_type" v-model="offer_type_offers_modal" @change="onChangeOfferTypeOfferModal">
-                                                        <option :value="null" selected>Select an option</option>
-                                                        <option>Percentage Discount</option>
-                                                        <option>Fixed Discount</option>
-                                                        <option>Bonus Product</option>
-                                                        <option>Free Product</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-lg-4 form-group">
-                                                    <label for="offer_name">Offer Name</label>
-                                                    <input type="text" class="form-control" id="offer_name" placeholder="Enter Offer Name">
-                                                </div>
-                                                <div class="col-lg-4 form-group">
-                                                    <label for="date_range">Start &amp; End Date</label>
-                                                    <input type="date" class="form-control" id="date_range" placeholder="DD/MM/YY - DD/MM/YY">
-                                                </div>
-                                            </div>
-
-                                            
-                                            <!-- Percentage Discount -->
-                                            <!-- <div class="row" id="percentage_discount" style="display: none;"> -->
-                                            <div class="row hide" id="percentage_discount">
-                                                <div class="col-12"><h5>Percentage Discount</h5><hr></div>
-                                                <div class="col-lg-4 form-group">
-                                                    <label for="quantity">Minimum Buy QTY</label>
-                                                    <div class="input-group">
-                                                        <input type="number" class="form-control" placeholder="Enter Quantity" aria-describedby="addon1" required>
-                                                        <div class="input-group-append">
-                                                        <span class="input-group-text" id="addon1">Box</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-lg-4 form-group">
-                                                    <label for="discount">Discount</label>
-                                                    <div class="input-group">
-                                                        <input type="number" class="form-control" placeholder="Enter Discount" aria-describedby="basic-addon2" required>
-                                                        <div class="input-group-append">
-                                                        <span class="input-group-text" id="basic-addon2">%</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!-- Fixed Discount -->
-                                            <!-- <div class="row" id="fixed_discount" style="display: none;"> -->
-                                            <div class="row hide" id="fixed_discount">
-                                                <div class="col-12"><h5>Fixed Discount</h5><hr></div>
-                                                <div class="col-lg-4 form-group">
-                                                    <label for="offer_name">Minimum Buy QTY</label>
-                                                    <div class="input-group">
-                                                        <input type="number" class="form-control" placeholder="Enter Quantity" aria-describedby="addon1" required>
-                                                        <div class="input-group-append">
-                                                        <span class="input-group-text" id="addon1">Box</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-4 form-group">
-                                                    <label for="date_range">Discount TP</label>
-                                                    <div class="input-group">
-                                                        <input type="number" class="form-control" placeholder="Enter Discount" aria-describedby="basic-addon2" required>
-                                                        <div class="input-group-append">
-                                                        <span class="input-group-text" id="basic-addon2">%</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!-- Bonus Product -->
-                                            <!-- <div class="row" id="bonus_product" style="display: none;"> -->
-                                            <div class="row hide" id="bonus_product">
-                                                <div class="col-12"><h5>Bonus Product</h5><hr></div>
-                                                <div class="col-lg-4 form-group">
-                                                    <label for="offer_name">Minimum Buy QTY</label>
-                                                    <div class="input-group">
-                                                        <input type="number" class="form-control" placeholder="Enter Quantity" aria-describedby="addon1" required>
-                                                        <div class="input-group-append">
-                                                        <span class="input-group-text" id="addon1">Box</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-4 form-group">
-                                                    <label for="date_range">Bonus QTY</label>
-                                                    <div class="input-group">
-                                                        <input type="number" class="form-control" placeholder="Enter Quantity" aria-describedby="addon1" required>
-                                                        <div class="input-group-append">
-                                                        <span class="input-group-text" id="addon1">Box</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- Free Product -->
-                                            <!-- <div class="row" id="free_product" style="display: none;"> -->
-                                            <div class="row hide" id="free_product">
-                                                <div class="col-12"><h5>Free Product</h5><hr></div>
-                                                <div class="col-lg-4 form-group">
-                                                    <label for="offer_name">Minimum Buy QTY</label>
-                                                    <div class="input-group">
-                                                        <input type="number" class="form-control" placeholder="Enter Quantity" aria-describedby="addon1" required>
-                                                        <div class="input-group-append">
-                                                        <span class="input-group-text" id="addon1">Box</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-4 form-group">
-                                                    <label for="date_range">Free Product</label>
-                                                    <select class="form-control">
-                                                        <option value="">Select Product</option>
-                                                        <option value="">Product 1</option>
-                                                        <option value="">Product 2</option>
-                                                        <option value="">Product 3</option>
-                                                        <option value="">Product 4</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-lg-4 form-group">
-                                                    <label for="date_range">Free QTY</label>
-                                                    <div class="input-group">
-                                                        <input type="number" class="form-control" placeholder="Enter Quantity" aria-describedby="addon1" required>
-                                                        <div class="input-group-append">
-                                                        <span class="input-group-text" id="addon1">Box</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <!-- <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
-                                        </div> -->
-                                        <div class="modal-footer justify-content-center">
-                                            <button type="button" class="btn btn-primary btn-global">Create Offer</button>
-                                        </div>
-                                    </div>
-                                </div>
-                              </div>
-                              <!------------ End Create Offer Modal------------>
-                          </div>
-
-                          <table class="table offer-table">
-                              <thead>
-                              <tr>
-                                  <th scope="col">SL No</th>
-                                  <th scope="col">OFFER NAME</th>
-                                  <th scope="col">OFFER TYPE</th>
-                                  <th scope="col">DISCOUNT PERIOD</th>
-                                  <th scope="col">STATUS</th>
-                                  <th scope="col">CREATED BY</th>
-                                  <th scope="col">ACTION</th>
-                              </tr>
-                              </thead>
-                              <tbody>
-                              <tr>
-                                  <td>01</td>
-                                  <td>New Year Discount Offer</td>
-                                  <td>Percentage Discount</td>
-                                  <td>20/11/2020 - 06/07/2021</td>
-                                  <td><p class="status active"> <i class="fa fa-square mr-1" aria-hidden="true"></i>Active</p></td>
-                                  <td>Mehedi Hassan</td>
-                                  <td class="action-btn"><span><a class="btn-edit btn-active" style="width: 20px; border-radius: 50%; cursor: pointer;"><i class="zmdi zmdi-edit"></i></a></span> <span class="inactive fa fa-arrow-down" data-toggle="tooltip" data-placement="bottom" title="Inactive"></span></td>
-                              </tr>
-                              <tr>
-                                  <td>01</td>
-                                  <td>New Year Discount Offer</td>
-                                  <td>Percentage Discount</td>
-                                  <td>20/11/2020 - 06/07/2021</td>
-                                  <td><p class="status inactive"> <i class="fa fa-square mr-1" aria-hidden="true"></i>Inactive</p></td>
-                                  <td>Mehedi Hassan</td>
-                                  <td class="action-btn"><span><a class="btn-edit btn-active" style="width: 20px; border-radius: 50%; cursor: pointer;"><i class="zmdi zmdi-edit"></i></a></span> <span class="active fa fa-arrow-up" data-toggle="tooltip" data-placement="bottom" title="Active"></span></td>
-                              </tr>
-                              <tr>
-                                  <td>01</td>
-                                  <td>New Year Discount Offer</td>
-                                  <td>Percentage Discount</td>
-                                  <td>20/11/2020 - 06/07/2021</td>
-                                  <td><p class="status active"> <i class="fa fa-square mr-1" aria-hidden="true"></i>Active</p></td>
-                                  <td>Mehedi Hassan</td>
-                                  <td class="action-btn"><span><a class="btn-edit btn-active" style="width: 20px; border-radius: 50%; cursor: pointer;"><i class="zmdi zmdi-edit"></i></a></span> <span class="inactive fa fa-arrow-down" data-toggle="tooltip" data-placement="bottom" title="Inactive"></span></td>
-                              </tr>
-                              </tbody>
-                          </table>
-                      </div>
-                      <!------------ End Offers Tab Content Area ------------>
-
-                      <!------------ Start Competitors Tab Content Area ------------>    
-                      <div id="tab-competitors" class="tab-pane">
-                          <div class="tab-content-header">
-                              <h5>Competitors</h5>
-                              <div class="btn-group">
-                                <button class="btn btn-primary btn-save"  role="button">Save</button>
-                                <a class="btn-edit btn-active" ><i class="zmdi zmdi-edit"></i></a>
-                              </div>
-                          </div>
-                          <div class="scroll-competitor-list">
-                            <div class="row">
-                            <!-- Start Competitorr Card Area --> 
-                            <div class="col-lg-3 col-md-6 col-12 jmi-padding-0-10">
-                                <div class="competitor-card">
-                                    <div class="product-info"> 
-                                        <img class="product-img" src="../../../../../assets/images/avater.png" alt="Image">
-                                        <div class="info">
-                                            <p class="product-name">Atopen 500mg</p>
-                                            <p class="generic-name">Paracetamol</p>
-                                        </div>
-                                    </div>
-                                    <div class="company-info">
-                                        <div class="c-info" >
-                                        <p class="company-name">Kemiko Pharmaceuticals Ltd.</p>
-                                        <p class="price">TP: <span>60.00</span> | MRP: <span>100.00</span></p>
-                                        </div>
-                                        <div class="m-share">
-                                            <!-- <i class="fa fa-line-chart good" aria-hidden="true"></i> -->
-                                            <i class="zmdi zmdi-chart good"></i>
-                                            <p>12%</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Competitorr Card Area --> 
-                           
-                            <!-- Start Competitorr Card Area --> 
-                            <div class="col-lg-3 col-md-6 col-12 jmi-padding-0-10">
-                                <div class="competitor-card">
-                                    <div class="product-info"> 
-                                        <img class="product-img" src="../../../../../assets/images/avater.png" alt="Image">
-                                        <div class="info">
-                                            <p class="product-name">Atopen 500mg</p>
-                                            <p class="generic-name">Paracetamol</p>
-                                        </div>
-                                    </div>
-                                    <div class="company-info">
-                                        <div class="c-info" >
-                                        <p class="company-name">Kemiko Pharmaceuticals Ltd.</p>
-                                        <p class="price">TP: <span>60.00</span> | MRP: <span>100.00</span></p>
-                                        </div>
-                                        <div class="m-share">
-                                            <!-- <i class="fa fa-line-chart bad" aria-hidden="true"></i> -->
-                                            <i class="zmdi zmdi-chart bad"></i>
-                                            <p>12%</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Competitorr Card Area --> 
-
-                            <!-- Start Competitorr Card Area --> 
-                            <div class="col-lg-3 col-md-6 col-12 jmi-padding-0-10">
-                                <div class="competitor-card">
-                                    <div class="product-info"> 
-                                        <img class="product-img" src="../../../../../assets/images/avater.png" alt="Image">
-                                        <div class="info">
-                                            <p class="product-name">Atopen 500mg</p>
-                                            <p class="generic-name">Paracetamol</p>
-                                        </div>
-                                    </div>
-                                    <div class="company-info">
-                                        <div class="c-info" >
-                                        <p class="company-name">Kemiko Pharmaceuticals Ltd.</p>
-                                        <p class="price">TP: <span>60.00</span> | MRP: <span>100.00</span></p>
-                                        </div>
-                                        <div class="m-share">
-                                            <!-- <i class="fa fa-line-chart" aria-hidden="true"></i> -->
-                                            <i class="zmdi zmdi-chart"></i>
-                                            <p>12%</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Competitorr Card Area --> 
-
-                            <!-- Start Competitorr Card Area --> 
-                            <div class="col-lg-3 col-md-6 col-12 jmi-padding-0-10">
-                                <div class="competitor-card">
-                                    <div class="product-info"> 
-                                        <img class="product-img" src="../../../../../assets/images/avater.png" alt="Image">
-                                        <div class="info">
-                                            <p class="product-name">Atopen 500mg</p>
-                                            <p class="generic-name">Paracetamol</p>
-                                        </div>
-                                    </div>
-                                    <div class="company-info">
-                                        <div class="c-info" >
-                                        <p class="company-name">Kemiko Pharmaceuticals Ltd.</p>
-                                        <p class="price">TP: <span>60.00</span> | MRP: <span>100.00</span></p>
-                                        </div>
-                                        <div class="m-share">
-                                            <!-- <i class="fa fa-line-chart" aria-hidden="true"></i> -->
-                                            <i class="zmdi zmdi-chart"></i>
-                                            <p>12%</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Competitorr Card Area --> 
-                           
-                            <!-- Start Competitorr Card Area --> 
-                            <div class="col-lg-3 col-md-6 col-12 jmi-padding-0-10">
-                                <div class="competitor-card">
-                                    <div class="product-info"> 
-                                        <img class="product-img" src="../../../../../assets/images/avater.png" alt="Image">
-                                        <div class="info">
-                                            <p class="product-name">Atopen 500mg</p>
-                                            <p class="generic-name">Paracetamol</p>
-                                        </div>
-                                    </div>
-                                    <div class="company-info">
-                                        <div class="c-info" >
-                                        <p class="company-name">Kemiko Pharmaceuticals Ltd.</p>
-                                        <p class="price">TP: <span>60.00</span> | MRP: <span>100.00</span></p>
-                                        </div>
-                                        <div class="m-share">
-                                            <!-- <i class="fa fa-line-chart" aria-hidden="true"></i> -->
-                                            <i class="zmdi zmdi-chart"></i>
-                                            <p>12%</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Competitorr Card Area -->  
-                          </div>
-                          </div>
-                      </div>
-                      <!------------ End Competitors Tab Content Area ------------>  
-
-                      <div id="tab-ledger" class="tab-pane">
-                          <div class="tab-content-header">
-                              <h5>Ledger</h5>
-                              <div class="btn-group">
-                                <button class="btn btn-primary btn-save"  role="button">Save</button>
-                                <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
-                            </div>
-                          </div> 
-                      </div>
-                          
-                      <div id="tab-stock-position" class="tab-pane ">
-                          <div class="tab-content-header">
-                              <h5>Stock Position</h5>
-                              <div class="btn-group">
-                                <button class="btn btn-primary btn-save"  role="button">Save</button>
-                                <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
-                            </div>
-                          </div>
-                      </div>
-                      <div id="tab-documents" class="tab-pane ">
-                          <div class="tab-content-header">
-                              <h5>Documents</h5>
-                              <div class="btn-group">
-                                <button class="btn btn-primary btn-save"  role="button">Save</button>
-                                <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
-                            </div>
-                          </div>
-                      </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -962,7 +868,7 @@ import JMIFilter from '../../../../../functions/JMIFIlter'
 const jmiFilter = new JMIFilter()
 
 export default {
-    props: ["SELECTED_PROD_DETAILS"],
+    props: ["SELECTED_PROD_DETAILS", "SELECTED_PROD_ATTRIBUTES_DETAILS", "SELECTED_PROD_PRICE_DETAILS"],
     components: {},
     data() {
         return {
@@ -999,6 +905,21 @@ export default {
             shelf_life: null,
             imported_from: null,
 
+            // Detail Attributes Tab Content Area
+            prod_dtl_element_strength: null,
+            prod_dtl_element_generic_name: null,
+            prod_dtl_element_thrp_class: null,
+            prod_dtl_element_dosage_form: null,
+
+            // Pricing Tab Content Area
+            prod_price_tab_trade_price: null,
+            prod_price_tab_manufacture_price: null,
+            prod_price_tab_max_retail_price: null,
+            prod_price_tab_max_trade_price: null,
+            prod_price_tab_min_trade_price: null,
+            prod_price_tab_vat: null,
+            prod_price_tab_vat_pct: null,
+
             // Offers Tab Content Area
             offer_type_offers_modal: null,
         }
@@ -1013,10 +934,11 @@ export default {
         // ---------------------------------------------------------------------------
         // HTML ATTRIBUTES
         checkElementLengthToSetComma(index, element) {
-        return (index < element.length - 1) ? ', ' : ''
+            return (index < element.length - 1) ? ', ' : ''
         },
         // Product Basic Tab Content Area
         setProductBasicTabContentArea(prod_details) {
+            // Product Basic Tab Content Area
             this.product_description = prod_details.product_info.prod_description
             this.product_name = prod_details.product_info.prod_name
             this.product_group = prod_details.product_info.prod_group
@@ -1042,6 +964,38 @@ export default {
             this.owner_sbu_id = prod_details.product_info.owner_sbu_id
             this.shelf_life = prod_details.product_info.have_shelf_life
             this.imported_from = prod_details.is_imported
+        },
+        // Detail Attributes Tab Content Area
+        setProductAttributesTabContentArea(attr_details) {
+            // Detail Attributes Tab Content Area
+            this.prod_dtl_element_strength = attr_details.strength
+            this.prod_dtl_element_generic_name = this.checkElementLengthToSetComma_prodDtlAttrTab(attr_details.generic_name)
+            this.prod_dtl_element_thrp_class = this.checkElementLengthToSetComma_prodDtlAttrTab(attr_details.thrp_class)
+            // this.prod_dtl_element_dosage_form = this.checkElementLengthToSetComma_prodDtlAttrTab(attr_details.dosage_form)
+            this.prod_dtl_element_dosage_form = attr_details.dosage_form.element_name
+        },
+        // Pricing Tab Content Area
+        setProductPriceTabContentArea(price_details) {
+            // Pricing Tab Content Area
+            this.prod_price_tab_trade_price = price_details.trade_price
+            this.prod_price_tab_manufacture_price = price_details.manufacture_price
+            this.prod_price_tab_max_retail_price = price_details.maximum_retail_price
+            this.prod_price_tab_max_trade_price = price_details.maximum_trade_price
+            this.prod_price_tab_min_trade_price = price_details.minimum_trade_price
+            this.prod_price_tab_vat = price_details.vat
+            this.prod_price_tab_vat_pct = price_details.vat_pct
+        },
+        checkElementLengthToSetComma_prodDtlAttrTab(attr_elem) {
+            // console.log(attr_elem)
+            let attr_name_list = ''
+            for(let i=0; i<attr_elem.length; i++) {
+                attr_name_list += attr_elem[i].element_name
+                if(i !== (attr_elem.length - 1)) {
+                    attr_name_list += ', '
+                }
+            }
+            // console.log(attr_name_list)
+            return attr_name_list
         },
         // Offers Tab Content Area
         onChangeOfferTypeOfferModal() {
@@ -1214,7 +1168,19 @@ export default {
                 console.log(newVal)
                 this.setProductBasicTabContentArea(newVal)
             }
-        }
+        },
+        SELECTED_PROD_ATTRIBUTES_DETAILS(newVal) {
+            if(newVal) {
+                console.log(newVal)
+                this.setProductAttributesTabContentArea(newVal)
+            }
+        },
+        SELECTED_PROD_PRICE_DETAILS(newVal) {
+            if(newVal) {
+                console.log(newVal)
+                this.setProductPriceTabContentArea(newVal)
+            }
+        },
     },
 }
 </script>
