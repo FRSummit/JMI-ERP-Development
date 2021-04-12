@@ -303,6 +303,18 @@
     border       : 1px solid var(--border-color);
 }
 
+.modal-body .form-group input.mx-input {
+    padding-left: 10px;
+    border      : 1px solid #e2edfa;
+    box-sizing  : border-box;
+    height      : 38px;
+    font-size   : 14px;
+}
+
+#product-details-details .modal-body .form-group i {
+    display: none;
+}
+
 .modal-body .form-group input::placeholder {
     font-size: var(--font14);
     color    : #AAC0D9;

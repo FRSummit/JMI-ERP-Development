@@ -5,7 +5,10 @@
       <ProductDetailsSidebar 
         v-on:select_prod_from_left="selectProdFromLeft" />
       <ProductDetailsDetails
-        :SELECTED_PROD_DETAILS="SELECTED_PROD_DETAILS" />
+        :SELECTED_PROD_DETAILS="SELECTED_PROD_DETAILS"
+        :SELECTED_PROD_ATTRIBUTES_DETAILS="SELECTED_PROD_ATTRIBUTES_DETAILS"
+        :SELECTED_PROD_PRICE_DETAILS="SELECTED_PROD_PRICE_DETAILS"
+        :SELECTED_PROD_OFFER_DETAILS="SELECTED_PROD_OFFER_DETAILS" />
     </div>
   </div>
 </template>
@@ -31,6 +34,10 @@ export default {
       parentPath: "Local Sales",
       pathName: [],
       SELECTED_PROD_DETAILS: null,
+
+      SELECTED_PROD_ATTRIBUTES_DETAILS: null,
+      SELECTED_PROD_PRICE_DETAILS: null,
+      SELECTED_PROD_OFFER_DETAILS: null,
     };
   },
   computed: {},
@@ -53,15 +60,24 @@ export default {
     async SELECT_SBU_PRODUCT_DETAILS_BY_PROD_ID__FROM_SERVICE(prod_id) {
       console.log(prod_id)
       this.SELECTED_PROD_DETAILS = null
+      this.SELECTED_PROD_ATTRIBUTES_DETAILS = null
+      this.SELECTED_PROD_PRICE_DETAILS = null
+      this.SELECTED_PROD_OFFER_DETAILS = null
       service.getSBUProductDetails_PRODUCTS_DETAILS(prod_id)
         .then(res => {
           console.log(res.data)
           this.SELECTED_PROD_DETAILS = res.data.prod_details
+          this.SELECTED_PROD_ATTRIBUTES_DETAILS = res.data.attr_details
+          this.SELECTED_PROD_PRICE_DETAILS = res.data.price_details
+          this.SELECTED_PROD_OFFER_DETAILS = res.data.prod_offer_details
         })
         .catch(err => {
           if(err) {
             console.log('Server error : ' + err)
             this.SELECTED_PROD_DETAILS = null
+            this.SELECTED_PROD_ATTRIBUTES_DETAILS = null
+            this.SELECTED_PROD_PRICE_DETAILS = null
+            this.SELECTED_PROD_OFFER_DETAILS = null
           }
         })
     }
