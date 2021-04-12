@@ -505,7 +505,16 @@
                                                         </div>
                                                         <div class="col-lg-4 form-group">
                                                             <label for="date_range">Start &amp; End Date</label>
-                                                            <input type="date" class="form-control" id="date_range" placeholder="DD/MM/YY - DD/MM/YY">
+                                                            <!-- <input type="date" class="form-control" id="date_range" placeholder="DD/MM/YY - DD/MM/YY"> -->
+                                                            <!-- <input type="text" name="daterange" value="01/01/2018 - 01/15/2018" /> -->
+                                                            <!-- <div class="date-range">
+                                                                <div class="date-range-inner"> -->
+                                                                    <!-- <p>
+                                                                        <span>Date Range</span> -->
+                                                                        <date-picker v-model="range" lang="en" range type="date" format="YYYY-MM-DD" width="500"></date-picker>
+                                                                    <!-- </p> -->
+                                                                <!-- </div>
+                                                            </div> -->
                                                         </div>
                                                     </div>
 
@@ -632,44 +641,65 @@
 
                                 <table class="table offer-table">
                                     <thead>
-                                    <tr>
-                                        <th scope="col">SL No</th>
-                                        <th scope="col">OFFER NAME</th>
-                                        <th scope="col">OFFER TYPE</th>
-                                        <th scope="col">DISCOUNT PERIOD</th>
-                                        <th scope="col">STATUS</th>
-                                        <th scope="col">CREATED BY</th>
-                                        <th scope="col">ACTION</th>
-                                    </tr>
+                                        <tr>
+                                            <th scope="col">SL No</th>
+                                            <th scope="col">OFFER NAME</th>
+                                            <th scope="col">OFFER TYPE</th>
+                                            <th scope="col">DISCOUNT PERIOD</th>
+                                            <th scope="col">STATUS</th>
+                                            <th scope="col">CREATED BY</th>
+                                            <th scope="col">ACTION</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>01</td>
-                                        <td>New Year Discount Offer</td>
-                                        <td>Percentage Discount</td>
-                                        <td>20/11/2020 - 06/07/2021</td>
-                                        <td><p class="status active"> <i class="fa fa-square mr-1" aria-hidden="true"></i>Active</p></td>
-                                        <td>Mehedi Hassan</td>
-                                        <td class="action-btn"><span><a class="btn-edit btn-active" style="width: 20px; border-radius: 50%; cursor: pointer;"><i class="zmdi zmdi-edit"></i></a></span> <span class="inactive fa fa-arrow-down" data-toggle="tooltip" data-placement="bottom" title="Inactive"></span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>01</td>
-                                        <td>New Year Discount Offer</td>
-                                        <td>Percentage Discount</td>
-                                        <td>20/11/2020 - 06/07/2021</td>
-                                        <td><p class="status inactive"> <i class="fa fa-square mr-1" aria-hidden="true"></i>Inactive</p></td>
-                                        <td>Mehedi Hassan</td>
-                                        <td class="action-btn"><span><a class="btn-edit btn-active" style="width: 20px; border-radius: 50%; cursor: pointer;"><i class="zmdi zmdi-edit"></i></a></span> <span class="active fa fa-arrow-up" data-toggle="tooltip" data-placement="bottom" title="Active"></span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>01</td>
-                                        <td>New Year Discount Offer</td>
-                                        <td>Percentage Discount</td>
-                                        <td>20/11/2020 - 06/07/2021</td>
-                                        <td><p class="status active"> <i class="fa fa-square mr-1" aria-hidden="true"></i>Active</p></td>
-                                        <td>Mehedi Hassan</td>
-                                        <td class="action-btn"><span><a class="btn-edit btn-active" style="width: 20px; border-radius: 50%; cursor: pointer;"><i class="zmdi zmdi-edit"></i></a></span> <span class="inactive fa fa-arrow-down" data-toggle="tooltip" data-placement="bottom" title="Inactive"></span></td>
-                                    </tr>
+                                        <tr v-for="(item, i) in OFFERS_LIST" :key="i">
+                                            <td>{{ i + 1 }}</td>
+                                            <td>{{ item.offer_name }}</td>
+                                            <td>{{ item.offer_type }}</td>
+                                            <td>{{ item.offer_discount_period }}</td>
+                                            <td><p class="status" :class="item.offer_status === 'Active' ? 'active' : 'inactive'"> <i class="fa fa-square mr-1" aria-hidden="true"></i>{{ item.offer_status === 'Active' ? 'Active' : 'Inactive' }}</p></td>
+                                            <td>{{ item.offer_created_by }}</td>
+                                            <td class="action-btn">
+                                                <span><a class="btn-edit btn-active" style="width: 20px; border-radius: 50%; cursor: pointer;"><i class="zmdi zmdi-edit"></i></a></span>
+                                                <span class="active fa fa-arrow-up" data-toggle="tooltip" data-placement="bottom" title="Active"></span>
+                                            </td>
+                                        </tr>
+                                        <!-- <tr v-if="SELECTED_PROD_OFFER_DETAILS.bonus_discount">
+                                            <td>01</td>
+                                            <td>Dummy</td>
+                                            <td>Dummy Bonus</td>
+                                            <td>{{ SELECTED_PROD_OFFER_DETAILS.bonus_discount.start_date ? SELECTED_PROD_OFFER_DETAILS.bonus_discount.start_date.toString().split(' ')[0] : '' }} - {{ SELECTED_PROD_OFFER_DETAILS.bonus_discount.valid_until ? SELECTED_PROD_OFFER_DETAILS.bonus_discount.valid_until.toString().split(' ')[0] : '' }}</td>
+                                            <td><p class="status active"> <i class="fa fa-square mr-1" aria-hidden="true"></i>Active</p></td>
+                                            <td>Dummy</td>
+                                            <td class="action-btn"><span><a class="btn-edit btn-active" style="width: 20px; border-radius: 50%; cursor: pointer;"><i class="zmdi zmdi-edit"></i></a></span> <span class="inactive fa fa-arrow-down" data-toggle="tooltip" data-placement="bottom" title="Inactive"></span></td>
+                                        </tr>
+                                        <tr v-if="SELECTED_PROD_OFFER_DETAILS.fixed_discount">
+                                            <td>01</td>
+                                            <td>Dummy</td>
+                                            <td>Dummy Fixed</td>
+                                            <td>{{ SELECTED_PROD_OFFER_DETAILS.fixed_discount.start_date ? SELECTED_PROD_OFFER_DETAILS.fixed_discount.start_date.toString().split(' ')[0] : '' }} - {{ SELECTED_PROD_OFFER_DETAILS.fixed_discount.valid_until ? SELECTED_PROD_OFFER_DETAILS.fixed_discount.valid_until.toString().split(' ')[0] : '' }}</td>
+                                            <td><p class="status inactive"> <i class="fa fa-square mr-1" aria-hidden="true"></i>Inactive</p></td>
+                                            <td>Dummy</td>
+                                            <td class="action-btn"><span><a class="btn-edit btn-active" style="width: 20px; border-radius: 50%; cursor: pointer;"><i class="zmdi zmdi-edit"></i></a></span> <span class="active fa fa-arrow-up" data-toggle="tooltip" data-placement="bottom" title="Active"></span></td>
+                                        </tr>
+                                        <tr v-if="SELECTED_PROD_OFFER_DETAILS.free_product">
+                                            <td>01</td>
+                                            <td>Dummy</td>
+                                            <td>Dummy Free</td>
+                                            <td>{{ SELECTED_PROD_OFFER_DETAILS.free_product.start_date ? SELECTED_PROD_OFFER_DETAILS.free_product.start_date.toString().split(' ')[0] : '' }} - {{ SELECTED_PROD_OFFER_DETAILS.free_product.valid_until ? SELECTED_PROD_OFFER_DETAILS.free_product.valid_until.toString().split(' ')[0] : '' }}</td>
+                                            <td><p class="status active"> <i class="fa fa-square mr-1" aria-hidden="true"></i>Active</p></td>
+                                            <td>Dummy</td>
+                                            <td class="action-btn"><span><a class="btn-edit btn-active" style="width: 20px; border-radius: 50%; cursor: pointer;"><i class="zmdi zmdi-edit"></i></a></span> <span class="inactive fa fa-arrow-down" data-toggle="tooltip" data-placement="bottom" title="Inactive"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>01</td>
+                                            <td>Dummy</td>
+                                            <td>Dummy Percentage</td>
+                                            <td>{{ SELECTED_PROD_OFFER_DETAILS.percentage_discount.start_date ? SELECTED_PROD_OFFER_DETAILS.percentage_discount.start_date.toString().split(' ')[0] : '' }} - {{ SELECTED_PROD_OFFER_DETAILS.percentage_discount.valid_until ? SELECTED_PROD_OFFER_DETAILS.percentage_discount.valid_until.toString().split(' ')[0] : '' }}</td>
+                                            <td><p class="status active"> <i class="fa fa-square mr-1" aria-hidden="true"></i>Dummy Active</p></td>
+                                            <td>Dummy</td>
+                                            <td class="action-btn"><span><a class="btn-edit btn-active" style="width: 20px; border-radius: 50%; cursor: pointer;"><i class="zmdi zmdi-edit"></i></a></span> <span class="inactive fa fa-arrow-down" data-toggle="tooltip" data-placement="bottom" title="Inactive"></span></td>
+                                        </tr> -->
                                     </tbody>
                                 </table>
                             </div>
@@ -866,10 +896,17 @@ import ERPSidebarService from "../../../../../service/ERPSidebarService";
 const service = new ERPSidebarService();
 import JMIFilter from '../../../../../functions/JMIFIlter'
 const jmiFilter = new JMIFilter()
+import GlobalDateFormat from '../../../../../functions/GlobalDateFormat'
+const globalDateFormat = new GlobalDateFormat()
+
+
+import DatePicker from 'vue2-datepicker'
 
 export default {
-    props: ["SELECTED_PROD_DETAILS", "SELECTED_PROD_ATTRIBUTES_DETAILS", "SELECTED_PROD_PRICE_DETAILS"],
-    components: {},
+    props: ["SELECTED_PROD_DETAILS", "SELECTED_PROD_ATTRIBUTES_DETAILS", "SELECTED_PROD_PRICE_DETAILS", "SELECTED_PROD_OFFER_DETAILS"],
+    components: {
+        DatePicker
+    },
     data() {
         return {
             PRODUCTS_LIST: [],
@@ -922,6 +959,9 @@ export default {
 
             // Offers Tab Content Area
             offer_type_offers_modal: null,
+            datetime: '',
+            range: '',
+            OFFERS_LIST: [],
         }
     },
     computed: {},
@@ -984,6 +1024,92 @@ export default {
             this.prod_price_tab_min_trade_price = price_details.minimum_trade_price
             this.prod_price_tab_vat = price_details.vat
             this.prod_price_tab_vat_pct = price_details.vat_pct
+        },
+        // Offers Tab Content Area
+        setProductOfferTabContentArea(prod_offer_details) {
+            // Offers Tab Content Area
+            // console.log(prod_offer_details)
+            // console.log(this.SELECTED_PROD_OFFER_DETAILS)
+            let offers = []
+            offers.push(prod_offer_details.bonus_discount)
+            offers.push(prod_offer_details.fixed_discount)
+            offers.push(prod_offer_details.free_product)
+            offers.push(prod_offer_details.percentage_discount)
+
+            this.OFFERS_LIST = []
+            console.log(Object.keys(prod_offer_details))
+            // for(let i=0; i<Object.keys(prod_offer_details).length; i++) {
+            for(let i=0; i<offers.length; i++) {
+                // console.log(Object.keys(prod_offer_details)[i])
+                // let objName = Object.keys(prod_offer_details)[i]
+                // console.log(prod_offer_details.Object.keys(prod_offer_details)[i])
+                let offer = {
+                    offer_name: 'Dummy',
+                    offer_type: this.checkOfferType(Object.keys(prod_offer_details)[i]),
+                    offer_discount_period: globalDateFormat.dateFormatT4(offers[i].start_date) + ' - ' + globalDateFormat.dateFormatT4(offers[i].valid_until),
+                    offer_status: this.checkOfferActivity(offers[i].start_date, offers[i].valid_until),
+                    offer_created_by: 'Dummy',
+                    offer_is_present: offers[i].min_qty ? offers[i].min_qty : null
+                }
+                if(offer.offer_is_present) {
+                    this.OFFERS_LIST.push(offer)
+                }
+            }
+
+        },
+        checkOfferType(offer) {
+            let offer_name = null
+            switch(offer) {
+                case 'bonus_discount':
+                    offer_name = 'Bonus Discount'
+                    break
+                case 'fixed_discount':
+                    offer_name = 'Fixed Discount'
+                    break
+                case 'free_product':
+                    offer_name = 'Free Product'
+                    break
+                case 'percentage_discount':
+                    offer_name = 'Percentage Discount'
+                    break
+                default:
+                    break
+            }
+            return offer_name
+        },
+        checkOfferActivity(startDt, endDt) {
+            console.log(startDt)
+            console.log(endDt)
+            if(startDt && endDt) {
+                
+                let dd = new Date().getDate()
+                let mm = new Date().getMonth() + 1
+                let yyyy = new Date().getFullYear()
+
+                let dd_st = startDt.split(' ')[0].split('-')[2]
+                let mm_st = startDt.split(' ')[0].split('-')[1]
+                let yyyy_st = startDt.split(' ')[0].split('-')[0]
+
+                let dd_ed = endDt.split(' ')[0].split('-')[2]
+                let mm_ed = endDt.split(' ')[0].split('-')[1]
+                let yyyy_ed = endDt.split(' ')[0].split('-')[0]
+                
+                console.log(dd + '    ' + mm + '    ' + yyyy)
+
+                console.log(parseInt(yyyy_st) + '    ' + parseInt(yyyy) + '    ' + parseInt(yyyy_ed))
+                console.log(parseInt(mm_st) + '    ' + parseInt(mm) + '    ' + parseInt(mm_ed))
+                console.log(parseInt(dd_st) + '    ' + parseInt(dd) + '    ' + parseInt(dd_ed))
+
+                if(parseInt(yyyy_ed) >= parseInt(yyyy) && parseInt(yyyy_st) <= parseInt(yyyy)) {
+                    if(parseInt(mm_ed) >= parseInt(mm) && parseInt(mm_st) <= parseInt(mm)) {
+                        if(parseInt(dd_ed) >= parseInt(dd) && parseInt(dd_st) <= parseInt(yyyy)) {
+                            return 'Active'
+                        }
+                    }
+                } else {
+                    return 'Inactive'
+                }
+            }
         },
         checkElementLengthToSetComma_prodDtlAttrTab(attr_elem) {
             // console.log(attr_elem)
@@ -1181,6 +1307,12 @@ export default {
                 this.setProductPriceTabContentArea(newVal)
             }
         },
+        SELECTED_PROD_OFFER_DETAILS(newVal) {
+            if(newVal) {
+                console.log(newVal)
+                this.setProductOfferTabContentArea(newVal)
+            }
+        },
     },
 }
 </script>
@@ -1245,5 +1377,28 @@ button.modal-prod-save-btn:hover {
 }
 #tab-offers .create-offer-modal .modal-body .input-group .input-group-append {
     height: 38px;
+}
+.mx-datepicker.mx-datepicker-range {
+    width: 180px;
+    float: right;
+    text-align: right;
+}
+.mx-datepicker.mx-datepicker-range input {
+    width    : 170px;
+    float    : right;
+    font-size: 12px;
+    border      : 1px solid #E1E2E3;
+    height   : auto;
+    padding  : 6px 0 6px 2px;
+}
+.mx-input-wrapper .mx-input {
+    padding-left: 4px;
+}
+.mx-datepicker.mx-datepicker-range input:focus {
+    outline           : 0;
+    outline-offset    : 0;
+    -moz-box-shadow   : none;
+    -webkit-box-shadow: none;
+    box-shadow        : none;
 }
 </style>
