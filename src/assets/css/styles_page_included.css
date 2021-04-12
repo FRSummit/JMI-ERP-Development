@@ -654,6 +654,7 @@
     color            : var(--blue);
     border-radius    : 100px;
     background-color : var(--bluish-white);
+    cursor           : pointer;
 }
 
 #attributes-vertical-tab .attribute-list #attribute-items {
@@ -1011,7 +1012,7 @@
     font-size       : var(--font10);
     color           : var(--white);
     padding         : 2px 6px;
-    background-color: #35d27e;
+    background-color: var(--blue);
     border-radius   : 50px;
     margin          : 0px 0px 0px 15px;
 }
@@ -1209,6 +1210,7 @@
     color            : var(--blue);
     border-radius    : 100px;
     background-color : var(--bluish-white);
+    cursor           : pointer;
 }
 
 /*# sourceMappingURL=product2.css.map */

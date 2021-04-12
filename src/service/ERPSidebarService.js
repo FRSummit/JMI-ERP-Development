@@ -1101,6 +1101,17 @@ export default class PostService {
     })
   }
 
+  // PRODUCT - PRODUCT DETAILS - SBU PRODUCT DETAILS BY PROD ID
+  async getSBUProductDetails_PRODUCTS_DETAILS(prod_id) {
+    let web_menu_url = '/api/web/sbu-prod-details/' + prod_id
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
+
   // -------------------------------------------------------------------------------------------
 
   // -------------------------------------------------------------------------------------------

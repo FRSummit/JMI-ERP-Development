@@ -70,7 +70,7 @@ export default {
       } else {
         document.querySelector('#card_body_' + index).className = 'card_body'
       }
-      // this.$emit("select_customer_by_customer_code", customer.customer_info.id)
+      this.$emit("select_prod_from_left", item)
     },
     checkElementLengthToSetComma(j, element) {
       return (j < element.length - 1) ? ', ' : ''

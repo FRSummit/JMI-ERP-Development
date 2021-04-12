@@ -10,7 +10,7 @@
                     <span class="filter_search"><i class="fa fa-filter"> </i> </span>
                </div>
                <div class="row2">
-                    <h5>Pending Requisitions: <span>{{ items.length ? items.length : '' }}</span></h5>
+                    <h5>Pending Requisitions: <span>{{ items ? (items.length ? items.length : 0) : 0 }}</span></h5>
                </div>
             </div>
             <!--End Secondary Sidebar Header Area-->  

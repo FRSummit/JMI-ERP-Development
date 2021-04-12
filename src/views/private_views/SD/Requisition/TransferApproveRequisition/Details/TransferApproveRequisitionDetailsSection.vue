@@ -39,6 +39,7 @@
                                 <div class="form-group">
                                     <label for="requisition_to" class="col-form-label">Driver</label>
                                     <select class="form-control-sm" id="driver_select_box" v-model="driver_user_id" @change="onChangeDriver()">
+                                        <option :value="null" selected>Select an option</option>
                                         <option v-for="(driver, i) in SELECTED_REQUISITION_DETAILS_DRIVER_LIST" :key="i" :value="driver.user_id">{{ driver.get_adm_user ? driver.get_adm_user.name : '' }}</option>
                                     </select>
                                 </div>
