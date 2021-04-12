@@ -571,8 +571,9 @@
                                   <button class="btn btn-primary btn-create" data-toggle="modal" data-target=".create-offer-modal" role="button"><i class="fa fa-plus" aria-hidden="true" style="margin-right: 4px;"></i> Create Offer</button>
                               </div>
                               <!------------ Start Create Offer Modal------------>
-                              <div class="modal create-offer-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="width: 70%; height: 302px;">
-                                <div class="modal-dialog modal-lg modal-dialog-centered" style="margin: 0;">
+                              <!-- <div class="modal create-offer-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="width: 70%; height: 302px;"> -->
+                              <div class="modal create-offer-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="width: 70%;">
+                                <div class="modal-dialog modal-lg modal-dialog-centered" style="margin: 0; max-width: unset;">
                                     <div class="modal-content" style="border: none;">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="exampleModalCenterTitle">Create Offer</h5>
@@ -604,7 +605,8 @@
 
                                             
                                             <!-- Percentage Discount -->
-                                            <div class="row" id="percentage_discount" style="display: none;">
+                                            <!-- <div class="row" id="percentage_discount" style="display: none;"> -->
+                                            <div class="row hide" id="percentage_discount">
                                                 <div class="col-12"><h5>Percentage Discount</h5><hr></div>
                                                 <div class="col-lg-4 form-group">
                                                     <label for="quantity">Minimum Buy QTY</label>
@@ -628,7 +630,8 @@
                                             </div>
 
                                             <!-- Fixed Discount -->
-                                            <div class="row" id="fixed_discount" style="display: none;">
+                                            <!-- <div class="row" id="fixed_discount" style="display: none;"> -->
+                                            <div class="row hide" id="fixed_discount">
                                                 <div class="col-12"><h5>Fixed Discount</h5><hr></div>
                                                 <div class="col-lg-4 form-group">
                                                     <label for="offer_name">Minimum Buy QTY</label>
@@ -651,7 +654,8 @@
                                             </div>
 
                                             <!-- Bonus Product -->
-                                            <div class="row" id="bonus_product" style="display: none;">
+                                            <!-- <div class="row" id="bonus_product" style="display: none;"> -->
+                                            <div class="row hide" id="bonus_product">
                                                 <div class="col-12"><h5>Bonus Product</h5><hr></div>
                                                 <div class="col-lg-4 form-group">
                                                     <label for="offer_name">Minimum Buy QTY</label>
@@ -673,7 +677,8 @@
                                                 </div>
                                             </div>
                                             <!-- Free Product -->
-                                            <div class="row" id="free_product" style="display: none;">
+                                            <!-- <div class="row" id="free_product" style="display: none;"> -->
+                                            <div class="row hide" id="free_product">
                                                 <div class="col-12"><h5>Free Product</h5><hr></div>
                                                 <div class="col-lg-4 form-group">
                                                     <label for="offer_name">Minimum Buy QTY</label>
@@ -1061,9 +1066,9 @@ export default {
         togglingOnChangeOfferTypeOfferModal(selector) {
             let selector_list = ['percentage_discount', 'fixed_discount', 'bonus_product', 'free_product']
             for(let i=0; i<selector_list.length; i++) {
-                document.getElementById(selector_list[i]).style.display = 'none'
+                document.getElementById(selector_list[i]).className = 'row hide'
             }
-            document.getElementById(selector).style.display = 'block'
+            document.getElementById(selector).className = 'row'
         },
         // ---------------------------------------------------------------------------
         createNewProductClickHandler() {
@@ -1265,5 +1270,14 @@ button.modal-prod-save-btn:focus {
 button.btn-global.create-product:hover,
 button.modal-prod-save-btn:hover {
     background: #0062cc;
+}
+#tab-offers .create-offer-modal .modal-body {
+    min-height: 280px;
+}
+#tab-offers .create-offer-modal .modal-body .input-group input {
+    width: 1%;
+}
+#tab-offers .create-offer-modal .modal-body .input-group .input-group-append {
+    height: 38px;
 }
 </style>
