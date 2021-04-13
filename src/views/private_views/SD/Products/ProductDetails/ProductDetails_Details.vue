@@ -483,7 +483,7 @@
                                             <div class="modal-content" style="border: none;">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="exampleModalCenterTitle">Create Offer</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <button type="button" id="offer_tab_close_modal" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
@@ -493,15 +493,18 @@
                                                             <label for="offer_type">Offer Type</label>
                                                             <select class="form-control" id="offer_type" v-model="offer_type_offers_modal" @change="onChangeOfferTypeOfferModal">
                                                                 <option :value="null" selected>Select an option</option>
-                                                                <option>Percentage Discount</option>
-                                                                <option>Fixed Discount</option>
-                                                                <option>Bonus Product</option>
-                                                                <option>Free Product</option>
+                                                                <!-- <option v-for="(item, i) in OFFERS" :key="i" :value="item.name"><span v-if="OFFERS_LIST[i].offer_name !== item.name">{{ item.name }}</span></option> -->
+                                                                <option v-for="(item, i) in OFFERS" :key="i" :value="item.name">
+                                                                    <span v-for="(offer, j) in OFFERS_LIST" :key="j">
+                                                                        <!-- <span v-if="offer.offer_name !== item.name">{{ item.name }}</span> -->
+                                                                        <span>{{ item.name }}</span>
+                                                                    </span>
+                                                                </option>
                                                             </select>
                                                         </div>
                                                         <div class="col-lg-4 form-group">
                                                             <label for="offer_name">Offer Name</label>
-                                                            <input type="text" class="form-control" id="offer_name" placeholder="Enter Offer Name">
+                                                            <input v-model="offer_type_offers_modal" type="text" class="form-control" id="offer_name" placeholder="Enter Offer Name" readonly>
                                                         </div>
                                                         <div class="col-lg-4 form-group">
                                                             <label for="date_range">Start &amp; End Date</label>
@@ -526,7 +529,7 @@
                                                         <div class="col-lg-4 form-group">
                                                             <label for="quantity">Minimum Buy QTY</label>
                                                             <div class="input-group">
-                                                                <input type="number" class="form-control" placeholder="Enter Quantity" aria-describedby="addon1" required>
+                                                                <input v-model="prod_offer_minimum_qty" type="number" class="form-control" placeholder="Enter Quantity" aria-describedby="addon1" required>
                                                                 <div class="input-group-append">
                                                                 <span class="input-group-text" id="addon1">Box</span>
                                                                 </div>
@@ -536,7 +539,7 @@
                                                         <div class="col-lg-4 form-group">
                                                             <label for="discount">Discount</label>
                                                             <div class="input-group">
-                                                                <input type="number" class="form-control" placeholder="Enter Discount" aria-describedby="basic-addon2" required>
+                                                                <input v-model="prod_offer_discount_p" type="number" class="form-control" placeholder="Enter Discount" aria-describedby="basic-addon2" required>
                                                                 <div class="input-group-append">
                                                                 <span class="input-group-text" id="basic-addon2">%</span>
                                                                 </div>
@@ -551,7 +554,7 @@
                                                         <div class="col-lg-4 form-group">
                                                             <label for="offer_name">Minimum Buy QTY</label>
                                                             <div class="input-group">
-                                                                <input type="number" class="form-control" placeholder="Enter Quantity" aria-describedby="addon1" required>
+                                                                <input v-model="prod_offer_minimum_qty" type="number" class="form-control" placeholder="Enter Quantity" aria-describedby="addon1" required>
                                                                 <div class="input-group-append">
                                                                 <span class="input-group-text" id="addon1">Box</span>
                                                                 </div>
@@ -560,7 +563,7 @@
                                                         <div class="col-lg-4 form-group">
                                                             <label for="date_range">Discount TP</label>
                                                             <div class="input-group">
-                                                                <input type="number" class="form-control" placeholder="Enter Discount" aria-describedby="basic-addon2" required>
+                                                                <input v-model="prod_offer_discount_tp_d" type="number" class="form-control" placeholder="Enter Discount" aria-describedby="basic-addon2" required>
                                                                 <div class="input-group-append">
                                                                 <span class="input-group-text" id="basic-addon2">%</span>
                                                                 </div>
@@ -575,7 +578,7 @@
                                                         <div class="col-lg-4 form-group">
                                                             <label for="offer_name">Minimum Buy QTY</label>
                                                             <div class="input-group">
-                                                                <input type="number" class="form-control" placeholder="Enter Quantity" aria-describedby="addon1" required>
+                                                                <input v-model="prod_offer_min_qty_b" type="number" class="form-control" placeholder="Enter Quantity" aria-describedby="addon1" required>
                                                                 <div class="input-group-append">
                                                                 <span class="input-group-text" id="addon1">Box</span>
                                                                 </div>
@@ -584,7 +587,7 @@
                                                         <div class="col-lg-4 form-group">
                                                             <label for="date_range">Bonus QTY</label>
                                                             <div class="input-group">
-                                                                <input type="number" class="form-control" placeholder="Enter Quantity" aria-describedby="addon1" required>
+                                                                <input v-model="prod_offer_bonus_qty_b" type="number" class="form-control" placeholder="Enter Quantity" aria-describedby="addon1" required>
                                                                 <div class="input-group-append">
                                                                 <span class="input-group-text" id="addon1">Box</span>
                                                                 </div>
@@ -598,7 +601,7 @@
                                                         <div class="col-lg-4 form-group">
                                                             <label for="offer_name">Minimum Buy QTY</label>
                                                             <div class="input-group">
-                                                                <input type="number" class="form-control" placeholder="Enter Quantity" aria-describedby="addon1" required>
+                                                                <input v-model="prod_offer_min_qty_f" type="number" class="form-control" placeholder="Enter Quantity" aria-describedby="addon1" required>
                                                                 <div class="input-group-append">
                                                                 <span class="input-group-text" id="addon1">Box</span>
                                                                 </div>
@@ -606,18 +609,18 @@
                                                         </div>
                                                         <div class="col-lg-4 form-group">
                                                             <label for="date_range">Free Product</label>
-                                                            <select class="form-control">
-                                                                <option value="">Select Product</option>
-                                                                <option value="">Product 1</option>
-                                                                <option value="">Product 2</option>
+                                                            <select class="form-control" v-model="free_prod_offer_selected_prod">
+                                                                <option value="null" selected>Select Product</option>
+                                                                <option v-for="(item, i) in ALL_PRODS_LIST_IN_DB" :key="i" :value="item.prod_id">{{ item.prod_name }}</option>
+                                                                <!-- <option value="">Product 2</option>
                                                                 <option value="">Product 3</option>
-                                                                <option value="">Product 4</option>
+                                                                <option value="">Product 4</option> -->
                                                             </select>
                                                         </div>
                                                         <div class="col-lg-4 form-group">
                                                             <label for="date_range">Free QTY</label>
                                                             <div class="input-group">
-                                                                <input type="number" class="form-control" placeholder="Enter Quantity" aria-describedby="addon1" required>
+                                                                <input v-model="prod_offer_free_qty_f" type="number" class="form-control" placeholder="Enter Quantity" aria-describedby="addon1" required>
                                                                 <div class="input-group-append">
                                                                 <span class="input-group-text" id="addon1">Box</span>
                                                                 </div>
@@ -631,7 +634,7 @@
                                                     <button type="button" class="btn btn-primary">Save changes</button>
                                                 </div> -->
                                                 <div class="modal-footer justify-content-center">
-                                                    <button type="button" class="btn btn-primary btn-global">Create Offer</button>
+                                                    <button type="button" class="btn btn-primary btn-global" @click="createOfferClickHandler">Create Offer</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -644,10 +647,10 @@
                                         <tr>
                                             <th scope="col">SL No</th>
                                             <th scope="col">OFFER NAME</th>
-                                            <th scope="col">OFFER TYPE</th>
+                                            <th scope="col">DISCOUNT</th>
                                             <th scope="col">DISCOUNT PERIOD</th>
                                             <th scope="col">STATUS</th>
-                                            <th scope="col">CREATED BY</th>
+                                            <!-- <th scope="col">CREATED BY</th> -->
                                             <th scope="col">ACTION</th>
                                         </tr>
                                     </thead>
@@ -658,7 +661,7 @@
                                             <td>{{ item.offer_type }}</td>
                                             <td>{{ item.offer_discount_period }}</td>
                                             <td><p class="status" :class="item.offer_status === 'Active' ? 'active' : 'inactive'"> <i class="fa fa-square mr-1" aria-hidden="true"></i>{{ item.offer_status === 'Active' ? 'Active' : 'Inactive' }}</p></td>
-                                            <td>{{ item.offer_created_by }}</td>
+                                            <!-- <td>{{ item.offer_created_by }}</td> -->
                                             <td class="action-btn">
                                                 <span><a class="btn-edit btn-active" style="width: 20px; border-radius: 50%; cursor: pointer;"><i class="zmdi zmdi-edit"></i></a></span>
                                                 <span class="active fa fa-arrow-up" data-toggle="tooltip" data-placement="bottom" title="Active"></span>
@@ -903,7 +906,13 @@ const globalDateFormat = new GlobalDateFormat()
 import DatePicker from 'vue2-datepicker'
 
 export default {
-    props: ["SELECTED_PROD_DETAILS", "SELECTED_PROD_ATTRIBUTES_DETAILS", "SELECTED_PROD_PRICE_DETAILS", "SELECTED_PROD_OFFER_DETAILS"],
+    props: [
+                "SELECTED_PROD_DETAILS", 
+                "SELECTED_PROD_ATTRIBUTES_DETAILS", 
+                "SELECTED_PROD_PRICE_DETAILS", 
+                "SELECTED_PROD_OFFER_DETAILS",
+                "ALL_PRODS_LIST_IN_DB"
+            ],
     components: {
         DatePicker
     },
@@ -962,6 +971,28 @@ export default {
             datetime: '',
             range: '',
             OFFERS_LIST: [],
+            OFFERS: [
+                { name: 'Percentage Discount'}, 
+                { name: 'Fixed Discount'},
+                { name: 'Bonus Product'},
+                { name: 'Free Product'}
+            ],
+            CREATE_OFFER_TYPE: null,
+
+            prod_offer_minimum_qty: null,
+
+            prod_offer_discount_p: null,
+
+            prod_offer_discount_tp_d: null,
+
+            prod_offer_min_qty_b: null,
+            prod_offer_bonus_qty_b: null,
+
+            prod_offer_min_qty_f: null,
+            free_prod_offer_selected_prod: null,
+            prod_offer_free_qty_f: null,
+
+            ALL_PRODS_LIST: [],
         }
     },
     computed: {},
@@ -1043,16 +1074,20 @@ export default {
                 // console.log(Object.keys(prod_offer_details)[i])
                 // let objName = Object.keys(prod_offer_details)[i]
                 // console.log(prod_offer_details.Object.keys(prod_offer_details)[i])
-                let offer = {
-                    offer_name: 'Dummy',
-                    offer_type: this.checkOfferType(Object.keys(prod_offer_details)[i]),
-                    offer_discount_period: globalDateFormat.dateFormatT4(offers[i].start_date) + ' - ' + globalDateFormat.dateFormatT4(offers[i].valid_until),
-                    offer_status: this.checkOfferActivity(offers[i].start_date, offers[i].valid_until),
-                    offer_created_by: 'Dummy',
-                    offer_is_present: offers[i].min_qty ? offers[i].min_qty : null
-                }
-                if(offer.offer_is_present) {
-                    this.OFFERS_LIST.push(offer)
+
+                console.log(offers[i].length)
+                if(offers[i].length === undefined) {
+                    let offer = {
+                        offer_name: this.checkOfferType(Object.keys(prod_offer_details)[i]),
+                        offer_type: offers[i].discount_pct,
+                        offer_discount_period: globalDateFormat.dateFormatT4(offers[i].start_date) + ' - ' + globalDateFormat.dateFormatT4(offers[i].valid_until),
+                        offer_status: offers[i].is_active === 'Y' ? 'Active' : 'Inactive',
+                        offer_created_by: 'Dummy',
+                        offer_is_present: offers[i].min_qty ? offers[i].min_qty : null
+                    }
+                    if(offer.offer_is_present) {
+                        this.OFFERS_LIST.push(offer)
+                    }
                 }
             }
 
@@ -1077,40 +1112,40 @@ export default {
             }
             return offer_name
         },
-        checkOfferActivity(startDt, endDt) {
-            console.log(startDt)
-            console.log(endDt)
-            if(startDt && endDt) {
+        // checkOfferActivity(startDt, endDt) {
+        //     console.log(startDt)
+        //     console.log(endDt)
+        //     if(startDt && endDt) {
                 
-                let dd = new Date().getDate()
-                let mm = new Date().getMonth() + 1
-                let yyyy = new Date().getFullYear()
+        //         let dd = new Date().getDate()
+        //         let mm = new Date().getMonth() + 1
+        //         let yyyy = new Date().getFullYear()
 
-                let dd_st = startDt.split(' ')[0].split('-')[2]
-                let mm_st = startDt.split(' ')[0].split('-')[1]
-                let yyyy_st = startDt.split(' ')[0].split('-')[0]
+        //         let dd_st = startDt.split(' ')[0].split('-')[2]
+        //         let mm_st = startDt.split(' ')[0].split('-')[1]
+        //         let yyyy_st = startDt.split(' ')[0].split('-')[0]
 
-                let dd_ed = endDt.split(' ')[0].split('-')[2]
-                let mm_ed = endDt.split(' ')[0].split('-')[1]
-                let yyyy_ed = endDt.split(' ')[0].split('-')[0]
+        //         let dd_ed = endDt.split(' ')[0].split('-')[2]
+        //         let mm_ed = endDt.split(' ')[0].split('-')[1]
+        //         let yyyy_ed = endDt.split(' ')[0].split('-')[0]
                 
-                console.log(dd + '    ' + mm + '    ' + yyyy)
+        //         console.log(dd + '    ' + mm + '    ' + yyyy)
 
-                console.log(parseInt(yyyy_st) + '    ' + parseInt(yyyy) + '    ' + parseInt(yyyy_ed))
-                console.log(parseInt(mm_st) + '    ' + parseInt(mm) + '    ' + parseInt(mm_ed))
-                console.log(parseInt(dd_st) + '    ' + parseInt(dd) + '    ' + parseInt(dd_ed))
+        //         console.log(parseInt(yyyy_st) + '    ' + parseInt(yyyy) + '    ' + parseInt(yyyy_ed))
+        //         console.log(parseInt(mm_st) + '    ' + parseInt(mm) + '    ' + parseInt(mm_ed))
+        //         console.log(parseInt(dd_st) + '    ' + parseInt(dd) + '    ' + parseInt(dd_ed))
 
-                if(parseInt(yyyy_ed) >= parseInt(yyyy) && parseInt(yyyy_st) <= parseInt(yyyy)) {
-                    if(parseInt(mm_ed) >= parseInt(mm) && parseInt(mm_st) <= parseInt(mm)) {
-                        if(parseInt(dd_ed) >= parseInt(dd) && parseInt(dd_st) <= parseInt(yyyy)) {
-                            return 'Active'
-                        }
-                    }
-                } else {
-                    return 'Inactive'
-                }
-            }
-        },
+        //         if(parseInt(yyyy_ed) >= parseInt(yyyy) && parseInt(yyyy_st) <= parseInt(yyyy)) {
+        //             if(parseInt(mm_ed) >= parseInt(mm) && parseInt(mm_st) <= parseInt(mm)) {
+        //                 if(parseInt(dd_ed) >= parseInt(dd) && parseInt(dd_st) <= parseInt(yyyy)) {
+        //                     return 'Active'
+        //                 }
+        //             }
+        //         } else {
+        //             return 'Inactive'
+        //         }
+        //     }
+        // },
         checkElementLengthToSetComma_prodDtlAttrTab(attr_elem) {
             // console.log(attr_elem)
             let attr_name_list = ''
@@ -1129,15 +1164,19 @@ export default {
             switch(this.offer_type_offers_modal) {
                 case "Percentage Discount":
                     this.togglingOnChangeOfferTypeOfferModal('percentage_discount')
+                    this.CREATE_OFFER_TYPE = 'P'
                     break
                 case "Fixed Discount":
                     this.togglingOnChangeOfferTypeOfferModal('fixed_discount')
+                    this.CREATE_OFFER_TYPE = 'D'
                     break
                 case "Bonus Product":
                     this.togglingOnChangeOfferTypeOfferModal('bonus_product')
+                    this.CREATE_OFFER_TYPE = 'B'
                     break
                 case "Free Product":
                     this.togglingOnChangeOfferTypeOfferModal('free_product')
+                    this.CREATE_OFFER_TYPE = 'F'
                     break
                 default:
                     break
@@ -1150,7 +1189,79 @@ export default {
             }
             document.getElementById(selector).className = 'row'
         },
-        // ---------------------------------------------------------------------------
+        createOfferClickHandler() {
+            let offer_type = this.CREATE_OFFER_TYPE
+            let min_qty = this.prod_offer_minimum_qty
+            let start_date = globalDateFormat.dateFormatT4(this.range[0])
+            let valid_until = globalDateFormat.dateFormatT4(this.range[1])
+            
+            // Percent
+            let discount_pct = this.prod_offer_discount_p
+            // Discount
+            let discount_tp = this.prod_offer_discount_tp_d
+            // Bonus
+            let bonus_on = this.prod_offer_min_qty_b
+            let bonus_qty = this.prod_offer_bonus_qty_b
+            // Free
+            let free_req_qty = this.prod_offer_min_qty_f
+            let free_prod_id = this.free_prod_offer_selected_prod
+            let free_prod_qty = this.prod_offer_free_qty_f
+
+            // console.log(this.range[0])
+            // console.log(this.range[1])
+            // console.log(globalDateFormat.dateFormatT4(this.range[0]))
+            // console.log(globalDateFormat.dateFormatT4(this.range[1]))
+
+            let offer_details = {
+                offer_type: offer_type ? offer_type : null,
+                min_qty: min_qty ? min_qty : null,
+                start_date: start_date ? start_date : null,
+                valid_until: valid_until ? valid_until : null,
+                // Percentage
+                discount_pct: null,
+                // Discount
+                discount_tp: null,
+                // Bonus
+                bonus_on: null,
+                bonus_qty: null,
+                // Free
+                free_req_qty: null,
+                free_prod_id: null,
+                free_prod_qty: null,
+            }
+
+            console.log(offer_type + '  ' + min_qty + '  ' + start_date + '  ' + valid_until + '  ' + discount_pct)
+
+            if(offer_type !== null && start_date !== null && valid_until !== null) {
+                if(offer_type === 'P' && discount_pct !==null && min_qty !== null) {
+                    console.log('P offer created')
+                    Object.assign(offer_details, {discount_pct: discount_pct ? discount_pct : null})
+                    this.CREATE_NEW_PROD_OFFER__FROM_SERVICE(offer_details)
+                } else if (offer_type === 'D' && discount_tp !==null && min_qty !== null) {
+                    console.log('D offer created')
+                    Object.assign(offer_details, {discount_tp: discount_tp ? discount_tp : null})
+                    this.CREATE_NEW_PROD_OFFER__FROM_SERVICE(offer_details)
+                } else if (offer_type === 'B' && bonus_on !==null && bonus_qty !== null) {
+                    console.log('B offer created')
+                    Object.assign(offer_details, {bonus_on: bonus_on ? bonus_on : null})
+                    Object.assign(offer_details, {bonus_qty: bonus_qty ? bonus_qty : null})
+                    this.CREATE_NEW_PROD_OFFER__FROM_SERVICE(offer_details)
+                } else if (offer_type === 'F' && free_req_qty !==null && free_prod_id !== null && free_prod_qty !== null) {
+                    console.log('F offer created')
+                    Object.assign(offer_details, {free_req_qty: free_req_qty ? free_req_qty : null})
+                    Object.assign(offer_details, {free_prod_id: free_prod_id ? free_prod_id : null})
+                    Object.assign(offer_details, {free_prod_qty: free_prod_qty ? free_prod_qty : null})
+                    this.CREATE_NEW_PROD_OFFER__FROM_SERVICE(offer_details)
+                } else {
+                    alert('Check your data to create offer is null')
+                }
+            } else {
+                alert('offer_type or min qty or date is null')
+            }
+
+        },
+        // Offers Tab Content Area Ends
+        // -------------------------------------------------------------------------------
         createNewProductClickHandler() {
             console.log('createNewProductClickHandler')
         },
@@ -1287,6 +1398,52 @@ export default {
                     }
                 });
         },
+        // async SEARCH_ALL_PRODUCT_DATA_LIST__FROM_SERVICE() {
+        // this.ALL_PRODS_LIST = [];
+        // await service.getSearchProductDataList_CreateOrderDetailsSection()
+        //     .then((res) => {
+        //     console.log(res.data);
+        //     this.ALL_PRODS_LIST = res.data.product_list;
+        //     console.log(this.ALL_PRODS_LIST);
+        //     })
+        //     .catch((err) => {
+        //     if (err) {
+        //         this.ALL_PRODS_LIST = [];
+        //         alert("Server Error 500. " + err);
+        //     }
+        //     });
+        // },
+        // Create Prod Offer
+        async CREATE_NEW_PROD_OFFER__FROM_SERVICE(offer_details) {
+            console.log(offer_details)
+            await service.getCreateNewProdOffer_PRODUCTS_DETAILS(this.SELECTED_PROD_DETAILS.prod_id, offer_details)
+                .then(res => {
+                    console.log(res.data)
+                    if(res.data.response_code === 200 || res.data.response_code === 201) {
+                        document.getElementById('offer_tab_close_modal').click()
+                        this.prod_creating_progressbar = true
+                        this.prod_creating_progressbar_msg = res.data.message
+                        setTimeout( () => {
+                            this.prod_creating_progressbar = false
+                            this.prod_creating_progressbar_msg = null
+                        }, 1000)
+                    } else {
+                        // document.getElementById('offer_tab_close_modal').click()
+                        this.prod_creating_progressbar = true
+                        this.prod_creating_progressbar_msg = res.data.message
+                        setTimeout( () => {
+                            this.prod_creating_progressbar = false
+                            this.prod_creating_progressbar_msg = null
+                        }, 1000)
+                    }
+                })
+                .catch(err => {
+                    if(err){
+                        console.log(err)
+                        alert('Creating product offer problem : ' + err)
+                    }
+                })
+        }
     },
     watch: {
         SELECTED_PROD_DETAILS(newVal) {
@@ -1310,7 +1467,9 @@ export default {
         SELECTED_PROD_OFFER_DETAILS(newVal) {
             if(newVal) {
                 console.log(newVal)
-                this.setProductOfferTabContentArea(newVal)
+                // if(newVal.length === undefined) {
+                    this.setProductOfferTabContentArea(newVal)
+                // }
             }
         },
     },
