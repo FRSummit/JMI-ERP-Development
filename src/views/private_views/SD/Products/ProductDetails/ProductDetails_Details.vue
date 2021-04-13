@@ -646,7 +646,7 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">SL No</th>
-                                            <th scope="col">OFFER NAME</th>
+                                            <th scope="col">OFFER TYPE</th>
                                             <th scope="col">DISCOUNT</th>
                                             <th scope="col">DISCOUNT PERIOD</th>
                                             <th scope="col">STATUS</th>
@@ -657,8 +657,8 @@
                                     <tbody>
                                         <tr v-for="(item, i) in OFFERS_LIST" :key="i">
                                             <td>{{ i + 1 }}</td>
-                                            <td>{{ item.offer_name }}</td>
                                             <td>{{ item.offer_type }}</td>
+                                            <td>{{ item.offer_dis_pct }}</td>
                                             <td>{{ item.offer_discount_period }}</td>
                                             <td><p class="status" :class="item.offer_status === 'Active' ? 'active' : 'inactive'"> <i class="fa fa-square mr-1" aria-hidden="true"></i>{{ item.offer_status === 'Active' ? 'Active' : 'Inactive' }}</p></td>
                                             <!-- <td>{{ item.offer_created_by }}</td> -->
@@ -1078,8 +1078,9 @@ export default {
                 console.log(offers[i].length)
                 if(offers[i].length === undefined) {
                     let offer = {
-                        offer_name: this.checkOfferType(Object.keys(prod_offer_details)[i]),
-                        offer_type: offers[i].discount_pct,
+                        // offer_name: this.checkOfferType(Object.keys(prod_offer_details)[i]),
+                        offer_type: this.checkOfferType(Object.keys(prod_offer_details)[i]),
+                        offer_dis_pct: offers[i].discount_pct,
                         offer_discount_period: globalDateFormat.dateFormatT4(offers[i].start_date) + ' - ' + globalDateFormat.dateFormatT4(offers[i].valid_until),
                         offer_status: offers[i].is_active === 'Y' ? 'Active' : 'Inactive',
                         offer_created_by: 'Dummy',
