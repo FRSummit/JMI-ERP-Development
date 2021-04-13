@@ -1079,7 +1079,8 @@ export default {
                 if(offers[i].length === undefined) {
                     let offer = {
                         // offer_name: this.checkOfferType(Object.keys(prod_offer_details)[i]),
-                        offer_type: this.checkOfferType(Object.keys(prod_offer_details)[i]),
+                        // offer_type: this.checkOfferType(Object.keys(prod_offer_details)[i]),
+                        offer_type: this.checkOfferType(offers[i].offer_type),
                         offer_dis_pct: offers[i].discount_pct,
                         offer_discount_period: globalDateFormat.dateFormatT4(offers[i].start_date) + ' - ' + globalDateFormat.dateFormatT4(offers[i].valid_until),
                         offer_status: offers[i].is_active === 'Y' ? 'Active' : 'Inactive',
@@ -1096,16 +1097,16 @@ export default {
         checkOfferType(offer) {
             let offer_name = null
             switch(offer) {
-                case 'bonus_discount':
+                case 'bonus_discount': case 'B':
                     offer_name = 'Bonus Discount'
                     break
-                case 'fixed_discount':
+                case 'fixed_discount': case 'D':
                     offer_name = 'Fixed Discount'
                     break
-                case 'free_product':
+                case 'free_product': case 'F':
                     offer_name = 'Free Product'
                     break
-                case 'percentage_discount':
+                case 'percentage_discount': case 'P':
                     offer_name = 'Percentage Discount'
                     break
                 default:
@@ -1539,9 +1540,9 @@ button.modal-prod-save-btn:hover {
     height: 38px;
 }
 .mx-datepicker.mx-datepicker-range {
-    width: 180px;
+    /* width: 180px;
     float: right;
-    text-align: right;
+    text-align: right; */
 }
 .mx-datepicker.mx-datepicker-range input {
     width    : 170px;
