@@ -474,7 +474,7 @@
                                 <div class="tab-content-header">
                                     <h5>Offers</h5>
                                     <div class="btn-group">
-                                        <button class="btn btn-primary btn-create" data-toggle="modal" data-target=".create-offer-modal" role="button"><i class="fa fa-plus" aria-hidden="true" style="margin-right: 4px;"></i> Create Offer</button>
+                                        <button class="btn btn-primary btn-create" data-toggle="modal" data-target=".create-offer-modal" role="button" @click="createOfferBtnClickHandler"><i class="fa fa-plus" aria-hidden="true" style="margin-right: 4px;"></i> Create Offer</button>
                                     </div>
                                     <!------------ Start Create Offer Modal------------>
                                     <!-- <div class="modal create-offer-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="width: 70%; height: 302px;"> -->
@@ -1191,6 +1191,12 @@ export default {
             // console.log(attr_name_list)
             return attr_name_list
         },
+        createOfferBtnClickHandler() {
+            console.log(this.UPDATE_OFFER_ENABLE)
+            if(this.UPDATE_OFFER_ENABLE) {
+                this.UPDATE_OFFER_ENABLE = false
+            }
+        },
         // Offers Tab Content Area
         onChangeOfferTypeOfferModal() {
             console.log(this.offer_type_offers_modal)
@@ -1334,7 +1340,7 @@ export default {
                     this.togglingOnChangeOfferTypeOfferModal('fixed_discount')
                     this.prod_offer_discount_tp_d = item.offer_dis_pct
                     break
-                case "Bonus Product":
+                case "Bonus Product": case "Bonus Discount":
                     document.getElementById('offer_type').selectedIndex = 2
                     this.CREATE_OFFER_TYPE = 'B'
                     this.togglingOnChangeOfferTypeOfferModal('bonus_product')
@@ -1360,21 +1366,21 @@ export default {
         },
         updateOfferClickHandler() {
             let offer_details = {
-                offer_type: this.PROD_OFFER_FROM_SERVICE.offer_type ? this.PROD_OFFER_FROM_SERVICE.offer_type : null,
-                min_qty: this.PROD_OFFER_FROM_SERVICE.min_qty ? this.PROD_OFFER_FROM_SERVICE.min_qty : null,
-                start_date: this.PROD_OFFER_FROM_SERVICE.start_date ? this.PROD_OFFER_FROM_SERVICE.start_date : null,
-                valid_until: this.PROD_OFFER_FROM_SERVICE.valid_until ? this.PROD_OFFER_FROM_SERVICE.valid_until : null,
+                offer_type: this.CREATE_OFFER_TYPE ? this.CREATE_OFFER_TYPE : null,
+                min_qty: this.prod_offer_minimum_qty ? this.prod_offer_minimum_qty : null,
+                start_date: this.range ? globalDateFormat.dateFormatT4(this.range[0]) : null,
+                valid_until: this.range ? globalDateFormat.dateFormatT4(this.range[1]) : null,
                 // Percentage
-                discount_pct: this.PROD_OFFER_FROM_SERVICE.discount_pct,
+                discount_pct: this.prod_offer_discount_p ? this.prod_offer_discount_p : null,
                 // Discount
-                discount_tp: this.PROD_OFFER_FROM_SERVICE.discount_tp,
+                discount_tp: this.prod_offer_discount_tp_d ? this.prod_offer_discount_tp_d : null,
                 // Bonus
-                bonus_on: this.PROD_OFFER_FROM_SERVICE.bonus_on,
-                bonus_qty: this.PROD_OFFER_FROM_SERVICE.bonus_qty,
+                bonus_on: this.prod_offer_min_qty_b ? this.prod_offer_min_qty_b : null,
+                bonus_qty: this.prod_offer_bonus_qty_b ? this.prod_offer_bonus_qty_b : null,
                 // Free
-                free_req_qty: this.PROD_OFFER_FROM_SERVICE.free_req_qty,
-                free_prod_id: this.PROD_OFFER_FROM_SERVICE.free_prod_id,
-                free_prod_qty: this.PROD_OFFER_FROM_SERVICE.free_prod_qty,
+                free_req_qty: this.prod_offer_min_qty_f ? this.prod_offer_min_qty_f : null,
+                free_prod_id: this.free_prod_offer_selected_prod ? this.free_prod_offer_selected_prod : null,
+                free_prod_qty: this.prod_offer_free_qty_f ? this.prod_offer_free_qty_f : null,
             }
             this.UPDATE_PROD_OFFER__FROM_SERVICE(offer_details)
         },
@@ -1488,6 +1494,9 @@ export default {
                         this.prod_class_id_prod_modal = null
                         this.SELECTED_PRODUCTS_LIST__PRODUCT_MODAL = []
                         document.getElementById('classification-modal-close-btn').click()
+                        if(document.querySelector(".modal-backdrop.show")) {
+                            document.querySelector(".modal-backdrop.show").remove()
+                        }
                         this.prod_creating_progressbar = true
                         this.prod_creating_progressbar_msg = res.data.message
                         setTimeout( () => {
@@ -1579,10 +1588,12 @@ export default {
                 })
         },
         async UPDATE_PROD_OFFER__FROM_SERVICE(offer_details) {
+            console.log(offer_details)
             await service.getUpdateProdOffer_PRODUCTS_DETAILS(this.SELECTED_PROD_DETAILS.prod_id, offer_details)
                 .then(res => {
                     console.log(res.data)
                     if(res.data.response_code === 200 || res.data.response_code === 201) {
+                        this.UPDATE_OFFER_ENABLE = false
                         this.PROD_OFFER_FROM_SERVICE = null
                         // document.getElementById('offer_tab_close_modal').click()
                         this.offerTabCloseBtnClickHandler()
