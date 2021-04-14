@@ -102,6 +102,7 @@ export default {
           console.log(res.data);
           this.prods_list = res.data.product_list;
           console.log(this.prods_list);
+          this.$emit('all_prods_list', this.prods_list)
         })
         .catch((err) => {
           if (err) {

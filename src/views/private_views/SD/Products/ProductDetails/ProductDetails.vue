@@ -3,12 +3,14 @@
     <Heading :pathName="pathName" :routeName="routeName" />
     <div class="layout-body">
       <ProductDetailsSidebar 
-        v-on:select_prod_from_left="selectProdFromLeft" />
+        v-on:select_prod_from_left="selectProdFromLeft"
+        v-on:all_prods_list="getAllProdsList" />
       <ProductDetailsDetails
         :SELECTED_PROD_DETAILS="SELECTED_PROD_DETAILS"
         :SELECTED_PROD_ATTRIBUTES_DETAILS="SELECTED_PROD_ATTRIBUTES_DETAILS"
         :SELECTED_PROD_PRICE_DETAILS="SELECTED_PROD_PRICE_DETAILS"
-        :SELECTED_PROD_OFFER_DETAILS="SELECTED_PROD_OFFER_DETAILS" />
+        :SELECTED_PROD_OFFER_DETAILS="SELECTED_PROD_OFFER_DETAILS"
+        :ALL_PRODS_LIST_IN_DB="ALL_PRODS_LIST_IN_DB" />
     </div>
   </div>
 </template>
@@ -38,6 +40,7 @@ export default {
       SELECTED_PROD_ATTRIBUTES_DETAILS: null,
       SELECTED_PROD_PRICE_DETAILS: null,
       SELECTED_PROD_OFFER_DETAILS: null,
+      ALL_PRODS_LIST_IN_DB: null,
     };
   },
   computed: {},
@@ -54,6 +57,9 @@ export default {
     async selectProdFromLeft(item) {
       console.log(item)
       await this.SELECT_SBU_PRODUCT_DETAILS_BY_PROD_ID__FROM_SERVICE(item.prod_id)
+    },
+    getAllProdsList(value) {
+      this.ALL_PRODS_LIST_IN_DB = value
     },
     // ---------------------------------------------------------------------------
     // SERVICE CALL
