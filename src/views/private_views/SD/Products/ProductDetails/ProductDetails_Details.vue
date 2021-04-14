@@ -552,6 +552,33 @@
                                                     <div class="row hide" id="fixed_discount">
                                                         <div class="col-12"><h5>Fixed Discount</h5><hr></div>
                                                         <div class="col-lg-4 form-group">
+                                                            <label for="offer_name">dummy</label>
+                                                            <div class="input-group">
+                                                                <input type="number" class="form-control" placeholder="Enter Quantity" aria-describedby="addon1" required>
+                                                                <div class="input-group-append">
+                                                                <span class="input-group-text" id="addon1">Box</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4 form-group">
+                                                            <label for="offer_name">dummy</label>
+                                                            <div class="input-group">
+                                                                <input type="number" class="form-control" placeholder="Enter Quantity" aria-describedby="addon1" required>
+                                                                <div class="input-group-append">
+                                                                <span class="input-group-text" id="addon1">Box</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4 form-group">
+                                                            <label for="offer_name">dummy</label>
+                                                            <div class="input-group">
+                                                                <input type="number" class="form-control" placeholder="Enter Quantity" aria-describedby="addon1" required>
+                                                                <div class="input-group-append">
+                                                                <span class="input-group-text" id="addon1">Box</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4 form-group">
                                                             <label for="offer_name">Minimum Buy QTY</label>
                                                             <div class="input-group">
                                                                 <input v-model="prod_offer_minimum_qty" type="number" class="form-control" placeholder="Enter Quantity" aria-describedby="addon1" required>
