@@ -583,7 +583,7 @@
                                                         <div class="col-lg-4 form-group">
                                                             <label for="quantity">Minimum Buy QTY</label>
                                                             <div class="input-group">
-                                                                <input v-model="prod_offer_minimum_qty" type="number" class="form-control" placeholder="Enter Quantity" aria-describedby="addon1" required>
+                                                                <input v-model="prod_offer_minimum_qty" type="number" class="form-control" placeholder="" aria-describedby="addon1" required>
                                                                 <div class="input-group-append">
                                                                 <span class="input-group-text" id="addon1">Box</span>
                                                                 </div>
@@ -606,36 +606,30 @@
                                                     <div class="row hide" id="fixed_discount">
                                                         <div class="col-12"><h5>Fixed Discount</h5><hr></div>
                                                         <div class="col-lg-4 form-group">
-                                                            <label for="offer_name">dummy</label>
+                                                            <label for="offer_name">Now Price</label>
                                                             <div class="input-group">
-                                                                <input type="number" class="form-control" placeholder="Enter Quantity" aria-describedby="addon1" required>
+                                                                <input v-model="prod_offer_now_price_d" type="number" class="form-control" placeholder="" aria-describedby="addon1" required>
+                                                                <div class="input-group-append">
+                                                                <span class="input-group-text" id="addon1">TK</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4 form-group">
+                                                            <label for="offer_name">For</label>
+                                                            <div class="input-group">
+                                                                <input v-model="prod_offer_for_d" type="number" class="form-control" placeholder="" aria-describedby="addon1" required>
                                                                 <div class="input-group-append">
                                                                 <span class="input-group-text" id="addon1">Box</span>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-4 form-group">
-                                                            <label for="offer_name">dummy</label>
-                                                            <div class="input-group">
-                                                                <input type="number" class="form-control" placeholder="Enter Quantity" aria-describedby="addon1" required>
-                                                                <div class="input-group-append">
-                                                                <span class="input-group-text" id="addon1">Box</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-4 form-group">
-                                                            <label for="offer_name">dummy</label>
-                                                            <div class="input-group">
-                                                                <input type="number" class="form-control" placeholder="Enter Quantity" aria-describedby="addon1" required>
-                                                                <div class="input-group-append">
-                                                                <span class="input-group-text" id="addon1">Box</span>
-                                                                </div>
-                                                            </div>
+                                                            <button type="button" class="btn btn-primary btn-global" style="position: absolute; bottom: 20px;">Save Flat Rate</button>
                                                         </div>
                                                         <div class="col-lg-4 form-group">
                                                             <label for="offer_name">Minimum Buy QTY</label>
                                                             <div class="input-group">
-                                                                <input v-model="prod_offer_minimum_qty" type="number" class="form-control" placeholder="Enter Quantity" aria-describedby="addon1" required>
+                                                                <input v-model="prod_offer_minimum_qty" type="number" class="form-control" placeholder="" aria-describedby="addon1" required>
                                                                 <div class="input-group-append">
                                                                 <span class="input-group-text" id="addon1">Box</span>
                                                                 </div>
@@ -659,7 +653,7 @@
                                                         <div class="col-lg-4 form-group">
                                                             <label for="offer_name">Minimum Buy QTY</label>
                                                             <div class="input-group">
-                                                                <input v-model="prod_offer_min_qty_b" type="number" class="form-control" placeholder="Enter Quantity" aria-describedby="addon1" required>
+                                                                <input v-model="prod_offer_min_qty_b" type="number" class="form-control" placeholder="" aria-describedby="addon1" required>
                                                                 <div class="input-group-append">
                                                                 <span class="input-group-text" id="addon1">Box</span>
                                                                 </div>
@@ -668,7 +662,7 @@
                                                         <div class="col-lg-4 form-group">
                                                             <label for="date_range">Bonus QTY</label>
                                                             <div class="input-group">
-                                                                <input v-model="prod_offer_bonus_qty_b" type="number" class="form-control" placeholder="Enter Quantity" aria-describedby="addon1" required>
+                                                                <input v-model="prod_offer_bonus_qty_b" type="number" class="form-control" placeholder="" aria-describedby="addon1" required>
                                                                 <div class="input-group-append">
                                                                 <span class="input-group-text" id="addon1">Box</span>
                                                                 </div>
@@ -682,7 +676,7 @@
                                                         <div class="col-lg-4 form-group">
                                                             <label for="offer_name">Minimum Buy QTY</label>
                                                             <div class="input-group">
-                                                                <input v-model="prod_offer_min_qty_f" type="number" class="form-control" placeholder="Enter Quantity" aria-describedby="addon1" required>
+                                                                <input v-model="prod_offer_min_qty_f" type="number" class="form-control" placeholder="" aria-describedby="addon1" required>
                                                                 <div class="input-group-append">
                                                                 <span class="input-group-text" id="addon1">Box</span>
                                                                 </div>
@@ -701,7 +695,7 @@
                                                         <div class="col-lg-4 form-group">
                                                             <label for="date_range">Free QTY</label>
                                                             <div class="input-group">
-                                                                <input v-model="prod_offer_free_qty_f" type="number" class="form-control" placeholder="Enter Quantity" aria-describedby="addon1" required>
+                                                                <input v-model="prod_offer_free_qty_f" type="number" class="form-control" placeholder="" aria-describedby="addon1" required>
                                                                 <div class="input-group-append">
                                                                 <span class="input-group-text" id="addon1">Box</span>
                                                                 </div>
@@ -1038,6 +1032,10 @@ export default {
 
             prod_offer_discount_p: null,
 
+            // ##########################################
+            prod_offer_now_price_d: null,
+            prod_offer_for_d: null,
+            // ##########################################
             prod_offer_discount_tp_d: null,
 
             prod_offer_min_qty_b: null,
@@ -1285,6 +1283,10 @@ export default {
             // Percent
             let discount_pct = this.prod_offer_discount_p
             // Discount
+            // ##########################################
+            this.prod_offer_now_price_d = null
+            this.prod_offer_for_d = null
+            // ##########################################
             let discount_tp = this.prod_offer_discount_tp_d
             // Bonus
             let bonus_on = this.prod_offer_min_qty_b
@@ -1386,6 +1388,10 @@ export default {
                     document.getElementById('offer_type').selectedIndex = 1
                     this.CREATE_OFFER_TYPE = 'D'
                     this.togglingOnChangeOfferTypeOfferModal('fixed_discount')
+                    // ##########################################
+                    this.prod_offer_now_price_d = null
+                    this.prod_offer_for_d = null
+                    // ##########################################
                     this.prod_offer_discount_tp_d = item.offer_dis_pct
                     break
                 case "Bonus Product": case "Bonus Discount":
@@ -1421,6 +1427,10 @@ export default {
                 // Percentage
                 discount_pct: this.prod_offer_discount_p ? this.prod_offer_discount_p : null,
                 // Discount
+                // ##########################################
+                // this.prod_offer_now_price_d = null
+                // this.prod_offer_for_d = null
+                // ##########################################
                 discount_tp: this.prod_offer_discount_tp_d ? this.prod_offer_discount_tp_d : null,
                 // Bonus
                 bonus_on: this.prod_offer_min_qty_b ? this.prod_offer_min_qty_b : null,
