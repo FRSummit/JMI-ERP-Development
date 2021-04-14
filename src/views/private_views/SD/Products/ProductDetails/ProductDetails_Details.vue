@@ -661,7 +661,8 @@
                                                     <button type="button" class="btn btn-primary">Save changes</button>
                                                 </div> -->
                                                 <div class="modal-footer justify-content-center">
-                                                    <button type="button" class="btn btn-primary btn-global" @click="createOfferClickHandler">Create Offer</button>
+                                                    <button type="button" class="btn btn-primary btn-global" @click="createOfferClickHandler" v-if="UPDATE_OFFER_ENABLE === false">Create Offer</button>
+                                                    <button type="button" class="btn btn-primary btn-global" @click="updateOfferClickHandler" v-if="UPDATE_OFFER_ENABLE === true">Update Offer</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -994,6 +995,7 @@ export default {
             prod_price_tab_vat_pct: null,
 
             // Offers Tab Content Area
+            UPDATE_OFFER_ENABLE: false,
             offer_type_offers_modal: null,
             datetime: '',
             range: '',
@@ -1020,6 +1022,7 @@ export default {
             prod_offer_free_qty_f: null,
 
             ALL_PRODS_LIST: [],
+            PROD_OFFER_FROM_SERVICE: null,
         }
     },
     computed: {},
@@ -1083,7 +1086,8 @@ export default {
             this.prod_price_tab_vat = price_details.vat
             this.prod_price_tab_vat_pct = price_details.vat_pct
         },
-        // Offers Tab Content Area
+        // -----------------------------------------------------------------------------------------
+        // Offers Tab Content Area Starts
         setProductOfferTabContentArea(prod_offer_details) {
             // Offers Tab Content Area
             // console.log(prod_offer_details)
@@ -1289,56 +1293,61 @@ export default {
             }
 
         },
-        offerEditClickHandler(item, index) {
+        // Updating offer
+        async offerEditClickHandler(item, index) {
             console.log(item)
             console.log(index)
+            this.UPDATE_OFFER_ENABLE = true
             document.getElementById('modal_create_offer_modal').style.display = 'block'
 
+            await this.GET_OFFER_DETAILS_TO_EDIT__FROM_SERVICE(this.SELECTED_PROD_DETAILS.id, this.SELECTED_PROD_DETAILS.prod_id)
+            console.log(this.PROD_OFFER_FROM_SERVICE)
+
             // this.offer_type_offers_modal
-            this.offerEditSetOfferTypeInDropdown(item.offer_type)
-            console.log(new Date(item.offer_discount_period.split(' - ')[0]))
-            console.log(new Date(item.offer_discount_period.split(' - ')[1]))
+            this.offerEditSetOfferTypeInDropdown(item)
+            // console.log(new Date(item.offer_discount_period.split(' - ')[0]))
+            // console.log(new Date(item.offer_discount_period.split(' - ')[1]))
+            // let dt_range = []
+            // dt_range.push(new Date(item.offer_discount_period.split(' - ')[0]))
+            // dt_range.push(new Date(item.offer_discount_period.split(' - ')[1]))
             let dt_range = []
-            dt_range.push(new Date(item.offer_discount_period.split(' - ')[0]))
-            dt_range.push(new Date(item.offer_discount_period.split(' - ')[1]))
+            dt_range.push(new Date(this.PROD_OFFER_FROM_SERVICE.start_date))
+            dt_range.push(new Date(this.PROD_OFFER_FROM_SERVICE.valid_until))
             console.log(dt_range)
             this.range = dt_range
             console.log(this.range)
-            // prod_offer_minimum_qty: null,
-
-            // prod_offer_discount_p: null,
-
-            // prod_offer_discount_tp_d: null,
-
-            // prod_offer_min_qty_b: null,
-            // prod_offer_bonus_qty_b: null,
-
-            // prod_offer_min_qty_f: null,
-            // free_prod_offer_selected_prod: null,
-            // prod_offer_free_qty_f: null,
         },
-        offerEditSetOfferTypeInDropdown(offer_type) {
-            this.offer_type_offers_modal = offer_type
-            switch(offer_type) {
+        offerEditSetOfferTypeInDropdown(item) {
+            this.offer_type_offers_modal = item.offer_type
+            this.prod_offer_minimum_qty = this.PROD_OFFER_FROM_SERVICE.min_qty
+
+            switch(item.offer_type) {
                 case "Percentage Discount":
                     document.getElementById('offer_type').selectedIndex = 0
                     this.CREATE_OFFER_TYPE = 'P'
                     this.togglingOnChangeOfferTypeOfferModal('percentage_discount')
+                    this.prod_offer_discount_p = item.offer_dis_pct
                     break
                 case "Fixed Discount":
                     document.getElementById('offer_type').selectedIndex = 1
                     this.CREATE_OFFER_TYPE = 'D'
                     this.togglingOnChangeOfferTypeOfferModal('fixed_discount')
+                    this.prod_offer_discount_tp_d = item.offer_dis_pct
                     break
                 case "Bonus Product":
                     document.getElementById('offer_type').selectedIndex = 2
                     this.CREATE_OFFER_TYPE = 'B'
                     this.togglingOnChangeOfferTypeOfferModal('bonus_product')
+                    this.prod_offer_min_qty_b = this.PROD_OFFER_FROM_SERVICE.bonus_on
+                    this.prod_offer_bonus_qty_b = this.PROD_OFFER_FROM_SERVICE.bonus_qty
                     break
                 case "Free Product":
                     document.getElementById('offer_type').selectedIndex = 3
                     this.CREATE_OFFER_TYPE = 'F'
                     this.togglingOnChangeOfferTypeOfferModal('free_product')
+                    this.prod_offer_min_qty_f = this.PROD_OFFER_FROM_SERVICE.free_req_qty
+                    this.free_prod_offer_selected_prod = this.PROD_OFFER_FROM_SERVICE.free_prod_id
+                    this.prod_offer_free_qty_f = this.PROD_OFFER_FROM_SERVICE.free_prod_qty
                     break
                 default:
                     break
@@ -1349,8 +1358,28 @@ export default {
                 document.getElementById('modal_create_offer_modal').style.display = 'none'
             }
         },
+        updateOfferClickHandler() {
+            let offer_details = {
+                offer_type: this.PROD_OFFER_FROM_SERVICE.offer_type ? this.PROD_OFFER_FROM_SERVICE.offer_type : null,
+                min_qty: this.PROD_OFFER_FROM_SERVICE.min_qty ? this.PROD_OFFER_FROM_SERVICE.min_qty : null,
+                start_date: this.PROD_OFFER_FROM_SERVICE.start_date ? this.PROD_OFFER_FROM_SERVICE.start_date : null,
+                valid_until: this.PROD_OFFER_FROM_SERVICE.valid_until ? this.PROD_OFFER_FROM_SERVICE.valid_until : null,
+                // Percentage
+                discount_pct: this.PROD_OFFER_FROM_SERVICE.discount_pct,
+                // Discount
+                discount_tp: this.PROD_OFFER_FROM_SERVICE.discount_tp,
+                // Bonus
+                bonus_on: this.PROD_OFFER_FROM_SERVICE.bonus_on,
+                bonus_qty: this.PROD_OFFER_FROM_SERVICE.bonus_qty,
+                // Free
+                free_req_qty: this.PROD_OFFER_FROM_SERVICE.free_req_qty,
+                free_prod_id: this.PROD_OFFER_FROM_SERVICE.free_prod_id,
+                free_prod_qty: this.PROD_OFFER_FROM_SERVICE.free_prod_qty,
+            }
+            this.UPDATE_PROD_OFFER__FROM_SERVICE(offer_details)
+        },
         // Offers Tab Content Area Ends
-        // -------------------------------------------------------------------------------
+        // -----------------------------------------------------------------------------------------
         createNewProductClickHandler() {
             console.log('createNewProductClickHandler')
         },
@@ -1530,6 +1559,53 @@ export default {
                     if(err){
                         console.log(err)
                         alert('Creating product offer problem : ' + err)
+                    }
+                })
+        },
+        async GET_OFFER_DETAILS_TO_EDIT__FROM_SERVICE(id, prod_id) {
+            this.PROD_OFFER_FROM_SERVICE = null
+            await service.getEditProdOffer_PRODUCTS_DETAILS(id, prod_id)
+                .then(res => {
+                    console.log(res.data.prod_offer)
+                    if(res.data.response_code === 200 || res.data.response_code === 201) {
+                        this.PROD_OFFER_FROM_SERVICE = res.data.prod_offer
+                    }
+                })
+                .catch(err => {
+                    if(err) {
+                        this.PROD_OFFER_FROM_SERVICE = null
+                        console.log(err)
+                    }
+                })
+        },
+        async UPDATE_PROD_OFFER__FROM_SERVICE(offer_details) {
+            await service.getUpdateProdOffer_PRODUCTS_DETAILS(this.SELECTED_PROD_DETAILS.prod_id, offer_details)
+                .then(res => {
+                    console.log(res.data)
+                    if(res.data.response_code === 200 || res.data.response_code === 201) {
+                        this.PROD_OFFER_FROM_SERVICE = null
+                        // document.getElementById('offer_tab_close_modal').click()
+                        this.offerTabCloseBtnClickHandler()
+                        this.prod_creating_progressbar = true
+                        this.prod_creating_progressbar_msg = res.data.message
+                        setTimeout( () => {
+                            this.prod_creating_progressbar = false
+                            this.prod_creating_progressbar_msg = null
+                        }, 1000)
+                    } else {
+                        // document.getElementById('offer_tab_close_modal').click()
+                        this.prod_creating_progressbar = true
+                        this.prod_creating_progressbar_msg = res.data.message
+                        setTimeout( () => {
+                            this.prod_creating_progressbar = false
+                            this.prod_creating_progressbar_msg = null
+                        }, 1000)
+                    }
+                })
+                .catch(err => {
+                    if(err) {
+                        console.log(err)
+                        alert('Product offer update problem : ' + err)
                     }
                 })
         }
