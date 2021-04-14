@@ -478,12 +478,12 @@
                                     </div>
                                     <!------------ Start Create Offer Modal------------>
                                     <!-- <div class="modal create-offer-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="width: 70%; height: 302px;"> -->
-                                    <div class="modal create-offer-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="width: 70%;">
+                                    <div id="modal_create_offer_modal" class="modal create-offer-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="width: 70%;">
                                         <div class="modal-dialog modal-lg modal-dialog-centered" style="margin: 0; max-width: unset;">
                                             <div class="modal-content" style="border: none;">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="exampleModalCenterTitle">Create Offer</h5>
-                                                    <button type="button" id="offer_tab_close_modal" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <button type="button" id="offer_tab_close_modal" class="close" data-dismiss="modal" aria-label="Close" @click="offerTabCloseBtnClickHandler">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
@@ -690,7 +690,7 @@
                                             <td><p class="status" :class="item.offer_status === 'Active' ? 'active' : 'inactive'"> <i class="fa fa-square mr-1" aria-hidden="true"></i>{{ item.offer_status === 'Active' ? 'Active' : 'Inactive' }}</p></td>
                                             <!-- <td>{{ item.offer_created_by }}</td> -->
                                             <td class="action-btn">
-                                                <span><a class="btn-edit btn-active" style="width: 20px; border-radius: 50%; cursor: pointer;"><i class="zmdi zmdi-edit"></i></a></span>
+                                                <span><a class="btn-edit btn-active" style="width: 20px; border-radius: 50%; cursor: pointer;" @click="offerEditClickHandler(item, i)"><i class="zmdi zmdi-edit"></i></a></span>
                                                 <span class="active fa fa-arrow-up" data-toggle="tooltip" data-placement="bottom" title="Active"></span>
                                             </td>
                                         </tr>
@@ -1288,6 +1288,66 @@ export default {
                 alert('offer_type or min qty or date is null')
             }
 
+        },
+        offerEditClickHandler(item, index) {
+            console.log(item)
+            console.log(index)
+            document.getElementById('modal_create_offer_modal').style.display = 'block'
+
+            // this.offer_type_offers_modal
+            this.offerEditSetOfferTypeInDropdown(item.offer_type)
+            console.log(new Date(item.offer_discount_period.split(' - ')[0]))
+            console.log(new Date(item.offer_discount_period.split(' - ')[1]))
+            let dt_range = []
+            dt_range.push(new Date(item.offer_discount_period.split(' - ')[0]))
+            dt_range.push(new Date(item.offer_discount_period.split(' - ')[1]))
+            console.log(dt_range)
+            this.range = dt_range
+            console.log(this.range)
+            // prod_offer_minimum_qty: null,
+
+            // prod_offer_discount_p: null,
+
+            // prod_offer_discount_tp_d: null,
+
+            // prod_offer_min_qty_b: null,
+            // prod_offer_bonus_qty_b: null,
+
+            // prod_offer_min_qty_f: null,
+            // free_prod_offer_selected_prod: null,
+            // prod_offer_free_qty_f: null,
+        },
+        offerEditSetOfferTypeInDropdown(offer_type) {
+            this.offer_type_offers_modal = offer_type
+            switch(offer_type) {
+                case "Percentage Discount":
+                    document.getElementById('offer_type').selectedIndex = 0
+                    this.CREATE_OFFER_TYPE = 'P'
+                    this.togglingOnChangeOfferTypeOfferModal('percentage_discount')
+                    break
+                case "Fixed Discount":
+                    document.getElementById('offer_type').selectedIndex = 1
+                    this.CREATE_OFFER_TYPE = 'D'
+                    this.togglingOnChangeOfferTypeOfferModal('fixed_discount')
+                    break
+                case "Bonus Product":
+                    document.getElementById('offer_type').selectedIndex = 2
+                    this.CREATE_OFFER_TYPE = 'B'
+                    this.togglingOnChangeOfferTypeOfferModal('bonus_product')
+                    break
+                case "Free Product":
+                    document.getElementById('offer_type').selectedIndex = 3
+                    this.CREATE_OFFER_TYPE = 'F'
+                    this.togglingOnChangeOfferTypeOfferModal('free_product')
+                    break
+                default:
+                    break
+            }
+        },
+        offerTabCloseBtnClickHandler() {
+            if(document.getElementById('modal_create_offer_modal').style.display === 'block') {
+                document.getElementById('modal_create_offer_modal').style.display = 'none'
+            }
         },
         // Offers Tab Content Area Ends
         // -------------------------------------------------------------------------------
