@@ -444,7 +444,7 @@
                                             <div class="modal-content" style="border: none;">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="exampleModalCenterTitle">Create Offer</h5>
-                                                    <button type="button" id="offer_tab_close_modal" class="close" data-dismiss="modal" aria-label="Close" @click="offerTabCloseBtnClickHandler">
+                                                    <button type="button" id="price_tab_close_modal" class="close" data-dismiss="modal" aria-label="Close" @click="offerTabCloseBtnClickHandler">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
@@ -1595,7 +1595,7 @@ export default {
                 .then(res => {
                     console.log(res.data)
                     if(res.data.response_code === 200 || res.data.response_code === 201) {
-                        document.getElementById('offer_tab_close_modal').click()
+                        document.getElementById('price_tab_close_modal').click()
                         this.prod_creating_progressbar = true
                         this.prod_creating_progressbar_msg = res.data.message
                         setTimeout( () => {
@@ -1603,7 +1603,7 @@ export default {
                             this.prod_creating_progressbar_msg = null
                         }, 1000)
                     } else {
-                        // document.getElementById('offer_tab_close_modal').click()
+                        // document.getElementById('price_tab_close_modal').click()
                         this.prod_creating_progressbar = true
                         this.prod_creating_progressbar_msg = res.data.message
                         setTimeout( () => {
