@@ -1157,6 +1157,28 @@ export default class PostService {
     })
   }
 
+  // PRODUCT - PRODUCT DETAILS - UPDATE PROD PRICE
+  async getUpdateProdPrice_PRODUCTS_DETAILS(prod_id, prod_price_dtl) {
+    console.log(prod_id)
+    console.log(prod_price_dtl)
+    let web_menu_url = '/api/web/update-prod-price/' + prod_id
+    return await axios(web_menu_url, {
+      method: 'POST',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+      params: {
+        base_tp: prod_price_dtl.base_tp,
+        manufacture_price: prod_price_dtl.manufacture_price,
+        base_mrp: prod_price_dtl.base_mrp,
+        max_tp: prod_price_dtl.max_tp,
+        min_base_tp: prod_price_dtl.min_base_tp,
+        base_vat: prod_price_dtl.base_vat,
+        vat_pct: prod_price_dtl.vat_pct
+      }
+    })
+  }
+
   // PRODUCT - PRODUCT DETAILS - CREATE OFFER
   async getUpdateProdOffer_PRODUCTS_DETAILS(prod_id, offer_details) {
     console.log(prod_id)

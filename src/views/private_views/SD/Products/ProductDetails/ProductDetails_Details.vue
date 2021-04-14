@@ -431,31 +431,85 @@
                                 <div class="tab-content-header">
                                     <h5>Product Information</h5>
                                     <div class="btn-group">
-                                        <button class="btn btn-primary btn-save"  role="button">Save</button>
-                                        <a class="btn-edit btn-active" ><i class="zmdi zmdi-edit"></i></a>
+                                        <button class="btn btn-primary btn-save hide" role="button">Save</button>
+                                        <a class="btn-edit btn-active" data-toggle="modal" data-target=".edit-price-modal" @click="updateProdPriceEditBtnClickHandler"><i class="zmdi zmdi-edit"></i></a>
                                     </div>
+                                    <!-- <div class="btn-group">
+                                        <button class="btn btn-primary btn-create" data-toggle="modal" data-target=".create-offer-modal" role="button"><i class="fa fa-plus" aria-hidden="true" style="margin-right: 4px;"></i> Create Offer</button>
+                                    </div> -->
+                                    <!------------ Start Price Edit Modal------------>
+                                    <!-- <div class="modal create-offer-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="width: 70%; height: 302px;"> -->
+                                    <div id="modal_edit_price_modal" class="modal edit-price-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="width: 70%;">
+                                        <div class="modal-dialog modal-lg modal-dialog-centered" style="margin: 0; max-width: unset;">
+                                            <div class="modal-content" style="border: none;">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalCenterTitle">Create Offer</h5>
+                                                    <button type="button" id="offer_tab_close_modal" class="close" data-dismiss="modal" aria-label="Close" @click="offerTabCloseBtnClickHandler">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <div class="col-lg-4 form-group">
+                                                            <label for="update_prod_trade_price">Trade Price</label>
+                                                            <input v-model="update_prod_trade_price" type="number" class="form-control" id="update_prod_trade_price" placeholder="">
+                                                        </div>
+                                                        <div class="col-lg-4 form-group">
+                                                            <label for="update_prod_manufacture_price">Manufacture Price</label>
+                                                            <input v-model="update_prod_manufacture_price" type="number" class="form-control" id="update_prod_manufacture_price" placeholder="">
+                                                        </div>
+                                                        <div class="col-lg-4 form-group">
+                                                            <label for="update_prod_maximum_retail_price">Maximum Retail Price</label>
+                                                            <input v-model="update_prod_maximum_retail_price" type="number" class="form-control" id="update_prod_maximum_retail_price" placeholder="">
+                                                        </div>
+                                                        <div class="col-lg-4 form-group">
+                                                            <label for="update_prod_maximum_trade_price">Maximum Trade Price</label>
+                                                            <input v-model="update_prod_maximum_trade_price" type="number" class="form-control" id="update_prod_maximum_trade_price" placeholder="">
+                                                        </div>
+                                                        <div class="col-lg-4 form-group">
+                                                            <label for="update_prod_minimum_trade_price">Minimum Trade Price</label>
+                                                            <input v-model="update_prod_minimum_trade_price" type="number" class="form-control" id="update_prod_minimum_trade_price" placeholder="">
+                                                        </div>
+                                                        <div class="col-lg-4 form-group">
+                                                            <label for="update_prod_vat_price">Vat</label>
+                                                            <input v-model="update_prod_vat_price" type="number" class="form-control" id="update_prod_vat_price" placeholder="">
+                                                        </div>
+                                                        <div class="col-lg-4 form-group">
+                                                            <label for="update_prod_vat_ptc_price">Vat PTC</label>
+                                                            <input v-model="update_prod_vat_ptc_price" type="number" class="form-control" id="update_prod_vat_ptc_price" placeholder="">
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="modal-footer justify-content-center">
+                                                    <button type="button" class="btn btn-primary btn-global" @click="updateProdPriceClickHandler">Update Price</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!------------ End Price Edit Modal------------>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-lg-3 form-group">
                                         <label for="trade_price">Trade Price</label>
-                                        <input type="text" v-model="prod_price_tab_trade_price" class="form-control" id="trade_price" placeholder="Enter Trade Price">
+                                        <input type="number" v-model="prod_price_tab_trade_price" class="form-control" id="trade_price" placeholder="Enter Trade Price">
                                     </div>
                                     <div class="col-lg-3 form-group">
                                         <label for="manufacture_price">Manufacture Price</label>
-                                        <input type="text" v-model="prod_price_tab_manufacture_price" class="form-control" id="manufacture_price" placeholder="Enter Manufacture Price">
+                                        <input type="number" v-model="prod_price_tab_manufacture_price" class="form-control" id="manufacture_price" placeholder="Enter Manufacture Price">
                                     </div>
                                     <div class="col-lg-3 form-group">
                                         <label for="maximum_retail_price">Maximum Retail Price</label>
-                                        <input type="text" v-model="prod_price_tab_max_retail_price" class="form-control" id="maximum_retail_price" placeholder="Enter Maximum Retail Price">
+                                        <input type="number" v-model="prod_price_tab_max_retail_price" class="form-control" id="maximum_retail_price" placeholder="Enter Maximum Retail Price">
                                     </div>
                                     <div class="col-lg-3 form-group">
                                         <label for="maximum_trade_price">Maximum Trade Price</label>
-                                        <input type="text" v-model="prod_price_tab_max_trade_price" class="form-control" id="maximum_trade_price" placeholder="Enter Maximum Trade Price">
+                                        <input type="number" v-model="prod_price_tab_max_trade_price" class="form-control" id="maximum_trade_price" placeholder="Enter Maximum Trade Price">
                                     </div>
                                     <div class="col-lg-3 form-group">
                                         <label for="minimum_trade_price">Minimum Trade Price</label>
-                                        <input type="text" v-model="prod_price_tab_min_trade_price" class="form-control" id="minimum_trade_price" placeholder="Enter Minimum Trade Price">
+                                        <input type="number" v-model="prod_price_tab_min_trade_price" class="form-control" id="minimum_trade_price" placeholder="Enter Minimum Trade Price">
                                     </div>
                                     <div class="col-lg-3 form-group">
                                         <label for="vat">Vat</label>
@@ -463,7 +517,7 @@
                                     </div>
                                     <div class="col-lg-3 form-group">
                                         <label for="vat_ptc">Vat PTC</label>
-                                        <input type="text" v-model="prod_price_tab_vat_pct" class="form-control" id="vat_ptc" placeholder="Enter Vat PTC">
+                                        <input type="number" v-model="prod_price_tab_vat_pct" class="form-control" id="vat_ptc" placeholder="Enter Vat PTC">
                                     </div>
                                 </div>
                             </div>
@@ -695,42 +749,6 @@
                                                 <span class="active fa fa-arrow-up" data-toggle="tooltip" data-placement="bottom" title="Active"></span>
                                             </td>
                                         </tr>
-                                        <!-- <tr v-if="SELECTED_PROD_OFFER_DETAILS.bonus_discount">
-                                            <td>01</td>
-                                            <td>Dummy</td>
-                                            <td>Dummy Bonus</td>
-                                            <td>{{ SELECTED_PROD_OFFER_DETAILS.bonus_discount.start_date ? SELECTED_PROD_OFFER_DETAILS.bonus_discount.start_date.toString().split(' ')[0] : '' }} - {{ SELECTED_PROD_OFFER_DETAILS.bonus_discount.valid_until ? SELECTED_PROD_OFFER_DETAILS.bonus_discount.valid_until.toString().split(' ')[0] : '' }}</td>
-                                            <td><p class="status active"> <i class="fa fa-square mr-1" aria-hidden="true"></i>Active</p></td>
-                                            <td>Dummy</td>
-                                            <td class="action-btn"><span><a class="btn-edit btn-active" style="width: 20px; border-radius: 50%; cursor: pointer;"><i class="zmdi zmdi-edit"></i></a></span> <span class="inactive fa fa-arrow-down" data-toggle="tooltip" data-placement="bottom" title="Inactive"></span></td>
-                                        </tr>
-                                        <tr v-if="SELECTED_PROD_OFFER_DETAILS.fixed_discount">
-                                            <td>01</td>
-                                            <td>Dummy</td>
-                                            <td>Dummy Fixed</td>
-                                            <td>{{ SELECTED_PROD_OFFER_DETAILS.fixed_discount.start_date ? SELECTED_PROD_OFFER_DETAILS.fixed_discount.start_date.toString().split(' ')[0] : '' }} - {{ SELECTED_PROD_OFFER_DETAILS.fixed_discount.valid_until ? SELECTED_PROD_OFFER_DETAILS.fixed_discount.valid_until.toString().split(' ')[0] : '' }}</td>
-                                            <td><p class="status inactive"> <i class="fa fa-square mr-1" aria-hidden="true"></i>Inactive</p></td>
-                                            <td>Dummy</td>
-                                            <td class="action-btn"><span><a class="btn-edit btn-active" style="width: 20px; border-radius: 50%; cursor: pointer;"><i class="zmdi zmdi-edit"></i></a></span> <span class="active fa fa-arrow-up" data-toggle="tooltip" data-placement="bottom" title="Active"></span></td>
-                                        </tr>
-                                        <tr v-if="SELECTED_PROD_OFFER_DETAILS.free_product">
-                                            <td>01</td>
-                                            <td>Dummy</td>
-                                            <td>Dummy Free</td>
-                                            <td>{{ SELECTED_PROD_OFFER_DETAILS.free_product.start_date ? SELECTED_PROD_OFFER_DETAILS.free_product.start_date.toString().split(' ')[0] : '' }} - {{ SELECTED_PROD_OFFER_DETAILS.free_product.valid_until ? SELECTED_PROD_OFFER_DETAILS.free_product.valid_until.toString().split(' ')[0] : '' }}</td>
-                                            <td><p class="status active"> <i class="fa fa-square mr-1" aria-hidden="true"></i>Active</p></td>
-                                            <td>Dummy</td>
-                                            <td class="action-btn"><span><a class="btn-edit btn-active" style="width: 20px; border-radius: 50%; cursor: pointer;"><i class="zmdi zmdi-edit"></i></a></span> <span class="inactive fa fa-arrow-down" data-toggle="tooltip" data-placement="bottom" title="Inactive"></span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>01</td>
-                                            <td>Dummy</td>
-                                            <td>Dummy Percentage</td>
-                                            <td>{{ SELECTED_PROD_OFFER_DETAILS.percentage_discount.start_date ? SELECTED_PROD_OFFER_DETAILS.percentage_discount.start_date.toString().split(' ')[0] : '' }} - {{ SELECTED_PROD_OFFER_DETAILS.percentage_discount.valid_until ? SELECTED_PROD_OFFER_DETAILS.percentage_discount.valid_until.toString().split(' ')[0] : '' }}</td>
-                                            <td><p class="status active"> <i class="fa fa-square mr-1" aria-hidden="true"></i>Dummy Active</p></td>
-                                            <td>Dummy</td>
-                                            <td class="action-btn"><span><a class="btn-edit btn-active" style="width: 20px; border-radius: 50%; cursor: pointer;"><i class="zmdi zmdi-edit"></i></a></span> <span class="inactive fa fa-arrow-down" data-toggle="tooltip" data-placement="bottom" title="Inactive"></span></td>
-                                        </tr> -->
                                     </tbody>
                                 </table>
                             </div>
@@ -994,6 +1012,14 @@ export default {
             prod_price_tab_vat: null,
             prod_price_tab_vat_pct: null,
 
+            update_prod_trade_price: null,
+            update_prod_manufacture_price: null,
+            update_prod_maximum_retail_price: null,
+            update_prod_maximum_trade_price: null,
+            update_prod_minimum_trade_price: null,
+            update_prod_vat_price: null,
+            update_prod_vat_ptc_price: null,
+
             // Offers Tab Content Area
             UPDATE_OFFER_ENABLE: false,
             offer_type_offers_modal: null,
@@ -1085,6 +1111,28 @@ export default {
             this.prod_price_tab_min_trade_price = price_details.minimum_trade_price
             this.prod_price_tab_vat = price_details.vat
             this.prod_price_tab_vat_pct = price_details.vat_pct
+        },
+        updateProdPriceEditBtnClickHandler() {
+            this.update_prod_trade_price = this.prod_price_tab_trade_price
+            this.update_prod_manufacture_price = this.prod_price_tab_manufacture_price
+            this.update_prod_maximum_retail_price = this.prod_price_tab_max_retail_price
+            this.update_prod_maximum_trade_price = this.prod_price_tab_max_trade_price
+            this.update_prod_minimum_trade_price = this.prod_price_tab_min_trade_price
+            this.update_prod_vat_price = this.prod_price_tab_vat
+            this.update_prod_vat_ptc_price = this.prod_price_tab_vat_pct
+        },
+        async updateProdPriceClickHandler() {
+            console.log(this.update_prod_vat_price)
+            let prod_price_dtl = {
+                base_tp: this.update_prod_trade_price ? this.update_prod_trade_price : 0,
+                manufacture_price: this.update_prod_manufacture_price ? this.update_prod_manufacture_price : 0,
+                base_mrp: this.update_prod_maximum_retail_price ? this.update_prod_maximum_retail_price : 0,
+                max_tp: this.update_prod_maximum_trade_price ? this.update_prod_maximum_trade_price : 0,
+                min_base_tp: this.update_prod_minimum_trade_price ? this.update_prod_minimum_trade_price : 0,
+                base_vat: this.update_prod_vat_price ? this.update_prod_vat_price : 0,
+                vat_pct: this.update_prod_vat_ptc_price ? this.update_prod_vat_ptc_price : 0,
+            }
+            await this.UPDATE_PROD_PRICE__FROM_SERVICE(prod_price_dtl)
         },
         // -----------------------------------------------------------------------------------------
         // Offers Tab Content Area Starts
@@ -1540,6 +1588,38 @@ export default {
         //     }
         //     });
         // },
+
+        // PROD PRICE
+        async UPDATE_PROD_PRICE__FROM_SERVICE(prod_price_dtl) {
+            await service.getUpdateProdPrice_PRODUCTS_DETAILS(this.SELECTED_PROD_DETAILS.prod_id, prod_price_dtl)
+                .then(res => {
+                    console.log(res.data)
+                    if(res.data.response_code === 200 || res.data.response_code === 201) {
+                        document.getElementById('offer_tab_close_modal').click()
+                        this.prod_creating_progressbar = true
+                        this.prod_creating_progressbar_msg = res.data.message
+                        setTimeout( () => {
+                            this.prod_creating_progressbar = false
+                            this.prod_creating_progressbar_msg = null
+                        }, 1000)
+                    } else {
+                        // document.getElementById('offer_tab_close_modal').click()
+                        this.prod_creating_progressbar = true
+                        this.prod_creating_progressbar_msg = res.data.message
+                        setTimeout( () => {
+                            this.prod_creating_progressbar = false
+                            this.prod_creating_progressbar_msg = null
+                        }, 1000)
+                    }
+                })
+                .catch(err => {
+                    if(err) {
+                        console.log(err)
+                        alert('Price update problem : ' + err)
+                    }
+                })
+        },
+
         // Create Prod Offer
         async CREATE_NEW_PROD_OFFER__FROM_SERVICE(offer_details) {
             console.log(offer_details)
@@ -1704,13 +1784,16 @@ button.btn-global.create-product:hover,
 button.modal-prod-save-btn:hover {
     background: #0062cc;
 }
-#tab-offers .create-offer-modal .modal-body {
+#tab-offers .create-offer-modal .modal-body,
+#tab-offers .edit-price-modal .modal-body {
     min-height: 280px;
 }
-#tab-offers .create-offer-modal .modal-body .input-group input {
+#tab-offers .create-offer-modal .modal-body .input-group input,
+#tab-offers .edit-price-modal .modal-body .input-group input {
     width: 1%;
 }
-#tab-offers .create-offer-modal .modal-body .input-group .input-group-append {
+#tab-offers .create-offer-modal .modal-body .input-group .input-group-append,
+#tab-offers .edit-price-modal .modal-body .input-group .input-group-append {
     height: 38px;
 }
 .mx-datepicker.mx-datepicker-range {
