@@ -443,7 +443,7 @@
                                         <div class="modal-dialog modal-lg modal-dialog-centered" style="margin: 0; max-width: unset;">
                                             <div class="modal-content" style="border: none;">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalCenterTitle">Create Offer</h5>
+                                                    <h5 class="modal-title" id="exampleModalCenterTitle">Update Price</h5>
                                                     <button type="button" id="price_tab_close_modal" class="close" data-dismiss="modal" aria-label="Close" @click="offerTabCloseBtnClickHandler">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
@@ -1238,6 +1238,7 @@ export default {
             return attr_name_list
         },
         createOfferBtnClickHandler() {
+            this.closeAllOfferTypeOfferModal()
             console.log(this.UPDATE_OFFER_ENABLE)
             if(this.UPDATE_OFFER_ENABLE) {
                 this.UPDATE_OFFER_ENABLE = false
@@ -1273,6 +1274,19 @@ export default {
                 document.getElementById(selector_list[i]).className = 'row hide'
             }
             document.getElementById(selector).className = 'row'
+        },
+        closeAllOfferTypeOfferModal() {
+            console.log('closeAllOfferTypeOfferModal')
+            let selector_list = ['percentage_discount', 'fixed_discount', 'bonus_product', 'free_product']
+            for(let i=0; i<selector_list.length; i++) {
+                console.log(selector_list[i])
+                if(document.getElementById(selector_list[i]).className === 'row') {
+                    document.getElementById(selector_list[i]).className = 'row hide'
+                }
+            }
+            this.range = null
+            this.offer_type_offers_modal = null
+            document.getElementById('offer_type').selectedIndex = 0
         },
         createOfferClickHandler() {
             let offer_type = this.CREATE_OFFER_TYPE
@@ -1351,6 +1365,7 @@ export default {
         },
         // Updating offer
         async offerEditClickHandler(item, index) {
+            this.closeAllOfferTypeOfferModal()
             console.log(item)
             console.log(index)
             this.UPDATE_OFFER_ENABLE = true
