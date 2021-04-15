@@ -585,7 +585,7 @@
                                                             <div class="input-group">
                                                                 <input v-model="prod_offer_minimum_qty" type="number" class="form-control" placeholder="" aria-describedby="addon1" required>
                                                                 <div class="input-group-append">
-                                                                <span class="input-group-text" id="addon1">Box</span>
+                                                                <span class="input-group-text" id="addon1">{{ prod_offer_pack_size ? prod_offer_pack_size : 'Other' }}</span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -614,33 +614,35 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg-4 form-group">
+                                                        <div class="col-lg-3 form-group">
                                                             <label for="offer_name">For</label>
                                                             <div class="input-group">
                                                                 <input v-model="prod_offer_for_d" type="number" class="form-control" placeholder="" aria-describedby="addon1" required>
                                                                 <div class="input-group-append">
-                                                                <span class="input-group-text" id="addon1">Box</span>
+                                                                    <span class="input-group-text" id="addon1">{{ prod_offer_pack_size ? prod_offer_pack_size : 'Other' }}</span>
                                                                 </div>
+                                                                <!-- <button type="button" class="btn btn-primary btn-global" style="position: absolute; bottom: 20px;">Save Flat Rate</button> -->
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg-4 form-group">
-                                                            <button type="button" class="btn btn-primary btn-global" style="position: absolute; bottom: 20px;">Save Flat Rate</button>
+                                                        <div class="col-lg-2 form-group">
+                                                            <!-- <button type="button" class="btn btn-primary btn-global" style="position: absolute; bottom: 20px;">Save Flat Rate</button> -->
+                                                            <button type="button" class="btn btn-primary btn-global" style="position: absolute; bottom: 20px; background-color: #495057;">Save Flat Rate</button>
                                                         </div>
                                                         <div class="col-lg-4 form-group">
                                                             <label for="offer_name">Minimum Buy QTY</label>
                                                             <div class="input-group">
-                                                                <input v-model="prod_offer_minimum_qty" type="number" class="form-control" placeholder="" aria-describedby="addon1" required>
+                                                                <input v-model="prod_offer_for_d" type="number" class="form-control" placeholder="" aria-describedby="addon1" readonly>
                                                                 <div class="input-group-append">
-                                                                <span class="input-group-text" id="addon1">Box</span>
+                                                                <span class="input-group-text" id="addon1">{{ prod_offer_pack_size ? prod_offer_pack_size : 'Other' }}</span>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-4 form-group">
                                                             <label for="date_range">Discount TP</label>
                                                             <div class="input-group">
-                                                                <input v-model="prod_offer_discount_tp_d" type="number" class="form-control" placeholder="Enter Discount" aria-describedby="basic-addon2" required>
+                                                                <input v-model="prod_offer_discount_tp_d" type="number" class="form-control" placeholder="Enter Discount" aria-describedby="basic-addon2" readonly>
                                                                 <div class="input-group-append">
-                                                                <span class="input-group-text" id="basic-addon2">%</span>
+                                                                <span class="input-group-text" id="basic-addon2">TK</span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -655,7 +657,7 @@
                                                             <div class="input-group">
                                                                 <input v-model="prod_offer_min_qty_b" type="number" class="form-control" placeholder="" aria-describedby="addon1" required>
                                                                 <div class="input-group-append">
-                                                                <span class="input-group-text" id="addon1">Box</span>
+                                                                <span class="input-group-text" id="addon1">{{ prod_offer_pack_size ? prod_offer_pack_size : 'Other' }}</span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -678,7 +680,7 @@
                                                             <div class="input-group">
                                                                 <input v-model="prod_offer_min_qty_f" type="number" class="form-control" placeholder="" aria-describedby="addon1" required>
                                                                 <div class="input-group-append">
-                                                                <span class="input-group-text" id="addon1">Box</span>
+                                                                <span class="input-group-text" id="addon1">{{ prod_offer_pack_size ? prod_offer_pack_size : 'Other' }}</span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -697,7 +699,7 @@
                                                             <div class="input-group">
                                                                 <input v-model="prod_offer_free_qty_f" type="number" class="form-control" placeholder="" aria-describedby="addon1" required>
                                                                 <div class="input-group-append">
-                                                                <span class="input-group-text" id="addon1">Box</span>
+                                                                <span class="input-group-text" id="addon1">{{ prod_offer_pack_size ? prod_offer_pack_size : 'Other' }}</span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1033,8 +1035,9 @@ export default {
             prod_offer_discount_p: null,
 
             // ##########################################
-            prod_offer_now_price_d: null,
-            prod_offer_for_d: null,
+            prod_offer_now_price_d: 0.00,
+            prod_offer_for_d: 1,
+            prod_offer_pack_size: null,
             // ##########################################
             prod_offer_discount_tp_d: null,
 
@@ -1089,6 +1092,10 @@ export default {
             this.owner_sbu_id = prod_details.product_info.owner_sbu_id
             this.shelf_life = prod_details.product_info.have_shelf_life
             this.imported_from = prod_details.is_imported
+
+            // Fixed Discount price - Offer tab
+            this.prod_offer_pack_size = prod_details.product_info.com_uom
+            // Fixed Discount price - Offer tab
         },
         // Detail Attributes Tab Content Area
         setProductAttributesTabContentArea(attr_details) {
@@ -1109,6 +1116,11 @@ export default {
             this.prod_price_tab_min_trade_price = price_details.minimum_trade_price
             this.prod_price_tab_vat = price_details.vat
             this.prod_price_tab_vat_pct = price_details.vat_pct
+
+            // Fixed Discount price - Offer tab
+            // this.prod_offer_now_price_d = price_details.trade_price
+            // this.prod_offer_for_d = 1
+            // Fixed Discount price - Offer tab
         },
         updateProdPriceEditBtnClickHandler() {
             this.update_prod_trade_price = this.prod_price_tab_trade_price
@@ -1247,6 +1259,7 @@ export default {
         // Offers Tab Content Area
         onChangeOfferTypeOfferModal() {
             console.log(this.offer_type_offers_modal)
+            this.prod_offer_minimum_qty = null
             switch(this.offer_type_offers_modal) {
                 case "Percentage Discount":
                     this.togglingOnChangeOfferTypeOfferModal('percentage_discount')
@@ -1298,8 +1311,8 @@ export default {
             let discount_pct = this.prod_offer_discount_p
             // Discount
             // ##########################################
-            this.prod_offer_now_price_d = null
-            this.prod_offer_for_d = null
+            // this.prod_offer_now_price_d = null
+            // this.prod_offer_for_d = 1
             // ##########################################
             let discount_tp = this.prod_offer_discount_tp_d
             // Bonus
@@ -1404,8 +1417,8 @@ export default {
                     this.CREATE_OFFER_TYPE = 'D'
                     this.togglingOnChangeOfferTypeOfferModal('fixed_discount')
                     // ##########################################
-                    this.prod_offer_now_price_d = null
-                    this.prod_offer_for_d = null
+                    // this.prod_offer_now_price_d = null
+                    // this.prod_offer_for_d = null
                     // ##########################################
                     this.prod_offer_discount_tp_d = item.offer_dis_pct
                     break
