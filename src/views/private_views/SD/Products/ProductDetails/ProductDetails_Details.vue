@@ -1050,6 +1050,13 @@ export default {
 
             ALL_PRODS_LIST: [],
             PROD_OFFER_FROM_SERVICE: null,
+
+            // PRICE ALGO FROM LEADER
+            ALGO_UNIT_PRICE_NOW: null,
+            ALGO_MODIFIED_TP: null,
+            ALGO_DISCOUNT_TP: null,
+            ALGO_CHEMIST_PROFIT: null,
+            // PRICE ALGO FROM LEADER
         }
     },
     computed: {},
@@ -1121,6 +1128,15 @@ export default {
             // this.prod_offer_now_price_d = price_details.trade_price
             // this.prod_offer_for_d = 1
             // Fixed Discount price - Offer tab
+
+            
+
+            // PRICE ALGO FROM LEADER
+            // this.ALGO_UNIT_PRICE_NOW = null
+            // this.ALGO_MODIFIED_TP = null
+            // this.ALGO_DISCOUNT_TP = null
+            // this.ALGO_CHEMIST_PROFIT = null
+            // PRICE ALGO FROM LEADER
         },
         updateProdPriceEditBtnClickHandler() {
             this.update_prod_trade_price = this.prod_price_tab_trade_price
@@ -1313,6 +1329,14 @@ export default {
             // ##########################################
             // this.prod_offer_now_price_d = null
             // this.prod_offer_for_d = 1
+
+            // PRICE ALGO FROM LEADER
+            // this.ALGO_UNIT_PRICE_NOW = parseFloat(this.prod_offer_now_price_d) / parseFloat(this.prod_offer_for_d)
+            // this.ALGO_MODIFIED_TP = parseFloat(this.ALGO_UNIT_PRICE_NOW) - parseFloat(this.prod_price_tab_vat)
+            // this.ALGO_DISCOUNT_TP = parseFloat(this.prod_price_tab_trade_price) - parseFloat(this.ALGO_MODIFIED_TP)
+            // this.ALGO_CHEMIST_PROFIT = ( parseFloat(this.prod_price_tab_max_retail_price) / parseFloat(this.ALGO_UNIT_PRICE_NOW) ) * 100
+            // PRICE ALGO FROM LEADER
+            this.prod_offer_discount_tp_d = this.ALGO_DISCOUNT_TP
             // ##########################################
             let discount_tp = this.prod_offer_discount_tp_d
             // Bonus
@@ -1766,6 +1790,15 @@ export default {
                 // }
             }
         },
+        prod_offer_now_price_d(newVal) {
+            // PRICE ALGO FROM LEADER
+            this.ALGO_UNIT_PRICE_NOW = parseFloat(newVal) / parseFloat(this.prod_offer_for_d)
+            this.ALGO_MODIFIED_TP = parseFloat(this.ALGO_UNIT_PRICE_NOW) - parseFloat(this.prod_price_tab_vat)
+            this.ALGO_DISCOUNT_TP = parseFloat(this.prod_price_tab_trade_price) - parseFloat(this.ALGO_MODIFIED_TP)
+            this.ALGO_CHEMIST_PROFIT = ( parseFloat(this.prod_price_tab_max_retail_price) / parseFloat(this.ALGO_UNIT_PRICE_NOW) ) * 100
+            // PRICE ALGO FROM LEADER
+            this.prod_offer_discount_tp_d = this.ALGO_DISCOUNT_TP
+        }
     },
 }
 </script>
