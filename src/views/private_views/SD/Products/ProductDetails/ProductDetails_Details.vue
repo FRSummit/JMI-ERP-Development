@@ -1660,6 +1660,7 @@ export default {
                         document.getElementById('price_tab_close_modal').click()
                         this.prod_creating_progressbar = true
                         this.prod_creating_progressbar_msg = res.data.message
+                        this.$store.state.CHANGES_DETECTED_IN_DETAILS_SECTION = new Date()
                         setTimeout( () => {
                             this.prod_creating_progressbar = false
                             this.prod_creating_progressbar_msg = null
@@ -1692,6 +1693,7 @@ export default {
                         document.getElementById('offer_tab_close_modal').click()
                         this.prod_creating_progressbar = true
                         this.prod_creating_progressbar_msg = res.data.message
+                        this.$store.state.CHANGES_DETECTED_IN_DETAILS_SECTION = new Date()
                         setTimeout( () => {
                             this.prod_creating_progressbar = false
                             this.prod_creating_progressbar_msg = null
@@ -1741,6 +1743,7 @@ export default {
                         this.offerTabCloseBtnClickHandler()
                         this.prod_creating_progressbar = true
                         this.prod_creating_progressbar_msg = res.data.message
+                        this.$store.state.CHANGES_DETECTED_IN_DETAILS_SECTION = new Date()
                         setTimeout( () => {
                             this.prod_creating_progressbar = false
                             this.prod_creating_progressbar_msg = null
