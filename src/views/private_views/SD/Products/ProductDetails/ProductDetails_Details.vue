@@ -1226,7 +1226,7 @@ export default {
                     let offer = {
                         // offer_name: this.checkOfferType(Object.keys(prod_offer_details)[i]),
                         // offer_type: this.checkOfferType(Object.keys(prod_offer_details)[i]),
-                        offer_type: this.checkOfferType(offers[i].offer_type),
+                        // offer_type: this.checkOfferType(offers[i].offer_type),
                         offer_dis_pct: offers[i].discount_pct,
                         offer_discount_period: globalDateFormat.dateFormatT4(offers[i].start_date) + ' - ' + globalDateFormat.dateFormatT4(offers[i].valid_until),
                         offer_status: offers[i].is_active === 'Y' ? 'Active' : 'Inactive',
@@ -1237,7 +1237,7 @@ export default {
                         // COMMON
                         is_active   : offers[i].is_active ? offers[i].is_active : null,
                         min_qty     : offers[i].min_qty ? offers[i].min_qty : null,
-                        // offer_type  : offers[i].offer_type ? offers[i].offer_type : null,
+                        offer_type  : offers[i].offer_type ? offers[i].offer_type : null,
                         start_date  : offers[i].start_date ? offers[i].start_date : null,
                         status      : offers[i].status ? offers[i].status : null,
                         valid_until : offers[i].valid_until ? offers[i].valid_until : null,
