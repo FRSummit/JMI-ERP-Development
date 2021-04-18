@@ -726,14 +726,13 @@
                                 </div>
 
                                 <table class="table offer-table">
-                                    <thead>
+                                    <!-- <thead>
                                         <tr>
                                             <th scope="col">SL No</th>
                                             <th scope="col">OFFER TYPE</th>
                                             <th scope="col">DISCOUNT</th>
                                             <th scope="col">DISCOUNT PERIOD</th>
                                             <th scope="col">STATUS</th>
-                                            <!-- <th scope="col">CREATED BY</th> -->
                                             <th scope="col">ACTION</th>
                                         </tr>
                                     </thead>
@@ -744,7 +743,44 @@
                                             <td>{{ item.offer_dis_pct }}</td>
                                             <td>{{ item.offer_discount_period }}</td>
                                             <td><p class="status" :class="item.offer_status === 'Active' ? 'active' : 'inactive'"> <i class="fa fa-square mr-1" aria-hidden="true"></i>{{ item.offer_status === 'Active' ? 'Active' : 'Inactive' }}</p></td>
-                                            <!-- <td>{{ item.offer_created_by }}</td> -->
+                                            <td class="action-btn">
+                                                <span><a class="btn-edit btn-active" style="width: 20px; border-radius: 50%; cursor: pointer;" @click="offerEditClickHandler(item, i)"><i class="zmdi zmdi-edit"></i></a></span>
+                                                <span class="active fa fa-arrow-up" data-toggle="tooltip" data-placement="bottom" title="Active"></span>
+                                            </td>
+                                        </tr>
+                                    </tbody> -->
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Offer Type</th>
+                                            <th scope="col">Min Qty</th>
+                                            <th scope="col">Disc(%)</th>
+                                            <th scope="col">Disc(TP)</th>
+                                            <th scope="col">Bonus On</th>
+                                            <th scope="col">Bonus Qty</th>
+                                            <th scope="col">Free Required Qty</th>
+                                            <th scope="col">Free Prod</th>
+                                            <th scope="col">Free Qty</th>
+                                            <th scope="col">Discount Period</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="(item, i) in OFFERS_LIST" :key="i">
+                                            <td>{{ checkOfferType(item.offer_type) }}</td>
+                                            <td>{{ item.min_qty }}</td>
+                                            <td>{{ item.discount_pct }}</td>
+                                            <td>{{ item.discount_tp }}</td>
+                                            <td>{{ item.bonus_on }}</td>
+                                            <td>{{ item.bonus_qty }}</td>
+                                            <td>{{ item.free_req_qty }}</td>
+                                            <td>{{ item.free_prod_id }}</td>
+                                            <td>{{ item.free_prod_qty }}</td>
+
+                                            <td>{{ item.offer_discount_period }}</td>
+
+                                            <!-- <td><p class="status" :class="item.offer_status === 'Active' ? 'active' : 'inactive'"> <i class="fa fa-square mr-1" aria-hidden="true"></i>{{ item.offer_status === 'Active' ? 'Active' : 'Inactive' }}</p></td> -->
+                                            <td><input type="checkbox" :checked="item.sttus === 'Y' ? true : false"></td>
                                             <td class="action-btn">
                                                 <span><a class="btn-edit btn-active" style="width: 20px; border-radius: 50%; cursor: pointer;" @click="offerEditClickHandler(item, i)"><i class="zmdi zmdi-edit"></i></a></span>
                                                 <span class="active fa fa-arrow-up" data-toggle="tooltip" data-placement="bottom" title="Active"></span>
@@ -1185,8 +1221,8 @@ export default {
                 // let objName = Object.keys(prod_offer_details)[i]
                 // console.log(prod_offer_details.Object.keys(prod_offer_details)[i])
 
-                console.log(offers[i].length)
-                if(offers[i].length === undefined) {
+                // if(offers[i].length === undefined) {
+                if(offers[i].status) {
                     let offer = {
                         // offer_name: this.checkOfferType(Object.keys(prod_offer_details)[i]),
                         // offer_type: this.checkOfferType(Object.keys(prod_offer_details)[i]),
@@ -1195,7 +1231,34 @@ export default {
                         offer_discount_period: globalDateFormat.dateFormatT4(offers[i].start_date) + ' - ' + globalDateFormat.dateFormatT4(offers[i].valid_until),
                         offer_status: offers[i].is_active === 'Y' ? 'Active' : 'Inactive',
                         offer_created_by: 'Dummy',
-                        offer_is_present: offers[i].min_qty ? offers[i].min_qty : null
+                        offer_is_present: offers[i].min_qty ? offers[i].min_qty : null,
+
+
+                        // COMMON
+                        is_active   : offers[i].is_active ? offers[i].is_active : null,
+                        min_qty     : offers[i].min_qty ? offers[i].min_qty : null,
+                        offer_type  : offers[i].offer_type ? offers[i].offer_type : null,
+                        start_date  : offers[i].start_date ? offers[i].start_date : null,
+                        status      : offers[i].status ? offers[i].status : null,
+                        valid_until : offers[i].valid_until ? offers[i].valid_until : null,
+
+
+                        // PERCENTAGE
+                        discount_pct    :  offers[i].discount_pct ? offers[i].discount_pct : null,
+
+                        // FIXED DISCOUNT
+                        discount_tp: offers[i].discount_tp ? offers[i].discount_tp : null,
+
+                        // BONUS
+                        bonus_on    : offers[i].bonus_on ? offers[i].bonus_on : null,
+                        bonus_qty   : offers[i].bonus_qty ? offers[i].bonus_qty : null,
+
+                        // FREE
+                        free_prod_id    : offers[i].free_prod_id ? offers[i].free_prod_id : null,
+                        free_prod_qty   : offers[i].free_prod_qty ? offers[i].free_prod_qty : null,
+                        free_req_qty    : offers[i].free_req_qty ? offers[i].free_req_qty : null,
+
+
                     }
                     if(offer.offer_is_present) {
                         this.OFFERS_LIST.push(offer)
@@ -1346,11 +1409,11 @@ export default {
             // PRICE ALGO FROM LEADER
             this.prod_offer_discount_tp_d = Number(this.ALGO_DISCOUNT_TP).toFixed(2)
             // ##########################################
-            let price_now = this.prod_offer_now_price_d
-            let discount_tp = this.prod_offer_discount_tp_d
+            // let price_now = this.prod_offer_now_price_d
+            // let discount_tp = this.prod_offer_discount_tp_d
             // Bonus
-            let bonus_on = this.prod_offer_min_qty_b
-            let bonus_qty = this.prod_offer_bonus_qty_b
+            // let bonus_on = this.prod_offer_min_qty_b
+            // let bonus_qty = this.prod_offer_bonus_qty_b
             // Free
             let free_req_qty = this.prod_offer_min_qty_f
             let free_prod_id = this.free_prod_offer_selected_prod
@@ -1388,17 +1451,17 @@ export default {
                     Object.assign(offer_details, {discount_pct: discount_pct ? discount_pct : null})
                     this.CREATE_NEW_PROD_OFFER__FROM_SERVICE(offer_details)
                 // } else if (offer_type === 'D' && discount_tp !==null && min_qty !== null) {
-                } else if (offer_type === 'D' && discount_tp !==null) {
+                } else if (offer_type === 'D' && this.prod_offer_discount_tp_d !==null) {
                     console.log('D offer created')
                     Object.assign(offer_details, {price_now: this.prod_offer_now_price_d ? this.prod_offer_now_price_d : null})
                     Object.assign(offer_details, {min_qty: this.prod_offer_for_d ? this.prod_offer_for_d : null})
-                    Object.assign(offer_details, {discount_tp: discount_tp ? discount_tp : null})
+                    Object.assign(offer_details, {discount_tp: this.prod_offer_discount_tp_d ? this.prod_offer_discount_tp_d : null})
                     this.CREATE_NEW_PROD_OFFER__FROM_SERVICE(offer_details)
-                } else if (offer_type === 'B' && bonus_on !==null && bonus_qty !== null) {
+                } else if (offer_type === 'B' && this.prod_offer_min_qty_b !==null && this.prod_offer_bonus_qty_b !== null) {
                     console.log('B offer created')
-                    Object.assign(offer_details, {min_qty: bonus_on ? bonus_on : null})
-                    Object.assign(offer_details, {bonus_on: bonus_on ? bonus_on : null})
-                    Object.assign(offer_details, {bonus_qty: bonus_qty ? bonus_qty : null})
+                    Object.assign(offer_details, {min_qty: this.prod_offer_min_qty_b ? this.prod_offer_min_qty_b : null})
+                    Object.assign(offer_details, {bonus_on: this.prod_offer_min_qty_b ? this.prod_offer_min_qty_b : null})
+                    Object.assign(offer_details, {bonus_qty: this.prod_offer_bonus_qty_b ? this.prod_offer_bonus_qty_b : null})
                     this.CREATE_NEW_PROD_OFFER__FROM_SERVICE(offer_details)
                 } else if (offer_type === 'F' && free_req_qty !==null && free_prod_id !== null && free_prod_qty !== null) {
                     console.log('F offer created')
@@ -1986,5 +2049,9 @@ button.modal-prod-save-btn:hover {
     -moz-box-shadow   : none;
     -webkit-box-shadow: none;
     box-shadow        : none;
+}
+.table thead th,
+.offer-table tbody td {
+    text-align: center;
 }
 </style>

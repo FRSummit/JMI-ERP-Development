@@ -1199,6 +1199,7 @@ export default class PostService {
     console.log(prod_id)
     console.log(offer_details)
     let web_menu_url = '/api/web/update-prod-offer/' + prod_id
+    // let web_menu_url = '/api/web/update-prod-offer/' + id
     return await axios(web_menu_url, {
       method: 'POST',
       headers: {
