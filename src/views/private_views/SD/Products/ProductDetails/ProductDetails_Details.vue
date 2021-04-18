@@ -1320,6 +1320,9 @@ export default {
         createOfferClickHandler() {
             let offer_type = this.CREATE_OFFER_TYPE
             let min_qty = this.prod_offer_minimum_qty
+            if(!this.range) {
+                alert('Date range is empty')
+            }
             let start_date = globalDateFormat.dateFormatT4(this.range[0])
             let valid_until = globalDateFormat.dateFormatT4(this.range[1])
             
@@ -1377,8 +1380,10 @@ export default {
                     console.log('P offer created')
                     Object.assign(offer_details, {discount_pct: discount_pct ? discount_pct : null})
                     this.CREATE_NEW_PROD_OFFER__FROM_SERVICE(offer_details)
-                } else if (offer_type === 'D' && discount_tp !==null && min_qty !== null) {
+                // } else if (offer_type === 'D' && discount_tp !==null && min_qty !== null) {
+                } else if (offer_type === 'D' && discount_tp !==null) {
                     console.log('D offer created')
+                    Object.assign(offer_details, {min_qty: this.prod_offer_for_d ? this.prod_offer_for_d : null})
                     Object.assign(offer_details, {discount_tp: discount_tp ? discount_tp : null})
                     this.CREATE_NEW_PROD_OFFER__FROM_SERVICE(offer_details)
                 } else if (offer_type === 'B' && bonus_on !==null && bonus_qty !== null) {

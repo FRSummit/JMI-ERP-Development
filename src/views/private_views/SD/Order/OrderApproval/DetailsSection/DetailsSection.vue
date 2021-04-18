@@ -88,7 +88,8 @@
                                                     </span>
                                                 </span>
                                                 <!-- <span class="single_qty quantity-setup" v-if="STOCK_TRANSIT_VALIDATION === true"> -->
-                                                <span class="single_qty quantity-setup" v-if="( parseInt(data.net_qty) < (parseInt(data.available_stock) + parseInt(data.transit_stock)) )">
+                                                <!-- <span class="single_qty quantity-setup" v-if="( parseInt(data.net_qty) < (parseInt(data.available_stock) + parseInt(data.transit_stock)) )"> -->
+                                                <span class="single_qty quantity-setup" v-else>
                                                     <span class="qty">{{ data.qty }}</span>
                                                 </span>
                                                 <span class="qty_editable quantity-setup hide" style="border: 1px solid #026CD1;">
