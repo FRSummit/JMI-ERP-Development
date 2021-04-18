@@ -1164,27 +1164,38 @@ export default class PostService {
     console.log(id)
     console.log(prod_id)
     console.log(prod_price_dtl)
-    let web_menu_url = '/api/web/update-prod-price/' + prod_id
+    let web_menu_url = '/api/web/update-prod-price/' + id
     return await axios(web_menu_url, {
       method: 'POST',
       headers: {
         'Authorization': token_type + ' ' + token
       },
       params: {
-        id: id,
-        base_tp: prod_price_dtl.base_tp,
+        // id: id,
+        // base_tp: prod_price_dtl.base_tp,
+        // manufacture_price: prod_price_dtl.manufacture_price,
+        // base_mrp: prod_price_dtl.base_mrp,
+        // max_tp: prod_price_dtl.max_tp,
+        // min_base_tp: prod_price_dtl.min_base_tp,
+        // base_vat: prod_price_dtl.base_vat,
+        // vat_pct: prod_price_dtl.vat_pct
+
+        // id: id,
+        trade_price: prod_price_dtl.base_tp,
         manufacture_price: prod_price_dtl.manufacture_price,
-        base_mrp: prod_price_dtl.base_mrp,
-        max_tp: prod_price_dtl.max_tp,
-        min_base_tp: prod_price_dtl.min_base_tp,
-        base_vat: prod_price_dtl.base_vat,
+        maximum_retail_price: prod_price_dtl.base_mrp,
+        // minimum_trade_price: prod_price_dtl.max_tp,
+        minimum_trade_price: prod_price_dtl.min_base_tp,
+        // min_base_tp: prod_price_dtl.min_base_tp,
+        vat: prod_price_dtl.base_vat,
         vat_pct: prod_price_dtl.vat_pct
       }
     })
   }
 
   // PRODUCT - PRODUCT DETAILS - CREATE OFFER
-  async getUpdateProdOffer_PRODUCTS_DETAILS(prod_id, offer_details) {
+  async getUpdateProdOffer_PRODUCTS_DETAILS(id, prod_id, offer_details) {
+    console.log(id)
     console.log(prod_id)
     console.log(offer_details)
     let web_menu_url = '/api/web/update-prod-offer/' + prod_id

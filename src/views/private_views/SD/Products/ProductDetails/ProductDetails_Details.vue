@@ -1827,7 +1827,7 @@ export default {
         },
         async UPDATE_PROD_OFFER__FROM_SERVICE(offer_details) {
             console.log(offer_details)
-            await service.getUpdateProdOffer_PRODUCTS_DETAILS(this.SELECTED_PROD_DETAILS.prod_id, offer_details)
+            await service.getUpdateProdOffer_PRODUCTS_DETAILS(this.SELECTED_PROD_DETAILS.id, this.SELECTED_PROD_DETAILS.prod_id, offer_details)
                 .then(res => {
                     console.log(res.data)
                     if(res.data.response_code === 200 || res.data.response_code === 201) {
