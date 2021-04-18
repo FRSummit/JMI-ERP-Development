@@ -549,8 +549,13 @@
                                                                 <option :value="null" selected>Select an option</option>
                                                                 <!-- <option v-for="(item, i) in OFFERS" :key="i" :value="item.name"><span v-if="OFFERS_LIST[i].offer_name !== item.name">{{ item.name }}</span></option> -->
                                                                 <option v-for="(item, i) in OFFERS" :key="i" :value="item.name">
-                                                                    <span v-for="(offer, j) in OFFERS_LIST" :key="j">
-                                                                        <!-- <span v-if="offer.offer_name !== item.name">{{ item.name }}</span> -->
+                                                                    <span v-if="OFFERS_LIST.length ? true : false">
+                                                                        <span v-for="(offer, j) in OFFERS_LIST" :key="j">
+                                                                            <!-- <span v-if="offer.offer_name !== item.name">{{ item.name }}</span> -->
+                                                                            <span>{{ item.name }}</span>
+                                                                        </span>
+                                                                    </span>
+                                                                    <span v-else>
                                                                         <span>{{ item.name }}</span>
                                                                     </span>
                                                                 </option>
@@ -657,7 +662,7 @@
                                                             <div class="input-group">
                                                                 <input v-model="prod_offer_min_qty_b" type="number" class="form-control" placeholder="" aria-describedby="addon1" required>
                                                                 <div class="input-group-append">
-                                                                <span class="input-group-text" id="addon1">{{ prod_offer_pack_size ? prod_offer_pack_size : 'Other' }}</span>
+                                                                    <span class="input-group-text" id="addon1">{{ prod_offer_pack_size ? prod_offer_pack_size : 'Other' }}</span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -666,7 +671,7 @@
                                                             <div class="input-group">
                                                                 <input v-model="prod_offer_bonus_qty_b" type="number" class="form-control" placeholder="" aria-describedby="addon1" required>
                                                                 <div class="input-group-append">
-                                                                <span class="input-group-text" id="addon1">Box</span>
+                                                                    <span class="input-group-text" id="addon1">Box</span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1339,7 +1344,7 @@ export default {
             // this.ALGO_DISCOUNT_TP = parseFloat(this.prod_price_tab_trade_price) - parseFloat(this.ALGO_MODIFIED_TP)
             // this.ALGO_CHEMIST_PROFIT = ( parseFloat(this.prod_price_tab_max_retail_price) / parseFloat(this.ALGO_UNIT_PRICE_NOW) ) * 100
             // PRICE ALGO FROM LEADER
-            this.prod_offer_discount_tp_d = this.ALGO_DISCOUNT_TP
+            this.prod_offer_discount_tp_d = Number(this.ALGO_DISCOUNT_TP).toFixed(2)
             // ##########################################
             let discount_tp = this.prod_offer_discount_tp_d
             // Bonus
@@ -1388,11 +1393,13 @@ export default {
                     this.CREATE_NEW_PROD_OFFER__FROM_SERVICE(offer_details)
                 } else if (offer_type === 'B' && bonus_on !==null && bonus_qty !== null) {
                     console.log('B offer created')
+                    Object.assign(offer_details, {min_qty: bonus_on ? bonus_on : null})
                     Object.assign(offer_details, {bonus_on: bonus_on ? bonus_on : null})
                     Object.assign(offer_details, {bonus_qty: bonus_qty ? bonus_qty : null})
                     this.CREATE_NEW_PROD_OFFER__FROM_SERVICE(offer_details)
                 } else if (offer_type === 'F' && free_req_qty !==null && free_prod_id !== null && free_prod_qty !== null) {
                     console.log('F offer created')
+                    Object.assign(offer_details, {min_qty: free_req_qty ? free_req_qty : null})
                     Object.assign(offer_details, {free_req_qty: free_req_qty ? free_req_qty : null})
                     Object.assign(offer_details, {free_prod_id: free_prod_id ? free_prod_id : null})
                     Object.assign(offer_details, {free_prod_qty: free_prod_qty ? free_prod_qty : null})
@@ -1433,6 +1440,7 @@ export default {
         offerEditSetOfferTypeInDropdown(item) {
             this.offer_type_offers_modal = item.offer_type
             this.prod_offer_minimum_qty = this.PROD_OFFER_FROM_SERVICE.min_qty
+            console.log(this.PROD_OFFER_FROM_SERVICE)
 
             switch(item.offer_type) {
                 case "Percentage Discount":
@@ -1469,6 +1477,7 @@ export default {
                 default:
                     break
             }
+            console.log(this.CREATE_OFFER_TYPE)
         },
         offerTabCloseBtnClickHandler() {
             if(document.getElementById('modal_create_offer_modal').style.display === 'block') {
@@ -1476,28 +1485,103 @@ export default {
             }
         },
         updateOfferClickHandler() {
-            let offer_details = {
-                offer_type: this.CREATE_OFFER_TYPE ? this.CREATE_OFFER_TYPE : null,
-                min_qty: this.prod_offer_minimum_qty ? this.prod_offer_minimum_qty : null,
-                start_date: this.range ? globalDateFormat.dateFormatT4(this.range[0]) : null,
-                valid_until: this.range ? globalDateFormat.dateFormatT4(this.range[1]) : null,
-                // Percentage
-                discount_pct: this.prod_offer_discount_p ? this.prod_offer_discount_p : null,
-                // Discount
-                // ##########################################
-                // this.prod_offer_now_price_d = null
-                // this.prod_offer_for_d = null
-                // ##########################################
-                discount_tp: this.prod_offer_discount_tp_d ? this.prod_offer_discount_tp_d : null,
-                // Bonus
-                bonus_on: this.prod_offer_min_qty_b ? this.prod_offer_min_qty_b : null,
-                bonus_qty: this.prod_offer_bonus_qty_b ? this.prod_offer_bonus_qty_b : null,
-                // Free
-                free_req_qty: this.prod_offer_min_qty_f ? this.prod_offer_min_qty_f : null,
-                free_prod_id: this.free_prod_offer_selected_prod ? this.free_prod_offer_selected_prod : null,
-                free_prod_qty: this.prod_offer_free_qty_f ? this.prod_offer_free_qty_f : null,
+            // let offer_details = {
+            //     offer_type: this.CREATE_OFFER_TYPE ? this.CREATE_OFFER_TYPE : null,
+            //     min_qty: this.prod_offer_minimum_qty ? this.prod_offer_minimum_qty : null,
+            //     start_date: this.range ? globalDateFormat.dateFormatT4(this.range[0]) : null,
+            //     valid_until: this.range ? globalDateFormat.dateFormatT4(this.range[1]) : null,
+            //     // Percentage
+            //     discount_pct: this.prod_offer_discount_p ? this.prod_offer_discount_p : null,
+            //     // Discount
+            //     // ##########################################
+            //     // this.prod_offer_now_price_d = null
+            //     // this.prod_offer_for_d = null
+            //     // ##########################################
+            //     discount_tp: this.prod_offer_discount_tp_d ? this.prod_offer_discount_tp_d : null,
+            //     // Bonus
+            //     bonus_on: this.prod_offer_min_qty_b ? this.prod_offer_min_qty_b : null,
+            //     bonus_qty: this.prod_offer_bonus_qty_b ? this.prod_offer_bonus_qty_b : null,
+            //     // Free
+            //     free_req_qty: this.prod_offer_min_qty_f ? this.prod_offer_min_qty_f : null,
+            //     free_prod_id: this.free_prod_offer_selected_prod ? this.free_prod_offer_selected_prod : null,
+            //     free_prod_qty: this.prod_offer_free_qty_f ? this.prod_offer_free_qty_f : null,
+            // }
+
+            let offer_type = this.CREATE_OFFER_TYPE
+            let min_qty = this.prod_offer_minimum_qty
+            if(!this.range) {
+                alert('Date range is empty')
             }
-            this.UPDATE_PROD_OFFER__FROM_SERVICE(offer_details)
+            let start_date = globalDateFormat.dateFormatT4(this.range[0])
+            let valid_until = globalDateFormat.dateFormatT4(this.range[1])
+            
+            // Percent
+            let discount_pct = this.prod_offer_discount_p
+            // Discount
+            this.prod_offer_discount_tp_d = Number(this.ALGO_DISCOUNT_TP).toFixed(2)
+            let discount_tp = this.prod_offer_discount_tp_d
+            // Bonus
+            let bonus_on = this.prod_offer_min_qty_b
+            let bonus_qty = this.prod_offer_bonus_qty_b
+            // Free
+            let free_req_qty = this.prod_offer_min_qty_f
+            let free_prod_id = this.free_prod_offer_selected_prod
+            let free_prod_qty = this.prod_offer_free_qty_f
+            
+
+            console.log(this.CREATE_OFFER_TYPE)
+            let offer_details = {
+                offer_type: offer_type ? offer_type : null,
+                min_qty: min_qty ? min_qty : null,
+                start_date: start_date ? start_date : null,
+                valid_until: valid_until ? valid_until : null,
+                // Percentage
+                discount_pct: null,
+                // Discount
+                discount_tp: null,
+                // Bonus
+                bonus_on: null,
+                bonus_qty: null,
+                // Free
+                free_req_qty: null,
+                free_prod_id: null,
+                free_prod_qty: null,
+            }
+
+            console.log(offer_type)
+            console.log(offer_type + '  ' + min_qty + '  ' + start_date + '  ' + valid_until + '  ' + discount_pct)
+
+            if(offer_type !== null && start_date !== null && valid_until !== null) {
+                if(offer_type === 'P' && discount_pct !== null && min_qty !== null) {
+                    console.log('P offer created')
+                    Object.assign(offer_details, {discount_pct: discount_pct ? discount_pct : null})
+                    this.UPDATE_PROD_OFFER__FROM_SERVICE(offer_details)
+                // } else if (offer_type === 'D' && discount_tp !==null && min_qty !== null) {
+                } else if (offer_type === 'D' && discount_tp !==null) {
+                    console.log('D offer created')
+                    Object.assign(offer_details, {min_qty: this.prod_offer_for_d ? this.prod_offer_for_d : null})
+                    Object.assign(offer_details, {discount_tp: discount_tp ? discount_tp : null})
+                    this.UPDATE_PROD_OFFER__FROM_SERVICE(offer_details)
+                } else if (offer_type === 'B' && bonus_on !==null && bonus_qty !== null) {
+                    console.log('B offer created')
+                    Object.assign(offer_details, {min_qty: bonus_on ? bonus_on : null})
+                    Object.assign(offer_details, {bonus_on: bonus_on ? bonus_on : null})
+                    Object.assign(offer_details, {bonus_qty: bonus_qty ? bonus_qty : null})
+                    this.UPDATE_PROD_OFFER__FROM_SERVICE(offer_details)
+                } else if (offer_type === 'F' && free_req_qty !== null && free_prod_id !== null && free_prod_qty !== null) {
+                    console.log('F offer created')
+                    Object.assign(offer_details, {min_qty: free_req_qty ? free_req_qty : null})
+                    Object.assign(offer_details, {free_req_qty: free_req_qty ? free_req_qty : null})
+                    Object.assign(offer_details, {free_prod_id: free_prod_id ? free_prod_id : null})
+                    Object.assign(offer_details, {free_prod_qty: free_prod_qty ? free_prod_qty : null})
+                    this.UPDATE_PROD_OFFER__FROM_SERVICE(offer_details)
+                } else {
+                    alert('Check your data to create offer is null')
+                }
+            } else {
+                alert('offer_type or min qty or date is null')
+            }
+            // this.UPDATE_PROD_OFFER__FROM_SERVICE(offer_details)
         },
         // Offers Tab Content Area Ends
         // -----------------------------------------------------------------------------------------
@@ -1658,7 +1742,8 @@ export default {
 
         // PROD PRICE
         async UPDATE_PROD_PRICE__FROM_SERVICE(prod_price_dtl) {
-            await service.getUpdateProdPrice_PRODUCTS_DETAILS(this.SELECTED_PROD_DETAILS.prod_id, prod_price_dtl)
+            console.log(this.SELECTED_PROD_DETAILS)
+            await service.getUpdateProdPrice_PRODUCTS_DETAILS(this.SELECTED_PROD_DETAILS.id, this.SELECTED_PROD_DETAILS.prod_id, prod_price_dtl)
                 .then(res => {
                     console.log(res.data)
                     if(res.data.response_code === 200 || res.data.response_code === 201) {
@@ -1805,7 +1890,7 @@ export default {
             this.ALGO_DISCOUNT_TP = parseFloat(this.prod_price_tab_trade_price) - parseFloat(this.ALGO_MODIFIED_TP)
             this.ALGO_CHEMIST_PROFIT = ( parseFloat(this.prod_price_tab_max_retail_price) / parseFloat(this.ALGO_UNIT_PRICE_NOW) ) * 100
             // PRICE ALGO FROM LEADER
-            this.prod_offer_discount_tp_d = this.ALGO_DISCOUNT_TP
+            this.prod_offer_discount_tp_d = Number(this.ALGO_DISCOUNT_TP).toFixed(2)
         }
     },
 }
