@@ -1346,6 +1346,7 @@ export default {
             // PRICE ALGO FROM LEADER
             this.prod_offer_discount_tp_d = Number(this.ALGO_DISCOUNT_TP).toFixed(2)
             // ##########################################
+            let price_now = this.prod_offer_now_price_d
             let discount_tp = this.prod_offer_discount_tp_d
             // Bonus
             let bonus_on = this.prod_offer_min_qty_b
@@ -1368,6 +1369,7 @@ export default {
                 // Percentage
                 discount_pct: null,
                 // Discount
+                price_now: null,
                 discount_tp: null,
                 // Bonus
                 bonus_on: null,
@@ -1388,6 +1390,7 @@ export default {
                 // } else if (offer_type === 'D' && discount_tp !==null && min_qty !== null) {
                 } else if (offer_type === 'D' && discount_tp !==null) {
                     console.log('D offer created')
+                    Object.assign(offer_details, {price_now: this.prod_offer_now_price_d ? this.prod_offer_now_price_d : null})
                     Object.assign(offer_details, {min_qty: this.prod_offer_for_d ? this.prod_offer_for_d : null})
                     Object.assign(offer_details, {discount_tp: discount_tp ? discount_tp : null})
                     this.CREATE_NEW_PROD_OFFER__FROM_SERVICE(offer_details)
@@ -1420,6 +1423,7 @@ export default {
             this.UPDATE_OFFER_ENABLE = true
             document.getElementById('modal_create_offer_modal').style.display = 'block'
 
+            console.log(this.SELECTED_PROD_DETAILS.id + '    ' + this.SELECTED_PROD_DETAILS.prod_id)
             await this.GET_OFFER_DETAILS_TO_EDIT__FROM_SERVICE(this.SELECTED_PROD_DETAILS.id, this.SELECTED_PROD_DETAILS.prod_id)
             console.log(this.PROD_OFFER_FROM_SERVICE)
 
@@ -1438,9 +1442,9 @@ export default {
             console.log(this.range)
         },
         offerEditSetOfferTypeInDropdown(item) {
+            console.log(this.PROD_OFFER_FROM_SERVICE)
             this.offer_type_offers_modal = item.offer_type
             this.prod_offer_minimum_qty = this.PROD_OFFER_FROM_SERVICE.min_qty
-            console.log(this.PROD_OFFER_FROM_SERVICE)
 
             switch(item.offer_type) {
                 case "Percentage Discount":
@@ -1809,7 +1813,7 @@ export default {
             this.PROD_OFFER_FROM_SERVICE = null
             await service.getEditProdOffer_PRODUCTS_DETAILS(id, prod_id)
                 .then(res => {
-                    console.log(res.data.prod_offer)
+                    console.log(res.data)
                     if(res.data.response_code === 200 || res.data.response_code === 201) {
                         this.PROD_OFFER_FROM_SERVICE = res.data.prod_offer
                     }

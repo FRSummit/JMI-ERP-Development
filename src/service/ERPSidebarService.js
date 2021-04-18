@@ -1130,6 +1130,8 @@ export default class PostService {
         // Percentage
         discount_pct: offer_details.discount_pct,
         // Discount
+        price_now: offer_details.price_now,
+        for_qty: offer_details.min_qty,
         discount_tp: offer_details.discount_tp,
         // Bonus
         bonus_on: offer_details.bonus_on,
