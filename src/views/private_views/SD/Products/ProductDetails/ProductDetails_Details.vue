@@ -779,8 +779,8 @@
 
                                             <td>{{ item.offer_discount_period }}</td>
 
-                                            <!-- <td><p class="status" :class="item.offer_status === 'Active' ? 'active' : 'inactive'"> <i class="fa fa-square mr-1" aria-hidden="true"></i>{{ item.offer_status === 'Active' ? 'Active' : 'Inactive' }}</p></td> -->
-                                            <td><input type="checkbox" :checked="item.sttus === 'Y' ? true : false"></td>
+                                            <td><p class="status" :class="item.offer_status === 'Active' ? 'active' : 'inactive'"> <i class="fa fa-square mr-1" aria-hidden="true"></i>{{ item.offer_status === 'Active' ? 'Active' : 'Inactive' }}</p></td>
+                                            <!-- <td><input type="checkbox" :checked="item.sttus === 'Y' ? true : false"></td> -->
                                             <td class="action-btn">
                                                 <span><a class="btn-edit btn-active" style="width: 20px; border-radius: 50%; cursor: pointer;" @click="offerEditClickHandler(item, i)"><i class="zmdi zmdi-edit"></i></a></span>
                                                 <span class="active fa fa-arrow-up" data-toggle="tooltip" data-placement="bottom" title="Active"></span>
