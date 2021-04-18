@@ -443,7 +443,7 @@
                                         <div class="modal-dialog modal-lg modal-dialog-centered" style="margin: 0; max-width: unset;">
                                             <div class="modal-content" style="border: none;">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalCenterTitle">Create Offer</h5>
+                                                    <h5 class="modal-title" id="exampleModalCenterTitle">Update Price</h5>
                                                     <button type="button" id="price_tab_close_modal" class="close" data-dismiss="modal" aria-label="Close" @click="offerTabCloseBtnClickHandler">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
@@ -585,7 +585,7 @@
                                                             <div class="input-group">
                                                                 <input v-model="prod_offer_minimum_qty" type="number" class="form-control" placeholder="" aria-describedby="addon1" required>
                                                                 <div class="input-group-append">
-                                                                <span class="input-group-text" id="addon1">Box</span>
+                                                                <span class="input-group-text" id="addon1">{{ prod_offer_pack_size ? prod_offer_pack_size : 'Other' }}</span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -614,33 +614,35 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg-4 form-group">
+                                                        <div class="col-lg-3 form-group">
                                                             <label for="offer_name">For</label>
                                                             <div class="input-group">
                                                                 <input v-model="prod_offer_for_d" type="number" class="form-control" placeholder="" aria-describedby="addon1" required>
                                                                 <div class="input-group-append">
-                                                                <span class="input-group-text" id="addon1">Box</span>
+                                                                    <span class="input-group-text" id="addon1">{{ prod_offer_pack_size ? prod_offer_pack_size : 'Other' }}</span>
                                                                 </div>
+                                                                <!-- <button type="button" class="btn btn-primary btn-global" style="position: absolute; bottom: 20px;">Save Flat Rate</button> -->
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg-4 form-group">
-                                                            <button type="button" class="btn btn-primary btn-global" style="position: absolute; bottom: 20px;">Save Flat Rate</button>
+                                                        <div class="col-lg-2 form-group">
+                                                            <!-- <button type="button" class="btn btn-primary btn-global" style="position: absolute; bottom: 20px;">Save Flat Rate</button> -->
+                                                            <button type="button" class="btn btn-primary btn-global" style="position: absolute; bottom: 20px; background-color: #495057;">Save Flat Rate</button>
                                                         </div>
                                                         <div class="col-lg-4 form-group">
                                                             <label for="offer_name">Minimum Buy QTY</label>
                                                             <div class="input-group">
-                                                                <input v-model="prod_offer_minimum_qty" type="number" class="form-control" placeholder="" aria-describedby="addon1" required>
+                                                                <input v-model="prod_offer_for_d" type="number" class="form-control" placeholder="" aria-describedby="addon1" readonly>
                                                                 <div class="input-group-append">
-                                                                <span class="input-group-text" id="addon1">Box</span>
+                                                                <span class="input-group-text" id="addon1">{{ prod_offer_pack_size ? prod_offer_pack_size : 'Other' }}</span>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-4 form-group">
                                                             <label for="date_range">Discount TP</label>
                                                             <div class="input-group">
-                                                                <input v-model="prod_offer_discount_tp_d" type="number" class="form-control" placeholder="Enter Discount" aria-describedby="basic-addon2" required>
+                                                                <input v-model="prod_offer_discount_tp_d" type="number" class="form-control" placeholder="Enter Discount" aria-describedby="basic-addon2" readonly>
                                                                 <div class="input-group-append">
-                                                                <span class="input-group-text" id="basic-addon2">%</span>
+                                                                <span class="input-group-text" id="basic-addon2">TK</span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -655,7 +657,7 @@
                                                             <div class="input-group">
                                                                 <input v-model="prod_offer_min_qty_b" type="number" class="form-control" placeholder="" aria-describedby="addon1" required>
                                                                 <div class="input-group-append">
-                                                                <span class="input-group-text" id="addon1">Box</span>
+                                                                <span class="input-group-text" id="addon1">{{ prod_offer_pack_size ? prod_offer_pack_size : 'Other' }}</span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -678,7 +680,7 @@
                                                             <div class="input-group">
                                                                 <input v-model="prod_offer_min_qty_f" type="number" class="form-control" placeholder="" aria-describedby="addon1" required>
                                                                 <div class="input-group-append">
-                                                                <span class="input-group-text" id="addon1">Box</span>
+                                                                <span class="input-group-text" id="addon1">{{ prod_offer_pack_size ? prod_offer_pack_size : 'Other' }}</span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -697,7 +699,7 @@
                                                             <div class="input-group">
                                                                 <input v-model="prod_offer_free_qty_f" type="number" class="form-control" placeholder="" aria-describedby="addon1" required>
                                                                 <div class="input-group-append">
-                                                                <span class="input-group-text" id="addon1">Box</span>
+                                                                <span class="input-group-text" id="addon1">{{ prod_offer_pack_size ? prod_offer_pack_size : 'Other' }}</span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1033,8 +1035,9 @@ export default {
             prod_offer_discount_p: null,
 
             // ##########################################
-            prod_offer_now_price_d: null,
-            prod_offer_for_d: null,
+            prod_offer_now_price_d: 0.00,
+            prod_offer_for_d: 1,
+            prod_offer_pack_size: null,
             // ##########################################
             prod_offer_discount_tp_d: null,
 
@@ -1047,6 +1050,13 @@ export default {
 
             ALL_PRODS_LIST: [],
             PROD_OFFER_FROM_SERVICE: null,
+
+            // PRICE ALGO FROM LEADER
+            ALGO_UNIT_PRICE_NOW: null,
+            ALGO_MODIFIED_TP: null,
+            ALGO_DISCOUNT_TP: null,
+            ALGO_CHEMIST_PROFIT: null,
+            // PRICE ALGO FROM LEADER
         }
     },
     computed: {},
@@ -1089,6 +1099,10 @@ export default {
             this.owner_sbu_id = prod_details.product_info.owner_sbu_id
             this.shelf_life = prod_details.product_info.have_shelf_life
             this.imported_from = prod_details.is_imported
+
+            // Fixed Discount price - Offer tab
+            this.prod_offer_pack_size = prod_details.product_info.com_uom
+            // Fixed Discount price - Offer tab
         },
         // Detail Attributes Tab Content Area
         setProductAttributesTabContentArea(attr_details) {
@@ -1109,6 +1123,20 @@ export default {
             this.prod_price_tab_min_trade_price = price_details.minimum_trade_price
             this.prod_price_tab_vat = price_details.vat
             this.prod_price_tab_vat_pct = price_details.vat_pct
+
+            // Fixed Discount price - Offer tab
+            // this.prod_offer_now_price_d = price_details.trade_price
+            // this.prod_offer_for_d = 1
+            // Fixed Discount price - Offer tab
+
+            
+
+            // PRICE ALGO FROM LEADER
+            // this.ALGO_UNIT_PRICE_NOW = null
+            // this.ALGO_MODIFIED_TP = null
+            // this.ALGO_DISCOUNT_TP = null
+            // this.ALGO_CHEMIST_PROFIT = null
+            // PRICE ALGO FROM LEADER
         },
         updateProdPriceEditBtnClickHandler() {
             this.update_prod_trade_price = this.prod_price_tab_trade_price
@@ -1238,6 +1266,7 @@ export default {
             return attr_name_list
         },
         createOfferBtnClickHandler() {
+            this.closeAllOfferTypeOfferModal()
             console.log(this.UPDATE_OFFER_ENABLE)
             if(this.UPDATE_OFFER_ENABLE) {
                 this.UPDATE_OFFER_ENABLE = false
@@ -1246,6 +1275,7 @@ export default {
         // Offers Tab Content Area
         onChangeOfferTypeOfferModal() {
             console.log(this.offer_type_offers_modal)
+            this.prod_offer_minimum_qty = null
             switch(this.offer_type_offers_modal) {
                 case "Percentage Discount":
                     this.togglingOnChangeOfferTypeOfferModal('percentage_discount')
@@ -1274,9 +1304,25 @@ export default {
             }
             document.getElementById(selector).className = 'row'
         },
+        closeAllOfferTypeOfferModal() {
+            console.log('closeAllOfferTypeOfferModal')
+            let selector_list = ['percentage_discount', 'fixed_discount', 'bonus_product', 'free_product']
+            for(let i=0; i<selector_list.length; i++) {
+                console.log(selector_list[i])
+                if(document.getElementById(selector_list[i]).className === 'row') {
+                    document.getElementById(selector_list[i]).className = 'row hide'
+                }
+            }
+            this.range = null
+            this.offer_type_offers_modal = null
+            document.getElementById('offer_type').selectedIndex = 0
+        },
         createOfferClickHandler() {
             let offer_type = this.CREATE_OFFER_TYPE
             let min_qty = this.prod_offer_minimum_qty
+            if(!this.range) {
+                alert('Date range is empty')
+            }
             let start_date = globalDateFormat.dateFormatT4(this.range[0])
             let valid_until = globalDateFormat.dateFormatT4(this.range[1])
             
@@ -1284,8 +1330,16 @@ export default {
             let discount_pct = this.prod_offer_discount_p
             // Discount
             // ##########################################
-            this.prod_offer_now_price_d = null
-            this.prod_offer_for_d = null
+            // this.prod_offer_now_price_d = null
+            // this.prod_offer_for_d = 1
+
+            // PRICE ALGO FROM LEADER
+            // this.ALGO_UNIT_PRICE_NOW = parseFloat(this.prod_offer_now_price_d) / parseFloat(this.prod_offer_for_d)
+            // this.ALGO_MODIFIED_TP = parseFloat(this.ALGO_UNIT_PRICE_NOW) - parseFloat(this.prod_price_tab_vat)
+            // this.ALGO_DISCOUNT_TP = parseFloat(this.prod_price_tab_trade_price) - parseFloat(this.ALGO_MODIFIED_TP)
+            // this.ALGO_CHEMIST_PROFIT = ( parseFloat(this.prod_price_tab_max_retail_price) / parseFloat(this.ALGO_UNIT_PRICE_NOW) ) * 100
+            // PRICE ALGO FROM LEADER
+            this.prod_offer_discount_tp_d = this.ALGO_DISCOUNT_TP
             // ##########################################
             let discount_tp = this.prod_offer_discount_tp_d
             // Bonus
@@ -1326,8 +1380,10 @@ export default {
                     console.log('P offer created')
                     Object.assign(offer_details, {discount_pct: discount_pct ? discount_pct : null})
                     this.CREATE_NEW_PROD_OFFER__FROM_SERVICE(offer_details)
-                } else if (offer_type === 'D' && discount_tp !==null && min_qty !== null) {
+                // } else if (offer_type === 'D' && discount_tp !==null && min_qty !== null) {
+                } else if (offer_type === 'D' && discount_tp !==null) {
                     console.log('D offer created')
+                    Object.assign(offer_details, {min_qty: this.prod_offer_for_d ? this.prod_offer_for_d : null})
                     Object.assign(offer_details, {discount_tp: discount_tp ? discount_tp : null})
                     this.CREATE_NEW_PROD_OFFER__FROM_SERVICE(offer_details)
                 } else if (offer_type === 'B' && bonus_on !==null && bonus_qty !== null) {
@@ -1351,6 +1407,7 @@ export default {
         },
         // Updating offer
         async offerEditClickHandler(item, index) {
+            this.closeAllOfferTypeOfferModal()
             console.log(item)
             console.log(index)
             this.UPDATE_OFFER_ENABLE = true
@@ -1389,8 +1446,8 @@ export default {
                     this.CREATE_OFFER_TYPE = 'D'
                     this.togglingOnChangeOfferTypeOfferModal('fixed_discount')
                     // ##########################################
-                    this.prod_offer_now_price_d = null
-                    this.prod_offer_for_d = null
+                    // this.prod_offer_now_price_d = null
+                    // this.prod_offer_for_d = null
                     // ##########################################
                     this.prod_offer_discount_tp_d = item.offer_dis_pct
                     break
@@ -1608,6 +1665,7 @@ export default {
                         document.getElementById('price_tab_close_modal').click()
                         this.prod_creating_progressbar = true
                         this.prod_creating_progressbar_msg = res.data.message
+                        this.$store.state.CHANGES_DETECTED_IN_DETAILS_SECTION = new Date()
                         setTimeout( () => {
                             this.prod_creating_progressbar = false
                             this.prod_creating_progressbar_msg = null
@@ -1640,6 +1698,7 @@ export default {
                         document.getElementById('offer_tab_close_modal').click()
                         this.prod_creating_progressbar = true
                         this.prod_creating_progressbar_msg = res.data.message
+                        this.$store.state.CHANGES_DETECTED_IN_DETAILS_SECTION = new Date()
                         setTimeout( () => {
                             this.prod_creating_progressbar = false
                             this.prod_creating_progressbar_msg = null
@@ -1689,6 +1748,7 @@ export default {
                         this.offerTabCloseBtnClickHandler()
                         this.prod_creating_progressbar = true
                         this.prod_creating_progressbar_msg = res.data.message
+                        this.$store.state.CHANGES_DETECTED_IN_DETAILS_SECTION = new Date()
                         setTimeout( () => {
                             this.prod_creating_progressbar = false
                             this.prod_creating_progressbar_msg = null
@@ -1738,6 +1798,15 @@ export default {
                 // }
             }
         },
+        prod_offer_now_price_d(newVal) {
+            // PRICE ALGO FROM LEADER
+            this.ALGO_UNIT_PRICE_NOW = parseFloat(newVal) / parseFloat(this.prod_offer_for_d)
+            this.ALGO_MODIFIED_TP = parseFloat(this.ALGO_UNIT_PRICE_NOW) - parseFloat(this.prod_price_tab_vat)
+            this.ALGO_DISCOUNT_TP = parseFloat(this.prod_price_tab_trade_price) - parseFloat(this.ALGO_MODIFIED_TP)
+            this.ALGO_CHEMIST_PROFIT = ( parseFloat(this.prod_price_tab_max_retail_price) / parseFloat(this.ALGO_UNIT_PRICE_NOW) ) * 100
+            // PRICE ALGO FROM LEADER
+            this.prod_offer_discount_tp_d = this.ALGO_DISCOUNT_TP
+        }
     },
 }
 </script>

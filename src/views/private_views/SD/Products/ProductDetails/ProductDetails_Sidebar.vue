@@ -49,9 +49,15 @@ export default {
   data() {
     return {
       prods_list: [],
+      selected_item: null,
+      item_index: null,
     };
   },
-  computed: {},
+  computed: {
+    RELOAD_LEFT_LIST() {
+      return this.$store.state.CHANGES_DETECTED_IN_DETAILS_SECTION
+   }
+  },
   created() {},
   async mounted() {
     await this.SEARCH_PRODUCT_DATA_LIST__FROM_SERVICE()
@@ -60,6 +66,8 @@ export default {
     singleCardItemClickHandler(item, index) {
       console.log(index)
       console.log(item)
+      this.selected_item = item
+      this.item_index = index
 
       let length = document.querySelectorAll('#product-details-sidebar .card_body').length
       for(let i=0; i<length; i++) {
@@ -112,7 +120,14 @@ export default {
         });
     },
   },
-  watch: {},
+  watch: {
+    async RELOAD_LEFT_LIST(newVal) {
+      if(newVal) {
+        await this.SEARCH_PRODUCT_DATA_LIST__FROM_SERVICE()
+        this.singleCardItemClickHandler(this.selected_item, this.item_index)
+      }
+    }
+  },
 };
 </script>
 
