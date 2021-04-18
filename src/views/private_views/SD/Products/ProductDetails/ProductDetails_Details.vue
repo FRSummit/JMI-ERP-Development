@@ -1237,7 +1237,7 @@ export default {
                         // COMMON
                         is_active   : offers[i].is_active ? offers[i].is_active : null,
                         min_qty     : offers[i].min_qty ? offers[i].min_qty : null,
-                        offer_type  : offers[i].offer_type ? offers[i].offer_type : null,
+                        // offer_type  : offers[i].offer_type ? offers[i].offer_type : null,
                         start_date  : offers[i].start_date ? offers[i].start_date : null,
                         status      : offers[i].status ? offers[i].status : null,
                         valid_until : offers[i].valid_until ? offers[i].valid_until : null,
@@ -2053,5 +2053,6 @@ button.modal-prod-save-btn:hover {
 .table thead th,
 .offer-table tbody td {
     text-align: center;
+    vertical-align: middle;
 }
 </style>
