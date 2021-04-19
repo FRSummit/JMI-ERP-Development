@@ -549,15 +549,15 @@
                                                                 <option :value="null" selected>Select an option</option>
                                                                 <!-- <option v-for="(item, i) in OFFERS" :key="i" :value="item.name"><span v-if="OFFERS_LIST[i].offer_name !== item.name">{{ item.name }}</span></option> -->
                                                                 <option v-for="(item, i) in OFFERS" :key="i" :value="item.name">
-                                                                    <span v-if="OFFERS_LIST.length ? true : false">
+                                                                    <!-- <span v-if="OFFERS_LIST.length ? true : false">
                                                                         <span v-for="(offer, j) in OFFERS_LIST" :key="j">
-                                                                            <!-- <span v-if="offer.offer_name !== item.name">{{ item.name }}</span> -->
                                                                             <span>{{ item.name }}</span>
                                                                         </span>
                                                                     </span>
                                                                     <span v-else>
                                                                         <span>{{ item.name }}</span>
-                                                                    </span>
+                                                                    </span> -->
+                                                                    <span>{{ item.name }}</span>
                                                                 </option>
                                                             </select>
                                                         </div>
@@ -767,7 +767,7 @@
                                     </thead>
                                     <tbody>
                                         <tr v-for="(item, i) in OFFERS_LIST" :key="i">
-                                            <td>{{ checkOfferType(item.offer_type) }}</td>
+                                            <td>{{ checkOfferType_Short(item.offer_type) }}</td>
                                             <td>{{ item.min_qty }}</td>
                                             <td>{{ item.discount_pct }}</td>
                                             <td>{{ item.discount_tp }}</td>
@@ -1098,6 +1098,8 @@ export default {
             ALGO_DISCOUNT_TP: null,
             ALGO_CHEMIST_PROFIT: null,
             // PRICE ALGO FROM LEADER
+
+            OFFER_EDITING_SELECTED_OFFER_ID: null,
         }
     },
     computed: {},
@@ -1212,7 +1214,14 @@ export default {
             offers.push(prod_offer_details.fixed_discount)
             offers.push(prod_offer_details.free_product)
             offers.push(prod_offer_details.percentage_discount)
-
+            // console.log(prod_offer_details)
+            console.log(offers)
+            // for(let i=0; i<prod_offer_details.length; i++) {
+            //     for(let j=0; j<prod_offer_details[i].length; j++) {
+            //         offers.push(prod_offer_details[i][j])
+            //     }
+            // }
+            // console.log(offers)
             this.OFFERS_LIST = []
             console.log(Object.keys(prod_offer_details))
             // for(let i=0; i<Object.keys(prod_offer_details).length; i++) {
@@ -1222,49 +1231,55 @@ export default {
                 // console.log(prod_offer_details.Object.keys(prod_offer_details)[i])
 
                 // if(offers[i].length === undefined) {
-                if(offers[i].status) {
-                    let offer = {
-                        // offer_name: this.checkOfferType(Object.keys(prod_offer_details)[i]),
-                        // offer_type: this.checkOfferType(Object.keys(prod_offer_details)[i]),
-                        // offer_type: this.checkOfferType(offers[i].offer_type),
-                        offer_dis_pct: offers[i].discount_pct,
-                        offer_discount_period: globalDateFormat.dateFormatT4(offers[i].start_date) + ' - ' + globalDateFormat.dateFormatT4(offers[i].valid_until),
-                        offer_status: offers[i].is_active === 'Y' ? 'Active' : 'Inactive',
-                        offer_created_by: 'Dummy',
-                        offer_is_present: offers[i].min_qty ? offers[i].min_qty : null,
+                for(let j=0; j<offers[i].length; j++) {
+                    // if(offers[i].status) {
+                        console.log(offers[i][j].id)
+                        let offer = {
+                            // offer_name: this.checkOfferType(Object.keys(prod_offer_details)[i]),
+                            // offer_type: this.checkOfferType(Object.keys(prod_offer_details)[i]),
+                            // offer_type: this.checkOfferType(offers[i].offer_type),
+
+                            // offer_dis_pct: offers[i].discount_pct,
+                            offer_discount_period: globalDateFormat.dateFormatT4(offers[i][j].start_date) + ' - ' + globalDateFormat.dateFormatT4(offers[i][j].valid_until),
+                            // offer_status: offers[i].is_active === 'Y' ? 'Active' : 'Inactive',
+                            // offer_created_by: 'Dummy',
+                            // offer_is_present: offers[i].min_qty ? offers[i].min_qty : null,
 
 
-                        // COMMON
-                        is_active   : offers[i].is_active ? offers[i].is_active : null,
-                        min_qty     : offers[i].min_qty ? offers[i].min_qty : null,
-                        offer_type  : offers[i].offer_type ? offers[i].offer_type : null,
-                        start_date  : offers[i].start_date ? offers[i].start_date : null,
-                        status      : offers[i].status ? offers[i].status : null,
-                        valid_until : offers[i].valid_until ? offers[i].valid_until : null,
+                            // COMMON
+                            id          : offers[i][j].id ? offers[i][j].id : null,
+                            is_active   : offers[i][j].is_active ? offers[i][j].is_active : null,
+                            min_qty     : offers[i][j].min_qty ? offers[i][j].min_qty : null,
+                            offer_type  : offers[i][j].offer_type ? offers[i][j].offer_type : null,
+                            start_date  : offers[i][j].start_date ? offers[i][j].start_date : null,
+                            status      : offers[i][j].status ? offers[i][j].status : null,
+                            valid_until : offers[i][j].valid_until ? offers[i][j].valid_until : null,
 
 
-                        // PERCENTAGE
-                        discount_pct    :  offers[i].discount_pct ? offers[i].discount_pct : null,
+                            // PERCENTAGE
+                            discount_pct    :  offers[i][j].discount_pct ? offers[i][j].discount_pct : null,
 
-                        // FIXED DISCOUNT
-                        discount_tp: offers[i].discount_tp ? offers[i].discount_tp : null,
+                            // FIXED DISCOUNT
+                            discount_tp: offers[i][j].discount_tp ? offers[i][j].discount_tp : null,
 
-                        // BONUS
-                        bonus_on    : offers[i].bonus_on ? offers[i].bonus_on : null,
-                        bonus_qty   : offers[i].bonus_qty ? offers[i].bonus_qty : null,
+                            // BONUS
+                            bonus_on    : offers[i][j].bonus_on ? offers[i][j].bonus_on : null,
+                            bonus_qty   : offers[i][j].bonus_qty ? offers[i][j].bonus_qty : null,
 
-                        // FREE
-                        free_prod_id    : offers[i].free_prod_id ? offers[i].free_prod_id : null,
-                        free_prod_qty   : offers[i].free_prod_qty ? offers[i].free_prod_qty : null,
-                        free_req_qty    : offers[i].free_req_qty ? offers[i].free_req_qty : null,
+                            // FREE
+                            free_prod_id    : offers[i][j].free_prod_id ? offers[i][j].free_prod_id : null,
+                            free_prod_qty   : offers[i][j].free_prod_qty ? offers[i][j].free_prod_qty : null,
+                            free_req_qty    : offers[i][j].free_req_qty ? offers[i][j].free_req_qty : null,
 
 
-                    }
-                    if(offer.offer_is_present) {
-                        this.OFFERS_LIST.push(offer)
-                    }
+                        }
+                        // if(offer.offer_is_present) {
+                            this.OFFERS_LIST.push(offer)
+                        // }
+                    // }
                 }
             }
+            console.log(this.OFFERS_LIST)
 
         },
         checkOfferType(offer) {
@@ -1281,6 +1296,26 @@ export default {
                     break
                 case 'percentage_discount': case 'P':
                     offer_name = 'Percentage Discount'
+                    break
+                default:
+                    break
+            }
+            return offer_name
+        },
+        checkOfferType_Short(offer) {
+            let offer_name = null
+            switch(offer) {
+                case 'bonus_discount': case 'B':
+                    offer_name = 'Bonus'
+                    break
+                case 'fixed_discount': case 'D':
+                    offer_name = 'Fixed'
+                    break
+                case 'free_product': case 'F':
+                    offer_name = 'Free'
+                    break
+                case 'percentage_discount': case 'P':
+                    offer_name = 'Percentage'
                     break
                 default:
                     break
@@ -1480,6 +1515,7 @@ export default {
         },
         // Updating offer
         async offerEditClickHandler(item, index) {
+            this.OFFER_EDITING_SELECTED_OFFER_ID = item.id
             this.closeAllOfferTypeOfferModal()
             console.log(item)
             console.log(index)
@@ -1894,12 +1930,13 @@ export default {
         },
         async UPDATE_PROD_OFFER__FROM_SERVICE(offer_details) {
             console.log(offer_details)
-            await service.getUpdateProdOffer_PRODUCTS_DETAILS(this.SELECTED_PROD_DETAILS.id, this.SELECTED_PROD_DETAILS.prod_id, offer_details)
+            await service.getUpdateProdOffer_PRODUCTS_DETAILS(this.OFFER_EDITING_SELECTED_OFFER_ID, this.SELECTED_PROD_DETAILS.prod_id, offer_details)
                 .then(res => {
                     console.log(res.data)
                     if(res.data.response_code === 200 || res.data.response_code === 201) {
                         this.UPDATE_OFFER_ENABLE = false
                         this.PROD_OFFER_FROM_SERVICE = null
+                        this.OFFER_EDITING_SELECTED_OFFER_ID = null
                         // document.getElementById('offer_tab_close_modal').click()
                         this.offerTabCloseBtnClickHandler()
                         this.prod_creating_progressbar = true
@@ -1923,6 +1960,9 @@ export default {
                     if(err) {
                         console.log(err)
                         alert('Product offer update problem : ' + err)
+                        this.UPDATE_OFFER_ENABLE = false
+                        this.PROD_OFFER_FROM_SERVICE = null
+                        this.OFFER_EDITING_SELECTED_OFFER_ID = null
                     }
                 })
         }
