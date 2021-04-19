@@ -931,6 +931,7 @@
                             </div>
                             <!------------ End Competitors Tab Content Area ------------>  
 
+                            <!------------ Start Ledger Tab Content Area ------------> 
                             <div id="tab-ledger" class="tab-pane">
                                 <div class="tab-content-header">
                                     <h5>Ledger</h5>
@@ -940,7 +941,9 @@
                                     </div>
                                 </div> 
                             </div>
+                            <!------------ End Ledger Tab Content Area ------------> 
                                 
+                            <!------------ Start Stock Position Tab Content Area ------------> 
                             <div id="tab-stock-position" class="tab-pane ">
                                 <div class="tab-content-header">
                                     <h5>Stock Position</h5>
@@ -950,6 +953,9 @@
                                     </div>
                                 </div>
                             </div>
+                            <!------------ End Stock Position Tab Content Area ------------> 
+
+                            <!------------ Start Documents Tab Content Area ------------> 
                             <div id="tab-documents" class="tab-pane ">
                                 <div class="tab-content-header">
                                     <h5>Documents</h5>
@@ -958,7 +964,112 @@
                                         <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
                                     </div>
                                 </div>
+
+                                <div class="documents-scroll inner-scroll">
+                                    <div class="row">
+
+                                        <!-- File -->
+                                        <div class="col-lg-3 col-md-4 col-12">
+                                            <div class="document-file">
+                                                <div class="thumbnail">
+                                                    <div class="view">
+                                                        <i class="view-btn fa fa-eye"></i>
+                                                    </div>
+                                                    <div class="cover">
+                                                        <i class="fa fa-file"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="file-name">
+                                                    <div>
+                                                        <p>Document 2021.doc</p>
+                                                        <small>Added: April 14, 2021</small>
+                                                    </div>
+                                                    <div class="action-btn">
+                                                        <i class="download fa fa-download"></i>
+                                                        <i class="delete fa fa-trash"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Chart -->
+                                        <div class="col-lg-3 col-md-4 col-12">
+                                            <div class="document-file">
+                                                <div class="thumbnail">
+                                                    <div class="view">
+                                                        <i class="view-btn fa fa-eye"></i>
+                                                    </div>
+                                                    <div class="cover">
+                                                        <!-- <i class="fa fa-bar-chart"></i> -->
+                                                        <i class="zmdi zmdi-chart"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="file-name">
+                                                    <div>
+                                                        <p>Document 2021.doc</p>
+                                                        <small>Added: April 14, 2021</small>
+                                                    </div>
+                                                    <div class="action-btn">
+                                                        <i class="download fa fa-download"></i>
+                                                        <i class="delete fa fa-trash"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- PDF -->
+                                        <div class="col-lg-3 col-md-4 col-12">
+                                            <div class="document-file">
+                                                <div class="thumbnail">
+                                                    <div class="view">
+                                                        <i class="view-btn fa fa-eye"></i>
+                                                    </div>
+                                                    <div class="cover">
+                                                        <!-- <i class="fa fa-file-pdf-o"></i> -->
+                                                        <i class="zmdi zmdi-collection-pdf"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="file-name">
+                                                    <div>
+                                                        <p>Document 2021.doc</p>
+                                                        <small>Added: April 14, 2021</small>
+                                                    </div>
+                                                    <div class="action-btn">
+                                                        <i class="download fa fa-download"></i>
+                                                        <i class="delete fa fa-trash"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- IMAGE -->
+                                        <div class="col-lg-3 col-md-4 col-12">
+                                            <div class="document-file">
+                                                <div class="thumbnail">
+                                                    <div class="view">
+                                                        <i class="view-btn fa fa-eye"></i>
+                                                    </div>
+                                                    <div class="cover">
+                                                        <img alt="image" class="img-responsive" src="../../../../../assets/images/products/documents.jpg">
+                                                    </div>
+                                                </div>
+                                                <div class="file-name">
+                                                    <div>
+                                                        <p>Document 2021.doc</p>
+                                                        <small>Added: April 14, 2021</small>
+                                                    </div>
+                                                    <div class="action-btn">
+                                                        <i class="download fa fa-download"></i>
+                                                        <i class="delete fa fa-trash"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
                             </div>
+                            <!------------ End Documents Tab Content Area ------------> 
                         </div>
                     </div>
                 </div>
@@ -2098,5 +2209,13 @@ button.modal-prod-save-btn:hover {
 .offer-table tbody td {
     text-align: center;
     vertical-align: middle;
+}
+.document-file .thumbnail .cover svg {
+    margin: 15px 10px;
+    font-size: 70px;
+    color: #dadada;
+}
+.document-file .cover img {
+    width: 100%;
 }
 </style>
