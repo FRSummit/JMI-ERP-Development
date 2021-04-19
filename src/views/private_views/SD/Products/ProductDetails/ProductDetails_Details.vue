@@ -1506,17 +1506,18 @@ export default {
         },
         offerEditSetOfferTypeInDropdown(item) {
             console.log(this.PROD_OFFER_FROM_SERVICE)
-            this.offer_type_offers_modal = item.offer_type
+            // this.offer_type_offers_modal = item.offer_type
             this.prod_offer_minimum_qty = this.PROD_OFFER_FROM_SERVICE.min_qty
 
             switch(item.offer_type) {
-                case "Percentage Discount":
+                case "Percentage Discount": case 'P':
                     document.getElementById('offer_type').selectedIndex = 0
                     this.CREATE_OFFER_TYPE = 'P'
                     this.togglingOnChangeOfferTypeOfferModal('percentage_discount')
                     this.prod_offer_discount_p = item.offer_dis_pct
+                    this.offer_type_offers_modal = "Percentage Discount"
                     break
-                case "Fixed Discount":
+                case "Fixed Discount": case 'D':
                     document.getElementById('offer_type').selectedIndex = 1
                     this.CREATE_OFFER_TYPE = 'D'
                     this.togglingOnChangeOfferTypeOfferModal('fixed_discount')
@@ -1525,21 +1526,24 @@ export default {
                     // this.prod_offer_for_d = null
                     // ##########################################
                     this.prod_offer_discount_tp_d = item.offer_dis_pct
+                    this.offer_type_offers_modal = "Fixed Discount"
                     break
-                case "Bonus Product": case "Bonus Discount":
+                case "Bonus Product": case "Bonus Discount": case 'B':
                     document.getElementById('offer_type').selectedIndex = 2
                     this.CREATE_OFFER_TYPE = 'B'
                     this.togglingOnChangeOfferTypeOfferModal('bonus_product')
                     this.prod_offer_min_qty_b = this.PROD_OFFER_FROM_SERVICE.bonus_on
                     this.prod_offer_bonus_qty_b = this.PROD_OFFER_FROM_SERVICE.bonus_qty
+                    this.offer_type_offers_modal = "Bonus Product"
                     break
-                case "Free Product":
+                case "Free Product": case 'F':
                     document.getElementById('offer_type').selectedIndex = 3
                     this.CREATE_OFFER_TYPE = 'F'
                     this.togglingOnChangeOfferTypeOfferModal('free_product')
                     this.prod_offer_min_qty_f = this.PROD_OFFER_FROM_SERVICE.free_req_qty
                     this.free_prod_offer_selected_prod = this.PROD_OFFER_FROM_SERVICE.free_prod_id
                     this.prod_offer_free_qty_f = this.PROD_OFFER_FROM_SERVICE.free_prod_qty
+                    this.offer_type_offers_modal = "Free Product"
                     break
                 default:
                     break

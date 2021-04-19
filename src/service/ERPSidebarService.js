@@ -1205,7 +1205,7 @@ export default class PostService {
       headers: {
         'Authorization': token_type + ' ' + token
       },
-      params: {
+      data: {
         offer_type: offer_details.offer_type,
         min_qty: offer_details.min_qty,
         start_date: offer_details.start_date,
@@ -1213,6 +1213,8 @@ export default class PostService {
         // Percentage
         discount_pct: offer_details.discount_pct,
         // Discount
+        price_now: offer_details.price_now,
+        for_qty: offer_details.min_qty,
         discount_tp: offer_details.discount_tp,
         // Bonus
         bonus_on: offer_details.bonus_on,
