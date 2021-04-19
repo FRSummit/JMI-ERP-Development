@@ -1345,6 +1345,7 @@
     margin: auto;
     border-radius: 100px;
     background-color: var(--bluish-white);
+    cursor: pointer;
 }
 .document-file .file-name {
     display: flex;
@@ -1356,19 +1357,22 @@
 .document-file .file-name .action-btn {
     display: flex;
 }
-.document-file .file-name .action-btn .download{
+.document-file .file-name .action-btn .download,
+.document-file .file-name .action-btn i.zmdi-download {
     height: 30px;
     width: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: var(--font16);
+    font-size: var(--font20);
     color: var(--blue);
     margin: 5px;
     border-radius: 100px;
     background-color: var(--white);
+    cursor: pointer;
 }
-.document-file .file-name .action-btn .delete{
+.document-file .file-name .action-btn .delete,
+.document-file .file-name .action-btn i.zmdi-delete{
     height: 30px;
     width: 30px;
     display: flex;
@@ -1379,6 +1383,7 @@
     margin: 5px;
     border-radius: 100px;
     background-color: var(--redish-white);
+    cursor: pointer;
 }
 .document-file .file-name p {
     font-size: var(--font14);

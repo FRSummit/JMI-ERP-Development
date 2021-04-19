@@ -985,8 +985,8 @@
                                                         <small>Added: April 14, 2021</small>
                                                     </div>
                                                     <div class="action-btn">
-                                                        <i class="download fa fa-download"></i>
-                                                        <i class="delete fa fa-trash"></i>
+                                                        <i class="zmdi zmdi-download"></i>
+                                                        <i class="zmdi zmdi-delete"></i>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1010,8 +1010,8 @@
                                                         <small>Added: April 14, 2021</small>
                                                     </div>
                                                     <div class="action-btn">
-                                                        <i class="download fa fa-download"></i>
-                                                        <i class="delete fa fa-trash"></i>
+                                                        <i class="zmdi zmdi-download"></i>
+                                                        <i class="zmdi zmdi-delete"></i>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1035,8 +1035,8 @@
                                                         <small>Added: April 14, 2021</small>
                                                     </div>
                                                     <div class="action-btn">
-                                                        <i class="download fa fa-download"></i>
-                                                        <i class="delete fa fa-trash"></i>
+                                                        <i class="zmdi zmdi-download"></i>
+                                                        <i class="zmdi zmdi-delete"></i>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1059,8 +1059,8 @@
                                                         <small>Added: April 14, 2021</small>
                                                     </div>
                                                     <div class="action-btn">
-                                                        <i class="download fa fa-download"></i>
-                                                        <i class="delete fa fa-trash"></i>
+                                                        <i class="zmdi zmdi-download"></i>
+                                                        <i class="zmdi zmdi-delete"></i>
                                                     </div>
                                                 </div>
                                             </div>
@@ -2217,5 +2217,9 @@ button.modal-prod-save-btn:hover {
 }
 .document-file .cover img {
     width: 100%;
+}
+.document-file .file-name .action-btn svg {
+    width: 16px;
+    height: 16px;
 }
 </style>
