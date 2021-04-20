@@ -536,7 +536,7 @@
                                         <div class="modal-dialog modal-lg modal-dialog-centered" style="margin: 0; max-width: unset;">
                                             <div class="modal-content" style="border: none;">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalCenterTitle">Create Offer</h5>
+                                                    <h5 class="modal-title" id="exampleModalCenterTitle">{{ UPDATE_OFFER_ENABLE === false ? 'Create Offer' : 'Update Offer' }}</h5>
                                                     <button type="button" id="offer_tab_close_modal" class="close" data-dismiss="modal" aria-label="Close" @click="offerTabCloseBtnClickHandler">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
@@ -584,7 +584,7 @@
                                                     <!-- Percentage Discount -->
                                                     <!-- <div class="row" id="percentage_discount" style="display: none;"> -->
                                                     <div class="row hide" id="percentage_discount">
-                                                        <div class="col-12"><h5>Percentage Discount</h5><hr></div>
+                                                        <div class="col-12 hide"><h5>Percentage Discount</h5><hr></div>
                                                         <div class="col-lg-4 form-group">
                                                             <label for="quantity">Minimum Buy QTY</label>
                                                             <div class="input-group">
@@ -609,7 +609,7 @@
                                                     <!-- Fixed Discount -->
                                                     <!-- <div class="row" id="fixed_discount" style="display: none;"> -->
                                                     <div class="row hide" id="fixed_discount">
-                                                        <div class="col-12"><h5>Fixed Discount</h5><hr></div>
+                                                        <div class="col-12 hide"><h5>Fixed Discount</h5><hr></div>
                                                         <div class="col-lg-4 form-group">
                                                             <label for="offer_name">Now Price</label>
                                                             <div class="input-group">
@@ -619,7 +619,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg-3 form-group">
+                                                        <div class="col-lg-4 form-group">
                                                             <label for="offer_name">For</label>
                                                             <div class="input-group">
                                                                 <input v-model="prod_offer_for_d" type="number" class="form-control" placeholder="" aria-describedby="addon1" required>
@@ -629,10 +629,9 @@
                                                                 <!-- <button type="button" class="btn btn-primary btn-global" style="position: absolute; bottom: 20px;">Save Flat Rate</button> -->
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg-2 form-group">
-                                                            <!-- <button type="button" class="btn btn-primary btn-global" style="position: absolute; bottom: 20px;">Save Flat Rate</button> -->
+                                                        <!-- <div class="col-lg-2 form-group">
                                                             <button type="button" class="btn btn-primary btn-global" style="position: absolute; bottom: 20px; background-color: #495057;">Save Flat Rate</button>
-                                                        </div>
+                                                        </div> -->
                                                         <div class="col-lg-4 form-group">
                                                             <label for="offer_name">Minimum Buy QTY</label>
                                                             <div class="input-group">
@@ -656,7 +655,7 @@
                                                     <!-- Bonus Product -->
                                                     <!-- <div class="row" id="bonus_product" style="display: none;"> -->
                                                     <div class="row hide" id="bonus_product">
-                                                        <div class="col-12"><h5>Bonus Product</h5><hr></div>
+                                                        <div class="col-12 hide"><h5>Bonus Product</h5><hr></div>
                                                         <div class="col-lg-4 form-group">
                                                             <label for="offer_name">Minimum Buy QTY</label>
                                                             <div class="input-group">
@@ -679,7 +678,7 @@
                                                     <!-- Free Product -->
                                                     <!-- <div class="row" id="free_product" style="display: none;"> -->
                                                     <div class="row hide" id="free_product">
-                                                        <div class="col-12"><h5>Free Product</h5><hr></div>
+                                                        <div class="col-12 hide"><h5>Free Product</h5><hr></div>
                                                         <div class="col-lg-4 form-group">
                                                             <label for="offer_name">Minimum Buy QTY</label>
                                                             <div class="input-group">
@@ -1714,6 +1713,18 @@ export default {
             console.log(dt_range)
             this.range = dt_range
             console.log(this.range)
+
+            // PERCENT
+            this.prod_offer_discount_p = this.PROD_OFFER_FROM_SERVICE.discount_pct
+            // PERCENT
+            
+            // PRICE ALGO FROM LEADER
+            this.ALGO_UNIT_PRICE_NOW = parseFloat(this.prod_offer_now_price_d ? this.prod_offer_now_price_d : 0) / parseFloat(this.prod_offer_for_d)
+            this.ALGO_MODIFIED_TP = parseFloat(this.ALGO_UNIT_PRICE_NOW) - parseFloat(this.prod_price_tab_vat)
+            this.ALGO_DISCOUNT_TP = parseFloat(this.prod_price_tab_trade_price) - parseFloat(this.ALGO_MODIFIED_TP)
+            this.ALGO_CHEMIST_PROFIT = ( parseFloat(this.prod_price_tab_max_retail_price) / parseFloat(this.ALGO_UNIT_PRICE_NOW) ) * 100
+            // PRICE ALGO FROM LEADER
+            this.prod_offer_discount_tp_d = Number(this.ALGO_DISCOUNT_TP).toFixed(2)
         },
         offerEditSetOfferTypeInDropdown(item) {
             console.log(this.PROD_OFFER_FROM_SERVICE)

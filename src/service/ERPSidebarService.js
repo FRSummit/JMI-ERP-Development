@@ -1247,7 +1247,7 @@ export default class PostService {
 
 
   //////////////////////////////////////////////////////////////////////////////////////////
-/*
+
   // Get Doctors Profile
   async autocomplete() {
     let web_menu_url = 'https://api.publicapis.org/entries'
@@ -1378,6 +1378,6 @@ export default class PostService {
       //   'Authorization': token_type + ' ' + token
       // }
     })
-  }*/
+  }
 }
 
