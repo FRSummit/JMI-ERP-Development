@@ -1193,7 +1193,7 @@ export default class PostService {
     })
   }
 
-  // PRODUCT - PRODUCT DETAILS - CREATE OFFER
+  // PRODUCT - PRODUCT DETAILS - UPDATE OFFER
   async getUpdateProdOffer_PRODUCTS_DETAILS(id, prod_id, offer_details) {
     console.log(id)
     console.log(prod_id)
@@ -1227,6 +1227,18 @@ export default class PostService {
     })
   }
 
+  // PRODUCT - PRODUCT DETAILS - DELETE PRODUCT OFFER BY ID
+  async getDeleteProdOffer_PRODUCTS_DETAILS(id) {
+    console.log(id)
+    let web_menu_url = '/api/web/delete-prod-offer/' + id
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+    })
+  }
+
   // -------------------------------------------------------------------------------------------
 
   // -------------------------------------------------------------------------------------------
@@ -1235,7 +1247,7 @@ export default class PostService {
 
 
   //////////////////////////////////////////////////////////////////////////////////////////
-
+/*
   // Get Doctors Profile
   async autocomplete() {
     let web_menu_url = 'https://api.publicapis.org/entries'
@@ -1366,6 +1378,6 @@ export default class PostService {
       //   'Authorization': token_type + ' ' + token
       // }
     })
-  }
+  }*/
 }
 

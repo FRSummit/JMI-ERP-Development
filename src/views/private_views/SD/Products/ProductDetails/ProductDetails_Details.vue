@@ -1116,6 +1116,23 @@
                 </div>
             </div>
         </div>
+        <!-- Delete Product Offer -->
+        <div class="modal-popup-section order-proceed-modal" v-if="confirmation_popup_modal">
+            <div class="modal-popup-section-inner order-proceed-modal-inner">
+                <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
+                <p class="popup-text">{{ confirmation_popup_modal_title }}</p>
+                <p class="popup-desc">{{ confirmation_popup_modal_description }}</p>
+                <span class="divider"></span>
+                <div class="popup-submit-section">
+                <div class="popup-cancel-btn-section">
+                    <span @click="cancelConfirmationPopupModalClickHandler">Cancel</span>
+                </div>
+                <div class="popup-confirm-btn-section">
+                    <span @click="confirmConfirmationPopupModalClickHandler">Confirm</span>
+                </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -1242,6 +1259,13 @@ export default {
             // PRICE ALGO FROM LEADER
 
             OFFER_EDITING_SELECTED_OFFER_ID: null,
+
+            // CONFIRMATION MODAL
+            confirmation_popup_modal: false,
+            confirmation_popup_modal_for: null,
+            confirmation_popup_modal_title: null,
+            confirmation_popup_modal_description: null,
+            CONFIRMATION_POPUP_MODAL_DATA: null,
         }
     },
     computed: {},
@@ -1844,7 +1868,20 @@ export default {
         offerDeleteClickHandler(item, i) {
             console.log('offerDeleteClickHandler : ' + i)
             console.log(item)
-            this.DELETE_PROD_OFFER__FROM_SERVICE(item)
+            // this.DELETE_PROD_OFFER__FROM_SERVICE(item)
+            if(this.confirmation_popup_modal) {
+                this.CONFIRMATION_POPUP_MODAL_DATA = null
+                this.confirmation_popup_modal = false
+                this.confirmation_popup_modal_for = null
+                this.confirmation_popup_modal_title = null
+                this.confirmation_popup_modal_description = null
+            } else {
+                this.CONFIRMATION_POPUP_MODAL_DATA = item
+                this.confirmation_popup_modal = true
+                this.confirmation_popup_modal_for = 'DELETE PROD OFFER'
+                this.confirmation_popup_modal_title = 'Are you sure ?'
+                this.confirmation_popup_modal_description = 'You want to delete this offer.'
+            }
         },
         // Offers Tab Content Area Ends
         // -----------------------------------------------------------------------------------------
@@ -1893,6 +1930,20 @@ export default {
                 await this.CREATE_NEW_SBU_PRODUCT__FROM_SERVICE(prod_id, prod_class_id)
             } else {
                 alert('Product or Product class is empty. Please select both.')
+            }
+        },
+        // ---------------------------------------------------------------------------
+        // CONFIRMATION MODAL
+        cancelConfirmationPopupModalClickHandler() {
+            this.confirmation_popup_modal = false
+        },
+        confirmConfirmationPopupModalClickHandler() {
+            switch(this.confirmation_popup_modal_for) {
+                case 'DELETE PROD OFFER':
+                    this.DELETE_PROD_OFFER__FROM_SERVICE()
+                    break
+                default:
+                    break
             }
         },
         // ---------------------------------------------------------------------------
@@ -2128,43 +2179,54 @@ export default {
                     }
                 })
         },
-        async DELETE_PROD_OFFER__FROM_SERVICE(item) {
+        async DELETE_PROD_OFFER__FROM_SERVICE() {
+            let item = this.CONFIRMATION_POPUP_MODAL_DATA
             console.log(item)
-            this.OFFERS_LIST.forEach(element => {
-                if(parseInt(element.id) === parseInt(item.id)) {
-                    this.OFFERS_LIST.splice(element, 1)
-                }
-            });
-            // await service.getUpdateProdOffer_PRODUCTS_DETAILS(item.id)
-            //     .then(res => {
-            //         console.log(res.data)
-            //         if(res.data.response_code === 200 || res.data.response_code === 201) {
-            //             this.OFFERS_LIST.forEach(element => {
-            //                 if(parseInt(element.id) === parseInt(item.id)) {
-            //                     this.OFFERS_LIST.splice(element, 1)
-            //                 }
-            //             });
-            //             this.prod_creating_progressbar = true
-            //             this.prod_creating_progressbar_msg = res.data.message
-            //             setTimeout( () => {
-            //                 this.prod_creating_progressbar = false
-            //                 this.prod_creating_progressbar_msg = null
-            //             }, 1000)
-            //         } else {
-            //             this.prod_creating_progressbar = true
-            //             this.prod_creating_progressbar_msg = res.data.message
-            //             setTimeout( () => {
-            //                 this.prod_creating_progressbar = false
-            //                 this.prod_creating_progressbar_msg = null
-            //             }, 1000)
-            //         }
-            //     })
-            //     .catch(err => {
-            //         if(err) {
-            //             console.log(err)
-            //             alert('Product offer remove problem : ' + err)
-            //         }
-            //     })
+            this.CONFIRMATION_POPUP_MODAL_DATA = null
+            this.confirmation_popup_modal = false
+            this.confirmation_popup_modal_for = null
+            this.confirmation_popup_modal_title = null
+            this.confirmation_popup_modal_description = null
+
+            this.prod_creating_progressbar = true
+            this.prod_creating_progressbar_msg = 'Please wait...'
+
+            await service.getDeleteProdOffer_PRODUCTS_DETAILS(item.id)
+                .then(res => {
+                    console.log(res.data)
+                    if(res.data.response_code === 200 || res.data.response_code === 201) {
+                        this.OFFERS_LIST.forEach(element => {
+                            if(parseInt(element.id) === parseInt(item.id)) {
+                                this.OFFERS_LIST.splice(element, 1)
+                            }
+                        });
+                        // this.prod_creating_progressbar = true
+                        this.prod_creating_progressbar_msg = res.data.message
+                        setTimeout( () => {
+                            this.prod_creating_progressbar = false
+                            this.prod_creating_progressbar_msg = null
+                        }, 1000)
+                    } else {
+                        // this.prod_creating_progressbar = true
+                        this.prod_creating_progressbar_msg = res.data.message
+                        setTimeout( () => {
+                            this.prod_creating_progressbar = false
+                            this.prod_creating_progressbar_msg = null
+                        }, 1000)
+                    }
+                })
+                .catch(err => {
+                    if(err) {
+                        console.log(err)
+                        alert('Product offer remove problem : ' + err)
+                        // this.prod_creating_progressbar = true
+                        this.prod_creating_progressbar_msg = err
+                        setTimeout( () => {
+                            this.prod_creating_progressbar = false
+                            this.prod_creating_progressbar_msg = null
+                        }, 1000)
+                    }
+                })
         },
     },
     watch: {
