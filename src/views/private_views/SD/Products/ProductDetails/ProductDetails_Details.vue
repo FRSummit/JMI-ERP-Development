@@ -19,22 +19,22 @@
                         <!-- Start Change Photo Modal -->
                             <div class="modal" id="change-photo" tabindex="-1" role="dialog" aria-labelledby="changePhoto" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                    <h5 class="modal-title" id="changePhoto">Change Photo</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="changePhotoModalCloseClickHandler" style="width: 50px;">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    </div>
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="changePhoto">Change Photo</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="changePhotoModalCloseClickHandler" style="width: 50px;">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
                                         <form class="modal-body">
                                             <div class="form-group">
-                                            <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                                                <input type="file" class="form-control-file" id="exampleFormControlFile1">
                                             </div>
                                         </form>
-                                    <div class="modal-footer justify-content-center">
-                                        <button type="button" class="btn btn-primary" @click="changePhotoSaveBtnClickHandler">Save Changes</button>
+                                        <div class="modal-footer justify-content-center">
+                                            <button type="button" class="btn btn-primary" @click="changePhotoSaveBtnClickHandler">Save Changes</button>
+                                        </div>
                                     </div>
-                                </div>
                                 </div>
                             </div>
                             <!-- Start Change Photo Modal -->
@@ -963,9 +963,37 @@
                                 <div class="tab-content-header">
                                     <h5>Documents</h5>
                                     <div class="btn-group">
-                                        <button class="btn btn-primary btn-save"  role="button">Save</button>
-                                        <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
+                                        <button class="btn btn-primary btn-save" role="button">Save</button>
+                                        <button class="btn btn-primary btn-save" data-toggle="modal" data-target=".upload-document-file-modal" role="button">Upload</button>
+                                        <!-- <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a> -->
                                     </div>
+                                    <div id="upload_document_file_modal" class="modal upload-document-file-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="width: 70%;">
+                                        <div class="modal-dialog modal-lg modal-dialog-centered" style="margin: 0; max-width: unset;">
+                                            <div class="modal-content" style="border: none;">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="changePhoto">Upload Document</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="changePhotoModalCloseClickHandler" style="width: 50px;">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <form class="modal-body">
+                                                    <div class="form-group">
+                                                        <input type="file" class="form-control-file" style="padding-top: 7px;">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control-file" id="file-title" placeholder="Enter title">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <textarea class="form-control" id="file-description" rows="3" placeholder="Enter Description"></textarea>
+                                                    </div>
+                                                </form>
+                                                <div class="modal-footer justify-content-center">
+                                                    <button type="button" class="btn btn-primary btn-save blue" @click="uploadDocumentFileClickHandler">Upload</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!------------ End Create Offer Modal------------>
                                 </div>
 
                                 <div class="documents-scroll inner-scroll">
@@ -1819,6 +1847,12 @@ export default {
             this.DELETE_PROD_OFFER__FROM_SERVICE(item)
         },
         // Offers Tab Content Area Ends
+        // -----------------------------------------------------------------------------------------
+        // Document Tab Content Area Ends
+        uploadDocumentFileClickHandler() {
+            console.log('uploadDocumentFileClickHandler')
+        },
+        // Document Tab Content Area Ends
         // -----------------------------------------------------------------------------------------
         createNewProductClickHandler() {
             console.log('createNewProductClickHandler')

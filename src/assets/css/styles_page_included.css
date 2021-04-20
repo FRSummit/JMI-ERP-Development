@@ -1424,3 +1424,10 @@
 /*# sourceMappingURL=product2.css.map */
 /* --------------------------------------------------------------------------------- */
 /* Products */
+
+
+/* FRSummit Custom */
+.btn.btn-primary.btn-save.blue {
+    background-color: var(--blue) !important;
+}
+/* FRSummit Custom */
