@@ -774,7 +774,7 @@
                                             <td>{{ item.bonus_on }}</td>
                                             <td>{{ item.bonus_qty }}</td>
                                             <td>{{ item.free_req_qty }}</td>
-                                            <td>{{ item.free_prod_id }}</td>
+                                            <td>{{ getProdNameById(item.free_prod_id) }}</td>
                                             <td>{{ item.free_prod_qty }}</td>
 
                                             <td>{{ item.offer_discount_period }}</td>
@@ -783,7 +783,10 @@
                                             <td><input type="checkbox" :checked="item.is_active === 'Y' ? true : false"></td>
                                             <td class="action-btn">
                                                 <span><a class="btn-edit btn-active" style="width: 20px; border-radius: 50%; cursor: pointer;" @click="offerEditClickHandler(item, i)"><i class="zmdi zmdi-edit"></i></a></span>
-                                                <span class="active fa fa-arrow-up" data-toggle="tooltip" data-placement="bottom" title="Active"></span>
+                                                <!-- <span @click="offerEditClickHandler(item, i)"><i class="zmdi zmdi-edit"></i></span> -->
+                                                
+                                                <!-- <span class="active fa fa-arrow-up" data-toggle="tooltip" data-placement="bottom" title="Active"></span> -->
+                                                <i class="zmdi zmdi-delete" @click="offerDeleteClickHandler(item, i)"></i>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -1393,6 +1396,15 @@ export default {
             console.log(this.OFFERS_LIST)
 
         },
+        getProdNameById(prod_id) {
+            if(prod_id) {
+                for(let i=0; i<this.ALL_PRODS_LIST_IN_DB.length; i++) {
+                    if(parseInt(prod_id) === parseInt(this.ALL_PRODS_LIST_IN_DB[i].prod_id)) {
+                        return this.ALL_PRODS_LIST_IN_DB[i].prod_name
+                    }
+                }
+            }
+        },
         checkOfferType(offer) {
             let offer_name = null
             switch(offer) {
@@ -1420,7 +1432,7 @@ export default {
                     offer_name = 'Bonus'
                     break
                 case 'fixed_discount': case 'D':
-                    offer_name = 'Fixed'
+                    offer_name = 'Discount'
                     break
                 case 'free_product': case 'F':
                     offer_name = 'Free'
@@ -1801,6 +1813,11 @@ export default {
             }
             // this.UPDATE_PROD_OFFER__FROM_SERVICE(offer_details)
         },
+        offerDeleteClickHandler(item, i) {
+            console.log('offerDeleteClickHandler : ' + i)
+            console.log(item)
+            this.DELETE_PROD_OFFER__FROM_SERVICE(item)
+        },
         // Offers Tab Content Area Ends
         // -----------------------------------------------------------------------------------------
         createNewProductClickHandler() {
@@ -2076,7 +2093,45 @@ export default {
                         this.OFFER_EDITING_SELECTED_OFFER_ID = null
                     }
                 })
-        }
+        },
+        async DELETE_PROD_OFFER__FROM_SERVICE(item) {
+            console.log(item)
+            this.OFFERS_LIST.forEach(element => {
+                if(parseInt(element.id) === parseInt(item.id)) {
+                    this.OFFERS_LIST.splice(element, 1)
+                }
+            });
+            // await service.getUpdateProdOffer_PRODUCTS_DETAILS(item.id)
+            //     .then(res => {
+            //         console.log(res.data)
+            //         if(res.data.response_code === 200 || res.data.response_code === 201) {
+            //             this.OFFERS_LIST.forEach(element => {
+            //                 if(parseInt(element.id) === parseInt(item.id)) {
+            //                     this.OFFERS_LIST.splice(element, 1)
+            //                 }
+            //             });
+            //             this.prod_creating_progressbar = true
+            //             this.prod_creating_progressbar_msg = res.data.message
+            //             setTimeout( () => {
+            //                 this.prod_creating_progressbar = false
+            //                 this.prod_creating_progressbar_msg = null
+            //             }, 1000)
+            //         } else {
+            //             this.prod_creating_progressbar = true
+            //             this.prod_creating_progressbar_msg = res.data.message
+            //             setTimeout( () => {
+            //                 this.prod_creating_progressbar = false
+            //                 this.prod_creating_progressbar_msg = null
+            //             }, 1000)
+            //         }
+            //     })
+            //     .catch(err => {
+            //         if(err) {
+            //             console.log(err)
+            //             alert('Product offer remove problem : ' + err)
+            //         }
+            //     })
+        },
     },
     watch: {
         SELECTED_PROD_DETAILS(newVal) {
@@ -2209,6 +2264,43 @@ button.modal-prod-save-btn:hover {
 .offer-table tbody td {
     text-align: center;
     vertical-align: middle;
+}
+.offer-table tbody td {
+    border: 1px solid #e9ecef;
+}
+.offer-table tbody td:last-child {
+    border: none;
+}
+.offer-table tbody td input[type="checkbox"]:not(:checked), 
+.offer-table tbody td input[type="checkbox"]:checked {
+    pointer-events: none !important;
+}
+
+/* .offer-table tbody td i.zmdi-edit {
+    height: 26px;
+    width: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font16);
+    color: var(--blue);
+    margin: 5px;
+    border-radius: 100px;
+    background-color: var(--bluish-white);
+    cursor: pointer;
+} */
+.offer-table tbody td i.zmdi-delete{
+    height: 24px;
+    width: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font16);
+    color: var(--red);
+    margin: 5px;
+    border-radius: 100px;
+    background-color: var(--redish-white);
+    cursor: pointer;
 }
 .document-file .thumbnail .cover svg {
     margin: 15px 10px;
