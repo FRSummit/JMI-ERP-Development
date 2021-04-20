@@ -148,13 +148,13 @@
                         <div class="tab-content">
                             <!------------ Start Product Basic Tab Content Area ------------>
                             <div id="tab-basic" class="tab-pane active">
-                                <div class="tab-content-header">
+                                <!-- <div class="tab-content-header">
                                     <h5>Product Information</h5>
                                     <div class="btn-group">
                                         <button class="btn btn-primary btn-save" @click="saveBtnClickHandler" role="button">Save</button>
                                         <a class="btn-edit btn-active" @click="editBtnClickHandler"><i class="zmdi zmdi-edit"></i></a>
                                     </div>
-                                </div>
+                                </div> -->
                                 <form class="inner-scroll">
                                     <div class="row">
                                         <div class="col-lg-9 form-group">
@@ -266,7 +266,7 @@
                                     <div class="col-lg-3">
                                         <div class="attribute-list">
                                             <div class="attribute-list-header">
-                                                <h5>Detail Attributes</h5>
+                                                <h5>Manage Attributes</h5>
                                                 <a class="menu" data-toggle="modal" data-target="#manage-attribute-modal"><i class="fa fa-list"></i></a>
                                             </div>
 
@@ -429,7 +429,8 @@
                             <!------------ Start Pricing Tab Content Area ------------>
                             <div id="tab-pricing" class="tab-pane">
                                 <div class="tab-content-header">
-                                    <h5>Product Information</h5>
+                                    <!-- <h5>Product Information</h5> -->
+                                    <h5></h5>
                                     <div class="btn-group">
                                         <button class="btn btn-primary btn-save hide" role="button">Save</button>
                                         <a class="btn-edit btn-active" data-toggle="modal" data-target=".edit-price-modal" @click="updateProdPriceEditBtnClickHandler"><i class="zmdi zmdi-edit"></i></a>
@@ -493,31 +494,31 @@
                                 <div class="row">
                                     <div class="col-lg-3 form-group">
                                         <label for="trade_price">Trade Price</label>
-                                        <input type="number" v-model="prod_price_tab_trade_price" class="form-control" id="trade_price" placeholder="Enter Trade Price">
+                                        <input type="number" v-model="prod_price_tab_trade_price" class="form-control" id="trade_price" placeholder="Enter Trade Price" readonly>
                                     </div>
                                     <div class="col-lg-3 form-group">
                                         <label for="manufacture_price">Manufacture Price</label>
-                                        <input type="number" v-model="prod_price_tab_manufacture_price" class="form-control" id="manufacture_price" placeholder="Enter Manufacture Price">
+                                        <input type="number" v-model="prod_price_tab_manufacture_price" class="form-control" id="manufacture_price" placeholder="Enter Manufacture Price" readonly>
                                     </div>
                                     <div class="col-lg-3 form-group">
                                         <label for="maximum_retail_price">Maximum Retail Price</label>
-                                        <input type="number" v-model="prod_price_tab_max_retail_price" class="form-control" id="maximum_retail_price" placeholder="Enter Maximum Retail Price">
+                                        <input type="number" v-model="prod_price_tab_max_retail_price" class="form-control" id="maximum_retail_price" placeholder="Enter Maximum Retail Price" readonly>
                                     </div>
                                     <div class="col-lg-3 form-group">
                                         <label for="maximum_trade_price">Maximum Trade Price</label>
-                                        <input type="number" v-model="prod_price_tab_max_trade_price" class="form-control" id="maximum_trade_price" placeholder="Enter Maximum Trade Price">
+                                        <input type="number" v-model="prod_price_tab_max_trade_price" class="form-control" id="maximum_trade_price" placeholder="Enter Maximum Trade Price" readonly>
                                     </div>
                                     <div class="col-lg-3 form-group">
                                         <label for="minimum_trade_price">Minimum Trade Price</label>
-                                        <input type="number" v-model="prod_price_tab_min_trade_price" class="form-control" id="minimum_trade_price" placeholder="Enter Minimum Trade Price">
+                                        <input type="number" v-model="prod_price_tab_min_trade_price" class="form-control" id="minimum_trade_price" placeholder="Enter Minimum Trade Price" readonly>
                                     </div>
                                     <div class="col-lg-3 form-group">
                                         <label for="vat">Vat</label>
-                                        <input type="number" v-model="prod_price_tab_vat" min="0" max="100" class="form-control" id="vat" placeholder="Enter Vat">
+                                        <input type="number" v-model="prod_price_tab_vat" min="0" max="100" class="form-control" id="vat" placeholder="Enter Vat" readonly>
                                     </div>
                                     <div class="col-lg-3 form-group">
                                         <label for="vat_ptc">Vat PTC</label>
-                                        <input type="number" v-model="prod_price_tab_vat_pct" class="form-control" id="vat_ptc" placeholder="Enter Vat PTC">
+                                        <input type="number" v-model="prod_price_tab_vat_pct" class="form-control" id="vat_ptc" placeholder="Enter Vat PTC" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -526,7 +527,8 @@
                             <!------------ Start Offers Tab Content Area ------------>
                             <div id="tab-offers" class="tab-pane">
                                 <div class="tab-content-header">
-                                    <h5>Offers</h5>
+                                    <!-- <h5>Offers</h5> -->
+                                    <h5></h5>
                                     <div class="btn-group">
                                         <button class="btn btn-primary btn-create" data-toggle="modal" data-target=".create-offer-modal" role="button" @click="createOfferBtnClickHandler"><i class="fa fa-plus" aria-hidden="true" style="margin-right: 4px;"></i> Create Offer</button>
                                     </div>
@@ -536,7 +538,7 @@
                                         <div class="modal-dialog modal-lg modal-dialog-centered" style="margin: 0; max-width: unset;">
                                             <div class="modal-content" style="border: none;">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalCenterTitle">{{ UPDATE_OFFER_ENABLE === false ? 'Create Offer' : 'Update Offer' }}</h5>
+                                                    <h5 class="modal-title" id="exampleModalCenterTitle">{{ UPDATE_OFFER_ENABLE === false ? ( 'Create Offer for ' + (SELECTED_PROD_DETAILS.product_info ? SELECTED_PROD_DETAILS.product_info.prod_name : '') ) : ( 'Update Offer for ' + (SELECTED_PROD_DETAILS.product_info ? SELECTED_PROD_DETAILS.product_info.prod_name : '') ) }}</h5>
                                                     <button type="button" id="offer_tab_close_modal" class="close" data-dismiss="modal" aria-label="Close" @click="offerTabCloseBtnClickHandler">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
@@ -962,8 +964,8 @@
                                 <div class="tab-content-header">
                                     <h5>Documents</h5>
                                     <div class="btn-group">
-                                        <button class="btn btn-primary btn-save" role="button">Save</button>
-                                        <button class="btn btn-primary btn-save" data-toggle="modal" data-target=".upload-document-file-modal" role="button">Upload</button>
+                                        <!-- <button class="btn btn-primary btn-save" role="button">Save</button> -->
+                                        <button class="btn btn-primary btn-save" data-toggle="modal" data-target=".upload-document-file-modal" role="button" @click="openDocumentUploadModalClickHandler">Upload</button>
                                         <!-- <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a> -->
                                     </div>
                                     <div id="upload_document_file_modal" class="modal upload-document-file-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="width: 70%;">
@@ -971,19 +973,26 @@
                                             <div class="modal-content" style="border: none;">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="changePhoto">Upload Document</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="changePhotoModalCloseClickHandler" style="width: 50px;">
+                                                    <button type="button" id="docs_modal_close_btn" class="close" data-dismiss="modal" aria-label="Close" @click="documentModalCloseClickHandler" style="width: 50px;">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
                                                 <form class="modal-body">
                                                     <div class="form-group">
-                                                        <input type="file" class="form-control-file" style="padding-top: 7px;">
+                                                        <input type="file" @change="imageChooseEventHandler($event)" accept="image/x-png,image/gif,image/jpeg" class="form-control-file" style="padding-top: 7px;">
                                                     </div>
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control-file" id="file-title" placeholder="Enter title">
+                                                        <p class="jmi-lvl" style="float: unset;">Select file type</p>
+                                                        <!-- <span class="right-icon"><i class="fas fa-chevron-right"></i></span> -->
+                                                        <select title="Pick a customer" class="selectpicker" v-model="document_file_type_on_change" @change="onChangeFileTypeDropdown()">
+                                                            <option v-for="(file, m) in DOCUMENT_FILE_TYPE_LIST" :key="m" :value="file.id">{{ file.element_name }}</option>
+                                                        </select>
                                                     </div>
                                                     <div class="form-group">
-                                                        <textarea class="form-control" id="file-description" rows="3" placeholder="Enter Description"></textarea>
+                                                        <input v-model="prod_document_upload_title" type="text" class="form-control-file" id="file-title" placeholder="Enter title">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <textarea v-model="prod_document_upload_description" class="form-control" id="file-description" rows="3" placeholder="Enter Description"></textarea>
                                                     </div>
                                                 </form>
                                                 <div class="modal-footer justify-content-center">
@@ -1258,6 +1267,15 @@ export default {
             // PRICE ALGO FROM LEADER
 
             OFFER_EDITING_SELECTED_OFFER_ID: null,
+
+            // DOCUMENTS
+            UPLOADED_IMAGE_NAME: null,
+            UPLOADED_IMAGE_DATA_BASE_64: null,
+            prod_document_upload_title: null,
+            prod_document_upload_description: null,
+
+            document_file_type_on_change: null,
+            DOCUMENT_FILE_TYPE_LIST: null,
 
             // CONFIRMATION MODAL
             confirmation_popup_modal: false,
@@ -1772,10 +1790,10 @@ export default {
             }
             console.log(this.CREATE_OFFER_TYPE)
         },
-        offerTabCloseBtnClickHandler() {
-            if(document.getElementById('modal_create_offer_modal').style.display === 'block') {
-                document.getElementById('modal_create_offer_modal').style.display = 'none'
-            }
+        documentModalCloseClickHandler() {
+            // if(document.getElementById('docs_modal_close_btn').style.display === 'block') {
+            //     document.getElementById('docs_modal_close_btn').style.display = 'none'
+            // }
         },
         updateOfferClickHandler() {
             // let offer_details = {
@@ -1897,8 +1915,44 @@ export default {
         // Offers Tab Content Area Ends
         // -----------------------------------------------------------------------------------------
         // Document Tab Content Area Ends
+        openDocumentUploadModalClickHandler() {
+            this.LOAD_FILE_TYPE__FROM_SERVICE()
+        },
+        imageChooseEventHandler(event) {
+            this.UPLOADED_IMAGE_NAME = null
+            this.UPLOADED_IMAGE_DATA_BASE_64 = null
+            let file = event.target.files[0]
+            this.UPLOADED_IMAGE_NAME = event.target.files[0].name
+            let reader = new FileReader();
+            reader.onloadend = () => {
+                this.UPLOADED_IMAGE_DATA_BASE_64 = reader.result
+            }
+            reader.readAsDataURL(file)
+        },
         uploadDocumentFileClickHandler() {
             console.log('uploadDocumentFileClickHandler')
+            // this.UPLOAD_NEW_PROD_DOCUMENT__FROM_SERVICE()
+            let path = 'No path'
+            console.log(this.UPLOADED_IMAGE_DATA_BASE_64)
+            console.log(this.prod_document_upload_title)
+            console.log(this.prod_document_upload_description)
+            console.log(this.UPLOADED_IMAGE_NAME)
+            console.log(path)
+
+            let prod_docs_details = {
+                base64_encoded_file : this.UPLOADED_IMAGE_DATA_BASE_64,
+                object_type         : this.document_file_type_on_change,
+                file_title          : this.prod_document_upload_title,
+                file_description    : this.prod_document_upload_description,
+                file_original_name  : this.UPLOADED_IMAGE_NAME,
+                file_upload_path    : '/customers/docs/'
+            }
+            this.UPLOAD_NEW_PROD_DOCUMENT__FROM_SERVICE(prod_docs_details)
+        },
+        offerTabCloseBtnClickHandler() {
+            if(document.getElementById('modal_create_offer_modal').style.display === 'block') {
+                document.getElementById('modal_create_offer_modal').style.display = 'none'
+            }
         },
         // Document Tab Content Area Ends
         // -----------------------------------------------------------------------------------------
@@ -1975,7 +2029,8 @@ export default {
 
             jmiFilter.searchById_LeftSidebar(filter, list, txt_selector)
         },
-        // ---------------------------------------------------------------------------
+        // ------------------------------------------------------------------------------------------------------------------------------------------------------
+        // ------------------------------------------------------------------------------------------------------------------------------------------------------
         // SERVICE CALL
         async SEARCH_PRODUCT_DATA_LIST__FROM_SERVICE() {
             this.PRODUCTS_LIST = [];
@@ -2232,6 +2287,49 @@ export default {
                         alert('Product offer remove problem : ' + err)
                         // this.prod_creating_progressbar = true
                         this.prod_creating_progressbar_msg = err
+                        setTimeout( () => {
+                            this.prod_creating_progressbar = false
+                            this.prod_creating_progressbar_msg = null
+                        }, 1000)
+                    }
+                })
+        },
+        async LOAD_FILE_TYPE__FROM_SERVICE() {
+            await service.getElementListByCode_Deliveries()
+                .then(res => {
+                    console.log(res.data)
+                    this.DOCUMENT_FILE_TYPE_LIST = res.data.element_list
+                    this.document_file_type_on_change = this.DOCUMENT_FILE_TYPE_LIST[0].id
+                })
+        },
+        async UPLOAD_NEW_PROD_DOCUMENT__FROM_SERVICE(prod_docs_details) {
+            this.prod_creating_progressbar = true
+            this.prod_creating_progressbar_msg = 'Please wait...'
+
+            await service.getUploadNewProdDocument_PRODUCTS_DETAILS(this.SELECTED_PROD_DETAILS.prod_id, prod_docs_details)
+                .then(res => {
+                    console.log(res.data)
+                    if(res.data.response_code === 200 || res.data.response_code === 201) {
+                        this.prod_creating_progressbar_msg = res.data.message
+                        document.getElementById('docs_modal_close_btn').click()
+                        setTimeout( () => {
+                            this.prod_creating_progressbar = false
+                            this.prod_creating_progressbar_msg = null
+                        }, 1000)
+                    } else {
+                        this.prod_creating_progressbar_msg = res.data.message
+                        setTimeout( () => {
+                            this.prod_creating_progressbar = false
+                            this.prod_creating_progressbar_msg = null
+                        }, 1000)
+                    }
+                })
+                .catch(err => {
+                    if(err) {
+                        console.log(err)
+                        alert('Product offer remove problem : ' + err)
+                        this.prod_creating_progressbar_msg = err
+                        document.getElementById('docs_modal_close_btn').click()
                         setTimeout( () => {
                             this.prod_creating_progressbar = false
                             this.prod_creating_progressbar_msg = null
