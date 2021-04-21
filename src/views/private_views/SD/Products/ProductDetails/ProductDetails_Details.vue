@@ -798,7 +798,7 @@
                             <!------------ Start Competitors Tab Content Area ------------>    
                             <div id="tab-competitors" class="tab-pane">
                                 <div class="tab-content-header">
-                                    <h5>Competitors</h5>
+                                    <h5></h5>
                                     <div class="btn-group">
                                         <button class="btn btn-primary btn-save"  role="button">Save</button>
                                         <a class="btn-edit btn-active" ><i class="zmdi zmdi-edit"></i></a>
@@ -938,7 +938,7 @@
                             <!------------ Start Ledger Tab Content Area ------------> 
                             <div id="tab-ledger" class="tab-pane">
                                 <div class="tab-content-header">
-                                    <h5>Ledger</h5>
+                                    <h5></h5>
                                     <div class="btn-group">
                                         <button class="btn btn-primary btn-save"  role="button">Save</button>
                                         <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
@@ -950,7 +950,7 @@
                             <!------------ Start Stock Position Tab Content Area ------------> 
                             <div id="tab-stock-position" class="tab-pane ">
                                 <div class="tab-content-header">
-                                    <h5>Stock Position</h5>
+                                    <h5></h5>
                                     <div class="btn-group">
                                         <button class="btn btn-primary btn-save"  role="button">Save</button>
                                         <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
@@ -962,7 +962,7 @@
                             <!------------ Start Documents Tab Content Area ------------> 
                             <div id="tab-documents" class="tab-pane ">
                                 <div class="tab-content-header">
-                                    <h5>Documents</h5>
+                                    <h5></h5>
                                     <div class="btn-group">
                                         <!-- <button class="btn btn-primary btn-save" role="button">Save</button> -->
                                         <button class="btn btn-primary btn-save" data-toggle="modal" data-target=".upload-document-file-modal" role="button" @click="openDocumentUploadModalClickHandler">Upload</button>
@@ -1007,8 +1007,119 @@
                                 <div class="documents-scroll inner-scroll">
                                     <div class="row">
 
+                                        
+                                        <div class="col-lg-3 col-md-4 col-12" v-for="(item, i) in SELECTED_PROD_DOCS_DETAILS" :key="i">
+                                            <!-- PHOTO -->
+                                            <div class="document-file" v-if="parseInt(item.blob_info.object_type) === 131">
+                                                <div class="thumbnail">
+                                                    <div class="view">
+                                                        <i class="view-btn fa fa-eye"></i>
+                                                    </div>
+                                                    <div class="cover">
+                                                        <img alt="image" class="img-responsive" src="../../../../../assets/images/products/documents.jpg">
+                                                    </div>
+                                                </div>
+                                                <div class="file-name">
+                                                    <div>
+                                                        <p>{{ item.doc_title }}</p>
+                                                        <small>Created : {{ prodDateFormatT4(item.created_at) }}</small>
+                                                    </div>
+                                                    <div class="action-btn">
+                                                        <i class="zmdi zmdi-download"></i>
+                                                        <i class="zmdi zmdi-delete"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- SCANNED DOCUMENT -->
+                                            <div class="document-file" v-if="parseInt(item.blob_info.object_type) === 132">
+                                                <div class="thumbnail">
+                                                    <div class="view">
+                                                        <i class="view-btn fa fa-eye"></i>
+                                                    </div>
+                                                    <div class="cover"> -->
+                                                        <!-- <i class="fa fa-file-pdf-o"></i> -->
+                                                        <i class="zmdi zmdi-collection-pdf"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="file-name">
+                                                    <div>
+                                                        <p>Document 2021.doc</p>
+                                                        <small>Added: April 14, 2021</small>
+                                                    </div>
+                                                    <div class="action-btn">
+                                                        <i class="zmdi zmdi-download"></i>
+                                                        <i class="zmdi zmdi-delete"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- WORD DOCUMENT -->
+                                            <div class="document-file" v-if="parseInt(item.blob_info.object_type) === 133">
+                                                <div class="thumbnail">
+                                                    <div class="view">
+                                                        <i class="view-btn fa fa-eye"></i>
+                                                    </div>
+                                                    <div class="cover">
+                                                        <i class="fa fa-file"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="file-name">
+                                                    <div>
+                                                        <p>Document 2021.doc</p>
+                                                        <small>Added: April 14, 2021</small>
+                                                    </div>
+                                                    <div class="action-btn">
+                                                        <i class="zmdi zmdi-download"></i>
+                                                        <i class="zmdi zmdi-delete"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- EXCEL DOCUMENT -->
+                                            <div class="document-file" v-if="parseInt(item.blob_info.object_type) === 134">
+                                                <div class="thumbnail">
+                                                    <div class="view">
+                                                        <i class="view-btn fa fa-eye"></i>
+                                                    </div>
+                                                    <div class="cover">
+                                                        <i class="fa fa-file"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="file-name">
+                                                    <div>
+                                                        <p>Document 2021.doc</p>
+                                                        <small>Added: April 14, 2021</small>
+                                                    </div>
+                                                    <div class="action-btn">
+                                                        <i class="zmdi zmdi-download"></i>
+                                                        <i class="zmdi zmdi-delete"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- PDF DOCUMENT -->
+                                            <div class="document-file" v-if="parseInt(item.blob_info.object_type) === 135">
+                                                <div class="thumbnail">
+                                                    <div class="view">
+                                                        <i class="view-btn fa fa-eye"></i>
+                                                    </div>
+                                                    <div class="cover"> -->
+                                                        <!-- <i class="fa fa-file-pdf-o"></i> -->
+                                                        <i class="zmdi zmdi-collection-pdf"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="file-name">
+                                                    <div>
+                                                        <p>Document 2021.doc</p>
+                                                        <small>Added: April 14, 2021</small>
+                                                    </div>
+                                                    <div class="action-btn">
+                                                        <i class="zmdi zmdi-download"></i>
+                                                        <i class="zmdi zmdi-delete"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <!-- File -->
-                                        <div class="col-lg-3 col-md-4 col-12">
+                                        <!-- <div class="col-lg-3 col-md-4 col-12">
                                             <div class="document-file">
                                                 <div class="thumbnail">
                                                     <div class="view">
@@ -1029,18 +1140,18 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         
                                         <!-- Chart -->
-                                        <div class="col-lg-3 col-md-4 col-12">
+                                        <!-- <div class="col-lg-3 col-md-4 col-12">
                                             <div class="document-file">
                                                 <div class="thumbnail">
                                                     <div class="view">
                                                         <i class="view-btn fa fa-eye"></i>
                                                     </div>
-                                                    <div class="cover">
+                                                    <div class="cover"> -->
                                                         <!-- <i class="fa fa-bar-chart"></i> -->
-                                                        <i class="zmdi zmdi-chart"></i>
+                                                        <!-- <i class="zmdi zmdi-chart"></i>
                                                     </div>
                                                 </div>
                                                 <div class="file-name">
@@ -1054,18 +1165,18 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         
                                         <!-- PDF -->
-                                        <div class="col-lg-3 col-md-4 col-12">
+                                        <!-- <div class="col-lg-3 col-md-4 col-12">
                                             <div class="document-file">
                                                 <div class="thumbnail">
                                                     <div class="view">
                                                         <i class="view-btn fa fa-eye"></i>
                                                     </div>
-                                                    <div class="cover">
+                                                    <div class="cover"> -->
                                                         <!-- <i class="fa fa-file-pdf-o"></i> -->
-                                                        <i class="zmdi zmdi-collection-pdf"></i>
+                                                        <!-- <i class="zmdi zmdi-collection-pdf"></i>
                                                     </div>
                                                 </div>
                                                 <div class="file-name">
@@ -1079,10 +1190,10 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         
                                         <!-- IMAGE -->
-                                        <div class="col-lg-3 col-md-4 col-12">
+                                        <!-- <div class="col-lg-3 col-md-4 col-12">
                                             <div class="document-file">
                                                 <div class="thumbnail">
                                                     <div class="view">
@@ -1103,7 +1214,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         
                                     </div>
                                 </div>
@@ -1161,6 +1272,7 @@ export default {
                 "SELECTED_PROD_ATTRIBUTES_DETAILS", 
                 "SELECTED_PROD_PRICE_DETAILS", 
                 "SELECTED_PROD_OFFER_DETAILS",
+                "SELECTED_PROD_DOCS_DETAILS",
                 "ALL_PRODS_LIST_IN_DB"
             ],
     components: {
@@ -1915,6 +2027,12 @@ export default {
         // Offers Tab Content Area Ends
         // -----------------------------------------------------------------------------------------
         // Document Tab Content Area Ends
+        setProductDocsTabContentArea(prod_docs) {
+            console.log(prod_docs)
+        },
+        prodDateFormatT4(dt) {
+            return globalDateFormat.dateFormatT4(dt)
+        },
         openDocumentUploadModalClickHandler() {
             this.LOAD_FILE_TYPE__FROM_SERVICE()
         },
@@ -2363,6 +2481,12 @@ export default {
                 // if(newVal.length === undefined) {
                     this.setProductOfferTabContentArea(newVal)
                 // }
+            }
+        },
+        SELECTED_PROD_DOCS_DETAILS(newVal) {
+            if(newVal) {
+                console.log(newVal)
+                this.setProductDocsTabContentArea(newVal)
             }
         },
         prod_offer_now_price_d(newVal) {
