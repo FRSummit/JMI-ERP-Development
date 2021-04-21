@@ -64,7 +64,7 @@
                                 <span class="sr-add-icon" @click="srAddIconClickHandler"><i class="zmdi zmdi-plus"></i></span>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-6 col-sm-12 right_side_row"><p class="delivery-dt"><span class="jmi-lvl" style="font-size: 15px;">Delivery:</span> <span class="jmi-lvl-value"><input type="date" id="expected-delivery-date" placeholder="09/12/2020"/></span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-12 right_side_row"><p class="delivery-dt"><span class="jmi-lvl" style="font-size: 15px;">Delivery:</span> <span class="jmi-lvl-value"><input type="date" v-model="delivery_dt" id="expected-delivery-date" placeholder="09/12/2020"/></span></p></div>
                     </div>
                     <!-- <div class="row"> -->
                         <!-- <div class="col-lg-3 col-md-6 col-sm-12"><p class="delivery-dt"><span class="jmi-lvl">Exp D D:</span> <span class="jmi-lvl-value"><input type="date" id="expected-delivery-date" placeholder="09/12/2020"/></span></p></div> -->
@@ -159,12 +159,12 @@
                                     <td style="width: 15%;">{{ Number(discount_total).toFixed(2) }}</td>
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
-                                <!-- <tr class="subtotal bottom-total">
+                                <tr class="subtotal bottom-total" v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">
                                     <td style="width: 50%;"></td>
-                                    <td style="width: 25%;">(+/-) Rounding Adjustment</td>
-                                    <td style="width: 15%;">{{ Number(rounding_adjustment).toFixed(2) }}</td>
+                                    <td style="width: 25%;">(-) SP Discount</td>
+                                    <td style="width: 15%;">{{ Number(special_discount).toFixed(2) }}</td>
                                     <td style="width: 10%; min-width: 70px;"></td>
-                                </tr> -->
+                                </tr>
                                 <tr class="grand-total bottom-total" style="border-top: 1px solid #BFCFE2;" v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">
                                     <td style="width: 50%;"></td>
                                     <td style="width: 25%;">Grand Total</td>
@@ -382,6 +382,7 @@ export default {
             sr_add_modal: false,
             selected_sr: null,
             customer_comment: null,
+            delivery_dt: null,
             order_table_header: ["Name", "Unit Price", "Quantity", "Discount", "Total Price"],
             ORDERED_TABLE_DATA__INIT_LIST: [],
             ORDERED_TABLE_DATA__MODIFIED_LIST: [],
@@ -422,7 +423,7 @@ export default {
             vat_total: 0.00,
             discount_total: 0.00,
             gross_total: 0.00,
-            rounding_adjustment: 0.00,
+            special_discount: 0.00,
             grand_total: 0.00,
             UPDATE_BTN_TRUE: false,
             UPDATE_ORDER_CLICKED: false,
@@ -776,6 +777,22 @@ export default {
                     }
         },
         // ------------------------------------------------------------------------------------------
+        // SPECIAL DISCOUNT
+        CHECK_SPECIAL_DISCOUNT(prod_list) {
+            let regular_prods_line_total = null
+            console.log(prod_list.length)
+            console.log(this.ORDERED_TABLE_DATA__INIT_LIST.length)
+            for(let i=0; i<prod_list.length; i++) {
+                console.log(prod_list[i].is_regular_product)
+                if(prod_list[i].is_regular_product === 'Y') {
+                    regular_prods_line_total += this.ORDERED_TABLE_DATA__INIT_LIST[i].base_tp * this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity
+                    console.log(regular_prods_line_total)
+                }
+            }
+            console.log(regular_prods_line_total)
+            this.CHECK_ORDER_OFFER_SPECIAL_DISCOUNT__FROM_SERVICE(regular_prods_line_total)
+        },
+        // ------------------------------------------------------------------------------------------
         // Service Implementation
         async ADD_PRODUCTS_DATA_LIST__FROM_SERVICE() {
             await service.getSearchProductDataList_CreateOrderDetailsSection()
@@ -876,6 +893,21 @@ export default {
                 .catch(err => {
                     if(err) {
                         console.log('Server Problem 500. Please hit again.')
+                    }
+                })
+            this.CHECK_SPECIAL_DISCOUNT(this.RESPONSE_ORDERED_PRODUCTS__STORE)
+        },
+        async CHECK_ORDER_OFFER_SPECIAL_DISCOUNT__FROM_SERVICE(regular_prods_line_total) {
+            let date = this.delivery_dt ? this.delivery_dt : new Date()
+            await service.getGetOrderOffer_Special_Discount_OrderApproval(regular_prods_line_total, date)
+                .then(res => {
+                    console.log(res.data)
+                    this.special_discount = res.data.discount_data.discounted_tk
+                    this.createSubtotalCalculation()
+                })
+                .catch(err => {
+                    if(err) {
+                        console.log(err)
                     }
                 })
         },
@@ -985,7 +1017,7 @@ export default {
                 this.discount_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].base_tp * this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity) - (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].price_now_per_qty) * this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity)
             }
             this.gross_total = this.sub_total + this.vat_total
-            this.grand_total = this.sub_total + this.vat_total - this.discount_total
+            this.grand_total = this.sub_total + this.vat_total - this.discount_total - this.special_discount
         },
         // -------------------------------------------------------
         async GENERATE_ORDERED_PRODUCTS_DETAILS_LIST_FROM_PRODUCT_OFFER_RESPONSE() {
@@ -1154,7 +1186,7 @@ export default {
                 this.vat_total = 0.00
                 this.discount_total = 0.00
                 this.gross_total = 0.00
-                this.rounding_adjustment = 0.00
+                this.special_discount = 0.00
                 this.grand_total = 0.00
 
         },
@@ -1230,6 +1262,9 @@ export default {
                 }
             }
         },
+        // ORDERED_TABLE_DATA__INIT_LIST(newVal) {
+
+        // }
     }
 }
 </script>

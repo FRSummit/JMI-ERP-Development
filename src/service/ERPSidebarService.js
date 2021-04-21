@@ -527,17 +527,22 @@ export default class PostService {
     })
   }
 
-  // // ORDER APPROVAL - SPECIAL DISCOUNT - DETAILS SECTION
-  // async getGetOrderDetails_Special_Discount_OrderApproval_INVOICE(order_id) {
-  //   console.log(order_id)
-  //   let web_menu_url = '/api/mobile/get-order-details/' + order_id
-  //   return await axios(web_menu_url, {
-  //     method: 'GET',
-  //     headers: {
-  //       'Authorization': token_type + ' ' + token
-  //     },
-  //   })
-  // }
+  // ORDER APPROVAL - SPECIAL DISCOUNT - DETAILS SECTION
+  async getGetOrderOffer_Special_Discount_OrderApproval(prods_line_total, date) {
+    console.log(prods_line_total)
+    console.log(date)
+    let web_menu_url = '/api/mobile/get-order-offer'
+    return await axios(web_menu_url, {
+      method: 'POST',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+      params: {
+        order_date  : date,
+        amount      : prods_line_total
+      }
+    })
+  }
 
   // // CREATE ORDER - SR LIST LOAD
   // getSearchProductDataList_CreateOrderDetailsSection() {
