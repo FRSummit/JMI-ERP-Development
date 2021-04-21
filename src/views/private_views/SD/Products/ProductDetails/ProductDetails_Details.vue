@@ -727,29 +727,6 @@
                                 </div>
 
                                 <table class="table offer-table">
-                                    <!-- <thead>
-                                        <tr>
-                                            <th scope="col">SL No</th>
-                                            <th scope="col">OFFER TYPE</th>
-                                            <th scope="col">DISCOUNT</th>
-                                            <th scope="col">DISCOUNT PERIOD</th>
-                                            <th scope="col">STATUS</th>
-                                            <th scope="col">ACTION</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr v-for="(item, i) in OFFERS_LIST" :key="i">
-                                            <td>{{ i + 1 }}</td>
-                                            <td>{{ item.offer_type }}</td>
-                                            <td>{{ item.offer_dis_pct }}</td>
-                                            <td>{{ item.offer_discount_period }}</td>
-                                            <td><p class="status" :class="item.offer_status === 'Active' ? 'active' : 'inactive'"> <i class="fa fa-square mr-1" aria-hidden="true"></i>{{ item.offer_status === 'Active' ? 'Active' : 'Inactive' }}</p></td>
-                                            <td class="action-btn">
-                                                <span><a class="btn-edit btn-active" style="width: 20px; border-radius: 50%; cursor: pointer;" @click="offerEditClickHandler(item, i)"><i class="zmdi zmdi-edit"></i></a></span>
-                                                <span class="active fa fa-arrow-up" data-toggle="tooltip" data-placement="bottom" title="Active"></span>
-                                            </td>
-                                        </tr>
-                                    </tbody> -->
                                     <thead>
                                         <tr>
                                             <th scope="col">Offer Type</th>
@@ -781,7 +758,8 @@
                                             <td>{{ item.offer_discount_period }}</td>
 
                                             <!-- <td><p class="status" :class="item.offer_status === 'Active' ? 'active' : 'inactive'"> <i class="fa fa-square mr-1" aria-hidden="true"></i>{{ item.offer_status === 'Active' ? 'Active' : 'Inactive' }}</p></td> -->
-                                            <td><input type="checkbox" :checked="item.is_active === 'Y' ? true : false"></td>
+                                            <!-- <td><input type="checkbox" :checked="item.is_active === 'Y' ? true : false"></td> -->
+                                            <td><span :class="createTableStatusClass(item)"><i class="zmdi zmdi-check-square"></i></span></td>
                                             <td class="action-btn">
                                                 <span><a class="btn-edit btn-active" style="width: 20px; border-radius: 50%; cursor: pointer;" @click="offerEditClickHandler(item, i)"><i class="zmdi zmdi-edit"></i></a></span>
                                                 <!-- <span @click="offerEditClickHandler(item, i)"><i class="zmdi zmdi-edit"></i></span> -->
@@ -1585,6 +1563,16 @@ export default {
                     }
                 }
             }
+        },
+        createTableStatusClass(item) {
+            console.log(item)
+            if( (new Date(item.valid_until).getTime() > new Date().getTime()) && parseInt(item.status) === 1) {
+                return 'active'
+            } else {
+                return 'deactive'
+            }
+            // console.log(item)
+            // return ''
         },
         checkOfferType(offer) {
             let offer_name = null
@@ -2603,6 +2591,19 @@ button.modal-prod-save-btn:hover {
 .offer-table tbody td input[type="checkbox"]:not(:checked), 
 .offer-table tbody td input[type="checkbox"]:checked {
     pointer-events: none !important;
+}
+
+.offer-table tbody td span i.zmdi-check-square {
+    font-size: 16px;
+    color: var(--blue);
+}
+
+.offer-table tbody td span.active i.zmdi-check-square {
+    color: var(--blue);
+}
+
+.offer-table tbody td span.deactive i.zmdi-check-square {
+    color: #6c757d;
 }
 
 /* .offer-table tbody td i.zmdi-edit {
