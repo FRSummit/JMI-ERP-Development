@@ -527,6 +527,23 @@ export default class PostService {
     })
   }
 
+  // ORDER APPROVAL - SPECIAL DISCOUNT - DETAILS SECTION
+  async getGetOrderOffer_Special_Discount_OrderApproval(prods_line_total, date) {
+    console.log(prods_line_total)
+    console.log(date)
+    let web_menu_url = '/api/mobile/get-order-offer'
+    return await axios(web_menu_url, {
+      method: 'POST',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+      params: {
+        order_date  : date,
+        amount      : prods_line_total
+      }
+    })
+  }
+
   // // CREATE ORDER - SR LIST LOAD
   // getSearchProductDataList_CreateOrderDetailsSection() {
   //   let web_menu_url = '/api/web/dic-wise-users'
@@ -1095,8 +1112,8 @@ export default class PostService {
         'Authorization': token_type + ' ' + token
       },
       params: {
-        prod_id: prod_id,
-        prod_class_id: prod_class_id
+        prod_id       : prod_id,
+        prod_class_id : prod_class_id
       }
     })
   }
@@ -1123,21 +1140,23 @@ export default class PostService {
         'Authorization': token_type + ' ' + token
       },
       params: {
-        offer_type: offer_details.offer_type,
-        min_qty: offer_details.min_qty,
-        start_date: offer_details.start_date,
-        valid_until: offer_details.valid_until,
+        offer_type    : offer_details.offer_type,
+        min_qty       : offer_details.min_qty,
+        start_date    : offer_details.start_date,
+        valid_until   : offer_details.valid_until,
         // Percentage
-        discount_pct: offer_details.discount_pct,
+        discount_pct  : offer_details.discount_pct,
         // Discount
-        discount_tp: offer_details.discount_tp,
+        price_now     : offer_details.price_now,
+        for_qty       : offer_details.min_qty,
+        discount_tp   : offer_details.discount_tp,
         // Bonus
-        bonus_on: offer_details.bonus_on,
-        bonus_qty: offer_details.bonus_qty,
+        bonus_on      : offer_details.bonus_on,
+        bonus_qty     : offer_details.bonus_qty,
         // Free
-        free_req_qty: offer_details.free_req_qty,
-        free_prod_id: offer_details.free_prod_id,
-        free_prod_qty: offer_details.free_prod_qty
+        free_req_qty  : offer_details.free_req_qty,
+        free_prod_id  : offer_details.free_prod_id,
+        free_prod_qty : offer_details.free_prod_qty
       }
     })
   }
@@ -1158,53 +1177,102 @@ export default class PostService {
   }
 
   // PRODUCT - PRODUCT DETAILS - UPDATE PROD PRICE
-  async getUpdateProdPrice_PRODUCTS_DETAILS(prod_id, prod_price_dtl) {
+  async getUpdateProdPrice_PRODUCTS_DETAILS(id, prod_id, prod_price_dtl) {
+    console.log(id)
     console.log(prod_id)
     console.log(prod_price_dtl)
-    let web_menu_url = '/api/web/update-prod-price/' + prod_id
+    let web_menu_url = '/api/web/update-prod-price/' + id
     return await axios(web_menu_url, {
       method: 'POST',
       headers: {
         'Authorization': token_type + ' ' + token
       },
       params: {
-        base_tp: prod_price_dtl.base_tp,
-        manufacture_price: prod_price_dtl.manufacture_price,
-        base_mrp: prod_price_dtl.base_mrp,
-        max_tp: prod_price_dtl.max_tp,
-        min_base_tp: prod_price_dtl.min_base_tp,
-        base_vat: prod_price_dtl.base_vat,
-        vat_pct: prod_price_dtl.vat_pct
+        // id: id,
+        // base_tp: prod_price_dtl.base_tp,
+        // manufacture_price: prod_price_dtl.manufacture_price,
+        // base_mrp: prod_price_dtl.base_mrp,
+        // max_tp: prod_price_dtl.max_tp,
+        // min_base_tp: prod_price_dtl.min_base_tp,
+        // base_vat: prod_price_dtl.base_vat,
+        // vat_pct: prod_price_dtl.vat_pct
+
+        // id: id,
+        trade_price         : prod_price_dtl.base_tp,
+        manufacture_price   : prod_price_dtl.manufacture_price,
+        maximum_retail_price: prod_price_dtl.base_mrp,
+        // minimum_trade_price: prod_price_dtl.max_tp,
+        minimum_trade_price : prod_price_dtl.min_base_tp,
+        // min_base_tp      : prod_price_dtl.min_base_tp,
+        vat                 : prod_price_dtl.base_vat,
+        vat_pct             : prod_price_dtl.vat_pct
       }
     })
   }
 
-  // PRODUCT - PRODUCT DETAILS - CREATE OFFER
-  async getUpdateProdOffer_PRODUCTS_DETAILS(prod_id, offer_details) {
+  // PRODUCT - PRODUCT DETAILS - UPDATE OFFER
+  async getUpdateProdOffer_PRODUCTS_DETAILS(id, prod_id, offer_details) {
+    console.log(id)
     console.log(prod_id)
     console.log(offer_details)
-    let web_menu_url = '/api/web/update-prod-offer/' + prod_id
+    // let web_menu_url = '/api/web/update-prod-offer/' + prod_id
+    let web_menu_url = '/api/web/update-prod-offer/' + id
     return await axios(web_menu_url, {
       method: 'POST',
       headers: {
         'Authorization': token_type + ' ' + token
       },
-      params: {
-        offer_type: offer_details.offer_type,
-        min_qty: offer_details.min_qty,
-        start_date: offer_details.start_date,
-        valid_until: offer_details.valid_until,
+      data: {
+        offer_type    : offer_details.offer_type,
+        min_qty       : offer_details.min_qty,
+        start_date    : offer_details.start_date,
+        valid_until   : offer_details.valid_until,
         // Percentage
-        discount_pct: offer_details.discount_pct,
+        discount_pct  : offer_details.discount_pct,
         // Discount
-        discount_tp: offer_details.discount_tp,
+        price_now     : offer_details.price_now,
+        for_qty       : offer_details.min_qty,
+        discount_tp   : offer_details.discount_tp,
         // Bonus
-        bonus_on: offer_details.bonus_on,
-        bonus_qty: offer_details.bonus_qty,
+        bonus_on      : offer_details.bonus_on,
+        bonus_qty     : offer_details.bonus_qty,
         // Free
-        free_req_qty: offer_details.free_req_qty,
-        free_prod_id: offer_details.free_prod_id,
-        free_prod_qty: offer_details.free_prod_qty
+        free_req_qty  : offer_details.free_req_qty,
+        free_prod_id  : offer_details.free_prod_id,
+        free_prod_qty : offer_details.free_prod_qty
+      }
+    })
+  }
+
+  // PRODUCT - PRODUCT DETAILS - DELETE PRODUCT OFFER BY ID
+  async getDeleteProdOffer_PRODUCTS_DETAILS(id) {
+    console.log(id)
+    let web_menu_url = '/api/web/delete-prod-offer/' + id
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+    })
+  }
+
+  // PRODUCT - PRODUCT DETAILS - UPLOAD DOCUMENT FILE
+  async getUploadNewProdDocument_PRODUCTS_DETAILS(prod_id, prod_docs_details) {
+    console.log(prod_id)
+    console.log(prod_docs_details)
+    let web_menu_url = '/api/web/upload-new-prod-document/' + prod_id
+    return await axios(web_menu_url, {
+      method: 'POST',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+      data: {
+        base64_encoded_file : prod_docs_details.base64_encoded_file,
+        object_type         : prod_docs_details.object_type,
+        file_title          : prod_docs_details.file_title,
+        file_description    : prod_docs_details.file_description,
+        file_original_name  : prod_docs_details.file_original_name,
+        file_upload_path    : prod_docs_details.file_upload_path
       }
     })
   }

@@ -19,22 +19,22 @@
                         <!-- Start Change Photo Modal -->
                             <div class="modal" id="change-photo" tabindex="-1" role="dialog" aria-labelledby="changePhoto" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                    <h5 class="modal-title" id="changePhoto">Change Photo</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="changePhotoModalCloseClickHandler" style="width: 50px;">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    </div>
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="changePhoto">Change Photo</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="changePhotoModalCloseClickHandler" style="width: 50px;">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
                                         <form class="modal-body">
                                             <div class="form-group">
-                                            <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                                                <input type="file" class="form-control-file" id="exampleFormControlFile1">
                                             </div>
                                         </form>
-                                    <div class="modal-footer justify-content-center">
-                                        <button type="button" class="btn btn-primary" @click="changePhotoSaveBtnClickHandler">Save Changes</button>
+                                        <div class="modal-footer justify-content-center">
+                                            <button type="button" class="btn btn-primary" @click="changePhotoSaveBtnClickHandler">Save Changes</button>
+                                        </div>
                                     </div>
-                                </div>
                                 </div>
                             </div>
                             <!-- Start Change Photo Modal -->
@@ -148,13 +148,13 @@
                         <div class="tab-content">
                             <!------------ Start Product Basic Tab Content Area ------------>
                             <div id="tab-basic" class="tab-pane active">
-                                <div class="tab-content-header">
+                                <!-- <div class="tab-content-header">
                                     <h5>Product Information</h5>
                                     <div class="btn-group">
                                         <button class="btn btn-primary btn-save" @click="saveBtnClickHandler" role="button">Save</button>
                                         <a class="btn-edit btn-active" @click="editBtnClickHandler"><i class="zmdi zmdi-edit"></i></a>
                                     </div>
-                                </div>
+                                </div> -->
                                 <form class="inner-scroll">
                                     <div class="row">
                                         <div class="col-lg-9 form-group">
@@ -266,7 +266,7 @@
                                     <div class="col-lg-3">
                                         <div class="attribute-list">
                                             <div class="attribute-list-header">
-                                                <h5>Detail Attributes</h5>
+                                                <h5>Manage Attributes</h5>
                                                 <a class="menu" data-toggle="modal" data-target="#manage-attribute-modal"><i class="fa fa-list"></i></a>
                                             </div>
 
@@ -429,7 +429,8 @@
                             <!------------ Start Pricing Tab Content Area ------------>
                             <div id="tab-pricing" class="tab-pane">
                                 <div class="tab-content-header">
-                                    <h5>Product Information</h5>
+                                    <!-- <h5>Product Information</h5> -->
+                                    <h5></h5>
                                     <div class="btn-group">
                                         <button class="btn btn-primary btn-save hide" role="button">Save</button>
                                         <a class="btn-edit btn-active" data-toggle="modal" data-target=".edit-price-modal" @click="updateProdPriceEditBtnClickHandler"><i class="zmdi zmdi-edit"></i></a>
@@ -493,31 +494,31 @@
                                 <div class="row">
                                     <div class="col-lg-3 form-group">
                                         <label for="trade_price">Trade Price</label>
-                                        <input type="number" v-model="prod_price_tab_trade_price" class="form-control" id="trade_price" placeholder="Enter Trade Price">
+                                        <input type="number" v-model="prod_price_tab_trade_price" class="form-control" id="trade_price" placeholder="Enter Trade Price" readonly>
                                     </div>
                                     <div class="col-lg-3 form-group">
                                         <label for="manufacture_price">Manufacture Price</label>
-                                        <input type="number" v-model="prod_price_tab_manufacture_price" class="form-control" id="manufacture_price" placeholder="Enter Manufacture Price">
+                                        <input type="number" v-model="prod_price_tab_manufacture_price" class="form-control" id="manufacture_price" placeholder="Enter Manufacture Price" readonly>
                                     </div>
                                     <div class="col-lg-3 form-group">
                                         <label for="maximum_retail_price">Maximum Retail Price</label>
-                                        <input type="number" v-model="prod_price_tab_max_retail_price" class="form-control" id="maximum_retail_price" placeholder="Enter Maximum Retail Price">
+                                        <input type="number" v-model="prod_price_tab_max_retail_price" class="form-control" id="maximum_retail_price" placeholder="Enter Maximum Retail Price" readonly>
                                     </div>
                                     <div class="col-lg-3 form-group">
                                         <label for="maximum_trade_price">Maximum Trade Price</label>
-                                        <input type="number" v-model="prod_price_tab_max_trade_price" class="form-control" id="maximum_trade_price" placeholder="Enter Maximum Trade Price">
+                                        <input type="number" v-model="prod_price_tab_max_trade_price" class="form-control" id="maximum_trade_price" placeholder="Enter Maximum Trade Price" readonly>
                                     </div>
                                     <div class="col-lg-3 form-group">
                                         <label for="minimum_trade_price">Minimum Trade Price</label>
-                                        <input type="number" v-model="prod_price_tab_min_trade_price" class="form-control" id="minimum_trade_price" placeholder="Enter Minimum Trade Price">
+                                        <input type="number" v-model="prod_price_tab_min_trade_price" class="form-control" id="minimum_trade_price" placeholder="Enter Minimum Trade Price" readonly>
                                     </div>
                                     <div class="col-lg-3 form-group">
                                         <label for="vat">Vat</label>
-                                        <input type="number" v-model="prod_price_tab_vat" min="0" max="100" class="form-control" id="vat" placeholder="Enter Vat">
+                                        <input type="number" v-model="prod_price_tab_vat" min="0" max="100" class="form-control" id="vat" placeholder="Enter Vat" readonly>
                                     </div>
                                     <div class="col-lg-3 form-group">
                                         <label for="vat_ptc">Vat PTC</label>
-                                        <input type="number" v-model="prod_price_tab_vat_pct" class="form-control" id="vat_ptc" placeholder="Enter Vat PTC">
+                                        <input type="number" v-model="prod_price_tab_vat_pct" class="form-control" id="vat_ptc" placeholder="Enter Vat PTC" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -526,7 +527,8 @@
                             <!------------ Start Offers Tab Content Area ------------>
                             <div id="tab-offers" class="tab-pane">
                                 <div class="tab-content-header">
-                                    <h5>Offers</h5>
+                                    <!-- <h5>Offers</h5> -->
+                                    <h5></h5>
                                     <div class="btn-group">
                                         <button class="btn btn-primary btn-create" data-toggle="modal" data-target=".create-offer-modal" role="button" @click="createOfferBtnClickHandler"><i class="fa fa-plus" aria-hidden="true" style="margin-right: 4px;"></i> Create Offer</button>
                                     </div>
@@ -536,7 +538,7 @@
                                         <div class="modal-dialog modal-lg modal-dialog-centered" style="margin: 0; max-width: unset;">
                                             <div class="modal-content" style="border: none;">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalCenterTitle">Create Offer</h5>
+                                                    <h5 class="modal-title" id="exampleModalCenterTitle">{{ UPDATE_OFFER_ENABLE === false ? ( 'Create Offer for ' + (SELECTED_PROD_DETAILS.product_info ? SELECTED_PROD_DETAILS.product_info.prod_name : '') ) : ( 'Update Offer for ' + (SELECTED_PROD_DETAILS.product_info ? SELECTED_PROD_DETAILS.product_info.prod_name : '') ) }}</h5>
                                                     <button type="button" id="offer_tab_close_modal" class="close" data-dismiss="modal" aria-label="Close" @click="offerTabCloseBtnClickHandler">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
@@ -549,10 +551,15 @@
                                                                 <option :value="null" selected>Select an option</option>
                                                                 <!-- <option v-for="(item, i) in OFFERS" :key="i" :value="item.name"><span v-if="OFFERS_LIST[i].offer_name !== item.name">{{ item.name }}</span></option> -->
                                                                 <option v-for="(item, i) in OFFERS" :key="i" :value="item.name">
-                                                                    <span v-for="(offer, j) in OFFERS_LIST" :key="j">
-                                                                        <!-- <span v-if="offer.offer_name !== item.name">{{ item.name }}</span> -->
-                                                                        <span>{{ item.name }}</span>
+                                                                    <!-- <span v-if="OFFERS_LIST.length ? true : false">
+                                                                        <span v-for="(offer, j) in OFFERS_LIST" :key="j">
+                                                                            <span>{{ item.name }}</span>
+                                                                        </span>
                                                                     </span>
+                                                                    <span v-else>
+                                                                        <span>{{ item.name }}</span>
+                                                                    </span> -->
+                                                                    <span>{{ item.name }}</span>
                                                                 </option>
                                                             </select>
                                                         </div>
@@ -579,7 +586,7 @@
                                                     <!-- Percentage Discount -->
                                                     <!-- <div class="row" id="percentage_discount" style="display: none;"> -->
                                                     <div class="row hide" id="percentage_discount">
-                                                        <div class="col-12"><h5>Percentage Discount</h5><hr></div>
+                                                        <div class="col-12 hide"><h5>Percentage Discount</h5><hr></div>
                                                         <div class="col-lg-4 form-group">
                                                             <label for="quantity">Minimum Buy QTY</label>
                                                             <div class="input-group">
@@ -604,7 +611,7 @@
                                                     <!-- Fixed Discount -->
                                                     <!-- <div class="row" id="fixed_discount" style="display: none;"> -->
                                                     <div class="row hide" id="fixed_discount">
-                                                        <div class="col-12"><h5>Fixed Discount</h5><hr></div>
+                                                        <div class="col-12 hide"><h5>Fixed Discount</h5><hr></div>
                                                         <div class="col-lg-4 form-group">
                                                             <label for="offer_name">Now Price</label>
                                                             <div class="input-group">
@@ -614,7 +621,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg-3 form-group">
+                                                        <div class="col-lg-4 form-group">
                                                             <label for="offer_name">For</label>
                                                             <div class="input-group">
                                                                 <input v-model="prod_offer_for_d" type="number" class="form-control" placeholder="" aria-describedby="addon1" required>
@@ -624,10 +631,9 @@
                                                                 <!-- <button type="button" class="btn btn-primary btn-global" style="position: absolute; bottom: 20px;">Save Flat Rate</button> -->
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg-2 form-group">
-                                                            <!-- <button type="button" class="btn btn-primary btn-global" style="position: absolute; bottom: 20px;">Save Flat Rate</button> -->
+                                                        <!-- <div class="col-lg-2 form-group">
                                                             <button type="button" class="btn btn-primary btn-global" style="position: absolute; bottom: 20px; background-color: #495057;">Save Flat Rate</button>
-                                                        </div>
+                                                        </div> -->
                                                         <div class="col-lg-4 form-group">
                                                             <label for="offer_name">Minimum Buy QTY</label>
                                                             <div class="input-group">
@@ -651,13 +657,13 @@
                                                     <!-- Bonus Product -->
                                                     <!-- <div class="row" id="bonus_product" style="display: none;"> -->
                                                     <div class="row hide" id="bonus_product">
-                                                        <div class="col-12"><h5>Bonus Product</h5><hr></div>
+                                                        <div class="col-12 hide"><h5>Bonus Product</h5><hr></div>
                                                         <div class="col-lg-4 form-group">
                                                             <label for="offer_name">Minimum Buy QTY</label>
                                                             <div class="input-group">
                                                                 <input v-model="prod_offer_min_qty_b" type="number" class="form-control" placeholder="" aria-describedby="addon1" required>
                                                                 <div class="input-group-append">
-                                                                <span class="input-group-text" id="addon1">{{ prod_offer_pack_size ? prod_offer_pack_size : 'Other' }}</span>
+                                                                    <span class="input-group-text" id="addon1">{{ prod_offer_pack_size ? prod_offer_pack_size : 'Other' }}</span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -666,7 +672,7 @@
                                                             <div class="input-group">
                                                                 <input v-model="prod_offer_bonus_qty_b" type="number" class="form-control" placeholder="" aria-describedby="addon1" required>
                                                                 <div class="input-group-append">
-                                                                <span class="input-group-text" id="addon1">Box</span>
+                                                                    <span class="input-group-text" id="addon1">Box</span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -674,7 +680,7 @@
                                                     <!-- Free Product -->
                                                     <!-- <div class="row" id="free_product" style="display: none;"> -->
                                                     <div class="row hide" id="free_product">
-                                                        <div class="col-12"><h5>Free Product</h5><hr></div>
+                                                        <div class="col-12 hide"><h5>Free Product</h5><hr></div>
                                                         <div class="col-lg-4 form-group">
                                                             <label for="offer_name">Minimum Buy QTY</label>
                                                             <div class="input-group">
@@ -723,26 +729,43 @@
                                 <table class="table offer-table">
                                     <thead>
                                         <tr>
-                                            <th scope="col">SL No</th>
-                                            <th scope="col">OFFER TYPE</th>
-                                            <th scope="col">DISCOUNT</th>
-                                            <th scope="col">DISCOUNT PERIOD</th>
-                                            <th scope="col">STATUS</th>
-                                            <!-- <th scope="col">CREATED BY</th> -->
-                                            <th scope="col">ACTION</th>
+                                            <th scope="col">Offer Type</th>
+                                            <th scope="col">Min Qty</th>
+                                            <th scope="col">Disc(%)</th>
+                                            <th scope="col">Disc(TP)</th>
+                                            <th scope="col">Bonus On</th>
+                                            <th scope="col">Bonus Qty</th>
+                                            <th scope="col">Free Required Qty</th>
+                                            <th scope="col">Free Prod</th>
+                                            <th scope="col">Free Qty</th>
+                                            <th scope="col">Discount Period</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr v-for="(item, i) in OFFERS_LIST" :key="i">
-                                            <td>{{ i + 1 }}</td>
-                                            <td>{{ item.offer_type }}</td>
-                                            <td>{{ item.offer_dis_pct }}</td>
+                                            <td>{{ checkOfferType_Short(item.offer_type) }}</td>
+                                            <td>{{ item.min_qty }}</td>
+                                            <td>{{ item.discount_pct }}</td>
+                                            <td>{{ item.discount_tp }}</td>
+                                            <td>{{ item.bonus_on }}</td>
+                                            <td>{{ item.bonus_qty }}</td>
+                                            <td>{{ item.free_req_qty }}</td>
+                                            <td>{{ getProdNameById(item.free_prod_id) }}</td>
+                                            <td>{{ item.free_prod_qty }}</td>
+
                                             <td>{{ item.offer_discount_period }}</td>
-                                            <td><p class="status" :class="item.offer_status === 'Active' ? 'active' : 'inactive'"> <i class="fa fa-square mr-1" aria-hidden="true"></i>{{ item.offer_status === 'Active' ? 'Active' : 'Inactive' }}</p></td>
-                                            <!-- <td>{{ item.offer_created_by }}</td> -->
+
+                                            <!-- <td><p class="status" :class="item.offer_status === 'Active' ? 'active' : 'inactive'"> <i class="fa fa-square mr-1" aria-hidden="true"></i>{{ item.offer_status === 'Active' ? 'Active' : 'Inactive' }}</p></td> -->
+                                            <!-- <td><input type="checkbox" :checked="item.is_active === 'Y' ? true : false"></td> -->
+                                            <td><span :class="createTableStatusClass(item)"><i class="zmdi zmdi-check-square"></i></span></td>
                                             <td class="action-btn">
                                                 <span><a class="btn-edit btn-active" style="width: 20px; border-radius: 50%; cursor: pointer;" @click="offerEditClickHandler(item, i)"><i class="zmdi zmdi-edit"></i></a></span>
-                                                <span class="active fa fa-arrow-up" data-toggle="tooltip" data-placement="bottom" title="Active"></span>
+                                                <!-- <span @click="offerEditClickHandler(item, i)"><i class="zmdi zmdi-edit"></i></span> -->
+                                                
+                                                <!-- <span class="active fa fa-arrow-up" data-toggle="tooltip" data-placement="bottom" title="Active"></span> -->
+                                                <i class="zmdi zmdi-delete" @click="offerDeleteClickHandler(item, i)"></i>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -753,7 +776,7 @@
                             <!------------ Start Competitors Tab Content Area ------------>    
                             <div id="tab-competitors" class="tab-pane">
                                 <div class="tab-content-header">
-                                    <h5>Competitors</h5>
+                                    <h5></h5>
                                     <div class="btn-group">
                                         <button class="btn btn-primary btn-save"  role="button">Save</button>
                                         <a class="btn-edit btn-active" ><i class="zmdi zmdi-edit"></i></a>
@@ -890,34 +913,291 @@
                             </div>
                             <!------------ End Competitors Tab Content Area ------------>  
 
+                            <!------------ Start Ledger Tab Content Area ------------> 
                             <div id="tab-ledger" class="tab-pane">
                                 <div class="tab-content-header">
-                                    <h5>Ledger</h5>
+                                    <h5></h5>
                                     <div class="btn-group">
                                         <button class="btn btn-primary btn-save"  role="button">Save</button>
                                         <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
                                     </div>
                                 </div> 
                             </div>
+                            <!------------ End Ledger Tab Content Area ------------> 
                                 
+                            <!------------ Start Stock Position Tab Content Area ------------> 
                             <div id="tab-stock-position" class="tab-pane ">
                                 <div class="tab-content-header">
-                                    <h5>Stock Position</h5>
+                                    <h5></h5>
                                     <div class="btn-group">
                                         <button class="btn btn-primary btn-save"  role="button">Save</button>
                                         <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
                                     </div>
                                 </div>
                             </div>
+                            <!------------ End Stock Position Tab Content Area ------------> 
+
+                            <!------------ Start Documents Tab Content Area ------------> 
                             <div id="tab-documents" class="tab-pane ">
                                 <div class="tab-content-header">
-                                    <h5>Documents</h5>
+                                    <h5></h5>
                                     <div class="btn-group">
-                                        <button class="btn btn-primary btn-save"  role="button">Save</button>
-                                        <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
+                                        <!-- <button class="btn btn-primary btn-save" role="button">Save</button> -->
+                                        <button class="btn btn-primary btn-save" data-toggle="modal" data-target=".upload-document-file-modal" role="button" @click="openDocumentUploadModalClickHandler">Upload</button>
+                                        <!-- <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a> -->
+                                    </div>
+                                    <div id="upload_document_file_modal" class="modal upload-document-file-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="width: 70%;">
+                                        <div class="modal-dialog modal-lg modal-dialog-centered" style="margin: 0; max-width: unset;">
+                                            <div class="modal-content" style="border: none;">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="changePhoto">Upload Document</h5>
+                                                    <button type="button" id="docs_modal_close_btn" class="close" data-dismiss="modal" aria-label="Close" @click="documentModalCloseClickHandler" style="width: 50px;">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <form class="modal-body">
+                                                    <div class="form-group">
+                                                        <input type="file" @change="imageChooseEventHandler($event)" accept="image/x-png,image/gif,image/jpeg" class="form-control-file" style="padding-top: 7px;">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <p class="jmi-lvl" style="float: unset;">Select file type</p>
+                                                        <!-- <span class="right-icon"><i class="fas fa-chevron-right"></i></span> -->
+                                                        <select title="Pick a customer" class="selectpicker" v-model="document_file_type_on_change" @change="onChangeFileTypeDropdown()">
+                                                            <option v-for="(file, m) in DOCUMENT_FILE_TYPE_LIST" :key="m" :value="file.id">{{ file.element_name }}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input v-model="prod_document_upload_title" type="text" class="form-control-file" id="file-title" placeholder="Enter title">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <textarea v-model="prod_document_upload_description" class="form-control" id="file-description" rows="3" placeholder="Enter Description"></textarea>
+                                                    </div>
+                                                </form>
+                                                <div class="modal-footer justify-content-center">
+                                                    <button type="button" class="btn btn-primary btn-save blue" @click="uploadDocumentFileClickHandler">Upload</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!------------ End Create Offer Modal------------>
+                                </div>
+
+                                <div class="documents-scroll inner-scroll">
+                                    <div class="row">
+
+                                        
+                                        <div class="col-lg-3 col-md-4 col-12" v-for="(item, i) in SELECTED_PROD_DOCS_DETAILS" :key="i">
+                                            <!-- PHOTO -->
+                                            <div class="document-file" v-if="parseInt(item.blob_info.object_type) === 131">
+                                                <div class="thumbnail">
+                                                    <div class="view">
+                                                        <i class="view-btn fa fa-eye"></i>
+                                                    </div>
+                                                    <div class="cover">
+                                                        <img alt="image" class="img-responsive" src="../../../../../assets/images/products/documents.jpg">
+                                                    </div>
+                                                </div>
+                                                <div class="file-name">
+                                                    <div>
+                                                        <p>{{ item.doc_title }}</p>
+                                                        <small>Created : {{ prodDateFormatT4(item.created_at) }}</small>
+                                                    </div>
+                                                    <div class="action-btn">
+                                                        <i class="zmdi zmdi-download"></i>
+                                                        <i class="zmdi zmdi-delete"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- SCANNED DOCUMENT -->
+                                            <div class="document-file" v-if="parseInt(item.blob_info.object_type) === 132">
+                                                <div class="thumbnail">
+                                                    <div class="view">
+                                                        <i class="view-btn fa fa-eye"></i>
+                                                    </div>
+                                                    <div class="cover">
+                                                        <!-- <i class="fa fa-file-pdf-o"></i> -->
+                                                        <i class="zmdi zmdi-collection-pdf"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="file-name">
+                                                    <div>
+                                                        <p>{{ item.doc_title }}</p>
+                                                        <small>Created : {{ prodDateFormatT4(item.created_at) }}</small>
+                                                    </div>
+                                                    <div class="action-btn">
+                                                        <i class="zmdi zmdi-download"></i>
+                                                        <i class="zmdi zmdi-delete"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- WORD DOCUMENT -->
+                                            <div class="document-file" v-if="parseInt(item.blob_info.object_type) === 133">
+                                                <div class="thumbnail">
+                                                    <div class="view">
+                                                        <i class="view-btn fa fa-eye"></i>
+                                                    </div>
+                                                    <div class="cover">
+                                                        <i class="fa fa-file"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="file-name">
+                                                    <div>
+                                                        <p>{{ item.doc_title }}</p>
+                                                        <small>Created : {{ prodDateFormatT4(item.created_at) }}</small>
+                                                    </div>
+                                                    <div class="action-btn">
+                                                        <i class="zmdi zmdi-download"></i>
+                                                        <i class="zmdi zmdi-delete"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- EXCEL DOCUMENT -->
+                                            <div class="document-file" v-if="parseInt(item.blob_info.object_type) === 134">
+                                                <div class="thumbnail">
+                                                    <div class="view">
+                                                        <i class="view-btn fa fa-eye"></i>
+                                                    </div>
+                                                    <div class="cover">
+                                                        <i class="fa fa-file"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="file-name">
+                                                    <div>
+                                                        <p>{{ item.doc_title }}</p>
+                                                        <small>Created : {{ prodDateFormatT4(item.created_at) }}</small>
+                                                    </div>
+                                                    <div class="action-btn">
+                                                        <i class="zmdi zmdi-download"></i>
+                                                        <i class="zmdi zmdi-delete"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- PDF DOCUMENT -->
+                                            <div class="document-file" v-if="parseInt(item.blob_info.object_type) === 135">
+                                                <div class="thumbnail">
+                                                    <div class="view">
+                                                        <i class="view-btn fa fa-eye"></i>
+                                                    </div>
+                                                    <div class="cover">
+                                                        <!-- <i class="fa fa-file-pdf-o"></i> -->
+                                                        <i class="zmdi zmdi-collection-pdf"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="file-name">
+                                                    <div>
+                                                        <p>{{ item.doc_title }}</p>
+                                                        <small>Created : {{ prodDateFormatT4(item.created_at) }}</small>
+                                                    </div>
+                                                    <div class="action-btn">
+                                                        <i class="zmdi zmdi-download"></i>
+                                                        <i class="zmdi zmdi-delete"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- File -->
+                                        <!-- <div class="col-lg-3 col-md-4 col-12">
+                                            <div class="document-file">
+                                                <div class="thumbnail">
+                                                    <div class="view">
+                                                        <i class="view-btn fa fa-eye"></i>
+                                                    </div>
+                                                    <div class="cover">
+                                                        <i class="fa fa-file"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="file-name">
+                                                    <div>
+                                                        <p>Document 2021.doc</p>
+                                                        <small>Added: April 14, 2021</small>
+                                                    </div>
+                                                    <div class="action-btn">
+                                                        <i class="zmdi zmdi-download"></i>
+                                                        <i class="zmdi zmdi-delete"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                        
+                                        <!-- Chart -->
+                                        <!-- <div class="col-lg-3 col-md-4 col-12">
+                                            <div class="document-file">
+                                                <div class="thumbnail">
+                                                    <div class="view">
+                                                        <i class="view-btn fa fa-eye"></i>
+                                                    </div>
+                                                    <div class="cover"> -->
+                                                        <!-- <i class="fa fa-bar-chart"></i> -->
+                                                        <!-- <i class="zmdi zmdi-chart"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="file-name">
+                                                    <div>
+                                                        <p>Document 2021.doc</p>
+                                                        <small>Added: April 14, 2021</small>
+                                                    </div>
+                                                    <div class="action-btn">
+                                                        <i class="zmdi zmdi-download"></i>
+                                                        <i class="zmdi zmdi-delete"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                        
+                                        <!-- PDF -->
+                                        <!-- <div class="col-lg-3 col-md-4 col-12">
+                                            <div class="document-file">
+                                                <div class="thumbnail">
+                                                    <div class="view">
+                                                        <i class="view-btn fa fa-eye"></i>
+                                                    </div>
+                                                    <div class="cover"> -->
+                                                        <!-- <i class="fa fa-file-pdf-o"></i> -->
+                                                        <!-- <i class="zmdi zmdi-collection-pdf"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="file-name">
+                                                    <div>
+                                                        <p>Document 2021.doc</p>
+                                                        <small>Added: April 14, 2021</small>
+                                                    </div>
+                                                    <div class="action-btn">
+                                                        <i class="zmdi zmdi-download"></i>
+                                                        <i class="zmdi zmdi-delete"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                        
+                                        <!-- IMAGE -->
+                                        <!-- <div class="col-lg-3 col-md-4 col-12">
+                                            <div class="document-file">
+                                                <div class="thumbnail">
+                                                    <div class="view">
+                                                        <i class="view-btn fa fa-eye"></i>
+                                                    </div>
+                                                    <div class="cover">
+                                                        <img alt="image" class="img-responsive" src="../../../../../assets/images/products/documents.jpg">
+                                                    </div>
+                                                </div>
+                                                <div class="file-name">
+                                                    <div>
+                                                        <p>Document 2021.doc</p>
+                                                        <small>Added: April 14, 2021</small>
+                                                    </div>
+                                                    <div class="action-btn">
+                                                        <i class="zmdi zmdi-download"></i>
+                                                        <i class="zmdi zmdi-delete"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                        
                                     </div>
                                 </div>
                             </div>
+                            <!------------ End Documents Tab Content Area ------------> 
                         </div>
                     </div>
                 </div>
@@ -930,6 +1210,23 @@
                 <div id="progressbar" class="jmi-progressbar">
                     <v-progress-circular indeterminate color="primary"></v-progress-circular>
                     <p>{{ prod_creating_progressbar_msg ? prod_creating_progressbar_msg : 'Product creating inprogress' }}</p>
+                </div>
+            </div>
+        </div>
+        <!-- Delete Product Offer -->
+        <div class="modal-popup-section order-proceed-modal" v-if="confirmation_popup_modal">
+            <div class="modal-popup-section-inner order-proceed-modal-inner">
+                <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
+                <p class="popup-text">{{ confirmation_popup_modal_title }}</p>
+                <p class="popup-desc">{{ confirmation_popup_modal_description }}</p>
+                <span class="divider"></span>
+                <div class="popup-submit-section">
+                <div class="popup-cancel-btn-section">
+                    <span @click="cancelConfirmationPopupModalClickHandler">Cancel</span>
+                </div>
+                <div class="popup-confirm-btn-section">
+                    <span @click="confirmConfirmationPopupModalClickHandler">Confirm</span>
+                </div>
                 </div>
             </div>
         </div>
@@ -953,6 +1250,7 @@ export default {
                 "SELECTED_PROD_ATTRIBUTES_DETAILS", 
                 "SELECTED_PROD_PRICE_DETAILS", 
                 "SELECTED_PROD_OFFER_DETAILS",
+                "SELECTED_PROD_DOCS_DETAILS",
                 "ALL_PRODS_LIST_IN_DB"
             ],
     components: {
@@ -1057,6 +1355,24 @@ export default {
             ALGO_DISCOUNT_TP: null,
             ALGO_CHEMIST_PROFIT: null,
             // PRICE ALGO FROM LEADER
+
+            OFFER_EDITING_SELECTED_OFFER_ID: null,
+
+            // DOCUMENTS
+            UPLOADED_IMAGE_NAME: null,
+            UPLOADED_IMAGE_DATA_BASE_64: null,
+            prod_document_upload_title: null,
+            prod_document_upload_description: null,
+
+            document_file_type_on_change: null,
+            DOCUMENT_FILE_TYPE_LIST: null,
+
+            // CONFIRMATION MODAL
+            confirmation_popup_modal: false,
+            confirmation_popup_modal_for: null,
+            confirmation_popup_modal_title: null,
+            confirmation_popup_modal_description: null,
+            CONFIRMATION_POPUP_MODAL_DATA: null,
         }
     },
     computed: {},
@@ -1171,7 +1487,14 @@ export default {
             offers.push(prod_offer_details.fixed_discount)
             offers.push(prod_offer_details.free_product)
             offers.push(prod_offer_details.percentage_discount)
-
+            // console.log(prod_offer_details)
+            console.log(offers)
+            // for(let i=0; i<prod_offer_details.length; i++) {
+            //     for(let j=0; j<prod_offer_details[i].length; j++) {
+            //         offers.push(prod_offer_details[i][j])
+            //     }
+            // }
+            // console.log(offers)
             this.OFFERS_LIST = []
             console.log(Object.keys(prod_offer_details))
             // for(let i=0; i<Object.keys(prod_offer_details).length; i++) {
@@ -1180,24 +1503,76 @@ export default {
                 // let objName = Object.keys(prod_offer_details)[i]
                 // console.log(prod_offer_details.Object.keys(prod_offer_details)[i])
 
-                console.log(offers[i].length)
-                if(offers[i].length === undefined) {
-                    let offer = {
-                        // offer_name: this.checkOfferType(Object.keys(prod_offer_details)[i]),
-                        // offer_type: this.checkOfferType(Object.keys(prod_offer_details)[i]),
-                        offer_type: this.checkOfferType(offers[i].offer_type),
-                        offer_dis_pct: offers[i].discount_pct,
-                        offer_discount_period: globalDateFormat.dateFormatT4(offers[i].start_date) + ' - ' + globalDateFormat.dateFormatT4(offers[i].valid_until),
-                        offer_status: offers[i].is_active === 'Y' ? 'Active' : 'Inactive',
-                        offer_created_by: 'Dummy',
-                        offer_is_present: offers[i].min_qty ? offers[i].min_qty : null
-                    }
-                    if(offer.offer_is_present) {
-                        this.OFFERS_LIST.push(offer)
+                // if(offers[i].length === undefined) {
+                for(let j=0; j<offers[i].length; j++) {
+                    // if(offers[i].status) {
+                        console.log(offers[i][j].id)
+                        let offer = {
+                            // offer_name: this.checkOfferType(Object.keys(prod_offer_details)[i]),
+                            // offer_type: this.checkOfferType(Object.keys(prod_offer_details)[i]),
+                            // offer_type: this.checkOfferType(offers[i].offer_type),
+
+                            // offer_dis_pct: offers[i].discount_pct,
+                            offer_discount_period: globalDateFormat.dateFormatT4(offers[i][j].start_date) + ' - ' + globalDateFormat.dateFormatT4(offers[i][j].valid_until),
+                            // offer_status: offers[i].is_active === 'Y' ? 'Active' : 'Inactive',
+                            // offer_created_by: 'Dummy',
+                            // offer_is_present: offers[i].min_qty ? offers[i].min_qty : null,
+
+
+                            // COMMON
+                            id          : offers[i][j].id ? offers[i][j].id : null,
+                            is_active   : offers[i][j].is_active ? offers[i][j].is_active : null,
+                            min_qty     : offers[i][j].min_qty ? offers[i][j].min_qty : null,
+                            offer_type  : offers[i][j].offer_type ? offers[i][j].offer_type : null,
+                            start_date  : offers[i][j].start_date ? offers[i][j].start_date : null,
+                            status      : offers[i][j].status ? offers[i][j].status : null,
+                            valid_until : offers[i][j].valid_until ? offers[i][j].valid_until : null,
+
+
+                            // PERCENTAGE
+                            discount_pct    :  offers[i][j].discount_pct ? offers[i][j].discount_pct : null,
+
+                            // FIXED DISCOUNT
+                            discount_tp: offers[i][j].discount_tp ? offers[i][j].discount_tp : null,
+
+                            // BONUS
+                            bonus_on    : offers[i][j].bonus_on ? offers[i][j].bonus_on : null,
+                            bonus_qty   : offers[i][j].bonus_qty ? offers[i][j].bonus_qty : null,
+
+                            // FREE
+                            free_prod_id    : offers[i][j].free_prod_id ? offers[i][j].free_prod_id : null,
+                            free_prod_qty   : offers[i][j].free_prod_qty ? offers[i][j].free_prod_qty : null,
+                            free_req_qty    : offers[i][j].free_req_qty ? offers[i][j].free_req_qty : null,
+
+
+                        }
+                        // if(offer.offer_is_present) {
+                            this.OFFERS_LIST.push(offer)
+                        // }
+                    // }
+                }
+            }
+            console.log(this.OFFERS_LIST)
+
+        },
+        getProdNameById(prod_id) {
+            if(prod_id) {
+                for(let i=0; i<this.ALL_PRODS_LIST_IN_DB.length; i++) {
+                    if(parseInt(prod_id) === parseInt(this.ALL_PRODS_LIST_IN_DB[i].prod_id)) {
+                        return this.ALL_PRODS_LIST_IN_DB[i].prod_name
                     }
                 }
             }
-
+        },
+        createTableStatusClass(item) {
+            console.log(item)
+            if( (new Date(item.valid_until).getTime() > new Date().getTime()) && parseInt(item.status) === 1) {
+                return 'active'
+            } else {
+                return 'deactive'
+            }
+            // console.log(item)
+            // return ''
         },
         checkOfferType(offer) {
             let offer_name = null
@@ -1213,6 +1588,26 @@ export default {
                     break
                 case 'percentage_discount': case 'P':
                     offer_name = 'Percentage Discount'
+                    break
+                default:
+                    break
+            }
+            return offer_name
+        },
+        checkOfferType_Short(offer) {
+            let offer_name = null
+            switch(offer) {
+                case 'bonus_discount': case 'B':
+                    offer_name = 'Bonus'
+                    break
+                case 'fixed_discount': case 'D':
+                    offer_name = 'Discount'
+                    break
+                case 'free_product': case 'F':
+                    offer_name = 'Free'
+                    break
+                case 'percentage_discount': case 'P':
+                    offer_name = 'Percentage'
                     break
                 default:
                     break
@@ -1339,12 +1734,13 @@ export default {
             // this.ALGO_DISCOUNT_TP = parseFloat(this.prod_price_tab_trade_price) - parseFloat(this.ALGO_MODIFIED_TP)
             // this.ALGO_CHEMIST_PROFIT = ( parseFloat(this.prod_price_tab_max_retail_price) / parseFloat(this.ALGO_UNIT_PRICE_NOW) ) * 100
             // PRICE ALGO FROM LEADER
-            this.prod_offer_discount_tp_d = this.ALGO_DISCOUNT_TP
+            this.prod_offer_discount_tp_d = Number(this.ALGO_DISCOUNT_TP).toFixed(2)
             // ##########################################
-            let discount_tp = this.prod_offer_discount_tp_d
+            // let price_now = this.prod_offer_now_price_d
+            // let discount_tp = this.prod_offer_discount_tp_d
             // Bonus
-            let bonus_on = this.prod_offer_min_qty_b
-            let bonus_qty = this.prod_offer_bonus_qty_b
+            // let bonus_on = this.prod_offer_min_qty_b
+            // let bonus_qty = this.prod_offer_bonus_qty_b
             // Free
             let free_req_qty = this.prod_offer_min_qty_f
             let free_prod_id = this.free_prod_offer_selected_prod
@@ -1363,6 +1759,7 @@ export default {
                 // Percentage
                 discount_pct: null,
                 // Discount
+                price_now: null,
                 discount_tp: null,
                 // Bonus
                 bonus_on: null,
@@ -1381,18 +1778,21 @@ export default {
                     Object.assign(offer_details, {discount_pct: discount_pct ? discount_pct : null})
                     this.CREATE_NEW_PROD_OFFER__FROM_SERVICE(offer_details)
                 // } else if (offer_type === 'D' && discount_tp !==null && min_qty !== null) {
-                } else if (offer_type === 'D' && discount_tp !==null) {
+                } else if (offer_type === 'D' && this.prod_offer_discount_tp_d !==null) {
                     console.log('D offer created')
+                    Object.assign(offer_details, {price_now: this.prod_offer_now_price_d ? this.prod_offer_now_price_d : null})
                     Object.assign(offer_details, {min_qty: this.prod_offer_for_d ? this.prod_offer_for_d : null})
-                    Object.assign(offer_details, {discount_tp: discount_tp ? discount_tp : null})
+                    Object.assign(offer_details, {discount_tp: this.prod_offer_discount_tp_d ? this.prod_offer_discount_tp_d : null})
                     this.CREATE_NEW_PROD_OFFER__FROM_SERVICE(offer_details)
-                } else if (offer_type === 'B' && bonus_on !==null && bonus_qty !== null) {
+                } else if (offer_type === 'B' && this.prod_offer_min_qty_b !==null && this.prod_offer_bonus_qty_b !== null) {
                     console.log('B offer created')
-                    Object.assign(offer_details, {bonus_on: bonus_on ? bonus_on : null})
-                    Object.assign(offer_details, {bonus_qty: bonus_qty ? bonus_qty : null})
+                    Object.assign(offer_details, {min_qty: this.prod_offer_min_qty_b ? this.prod_offer_min_qty_b : null})
+                    Object.assign(offer_details, {bonus_on: this.prod_offer_min_qty_b ? this.prod_offer_min_qty_b : null})
+                    Object.assign(offer_details, {bonus_qty: this.prod_offer_bonus_qty_b ? this.prod_offer_bonus_qty_b : null})
                     this.CREATE_NEW_PROD_OFFER__FROM_SERVICE(offer_details)
                 } else if (offer_type === 'F' && free_req_qty !==null && free_prod_id !== null && free_prod_qty !== null) {
                     console.log('F offer created')
+                    Object.assign(offer_details, {min_qty: free_req_qty ? free_req_qty : null})
                     Object.assign(offer_details, {free_req_qty: free_req_qty ? free_req_qty : null})
                     Object.assign(offer_details, {free_prod_id: free_prod_id ? free_prod_id : null})
                     Object.assign(offer_details, {free_prod_qty: free_prod_qty ? free_prod_qty : null})
@@ -1407,12 +1807,14 @@ export default {
         },
         // Updating offer
         async offerEditClickHandler(item, index) {
+            this.OFFER_EDITING_SELECTED_OFFER_ID = item.id
             this.closeAllOfferTypeOfferModal()
             console.log(item)
             console.log(index)
             this.UPDATE_OFFER_ENABLE = true
             document.getElementById('modal_create_offer_modal').style.display = 'block'
 
+            console.log(this.SELECTED_PROD_DETAILS.id + '    ' + this.SELECTED_PROD_DETAILS.prod_id)
             await this.GET_OFFER_DETAILS_TO_EDIT__FROM_SERVICE(this.SELECTED_PROD_DETAILS.id, this.SELECTED_PROD_DETAILS.prod_id)
             console.log(this.PROD_OFFER_FROM_SERVICE)
 
@@ -1429,19 +1831,33 @@ export default {
             console.log(dt_range)
             this.range = dt_range
             console.log(this.range)
+
+            // PERCENT
+            this.prod_offer_discount_p = this.PROD_OFFER_FROM_SERVICE.discount_pct
+            // PERCENT
+            
+            // PRICE ALGO FROM LEADER
+            this.ALGO_UNIT_PRICE_NOW = parseFloat(this.prod_offer_now_price_d ? this.prod_offer_now_price_d : 0) / parseFloat(this.prod_offer_for_d)
+            this.ALGO_MODIFIED_TP = parseFloat(this.ALGO_UNIT_PRICE_NOW) - parseFloat(this.prod_price_tab_vat)
+            this.ALGO_DISCOUNT_TP = parseFloat(this.prod_price_tab_trade_price) - parseFloat(this.ALGO_MODIFIED_TP)
+            this.ALGO_CHEMIST_PROFIT = ( parseFloat(this.prod_price_tab_max_retail_price) / parseFloat(this.ALGO_UNIT_PRICE_NOW) ) * 100
+            // PRICE ALGO FROM LEADER
+            this.prod_offer_discount_tp_d = Number(this.ALGO_DISCOUNT_TP).toFixed(2)
         },
         offerEditSetOfferTypeInDropdown(item) {
-            this.offer_type_offers_modal = item.offer_type
+            console.log(this.PROD_OFFER_FROM_SERVICE)
+            // this.offer_type_offers_modal = item.offer_type
             this.prod_offer_minimum_qty = this.PROD_OFFER_FROM_SERVICE.min_qty
 
             switch(item.offer_type) {
-                case "Percentage Discount":
+                case "Percentage Discount": case 'P':
                     document.getElementById('offer_type').selectedIndex = 0
                     this.CREATE_OFFER_TYPE = 'P'
                     this.togglingOnChangeOfferTypeOfferModal('percentage_discount')
                     this.prod_offer_discount_p = item.offer_dis_pct
+                    this.offer_type_offers_modal = "Percentage Discount"
                     break
-                case "Fixed Discount":
+                case "Fixed Discount": case 'D':
                     document.getElementById('offer_type').selectedIndex = 1
                     this.CREATE_OFFER_TYPE = 'D'
                     this.togglingOnChangeOfferTypeOfferModal('fixed_discount')
@@ -1450,56 +1866,201 @@ export default {
                     // this.prod_offer_for_d = null
                     // ##########################################
                     this.prod_offer_discount_tp_d = item.offer_dis_pct
+                    this.offer_type_offers_modal = "Fixed Discount"
                     break
-                case "Bonus Product": case "Bonus Discount":
+                case "Bonus Product": case "Bonus Discount": case 'B':
                     document.getElementById('offer_type').selectedIndex = 2
                     this.CREATE_OFFER_TYPE = 'B'
                     this.togglingOnChangeOfferTypeOfferModal('bonus_product')
                     this.prod_offer_min_qty_b = this.PROD_OFFER_FROM_SERVICE.bonus_on
                     this.prod_offer_bonus_qty_b = this.PROD_OFFER_FROM_SERVICE.bonus_qty
+                    this.offer_type_offers_modal = "Bonus Product"
                     break
-                case "Free Product":
+                case "Free Product": case 'F':
                     document.getElementById('offer_type').selectedIndex = 3
                     this.CREATE_OFFER_TYPE = 'F'
                     this.togglingOnChangeOfferTypeOfferModal('free_product')
                     this.prod_offer_min_qty_f = this.PROD_OFFER_FROM_SERVICE.free_req_qty
                     this.free_prod_offer_selected_prod = this.PROD_OFFER_FROM_SERVICE.free_prod_id
                     this.prod_offer_free_qty_f = this.PROD_OFFER_FROM_SERVICE.free_prod_qty
+                    this.offer_type_offers_modal = "Free Product"
                     break
                 default:
                     break
             }
+            console.log(this.CREATE_OFFER_TYPE)
+        },
+        documentModalCloseClickHandler() {
+            // if(document.getElementById('docs_modal_close_btn').style.display === 'block') {
+            //     document.getElementById('docs_modal_close_btn').style.display = 'none'
+            // }
+        },
+        updateOfferClickHandler() {
+            // let offer_details = {
+            //     offer_type: this.CREATE_OFFER_TYPE ? this.CREATE_OFFER_TYPE : null,
+            //     min_qty: this.prod_offer_minimum_qty ? this.prod_offer_minimum_qty : null,
+            //     start_date: this.range ? globalDateFormat.dateFormatT4(this.range[0]) : null,
+            //     valid_until: this.range ? globalDateFormat.dateFormatT4(this.range[1]) : null,
+            //     // Percentage
+            //     discount_pct: this.prod_offer_discount_p ? this.prod_offer_discount_p : null,
+            //     // Discount
+            //     // ##########################################
+            //     // this.prod_offer_now_price_d = null
+            //     // this.prod_offer_for_d = null
+            //     // ##########################################
+            //     discount_tp: this.prod_offer_discount_tp_d ? this.prod_offer_discount_tp_d : null,
+            //     // Bonus
+            //     bonus_on: this.prod_offer_min_qty_b ? this.prod_offer_min_qty_b : null,
+            //     bonus_qty: this.prod_offer_bonus_qty_b ? this.prod_offer_bonus_qty_b : null,
+            //     // Free
+            //     free_req_qty: this.prod_offer_min_qty_f ? this.prod_offer_min_qty_f : null,
+            //     free_prod_id: this.free_prod_offer_selected_prod ? this.free_prod_offer_selected_prod : null,
+            //     free_prod_qty: this.prod_offer_free_qty_f ? this.prod_offer_free_qty_f : null,
+            // }
+
+            let offer_type = this.CREATE_OFFER_TYPE
+            let min_qty = this.prod_offer_minimum_qty
+            if(!this.range) {
+                alert('Date range is empty')
+            }
+            let start_date = globalDateFormat.dateFormatT4(this.range[0])
+            let valid_until = globalDateFormat.dateFormatT4(this.range[1])
+            
+            // Percent
+            let discount_pct = this.prod_offer_discount_p
+            // Discount
+            this.prod_offer_discount_tp_d = Number(this.ALGO_DISCOUNT_TP).toFixed(2)
+            let discount_tp = this.prod_offer_discount_tp_d
+            // Bonus
+            let bonus_on = this.prod_offer_min_qty_b
+            let bonus_qty = this.prod_offer_bonus_qty_b
+            // Free
+            let free_req_qty = this.prod_offer_min_qty_f
+            let free_prod_id = this.free_prod_offer_selected_prod
+            let free_prod_qty = this.prod_offer_free_qty_f
+            
+
+            console.log(this.CREATE_OFFER_TYPE)
+            let offer_details = {
+                offer_type: offer_type ? offer_type : null,
+                min_qty: min_qty ? min_qty : null,
+                start_date: start_date ? start_date : null,
+                valid_until: valid_until ? valid_until : null,
+                // Percentage
+                discount_pct: null,
+                // Discount
+                discount_tp: null,
+                // Bonus
+                bonus_on: null,
+                bonus_qty: null,
+                // Free
+                free_req_qty: null,
+                free_prod_id: null,
+                free_prod_qty: null,
+            }
+
+            console.log(offer_type)
+            console.log(offer_type + '  ' + min_qty + '  ' + start_date + '  ' + valid_until + '  ' + discount_pct)
+
+            if(offer_type !== null && start_date !== null && valid_until !== null) {
+                if(offer_type === 'P' && discount_pct !== null && min_qty !== null) {
+                    console.log('P offer created')
+                    Object.assign(offer_details, {discount_pct: discount_pct ? discount_pct : null})
+                    this.UPDATE_PROD_OFFER__FROM_SERVICE(offer_details)
+                // } else if (offer_type === 'D' && discount_tp !==null && min_qty !== null) {
+                } else if (offer_type === 'D' && discount_tp !==null) {
+                    console.log('D offer created')
+                    Object.assign(offer_details, {min_qty: this.prod_offer_for_d ? this.prod_offer_for_d : null})
+                    Object.assign(offer_details, {discount_tp: discount_tp ? discount_tp : null})
+                    this.UPDATE_PROD_OFFER__FROM_SERVICE(offer_details)
+                } else if (offer_type === 'B' && bonus_on !==null && bonus_qty !== null) {
+                    console.log('B offer created')
+                    Object.assign(offer_details, {min_qty: bonus_on ? bonus_on : null})
+                    Object.assign(offer_details, {bonus_on: bonus_on ? bonus_on : null})
+                    Object.assign(offer_details, {bonus_qty: bonus_qty ? bonus_qty : null})
+                    this.UPDATE_PROD_OFFER__FROM_SERVICE(offer_details)
+                } else if (offer_type === 'F' && free_req_qty !== null && free_prod_id !== null && free_prod_qty !== null) {
+                    console.log('F offer created')
+                    Object.assign(offer_details, {min_qty: free_req_qty ? free_req_qty : null})
+                    Object.assign(offer_details, {free_req_qty: free_req_qty ? free_req_qty : null})
+                    Object.assign(offer_details, {free_prod_id: free_prod_id ? free_prod_id : null})
+                    Object.assign(offer_details, {free_prod_qty: free_prod_qty ? free_prod_qty : null})
+                    this.UPDATE_PROD_OFFER__FROM_SERVICE(offer_details)
+                } else {
+                    alert('Check your data to create offer is null')
+                }
+            } else {
+                alert('offer_type or min qty or date is null')
+            }
+            // this.UPDATE_PROD_OFFER__FROM_SERVICE(offer_details)
+        },
+        offerDeleteClickHandler(item, i) {
+            console.log('offerDeleteClickHandler : ' + i)
+            console.log(item)
+            // this.DELETE_PROD_OFFER__FROM_SERVICE(item)
+            if(this.confirmation_popup_modal) {
+                this.CONFIRMATION_POPUP_MODAL_DATA = null
+                this.confirmation_popup_modal = false
+                this.confirmation_popup_modal_for = null
+                this.confirmation_popup_modal_title = null
+                this.confirmation_popup_modal_description = null
+            } else {
+                this.CONFIRMATION_POPUP_MODAL_DATA = item
+                this.confirmation_popup_modal = true
+                this.confirmation_popup_modal_for = 'DELETE PROD OFFER'
+                this.confirmation_popup_modal_title = 'Are you sure ?'
+                this.confirmation_popup_modal_description = 'You want to delete this offer.'
+            }
+        },
+        // Offers Tab Content Area Ends
+        // -----------------------------------------------------------------------------------------
+        // Document Tab Content Area Ends
+        setProductDocsTabContentArea(prod_docs) {
+            console.log(prod_docs)
+        },
+        prodDateFormatT4(dt) {
+            return globalDateFormat.dateFormatT4(dt)
+        },
+        openDocumentUploadModalClickHandler() {
+            this.LOAD_FILE_TYPE__FROM_SERVICE()
+        },
+        imageChooseEventHandler(event) {
+            this.UPLOADED_IMAGE_NAME = null
+            this.UPLOADED_IMAGE_DATA_BASE_64 = null
+            let file = event.target.files[0]
+            this.UPLOADED_IMAGE_NAME = event.target.files[0].name
+            let reader = new FileReader();
+            reader.onloadend = () => {
+                this.UPLOADED_IMAGE_DATA_BASE_64 = reader.result
+            }
+            reader.readAsDataURL(file)
+        },
+        uploadDocumentFileClickHandler() {
+            console.log('uploadDocumentFileClickHandler')
+            // this.UPLOAD_NEW_PROD_DOCUMENT__FROM_SERVICE()
+            let path = 'No path'
+            console.log(this.UPLOADED_IMAGE_DATA_BASE_64)
+            console.log(this.prod_document_upload_title)
+            console.log(this.prod_document_upload_description)
+            console.log(this.UPLOADED_IMAGE_NAME)
+            console.log(path)
+
+            let prod_docs_details = {
+                base64_encoded_file : this.UPLOADED_IMAGE_DATA_BASE_64,
+                object_type         : this.document_file_type_on_change,
+                file_title          : this.prod_document_upload_title,
+                file_description    : this.prod_document_upload_description,
+                file_original_name  : this.UPLOADED_IMAGE_NAME,
+                file_upload_path    : '/customers/docs/'
+            }
+            this.UPLOAD_NEW_PROD_DOCUMENT__FROM_SERVICE(prod_docs_details)
         },
         offerTabCloseBtnClickHandler() {
             if(document.getElementById('modal_create_offer_modal').style.display === 'block') {
                 document.getElementById('modal_create_offer_modal').style.display = 'none'
             }
         },
-        updateOfferClickHandler() {
-            let offer_details = {
-                offer_type: this.CREATE_OFFER_TYPE ? this.CREATE_OFFER_TYPE : null,
-                min_qty: this.prod_offer_minimum_qty ? this.prod_offer_minimum_qty : null,
-                start_date: this.range ? globalDateFormat.dateFormatT4(this.range[0]) : null,
-                valid_until: this.range ? globalDateFormat.dateFormatT4(this.range[1]) : null,
-                // Percentage
-                discount_pct: this.prod_offer_discount_p ? this.prod_offer_discount_p : null,
-                // Discount
-                // ##########################################
-                // this.prod_offer_now_price_d = null
-                // this.prod_offer_for_d = null
-                // ##########################################
-                discount_tp: this.prod_offer_discount_tp_d ? this.prod_offer_discount_tp_d : null,
-                // Bonus
-                bonus_on: this.prod_offer_min_qty_b ? this.prod_offer_min_qty_b : null,
-                bonus_qty: this.prod_offer_bonus_qty_b ? this.prod_offer_bonus_qty_b : null,
-                // Free
-                free_req_qty: this.prod_offer_min_qty_f ? this.prod_offer_min_qty_f : null,
-                free_prod_id: this.free_prod_offer_selected_prod ? this.free_prod_offer_selected_prod : null,
-                free_prod_qty: this.prod_offer_free_qty_f ? this.prod_offer_free_qty_f : null,
-            }
-            this.UPDATE_PROD_OFFER__FROM_SERVICE(offer_details)
-        },
-        // Offers Tab Content Area Ends
+        // Document Tab Content Area Ends
         // -----------------------------------------------------------------------------------------
         createNewProductClickHandler() {
             console.log('createNewProductClickHandler')
@@ -1543,6 +2104,20 @@ export default {
             }
         },
         // ---------------------------------------------------------------------------
+        // CONFIRMATION MODAL
+        cancelConfirmationPopupModalClickHandler() {
+            this.confirmation_popup_modal = false
+        },
+        confirmConfirmationPopupModalClickHandler() {
+            switch(this.confirmation_popup_modal_for) {
+                case 'DELETE PROD OFFER':
+                    this.DELETE_PROD_OFFER__FROM_SERVICE()
+                    break
+                default:
+                    break
+            }
+        },
+        // ---------------------------------------------------------------------------
         // FILTER
         createSearchString(item) {
             let elements = ''
@@ -1560,7 +2135,8 @@ export default {
 
             jmiFilter.searchById_LeftSidebar(filter, list, txt_selector)
         },
-        // ---------------------------------------------------------------------------
+        // ------------------------------------------------------------------------------------------------------------------------------------------------------
+        // ------------------------------------------------------------------------------------------------------------------------------------------------------
         // SERVICE CALL
         async SEARCH_PRODUCT_DATA_LIST__FROM_SERVICE() {
             this.PRODUCTS_LIST = [];
@@ -1658,7 +2234,8 @@ export default {
 
         // PROD PRICE
         async UPDATE_PROD_PRICE__FROM_SERVICE(prod_price_dtl) {
-            await service.getUpdateProdPrice_PRODUCTS_DETAILS(this.SELECTED_PROD_DETAILS.prod_id, prod_price_dtl)
+            console.log(this.SELECTED_PROD_DETAILS)
+            await service.getUpdateProdPrice_PRODUCTS_DETAILS(this.SELECTED_PROD_DETAILS.id, this.SELECTED_PROD_DETAILS.prod_id, prod_price_dtl)
                 .then(res => {
                     console.log(res.data)
                     if(res.data.response_code === 200 || res.data.response_code === 201) {
@@ -1724,7 +2301,7 @@ export default {
             this.PROD_OFFER_FROM_SERVICE = null
             await service.getEditProdOffer_PRODUCTS_DETAILS(id, prod_id)
                 .then(res => {
-                    console.log(res.data.prod_offer)
+                    console.log(res.data)
                     if(res.data.response_code === 200 || res.data.response_code === 201) {
                         this.PROD_OFFER_FROM_SERVICE = res.data.prod_offer
                     }
@@ -1738,12 +2315,13 @@ export default {
         },
         async UPDATE_PROD_OFFER__FROM_SERVICE(offer_details) {
             console.log(offer_details)
-            await service.getUpdateProdOffer_PRODUCTS_DETAILS(this.SELECTED_PROD_DETAILS.prod_id, offer_details)
+            await service.getUpdateProdOffer_PRODUCTS_DETAILS(this.OFFER_EDITING_SELECTED_OFFER_ID, this.SELECTED_PROD_DETAILS.prod_id, offer_details)
                 .then(res => {
                     console.log(res.data)
                     if(res.data.response_code === 200 || res.data.response_code === 201) {
                         this.UPDATE_OFFER_ENABLE = false
                         this.PROD_OFFER_FROM_SERVICE = null
+                        this.OFFER_EDITING_SELECTED_OFFER_ID = null
                         // document.getElementById('offer_tab_close_modal').click()
                         this.offerTabCloseBtnClickHandler()
                         this.prod_creating_progressbar = true
@@ -1767,9 +2345,104 @@ export default {
                     if(err) {
                         console.log(err)
                         alert('Product offer update problem : ' + err)
+                        this.UPDATE_OFFER_ENABLE = false
+                        this.PROD_OFFER_FROM_SERVICE = null
+                        this.OFFER_EDITING_SELECTED_OFFER_ID = null
                     }
                 })
-        }
+        },
+        async DELETE_PROD_OFFER__FROM_SERVICE() {
+            let item = this.CONFIRMATION_POPUP_MODAL_DATA
+            console.log(item)
+            this.CONFIRMATION_POPUP_MODAL_DATA = null
+            this.confirmation_popup_modal = false
+            this.confirmation_popup_modal_for = null
+            this.confirmation_popup_modal_title = null
+            this.confirmation_popup_modal_description = null
+
+            this.prod_creating_progressbar = true
+            this.prod_creating_progressbar_msg = 'Please wait...'
+
+            await service.getDeleteProdOffer_PRODUCTS_DETAILS(item.id)
+                .then(res => {
+                    console.log(res.data)
+                    if(res.data.response_code === 200 || res.data.response_code === 201) {
+                        this.OFFERS_LIST.forEach(element => {
+                            if(parseInt(element.id) === parseInt(item.id)) {
+                                this.OFFERS_LIST.splice(element, 1)
+                            }
+                        });
+                        // this.prod_creating_progressbar = true
+                        this.prod_creating_progressbar_msg = res.data.message
+                        setTimeout( () => {
+                            this.prod_creating_progressbar = false
+                            this.prod_creating_progressbar_msg = null
+                        }, 1000)
+                    } else {
+                        // this.prod_creating_progressbar = true
+                        this.prod_creating_progressbar_msg = res.data.message
+                        setTimeout( () => {
+                            this.prod_creating_progressbar = false
+                            this.prod_creating_progressbar_msg = null
+                        }, 1000)
+                    }
+                })
+                .catch(err => {
+                    if(err) {
+                        console.log(err)
+                        alert('Product offer remove problem : ' + err)
+                        // this.prod_creating_progressbar = true
+                        this.prod_creating_progressbar_msg = err
+                        setTimeout( () => {
+                            this.prod_creating_progressbar = false
+                            this.prod_creating_progressbar_msg = null
+                        }, 1000)
+                    }
+                })
+        },
+        async LOAD_FILE_TYPE__FROM_SERVICE() {
+            await service.getElementListByCode_Deliveries()
+                .then(res => {
+                    console.log(res.data)
+                    this.DOCUMENT_FILE_TYPE_LIST = res.data.element_list
+                    this.document_file_type_on_change = this.DOCUMENT_FILE_TYPE_LIST[0].id
+                })
+        },
+        async UPLOAD_NEW_PROD_DOCUMENT__FROM_SERVICE(prod_docs_details) {
+            this.prod_creating_progressbar = true
+            this.prod_creating_progressbar_msg = 'Please wait...'
+
+            await service.getUploadNewProdDocument_PRODUCTS_DETAILS(this.SELECTED_PROD_DETAILS.prod_id, prod_docs_details)
+                .then(res => {
+                    console.log(res.data)
+                    if(res.data.response_code === 200 || res.data.response_code === 201) {
+                        this.prod_creating_progressbar_msg = res.data.message
+                        document.getElementById('docs_modal_close_btn').click()
+                        setTimeout( () => {
+                            this.prod_creating_progressbar = false
+                            this.prod_creating_progressbar_msg = null
+                        }, 1000)
+                    } else {
+                        this.prod_creating_progressbar_msg = res.data.message
+                        setTimeout( () => {
+                            this.prod_creating_progressbar = false
+                            this.prod_creating_progressbar_msg = null
+                        }, 1000)
+                    }
+                })
+                .catch(err => {
+                    if(err) {
+                        console.log(err)
+                        alert('Product offer remove problem : ' + err)
+                        this.prod_creating_progressbar_msg = err
+                        document.getElementById('docs_modal_close_btn').click()
+                        setTimeout( () => {
+                            this.prod_creating_progressbar = false
+                            this.prod_creating_progressbar_msg = null
+                        }, 1000)
+                    }
+                })
+        },
     },
     watch: {
         SELECTED_PROD_DETAILS(newVal) {
@@ -1798,6 +2471,12 @@ export default {
                 // }
             }
         },
+        SELECTED_PROD_DOCS_DETAILS(newVal) {
+            if(newVal) {
+                console.log(newVal)
+                this.setProductDocsTabContentArea(newVal)
+            }
+        },
         prod_offer_now_price_d(newVal) {
             // PRICE ALGO FROM LEADER
             this.ALGO_UNIT_PRICE_NOW = parseFloat(newVal) / parseFloat(this.prod_offer_for_d)
@@ -1805,7 +2484,7 @@ export default {
             this.ALGO_DISCOUNT_TP = parseFloat(this.prod_price_tab_trade_price) - parseFloat(this.ALGO_MODIFIED_TP)
             this.ALGO_CHEMIST_PROFIT = ( parseFloat(this.prod_price_tab_max_retail_price) / parseFloat(this.ALGO_UNIT_PRICE_NOW) ) * 100
             // PRICE ALGO FROM LEADER
-            this.prod_offer_discount_tp_d = this.ALGO_DISCOUNT_TP
+            this.prod_offer_discount_tp_d = Number(this.ALGO_DISCOUNT_TP).toFixed(2)
         }
     },
 }
@@ -1897,5 +2576,72 @@ button.modal-prod-save-btn:hover {
     -moz-box-shadow   : none;
     -webkit-box-shadow: none;
     box-shadow        : none;
+}
+.table thead th,
+.offer-table tbody td {
+    text-align: center;
+    vertical-align: middle;
+}
+.offer-table tbody td {
+    border: 1px solid #e9ecef;
+}
+.offer-table tbody td:last-child {
+    border: none;
+}
+.offer-table tbody td input[type="checkbox"]:not(:checked), 
+.offer-table tbody td input[type="checkbox"]:checked {
+    pointer-events: none !important;
+}
+
+.offer-table tbody td span i.zmdi-check-square {
+    font-size: 16px;
+    color: var(--blue);
+}
+
+.offer-table tbody td span.active i.zmdi-check-square {
+    color: var(--blue);
+}
+
+.offer-table tbody td span.deactive i.zmdi-check-square {
+    color: #6c757d;
+}
+
+/* .offer-table tbody td i.zmdi-edit {
+    height: 26px;
+    width: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font16);
+    color: var(--blue);
+    margin: 5px;
+    border-radius: 100px;
+    background-color: var(--bluish-white);
+    cursor: pointer;
+} */
+.offer-table tbody td i.zmdi-delete{
+    height: 24px;
+    width: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font16);
+    color: var(--red);
+    margin: 5px;
+    border-radius: 100px;
+    background-color: var(--redish-white);
+    cursor: pointer;
+}
+.document-file .thumbnail .cover svg {
+    margin: 15px 10px;
+    font-size: 70px;
+    color: #dadada;
+}
+.document-file .cover img {
+    width: 100%;
+}
+.document-file .file-name .action-btn svg {
+    width: 16px;
+    height: 16px;
 }
 </style>
