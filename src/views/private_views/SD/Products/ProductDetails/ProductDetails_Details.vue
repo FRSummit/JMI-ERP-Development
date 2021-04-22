@@ -1014,15 +1014,15 @@
                                                     <div class="view">
                                                         <i class="view-btn fa fa-eye"></i>
                                                     </div>
-                                                    <div class="cover"> -->
+                                                    <div class="cover">
                                                         <!-- <i class="fa fa-file-pdf-o"></i> -->
                                                         <i class="zmdi zmdi-collection-pdf"></i>
                                                     </div>
                                                 </div>
                                                 <div class="file-name">
                                                     <div>
-                                                        <p>Document 2021.doc</p>
-                                                        <small>Added: April 14, 2021</small>
+                                                        <p>{{ item.doc_title }}</p>
+                                                        <small>Created : {{ prodDateFormatT4(item.created_at) }}</small>
                                                     </div>
                                                     <div class="action-btn">
                                                         <i class="zmdi zmdi-download"></i>
@@ -1042,8 +1042,8 @@
                                                 </div>
                                                 <div class="file-name">
                                                     <div>
-                                                        <p>Document 2021.doc</p>
-                                                        <small>Added: April 14, 2021</small>
+                                                        <p>{{ item.doc_title }}</p>
+                                                        <small>Created : {{ prodDateFormatT4(item.created_at) }}</small>
                                                     </div>
                                                     <div class="action-btn">
                                                         <i class="zmdi zmdi-download"></i>
@@ -1063,8 +1063,8 @@
                                                 </div>
                                                 <div class="file-name">
                                                     <div>
-                                                        <p>Document 2021.doc</p>
-                                                        <small>Added: April 14, 2021</small>
+                                                        <p>{{ item.doc_title }}</p>
+                                                        <small>Created : {{ prodDateFormatT4(item.created_at) }}</small>
                                                     </div>
                                                     <div class="action-btn">
                                                         <i class="zmdi zmdi-download"></i>
@@ -1078,15 +1078,15 @@
                                                     <div class="view">
                                                         <i class="view-btn fa fa-eye"></i>
                                                     </div>
-                                                    <div class="cover"> -->
+                                                    <div class="cover">
                                                         <!-- <i class="fa fa-file-pdf-o"></i> -->
                                                         <i class="zmdi zmdi-collection-pdf"></i>
                                                     </div>
                                                 </div>
                                                 <div class="file-name">
                                                     <div>
-                                                        <p>Document 2021.doc</p>
-                                                        <small>Added: April 14, 2021</small>
+                                                        <p>{{ item.doc_title }}</p>
+                                                        <small>Created : {{ prodDateFormatT4(item.created_at) }}</small>
                                                     </div>
                                                     <div class="action-btn">
                                                         <i class="zmdi zmdi-download"></i>
