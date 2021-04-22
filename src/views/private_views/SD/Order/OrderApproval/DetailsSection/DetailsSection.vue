@@ -147,6 +147,12 @@
                                     <td style="width: 15%;">{{ Number(discount_total).toFixed(2) }}</td>
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
+                                <tr class="subtotal bottom-total">
+                                    <td style="width: 50%;"><span class="add-order-attachment-section add-attachment" @click="addAttachmentClickHandler"><i class="zmdi zmdi-attachment-alt"></i>Attachment</span></td>
+                                    <td style="width: 25%;">(-) SP Discount</td>
+                                    <td style="width: 15%;">{{ Number(special_discount).toFixed(2) }}</td>
+                                    <td style="width: 10%; min-width: 70px;"></td>
+                                </tr>
                                 <tr class="grand-total bottom-total" style="border-top: 1px solid #BFCFE2;">
                                     <td style="width: 50%; text-align: left;">
                                         <span class="order-forward hide" @click="orderForwardClickHandler"><i class="zmdi zmdi-fast-forward"></i>Order Forward</span>
@@ -905,6 +911,7 @@ export default {
             sub_total: 0.00,
             vat_total: 0.00,
             discount_total: 0.00,
+            special_discount: 0.00,
             gross_total: 0.00,
             rounding_adjustment: 0.00,
             grand_total: 0.00,
@@ -1480,6 +1487,23 @@ export default {
             
         },
         // ------------------------------------------------------------------------------------------
+        // SPECIAL DISCOUNT
+        CHECK_SPECIAL_DISCOUNT(prod_list) {
+            let regular_prods_line_total = null
+            console.log(prod_list.length)
+            console.log(this.ORDERED_TABLE_DATA__INIT_LIST.length)
+            for(let i=0; i<prod_list.length; i++) {
+                console.log(prod_list[i])
+                console.log(prod_list[i].is_regular_product)
+                if(prod_list[i].is_regular_product === 'Y') {
+                    regular_prods_line_total += this.ORDERED_TABLE_DATA__INIT_LIST[i].base_tp * this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity
+                    console.log(regular_prods_line_total)
+                }
+            }
+            console.log(regular_prods_line_total)
+            this.CHECK_ORDER_OFFER_SPECIAL_DISCOUNT__FROM_SERVICE(regular_prods_line_total)
+        },
+        // ------------------------------------------------------------------------------------------
         // Service Implementation
         async DIC_WISE_USERS__FROM_SERVICE() {
             await service.getDICWiseUsers_MonthlyDeliveryPlan()
@@ -1545,10 +1569,26 @@ export default {
                 .then(res => {
                     console.log(res.data)
                     this.ADD_PRODUCT_FROM_AUTOFILL_SECOND_FULL_PERAM(res.data.data)
+                    this.CHECK_SPECIAL_DISCOUNT(res.data.data)
                 })
                 .catch(err => {
                     if(err) {
                         console.log('Server Problem 500. Please hit again.')
+                    }
+                })
+            // this.CHECK_SPECIAL_DISCOUNT(this.RESPONSE_ORDERED_PRODUCTS__STORE)
+        },
+        async CHECK_ORDER_OFFER_SPECIAL_DISCOUNT__FROM_SERVICE(regular_prods_line_total) {
+            let date = this.header_date ? this.header_date : new Date()
+            await service.getGetOrderOffer_Special_Discount_OrderApproval(regular_prods_line_total, date)
+                .then(res => {
+                    console.log(res.data)
+                    this.special_discount = res.data.discount_data.discounted_tk
+                    this.createSubtotalCalculation()
+                })
+                .catch(err => {
+                    if(err) {
+                        console.log(err)
                     }
                 })
         },
@@ -1721,7 +1761,7 @@ export default {
             }
             // this.discount_total = 0
             this.gross_total = this.sub_total + this.vat_total
-            this.grand_total = this.sub_total + this.vat_total - this.discount_total
+            this.grand_total = this.sub_total + this.vat_total - this.discount_total - this.special_discount
         },
         // -----------------------------------------------------------------------------------------------
         async GENERATE_ORDERED_PRODUCTS_DETAILS_LIST_FROM_PRODUCT_OFFER_RESPONSE() {
@@ -1863,6 +1903,9 @@ export default {
                 this.SHOW_PRINT_ICON = true
                 this.PENDING_ORDER_DATA_BY_ID = this.pending_order_list_by_id
                 this.ORDERED_TABLE_DATA__INIT_LIST = this.pending_order_list_by_id.order_details
+
+                this.CHECK_SPECIAL_DISCOUNT(this.ORDERED_TABLE_DATA__INIT_LIST)
+
                 this.set_Or_Change_SR(this.pending_order_list_by_id.da_id)
                 this.set_Or_Change_Date(this.pending_order_list_by_id.order_date)
                 this.ORDER_CREATED_BY = this.pending_order_list_by_id.created_by

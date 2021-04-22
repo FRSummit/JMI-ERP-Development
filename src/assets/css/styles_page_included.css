@@ -720,7 +720,8 @@
     border    : 0;
 }
 
-#manage-attribute-modal .modal-body {
+#manage-attribute-modal .modal-body,
+#stock_position_manage-attribute-modal .modal-body {
     min-height: 400px;
 }
 
