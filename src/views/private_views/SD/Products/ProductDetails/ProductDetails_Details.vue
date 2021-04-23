@@ -2579,6 +2579,7 @@ export default {
                 .then(res => {
                     console.log(res.data)
                     if(res.data.response_code === 200 || res.data.response_code === 201) {
+                        this.SELECTED_PROD_DOCS_DETAILS.push(res.data.product_docs)
                         this.prod_creating_progressbar_msg = res.data.message
                         document.getElementById('docs_modal_close_btn').click()
                         setTimeout( () => {
