@@ -1495,13 +1495,19 @@ export default {
             for(let i=0; i<prod_list.length; i++) {
                 console.log(prod_list[i])
                 console.log(prod_list[i].is_regular_product)
+                console.log(prod_list[i].offer.is_regular_product)
                 if(prod_list[i].is_regular_product === 'Y') {
-                    regular_prods_line_total += this.ORDERED_TABLE_DATA__INIT_LIST[i].base_tp * this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity
+                    regular_prods_line_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_tp) * parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty)
+                    console.log(regular_prods_line_total)
+                } else if(prod_list[i].offer.is_regular_product === 'Y') {
+                    regular_prods_line_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_tp) * parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty)
                     console.log(regular_prods_line_total)
                 }
             }
             console.log(regular_prods_line_total)
-            this.CHECK_ORDER_OFFER_SPECIAL_DISCOUNT__FROM_SERVICE(regular_prods_line_total)
+            if(regular_prods_line_total) {
+                this.CHECK_ORDER_OFFER_SPECIAL_DISCOUNT__FROM_SERVICE(regular_prods_line_total)
+            }
         },
         // ------------------------------------------------------------------------------------------
         // Service Implementation

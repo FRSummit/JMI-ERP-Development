@@ -785,7 +785,7 @@ export default {
             for(let i=0; i<prod_list.length; i++) {
                 console.log(prod_list[i].is_regular_product)
                 if(prod_list[i].is_regular_product === 'Y') {
-                    regular_prods_line_total += this.ORDERED_TABLE_DATA__INIT_LIST[i].base_tp * this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity
+                    regular_prods_line_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].base_tp * this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity)
                     console.log(regular_prods_line_total)
                 }
             }
