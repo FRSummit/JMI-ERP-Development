@@ -23,11 +23,25 @@
                     <p class="secondary-name" @click="secondaryClick(i, j)">Tree Section 2 - {{ i + 1 }} {{ j + 1 }}</p>
                     <div :id="'tertiary-area-section-' + i + '-' + j" class="tertiary-area-section hide">
                       <div class="tertiary-area" v-for="(item_03, k) in 3" :key="k" :id="'tertiary-area-' + i + '-' + j + '-' + k">
-                        <div class="icon-square" @click="tertiaryClick(i, j, k)">
+                        <!-- <div class="icon-square" @click="tertiaryClick(i, j, k)">
                           <span class="square-icon"></span>
+                        </div> -->
+                        <div class="icon-arrow" @click="tertiaryClick(i, j, k)">
+                            <span :id="'tertiary-right-arrow-' + i + '-' + j + '-' + k" class=""><i class="fas fa-chevron-right"></i></span>
+                            <span :id="'tertiary-down-arrow-' + i + '-' + j + '-' + k" class="hide"><i class="fas fa-chevron-down"></i></span>
                         </div>
                         <div class="tertiary-inner">
                           <p class="tertiary-name" @click="tertiaryClick(i, j, k)">Tree Section 3 - {{ i + 1 }} {{ j + 1 }} {{ k + 1 }}</p>
+                          <div :id="'poly-tertiary-area-section-' + i + '-' + j + '-' + k" class="poly-tertiary-area-section hide">
+                                <div class="poly-tertiary-area" v-for="(item_03, l) in 3" :key="l" :id="'tertiary-area-' + i + '-' + j + '-' + k + '-' + l">
+                                    <div class="icon-square" @click="polyTertiaryClick(i, j, k, l)">
+                                        <span class="square-icon"></span>
+                                    </div>
+                                    <div class="poly-tertiary-inner">
+                                        <p class="poly-tertiary-name" @click="polyTertiaryClick(i, j, k, l)">Tree Section 3 - {{ i + 1 }} {{ j + 1 }} {{ k + 1 }} {{ l + 1 }}</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                       </div>
                     </div>
@@ -82,6 +96,10 @@ export default {
       if(document.querySelector('#secondary-area-section-' + i + ' #tertiary-area-section-' + i + '-' + j).className === "tertiary-area-section") {
         document.querySelector('#secondary-area-section-' + i + ' #tertiary-area-section-' + i + '-' + j).className = "tertiary-area-section hide"
         secondaryName.className = 'secondary-name'
+
+          secondaryName.className = 'secondary-name'
+          primaryDownArrow.className = 'hide'
+          primaryRightArrow.className = ''
         // this.closetertiaryArrow()
       } else {
         // this.closeAlltertiary()
@@ -103,12 +121,41 @@ export default {
     },
     tertiaryClick(i, j, k) {
       console.log("tertiary Click : " + i + "    " + j + "    " + k);
-      this.removetertiaryActiveClass()
+      /*this.removetertiaryActiveClass()
       let tertiaryIcon = document.querySelector("#primary-area-" + i + " #secondary-area-" + i + "-" + j + " #tertiary-area-" + i + "-" + j + "-" + k + " .square-icon")
       let tertiaryName = document.querySelector("#primary-area-" + i + " #secondary-area-" + i + "-" + j + " #tertiary-area-" + i + "-" + j + "-" + k + " .tertiary-name")
       tertiaryIcon.className = "square-icon jemy-active-square"
-      tertiaryName.className = "tertiary-name jemy-active"
+      tertiaryName.className = "tertiary-name jemy-active"*/
+      let polytertiaryAreaSection = document.querySelector("#tertiary-area-section-" + i + "-" + j)
+      let tertiaryDownArrow = document.querySelector("#tertiary-down-arrow-" + i + "-" + j + "-" + k)
+      let tertiaryRightArrow = document.querySelector("#secondary-right-arrow-" + i + "-" + j + "-" + k)
+      let tertiaryName = document.querySelector("#secondary-area-" + i + "-" + j + " .tertiary-name")
+      if(document.querySelector('#poly-tertiary-area-section-' + i + '-' + j + '-' + k).className === "poly-tertiary-area-section") {
+          alert('I am here')
+        document.querySelector('#poly-tertiary-area-section-' + i + '-' + j + '-' + k).className = "poly-tertiary-area-section hide"
+        tertiaryName.className = 'tertiary-name'
+
+          tertiaryName.className = 'tertiary-name'
+          tertiaryDownArrow.className = 'hide'
+          tertiaryRightArrow.className = ''
+        // this.closetertiaryArrow()
+      } else {
+          alert('I am here 2')
+        // this.closeAlltertiary()
+        if(polytertiaryAreaSection.className === "poly-tertiary-area-section") {
+          polytertiaryAreaSection.className = "poly-tertiary-area-section hide"
+          tertiaryName.className = 'tertiary-name'
+          tertiaryDownArrow.className = 'hide'
+          tertiaryRightArrow.className = ''
+        } else {
+          polytertiaryAreaSection.className = "poly-tertiary-area-section"
+          tertiaryName.className = 'poly-tertiary-name jemy-active'
+          tertiaryDownArrow.className = ''
+          tertiaryRightArrow.className = 'hide'
+        }
+      }
     },
+    polyTertiaryClick() {},
     closeAllsecondary(id) {
       // this.closeAlltertiary()
       let secondarySection = document.querySelectorAll('.secondary-area-section')
@@ -150,69 +197,6 @@ export default {
 </script>
 
 <style scoped>
-
-/* .area-tree-name-section {
-    display     : inline-block;
-    width       : 20%;
-    min-width   : 300px;
-    max-width   : 300px;
-    border-right: 2px solid #e6e6e6;
-    padding     : 20px;
-}
-.area-tree-name-section .search-section {
-    margin-bottom: 20px;
-}
-.area-tree-name-section .form-group {
-    margin: 0;
-                position      : relative;
-                display       : inline-block;
-                vertical-align: middle;
-                width         : 85%;
-}
-
-.area-tree-name-section .has-search .form-control {
-                padding-left: 2.375rem;
-}
-
-.area-tree-name-section .has-search .form-control-feedback {
-                position      : absolute;
-                z-index       : 2;
-                display       : block;
-                width         : 16px;
-                height        : 16px;
-                text-align    : center;
-                pointer-events: none;
-                color         : #aaa;
-                top           : 8px;
-                left          : 12px;
-                border        : none;
-}
-
-.area-tree-name-section input {
-                margin       : 0;
-                border-bottom: none;
-                border       : 1px solid #DEF0FF;
-                box-sizing   : inherit;
-                font-size    : 12px;
-                height       : auto;
-                padding      : 6px 0;
-}
-
-.area-tree-name-section input:focus {
-                box-shadow: none;
-}
-
-.area-tree-name-section svg:last-child {
-                display       : inline-block;
-                vertical-align: middle;
-                height        : 32px;
-                width         : 32px;
-                padding       : 8px;
-                margin        : 0;
-                float         : right;
-                color         : #e8e8e8cf;
-} */
-
 .area-tree-inner .area-title-text {
     margin-bottom: 10px;
     padding: 4px 6px;
@@ -235,7 +219,8 @@ export default {
     background-color: var(--blue);
     margin-right: 4px;
 }
-.menu-section .primary-menu .primary-menu-inner svg {
+.menu-section .primary-menu .primary-menu-inner svg,
+.icon-arrow svg {
     width  : 20px;
     height : 20px;
     padding: 5px;
@@ -245,14 +230,12 @@ export default {
     margin-right: 4px;
     border: 1px solid var(--blue);
 }
-
 .area-tree-inner .area-title-text .list-text,
 .menu-section .primary-menu .primary-menu-inner .menu-name {
     display    : inline-block;
     font-size  : 14px;
     font-weight: 500;
 }
-
 .main-area-list-section .primary-area .icon-arrow {
     display       : inline-block;
     vertical-align: top;
@@ -283,7 +266,6 @@ export default {
     border-radius: 2px;
     cursor       : pointer;
 }
-
 .main-area-list-section .primary-area  .tertiary-inner {
     display: inline-block;
 } 

@@ -1221,7 +1221,7 @@
                             <!------------ Start Stock Position Tab Content Area ------------> 
                             <div id="tab-stock-position" class="tab-pane ">
                                 <div class="row ledgerStock-Area">
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-4">
                                         <div class="treeArea">
                                             <div class="treeHeader">
                                                 <div class="form-group" style="padding: 0;">
@@ -1250,7 +1250,7 @@
                                         </div>
                                     </div>
                                 
-                                    <div class="col-lg-9">
+                                    <div class="col-lg-8">
                                         <div class="treeContent">
                                             <div class="contentHeader">
                                                 <h5>Current Stock: <span>13144</span></h5>
