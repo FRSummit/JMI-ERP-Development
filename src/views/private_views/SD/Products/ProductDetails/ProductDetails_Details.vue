@@ -3,7 +3,7 @@
       <div class="layout-container">
         <div class="container-fluid">
           <div class="col-12 product-body">
-                <div class="row product-header"> 
+                <div class="row product-header" style="margin-bottom: 0;"> 
                 <!-- <div class="col-lg-6 col-12"> -->
                 <div class="col-lg-6">
                     <div class="product-header-info"> 
@@ -915,188 +915,599 @@
 
                             <!------------ Start Ledger Tab Content Area ------------> 
                             <div id="tab-ledger" class="tab-pane">
-                                <div class="tab-content-header">
-                                    <h5></h5>
-                                    <div class="btn-group">
-                                        <button class="btn btn-primary btn-save"  role="button">Save</button>
-                                        <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
+                                <div class="row ledgerStock-Area">
+                                    <div class="col-lg-3">
+                                        <div class="treeArea">
+                                            <div class="treeHeader">
+                                                <div class="form-group" style="padding: 0;">
+                                                    <i class="fa fa-search"> </i>
+                                                    <input type="text" placeholder="Search by Name or code" class="form-control">
+                                                </div>
+                                            </div>
+                                
+                                            <div class="treeItems">
+                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                                                    industry's standard
+                                                    dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to
+                                                    make a type specimen
+                                                    book. It has survived not only five centuries, but also the leap into electronic typesetting,
+                                                    remaining essentially
+                                                    unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem
+                                                    Ipsum passages, and more
+                                                    recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                
+                                                    Why do we use it?
+                                                    It is a long established fact that a reader will be distracted by the readable content of a page
+                                                    when looking at its
+                                                    layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,
+                                                    as opposed to using
+                                                    'Content here, content here', making it look like readable English. Many desktop publishing packages
+                                                    and web page
+                                                    editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover
+                                                    many web sites
+                                                    still in their infancy. Various versions have evolved over the years, sometimes by accident,
+                                                    sometimes on purpose
+                                                    (injected humour and the like).
+                                                </p>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div> 
+                                
+                                    <div class="col-lg-9">
+                                        <div class="treeContent">
+                                            <div class="contentHeader">
+                                                <h5>Current Stock: <span>13144</span></h5>
+                                                <h5>Available Stock: <span>5000</span></h5>
+                                            </div>
+                                
+                                            <table class="ledgerStock-Area-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Date</th>
+                                                        <th>Description</th>
+                                                        <th>Received</th>
+                                                        <th>Issued</th>
+                                                    </tr>
+                                                </thead>
+                                
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <p>13/05/2021</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>Stock Transfer</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>10,000</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>5,000</p>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>
+                                                            <p>13/05/2021</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>Delivery Return</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>10,000</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>5,000</p>
+                                                        </td>
+                                                    </tr>
+                                
+                                                    <tr>
+                                                        <td>
+                                                            <p>13/05/2021</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>Stock Transfer</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>10,000</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>5,000</p>
+                                                        </td>
+                                                    </tr>
+                                                    
+                                                    <tr>
+                                                        <td>
+                                                            <p>13/05/2021</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>Delivery Return</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>10,000</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>5,000</p>
+                                                        </td>
+                                                    </tr>
+                                
+                                                    <tr>
+                                                        <td>
+                                                            <p>13/05/2021</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>Stock Transfer</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>10,000</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>5,000</p>
+                                                        </td>
+                                                    </tr>
+                                                    
+                                                    <tr>
+                                                        <td>
+                                                            <p>13/05/2021</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>Delivery Return</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>10,000</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>5,000</p>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>
+                                                            <p>13/05/2021</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>Stock Transfer</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>10,000</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>5,000</p>
+                                                        </td>
+                                                    </tr>
+                                                    
+                                                    <tr>
+                                                        <td>
+                                                            <p>13/05/2021</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>Delivery Return</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>10,000</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>5,000</p>
+                                                        </td>
+                                                    </tr>
+                                
+                                                    <tr>
+                                                        <td>
+                                                            <p>13/05/2021</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>Stock Transfer</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>10,000</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>5,000</p>
+                                                        </td>
+                                                    </tr>
+                                                    
+                                                    <tr>
+                                                        <td>
+                                                            <p>13/05/2021</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>Delivery Return</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>10,000</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>5,000</p>
+                                                        </td>
+                                                    </tr>
+                                
+                                                    <tr>
+                                                        <td>
+                                                            <p>13/05/2021</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>Stock Transfer</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>10,000</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>5,000</p>
+                                                        </td>
+                                                    </tr>
+                                                    
+                                                    <tr>
+                                                        <td>
+                                                            <p>13/05/2021</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>Delivery Return</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>10,000</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>5,000</p>
+                                                        </td>
+                                                    </tr>
+                                
+                                                    <tr>
+                                                        <td>
+                                                            <p>13/05/2021</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>Stock Transfer</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>10,000</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>5,000</p>
+                                                        </td>
+                                                    </tr>
+                                                    
+                                                    <tr>
+                                                        <td>
+                                                            <p>13/05/2021</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>Delivery Return</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>10,000</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>5,000</p>
+                                                        </td>
+                                                    </tr>
+                                
+                                                    <tr>
+                                                        <td>
+                                                            <p>13/05/2021</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>Stock Transfer</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>10,000</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>5,000</p>
+                                                        </td>
+                                                    </tr>
+                                                    
+                                                    <tr>
+                                                        <td>
+                                                            <p>13/05/2021</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>Delivery Return</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>10,000</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>5,000</p>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <!------------ End Ledger Tab Content Area ------------> 
                                 
                             <!------------ Start Stock Position Tab Content Area ------------> 
-                            <!-- <div id="tab-stock-position" class="tab-pane ">
-                                <div class="tab-content-header">
-                                    <h5></h5>
-                                    <div class="btn-group">
-                                        <button class="btn btn-primary btn-save"  role="button">Save</button>
-                                        <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
-                                    </div>
-                                </div>
-                            </div> -->
-                            <div id="tab-stock-position" class="tab-pane">
-                                <div class="row attributes-vertical-tab">
+                            <div id="tab-stock-position" class="tab-pane ">
+                                <div class="row ledgerStock-Area">
                                     <div class="col-lg-3">
-                                        <div class="attribute-list">
-                                            <div class="attribute-list-header">
-                                                <h5>Manage Attributes</h5>
-                                                <a class="menu" data-toggle="modal" data-target="#stock_position_manage-attribute-modal"><i class="fa fa-list"></i></a>
-                                            </div>
-
-                                            <ul class="nav nav-tabs flex-column" id="attribute-items">
-                                                <li class="nav-item">
-                                                    <a class="nav-link active" id="attr-single-items" href="#stock_position_attribute1" data-toggle="tab">Strength</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" id="attr-single-items" href="#stock_position_attribute2" data-toggle="tab">Generic Name</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" id="attr-single-items" href="#stock_position_attribute3" data-toggle="tab">Therapeutic Class</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" id="attr-single-items" href="#stock_position_attribute4" data-toggle="tab">Dosage &amp; Administration</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <!-- Start Manage Attribute Modal -->
-                                        <div class="modal" id="stock_position_manage-attribute-modal" tabindex="-1" role="dialog" aria-labelledby="manageattribute" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="margin: 0;">
-                                                <div class="modal-content" style="border: none;">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title">Manage Attribute</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
+                                        <div class="treeArea">
+                                            <div class="treeHeader">
+                                                <div class="form-group" style="padding: 0;">
+                                                    <i class="fa fa-search"></i>
+                                                    <input type="text" placeholder="Search by Name or code" class="form-control">
                                                 </div>
-                                                <div class="modal-body">
-                                                    <div id="manage-attribute-tab">
-                                                        <ul class="nav nav-tabs  mb-3" id="lineTab" role="tablist">
-                                                            <li class="nav-item">
-                                                                <a class="nav-link active" id="stock-position-underline-home-tab" data-toggle="tab" href="#stock-position-add-attribute" role="tab"
-                                                                    aria-controls="add-attribute" aria-selected="true">Add Attribute</a>
-                                                            </li>
-                                                            <li class="nav-item">
-                                                                <a class="nav-link" id="stock-position-create-attribute-tab" data-toggle="tab" href="#stock-position-create-attribute" role="tab"
-                                                                    aria-controls="create-attribute" aria-selected="false">Create New Attribute</a>
-                                                            </li>
-                                                        </ul>
+                                            </div>
+                                            
+                                            <div class="treeItems">
+                                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard
+                                            dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen
+                                            book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially
+                                            unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
+                                            recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+
+                                            Why do we use it?
+                                            It is a long established fact that a reader will be distracted by the readable content of a page when looking at its
+                                            layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using
+                                            'Content here, content here', making it look like readable English. Many desktop publishing packages and web page
+                                            editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites
+                                            still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose
+                                            (injected humour and the like).
+                                            </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                
+                                    <div class="col-lg-9">
+                                        <div class="treeContent">
+                                            <div class="contentHeader">
+                                                <h5>Current Stock: <span>13144</span></h5>
+                                                <h5>Available Stock: <span>5000</span></h5>
+                                            </div>
+                
+                                            <table class="ledgerStock-Area-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Store</th>
+                                                        <th>Stock</th>
+                                                        <th>Blocked</th>
+                                                        <th><a data-toggle="modal" data-target="#Transfer-Stock"> <i class="material-icons" data-toggle="tooltip" data-placement="bottom" title="Transfer" aria-hidden="true">compare_arrows</i> </a></th>
+                                                    </tr>
+                                                </thead>
+                                            
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <p>Restricted</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>10,000</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>5,000</p>
+                                                        </td>
+                                                        <td> </td>
+                                                    </tr>
                                                     
-                                                        <div class="tab-content">
+                                                    <tr>
+                                                        <td>
+                                                            <p>Restricted</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>10,000</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>5,000</p>
+                                                        </td>
+                                                        <td> </td>
+                                                    </tr>
+                                                    
+                                                    <tr>
+                                                        <td>
+                                                            <p>Restricted</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>10,000</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>5,000</p>
+                                                        </td>
+                                                        <td> </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <p>Restricted</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>10,000</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>5,000</p>
+                                                        </td>
+                                                        <td> </td>
+                                                    </tr>
 
-                                                            <div class="tab-pane fade show active" id="stock-position-add-attribute" role="tabpanel" aria-labelledby="add-attribute-tab">
-                                                                <div class="single-tag">
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input" type="checkbox" value="" id="stock-position-flexCheckDefault">
-                                                                        <label class="form-check-label" for="flexCheckDefault">Indication</label>
-                                                                    </div>
-                                                                </div>
-                                                                
-                                                                <div class="single-tag">
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input" type="checkbox" value="" id="stock-position-flexCheck1">
-                                                                        <label class="form-check-label" for="flexCheck1">Therapeutic Class</label>
-                                                                    </div>
-                                                                </div>
-                                                                
-                                                                <div class="single-tag">
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input" type="checkbox" value="" id="stock-position-flexCheck2">
-                                                                        <label class="form-check-label" for="flexCheck2">Therapeutic Class</label>
-                                                                    </div>
-                                                                </div>
+                                                    <tr>
+                                                        <td>
+                                                            <p>Restricted</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>10,000</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>5,000</p>
+                                                        </td>
+                                                        <td> </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>
+                                                            <p>Restricted</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>10,000</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>5,000</p>
+                                                        </td>
+                                                        <td> </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <p>Restricted</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>10,000</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>5,000</p>
+                                                        </td>
+                                                        <td> </td>
+                                                    </tr>
+                                                    
+                                                    <tr>
+                                                        <td>
+                                                            <p>Restricted</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>10,000</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>5,000</p>
+                                                        </td>
+                                                        <td> </td>
+                                                    </tr>
+                                                    
+                                                    <tr>
+                                                        <td>
+                                                            <p>Restricted</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>10,000</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>5,000</p>
+                                                        </td>
+                                                        <td> </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>
+                                                            <p>Restricted</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>10,000</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>5,000</p>
+                                                        </td>
+                                                        <td> </td>
+                                                    </tr>
+                                                    
+                                                    <tr>
+                                                        <td>
+                                                            <p>Restricted</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>10,000</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>5,000</p>
+                                                        </td>
+                                                        <td> </td>
+                                                    </tr>
+                                                    
+                                                    <tr>
+                                                        <td>
+                                                            <p>Restricted</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>10,000</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>5,000</p>
+                                                        </td>
+                                                        <td> </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>
+                                                            <p>Restricted</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>10,000</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>5,000</p>
+                                                        </td>
+                                                        <td> </td>
+                                                    </tr>
+                                                    
+                                                    <tr>
+                                                        <td>
+                                                            <p>Restricted</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>10,000</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>5,000</p>
+                                                        </td>
+                                                        <td> </td>
+                                                    </tr>
+                                                    
+                                                    <tr>
+                                                        <td>
+                                                            <p>Restricted</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>10,000</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>5,000</p>
+                                                        </td>
+                                                        <td> </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        
+                                            <!-- Start Stock Transfer Modal -->
+                                            <div class="modal" id="Transfer-Stock" tabindex="-1" role="dialog" aria-labelledby="TransferStock" aria-hidden="true" style="width: 400px; border-radius: 4px;">
+                                                <div class="modal-dialog modal-dialog-centered" role="document" style="margin: 0;">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="changePhoto">Store Transfer</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <form class="modal-body">
+                                                        <div class="row">
+                                                            <div class="col-lg-12 form-group">
+                                                                <label for="store_from">Store From <span class="current-stock">(Current Stock: <span>00</span>)</span></label>
+                                                                <select class="form-control" id="store_from">
+                                                                    <option value="1">Select a Store</option>
+                                                                    <option value="2">Store 1</option>
+                                                                    <option value="3">Store 2</option>
+                                                                    <option value="4">Store 3</option>
+                                                                </select>
                                                             </div>
-
-                                                            <div class="tab-pane fade" id="stock-position-create-attribute" role="tabpanel" aria-labelledby="create-attribute-tab">
-                                                                <div class="row">
-                                                                    <div class="col-lg-4 form-group">
-                                                                        <label for="indiction_1">Attribute For</label>
-                                                                        <select class="form-control" id="unit">
-                                                                            <option>This Product</option>
-                                                                            <option>Global Attribute</option>
-                                                                            <option>Box 2</option>
-                                                                            <option>Box 3</option>
-                                                                        </select>
-                                                                    </div>
-
-                                                                    <div class="col-lg-8 form-group">
-                                                                        <label for="imported_from">Attribute Title</label>
-                                                                        <input type="text" class="form-control" id="stock-position-attribute-title" placeholder="Enter Attribute Title">
-                                                                    </div>
-                                                                    <div class="col-lg-12 form-group">
-                                                                        <label for="indiction_1">Attribute Description</label>
-                                                                        <textarea class="form-control" id="stock-position-attribute-description" rows="6" placeholder="Enter Attribute Description"></textarea>
-                                                                    </div>
-                                                                </div>
+                                                            <div class="col-lg-12 form-group">
+                                                                <label for="store_to">Store To</label>
+                                                                <select class="form-control" id="store_to">
+                                                                    <option value="1">Select a Store</option>
+                                                                    <option value="2">Store 1</option>
+                                                                    <option value="3">Store 2</option>
+                                                                    <option value="4">Store 3</option>
+                                                                </select>
                                                             </div>
-                    
+                                                            <div class="col-lg-12 form-group">
+                                                                <label for="quantity">Quantity</label>
+                                                                <input type="number" class="form-control" id="quantity" placeholder="Enter Quantity">
+                                                            </div>
+                                                        </div>
+                                                        </form>
+                                                        <div class="modal-footer justify-content-center">
+                                                            <button type="button" class="btn btn-primary btn-global">Save</button>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="modal-footer justify-content-center">
-                                                    <button type="button" class="btn btn-primary btn-global">Save Changes</button>
-                                                </div>
-                                                </div>
                                             </div>
-                                        </div>
-                                        <!-- End Manage Attribute Modal -->
-                                    </div>
-                                    <div class="col-lg-9">
-                                        <div class="tab-content attribute-content">
-
-                                            <div class="tab-pane active" id="stock_position_attribute1">
-                                                <div class="attribute-header">
-                                                    <h5>Strength</h5>
-                                                    <!-- <a class="btn-edit btn-active" ><i class="fa fa-pencil" aria-hidden="true"></i></a> -->
-                                                    <a class="btn-edit btn-active"><i class="zmdi zmdi-edit"></i></a>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-lg-12 form-group">
-                                                        <label for="indiction_1">Strength</label>
-                                                        <textarea class="form-control" v-model="prod_dtl_element_strength" id="indiction_1" rows="6" placeholder="Enter Product Indiction" readonly></textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="tab-pane" id="stock_position_attribute2">
-                                                <div class="attribute-header">
-                                                    <h5>Generic Name</h5>
-                                                    <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-lg-12 form-group">
-                                                        <label for="indiction_1">Generic Name</label>
-                                                        <textarea class="form-control" v-model="prod_dtl_element_generic_name" id="indiction_1" rows="6" placeholder="Enter Product Indiction" readonly></textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="tab-pane" id="stock_position_attribute3">
-                                                <div class="attribute-header">
-                                                    <h5>Therapeutic Class</h5>
-                                                    <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-lg-12 form-group">
-                                                        <label for="indiction_1">Therapeutic Class</label>
-                                                        <textarea class="form-control" v-model="prod_dtl_element_thrp_class" id="indiction_1" rows="6" placeholder="Enter Product Indiction" readonly></textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="tab-pane" id="stock_position_attribute4">
-                                                <div class="attribute-header">
-                                                    <h5>Dosage &amp; Administration</h5>
-                                                    <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-lg-12 form-group">
-                                                        <label for="indiction_1">Dosage &amp; Administration</label>
-                                                        <textarea class="form-control" v-model="prod_dtl_element_dosage_form" id="indiction_1" rows="6" placeholder="Enter Product Indiction" readonly></textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <!-- Start Stock Transfer Modal -->
                                         </div>
                                     </div>
-                                </div>
+                                </div> 
                             </div>
                             <!------------ End Stock Position Tab Content Area ------------> 
 
@@ -2795,6 +3206,17 @@ button.modal-prod-save-btn:hover {
     border-radius: 100px;
     background-color: var(--redish-white);
     cursor: pointer;
+}
+#tab-ledger .treeArea .form-group svg,
+#tab-stock-position .treeArea .form-group svg {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    color: #AAC0D9;
+    font-size: var(--font14);
+}
+.modal .modal-footer {
+    background-color: #FFFFFF;
 }
 .document-file .thumbnail .cover svg {
     margin: 15px 10px;
