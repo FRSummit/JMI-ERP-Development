@@ -5,38 +5,29 @@
                 <div class="icon-arrow" @click="sidebarTitleIconClick"><i class="fas fa-chevron-down"></i></div>
                 <p class="list-text" @click="sidebarTitleIconClick">SBU List</p>
             </div>
-
-            <div class="menu-section">
-                <div class="primary-menu" v-for="(item_01, i) in 10" :key="i">
-                    <div class="primary-menu-inner">
-                        <div class="icon-arrow" @click="primaryMenuClickHandler"><i class="fas fa-chevron-right"></i></div>
-                        <p class="list-text" @click="primaryMenuClickHandler">Primary Menu {{ i }}</p>
-                    </div>
-                </div>
+        <div class="main-area-list-section">
+          <div class="primary-area" v-for="(item_01, i) in 10" :key="i" :id="'primary-area-' + i">
+            <div class="icon-arrow" @click="primaryArrowClick(i)">
+              <span :id="'primary-right-arrow-' + i" class=""><i class="fas fa-chevron-right"></i></span>
+              <span :id="'primary-down-arrow-' + i" class="hide"><i class="fas fa-chevron-down"></i></span>
             </div>
-        <!-- <div class="main-area-list-section">
-          <div class="division-area" v-for="(item_01, i) in 10" :key="i" :id="'division-area-' + i">
-            <div class="icon-arrow" @click="divisionArrowClick(i)">
-              <span :id="'division-right-arrow-' + i" class=""><i class="fas fa-chevron-right"></i></span>
-              <span :id="'division-down-arrow-' + i" class="hide"><i class="fas fa-chevron-down"></i></span>
-            </div>
-            <div class="division-inner">
-              <p class="division-name" @click="divisionClick(i)">Tree Section 1 - {{ i + 1 }}</p>
-              <div :id="'district-area-section-' + i" class="district-area-section hide">
-                <div class="district-area" v-for="(item_02, j) in 5" :key="j" :id="'district-area-' + i + '-' + j">
-                  <div class="icon-arrow" @click="districtArrowClick(i, j)">
-                    <span :id="'district-right-arrow-' + i + '-' + j" class=""><i class="fas fa-chevron-right"></i></span>
-                    <span :id="'district-down-arrow-' + i + '-' + j" class="hide"><i class="fas fa-chevron-down"></i></span>
+            <div class="primary-inner">
+              <p class="primary-name" @click="primaryClick(i)">Tree Section 1 - {{ i + 1 }}</p>
+              <div :id="'secondary-area-section-' + i" class="secondary-area-section hide">
+                <div class="secondary-area" v-for="(item_02, j) in 5" :key="j" :id="'secondary-area-' + i + '-' + j">
+                  <div class="icon-arrow" @click="secondaryArrowClick(i, j)">
+                    <span :id="'secondary-right-arrow-' + i + '-' + j" class=""><i class="fas fa-chevron-right"></i></span>
+                    <span :id="'secondary-down-arrow-' + i + '-' + j" class="hide"><i class="fas fa-chevron-down"></i></span>
                   </div>
-                  <div class="district-inner">
-                    <p class="district-name" @click="districtClick(i, j)">Tree Section 2 - {{ i + 1 }} {{ j + 1 }}</p>
-                    <div :id="'thana-area-section-' + i + '-' + j" class="thana-area-section hide">
-                      <div class="thana-area" v-for="(item_03, k) in 3" :key="k" :id="'thana-area-' + i + '-' + j + '-' + k">
-                        <div class="icon-square" @click="thanaClick(i, j, k)">
+                  <div class="secondary-inner">
+                    <p class="secondary-name" @click="secondaryClick(i, j)">Tree Section 2 - {{ i + 1 }} {{ j + 1 }}</p>
+                    <div :id="'tertiary-area-section-' + i + '-' + j" class="tertiary-area-section hide">
+                      <div class="tertiary-area" v-for="(item_03, k) in 3" :key="k" :id="'tertiary-area-' + i + '-' + j + '-' + k">
+                        <div class="icon-square" @click="tertiaryClick(i, j, k)">
                           <span class="square-icon"></span>
                         </div>
-                        <div class="thana-inner">
-                          <p class="thana-name" @click="thanaClick(i, j, k)">Tree Section 3 - {{ i + 1 }} {{ j + 1 }} {{ k + 1 }}</p>
+                        <div class="tertiary-inner">
+                          <p class="tertiary-name" @click="tertiaryClick(i, j, k)">Tree Section 3 - {{ i + 1 }} {{ j + 1 }} {{ k + 1 }}</p>
                         </div>
                       </div>
                     </div>
@@ -45,7 +36,7 @@
               </div>
             </div>
           </div>
-        </div> -->
+        </div>
       </div>
     </div>
 </template>
@@ -57,99 +48,103 @@ export default {
     sidebarTitleIconClick() {
       console.log("Area Location List Click");
     },
-    primaryMenuClickHandler() {},
-    // divisionArrowClick(i) {
-    //   // this.closeAllDistrict(i)
-    //   let districtAreaSection = document.querySelector("#division-area-" + i + " .district-area-section")
-    //   let divisionDownArrow = document.querySelector("#division-area-" + i + " #division-down-arrow-" + i)
-    //   let divisionRightArrow = document.querySelector("#division-area-" + i + " #division-right-arrow-" + i)
-    //   let divisionName = document.querySelector("#division-area-" + i + " .division-name")
-    //   if(districtAreaSection.className === "district-area-section") {
-    //     districtAreaSection.className = "district-area-section hide"
-    //     divisionName.className = 'division-name'
-    //     divisionDownArrow.className = 'hide'
-    //     divisionRightArrow.className = ''
-    //   } else {
-    //     districtAreaSection.className = "district-area-section"
-    //     divisionName.className = 'division-name jemy-active'
-    //     divisionDownArrow.className = ''
-    //     divisionRightArrow.className = 'hide'
-    //   }
+    // primaryMenuClickHandler(index) {
+    //     let icon = document.getElementById('primary-menu-inner-' + index)
+    //     // if(icon)
+    //     console.log(icon.innerHTML)
     // },
-    // divisionClick(i) {
-    //   console.log('Division Data : ' + i)
-    // },
-    // districtArrowClick(i, j) {
-    //   let thanaAreaSection = document.querySelector("#division-area-" + i + " #district-area-" + i + "-" + j + " .thana-area-section")
-    //   let divisionDownArrow = document.querySelector("#division-area-" + i + " #district-area-" + i + "-" + j + " #district-down-arrow-" + i + "-" + j)
-    //   let divisionRightArrow = document.querySelector("#division-area-" + i + " #district-area-" + i + "-" + j + " #district-right-arrow-" + i + "-" + j)
-    //   let districtName = document.querySelector("#division-area-" + i + " #district-area-" + i + "-" + j + " .district-name")
-    //   if(document.querySelector('#district-area-section-' + i + ' #thana-area-section-' + i + '-' + j).className === "thana-area-section") {
-    //     document.querySelector('#district-area-section-' + i + ' #thana-area-section-' + i + '-' + j).className = "thana-area-section hide"
-    //     districtName.className = 'district-name'
-    //     // this.closeThanaArrow()
-    //   } else {
-    //     // this.closeAllThana()
-    //     if(thanaAreaSection.className === "thana-area-section") {
-    //       thanaAreaSection.className = "thana-area-section hide"
-    //       districtName.className = 'district-name'
-    //       divisionDownArrow.className = 'hide'
-    //       divisionRightArrow.className = ''
-    //     } else {
-    //       thanaAreaSection.className = "thana-area-section"
-    //       districtName.className = 'district-name jemy-active'
-    //       divisionDownArrow.className = ''
-    //       divisionRightArrow.className = 'hide'
-    //     }
-    //   }
-    // },
-    // districtClick(i, j) {
-    //   console.log('Division Data : ' + i + '    ' + j)
-    // },
-    // thanaClick(i, j, k) {
-    //   console.log("Thana Click : " + i + "    " + j + "    " + k);
-    //   this.removeThanaActiveClass()
-    //   let thanaIcon = document.querySelector("#division-area-" + i + " #district-area-" + i + "-" + j + " #thana-area-" + i + "-" + j + "-" + k + " .square-icon")
-    //   let thanaName = document.querySelector("#division-area-" + i + " #district-area-" + i + "-" + j + " #thana-area-" + i + "-" + j + "-" + k + " .thana-name")
-    //   thanaIcon.className = "square-icon jemy-active-square"
-    //   thanaName.className = "thana-name jemy-active"
-    // },
-    // closeAllDistrict(id) {
-    //   // this.closeAllThana()
-    //   let districtSection = document.querySelectorAll('.district-area-section')
-    //   let divisionName = document.querySelectorAll(".division-name")
-    //   for(let i=0; i<districtSection.length; i++) {
-    //     divisionName[i].className = 'division-name'
-    //     if(i !== id) {
-    //       districtSection[i].className = "district-area-section hide"
-    //       document.querySelector("#division-area-" + i + " #division-down-arrow-" + i).className = 'hide'
-    //       document.querySelector("#division-area-" + i + " #division-right-arrow-" + i).className = ''
-    //     }
-    //   }
-    // },
-    // closeAllThana() {
-    //   let districtName = document.querySelectorAll(".district-name")
-    //   for(let i=0; i<document.querySelectorAll('.thana-area-section').length; i++) {
-    //     districtName[i].className = 'district-name'
-    //     document.querySelectorAll('.thana-area-section')[i].className = "thana-area-section hide"
-    //   }
-    //   this.closeThanaArrow()
-    //   this.removeThanaActiveClass()
-    // },
-    // closeThanaArrow() {
-    //   let districtArrowIcon = document.querySelectorAll('.district-area-section .icon-arrow')
-    //   for(let i=0; i<districtArrowIcon.length; i++) {
-    //     document.querySelectorAll('.district-area-section .icon-arrow span:nth-child(1)')[i].className = ''
-    //     document.querySelectorAll('.district-area-section .icon-arrow span:nth-child(2)')[i].className = 'hide'
-    //   }
-    // },
-    // removeThanaActiveClass() {
-    //   let thanaList = document.querySelectorAll('.thana-name')
-    //   for(let i=0; i<thanaList.length; i++) {
-    //     document.querySelectorAll('.square-icon')[i].className = 'square-icon'
-    //     thanaList[i].className = 'thana-name'
-    //   }
-    // }
+    primaryArrowClick(i) {
+      // this.closeAllsecondary(i)
+      let secondaryAreaSection = document.querySelector("#primary-area-" + i + " .secondary-area-section")
+      let primaryDownArrow = document.querySelector("#primary-area-" + i + " #primary-down-arrow-" + i)
+      let primaryRightArrow = document.querySelector("#primary-area-" + i + " #primary-right-arrow-" + i)
+      let primaryName = document.querySelector("#primary-area-" + i + " .primary-name")
+      if(secondaryAreaSection.className === "secondary-area-section") {
+        secondaryAreaSection.className = "secondary-area-section hide"
+        primaryName.className = 'primary-name'
+        primaryDownArrow.className = 'hide'
+        primaryRightArrow.className = ''
+      } else {
+        secondaryAreaSection.className = "secondary-area-section"
+        primaryName.className = 'primary-name jemy-active'
+        primaryDownArrow.className = ''
+        primaryRightArrow.className = 'hide'
+      }
+    },
+    primaryClick(i) {
+      console.log('primary Data : ' + i)
+    },
+    secondaryArrowClick(i, j) {
+      let tertiaryAreaSection = document.querySelector("#primary-area-" + i + " #secondary-area-" + i + "-" + j + " .tertiary-area-section")
+      let primaryDownArrow = document.querySelector("#primary-area-" + i + " #secondary-area-" + i + "-" + j + " #secondary-down-arrow-" + i + "-" + j)
+      let primaryRightArrow = document.querySelector("#primary-area-" + i + " #secondary-area-" + i + "-" + j + " #secondary-right-arrow-" + i + "-" + j)
+      let secondaryName = document.querySelector("#primary-area-" + i + " #secondary-area-" + i + "-" + j + " .secondary-name")
+      if(document.querySelector('#secondary-area-section-' + i + ' #tertiary-area-section-' + i + '-' + j).className === "tertiary-area-section") {
+        document.querySelector('#secondary-area-section-' + i + ' #tertiary-area-section-' + i + '-' + j).className = "tertiary-area-section hide"
+        secondaryName.className = 'secondary-name'
+        // this.closetertiaryArrow()
+      } else {
+        // this.closeAlltertiary()
+        if(tertiaryAreaSection.className === "tertiary-area-section") {
+          tertiaryAreaSection.className = "tertiary-area-section hide"
+          secondaryName.className = 'secondary-name'
+          primaryDownArrow.className = 'hide'
+          primaryRightArrow.className = ''
+        } else {
+          tertiaryAreaSection.className = "tertiary-area-section"
+          secondaryName.className = 'secondary-name jemy-active'
+          primaryDownArrow.className = ''
+          primaryRightArrow.className = 'hide'
+        }
+      }
+    },
+    secondaryClick(i, j) {
+      console.log('primary Data : ' + i + '    ' + j)
+    },
+    tertiaryClick(i, j, k) {
+      console.log("tertiary Click : " + i + "    " + j + "    " + k);
+      this.removetertiaryActiveClass()
+      let tertiaryIcon = document.querySelector("#primary-area-" + i + " #secondary-area-" + i + "-" + j + " #tertiary-area-" + i + "-" + j + "-" + k + " .square-icon")
+      let tertiaryName = document.querySelector("#primary-area-" + i + " #secondary-area-" + i + "-" + j + " #tertiary-area-" + i + "-" + j + "-" + k + " .tertiary-name")
+      tertiaryIcon.className = "square-icon jemy-active-square"
+      tertiaryName.className = "tertiary-name jemy-active"
+    },
+    closeAllsecondary(id) {
+      // this.closeAlltertiary()
+      let secondarySection = document.querySelectorAll('.secondary-area-section')
+      let primaryName = document.querySelectorAll(".primary-name")
+      for(let i=0; i<secondarySection.length; i++) {
+        primaryName[i].className = 'primary-name'
+        if(i !== id) {
+          secondarySection[i].className = "secondary-area-section hide"
+          document.querySelector("#primary-area-" + i + " #primary-down-arrow-" + i).className = 'hide'
+          document.querySelector("#primary-area-" + i + " #primary-right-arrow-" + i).className = ''
+        }
+      }
+    },
+    closeAlltertiary() {
+      let secondaryName = document.querySelectorAll(".secondary-name")
+      for(let i=0; i<document.querySelectorAll('.tertiary-area-section').length; i++) {
+        secondaryName[i].className = 'secondary-name'
+        document.querySelectorAll('.tertiary-area-section')[i].className = "tertiary-area-section hide"
+      }
+      this.closetertiaryArrow()
+      this.removetertiaryActiveClass()
+    },
+    closetertiaryArrow() {
+      let secondaryArrowIcon = document.querySelectorAll('.secondary-area-section .icon-arrow')
+      for(let i=0; i<secondaryArrowIcon.length; i++) {
+        document.querySelectorAll('.secondary-area-section .icon-arrow span:nth-child(1)')[i].className = ''
+        document.querySelectorAll('.secondary-area-section .icon-arrow span:nth-child(2)')[i].className = 'hide'
+      }
+    },
+    removetertiaryActiveClass() {
+      let tertiaryList = document.querySelectorAll('.tertiary-name')
+      for(let i=0; i<tertiaryList.length; i++) {
+        document.querySelectorAll('.square-icon')[i].className = 'square-icon'
+        tertiaryList[i].className = 'tertiary-name'
+      }
+    }
   },
 }
 </script>
@@ -252,44 +247,44 @@ export default {
 }
 
 .area-tree-inner .area-title-text .list-text,
-.menu-section .primary-menu .primary-menu-inner .list-text {
+.menu-section .primary-menu .primary-menu-inner .menu-name {
     display    : inline-block;
     font-size  : 14px;
     font-weight: 500;
 }
-/* 
-.main-area-list-section .division-area .icon-arrow {
-                        display       : inline-block;
-                        vertical-align: top;
+
+.main-area-list-section .primary-area .icon-arrow {
+    display       : inline-block;
+    vertical-align: top;
 }
 
-.main-area-list-section .division-area .division-inner {
-                        display: inline-block;
+.main-area-list-section .primary-area .primary-inner {
+    display: inline-block;
 }
-.main-area-list-section .division-area  .district-area-section .district-area .icon-arrow {
-                                    display       : inline-block;
-                                    vertical-align: top;
-                                }
-
-.main-area-list-section .division-area  .district-inner {
-                                    display: inline-block;
-}
-.main-area-list-section .division-area .thana-area-section .thana-area .icon-square {
-                                                display       : inline-block;
-                                                vertical-align: top;
-}
-.main-area-list-section .division-area  .square-icon {
-                                                    width        : 15px;
-                                                    height       : 15px;
-                                                    display      : block;
-                                                    border       : 1px solid #0073de4d;
-                                                    margin-top   : 4px;
-                                                    margin-right : 4px;
-                                                    border-radius: 2px;
-                                                    cursor       : pointer;
+.main-area-list-section .primary-area  .secondary-area-section .secondary-area .icon-arrow {
+    display       : inline-block;
+    vertical-align: top;
 }
 
-.main-area-list-section .division-area  .thana-inner {
-                                                display: inline-block;
-} */
+.main-area-list-section .primary-area  .secondary-inner {
+    display: inline-block;
+}
+.main-area-list-section .primary-area .tertiary-area-section .tertiary-area .icon-square {
+    display       : inline-block;
+    vertical-align: top;
+}
+.main-area-list-section .primary-area  .square-icon {
+    width        : 15px;
+    height       : 15px;
+    display      : block;
+    border       : 1px solid #0073de4d;
+    margin-top   : 4px;
+    margin-right : 4px;
+    border-radius: 2px;
+    cursor       : pointer;
+}
+
+.main-area-list-section .primary-area  .tertiary-inner {
+    display: inline-block;
+} 
 </style>
