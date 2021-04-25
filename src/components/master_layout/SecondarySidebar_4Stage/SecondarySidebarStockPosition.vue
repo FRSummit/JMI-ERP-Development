@@ -26,18 +26,17 @@
                         <!-- <div class="icon-square" @click="tertiaryClick(i, j, k)">
                           <span class="square-icon"></span>
                         </div> -->
-                        <div class="icon-arrow" @click="tertiaryClick(i, j, k)">
+                        <div :id="'icon-square-' + i + '-' + j + '-' + k" class="icon-square" @click="tertiaryClick(i, j, k, item_03)">
+                          <span class="square-icon"></span>
+                        </div>
+                        <!-- <div class="icon-arrow" @click="tertiaryClick(i, j, k)">
                             <span :id="'tertiary-right-arrow-' + i + '-' + j + '-' + k" class=""><i class="fas fa-chevron-right"></i></span>
                             <span :id="'tertiary-down-arrow-' + i + '-' + j + '-' + k" class="hide"><i class="fas fa-chevron-down"></i></span>
-                        </div>
+                        </div> -->
                         <div class="tertiary-inner">
-                          <p :id="'tertiary-name-' + i + '-' + j + '-' + k" class="tertiary-name" @click="tertiaryClick(i, j, k)">{{ item_03.wh_name }}</p>
-                          <div :id="'poly-tertiary-area-section-' + i + '-' + j + '-' + k" class="poly-tertiary-area-section hide">
+                          <p :id="'tertiary-name-' + i + '-' + j + '-' + k" class="tertiary-name" @click="tertiaryClick(i, j, k, item_03)">{{ item_03.wh_name }}</p>
+                          <!-- <div :id="'poly-tertiary-area-section-' + i + '-' + j + '-' + k" class="poly-tertiary-area-section hide">
                                 <div class="poly-tertiary-area" v-for="(item_04, l) in item_03.warehouse_store_info" :key="l" :id="'tertiary-area-' + i + '-' + j + '-' + k + '-' + l">
-                                    <!-- <div class="icon-arrow" @click="polyTertiaryClick(i, j)">
-                                        <span :id="'secondary-right-arrow-' + i + '-' + j" class=""><i class="fas fa-chevron-right"></i></span>
-                                        <span :id="'secondary-down-arrow-' + i + '-' + j" class="hide"><i class="fas fa-chevron-down"></i></span>
-                                    </div> -->
                                     <div :id="'icon-square-' + i + '-' + j + '-' + k + '-' + l" class="icon-square" @click="polyTertiaryClick(i, j, k, l, item_04)">
                                         <span class="square-icon"></span>
                                     </div>
@@ -45,7 +44,7 @@
                                         <p :id="'poly-tertiary-name-' + i + '-' + j + '-' + k + '-' + l" class="poly-tertiary-name" @click="polyTertiaryClick(i, j, k, l, item_04)">{{ item_04.store_name }}</p>
                                     </div>
                                 </div>
-                            </div>
+                          </div> -->
                         </div>
                       </div>
                     </div>
@@ -123,37 +122,50 @@ export default {
     secondaryClick(i, j) {
       console.log('primary Data : ' + i + '    ' + j)
     },
-    tertiaryClick(i, j, k) {
+    tertiaryClick(i, j, k, item) {
       console.log("tertiary Click : " + i + "    " + j + "    " + k);
-      let tertiary_right_arrow = document.querySelector('#secondary-sidebar-stock-position #tertiary-right-arrow-' + i + '-' + j + '-' + k)
-      let tertiary_down_arrow = document.querySelector('#secondary-sidebar-stock-position #tertiary-down-arrow-' + i + '-' + j + '-' + k)
-      let tertiary_name = document.querySelector('#secondary-sidebar-stock-position #tertiary-name-' + i + '-' + j + '-' + k)
-      if(document.querySelector('#secondary-sidebar-stock-position #poly-tertiary-area-section-' + i + '-' + j + '-' + k).className === "poly-tertiary-area-section") {
-        document.querySelector('#secondary-sidebar-stock-position #poly-tertiary-area-section-' + i + '-' + j + '-' + k).className = "poly-tertiary-area-section hide"
+      // let tertiary_right_arrow = document.querySelector('#secondary-sidebar-stock-position #tertiary-right-arrow-' + i + '-' + j + '-' + k)
+      // let tertiary_down_arrow = document.querySelector('#secondary-sidebar-stock-position #tertiary-down-arrow-' + i + '-' + j + '-' + k)
+      // let tertiary_name = document.querySelector('#secondary-sidebar-stock-position #tertiary-name-' + i + '-' + j + '-' + k)
+      // if(document.querySelector('#secondary-sidebar-stock-position #poly-tertiary-area-section-' + i + '-' + j + '-' + k).className === "poly-tertiary-area-section") {
+      //   document.querySelector('#secondary-sidebar-stock-position #poly-tertiary-area-section-' + i + '-' + j + '-' + k).className = "poly-tertiary-area-section hide"
 
-            tertiary_name.className = 'tertiary-name'
-          tertiary_down_arrow.className = 'hide'
-          tertiary_right_arrow.className = ''
-      } else {
-          document.querySelector('#secondary-sidebar-stock-position #poly-tertiary-area-section-' + i + '-' + j + '-' + k).className = "poly-tertiary-area-section"
-            tertiary_name.className = 'tertiary-name jmi-active-color'
-          tertiary_down_arrow.className = ''
-          tertiary_right_arrow.className = 'hide'
-      }
-    },
-    polyTertiaryClick(i, j, k, l, item) {
-      let poly_t_icon = document.querySelector("#secondary-sidebar-stock-position #icon-square-" + i + "-" + j + "-" + k + "-" + l + " .square-icon")
-      let poly_t_name = document.querySelector("#secondary-sidebar-stock-position #poly-tertiary-name-" + i + "-" + j + "-" + k + "-" + l)
-      for(let i=0; i<document.querySelectorAll('#secondary-sidebar-stock-position .poly-tertiary-name').length; i++) {
-          document.querySelectorAll('#secondary-sidebar-stock-position .poly-tertiary-name')[i].className = 'poly-tertiary-name'
+      //     tertiary_name.className = 'tertiary-name'
+      //     tertiary_down_arrow.className = 'hide'
+      //     tertiary_right_arrow.className = ''
+      // } else {
+      //     document.querySelector('#secondary-sidebar-stock-position #poly-tertiary-area-section-' + i + '-' + j + '-' + k).className = "poly-tertiary-area-section"
+      //     tertiary_name.className = 'tertiary-name jmi-active-color'
+      //     tertiary_down_arrow.className = ''
+      //     tertiary_right_arrow.className = 'hide'
+      // }
+
+      
+      let t_icon = document.querySelector("#secondary-sidebar-stock-position #icon-square-" + i + "-" + j + "-" + k + " .square-icon")
+      let t_name = document.querySelector("#secondary-sidebar-stock-position #tertiary-name-" + i + "-" + j + "-" + k)
+      for(let i=0; i<document.querySelectorAll('#secondary-sidebar-stock-position .tertiary-name').length; i++) {
+          document.querySelectorAll('#secondary-sidebar-stock-position .tertiary-name')[i].className = 'tertiary-name'
           document.querySelectorAll('#secondary-sidebar-stock-position .square-icon')[i].className = 'square-icon'
       }
-      poly_t_icon.className = "square-icon jemy-active-square"
-      poly_t_name.className = "poly-tertiary-name jmi-active-color"
+      t_icon.className = "square-icon jemy-active-square"
+      t_name.className = "tertiary-name jmi-active-color"
 
       console.log(item)
-      this.$emit('wh_store_stock_info', item)
+      this.$emit('warehouse_info', item)
     },
+    // polyTertiaryClick(i, j, k, l, item) {
+    //   let poly_t_icon = document.querySelector("#secondary-sidebar-stock-position #icon-square-" + i + "-" + j + "-" + k + "-" + l + " .square-icon")
+    //   let poly_t_name = document.querySelector("#secondary-sidebar-stock-position #poly-tertiary-name-" + i + "-" + j + "-" + k + "-" + l)
+    //   for(let i=0; i<document.querySelectorAll('#secondary-sidebar-stock-position .poly-tertiary-name').length; i++) {
+    //       document.querySelectorAll('#secondary-sidebar-stock-position .poly-tertiary-name')[i].className = 'poly-tertiary-name'
+    //       document.querySelectorAll('#secondary-sidebar-stock-position .square-icon')[i].className = 'square-icon'
+    //   }
+    //   poly_t_icon.className = "square-icon jemy-active-square"
+    //   poly_t_name.className = "poly-tertiary-name jmi-active-color"
+
+    //   console.log(item)
+    //   this.$emit('wh_store_stock_info', item)
+    // },
   },
 }
 </script>
@@ -247,6 +259,7 @@ export default {
     vertical-align: middle;
     font-size: 14px;
 }
+.tertiary-name,
 .poly-tertiary-name {
   cursor: pointer;
 }

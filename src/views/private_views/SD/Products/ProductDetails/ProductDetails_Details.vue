@@ -1234,7 +1234,7 @@
                                             <div class="treeItems">
                                                 <SecondarySidebarStockPosition 
                                                     :SELECTED_PROD_SBU_PROD_DETAILS="SELECTED_PROD_SBU_PROD_DETAILS"
-                                                    v-on:wh_store_stock_info="whStoreStockInfo"/>
+                                                    v-on:warehouse_info="getWarehouseInfo"/>
                                             </div>
                                         </div>
                                     </div>
@@ -1249,19 +1249,19 @@
                                             <table class="ledgerStock-Area-table">
                                                 <thead>
                                                     <tr>
-                                                        <th>Store</th>
-                                                        <th>Current Stock</th>
-                                                        <th>Blocked Stock</th>
-                                                        <th><a data-toggle="modal" data-target="#Transfer-Stock"> <i class="material-icons" data-toggle="tooltip" data-placement="bottom" title="Transfer" aria-hidden="true">compare_arrows</i> </a></th>
+                                                        <th style="flex-basis: 50%;">Store</th>
+                                                        <th style="flex-basis: 20%;">Current Stock</th>
+                                                        <th style="flex-basis: 20%;">Blocked Stock</th>
+                                                        <th style="flex-basis: 10%;"><a data-toggle="modal" data-target="#Transfer-Stock"> <i class="material-icons" data-toggle="tooltip" data-placement="bottom" title="Transfer" aria-hidden="true">compare_arrows</i> </a></th>
                                                     </tr>
                                                 </thead>
                                             
                                                 <tbody>
-                                                    <tr v-for="(item, i) in WH_STORE_STOCK_INFO__FROM_COMPONENT" :key="i">
-                                                        <td><p>{{ item.store_id }}</p></td>
-                                                        <td><p>{{ item.current_stock }}</p></td>
-                                                        <td><p>{{ item.blocked_stock }}</p></td>
-                                                        <td> </td>
+                                                    <tr v-for="(item, i) in WAREHOUSE_STORE_INFO__FROM_COMPONENT" :key="i">
+                                                        <td style="flex-basis: 50%;"><p>{{ item.store_name }}</p></td>
+                                                        <td style="flex-basis: 20%;"><p>{{ item.wh_store_stock_info[0] ? (item.wh_store_stock_info[0].current_stock ? item.wh_store_stock_info[0].current_stock : '')  : '' }}</p></td>
+                                                        <td style="flex-basis: 20%;"><p>{{ item.wh_store_stock_info[0] ? (item.wh_store_stock_info[0].blocked_stock ? item.wh_store_stock_info[0].blocked_stock : '') : '' }}</p></td>
+                                                        <td style="flex-basis: 10%;"> </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -1741,7 +1741,7 @@ export default {
             OFFER_EDITING_SELECTED_OFFER_ID: null,
 
             // STOCK POSITION
-            WH_STORE_STOCK_INFO__FROM_COMPONENT: null,
+            WAREHOUSE_STORE_INFO__FROM_COMPONENT: null,
 
             // DOCUMENTS
             UPLOADED_IMAGE_NAME: null,
@@ -2448,8 +2448,8 @@ export default {
         // Document Tab Content Area Ends
         // -----------------------------------------------------------------------------------------
         // Stock Position Tab Content Area Starts
-        whStoreStockInfo(value) {
-            this.WH_STORE_STOCK_INFO__FROM_COMPONENT = value.wh_store_stock_info
+        getWarehouseInfo(value) {
+            this.WAREHOUSE_STORE_INFO__FROM_COMPONENT = value.warehouse_store_info
         },
         // Stock Position Tab Content Area Starts
         // -----------------------------------------------------------------------------------------
