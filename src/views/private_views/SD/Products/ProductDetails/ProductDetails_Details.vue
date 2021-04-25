@@ -916,7 +916,7 @@
                             <!------------ Start Ledger Tab Content Area ------------> 
                             <div id="tab-ledger" class="tab-pane">
                                 <div class="row ledgerStock-Area">
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-4">
                                         <div class="treeArea">
                                             <div class="treeHeader">
                                                 <div class="form-group" style="padding: 0;">
@@ -926,7 +926,8 @@
                                             </div>
                                 
                                             <div class="treeItems">
-                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                                                <SecondarySidebarLedger />
+                                                <!-- <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
                                                     industry's standard
                                                     dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to
                                                     make a type specimen
@@ -948,16 +949,16 @@
                                                     still in their infancy. Various versions have evolved over the years, sometimes by accident,
                                                     sometimes on purpose
                                                     (injected humour and the like).
-                                                </p>
+                                                </p> -->
                                             </div>
                                         </div>
                                     </div>
                                 
-                                    <div class="col-lg-9">
+                                    <div class="col-lg-8">
                                         <div class="treeContent">
                                             <div class="contentHeader">
-                                                <h5>Current Stock: <span>13144</span></h5>
-                                                <h5>Available Stock: <span>5000</span></h5>
+                                                <h5>Current Stock: <span>{{ SELECTED_PROD_DETAILS.current_stock ? SELECTED_PROD_DETAILS.current_stock : 0 }}</span></h5>
+                                                <h5>Available Stock: <span>{{ SELECTED_PROD_DETAILS.available_stock ? SELECTED_PROD_DETAILS.available_stock : 0 }}</span></h5>
                                             </div>
                                 
                                             <table class="ledgerStock-Area-table">
@@ -1231,21 +1232,9 @@
                                             </div>
                                             
                                             <div class="treeItems">
-                                                <SecondarySidebar />
-                                                <!-- <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard
-                                                dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen
-                                                book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially
-                                                unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
-                                                recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-
-                                                Why do we use it?
-                                                It is a long established fact that a reader will be distracted by the readable content of a page when looking at its
-                                                layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using
-                                                'Content here, content here', making it look like readable English. Many desktop publishing packages and web page
-                                                editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites
-                                                still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose
-                                                (injected humour and the like).
-                                                </p> -->
+                                                <SecondarySidebarStockPosition 
+                                                    :SELECTED_PROD_SBU_PROD_DETAILS="SELECTED_PROD_SBU_PROD_DETAILS"
+                                                    v-on:wh_store_stock_info="whStoreStockInfo"/>
                                             </div>
                                         </div>
                                     </div>
@@ -1253,211 +1242,25 @@
                                     <div class="col-lg-8">
                                         <div class="treeContent">
                                             <div class="contentHeader">
-                                                <h5>Current Stock: <span>13144</span></h5>
-                                                <h5>Available Stock: <span>5000</span></h5>
+                                                <h5>Current Stock: <span>{{ SELECTED_PROD_DETAILS.current_stock ? SELECTED_PROD_DETAILS.current_stock : 0 }}</span></h5>
+                                                <h5>Available Stock: <span>{{ SELECTED_PROD_DETAILS.available_stock ? SELECTED_PROD_DETAILS.available_stock : 0 }}</span></h5>
                                             </div>
                 
                                             <table class="ledgerStock-Area-table">
                                                 <thead>
                                                     <tr>
                                                         <th>Store</th>
-                                                        <th>Stock</th>
-                                                        <th>Blocked</th>
+                                                        <th>Current Stock</th>
+                                                        <th>Blocked Stock</th>
                                                         <th><a data-toggle="modal" data-target="#Transfer-Stock"> <i class="material-icons" data-toggle="tooltip" data-placement="bottom" title="Transfer" aria-hidden="true">compare_arrows</i> </a></th>
                                                     </tr>
                                                 </thead>
                                             
                                                 <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <p>Restricted</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>10,000</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>5,000</p>
-                                                        </td>
-                                                        <td> </td>
-                                                    </tr>
-                                                    
-                                                    <tr>
-                                                        <td>
-                                                            <p>Restricted</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>10,000</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>5,000</p>
-                                                        </td>
-                                                        <td> </td>
-                                                    </tr>
-                                                    
-                                                    <tr>
-                                                        <td>
-                                                            <p>Restricted</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>10,000</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>5,000</p>
-                                                        </td>
-                                                        <td> </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <p>Restricted</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>10,000</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>5,000</p>
-                                                        </td>
-                                                        <td> </td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>
-                                                            <p>Restricted</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>10,000</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>5,000</p>
-                                                        </td>
-                                                        <td> </td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>
-                                                            <p>Restricted</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>10,000</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>5,000</p>
-                                                        </td>
-                                                        <td> </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <p>Restricted</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>10,000</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>5,000</p>
-                                                        </td>
-                                                        <td> </td>
-                                                    </tr>
-                                                    
-                                                    <tr>
-                                                        <td>
-                                                            <p>Restricted</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>10,000</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>5,000</p>
-                                                        </td>
-                                                        <td> </td>
-                                                    </tr>
-                                                    
-                                                    <tr>
-                                                        <td>
-                                                            <p>Restricted</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>10,000</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>5,000</p>
-                                                        </td>
-                                                        <td> </td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>
-                                                            <p>Restricted</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>10,000</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>5,000</p>
-                                                        </td>
-                                                        <td> </td>
-                                                    </tr>
-                                                    
-                                                    <tr>
-                                                        <td>
-                                                            <p>Restricted</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>10,000</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>5,000</p>
-                                                        </td>
-                                                        <td> </td>
-                                                    </tr>
-                                                    
-                                                    <tr>
-                                                        <td>
-                                                            <p>Restricted</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>10,000</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>5,000</p>
-                                                        </td>
-                                                        <td> </td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>
-                                                            <p>Restricted</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>10,000</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>5,000</p>
-                                                        </td>
-                                                        <td> </td>
-                                                    </tr>
-                                                    
-                                                    <tr>
-                                                        <td>
-                                                            <p>Restricted</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>10,000</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>5,000</p>
-                                                        </td>
-                                                        <td> </td>
-                                                    </tr>
-                                                    
-                                                    <tr>
-                                                        <td>
-                                                            <p>Restricted</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>10,000</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>5,000</p>
-                                                        </td>
+                                                    <tr v-for="(item, i) in WH_STORE_STOCK_INFO__FROM_COMPONENT" :key="i">
+                                                        <td><p>{{ item.store_id }}</p></td>
+                                                        <td><p>{{ item.current_stock }}</p></td>
+                                                        <td><p>{{ item.blocked_stock }}</p></td>
                                                         <td> </td>
                                                     </tr>
                                                 </tbody>
@@ -1815,7 +1618,8 @@ import JMIFilter from '../../../../../functions/JMIFIlter'
 const jmiFilter = new JMIFilter()
 import GlobalDateFormat from '../../../../../functions/GlobalDateFormat'
 const globalDateFormat = new GlobalDateFormat()
-import SecondarySidebar from './SecondarySidebar'
+import SecondarySidebarLedger from '../../../../../components/master_layout/SecondarySidebar_4Stage/SecondarySidebarLedger'
+import SecondarySidebarStockPosition from '../../../../../components/master_layout/SecondarySidebar_4Stage/SecondarySidebarStockPosition'
 
 import DatePicker from 'vue2-datepicker'
 
@@ -1825,12 +1629,14 @@ export default {
                 "SELECTED_PROD_ATTRIBUTES_DETAILS", 
                 "SELECTED_PROD_PRICE_DETAILS", 
                 "SELECTED_PROD_OFFER_DETAILS",
+                "SELECTED_PROD_SBU_PROD_DETAILS",
                 "SELECTED_PROD_DOCS_DETAILS",
                 "ALL_PRODS_LIST_IN_DB"
             ],
     components: {
         DatePicker,
-        SecondarySidebar,
+        SecondarySidebarLedger,
+        SecondarySidebarStockPosition,
     },
     data() {
         return {
@@ -1933,6 +1739,9 @@ export default {
             // PRICE ALGO FROM LEADER
 
             OFFER_EDITING_SELECTED_OFFER_ID: null,
+
+            // STOCK POSITION
+            WH_STORE_STOCK_INFO__FROM_COMPONENT: null,
 
             // DOCUMENTS
             UPLOADED_IMAGE_NAME: null,
@@ -2638,6 +2447,13 @@ export default {
         },
         // Document Tab Content Area Ends
         // -----------------------------------------------------------------------------------------
+        // Stock Position Tab Content Area Starts
+        whStoreStockInfo(value) {
+            this.WH_STORE_STOCK_INFO__FROM_COMPONENT = value.wh_store_stock_info
+        },
+        // Stock Position Tab Content Area Starts
+        // -----------------------------------------------------------------------------------------
+
         createNewProductClickHandler() {
             console.log('createNewProductClickHandler')
         },
@@ -3052,6 +2868,11 @@ export default {
             if(newVal) {
                 console.log(newVal)
                 this.setProductDocsTabContentArea(newVal)
+            }
+        },
+        SELECTED_PROD_SBU_PROD_DETAILS(newVal) {
+            if(newVal) {
+                console.log(newVal)
             }
         },
         prod_offer_now_price_d(newVal) {

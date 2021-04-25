@@ -1,28 +1,28 @@
 <template>
-    <div class="secondary-sidebar">
+    <div id="secondary-sidebar-stock-position" class="secondary-sidebar-stock-position">
         <div class="area-tree-inner">
             <div class="area-title-text">
                 <div class="icon-arrow" @click="sidebarTitleIconClick"><i class="fas fa-chevron-down"></i></div>
                 <p class="list-text" @click="sidebarTitleIconClick">SBU List</p>
             </div>
         <div class="main-area-list-section">
-          <div class="primary-area" v-for="(item_01, i) in 10" :key="i" :id="'primary-area-' + i">
+          <div class="primary-area" v-for="(item_01, i) in 1" :key="i" :id="'primary-area-' + i">
             <div class="icon-arrow" @click="primaryArrowClick(i)">
               <span :id="'primary-right-arrow-' + i" class=""><i class="fas fa-chevron-right"></i></span>
               <span :id="'primary-down-arrow-' + i" class="hide"><i class="fas fa-chevron-down"></i></span>
             </div>
             <div class="primary-inner">
-              <p class="primary-name" @click="primaryClick(i)">Tree Section {{ i + 1 }}</p>
+              <p class="primary-name" @click="primaryClick(i)">{{ SELECTED_PROD_SBU_PROD_DETAILS.sbu_name }}</p>
               <div :id="'secondary-area-section-' + i" class="secondary-area-section hide">
-                <div class="secondary-area" v-for="(item_02, j) in 5" :key="j" :id="'secondary-area-' + i + '-' + j">
+                <div class="secondary-area" v-for="(item_02, j) in SELECTED_PROD_SBU_PROD_DETAILS.plant_info" :key="j" :id="'secondary-area-' + i + '-' + j">
                   <div class="icon-arrow" @click="secondaryArrowClick(i, j)">
                     <span :id="'secondary-right-arrow-' + i + '-' + j" class=""><i class="fas fa-chevron-right"></i></span>
                     <span :id="'secondary-down-arrow-' + i + '-' + j" class="hide"><i class="fas fa-chevron-down"></i></span>
                   </div>
                   <div class="secondary-inner">
-                    <p class="secondary-name" @click="secondaryClick(i, j)">Tree Section2 {{ i + 1 }} {{ j + 1 }}</p>
+                    <p class="secondary-name" @click="secondaryClick(i, j)">{{ item_02.plant_name }}</p>
                     <div :id="'tertiary-area-section-' + i + '-' + j" class="tertiary-area-section hide">
-                      <div class="tertiary-area" v-for="(item_03, k) in 3" :key="k" :id="'tertiary-area-' + i + '-' + j + '-' + k">
+                      <div class="tertiary-area" v-for="(item_03, k) in item_02.warehouse_info" :key="k" :id="'tertiary-area-' + i + '-' + j + '-' + k">
                         <!-- <div class="icon-square" @click="tertiaryClick(i, j, k)">
                           <span class="square-icon"></span>
                         </div> -->
@@ -31,18 +31,18 @@
                             <span :id="'tertiary-down-arrow-' + i + '-' + j + '-' + k" class="hide"><i class="fas fa-chevron-down"></i></span>
                         </div>
                         <div class="tertiary-inner">
-                          <p :id="'tertiary-name-' + i + '-' + j + '-' + k" class="tertiary-name" @click="tertiaryClick(i, j, k)">Tree Section3 {{ i + 1 }} {{ j + 1 }} {{ k + 1 }}</p>
+                          <p :id="'tertiary-name-' + i + '-' + j + '-' + k" class="tertiary-name" @click="tertiaryClick(i, j, k)">{{ item_03.wh_name }}</p>
                           <div :id="'poly-tertiary-area-section-' + i + '-' + j + '-' + k" class="poly-tertiary-area-section hide">
-                                <div class="poly-tertiary-area" v-for="(item_03, l) in 3" :key="l" :id="'tertiary-area-' + i + '-' + j + '-' + k + '-' + l">
+                                <div class="poly-tertiary-area" v-for="(item_04, l) in item_03.warehouse_store_info" :key="l" :id="'tertiary-area-' + i + '-' + j + '-' + k + '-' + l">
                                     <!-- <div class="icon-arrow" @click="polyTertiaryClick(i, j)">
                                         <span :id="'secondary-right-arrow-' + i + '-' + j" class=""><i class="fas fa-chevron-right"></i></span>
                                         <span :id="'secondary-down-arrow-' + i + '-' + j" class="hide"><i class="fas fa-chevron-down"></i></span>
                                     </div> -->
-                                    <div :id="'icon-square-' + i + '-' + j + '-' + k + '-' + l" class="icon-square" @click="polyTertiaryClick(i, j, k, l)">
+                                    <div :id="'icon-square-' + i + '-' + j + '-' + k + '-' + l" class="icon-square" @click="polyTertiaryClick(i, j, k, l, item_04)">
                                         <span class="square-icon"></span>
                                     </div>
                                     <div class="poly-tertiary-inner">
-                                        <p :id="'poly-tertiary-name-' + i + '-' + j + '-' + k + '-' + l" class="poly-tertiary-name" @click="polyTertiaryClick(i, j, k, l)">Tree Section4 {{ i + 1 }} {{ j + 1 }} {{ k + 1 }} {{ l + 1 }}</p>
+                                        <p :id="'poly-tertiary-name-' + i + '-' + j + '-' + k + '-' + l" class="poly-tertiary-name" @click="polyTertiaryClick(i, j, k, l, item_04)">{{ item_04.store_name }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -61,7 +61,7 @@
 
 <script>
 export default {
-    
+    props: ["SELECTED_PROD_SBU_PROD_DETAILS"],
   methods: {
     sidebarTitleIconClick() {
       console.log("Area Location List Click");
@@ -73,10 +73,10 @@ export default {
     // },
     primaryArrowClick(i) {
       // this.closeAllsecondary(i)
-      let secondaryAreaSection = document.querySelector("#primary-area-" + i + " .secondary-area-section")
-      let primaryDownArrow = document.querySelector("#primary-area-" + i + " #primary-down-arrow-" + i)
-      let primaryRightArrow = document.querySelector("#primary-area-" + i + " #primary-right-arrow-" + i)
-      let primaryName = document.querySelector("#primary-area-" + i + " .primary-name")
+      let secondaryAreaSection = document.querySelector("#secondary-sidebar-stock-position #primary-area-" + i + " .secondary-area-section")
+      let primaryDownArrow = document.querySelector("#secondary-sidebar-stock-position #primary-area-" + i + " #primary-down-arrow-" + i)
+      let primaryRightArrow = document.querySelector("#secondary-sidebar-stock-position #primary-area-" + i + " #primary-right-arrow-" + i)
+      let primaryName = document.querySelector("#secondary-sidebar-stock-position #primary-area-" + i + " .primary-name")
       if(secondaryAreaSection.className === "secondary-area-section") {
         secondaryAreaSection.className = "secondary-area-section hide"
         primaryName.className = 'primary-name'
@@ -93,12 +93,12 @@ export default {
       console.log('primary Data : ' + i)
     },
     secondaryArrowClick(i, j) {
-      let tertiaryAreaSection = document.querySelector("#primary-area-" + i + " #secondary-area-" + i + "-" + j + " .tertiary-area-section")
-      let primaryDownArrow = document.querySelector("#primary-area-" + i + " #secondary-area-" + i + "-" + j + " #secondary-down-arrow-" + i + "-" + j)
-      let primaryRightArrow = document.querySelector("#primary-area-" + i + " #secondary-area-" + i + "-" + j + " #secondary-right-arrow-" + i + "-" + j)
-      let secondaryName = document.querySelector("#primary-area-" + i + " #secondary-area-" + i + "-" + j + " .secondary-name")
-      if(document.querySelector('#secondary-area-section-' + i + ' #tertiary-area-section-' + i + '-' + j).className === "tertiary-area-section") {
-        document.querySelector('#secondary-area-section-' + i + ' #tertiary-area-section-' + i + '-' + j).className = "tertiary-area-section hide"
+      let tertiaryAreaSection = document.querySelector("#secondary-sidebar-stock-position #primary-area-" + i + " #secondary-area-" + i + "-" + j + " .tertiary-area-section")
+      let primaryDownArrow = document.querySelector("#secondary-sidebar-stock-position #primary-area-" + i + " #secondary-area-" + i + "-" + j + " #secondary-down-arrow-" + i + "-" + j)
+      let primaryRightArrow = document.querySelector("#secondary-sidebar-stock-position #primary-area-" + i + " #secondary-area-" + i + "-" + j + " #secondary-right-arrow-" + i + "-" + j)
+      let secondaryName = document.querySelector("#secondary-sidebar-stock-position #primary-area-" + i + " #secondary-area-" + i + "-" + j + " .secondary-name")
+      if(document.querySelector('#secondary-sidebar-stock-position #secondary-area-section-' + i + ' #tertiary-area-section-' + i + '-' + j).className === "tertiary-area-section") {
+        document.querySelector('#secondary-sidebar-stock-position #secondary-area-section-' + i + ' #tertiary-area-section-' + i + '-' + j).className = "tertiary-area-section hide"
         secondaryName.className = 'secondary-name'
 
           secondaryName.className = 'secondary-name'
@@ -125,62 +125,42 @@ export default {
     },
     tertiaryClick(i, j, k) {
       console.log("tertiary Click : " + i + "    " + j + "    " + k);
-      let tertiary_right_arrow = document.querySelector('#tertiary-right-arrow-' + i + '-' + j + '-' + k)
-      let tertiary_down_arrow = document.querySelector('#tertiary-down-arrow-' + i + '-' + j + '-' + k)
-      let tertiary_name = document.querySelector('#tertiary-name-' + i + '-' + j + '-' + k)
-      if(document.querySelector('#poly-tertiary-area-section-' + i + '-' + j + '-' + k).className === "poly-tertiary-area-section") {
-        document.querySelector('#poly-tertiary-area-section-' + i + '-' + j + '-' + k).className = "poly-tertiary-area-section hide"
+      let tertiary_right_arrow = document.querySelector('#secondary-sidebar-stock-position #tertiary-right-arrow-' + i + '-' + j + '-' + k)
+      let tertiary_down_arrow = document.querySelector('#secondary-sidebar-stock-position #tertiary-down-arrow-' + i + '-' + j + '-' + k)
+      let tertiary_name = document.querySelector('#secondary-sidebar-stock-position #tertiary-name-' + i + '-' + j + '-' + k)
+      if(document.querySelector('#secondary-sidebar-stock-position #poly-tertiary-area-section-' + i + '-' + j + '-' + k).className === "poly-tertiary-area-section") {
+        document.querySelector('#secondary-sidebar-stock-position #poly-tertiary-area-section-' + i + '-' + j + '-' + k).className = "poly-tertiary-area-section hide"
 
             tertiary_name.className = 'tertiary-name'
           tertiary_down_arrow.className = 'hide'
           tertiary_right_arrow.className = ''
       } else {
-          document.querySelector('#poly-tertiary-area-section-' + i + '-' + j + '-' + k).className = "poly-tertiary-area-section"
+          document.querySelector('#secondary-sidebar-stock-position #poly-tertiary-area-section-' + i + '-' + j + '-' + k).className = "poly-tertiary-area-section"
             tertiary_name.className = 'tertiary-name jmi-active-color'
           tertiary_down_arrow.className = ''
           tertiary_right_arrow.className = 'hide'
       }
     },
-    polyTertiaryClick(i, j, k, l) {
-      let poly_t_icon = document.querySelector("#icon-square-" + i + "-" + j + "-" + k + "-" + l + " .square-icon")
-      let poly_t_name = document.querySelector("#poly-tertiary-name-" + i + "-" + j + "-" + k + "-" + l)
-      for(let i=0; i<document.querySelectorAll('.poly-tertiary-name').length; i++) {
-          document.querySelectorAll('.poly-tertiary-name')[i].className = 'poly-tertiary-name'
-          document.querySelectorAll('.square-icon')[i].className = 'square-icon'
+    polyTertiaryClick(i, j, k, l, item) {
+      let poly_t_icon = document.querySelector("#secondary-sidebar-stock-position #icon-square-" + i + "-" + j + "-" + k + "-" + l + " .square-icon")
+      let poly_t_name = document.querySelector("#secondary-sidebar-stock-position #poly-tertiary-name-" + i + "-" + j + "-" + k + "-" + l)
+      for(let i=0; i<document.querySelectorAll('#secondary-sidebar-stock-position .poly-tertiary-name').length; i++) {
+          document.querySelectorAll('#secondary-sidebar-stock-position .poly-tertiary-name')[i].className = 'poly-tertiary-name'
+          document.querySelectorAll('#secondary-sidebar-stock-position .square-icon')[i].className = 'square-icon'
       }
       poly_t_icon.className = "square-icon jemy-active-square"
       poly_t_name.className = "poly-tertiary-name jmi-active-color"
+
+      console.log(item)
+      this.$emit('wh_store_stock_info', item)
     },
-    closeAlltertiary() {
-      let secondaryName = document.querySelectorAll(".secondary-name")
-      for(let i=0; i<document.querySelectorAll('.tertiary-area-section').length; i++) {
-        secondaryName[i].className = 'secondary-name'
-        document.querySelectorAll('.tertiary-area-section')[i].className = "tertiary-area-section hide"
-      }
-      this.closetertiaryArrow()
-      this.removetertiaryActiveClass()
-    },
-    closetertiaryArrow() {
-      let secondaryArrowIcon = document.querySelectorAll('.secondary-area-section .icon-arrow')
-      for(let i=0; i<secondaryArrowIcon.length; i++) {
-        document.querySelectorAll('.secondary-area-section .icon-arrow span:nth-child(1)')[i].className = ''
-        document.querySelectorAll('.secondary-area-section .icon-arrow span:nth-child(2)')[i].className = 'hide'
-      }
-    },
-    removetertiaryActiveClass() {
-      let tertiaryList = document.querySelectorAll('.tertiary-name')
-      for(let i=0; i<tertiaryList.length; i++) {
-        document.querySelectorAll('.square-icon')[i].className = 'square-icon'
-        tertiaryList[i].className = 'tertiary-name'
-      }
-    }
   },
 }
 </script>
 
 <style scoped>
 .area-tree-inner .area-title-text {
-    margin-bottom: 10px;
+    margin-bottom: 4px;
     padding: 4px 6px;
 }
 .menu-section .primary-menu .primary-menu-inner {
@@ -206,17 +186,23 @@ export default {
     width  : 20px;
     height : 20px;
     padding: 5px;
-    /* color: #FFFFFF; */
     border-radius: 2px;
-    /* background-color: var(--blue); */
     margin-right: 4px;
     border: 1px solid var(--blue);
+    cursor       : pointer;
+}
+.icon-arrow svg.fa-chevron-down {
+  background-color: var(--blue);
+  color: #FFFFFF;
 }
 .area-tree-inner .area-title-text .list-text,
 .menu-section .primary-menu .primary-menu-inner .menu-name {
     display    : inline-block;
     font-size  : 14px;
     font-weight: 500;
+}
+.main-area-list-section {
+    padding: 4px 6px;
 }
 .main-area-list-section .primary-area .icon-arrow {
     display       : inline-block;
@@ -225,6 +211,7 @@ export default {
 
 .main-area-list-section .primary-area .primary-inner {
     display: inline-block;
+    width: 90%;
 }
 .main-area-list-section .primary-area  .secondary-area-section .secondary-area .icon-arrow {
     display       : inline-block;
@@ -233,6 +220,7 @@ export default {
 
 .main-area-list-section .primary-area  .secondary-inner {
     display: inline-block;
+    width: 90%;
 }
 .main-area-list-section .primary-area .tertiary-area-section .tertiary-area .icon-square {
     display       : inline-block;
@@ -248,11 +236,27 @@ export default {
     border-radius: 2px;
     cursor       : pointer;
 }
+.primary-name,
+.secondary-name,
+.tertiary-name,
+.poly-tertiary-name {
+    width         : 100%;
+    white-space   : nowrap;
+    overflow      : hidden;
+    text-overflow : ellipsis;
+    vertical-align: middle;
+    font-size: 14px;
+}
+.poly-tertiary-name {
+  cursor: pointer;
+}
 .main-area-list-section .primary-area  .tertiary-inner {
     display: inline-block;
+    width: 90%;
 } 
 .poly-tertiary-inner {
     display: inline-block;
+    width: 90%;
 }
 .jmi-active-color {
     color: var(--blue)
