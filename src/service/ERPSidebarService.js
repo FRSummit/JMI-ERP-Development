@@ -1288,6 +1288,18 @@ export default class PostService {
     })
   }
 
+  // PRODUCT - PRODUCT DETAILS - UPLOAD DOCUMENT FILE
+  async getStoreSBUListMenuWarehouse_PRODUCTS_DETAILS(store_id, prod_id) {
+    console.log(store_id + '    ' + prod_id)
+    let web_menu_url = '/api/web/store-sbu-list-menu-warehouse/' + store_id + '/' + prod_id
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+    })
+  }
+
   // -------------------------------------------------------------------------------------------
 
   // -------------------------------------------------------------------------------------------

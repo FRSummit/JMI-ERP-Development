@@ -38,11 +38,11 @@
                                         <span :id="'secondary-right-arrow-' + i + '-' + j" class=""><i class="fas fa-chevron-right"></i></span>
                                         <span :id="'secondary-down-arrow-' + i + '-' + j" class="hide"><i class="fas fa-chevron-down"></i></span>
                                     </div> -->
-                                    <div :id="'icon-square-' + i + '-' + j + '-' + k + '-' + l" class="icon-square" @click="polyTertiaryClick(i, j, k, l)">
+                                    <div :id="'icon-square-' + i + '-' + j + '-' + k + '-' + l" class="icon-square" @click="polyTertiaryClick(i, j, k, l, item_04)">
                                         <span class="square-icon"></span>
                                     </div>
                                     <div class="poly-tertiary-inner">
-                                        <p :id="'poly-tertiary-name-' + i + '-' + j + '-' + k + '-' + l" class="poly-tertiary-name" @click="polyTertiaryClick(i, j, k, l)">{{ item_04.store_name }}</p>
+                                        <p :id="'poly-tertiary-name-' + i + '-' + j + '-' + k + '-' + l" class="poly-tertiary-name" @click="polyTertiaryClick(i, j, k, l, item_04)">{{ item_04.store_name }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -141,7 +141,7 @@ export default {
           tertiary_right_arrow.className = 'hide'
       }
     },
-    polyTertiaryClick(i, j, k, l) {
+    polyTertiaryClick(i, j, k, l, item) {
       let poly_t_icon = document.querySelector("#secondary-sidebar-ledger #icon-square-" + i + "-" + j + "-" + k + "-" + l + " .square-icon")
       let poly_t_name = document.querySelector("#secondary-sidebar-ledger #poly-tertiary-name-" + i + "-" + j + "-" + k + "-" + l)
       for(let i=0; i<document.querySelectorAll('#secondary-sidebar-ledger .poly-tertiary-name').length; i++) {
@@ -150,6 +150,9 @@ export default {
       }
       poly_t_icon.className = "square-icon jemy-active-square"
       poly_t_name.className = "poly-tertiary-name jmi-active-color"
+
+      console.log(item.id)
+      this.$emit('store_id', item.id)
     },
   },
 }

@@ -928,7 +928,8 @@
                                             <div class="treeItems">
                                                 <SecondarySidebarLedger 
                                                     :SBU_LIST_MENU_WAREHOUSE="SBU_LIST_MENU_WAREHOUSE"
-                                                    :SBU_LIST_MENU_WAREHOUSE_PLANT_INFO="SBU_LIST_MENU_WAREHOUSE_PLANT_INFO"/>
+                                                    :SBU_LIST_MENU_WAREHOUSE_PLANT_INFO="SBU_LIST_MENU_WAREHOUSE_PLANT_INFO"
+                                                    v-on:store_id="getSBUListMenuWarehouseStoreId"/>
                                                 <!-- <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
                                                     industry's standard
                                                     dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to
@@ -966,252 +967,22 @@
                                             <table class="ledgerStock-Area-table">
                                                 <thead>
                                                     <tr>
-                                                        <th>Date</th>
-                                                        <th>Description</th>
-                                                        <th>Received</th>
-                                                        <th>Issued</th>
+                                                        <th style="flex-basis: 20%;">Date</th>
+                                                        <th style="flex-basis: 50%;">Description</th>
+                                                        <th style="flex-basis: 15%;">Received</th>
+                                                        <th style="flex-basis: 15%;">Issued</th>
                                                     </tr>
                                                 </thead>
                                 
                                                 <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <p>13/05/2021</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>Stock Transfer</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>10,000</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>5,000</p>
-                                                        </td>
+                                                    <tr v-for="(item, i) in STORE_SBU_LIST_MENU_WAREHOUSE" :key="i">
+                                                        <td style="flex-basis: 20%;"><p>{{ item.date ? prodDateFormatT4(item.date) : '' }}</p></td>
+                                                        <td style="flex-basis: 50%;"><p>{{ item.description ? item.description : '' }}</p></td>
+                                                        <td style="flex-basis: 15%;"><p>{{ item.received ? item.received : '' }}</p></td>
+                                                        <td style="flex-basis: 15%;"><p>{{ item.issued ? item.issued : '' }}</p></td>
                                                     </tr>
-
-                                                    <tr>
-                                                        <td>
-                                                            <p>13/05/2021</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>Delivery Return</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>10,000</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>5,000</p>
-                                                        </td>
-                                                    </tr>
-                                
-                                                    <tr>
-                                                        <td>
-                                                            <p>13/05/2021</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>Stock Transfer</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>10,000</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>5,000</p>
-                                                        </td>
-                                                    </tr>
-                                                    
-                                                    <tr>
-                                                        <td>
-                                                            <p>13/05/2021</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>Delivery Return</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>10,000</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>5,000</p>
-                                                        </td>
-                                                    </tr>
-                                
-                                                    <tr>
-                                                        <td>
-                                                            <p>13/05/2021</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>Stock Transfer</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>10,000</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>5,000</p>
-                                                        </td>
-                                                    </tr>
-                                                    
-                                                    <tr>
-                                                        <td>
-                                                            <p>13/05/2021</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>Delivery Return</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>10,000</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>5,000</p>
-                                                        </td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>
-                                                            <p>13/05/2021</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>Stock Transfer</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>10,000</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>5,000</p>
-                                                        </td>
-                                                    </tr>
-                                                    
-                                                    <tr>
-                                                        <td>
-                                                            <p>13/05/2021</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>Delivery Return</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>10,000</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>5,000</p>
-                                                        </td>
-                                                    </tr>
-                                
-                                                    <tr>
-                                                        <td>
-                                                            <p>13/05/2021</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>Stock Transfer</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>10,000</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>5,000</p>
-                                                        </td>
-                                                    </tr>
-                                                    
-                                                    <tr>
-                                                        <td>
-                                                            <p>13/05/2021</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>Delivery Return</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>10,000</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>5,000</p>
-                                                        </td>
-                                                    </tr>
-                                
-                                                    <tr>
-                                                        <td>
-                                                            <p>13/05/2021</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>Stock Transfer</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>10,000</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>5,000</p>
-                                                        </td>
-                                                    </tr>
-                                                    
-                                                    <tr>
-                                                        <td>
-                                                            <p>13/05/2021</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>Delivery Return</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>10,000</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>5,000</p>
-                                                        </td>
-                                                    </tr>
-                                
-                                                    <tr>
-                                                        <td>
-                                                            <p>13/05/2021</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>Stock Transfer</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>10,000</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>5,000</p>
-                                                        </td>
-                                                    </tr>
-                                                    
-                                                    <tr>
-                                                        <td>
-                                                            <p>13/05/2021</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>Delivery Return</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>10,000</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>5,000</p>
-                                                        </td>
-                                                    </tr>
-                                
-                                                    <tr>
-                                                        <td>
-                                                            <p>13/05/2021</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>Stock Transfer</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>10,000</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>5,000</p>
-                                                        </td>
-                                                    </tr>
-                                                    
-                                                    <tr>
-                                                        <td>
-                                                            <p>13/05/2021</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>Delivery Return</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>10,000</p>
-                                                        </td>
-                                                        <td>
-                                                            <p>5,000</p>
-                                                        </td>
+                                                    <tr v-if="!STORE_SBU_LIST_MENU_WAREHOUSE">
+                                                        <td colspan="4"><p>No data found</p></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -1745,6 +1516,7 @@ export default {
             // LEDGER
             SBU_LIST_MENU_WAREHOUSE: null,
             SBU_LIST_MENU_WAREHOUSE_PLANT_INFO: null,
+            STORE_SBU_LIST_MENU_WAREHOUSE: null,
 
             // STOCK POSITION
             WAREHOUSE_STORE_INFO__FROM_COMPONENT: null,
@@ -2454,6 +2226,13 @@ export default {
         },
         // Document Tab Content Area Ends
         // -----------------------------------------------------------------------------------------
+        // LEDGER
+        getSBUListMenuWarehouseStoreId(value) {
+            console.log(value)
+            this.STORE_SBU_LIST_MENU_WAREHOUSE__FROM_SERVICE(value, this.SELECTED_PROD_DETAILS.prod_id)
+        },
+        // LEDGER
+        // -----------------------------------------------------------------------------------------
         // Stock Position Tab Content Area Starts
         getWarehouseInfo(value) {
             this.WAREHOUSE_STORE_INFO__FROM_COMPONENT = value.warehouse_store_info
@@ -2860,6 +2639,22 @@ export default {
                         console.log(err)
                         this.SBU_LIST_MENU_WAREHOUSE = null
                         this.SBU_LIST_MENU_WAREHOUSE_PLANT_INFO = null
+                    }
+                })
+        },
+        async STORE_SBU_LIST_MENU_WAREHOUSE__FROM_SERVICE(value, prod_id) {
+            this.STORE_SBU_LIST_MENU_WAREHOUSE = null
+            await service.getStoreSBUListMenuWarehouse_PRODUCTS_DETAILS(value, prod_id)
+                .then(res => {
+                    console.log(res.data)
+                    if(res.data.response_code === 200 || res.data.response_code === 201) {
+                        this.STORE_SBU_LIST_MENU_WAREHOUSE = res.data.prod_ledgers
+                    }
+                })
+                .catch(err => {
+                    if(err) {
+                        console.log(err)
+                        this.STORE_SBU_LIST_MENU_WAREHOUSE = null
                     }
                 })
         }
