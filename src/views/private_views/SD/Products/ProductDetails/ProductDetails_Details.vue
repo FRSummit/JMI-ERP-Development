@@ -930,29 +930,6 @@
                                                     :SBU_LIST_MENU_WAREHOUSE="SBU_LIST_MENU_WAREHOUSE"
                                                     :SBU_LIST_MENU_WAREHOUSE_PLANT_INFO="SBU_LIST_MENU_WAREHOUSE_PLANT_INFO"
                                                     v-on:store_id="getSBUListMenuWarehouseStoreId"/>
-                                                <!-- <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                                                    industry's standard
-                                                    dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to
-                                                    make a type specimen
-                                                    book. It has survived not only five centuries, but also the leap into electronic typesetting,
-                                                    remaining essentially
-                                                    unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem
-                                                    Ipsum passages, and more
-                                                    recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                                
-                                                    Why do we use it?
-                                                    It is a long established fact that a reader will be distracted by the readable content of a page
-                                                    when looking at its
-                                                    layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,
-                                                    as opposed to using
-                                                    'Content here, content here', making it look like readable English. Many desktop publishing packages
-                                                    and web page
-                                                    editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover
-                                                    many web sites
-                                                    still in their infancy. Various versions have evolved over the years, sometimes by accident,
-                                                    sometimes on purpose
-                                                    (injected humour and the like).
-                                                </p> -->
                                             </div>
                                         </div>
                                     </div>
@@ -1025,7 +1002,7 @@
                                                         <th style="flex-basis: 50%;">Store</th>
                                                         <th style="flex-basis: 20%;">Current Stock</th>
                                                         <th style="flex-basis: 20%;">Blocked Stock</th>
-                                                        <th style="flex-basis: 10%;"><a data-toggle="modal" data-target="#Transfer-Stock"> <i class="material-icons" data-toggle="tooltip" data-placement="bottom" title="Transfer" aria-hidden="true">compare_arrows</i> </a></th>
+                                                        <th style="flex-basis: 10%;"><a data-toggle="modal" data-target="#Transfer-Stock" v-if="WAREHOUSE_STORE_INFO__FROM_COMPONENT" @click="setTransferStockDefaultValue"> <i class="material-icons" data-toggle="tooltip" data-placement="bottom" title="Transfer" aria-hidden="true">compare_arrows</i> </a></th>
                                                     </tr>
                                                 </thead>
                                             
@@ -1052,31 +1029,27 @@
                                                         <form class="modal-body">
                                                         <div class="row">
                                                             <div class="col-lg-12 form-group">
-                                                                <label for="store_from">Store From <span class="current-stock">(Current Stock: <span>00</span>)</span></label>
-                                                                <select class="form-control" id="store_from">
-                                                                    <option value="1">Select a Store</option>
-                                                                    <option value="2">Store 1</option>
-                                                                    <option value="3">Store 2</option>
-                                                                    <option value="4">Store 3</option>
+                                                                <label for="store_from">Store From <span class="current-stock">(Current Stock: <span>{{ selected_store_current_stock }}</span>)</span></label>
+                                                                <select class="form-control" id="store_from" v-model="stock_position_modal_store_from" @change="stockPositionModalStoreFromOnChange">
+                                                                    <option :value="null" selected>Select a Store</option>
+                                                                    <option v-for="(item, i) in WAREHOUSE_STORE_INFO__FROM_COMPONENT" :key="i" :value="item">{{ item.store_name }}</option>
                                                                 </select>
                                                             </div>
                                                             <div class="col-lg-12 form-group">
                                                                 <label for="store_to">Store To</label>
-                                                                <select class="form-control" id="store_to">
-                                                                    <option value="1">Select a Store</option>
-                                                                    <option value="2">Store 1</option>
-                                                                    <option value="3">Store 2</option>
-                                                                    <option value="4">Store 3</option>
+                                                                <select class="form-control" id="store_to" v-model="stock_position_modal_store_to">
+                                                                    <option :value="null" selected>Select a Store</option>
+                                                                    <option v-for="(item, i) in WAREHOUSE_STORE_INFO__FROM_COMPONENT" :key="i" :value="item">{{ item.store_name }}</option>
                                                                 </select>
                                                             </div>
                                                             <div class="col-lg-12 form-group">
                                                                 <label for="quantity">Quantity</label>
-                                                                <input type="number" class="form-control" id="quantity" placeholder="Enter Quantity">
+                                                                <input type="number" v-model="stock_position_modal_stock_qty" class="form-control" id="quantity" placeholder="Enter Quantity">
                                                             </div>
                                                         </div>
                                                         </form>
                                                         <div class="modal-footer justify-content-center">
-                                                            <button type="button" class="btn btn-primary btn-global">Save</button>
+                                                            <button type="button" class="btn btn-primary btn-global" @click="transferStockSaveBtnClickHandler">Save</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1520,6 +1493,12 @@ export default {
 
             // STOCK POSITION
             WAREHOUSE_STORE_INFO__FROM_COMPONENT: null,
+
+            selected_store_current_stock: null,
+
+            stock_position_modal_store_from: null,
+            stock_position_modal_store_to: null,
+            stock_position_modal_stock_qty: null,
 
             // DOCUMENTS
             UPLOADED_IMAGE_NAME: null,
@@ -2236,6 +2215,22 @@ export default {
         // Stock Position Tab Content Area Starts
         getWarehouseInfo(value) {
             this.WAREHOUSE_STORE_INFO__FROM_COMPONENT = value.warehouse_store_info
+        },
+        setTransferStockDefaultValue() {
+            this.selected_store_current_stock = 0
+            this.stock_position_modal_store_from = null
+            this.stock_position_modal_store_to = null
+            this.stock_position_modal_stock_qty = null
+        },
+        stockPositionModalStoreFromOnChange() {
+            console.log(this.stock_position_modal_store_from)
+            let wh_store_stock_info_VAR = this.stock_position_modal_store_from.wh_store_stock_info
+            this.selected_store_current_stock = wh_store_stock_info_VAR[0] ? wh_store_stock_info_VAR[0].current_stock : 0
+        },
+        transferStockSaveBtnClickHandler() {
+            console.log(this.stock_position_modal_store_from)
+            console.log(this.stock_position_modal_store_to)
+            console.log(this.stock_position_modal_stock_qty)
         },
         // Stock Position Tab Content Area Starts
         // -----------------------------------------------------------------------------------------
