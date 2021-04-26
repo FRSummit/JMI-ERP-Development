@@ -6,23 +6,23 @@
                 <p class="list-text" @click="sidebarTitleIconClick">SBU List</p>
             </div>
         <div class="main-area-list-section">
-          <div class="primary-area" v-for="(item_01, i) in 10" :key="i" :id="'primary-area-' + i">
+          <div class="primary-area" v-for="(item_01, i) in 1" :key="i" :id="'primary-area-' + i">
             <div class="icon-arrow" @click="primaryArrowClick(i)">
               <span :id="'primary-right-arrow-' + i" class=""><i class="fas fa-chevron-right"></i></span>
               <span :id="'primary-down-arrow-' + i" class="hide"><i class="fas fa-chevron-down"></i></span>
             </div>
             <div class="primary-inner">
-              <p class="primary-name" @click="primaryClick(i)">Tree Section {{ i + 1 }}</p>
+              <p class="primary-name" @click="primaryClick(i)">{{ SBU_LIST_MENU_WAREHOUSE.sbu_name }}</p>
               <div :id="'secondary-area-section-' + i" class="secondary-area-section hide">
-                <div class="secondary-area" v-for="(item_02, j) in 5" :key="j" :id="'secondary-area-' + i + '-' + j">
+                <div class="secondary-area" v-for="(item_02, j) in SBU_LIST_MENU_WAREHOUSE.plant_info" :key="j" :id="'secondary-area-' + i + '-' + j">
                   <div class="icon-arrow" @click="secondaryArrowClick(i, j)">
                     <span :id="'secondary-right-arrow-' + i + '-' + j" class=""><i class="fas fa-chevron-right"></i></span>
                     <span :id="'secondary-down-arrow-' + i + '-' + j" class="hide"><i class="fas fa-chevron-down"></i></span>
                   </div>
                   <div class="secondary-inner">
-                    <p class="secondary-name" @click="secondaryClick(i, j)">Tree Section2 {{ i + 1 }} {{ j + 1 }}</p>
+                    <p class="secondary-name" @click="secondaryClick(i, j)">{{ item_02.plant_name }}</p>
                     <div :id="'tertiary-area-section-' + i + '-' + j" class="tertiary-area-section hide">
-                      <div class="tertiary-area" v-for="(item_03, k) in 3" :key="k" :id="'tertiary-area-' + i + '-' + j + '-' + k">
+                      <div class="tertiary-area" v-for="(item_03, k) in item_02.warehouse_info" :key="k" :id="'tertiary-area-' + i + '-' + j + '-' + k">
                         <!-- <div class="icon-square" @click="tertiaryClick(i, j, k)">
                           <span class="square-icon"></span>
                         </div> -->
@@ -31,9 +31,9 @@
                             <span :id="'tertiary-down-arrow-' + i + '-' + j + '-' + k" class="hide"><i class="fas fa-chevron-down"></i></span>
                         </div>
                         <div class="tertiary-inner">
-                          <p :id="'tertiary-name-' + i + '-' + j + '-' + k" class="tertiary-name" @click="tertiaryClick(i, j, k)">Tree Section3 {{ i + 1 }} {{ j + 1 }} {{ k + 1 }}</p>
+                          <p :id="'tertiary-name-' + i + '-' + j + '-' + k" class="tertiary-name" @click="tertiaryClick(i, j, k)">{{ item_03.wh_name }}</p>
                           <div :id="'poly-tertiary-area-section-' + i + '-' + j + '-' + k" class="poly-tertiary-area-section hide">
-                                <div class="poly-tertiary-area" v-for="(item_03, l) in 3" :key="l" :id="'tertiary-area-' + i + '-' + j + '-' + k + '-' + l">
+                                <div class="poly-tertiary-area" v-for="(item_04, l) in item_03.warehouse_store_info" :key="l" :id="'tertiary-area-' + i + '-' + j + '-' + k + '-' + l">
                                     <!-- <div class="icon-arrow" @click="polyTertiaryClick(i, j)">
                                         <span :id="'secondary-right-arrow-' + i + '-' + j" class=""><i class="fas fa-chevron-right"></i></span>
                                         <span :id="'secondary-down-arrow-' + i + '-' + j" class="hide"><i class="fas fa-chevron-down"></i></span>
@@ -42,7 +42,7 @@
                                         <span class="square-icon"></span>
                                     </div>
                                     <div class="poly-tertiary-inner">
-                                        <p :id="'poly-tertiary-name-' + i + '-' + j + '-' + k + '-' + l" class="poly-tertiary-name" @click="polyTertiaryClick(i, j, k, l)">Tree Section4 {{ i + 1 }} {{ j + 1 }} {{ k + 1 }} {{ l + 1 }}</p>
+                                        <p :id="'poly-tertiary-name-' + i + '-' + j + '-' + k + '-' + l" class="poly-tertiary-name" @click="polyTertiaryClick(i, j, k, l)">{{ item_04.store_name }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -61,7 +61,7 @@
 
 <script>
 export default {
-    
+    props: ["SBU_LIST_MENU_WAREHOUSE", "SBU_LIST_MENU_WAREHOUSE_PLANT_INFO"],
   methods: {
     sidebarTitleIconClick() {
       console.log("Area Location List Click");
@@ -208,7 +208,7 @@ export default {
 
 .main-area-list-section .primary-area .primary-inner {
     display: inline-block;
-    width: 90%;
+    width: 88%;
 }
 .main-area-list-section .primary-area  .secondary-area-section .secondary-area .icon-arrow {
     display       : inline-block;
@@ -217,7 +217,7 @@ export default {
 
 .main-area-list-section .primary-area  .secondary-inner {
     display: inline-block;
-    width: 90%;
+    width: 88%;
 }
 .main-area-list-section .primary-area .tertiary-area-section .tertiary-area .icon-square {
     display       : inline-block;
@@ -248,11 +248,11 @@ export default {
 }
 .main-area-list-section .primary-area  .tertiary-inner {
     display: inline-block;
-    width: 90%;
+    width: 88%;
 } 
 .poly-tertiary-inner {
     display: inline-block;
-    width: 90%;
+    width: 88%;
 }
 .jmi-active-color {
     color: var(--blue)

@@ -926,7 +926,9 @@
                                             </div>
                                 
                                             <div class="treeItems">
-                                                <SecondarySidebarLedger />
+                                                <SecondarySidebarLedger 
+                                                    :SBU_LIST_MENU_WAREHOUSE="SBU_LIST_MENU_WAREHOUSE"
+                                                    :SBU_LIST_MENU_WAREHOUSE_PLANT_INFO="SBU_LIST_MENU_WAREHOUSE_PLANT_INFO"/>
                                                 <!-- <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
                                                     industry's standard
                                                     dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to
@@ -1259,8 +1261,8 @@
                                                 <tbody>
                                                     <tr v-for="(item, i) in WAREHOUSE_STORE_INFO__FROM_COMPONENT" :key="i">
                                                         <td style="flex-basis: 50%;"><p>{{ item.store_name }}</p></td>
-                                                        <td style="flex-basis: 20%;"><p>{{ item.wh_store_stock_info[0] ? (item.wh_store_stock_info[0].current_stock ? item.wh_store_stock_info[0].current_stock : '')  : '' }}</p></td>
-                                                        <td style="flex-basis: 20%;"><p>{{ item.wh_store_stock_info[0] ? (item.wh_store_stock_info[0].blocked_stock ? item.wh_store_stock_info[0].blocked_stock : '') : '' }}</p></td>
+                                                        <td style="flex-basis: 20%;"><p>{{ item.wh_store_stock_info[0] ? (item.wh_store_stock_info[0].current_stock ? item.wh_store_stock_info[0].current_stock : 0)  : 0 }}</p></td>
+                                                        <td style="flex-basis: 20%;"><p>{{ item.wh_store_stock_info[0] ? (item.wh_store_stock_info[0].blocked_stock ? item.wh_store_stock_info[0].blocked_stock : 0) : 0 }}</p></td>
                                                         <td style="flex-basis: 10%;"> </td>
                                                     </tr>
                                                 </tbody>
@@ -1740,6 +1742,10 @@ export default {
 
             OFFER_EDITING_SELECTED_OFFER_ID: null,
 
+            // LEDGER
+            SBU_LIST_MENU_WAREHOUSE: null,
+            SBU_LIST_MENU_WAREHOUSE_PLANT_INFO: null,
+
             // STOCK POSITION
             WAREHOUSE_STORE_INFO__FROM_COMPONENT: null,
 
@@ -1765,6 +1771,7 @@ export default {
     async mounted() {
         await this.SEARCH_PRODUCT_DATA_LIST__FROM_SERVICE()
         await this.PRODUCT_CLASS_ELEMENT_LIST__FROM_SERVICE()
+        await this.SBU_LIST_MENU_WAREHOUSE__FROM_SERVICE()
     },
     methods: {
         // ---------------------------------------------------------------------------
@@ -2836,6 +2843,26 @@ export default {
                     }
                 })
         },
+        async SBU_LIST_MENU_WAREHOUSE__FROM_SERVICE() {
+            this.SBU_LIST_MENU_WAREHOUSE = null
+            this.SBU_LIST_MENU_WAREHOUSE_PLANT_INFO = null
+            await service.getSBUListMenuWarehouse_PRODUCTS_DETAILS()
+                .then(res => {
+                    console.log(res.data)
+                    console.log(res.data.menu_list)
+                    if(res.data.response_code === 200 || res.data.response_code === 201) {
+                        this.SBU_LIST_MENU_WAREHOUSE = res.data.menu_list
+                        this.SBU_LIST_MENU_WAREHOUSE_PLANT_INFO = res.data.menu_list.plant_info
+                    }
+                })
+                .catch(err => {
+                    if(err) {
+                        console.log(err)
+                        this.SBU_LIST_MENU_WAREHOUSE = null
+                        this.SBU_LIST_MENU_WAREHOUSE_PLANT_INFO = null
+                    }
+                })
+        }
     },
     watch: {
         SELECTED_PROD_DETAILS(newVal) {

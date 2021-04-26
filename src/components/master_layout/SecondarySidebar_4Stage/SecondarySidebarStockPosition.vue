@@ -223,7 +223,7 @@ export default {
 
 .main-area-list-section .primary-area .primary-inner {
     display: inline-block;
-    width: 90%;
+    width: 88%;
 }
 .main-area-list-section .primary-area  .secondary-area-section .secondary-area .icon-arrow {
     display       : inline-block;
@@ -232,7 +232,7 @@ export default {
 
 .main-area-list-section .primary-area  .secondary-inner {
     display: inline-block;
-    width: 90%;
+    width: 88%;
 }
 .main-area-list-section .primary-area .tertiary-area-section .tertiary-area .icon-square {
     display       : inline-block;
@@ -265,11 +265,11 @@ export default {
 }
 .main-area-list-section .primary-area  .tertiary-inner {
     display: inline-block;
-    width: 90%;
+    width: 88%;
 } 
 .poly-tertiary-inner {
     display: inline-block;
-    width: 90%;
+    width: 88%;
 }
 .jmi-active-color {
     color: var(--blue)
