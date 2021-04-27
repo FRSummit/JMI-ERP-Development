@@ -301,6 +301,7 @@
     padding-left : 36px;
     border-radius: 2px;
     border       : 1px solid var(--border-color);
+    box-sizing   : border-box;
 }
 
 .modal-body .form-group input.mx-input {
