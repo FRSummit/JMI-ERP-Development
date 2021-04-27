@@ -295,6 +295,13 @@ export const router = new VueRouter({
       name: 'Product Details',
       component: () => import('../views/private_views/SD/Products/ProductDetails/ProductDetails.vue')
     },
+    // --------------------------------------------------------------------------------------
+    // COLLECTION
+    {
+      path: '/features/local_sales/sd-collection',
+      name: 'Collection',
+      component: () => import('../views/private_views/SD/Collection/Collection.vue')
+    },
 
     // --------------------------------------------------------------------------------------
     // 404 PAGES

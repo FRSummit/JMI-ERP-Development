@@ -785,12 +785,14 @@ export default {
             for(let i=0; i<prod_list.length; i++) {
                 console.log(prod_list[i].is_regular_product)
                 if(prod_list[i].is_regular_product === 'Y') {
-                    regular_prods_line_total += this.ORDERED_TABLE_DATA__INIT_LIST[i].base_tp * this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity
+                    regular_prods_line_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].base_tp * this.ORDERED_TABLE_DATA__INIT_LIST[i].quantity)
                     console.log(regular_prods_line_total)
                 }
             }
             console.log(regular_prods_line_total)
-            this.CHECK_ORDER_OFFER_SPECIAL_DISCOUNT__FROM_SERVICE(regular_prods_line_total)
+            if(regular_prods_line_total) {
+                this.CHECK_ORDER_OFFER_SPECIAL_DISCOUNT__FROM_SERVICE(regular_prods_line_total)
+            }
         },
         // ------------------------------------------------------------------------------------------
         // Service Implementation
@@ -899,6 +901,7 @@ export default {
         },
         async CHECK_ORDER_OFFER_SPECIAL_DISCOUNT__FROM_SERVICE(regular_prods_line_total) {
             let date = this.delivery_dt ? this.delivery_dt : new Date()
+            this.special_discount = 0.00
             await service.getGetOrderOffer_Special_Discount_OrderApproval(regular_prods_line_total, date)
                 .then(res => {
                     console.log(res.data)
@@ -908,6 +911,7 @@ export default {
                 .catch(err => {
                     if(err) {
                         console.log(err)
+                        this.special_discount = 0.00
                     }
                 })
         },

@@ -301,6 +301,7 @@
     padding-left : 36px;
     border-radius: 2px;
     border       : 1px solid var(--border-color);
+    box-sizing   : border-box;
 }
 
 .modal-body .form-group input.mx-input {
@@ -720,7 +721,8 @@
     border    : 0;
 }
 
-#manage-attribute-modal .modal-body {
+#manage-attribute-modal .modal-body,
+#stock_position_manage-attribute-modal .modal-body {
     min-height: 400px;
 }
 
@@ -1313,6 +1315,214 @@
 }
 
 /* End Competitor Card Area */
+
+
+/* Start Ledger & Stock Position Area */
+.ledgerStock-Area {
+    margin-top: 10px;
+}
+
+.ledgerStock-Area .treeArea {
+    border          : 1px solid var(--border-color);
+    height          : calc(100vh - (var(--used-height) + (180px)));
+    background-color: var(--white);
+}
+
+.ledgerStock-Area .treeArea .treeHeader {
+    align-items  : center;
+    padding      : 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.ledgerStock-Area .treeArea .treeHeader .form-group {
+    position     : relative;
+    margin-bottom: 0px !important;
+    width        : 100%;
+}
+
+.ledgerStock-Area .treeArea .treeHeader .form-group i {
+    position : absolute;
+    top      : 12px;
+    left     : 10px;
+    color    : #AAC0D9;
+    font-size: var(--font14);
+}
+
+.ledgerStock-Area .treeArea .treeHeader .form-group input {
+    padding-left : 36px;
+    border-radius: 2px;
+    border       : 1px solid var(--border-color);
+}
+
+.ledgerStock-Area .treeArea .treeHeader .form-group input::placeholder {
+    font-size: var(--font14);
+    color    : #AAC0D9;
+}
+
+.ledgerStock-Area .treeArea .treeHeader .form-group input:focus {
+    border-color: var(--blue);
+    box-shadow  : none;
+}
+
+.ledgerStock-Area .treeArea .treeItems {
+    height       : calc(100vh - (var(--used-height) + (242px + 6px)));
+    display      : block;
+    overflow-y   : scroll;
+    border-bottom: none;
+    margin       : 0px;
+}
+
+.ledgerStock-Area .treeContent .contentHeader {
+    display    : flex;
+    align-items: center;
+    padding    : 15px;
+    border     : 1px solid var(--border-color);
+}
+
+.ledgerStock-Area .treeContent .contentHeader h5 {
+    font-size   : var(--font16);
+    color       : var(--blue);
+    margin-right: 50px;
+}
+
+.ledgerStock-Area .treeContent .contentHeader h5:last-child {
+    font-size: var(--font16);
+    color    : var(--blue);
+}
+
+.ledgerStock-Area .treeContent .contentHeader h5 span {
+    font-size: var(--font16);
+    color    : var(--text-label);
+}
+
+:root {
+    --table-height: 40px;
+}
+
+@media screen and (max-width: 1440px) {
+    :root {
+        --table-height: 35px;
+    }
+}
+
+.ledgerStock-Area .treeContent .ledgerStock-Area-table {
+    margin-top    : 10px;
+    display       : block;
+    empty-cells   : show;
+    border-spacing: 0;
+    border        : 1px solid var(--border-color);
+    box-sizing    : border-box;
+}
+
+.ledgerStock-Area .treeContent .ledgerStock-Area-table thead i {
+    display         : -webkit-box;
+    display         : -ms-flexbox;
+    display         : flex;
+    justify-content : center;
+    align-items     : center;
+    width           : 30px;
+    height          : 30px;
+    font-size       : var(--font18);
+    font-weight     : 800;
+    color           : var(--blue);
+    border-radius   : 100px;
+    background-color: var(--bluish-white);
+    cursor          : pointer;
+}
+
+.ledgerStock-Area .treeContent .ledgerStock-Area-table thead {
+    width         : 100%;
+    display       : block;
+    color         : var(--blue);
+    font-size     : var(--font14);
+    text-transform: uppercase;
+}
+
+.ledgerStock-Area .treeContent .ledgerStock-Area-table tfoot {
+    background-color: var(--bluish-white);
+    display         : block;
+    width           : 100%;
+    font-size       : var(--font14);
+    border-radius   : 0px 0px 8px 8px;
+}
+
+.ledgerStock-Area .treeContent .ledgerStock-Area-table tfoot tr {
+    border-bottom: none !important;
+    color        : var(--blue);
+}
+
+.ledgerStock-Area .treeContent .ledgerStock-Area-table tbody {
+    width     : 100%;
+    display   : block;
+    overflow-y: scroll;
+    font-size : var(--font14);
+    color     : var(--text-black);
+    height    : calc(100vh - (var(--used-height) + (284px + 6px)));
+}
+
+.ledgerStock-Area .treeContent .ledgerStock-Area-table tr {
+    width        : 100%;
+    display      : flex;
+    align-items  : center;
+    height       : var(--table-height);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.ledgerStock-Area .treeContent .ledgerStock-Area-table td,
+.ledgerStock-Area .treeContent .ledgerStock-Area-table th {
+    flex-grow  : 2;
+    display    : block;
+    padding    : 0px 1rem;
+    height     : var(--table-height);
+    align-items: center;
+}
+
+.ledgerStock-Area .treeContent .ledgerStock-Area-table td:nth-child(1),
+.ledgerStock-Area .treeContent .ledgerStock-Area-table th:nth-child(1) {
+    flex-basis : 25%;
+    flex-grow  : 1;
+    display    : flex;
+    align-items: center;
+}
+
+.ledgerStock-Area .treeContent .ledgerStock-Area-table td:nth-child(2),
+.ledgerStock-Area .treeContent .ledgerStock-Area-table th:nth-child(2) {
+    flex-basis: 25%;
+    flex-grow : 1;
+    ;
+    text-align     : center;
+    display        : flex;
+    justify-content: center;
+}
+
+.ledgerStock-Area .treeContent .ledgerStock-Area-table td:nth-child(3),
+.ledgerStock-Area .treeContent .ledgerStock-Area-table th:nth-child(3) {
+    flex-basis: 25%;
+    flex-grow : 1;
+    ;
+    text-align     : center;
+    display        : flex;
+    justify-content: center;
+}
+
+.ledgerStock-Area .treeContent .ledgerStock-Area-table td:nth-child(4),
+.ledgerStock-Area .treeContent .ledgerStock-Area-table th:nth-child(4) {
+    flex-basis     : 25%;
+    flex-grow      : 1;
+    text-align     : center;
+    display        : flex;
+    justify-content: flex-end;
+}
+
+#Transfer-Stock .modal-body .current-stock {
+    color: var(--text-black);
+}
+
+#Transfer-Stock .modal-body .current-stock span {
+    color: var(--blue);
+}
+
+/* End Ledger & Stock Position Area */
 
 
 /* Documents Tab Content Area */

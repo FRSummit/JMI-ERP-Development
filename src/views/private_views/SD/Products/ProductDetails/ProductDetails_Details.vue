@@ -3,7 +3,7 @@
       <div class="layout-container">
         <div class="container-fluid">
           <div class="col-12 product-body">
-                <div class="row product-header"> 
+                <div class="row product-header" style="margin-bottom: 0;"> 
                 <!-- <div class="col-lg-6 col-12"> -->
                 <div class="col-lg-6">
                     <div class="product-header-info"> 
@@ -915,25 +915,149 @@
 
                             <!------------ Start Ledger Tab Content Area ------------> 
                             <div id="tab-ledger" class="tab-pane">
-                                <div class="tab-content-header">
-                                    <h5></h5>
-                                    <div class="btn-group">
-                                        <button class="btn btn-primary btn-save"  role="button">Save</button>
-                                        <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
+                                <div class="row ledgerStock-Area">
+                                    <div class="col-lg-4">
+                                        <div class="treeArea">
+                                            <div class="treeHeader">
+                                                <div class="form-group" style="padding: 0;">
+                                                    <i class="fa fa-search"> </i>
+                                                    <input type="text" placeholder="Search by Name or code" class="form-control">
+                                                </div>
+                                            </div>
+                                
+                                            <div class="treeItems">
+                                                <SecondarySidebarLedger 
+                                                    :SBU_LIST_MENU_WAREHOUSE="SBU_LIST_MENU_WAREHOUSE"
+                                                    :SBU_LIST_MENU_WAREHOUSE_PLANT_INFO="SBU_LIST_MENU_WAREHOUSE_PLANT_INFO"
+                                                    v-on:store_id="getSBUListMenuWarehouseStoreId"/>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div> 
+                                
+                                    <div class="col-lg-8">
+                                        <div class="treeContent">
+                                            <div class="contentHeader">
+                                                <h5>Current Stock: <span>{{ SELECTED_PROD_DETAILS.current_stock ? SELECTED_PROD_DETAILS.current_stock : 0 }}</span></h5>
+                                                <h5>Available Stock: <span>{{ SELECTED_PROD_DETAILS.available_stock ? SELECTED_PROD_DETAILS.available_stock : 0 }}</span></h5>
+                                            </div>
+                                
+                                            <table class="ledgerStock-Area-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="flex-basis: 20%;">Date</th>
+                                                        <th style="flex-basis: 50%;">Description</th>
+                                                        <th style="flex-basis: 15%;">Received</th>
+                                                        <th style="flex-basis: 15%;">Issued</th>
+                                                    </tr>
+                                                </thead>
+                                
+                                                <tbody>
+                                                    <tr v-for="(item, i) in STORE_SBU_LIST_MENU_WAREHOUSE" :key="i">
+                                                        <td style="flex-basis: 20%;"><p>{{ item.date ? prodDateFormatT4(item.date) : '' }}</p></td>
+                                                        <td style="flex-basis: 50%;"><p>{{ item.description ? item.description : '' }}</p></td>
+                                                        <td style="flex-basis: 15%;"><p>{{ item.received ? item.received : '' }}</p></td>
+                                                        <td style="flex-basis: 15%;"><p>{{ item.issued ? item.issued : '' }}</p></td>
+                                                    </tr>
+                                                    <tr v-if="!STORE_SBU_LIST_MENU_WAREHOUSE">
+                                                        <td colspan="4"><p>No data found</p></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <!------------ End Ledger Tab Content Area ------------> 
                                 
                             <!------------ Start Stock Position Tab Content Area ------------> 
                             <div id="tab-stock-position" class="tab-pane ">
-                                <div class="tab-content-header">
-                                    <h5></h5>
-                                    <div class="btn-group">
-                                        <button class="btn btn-primary btn-save"  role="button">Save</button>
-                                        <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a>
+                                <div class="row ledgerStock-Area">
+                                    <div class="col-lg-4">
+                                        <div class="treeArea">
+                                            <div class="treeHeader">
+                                                <div class="form-group" style="padding: 0;">
+                                                    <i class="fa fa-search"></i>
+                                                    <input type="text" placeholder="Search by Name or code" class="form-control">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="treeItems">
+                                                <SecondarySidebarStockPosition 
+                                                    :SELECTED_PROD_SBU_PROD_DETAILS="SELECTED_PROD_SBU_PROD_DETAILS"
+                                                    v-on:warehouse_info="getWarehouseInfo"/>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                                
+                                    <div class="col-lg-8">
+                                        <div class="treeContent">
+                                            <div class="contentHeader">
+                                                <h5>Current Stock: <span>{{ SELECTED_PROD_DETAILS.current_stock ? SELECTED_PROD_DETAILS.current_stock : 0 }}</span></h5>
+                                                <h5>Available Stock: <span>{{ SELECTED_PROD_DETAILS.available_stock ? SELECTED_PROD_DETAILS.available_stock : 0 }}</span></h5>
+                                            </div>
+                
+                                            <table class="ledgerStock-Area-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="flex-basis: 50%;">Store</th>
+                                                        <th style="flex-basis: 20%;">Current Stock</th>
+                                                        <th style="flex-basis: 20%;">Blocked Stock</th>
+                                                        <th style="flex-basis: 10%;"><a data-toggle="modal" data-target="#Transfer-Stock" v-if="WAREHOUSE_STORE_INFO__FROM_COMPONENT" @click="setTransferStockDefaultValue"> <i class="material-icons" data-toggle="tooltip" data-placement="bottom" title="Transfer" aria-hidden="true">compare_arrows</i> </a></th>
+                                                    </tr>
+                                                </thead>
+                                            
+                                                <tbody>
+                                                    <tr v-for="(item, i) in WAREHOUSE_STORE_INFO__FROM_COMPONENT" :key="i">
+                                                        <td style="flex-basis: 50%;"><p>{{ item.store_name }}</p></td>
+                                                        <td style="flex-basis: 20%;"><p>{{ item.wh_store_stock_info[0] ? (item.wh_store_stock_info[0].current_stock ? item.wh_store_stock_info[0].current_stock : 0)  : 0 }}</p></td>
+                                                        <td style="flex-basis: 20%;"><p>{{ item.wh_store_stock_info[0] ? (item.wh_store_stock_info[0].blocked_stock ? item.wh_store_stock_info[0].blocked_stock : 0) : 0 }}</p></td>
+                                                        <td style="flex-basis: 10%;"> </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        
+                                            <!-- Start Stock Transfer Modal -->
+                                            <div class="modal" id="Transfer-Stock" tabindex="-1" role="dialog" aria-labelledby="TransferStock" aria-hidden="true" style="width: 400px; border-radius: 4px;">
+                                                <div class="modal-dialog modal-dialog-centered" role="document" style="margin: 0;">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="changePhoto">Store Transfer</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <form class="modal-body">
+                                                        <div class="row">
+                                                            <div class="col-lg-12 form-group">
+                                                                <label for="store_from">Store From <span class="current-stock">(Current Stock: <span>{{ selected_store_current_stock }}</span>)</span></label>
+                                                                <select class="form-control" id="store_from" v-model="stock_position_modal_store_from" @change="stockPositionModalStoreFromOnChange">
+                                                                    <option :value="null" selected>Select a Store</option>
+                                                                    <option v-for="(item, i) in WAREHOUSE_STORE_INFO__FROM_COMPONENT" :key="i" :value="item">{{ item.store_name }}</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-lg-12 form-group">
+                                                                <label for="store_to">Store To</label>
+                                                                <select class="form-control" id="store_to" v-model="stock_position_modal_store_to">
+                                                                    <option :value="null" selected>Select a Store</option>
+                                                                    <option v-for="(item, i) in WAREHOUSE_STORE_INFO__FROM_COMPONENT" :key="i" :value="item">{{ item.store_name }}</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-lg-12 form-group">
+                                                                <label for="quantity">Quantity</label>
+                                                                <input type="number" v-model="stock_position_modal_stock_qty" class="form-control" id="quantity" placeholder="Enter Quantity">
+                                                            </div>
+                                                        </div>
+                                                        </form>
+                                                        <div class="modal-footer justify-content-center">
+                                                            <button type="button" class="btn btn-primary btn-global" @click="transferStockSaveBtnClickHandler">Save</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <!-- Start Stock Transfer Modal -->
+                                        </div>
+                                    </div>
+                                </div> 
                             </div>
                             <!------------ End Stock Position Tab Content Area ------------> 
 
@@ -1240,7 +1364,8 @@ import JMIFilter from '../../../../../functions/JMIFIlter'
 const jmiFilter = new JMIFilter()
 import GlobalDateFormat from '../../../../../functions/GlobalDateFormat'
 const globalDateFormat = new GlobalDateFormat()
-
+import SecondarySidebarLedger from '../../../../../components/master_layout/SecondarySidebar_4Stage/SecondarySidebarLedger'
+import SecondarySidebarStockPosition from '../../../../../components/master_layout/SecondarySidebar_4Stage/SecondarySidebarStockPosition'
 
 import DatePicker from 'vue2-datepicker'
 
@@ -1250,11 +1375,14 @@ export default {
                 "SELECTED_PROD_ATTRIBUTES_DETAILS", 
                 "SELECTED_PROD_PRICE_DETAILS", 
                 "SELECTED_PROD_OFFER_DETAILS",
+                "SELECTED_PROD_SBU_PROD_DETAILS",
                 "SELECTED_PROD_DOCS_DETAILS",
                 "ALL_PRODS_LIST_IN_DB"
             ],
     components: {
-        DatePicker
+        DatePicker,
+        SecondarySidebarLedger,
+        SecondarySidebarStockPosition,
     },
     data() {
         return {
@@ -1358,6 +1486,20 @@ export default {
 
             OFFER_EDITING_SELECTED_OFFER_ID: null,
 
+            // LEDGER
+            SBU_LIST_MENU_WAREHOUSE: null,
+            SBU_LIST_MENU_WAREHOUSE_PLANT_INFO: null,
+            STORE_SBU_LIST_MENU_WAREHOUSE: null,
+
+            // STOCK POSITION
+            WAREHOUSE_STORE_INFO__FROM_COMPONENT: null,
+
+            selected_store_current_stock: null,
+
+            stock_position_modal_store_from: null,
+            stock_position_modal_store_to: null,
+            stock_position_modal_stock_qty: null,
+
             // DOCUMENTS
             UPLOADED_IMAGE_NAME: null,
             UPLOADED_IMAGE_DATA_BASE_64: null,
@@ -1380,6 +1522,7 @@ export default {
     async mounted() {
         await this.SEARCH_PRODUCT_DATA_LIST__FROM_SERVICE()
         await this.PRODUCT_CLASS_ELEMENT_LIST__FROM_SERVICE()
+        await this.SBU_LIST_MENU_WAREHOUSE__FROM_SERVICE()
     },
     methods: {
         // ---------------------------------------------------------------------------
@@ -2062,6 +2205,36 @@ export default {
         },
         // Document Tab Content Area Ends
         // -----------------------------------------------------------------------------------------
+        // LEDGER
+        getSBUListMenuWarehouseStoreId(value) {
+            console.log(value)
+            this.STORE_SBU_LIST_MENU_WAREHOUSE__FROM_SERVICE(value, this.SELECTED_PROD_DETAILS.prod_id)
+        },
+        // LEDGER
+        // -----------------------------------------------------------------------------------------
+        // Stock Position Tab Content Area Starts
+        getWarehouseInfo(value) {
+            this.WAREHOUSE_STORE_INFO__FROM_COMPONENT = value.warehouse_store_info
+        },
+        setTransferStockDefaultValue() {
+            this.selected_store_current_stock = 0
+            this.stock_position_modal_store_from = null
+            this.stock_position_modal_store_to = null
+            this.stock_position_modal_stock_qty = null
+        },
+        stockPositionModalStoreFromOnChange() {
+            console.log(this.stock_position_modal_store_from)
+            let wh_store_stock_info_VAR = this.stock_position_modal_store_from.wh_store_stock_info
+            this.selected_store_current_stock = wh_store_stock_info_VAR[0] ? wh_store_stock_info_VAR[0].current_stock : 0
+        },
+        transferStockSaveBtnClickHandler() {
+            console.log(this.stock_position_modal_store_from)
+            console.log(this.stock_position_modal_store_to)
+            console.log(this.stock_position_modal_stock_qty)
+        },
+        // Stock Position Tab Content Area Starts
+        // -----------------------------------------------------------------------------------------
+
         createNewProductClickHandler() {
             console.log('createNewProductClickHandler')
         },
@@ -2416,6 +2589,7 @@ export default {
                 .then(res => {
                     console.log(res.data)
                     if(res.data.response_code === 200 || res.data.response_code === 201) {
+                        this.SELECTED_PROD_DOCS_DETAILS.push(res.data.product_docs)
                         this.prod_creating_progressbar_msg = res.data.message
                         document.getElementById('docs_modal_close_btn').click()
                         setTimeout( () => {
@@ -2443,6 +2617,42 @@ export default {
                     }
                 })
         },
+        async SBU_LIST_MENU_WAREHOUSE__FROM_SERVICE() {
+            this.SBU_LIST_MENU_WAREHOUSE = null
+            this.SBU_LIST_MENU_WAREHOUSE_PLANT_INFO = null
+            await service.getSBUListMenuWarehouse_PRODUCTS_DETAILS()
+                .then(res => {
+                    console.log(res.data)
+                    console.log(res.data.menu_list)
+                    if(res.data.response_code === 200 || res.data.response_code === 201) {
+                        this.SBU_LIST_MENU_WAREHOUSE = res.data.menu_list
+                        this.SBU_LIST_MENU_WAREHOUSE_PLANT_INFO = res.data.menu_list.plant_info
+                    }
+                })
+                .catch(err => {
+                    if(err) {
+                        console.log(err)
+                        this.SBU_LIST_MENU_WAREHOUSE = null
+                        this.SBU_LIST_MENU_WAREHOUSE_PLANT_INFO = null
+                    }
+                })
+        },
+        async STORE_SBU_LIST_MENU_WAREHOUSE__FROM_SERVICE(value, prod_id) {
+            this.STORE_SBU_LIST_MENU_WAREHOUSE = null
+            await service.getStoreSBUListMenuWarehouse_PRODUCTS_DETAILS(value, prod_id)
+                .then(res => {
+                    console.log(res.data)
+                    if(res.data.response_code === 200 || res.data.response_code === 201) {
+                        this.STORE_SBU_LIST_MENU_WAREHOUSE = res.data.prod_ledgers
+                    }
+                })
+                .catch(err => {
+                    if(err) {
+                        console.log(err)
+                        this.STORE_SBU_LIST_MENU_WAREHOUSE = null
+                    }
+                })
+        }
     },
     watch: {
         SELECTED_PROD_DETAILS(newVal) {
@@ -2475,6 +2685,11 @@ export default {
             if(newVal) {
                 console.log(newVal)
                 this.setProductDocsTabContentArea(newVal)
+            }
+        },
+        SELECTED_PROD_SBU_PROD_DETAILS(newVal) {
+            if(newVal) {
+                console.log(newVal)
             }
         },
         prod_offer_now_price_d(newVal) {
@@ -2631,6 +2846,17 @@ button.modal-prod-save-btn:hover {
     border-radius: 100px;
     background-color: var(--redish-white);
     cursor: pointer;
+}
+#tab-ledger .treeArea .form-group svg,
+#tab-stock-position .treeArea .form-group svg {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    color: #AAC0D9;
+    font-size: var(--font14);
+}
+.modal .modal-footer {
+    background-color: #FFFFFF;
 }
 .document-file .thumbnail .cover svg {
     margin: 15px 10px;

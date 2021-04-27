@@ -10,6 +10,7 @@
         :SELECTED_PROD_ATTRIBUTES_DETAILS="SELECTED_PROD_ATTRIBUTES_DETAILS"
         :SELECTED_PROD_PRICE_DETAILS="SELECTED_PROD_PRICE_DETAILS"
         :SELECTED_PROD_OFFER_DETAILS="SELECTED_PROD_OFFER_DETAILS"
+        :SELECTED_PROD_SBU_PROD_DETAILS="SELECTED_PROD_SBU_PROD_DETAILS"
         :SELECTED_PROD_DOCS_DETAILS="SELECTED_PROD_DOCS_DETAILS"
         :ALL_PRODS_LIST_IN_DB="ALL_PRODS_LIST_IN_DB" />
     </div>
@@ -41,6 +42,7 @@ export default {
       SELECTED_PROD_ATTRIBUTES_DETAILS: null,
       SELECTED_PROD_PRICE_DETAILS: null,
       SELECTED_PROD_OFFER_DETAILS: null,
+      SELECTED_PROD_SBU_PROD_DETAILS: null,
       SELECTED_PROD_DOCS_DETAILS: null,
       ALL_PRODS_LIST_IN_DB: null,
     };
@@ -71,6 +73,7 @@ export default {
       this.SELECTED_PROD_ATTRIBUTES_DETAILS = null
       this.SELECTED_PROD_PRICE_DETAILS = null
       this.SELECTED_PROD_OFFER_DETAILS = null
+      this.SELECTED_PROD_SBU_PROD_DETAILS = null
       this.SELECTED_PROD_DOCS_DETAILS = null
       service.getSBUProductDetails_PRODUCTS_DETAILS(prod_id)
         .then(res => {
@@ -79,6 +82,7 @@ export default {
           this.SELECTED_PROD_ATTRIBUTES_DETAILS = res.data.attr_details
           this.SELECTED_PROD_PRICE_DETAILS = res.data.price_details
           this.SELECTED_PROD_OFFER_DETAILS = res.data.prod_offer_details
+          this.SELECTED_PROD_SBU_PROD_DETAILS = res.data.sbu_prod_detail
           this.SELECTED_PROD_DOCS_DETAILS = res.data.prod_docs
         })
         .catch(err => {
@@ -88,6 +92,7 @@ export default {
             this.SELECTED_PROD_ATTRIBUTES_DETAILS = null
             this.SELECTED_PROD_PRICE_DETAILS = null
             this.SELECTED_PROD_OFFER_DETAILS = null
+            this.SELECTED_PROD_SBU_PROD_DETAILS = null
             this.SELECTED_PROD_DOCS_DETAILS = null
           }
         })
