@@ -2,7 +2,7 @@
         <div class="layout-container">
           <div class="container-fluid" style="padding: 0;">
             <div class="row collection_area">
-                <div class="col-4" style="height: 100%;">
+                <div class="col-4" style="height: 100%; padding-bottom: 0;">
                     <table class="collection-table-1">
                         <thead>
                             <tr>
@@ -339,8 +339,7 @@ export default {
     overflow-y:scroll;
     font-size: var(--font14);
     color:var(--text-black);
-    /* height:  calc( 100vh - (var(--used-height) + 32px + (var(--table-height) * 3))); */
-    height:  calc( 100vh - (var(--used-height) + 40px + (var(--table-height) * 3)));
+    height:  calc( 100vh - (var(--used-height) + 32px + (var(--table-height) * 3)));
   }
   .collection-table-1 tbody tr{
     width: 100%;
