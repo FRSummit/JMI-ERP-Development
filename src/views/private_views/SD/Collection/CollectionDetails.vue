@@ -43,6 +43,7 @@
                         </tfoot>
                     </table>
                 </div>
+                <!--
                 <div class="col-8" style="height: 100%;">
                     <table class="collection-table-2">
                         <thead>
@@ -132,6 +133,7 @@
                         </tfoot>
                     </table>
                 </div>
+                -->
             </div>
           </div>
         <!------------ Start Add Collection Modal------------>

@@ -14,18 +14,16 @@
 
         <!--Start Secondary Sidebar Content Area--> 
         <div class="content">
-            <div class="card_body" v-for="(item, i) in 20" :key="i">
+            <div class="card_body" v-for="(item, i) in SCHEDULE_LIST" :key="i">
                 <div class="row1">
-                    <h5 v-if="i%3 === 0"><i class="fa fa-square mr-1 green" aria-hidden="true"></i>Mehedi Hassan</h5>
-                    <h5 v-if="i%3 === 1"><i class="fa fa-square mr-1 orange" aria-hidden="true"></i>Mehedi Hassan</h5>
-                    <h5 v-if="i%3 === 2"><i class="fa fa-square mr-1 gray" aria-hidden="true"></i>Mehedi Hassan</h5>
-                    <p class="date">10/04/2021</p>
+                    <h5 class="jmi-txt-nowrap-ellipsis-middle_50" style="width: 160px;"><i class="fa fa-square mr-1" :class="item.legend_status" aria-hidden="true"></i>{{ item.da_name }}</h5>
+                    <p class="date">{{ listOfDsDateFormat(item.date) }}</p>
                 </div>
                 <div class="row2">
-                    <p>Total Collection: <span>200</span></p>
+                    <p>Total Collection: <span>{{ item.total_amount }}</span></p>
                 </div>
                 <div class="row3">
-                    <p>Territory Name 1, Territory Name...</p>
+                    <p>{{ item.territory_name }}</p>
                 </div>
             </div>
         </div>
@@ -140,12 +138,22 @@
 </template>
 
 <script>
+import Service from '../../../../service/ERPSidebarService'
+const service = new Service()
+
+import GlobalDateFormat from '../../../../functions/GlobalDateFormat'
+const globalDateFormat = new GlobalDateFormat()
+
 export default {
     data() {
         return {
             filter_modal: false,
+            SCHEDULE_LIST: null,
             
         }
+    },
+    async mounted() {
+        await this.DELIVERY_SCHEDULE_LIST_FOR_COLLECTION__FROM_SERVICE()
     },
     methods: {
         openFilterModal() {
@@ -158,6 +166,27 @@ export default {
         filterSearchBtnClickHandler() {
             this.filter_modal = false
         },
+        listOfDsDateFormat(dt) {
+            return globalDateFormat.dateFormatT4(dt)
+        },
+        // -------------------------------------------------------------------------
+        // SERVICE CALL
+        async DELIVERY_SCHEDULE_LIST_FOR_COLLECTION__FROM_SERVICE() {
+            this.SCHEDULE_LIST = null
+            await service.getDeliveryScheduleListForCollection_COLLECTION_LEFT()
+                .then(res => {
+                    console.log(res.data)
+                    if(res.data.response_code === 200 || res.data.response_code === 201) {
+                        this.SCHEDULE_LIST = res.data.list_of_ds
+                    }
+                })
+                .catch(err => {
+                    if(err) {
+                        console.log(err)
+                        this.SCHEDULE_LIST = null
+                    }
+                })
+        }
     }
 }
 </script>
