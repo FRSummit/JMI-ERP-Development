@@ -1,10 +1,10 @@
 <template>
-    <div class="layout-sidebar collection">
+    <div id="layout_sidebar_collection" class="layout-sidebar collection">
         <!-- Start Secondary Sidebar Area-->  
         <!-- Start Secondary Sidebar Header Area-->  
         <div class="header">  
         <div class="row1">
-            <div class="form-group"><i class="fa fa-search"> </i><input type="text" placeholder="Search by Name, ID No" class="form-control"></div>
+            <div class="form-group"><i class="fa fa-search"> </i><input type="text" placeholder="Search by Name, ID No" id="search-filter" class="form-control" v-on:keyup="searchKeyUpHandler"></div>
             <!-- <span class="filter_search" data-toggle="modal" data-target="#CollectionFilter"><i class="fa fa-filter"> </i> </span> -->
             <span class="filter_search" @click="openFilterModal"><i class="fa fa-filter"> </i> </span>
 
@@ -14,7 +14,7 @@
 
         <!--Start Secondary Sidebar Content Area--> 
         <div class="content">
-            <div class="card_body" v-for="(item, i) in SCHEDULE_LIST" :key="i">
+            <div :id="'card_body_' + i" class="card_body" v-for="(item, i) in SCHEDULE_LIST" :key="i" @click="singleCardItemClickHandler(item, i)">
                 <div class="row1">
                     <h5 class="jmi-txt-nowrap-ellipsis-middle_50" style="width: 160px;"><i class="fa fa-square mr-1" :class="item.legend_status" aria-hidden="true"></i>{{ item.da_name }}</h5>
                     <p class="date">{{ listOfDsDateFormat(item.date) }}</p>
@@ -25,6 +25,7 @@
                 <div class="row3">
                     <p>{{ item.territory_name }}</p>
                 </div>
+                <p class="jmi-search-key hide">{{ createSearchString(item) }}</p>
             </div>
         </div>
         <!--End Secondary Sidebar Content Area--> 
@@ -144,6 +145,9 @@ const service = new Service()
 import GlobalDateFormat from '../../../../functions/GlobalDateFormat'
 const globalDateFormat = new GlobalDateFormat()
 
+import JMIFilter from '../../../../functions/JMIFIlter'
+const jmiFilter = new JMIFilter()
+
 export default {
     data() {
         return {
@@ -168,6 +172,35 @@ export default {
         },
         listOfDsDateFormat(dt) {
             return globalDateFormat.dateFormatT4(dt)
+        },
+        singleCardItemClickHandler(item, index) {
+            console.log(index)
+            console.log(item)
+
+            let length = document.querySelectorAll('#layout_sidebar_collection .card_body').length
+            for(let i=0; i<length; i++) {
+                document.querySelector('#card_body_' + i).className = 'card_body'
+            }
+            if(document.querySelector('#card_body_' + index).className === 'card_body') {
+                document.querySelector('#card_body_' + index).className = 'card_body jmi-active'
+            } else {
+                document.querySelector('#card_body_' + index).className = 'card_body'
+            }
+            // this.$emit("select_prod_from_left", item)
+        },
+        // ---------------------------------------------------------------------------------------------
+        // FILTER
+        createSearchString(item) {
+            return item.da_name + ' ' + item.date + ' ' + item.id + ' ' + item.legend_status + ' ' + item.territory_name + ' ' + item.total_amount
+        },
+        searchKeyUpHandler(value) {
+            console.log(value.key)
+            let input = document.getElementById("search-filter");
+            let filter = input.value.toUpperCase();
+            let list = document.querySelectorAll('#layout_sidebar_collection .card_body')
+            let txt_selector = "jmi-search-key"
+
+            jmiFilter.searchById_LeftSidebar(filter, list, txt_selector)
         },
         // -------------------------------------------------------------------------
         // SERVICE CALL
