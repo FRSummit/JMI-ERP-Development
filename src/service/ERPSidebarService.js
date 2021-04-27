@@ -1311,6 +1311,17 @@ export default class PostService {
       }
     })
   }
+  
+  // COLLECTION - DETAILS - SCHEDULE LIST
+  async getDeliveryScheduleCustomerListByID_COLLECTION_DETAILS(id) {
+    let web_menu_url = '/api/web/delivery-schedule-customer-list/' + id
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
 
   // -------------------------------------------------------------------------------------------
 

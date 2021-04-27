@@ -186,7 +186,7 @@ export default {
             } else {
                 document.querySelector('#card_body_' + index).className = 'card_body'
             }
-            // this.$emit("select_prod_from_left", item)
+            this.$emit("select_da_from_left", item)
         },
         // ---------------------------------------------------------------------------------------------
         // FILTER

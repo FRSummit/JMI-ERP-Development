@@ -23,14 +23,10 @@
                         </thead>
                     
                         <tbody>
-                            <tr v-for="(item, i) in 20" :key="i">
-                                <td><p>
-                                    <span class="fa fa-square mr-2 green" v-if="i%3 === 0"></span>
-                                    <span class="fa fa-square mr-2 gray" v-if="i%3 === 1"></span>
-                                    <span class="fa fa-square mr-2 orange" v-if="i%3 === 2"></span>
-                                    Customer 01</p></td>
-                                <td><p>Chemist</p></td>
-                                <td><p>10,000</p></td>
+                            <tr v-for="(item, i) in DS_CUSTOMER_LIST" :key="i">
+                                <td><p><span class="fa fa-square mr-2" :class="item.legend_status"></span>{{ item.customer_name }}</p></td>
+                                <td><p>{{ item.type }}</p></td>
+                                <td><p>{{ item.total_amount }}</p></td>
                             </tr>
                         </tbody>
                     
@@ -38,7 +34,8 @@
                             <tr>
                                 <th>Total</th>
                                 <th></th>
-                                <th>18000</th>
+                                <!-- <th>{{ totalAmountDSCustomerList(DS_CUSTOMER_LIST) }}</th> -->
+                                <th>{{ DS_CUSTOMER_LIST_TOTAL_AMOUNT }}</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -231,7 +228,28 @@
 
 <script>
 export default {
-    
+    props: ["DS_CUSTOMER_LIST"],
+    data() {
+        return {
+        }
+    },
+    computed: {
+        DS_CUSTOMER_LIST_TOTAL_AMOUNT() {
+            let total_amount = 0.00
+            if(this.DS_CUSTOMER_LIST) {
+                for(let i=0; i<this.DS_CUSTOMER_LIST.length; i++) {
+                    total_amount += this.DS_CUSTOMER_LIST[i].total_amount
+                }
+            }
+            return total_amount
+        }
+    },
+    created() {},
+    mounted() {},
+    methods: {
+    },
+    watch: {
+    }
 }
 </script>
 <style scoped>
