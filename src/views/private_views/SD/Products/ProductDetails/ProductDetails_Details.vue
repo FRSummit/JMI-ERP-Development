@@ -129,9 +129,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" id="details-single-tab" data-toggle="tab" href="#tab-offers">Offers</a>
                             </li>
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a class="nav-link" id="details-single-tab" data-toggle="tab" href="#tab-competitors">Competitors</a>
-                            </li>
+                            </li> -->
                             <li class="nav-item">
                                 <a class="nav-link" id="details-single-tab" data-toggle="tab" href="#tab-ledger">Ledger</a>
                             </li>
