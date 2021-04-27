@@ -5,7 +5,8 @@
         <div class="header">  
         <div class="row1">
             <div class="form-group"><i class="fa fa-search"> </i><input type="text" placeholder="Search by Name, ID No" class="form-control"></div>
-            <span class="filter_search" data-toggle="modal" data-target="#CollectionFilter"><i class="fa fa-filter"> </i> </span>
+            <!-- <span class="filter_search" data-toggle="modal" data-target="#CollectionFilter"><i class="fa fa-filter"> </i> </span> -->
+            <span class="filter_search" @click="openFilterModal"><i class="fa fa-filter"> </i> </span>
 
         </div>
         </div>
@@ -30,7 +31,7 @@
         </div>
         <!--End Secondary Sidebar Content Area--> 
                     <!-- Start Filter Modal -->
-            <div class="modal" id="CollectionFilter" tabindex="-1" role="dialog" aria-labelledby="CollectionFilterTitle"
+            <!-- <div class="modal" id="CollectionFilter" tabindex="-1" role="dialog" aria-labelledby="CollectionFilterTitle"
                 aria-hidden="true" data-backdrop="false">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content" id="collection-modalContent">
@@ -79,17 +80,85 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <!-- End Filter Modal -->
 
         <!-- End Secondary Sidebar Area--> 
+        
+        <!-- Filter Modal -->
+        <div id="filter-modal" class="modal-popup-section filter-modal" v-if="filter_modal">
+            <div class="modal-popup-section-inner filter-modal-inner">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content" id="collection-modalContent">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Filter</h5>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="date_range">Filter by SR</label>
+                                <select class="form-control">
+                                    <option value="">Select SR</option>
+                                    <option value="">Mehedi Hassan</option>
+                                    <option value="">Atik Faysal</option>
+                                    <option value="">Nahid Ahmed</option>
+                                </select>
+                            </div>
+            
+                            <div class="form-group">
+                                <label for="date_range">Set Date Range</label>
+                                <input type="date" class="form-control" id="date_range">
+                            </div>
+            
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="Adjust">
+                                <label class="form-check-label" for="Adjust">
+                                    Adjust
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="Pending">
+                                <label class="form-check-label" for="Pending">
+                                    Pending
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="Unadjusted" checked>
+                                <label class="form-check-label" for="Unadjusted">
+                                    Unadjusted
+                                </label>
+                            </div>
+            
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary btn-global btn-filterSerach" @click="filterSearchBtnClickHandler">Search</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
+
 <script>
-
-
 export default {
-    
+    data() {
+        return {
+            filter_modal: false,
+            
+        }
+    },
+    methods: {
+        openFilterModal() {
+            if(this.filter_modal) {
+                this.filter_modal = false
+            } else {
+                this.filter_modal = true
+            }
+        },
+        filterSearchBtnClickHandler() {
+            this.filter_modal = false
+        },
+    }
 }
 </script>
 
@@ -191,6 +260,7 @@ export default {
     border-radius: 2px;
     border: 1px solid var(--border-color);
     margin-left: 10px;
+    cursor: pointer;
 }
 
 .layout-sidebar.collection .header .row1 .filter_search:hover{
@@ -254,5 +324,35 @@ color: var(--text-black);
     }
 }
 /*End Secondary Sidebar Content Area*/
+
+.filter-modal {
+    background: rgb(0 18 35 / 50%);
+}
+.filter-modal-inner {
+    top: 140px;
+    left: 330px;
+    padding: 0;
+    width: 300px;
+    text-align: left;
+}
+.filter-modal .modal-dialog {
+    margin: 0;
+    border: none;
+}
+.filter-modal .modal-dialog input[type=date] {
+    height: 38px;
+    padding-left: 12px;
+}
+.filter-modal .modal-dialog .form-check {
+    padding-left: 0;
+}
+.filter-modal .modal-dialog input[type=checkbox] {
+    margin: 0;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+.filter-modal .modal-dialog .modal-footer button {
+    width: 100%;
+}
 
 </style>
