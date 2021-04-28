@@ -1,13 +1,13 @@
 <template>
-        <div class="layout-container">
+        <div id="layout_container_collection_details" class="layout-container">
           <div class="container-fluid" style="padding: 0;">
             <div class="row collection_area">
-                <div class="col-4" style="height: 100%; padding-bottom: 0;">
+                <div class="col-4" style="height: 100%; padding-top: 12px; padding-bottom: 0;" v-if="DS_CUSTOMER_LIST ? true : false">
                     <table class="collection-table-1">
                         <thead>
                             <tr>
                                 <th class="type1" colspan="2">
-                                <h5>Customers (<span>20</span>)</h5>
+                                <h5>Customers (<span>{{ DS_CUSTOMER_LIST ? DS_CUSTOMER_LIST.length : 0 }}</span>)</h5>
                                 <div class="about-color">
                                     <p><span class="fa fa-square green"></span>Adjusted</p>
                                     <p><span class="fa fa-square orange"></span>Pending</p>
@@ -23,9 +23,9 @@
                         </thead>
                     
                         <tbody>
-                            <tr v-for="(item, i) in DS_CUSTOMER_LIST" :key="i">
+                            <tr :id="'customer_card_body_' + i" class="customer_card_body" v-for="(item, i) in DS_CUSTOMER_LIST" :key="i" @click="singleCustomerClickHandler(item, i)" style="cursor: pointer;">
                                 <td><p><span class="fa fa-square mr-2" :class="item.legend_status"></span>{{ item.customer_name }}</p></td>
-                                <td><p>{{ item.type }}</p></td>
+                                <td style="padding: 0;"><p style="min-width: 80px;">{{ item.type }}</p></td>
                                 <td><p>{{ item.total_amount }}</p></td>
                             </tr>
                         </tbody>
@@ -40,43 +40,43 @@
                         </tfoot>
                     </table>
                 </div>
-                <div class="col-8" style="height: 100%;">
+                <div class="col-8" style="height: 100%;" v-if="COLLECTION_MASTER_CUSTOMER">
                     <table class="collection-table-2">
                         <thead>
                             <tr>
                                 <th colspan="5">
-                                    <h5>Collections (<span>20</span>)</h5>
+                                    <h5>Collections (<span>{{ COLLECTION_MASTER_CUSTOMER ? COLLECTION_MASTER_CUSTOMER.length : 0 }}</span>)</h5>
                                 </th>
                             </tr>
                             <tr>
-                                <th>Mode</th>
-                                <th>Description</th>
-                                <th>Amount</th>
-                                <th>Unadjusted</th>
-                                <th>Value Date</th>
-                                <th></th>
+                                <th style="flex-basis: 10%;">Mode</th>
+                                <th style="flex-basis: 35%;">Description</th>
+                                <th style="flex-basis: 15%;">Amount</th>
+                                <th style="flex-basis: 15%;">Unadjusted</th>
+                                <th style="flex-basis: 15%;">Value Date</th>
+                                <th style="flex-basis: 10%;"></th>
                             </tr>
                         </thead>
                     
                         <tbody>
-                            <tr v-for="(item, i) in 20" :key="i" :class="i%3 == 0 ? 'active' : ''">
-                                <td><p>Cash</p></td>
-                                <td><p>No123 DT21/Sep/2021</p></td>
-                                <td><p>10,000</p></td>
-                                <td><p>5,000</p></td>
-                                <td><p>21/Sep/2021</p></td>
-                                <td><a><i class="zmdi zmdi-refresh"></i></a></td>
+                            <tr v-for="(item, i) in COLLECTION_MASTER_CUSTOMER" :key="i" style="height: 50px;">
+                                <td style="flex-basis: 10%;"><p>{{ item.collection_mode }}</p></td>
+                                <td style="flex-basis: 35%;"><p>{{ item.description }}</p></td>
+                                <td style="flex-basis: 15%;"><p>{{ item.amount }}</p></td>
+                                <td style="flex-basis: 15%;"><p>{{ item.unadjusted_amt }}</p></td>
+                                <td style="flex-basis: 15%;"><p>{{ dateFormat(item.value_date) }}</p></td>
+                                <td style="flex-basis: 10%;"><a><i class="zmdi zmdi-refresh"></i></a></td>
                             </tr>
                         </tbody>
                     
                         <tfoot>
                             <tr>
-                                <th>Total</th>
-                                <th></th>
-                                <th>18000</th>
-                                <th>18000</th>
-                                <th></th>
-                                <th></th>
+                                <th style="flex-basis: 10%;">Total</th>
+                                <th style="flex-basis: 35%;"></th>
+                                <th style="flex-basis: 15%;">{{ COLLECTION_MASTER_CUSTOMER_TOTAL_AMOUNT.amount }}</th>
+                                <th style="flex-basis: 15%;">{{ COLLECTION_MASTER_CUSTOMER_TOTAL_AMOUNT.unadj_amount }}</th>
+                                <th style="flex-basis: 15%;"></th>
+                                <th style="flex-basis: 10%;"></th>
                             </tr>
                         </tfoot>
                     </table>
@@ -227,10 +227,16 @@
 </template>
 
 <script>
+import Service from '../../../../service/ERPSidebarService'
+const service = new Service()
+import GlobalDateFormat from '../../../../functions/GlobalDateFormat'
+const globalDateFormat = new GlobalDateFormat()
+
 export default {
     props: ["DS_CUSTOMER_LIST"],
     data() {
         return {
+            COLLECTION_MASTER_CUSTOMER: null,
         }
     },
     computed: {
@@ -238,15 +244,66 @@ export default {
             let total_amount = 0.00
             if(this.DS_CUSTOMER_LIST) {
                 for(let i=0; i<this.DS_CUSTOMER_LIST.length; i++) {
-                    total_amount += this.DS_CUSTOMER_LIST[i].total_amount
+                    total_amount += parseFloat(this.DS_CUSTOMER_LIST[i].total_amount)
                 }
             }
             return total_amount
-        }
+        },
+        COLLECTION_MASTER_CUSTOMER_TOTAL_AMOUNT() {
+            let total = {
+                amount: 0.00,
+                unadj_amount: 0.00
+            }
+            if(this.COLLECTION_MASTER_CUSTOMER) {
+                for(let i=0; i<this.COLLECTION_MASTER_CUSTOMER.length; i++) {
+                    total.amount += parseFloat(this.COLLECTION_MASTER_CUSTOMER[i].amount)
+                    total.unadj_amount += parseFloat(this.COLLECTION_MASTER_CUSTOMER[i].unadjusted_amt)
+                }
+            }
+            return total
+        },
     },
     created() {},
     mounted() {},
     methods: {
+        // CUSTOMER TABLE - LIST
+        async singleCustomerClickHandler(item, index) {
+            console.log(item)
+            let length = document.querySelectorAll('#layout_container_collection_details .customer_card_body').length
+            for(let i=0; i<length; i++) {
+                document.querySelector('#customer_card_body_' + i).className = 'customer_card_body'
+            }
+            if(document.querySelector('#customer_card_body_' + index).className === 'customer_card_body') {
+                document.querySelector('#customer_card_body_' + index).className = 'customer_card_body jmi-active'
+            } else {
+                document.querySelector('#customer_card_body_' + index).className = 'customer_card_body'
+            }
+
+            await this.DS_COLLECTION_MASTER_CUSTOMER_BY_DS_ID_CUSTOMER_ID__FROM_SERVICE(item.ds_id, item.customer_id)
+        },
+        // ---------------------------------------------------------------------------------------------------
+        // COLLECTION
+        dateFormat(dt) {
+            return globalDateFormat.dateFormatT4(dt)
+        },
+        // ---------------------------------------------------------------------------------------------------
+        // SERVICE CALL
+        async DS_COLLECTION_MASTER_CUSTOMER_BY_DS_ID_CUSTOMER_ID__FROM_SERVICE(ds_id, customer_id) {
+            this.COLLECTION_MASTER_CUSTOMER = null
+            await service.getDSCollectionMasterCustomerByDSID_CustomerId_COLLECTION_DETAILS(ds_id, customer_id)
+                .then(res => {
+                    console.log(res.data)
+                    if(res.data.response_code === 200 || res.data.response_code === 201) {
+                        this.COLLECTION_MASTER_CUSTOMER = res.data.collection_list
+                    }
+                })
+                .catch(err => {
+                    if(err) {
+                        console.log(err)
+                        this.COLLECTION_MASTER_CUSTOMER = null
+                    }
+                })
+        }
     },
     watch: {
     }
