@@ -1333,6 +1333,17 @@ export default class PostService {
       }
     })
   }
+  
+  // COLLECTION - DETAILS - COLLECTION MASTER CUSTOMER
+  async getDSCollectionCustomerInvoiceListByDSID_CustomerId_COLLECTION_DETAILS(ds_id, customer_id) {
+    let web_menu_url = '/api/web/delivery-schedule-collection-customer-invoice-list/' + ds_id + '/' + customer_id
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
 
   // -------------------------------------------------------------------------------------------
 

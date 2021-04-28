@@ -24,9 +24,9 @@
                     
                         <tbody>
                             <tr :id="'customer_card_body_' + i" class="customer_card_body" v-for="(item, i) in DS_CUSTOMER_LIST" :key="i" @click="singleCustomerClickHandler(item, i)" style="cursor: pointer;">
-                                <td><p><span class="fa fa-square mr-2" :class="item.legend_status"></span>{{ item.customer_name }}</p></td>
-                                <td style="padding: 0;"><p style="min-width: 80px;">{{ item.type }}</p></td>
-                                <td><p>{{ item.total_amount }}</p></td>
+                                <td><p><span class="fa fa-square mr-2" :class="item.legend_status"></span>{{ item.customer_name ? item.customer_name : '' }}</p></td>
+                                <td style="padding: 0;"><p style="min-width: 80px;">{{ item.type ? item.type : '' }}</p></td>
+                                <td><p>{{ item.total_amount ? Number(item.total_amount).toFixed(2) : '' }}</p></td>
                             </tr>
                         </tbody>
                     
@@ -35,7 +35,7 @@
                                 <th>Total</th>
                                 <th></th>
                                 <!-- <th>{{ totalAmountDSCustomerList(DS_CUSTOMER_LIST) }}</th> -->
-                                <th>{{ DS_CUSTOMER_LIST_TOTAL_AMOUNT }}</th>
+                                <th>{{ Number(DS_CUSTOMER_LIST_TOTAL_AMOUNT).toFixed(2) }}</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -60,11 +60,11 @@
                     
                         <tbody>
                             <tr v-for="(item, i) in COLLECTION_MASTER_CUSTOMER" :key="i" style="height: 50px;">
-                                <td style="flex-basis: 10%;"><p>{{ item.collection_mode }}</p></td>
-                                <td style="flex-basis: 35%;"><p>{{ item.description }}</p></td>
-                                <td style="flex-basis: 15%;"><p>{{ item.amount }}</p></td>
-                                <td style="flex-basis: 15%;"><p>{{ item.unadjusted_amt }}</p></td>
-                                <td style="flex-basis: 15%;"><p>{{ dateFormat(item.value_date) }}</p></td>
+                                <td style="flex-basis: 10%;"><p>{{ item.collection_mode ? item.collection_mode : '' }}</p></td>
+                                <td style="flex-basis: 35%;"><p>{{ item.description ? item.description : '' }}</p></td>
+                                <td style="flex-basis: 15%;"><p>{{ item.amount ? Number(item.amount).toFixed(2) : '' }}</p></td>
+                                <td style="flex-basis: 15%;"><p>{{ item.unadjusted_amt ? Number(item.unadjusted_amt).toFixed(2) : '' }}</p></td>
+                                <td style="flex-basis: 15%;"><p>{{ item.value_date ? dateFormat(item.value_date) : '' }}</p></td>
                                 <td style="flex-basis: 10%;"><a><i class="zmdi zmdi-refresh"></i></a></td>
                             </tr>
                         </tbody>
@@ -73,8 +73,8 @@
                             <tr>
                                 <th style="flex-basis: 10%;">Total</th>
                                 <th style="flex-basis: 35%;"></th>
-                                <th style="flex-basis: 15%;">{{ COLLECTION_MASTER_CUSTOMER_TOTAL_AMOUNT.amount }}</th>
-                                <th style="flex-basis: 15%;">{{ COLLECTION_MASTER_CUSTOMER_TOTAL_AMOUNT.unadj_amount }}</th>
+                                <th style="flex-basis: 15%;">{{ Number(COLLECTION_MASTER_CUSTOMER_TOTAL_AMOUNT.amount).toFixed(2) }}</th>
+                                <th style="flex-basis: 15%;">{{ Number(COLLECTION_MASTER_CUSTOMER_TOTAL_AMOUNT.unadj_amount).toFixed(2) }}</th>
                                 <th style="flex-basis: 15%;"></th>
                                 <th style="flex-basis: 10%;"></th>
                             </tr>
@@ -84,30 +84,30 @@
                     <table class="collection-table-3">
                         <thead>
                             <tr>
-                                <th colspan="7"><h5>Invoices (<span>20</span>)</h5></th>
+                                <th colspan="7"><h5>Invoices (<span>{{ COLLECTION_CUSTOMER_INVOICE_LIST ? COLLECTION_CUSTOMER_INVOICE_LIST.length : 0 }}</span>)</h5></th>
                             </tr>
                             <tr>
-                                <th>Invoice</th>
-                                <th>Date</th>
-                                <th>Amount</th>
-                                <th>Paid</th>
-                                <th>Panding</th>
-                                <th>Due</th>
-                                <th>Adjustment</th>
-                                <th></th>
+                                <th style="min-width: 10%;">Invoice</th>
+                                <th style="min-width: 15%; text-align: center;">Date</th>
+                                <th style="min-width: 15%;">Amount</th>
+                                <th style="min-width: 12%;">Paid</th>
+                                <th style="min-width: 13%;">Panding</th>
+                                <th style="min-width: 12%;">Due</th>
+                                <th style="min-width: 13%;">Adjustment</th>
+                                <th style="min-width: 10%;"></th>
                             </tr>
                         </thead>
                     
                         <tbody>
-                            <tr v-for="(item, i) in 20" :key="i" :class="i%3 == 0 ? 'active' : ''">
-                                <td><p><span class="fa fa-circle"></span>INV-010101</p></td>
-                                <td><p>1/1/2021</p></td>
-                                <td><p>10,000</p></td>
-                                <td><p>5,000</p></td>
-                                <td><p>2,000</p></td>
-                                <td><p>1000</p></td>
-                                <td><p>18000</p></td>
-                                <td>
+                            <tr v-for="(item, i) in COLLECTION_CUSTOMER_INVOICE_LIST" :key="i">
+                                <td style="min-width: 10%;"><p>{{ item.invoice ? item.invoice : '' }}</p></td>
+                                <td style="min-width: 15%;"><p>{{ item.date ? dateFormat(item.date) : '' }}</p></td>
+                                <td style="min-width: 15%;"><p>{{ item.amount ? Number(item.amount).toFixed(2) : '' }}</p></td>
+                                <td style="min-width: 12%;"><p>{{ item.paid ? Number(item.paid).toFixed(2) : '' }}</p></td>
+                                <td style="min-width: 13%;"><p>{{ item.pending ? Number(item.pending).toFixed(2) : '' }}</p></td>
+                                <td style="min-width: 12%;"><p>{{ item.due ? Number(item.due).toFixed(2) : '' }}</p></td>
+                                <td style="min-width: 13%;"><p>{{ item.adjustment ? Number(item.adjustment).toFixed(2) : '' }}</p></td>
+                                <td style="min-width: 10%;">
                                     <a data-toggle="modal" data-target="#edit-collection-modal" class="" href="" v-if="i%2 === 0"><i class="zmdi zmdi-edit"></i></a>
                                     <a data-toggle="modal" data-target="#add-collection-modal" class="" href="" v-if="i%2 !== 0"><i class="zmdi zmdi-plus"></i></a>
                                 </td>
@@ -116,13 +116,13 @@
                     
                         <tfoot>
                             <tr>
-                                <th>Total</th>
-                                <th></th>
-                                <th>18000</th>
-                                <th>18000</th>
-                                <th>18000</th>
-                                <th>18000</th>
-                                <th>18000</th>
+                                <th style="min-width: 10%;">Total</th>
+                                <th style="min-width: 15%;"></th>
+                                <th style="min-width: 15%;">{{ Number(COLLECTION_CUSTOMER_INVOICE_LIST_TOTAL.amount).toFixed(2) }}</th>
+                                <th style="min-width: 12%;">{{ Number(COLLECTION_CUSTOMER_INVOICE_LIST_TOTAL.paid).toFixed(2) }}</th>
+                                <th style="min-width: 13%;">{{ Number(COLLECTION_CUSTOMER_INVOICE_LIST_TOTAL.pending).toFixed(2) }}</th>
+                                <th style="min-width: 12%;">{{ Number(COLLECTION_CUSTOMER_INVOICE_LIST_TOTAL.due).toFixed(2) }}</th>
+                                <th style="min-width: 13%;">{{ Number(COLLECTION_CUSTOMER_INVOICE_LIST_TOTAL.adjustment).toFixed(2) }}</th>
                     
                                 <th></th>
                             </tr>
@@ -237,6 +237,7 @@ export default {
     data() {
         return {
             COLLECTION_MASTER_CUSTOMER: null,
+            COLLECTION_CUSTOMER_INVOICE_LIST: null,
         }
     },
     computed: {
@@ -262,6 +263,25 @@ export default {
             }
             return total
         },
+        COLLECTION_CUSTOMER_INVOICE_LIST_TOTAL() {
+            let total = {
+                amount: 0.00,
+                paid: 0.00,
+                pending: 0.00,
+                due: 0.00,
+                adjustment: 0.00
+            }
+            if(this.COLLECTION_CUSTOMER_INVOICE_LIST) {
+                for(let i=0; i<this.COLLECTION_CUSTOMER_INVOICE_LIST.length; i++) {
+                    total.amount += this.COLLECTION_CUSTOMER_INVOICE_LIST[i].amount ? parseFloat(this.COLLECTION_CUSTOMER_INVOICE_LIST[i].amount) : 0
+                    total.paid += this.COLLECTION_CUSTOMER_INVOICE_LIST[i].paid ? parseFloat(this.COLLECTION_CUSTOMER_INVOICE_LIST[i].paid) : 0
+                    total.pending += this.COLLECTION_CUSTOMER_INVOICE_LIST[i].pending ? parseFloat(this.COLLECTION_CUSTOMER_INVOICE_LIST[i].pending) : 0
+                    total.due += this.COLLECTION_CUSTOMER_INVOICE_LIST[i].due ? parseFloat(this.COLLECTION_CUSTOMER_INVOICE_LIST[i].due) : 0
+                    total.adjustment += this.COLLECTION_CUSTOMER_INVOICE_LIST[i].adjustment ? parseFloat(this.COLLECTION_CUSTOMER_INVOICE_LIST[i].adjustment) : 0
+                }
+            }
+            return total
+        }
     },
     created() {},
     mounted() {},
@@ -279,7 +299,8 @@ export default {
                 document.querySelector('#customer_card_body_' + index).className = 'customer_card_body'
             }
 
-            await this.DS_COLLECTION_MASTER_CUSTOMER_BY_DS_ID_CUSTOMER_ID__FROM_SERVICE(item.ds_id, item.customer_id)
+            this.DS_COLLECTION_MASTER_CUSTOMER_BY_DS_ID_CUSTOMER_ID__FROM_SERVICE(item.ds_id, item.customer_id)
+            this.DS_COLLECTION_CUSTOMER_INVOICE_LIST_BY_DS_ID_CUSTOMER_ID__FROM_SERVICE(item.ds_id, item.customer_id)
         },
         // ---------------------------------------------------------------------------------------------------
         // COLLECTION
@@ -303,7 +324,23 @@ export default {
                         this.COLLECTION_MASTER_CUSTOMER = null
                     }
                 })
-        }
+        },
+        async DS_COLLECTION_CUSTOMER_INVOICE_LIST_BY_DS_ID_CUSTOMER_ID__FROM_SERVICE(ds_id, customer_id) {
+            this.COLLECTION_CUSTOMER_INVOICE_LIST = null
+            await service.getDSCollectionCustomerInvoiceListByDSID_CustomerId_COLLECTION_DETAILS(ds_id, customer_id)
+                .then(res => {
+                    console.log(res.data)
+                    if(res.data.response_code === 200 || res.data.response_code === 201) {
+                        this.COLLECTION_CUSTOMER_INVOICE_LIST = res.data.all_invoice
+                    }
+                })
+                .catch(err => {
+                    if(err) {
+                        console.log(err)
+                        this.COLLECTION_CUSTOMER_INVOICE_LIST = null
+                    }
+                })
+        },
     },
     watch: {
     }
