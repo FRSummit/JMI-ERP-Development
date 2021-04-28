@@ -40,7 +40,7 @@
                         </tfoot>
                     </table>
                 </div>
-                <div class="col-8" style="height: 100%;" v-if="COLLECTION_MASTER_CUSTOMER">
+                <div class="col-8" style="height: 100%; padding-top: 12px;" v-if="COLLECTION_MASTER_CUSTOMER">
                     <table class="collection-table-2">
                         <thead>
                             <tr>
