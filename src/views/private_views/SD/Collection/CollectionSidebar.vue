@@ -344,6 +344,7 @@ export default {
     justify-content: space-between;
     background-color: var(--white);
     border-bottom: 1px solid var(--border-color);
+    cursor: pointer;
 }
 .layout-sidebar.collection .content .card_body:hover,
 .layout-sidebar.collection .content .card_body:active {

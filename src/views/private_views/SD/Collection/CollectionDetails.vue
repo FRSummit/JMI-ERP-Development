@@ -65,7 +65,7 @@
                                 <td style="flex-basis: 15%;"><p>{{ item.amount ? Number(item.amount).toFixed(2) : '' }}</p></td>
                                 <td style="flex-basis: 15%;"><p>{{ item.unadjusted_amt ? Number(item.unadjusted_amt).toFixed(2) : '' }}</p></td>
                                 <td style="flex-basis: 15%;"><p>{{ item.value_date ? dateFormat(item.value_date) : '' }}</p></td>
-                                <td style="flex-basis: 10%;"><a><i class="zmdi zmdi-refresh"></i></a></td>
+                                <td style="flex-basis: 10%;"><a><i class="zmdi zmdi-refresh" @click="collectionAutoAdjustClickHandler(item, i)"></i></a></td>
                             </tr>
                         </tbody>
                     
@@ -223,6 +223,15 @@
             </div>
         </div>
         <!------------ End Edit Collection Modal------------>
+        <!-- Message Modal -->
+        <div class="modal-popup-section order-proceed-modal" v-if="msg_popup_modal">
+            <div class="modal-popup-section-inner order-proceed-modal-inner">
+                <div id="progressbar" class="jmi-progressbar">
+                    <!-- <v-progress-circular indeterminate color="primary"></v-progress-circular> -->
+                    <p>{{ msg_popup_modal_msg ? msg_popup_modal_msg : 'No message' }}</p>
+                </div>
+            </div>
+        </div>
         </div>
 </template>
 
@@ -236,8 +245,13 @@ export default {
     props: ["DS_CUSTOMER_LIST"],
     data() {
         return {
+            SELECTED_CUSTOMER_DA_ID_FROM_CUSTOMER_LIST: null,
             COLLECTION_MASTER_CUSTOMER: null,
             COLLECTION_CUSTOMER_INVOICE_LIST: null,
+
+            // Modal
+            msg_popup_modal: false,
+            msg_popup_modal_msg: null,
         }
     },
     computed: {
@@ -289,6 +303,8 @@ export default {
         // CUSTOMER TABLE - LIST
         async singleCustomerClickHandler(item, index) {
             console.log(item)
+            this.SELECTED_CUSTOMER_DA_ID_FROM_CUSTOMER_LIST = null
+            this.SELECTED_CUSTOMER_DA_ID_FROM_CUSTOMER_LIST = item
             let length = document.querySelectorAll('#layout_container_collection_details .customer_card_body').length
             for(let i=0; i<length; i++) {
                 document.querySelector('#customer_card_body_' + i).className = 'customer_card_body'
@@ -306,6 +322,12 @@ export default {
         // COLLECTION
         dateFormat(dt) {
             return globalDateFormat.dateFormatT4(dt)
+        },
+        collectionAutoAdjustClickHandler(item, i) {
+            console.log(i)
+            console.log(item)
+            console.log(this.SELECTED_CUSTOMER_DA_ID_FROM_CUSTOMER_LIST)
+            this.COLLECTION_AUTO_ADJUST__FROM_SERVICE(item.id)
         },
         // ---------------------------------------------------------------------------------------------------
         // SERVICE CALL
@@ -341,6 +363,33 @@ export default {
                     }
                 })
         },
+        async COLLECTION_AUTO_ADJUST__FROM_SERVICE(id) {
+            this.msg_popup_modal = true
+            this.msg_popup_modal_msg = 'Please wait. We are processing...'
+            await service.getCollectionAutoAdjust_COLLECTION_DETAILS(id)
+                .then(res => {
+                    console.log(res.data)
+                    if(res.data.response_code === 200 || res.data.response_code === 201) {
+                        this.msg_popup_modal_msg = res.data.message
+                    } else {
+                        this.msg_popup_modal_msg = res.data.message + ' Response code : ' + res.data.response_code + '.'
+                    }
+                    setTimeout( () => {
+                        this.msg_popup_modal = false        
+                        this.msg_popup_modal_msg = null        
+                    }, 2000)
+                })
+                .catch(err => {
+                    if(err) {
+                        console.log(err)
+                        this.msg_popup_modal_msg = err
+                        setTimeout( () => {
+                            this.msg_popup_modal = false        
+                            this.msg_popup_modal_msg = null        
+                        }, 2000)
+                    }
+                })
+        }
     },
     watch: {
     }

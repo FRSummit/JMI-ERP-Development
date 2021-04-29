@@ -1344,6 +1344,17 @@ export default class PostService {
       }
     })
   }
+  
+  // COLLECTION - DETAILS - COLLECTION MASTER CUSTOMER
+  async getCollectionAutoAdjust_COLLECTION_DETAILS(ds_id) {
+    let web_menu_url = '/api/web/collection-auto-adjust/' + ds_id
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
 
   // -------------------------------------------------------------------------------------------
 
