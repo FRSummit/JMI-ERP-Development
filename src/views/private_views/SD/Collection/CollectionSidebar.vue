@@ -91,6 +91,9 @@
                     <div class="modal-content" id="collection-modalContent">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLongTitle">Filter</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="padding: 10px; margin-top: -9px;" @click="closeFilterModalClickHandler">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
@@ -166,6 +169,9 @@ export default {
             } else {
                 this.filter_modal = true
             }
+        },
+        closeFilterModalClickHandler() {
+            this.filter_modal = false
         },
         filterSearchBtnClickHandler() {
             this.filter_modal = false

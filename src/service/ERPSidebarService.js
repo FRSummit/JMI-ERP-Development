@@ -1334,9 +1334,10 @@ export default class PostService {
     })
   }
   
-  // COLLECTION - DETAILS - COLLECTION MASTER CUSTOMER
-  async getDSCollectionCustomerInvoiceListByDSID_CustomerId_COLLECTION_DETAILS(ds_id, customer_id) {
-    let web_menu_url = '/api/web/delivery-schedule-collection-customer-invoice-list/' + ds_id + '/' + customer_id
+  // COLLECTION - DETAILS - COLLECTION MASTER CUSTOMER - INVOICE LIST
+  async getDSCollectionCustomerInvoiceListByDSID_CustomerId_COLLECTION_DETAILS(ds_id, customer_id, collection_mode) {
+    console.log(ds_id + '    ' + customer_id + '    ' + collection_mode)
+    let web_menu_url = '/api/web/delivery-schedule-collection-customer-invoice-list/' + ds_id + '/' + customer_id + '/' + collection_mode
     return await axios(web_menu_url, {
       method: 'GET',
       headers: {
@@ -1345,9 +1346,20 @@ export default class PostService {
     })
   }
   
-  // COLLECTION - DETAILS - COLLECTION MASTER CUSTOMER
-  async getCollectionAutoAdjust_COLLECTION_DETAILS(ds_id) {
-    let web_menu_url = '/api/web/collection-auto-adjust/' + ds_id
+  // COLLECTION - DETAILS - COLLECTION AUTO ADJUST
+  async getCollectionAutoAdjust_COLLECTION_DETAILS(dsc_id) {
+    let web_menu_url = '/api/web/collection-auto-adjust/' + dsc_id
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
+  
+  // COLLECTION - DETAILS - COLLECTION - INVOICE ADJUST
+  async getCollectionAdjust_COLLECTION_DETAILS(dsc_id, invoice_id, amount) {
+    let web_menu_url = '/api/web/collection-adjust/' + dsc_id + '/' + invoice_id + '/' + amount
     return await axios(web_menu_url, {
       method: 'GET',
       headers: {

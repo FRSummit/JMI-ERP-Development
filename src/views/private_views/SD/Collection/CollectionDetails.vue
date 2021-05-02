@@ -60,7 +60,7 @@
                     
                         <tbody>
                             <tr v-for="(item, i) in COLLECTION_MASTER_CUSTOMER" :key="i" style="height: 50px;">
-                                <td style="flex-basis: 10%;"><p>{{ item.collection_mode ? item.collection_mode : '' }}</p></td>
+                                <td style="flex-basis: 10%;"><p  @click="collectionMasterRowClickHandler(item, i)" style="cursor: pointer; color: var(--blue);">{{ item.collection_mode ? item.collection_mode : '' }}</p></td>
                                 <td style="flex-basis: 35%;"><p>{{ item.description ? item.description : '' }}</p></td>
                                 <td style="flex-basis: 15%;"><p>{{ item.amount ? Number(item.amount).toFixed(2) : '' }}</p></td>
                                 <td style="flex-basis: 15%;"><p>{{ item.unadjusted_amt ? Number(item.unadjusted_amt).toFixed(2) : '' }}</p></td>
@@ -108,8 +108,8 @@
                                 <td style="min-width: 12%;"><p>{{ item.due ? Number(item.due).toFixed(2) : '' }}</p></td>
                                 <td style="min-width: 13%;"><p>{{ item.adjustment ? Number(item.adjustment).toFixed(2) : '' }}</p></td>
                                 <td style="min-width: 10%;">
-                                    <a data-toggle="modal" data-target="#edit-collection-modal" class="" href="" v-if="i%2 === 0"><i class="zmdi zmdi-edit"></i></a>
-                                    <a data-toggle="modal" data-target="#add-collection-modal" class="" href="" v-if="i%2 !== 0"><i class="zmdi zmdi-plus"></i></a>
+                                    <a data-toggle="modal" data-target="#edit-collection-modal"><i class="zmdi zmdi-edit" @click="editCollectionInvoiceModalClickHandler(item)"></i></a>
+                                    <a data-toggle="modal" data-target="#add-collection-modal"><i class="zmdi zmdi-plus" @click="addCollectionInvoiceModalClickHandler(item)"></i></a>
                                 </td>
                             </tr>
                         </tbody>
@@ -132,13 +132,12 @@
             </div>
           </div>
         <!------------ Start Add Collection Modal------------>
-        <div class="modal" id="add-collection-modal" tabindex="-1" role="dialog" aria-labelledby="AddCollection"
-            aria-hidden="true">
+        <div class="modal" id="add-collection-modal" tabindex="-1" role="dialog" aria-labelledby="AddCollection" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Add</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <h5 class="modal-title">Add Invoice Amount</h5>
+                        <button type="button" id="add-collection-modal-close-btn" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -147,25 +146,25 @@
         
                             <div class="col-lg-6 form-group">
                                 <label for="invoice_no">Invoice No</label>
-                                <input type="text" class="form-control" id="invoice_no" value="INV23414545" readonly>
+                                <input type="text" v-model="add_inv_number" class="form-control" id="invoice_no" value="INV23414545" readonly>
                             </div>
                             <div class="col-lg-6 form-group">
                                 <label for="date">Date</label>
-                                <input type="text" class="form-control" id="date" value="20-Oct-2021" readonly>
+                                <input type="text" v-model="add_inv_date" class="form-control" id="date" value="20-Oct-2021" readonly>
                             </div>
                             <div class="col-lg-6 form-group">
-                                <label for="invoice_due">Total Due</label>
-                                <input type="number" class="form-control" id="invoice_due" value="100000" readonly>
+                                <label for="invoice_due">Due</label>
+                                <input type="number" v-model="add_inv_total_due" class="form-control" id="invoice_due" value="100000" readonly>
                             </div>
                             <div class="col-lg-6 form-group">
                                 <label for="invoice_adjustment">Adjustment</label>
-                                <input type="number" class="form-control" id="invoice_adjustment" placeholder="Enter Adjustment Amount">
+                                <input type="number" v-model="add_inv_adjustment_inp" class="form-control" id="invoice_adjustment" placeholder="Enter Adjustment Amount" style="background-color: #FFFFFF;">
                             </div>
                         </div>
 
                     </div>
                     <div class="modal-footer justify-content-center">
-                        <button type="button" class="btn btn-primary btn-global">Save</button>
+                        <button type="button" class="btn btn-primary btn-global" @click="addCollectionModalSaveClickHandler">Save</button>
                     </div>
                 </div>
             </div>
@@ -173,13 +172,12 @@
         <!------------ End Add Collection Modal------------>
         
         <!------------ Start Edit Collection Modal------------>
-        <div class="modal" id="edit-collection-modal" tabindex="-1" role="dialog" aria-labelledby="EditCollection"
-            aria-hidden="true">
+        <div class="modal" id="edit-collection-modal" tabindex="-1" role="dialog" aria-labelledby="EditCollection" aria-hidden="true">
             <div class="modal-dialog  modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Edit</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <h5 class="modal-title">Update Invoice Amount</h5>
+                        <button type="button" id="edit-collection-modal-close-btn" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -187,37 +185,41 @@
                         <div class="row">
         
                             <div class="col-lg-6 form-group">
-                                <label for="invoice_no">Invoice No</label>
-                                <input type="text" class="form-control" id="invoice_no" value="INV23414545" readonly>
+                                <label for="update_inv_amount_invoice_no">Invoice No</label>
+                                <input type="text" v-model="add_inv_number" class="form-control" id="update_inv_amount_invoice_no" value="INV23414545" readonly>
                             </div>
                             <div class="col-lg-6 form-group">
-                                <label for="date">Date</label>
-                                <input type="text" class="form-control" id="date" value="20-Oct-2021" readonly>
+                                <label for="update_inv_amount_date">Date</label>
+                                <input type="text" v-model="add_inv_date" class="form-control" id="update_inv_amount_date" value="20-Oct-2021" readonly>
                             </div>
                             <div class="col-lg-6 form-group">
-                                <label for="invoice_total">Total</label>
-                                <input type="number" class="form-control" id="invoice_total" value="100000" readonly>
+                                <label for="update_inv_amount_invoice_total">Amount</label>
+                                <input type="number" v-model="update_inv_amount" class="form-control" id="update_inv_amount_invoice_total" value="100000" readonly>
                             </div>
                             <div class="col-lg-6 form-group">
-                                <label for="invoice_due">Due</label>
-                                <input type="number" class="form-control" id="invoice_due" value="100000" readonly>
+                                <label for="update_inv_amount_invoice_due">Due</label>
+                                <input type="number" v-model="add_inv_total_due" class="form-control" id="update_inv_amount_invoice_due" value="100000" readonly>
                             </div>
 
                             <div class="col-lg-6 form-group">
-                                <label for="quantity">Adjustment</label>
+                                <label for="update_inv_amount_adjustment">Adjustment</label>
                                 <div class="input-group">
-                                    <input type="number" class="form-control" value="100000" aria-describedby="addon1" readonly>
+                                    <input type="number" v-model="add_inv_adjustment" class="form-control" id="update_inv_amount_adjustment" value="100000" aria-describedby="addon1" readonly>
                                     <div class="input-group-append">
                                         <!-- <span class="input-group-text fa fa-trash" id="addon1"></span> -->
                                         <i class="zmdi zmdi-delete"></i>
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-lg-6 form-group">
+                                <label for="update_inv_amount_amount">Amount</label>
+                                <input type="number" v-model="update_inv_amount_inp" class="form-control" id="update_inv_amount_amount" placeholder="Enter Adjustment Amount" style="background-color: #FFFFFF;">
+                            </div>
                         </div>
         
                     </div>
                     <div class="modal-footer justify-content-center">
-                        <button type="button" class="btn btn-primary btn-global">Save</button>
+                        <button type="button" class="btn btn-primary btn-global" @click="editCollectionModalSaveClickHandler">Save</button>
                     </div>
                 </div>
             </div>
@@ -249,9 +251,21 @@ export default {
             COLLECTION_MASTER_CUSTOMER: null,
             COLLECTION_CUSTOMER_INVOICE_LIST: null,
 
+            SELECTED_DSC_ID: null,
+
             // Modal
             msg_popup_modal: false,
             msg_popup_modal_msg: null,
+
+            add_inv_number: null,
+            add_inv_date: null,
+            add_inv_total_due: null,
+            add_inv_adjustment: null,
+            add_inv_adjustment_inp: null,
+
+            update_inv_amount: null,
+            update_inv_amount_inp: null,
+
         }
     },
     computed: {
@@ -316,7 +330,7 @@ export default {
             }
 
             this.DS_COLLECTION_MASTER_CUSTOMER_BY_DS_ID_CUSTOMER_ID__FROM_SERVICE(item.ds_id, item.customer_id)
-            this.DS_COLLECTION_CUSTOMER_INVOICE_LIST_BY_DS_ID_CUSTOMER_ID__FROM_SERVICE(item.ds_id, item.customer_id)
+            // this.DS_COLLECTION_CUSTOMER_INVOICE_LIST_BY_DS_ID_CUSTOMER_ID__FROM_SERVICE(item.ds_id, item.customer_id)
         },
         // ---------------------------------------------------------------------------------------------------
         // COLLECTION
@@ -327,7 +341,44 @@ export default {
             console.log(i)
             console.log(item)
             console.log(this.SELECTED_CUSTOMER_DA_ID_FROM_CUSTOMER_LIST)
+            this.SELECTED_DSC_ID = null
+            this.SELECTED_DSC_ID = item.id
             this.COLLECTION_AUTO_ADJUST__FROM_SERVICE(item.id)
+        },
+        collectionMasterRowClickHandler(item, i) {
+            console.log(i)
+            console.log(item)
+            let ds_id = this.SELECTED_CUSTOMER_DA_ID_FROM_CUSTOMER_LIST.ds_id
+            let customer_id = this.SELECTED_CUSTOMER_DA_ID_FROM_CUSTOMER_LIST.customer_id
+            let collection_mode = item.collection_mode
+            this.DS_COLLECTION_CUSTOMER_INVOICE_LIST_BY_DS_ID_CUSTOMER_ID_COLLECTION_MODE__FROM_SERVICE(ds_id, customer_id, collection_mode)
+        },
+        editCollectionInvoiceModalClickHandler(item) {
+            this.add_inv_number = item.invoice
+            this.add_inv_date = this.dateFormat(item.date)
+            this.update_inv_amount = item.amount
+            this.add_inv_total_due = item.due
+            this.add_inv_adjustment = item.adjustment
+
+            this.update_inv_amount_inp = null
+
+            // this.DS_COLLECTION_INVOICE_ADJUST__FROM_SERVICE(this.SELECTED_DSC_ID, item.invoice, item.this.update_inv_amount_inp)
+            // console.log(this.SELECTED_DSC_ID)
+        },
+        addCollectionInvoiceModalClickHandler(item) {
+            this.add_inv_number = item.invoice
+            this.add_inv_date = this.dateFormat(item.date)
+            this.add_inv_total_due = item.due
+
+            this.add_inv_adjustment_inp = null
+        },
+        addCollectionModalSaveClickHandler() {
+            document.getElementById('add-collection-modal-close-btn').click()
+            this.DS_COLLECTION_INVOICE_ADJUST__FROM_SERVICE(this.SELECTED_DSC_ID, this.add_inv_number, this.update_inv_amount_inp)
+        },
+        editCollectionModalSaveClickHandler() {
+            document.getElementById('edit-collection-modal-close-btn').click()
+            this.DS_COLLECTION_INVOICE_ADJUST__FROM_SERVICE(this.SELECTED_DSC_ID, this.add_inv_number, this.add_inv_adjustment_inp)
         },
         // ---------------------------------------------------------------------------------------------------
         // SERVICE CALL
@@ -347,9 +398,25 @@ export default {
                     }
                 })
         },
-        async DS_COLLECTION_CUSTOMER_INVOICE_LIST_BY_DS_ID_CUSTOMER_ID__FROM_SERVICE(ds_id, customer_id) {
+        /*async DS_COLLECTION_CUSTOMER_INVOICE_LIST_BY_DS_ID_CUSTOMER_ID__FROM_SERVICE(ds_id, customer_id) {
             this.COLLECTION_CUSTOMER_INVOICE_LIST = null
             await service.getDSCollectionCustomerInvoiceListByDSID_CustomerId_COLLECTION_DETAILS(ds_id, customer_id)
+                .then(res => {
+                    console.log(res.data)
+                    if(res.data.response_code === 200 || res.data.response_code === 201) {
+                        this.COLLECTION_CUSTOMER_INVOICE_LIST = res.data.all_invoice
+                    }
+                })
+                .catch(err => {
+                    if(err) {
+                        console.log(err)
+                        this.COLLECTION_CUSTOMER_INVOICE_LIST = null
+                    }
+                })
+        },*/
+        async DS_COLLECTION_CUSTOMER_INVOICE_LIST_BY_DS_ID_CUSTOMER_ID_COLLECTION_MODE__FROM_SERVICE(ds_id, customer_id, collection_mode) {
+            this.COLLECTION_CUSTOMER_INVOICE_LIST = null
+            await service.getDSCollectionCustomerInvoiceListByDSID_CustomerId_COLLECTION_DETAILS(ds_id, customer_id, collection_mode)
                 .then(res => {
                     console.log(res.data)
                     if(res.data.response_code === 200 || res.data.response_code === 201) {
@@ -375,8 +442,8 @@ export default {
                         this.msg_popup_modal_msg = res.data.message + ' Response code : ' + res.data.response_code + '.'
                     }
                     setTimeout( () => {
-                        this.msg_popup_modal = false        
-                        this.msg_popup_modal_msg = null        
+                        this.msg_popup_modal = false
+                        this.msg_popup_modal_msg = null
                     }, 2000)
                 })
                 .catch(err => {
@@ -384,8 +451,35 @@ export default {
                         console.log(err)
                         this.msg_popup_modal_msg = err
                         setTimeout( () => {
-                            this.msg_popup_modal = false        
-                            this.msg_popup_modal_msg = null        
+                            this.msg_popup_modal = false
+                            this.msg_popup_modal_msg = null
+                        }, 2000)
+                    }
+                })
+        },
+        async DS_COLLECTION_INVOICE_ADJUST__FROM_SERVICE(dsc_id, invoice_id, amount) {
+            this.msg_popup_modal = true
+            this.msg_popup_modal_msg = 'Please wait. We are processing...'
+            await service.getCollectionAdjust_COLLECTION_DETAILS(dsc_id, invoice_id, amount)
+                .then(res => {
+                    console.log(res.data)
+                    if(res.data.response_code === 200 || res.data.response_code === 201) {
+                        this.msg_popup_modal_msg = res.data.message
+                    } else {
+                        this.msg_popup_modal_msg = res.data.message + ' Response code : ' + res.data.response_code + '.'
+                    }
+                    setTimeout( () => {
+                        this.msg_popup_modal = false
+                        this.msg_popup_modal_msg = null
+                    }, 2000)
+                })
+                .catch(err => {
+                    if(err) {
+                        console.log(err)
+                        this.msg_popup_modal_msg = err
+                        setTimeout( () => {
+                            this.msg_popup_modal = false
+                            this.msg_popup_modal_msg = null
                         }, 2000)
                     }
                 })
@@ -979,14 +1073,25 @@ export default {
     width:100%;
     font-size: 11px;
   }
-  .collection-table-2 i,
-  .collection-table-3 i {
+  .collection-table-2 i{
     display: flex;
     justify-content: center;
     align-items: center;
     width: 25px;
     height: 25px;
     font-size: var(--font12);
+    color:  var(--white);
+    border-radius: 100px;
+    background-color:var(--blue);
+    margin: 0px 5px;
+  }
+  .collection-table-3 i {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 18px;
+    height: 18px;
+    font-size: var(--font10) !important;
     color:  var(--white);
     border-radius: 100px;
     background-color:var(--blue);
