@@ -129,9 +129,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" id="details-single-tab" data-toggle="tab" href="#tab-offers">Offers</a>
                             </li>
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a class="nav-link" id="details-single-tab" data-toggle="tab" href="#tab-competitors">Competitors</a>
-                            </li>
+                            </li> -->
                             <li class="nav-item">
                                 <a class="nav-link" id="details-single-tab" data-toggle="tab" href="#tab-ledger">Ledger</a>
                             </li>
@@ -1019,10 +1019,10 @@
                                             <!-- Start Stock Transfer Modal -->
                                             <div class="modal" id="Transfer-Stock" tabindex="-1" role="dialog" aria-labelledby="TransferStock" aria-hidden="true" style="width: 400px; border-radius: 4px;">
                                                 <div class="modal-dialog modal-dialog-centered" role="document" style="margin: 0;">
-                                                    <div class="modal-content">
+                                                    <div class="modal-content" style="padding: 16px; border: none;">
                                                         <div class="modal-header">
                                                             <h5 class="modal-title" id="changePhoto">Store Transfer</h5>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <button type="button" id="transfer-stock-close-btn" class="close" data-dismiss="modal" aria-label="Close">
                                                                 <span aria-hidden="true">&times;</span>
                                                             </button>
                                                         </div>
@@ -1030,7 +1030,7 @@
                                                         <div class="row">
                                                             <div class="col-lg-12 form-group">
                                                                 <label for="store_from">Store From <span class="current-stock">(Current Stock: <span>{{ selected_store_current_stock }}</span>)</span></label>
-                                                                <select class="form-control" id="store_from" v-model="stock_position_modal_store_from" @change="stockPositionModalStoreFromOnChange">
+                                                                <select class="form-control" id="store_from" v-model="stock_position_modal_store_from">
                                                                     <option :value="null" selected>Select a Store</option>
                                                                     <option v-for="(item, i) in WAREHOUSE_STORE_INFO__FROM_COMPONENT" :key="i" :value="item">{{ item.store_name }}</option>
                                                                 </select>
@@ -2222,15 +2222,22 @@ export default {
             this.stock_position_modal_store_to = null
             this.stock_position_modal_stock_qty = null
         },
-        stockPositionModalStoreFromOnChange() {
-            console.log(this.stock_position_modal_store_from)
-            let wh_store_stock_info_VAR = this.stock_position_modal_store_from.wh_store_stock_info
-            this.selected_store_current_stock = wh_store_stock_info_VAR[0] ? wh_store_stock_info_VAR[0].current_stock : 0
-        },
         transferStockSaveBtnClickHandler() {
             console.log(this.stock_position_modal_store_from)
             console.log(this.stock_position_modal_store_to)
             console.log(this.stock_position_modal_stock_qty)
+
+            console.log(this.SELECTED_PROD_DETAILS)
+
+            let transfer_data = {
+                from_store_id: this.stock_position_modal_store_from.id,
+                to_store_id: this.stock_position_modal_store_to.id,
+                prod_id: this.SELECTED_PROD_DETAILS.prod_id,
+                batch_lot: null,
+                quantity: this.stock_position_modal_stock_qty,
+            }
+
+            this.STOCK_TRANSFER_FOR_SINGLE_PROD__FROM_SERVICE(transfer_data)
         },
         // Stock Position Tab Content Area Starts
         // -----------------------------------------------------------------------------------------
@@ -2650,6 +2657,41 @@ export default {
                     if(err) {
                         console.log(err)
                         this.STORE_SBU_LIST_MENU_WAREHOUSE = null
+                    }
+                })
+        },
+        async STOCK_TRANSFER_FOR_SINGLE_PROD__FROM_SERVICE(transfer_data) {
+            document.getElementById('transfer-stock-close-btn').click()
+            console.log(transfer_data)
+
+            this.prod_creating_progressbar = true
+            this.prod_creating_progressbar_msg = 'Please wait...'
+
+            await service.getStockTransferForSingleProd_PRODUCTS_DETAILS(transfer_data)
+                .then(res => {
+                    console.log(res.data)
+                    if(res.data.response_code === 200 || res.data.response_code === 201) {
+                        this.prod_creating_progressbar_msg = res.data.message
+                        setTimeout( () => {
+                            this.prod_creating_progressbar = false
+                            this.prod_creating_progressbar_msg = null
+                        }, 1000)
+                    } else {
+                        this.prod_creating_progressbar_msg = res.data.message
+                        setTimeout( () => {
+                            this.prod_creating_progressbar = false
+                            this.prod_creating_progressbar_msg = null
+                        }, 1000)
+                    }
+                })
+                .catch(err => {
+                    if(err) {
+                        console.log(err)
+                        this.prod_creating_progressbar_msg = err
+                        setTimeout( () => {
+                            this.prod_creating_progressbar = false
+                            this.prod_creating_progressbar_msg = null
+                        }, 1000)
                     }
                 })
         }

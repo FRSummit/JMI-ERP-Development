@@ -29,7 +29,7 @@
             <!-- Order Table -->
             <div class="order-table">
                 <div class="order-table-inner">
-                    <table class="table jmi-order-table" id="order-data-table" cellspacing="0" width="100%">
+                    <table class="table jmi-order-table" id="order-data-table" cellspacing="0" width="100%" v-if="!PAYMENT_MODAL_IS_TRUE">
                         <thead>
                             <tr>
                                 <th>Name</th>
@@ -129,12 +129,16 @@
                 </div>
             </div>
             <!-- Bottom Subtotal & Attachment Section -->
-            <div class="submit-section" v-if="ORDERED_TABLE_DATA__INIT_LIST && PENDING_ORDER_DATA_BY_ID">
+            <div class="submit-section" v-if="ORDERED_TABLE_DATA__INIT_LIST && PENDING_ORDER_DATA_BY_ID && !PAYMENT_MODAL_IS_TRUE">
                 <div class="submit-section-inner">
                     <span class="cancel-order" @click="cancelDeliveryOrderClickHandler" v-if="NO_PRODUCT_IN_CART_TO_DELIVER">Cancel Order</span>
                     <span class="proceed-order" @click="deliveryOrderClickHandler" v-if="!NO_PRODUCT_IN_CART_TO_DELIVER">Delivered Order</span>
                 </div>
             </div>
+            <!-- PAYMENT MODAL -->
+            <PaymentModal 
+                v-if="PENDING_ORDER_DATA_BY_ID && ORDERED_TABLE_DATA__INIT_LIST && PAYMENT_MODAL_IS_TRUE"
+                v-on:close_payment_modal="closePaymentModalClickHandler_Child" />
             <!-- Current Outstanding Modal -->
             <div class="current-outstanding-modal" v-if="outstanding_modal">
                 <div class="current-outstanding-modal-inner" v-click-outside="outstandingModalOutsideClick">
@@ -415,9 +419,12 @@ const jmiFilter = new JMIFilter()
 import ERPService from '../../../../../service/ERPSidebarService'
 const service = new ERPService()
 
+import PaymentModal from './PaymentModal'
+
 export default {
     props: ["pending_order_list_by_id", "INVOICE_ID_FROM_LEFT"],
     components: {
+        PaymentModal,
     },
     data() {
         return {
@@ -465,61 +472,6 @@ export default {
                     inv_date: "09/12/2020",
                     inv_outstanding: "500000"
                 },
-                {
-                    inv_no: "D133HK0301001",
-                    inv_date: "09/12/2020",
-                    inv_outstanding: "500000"
-                },
-                {
-                    inv_no: "D133HK0301001",
-                    inv_date: "09/12/2020",
-                    inv_outstanding: "500000"
-                },
-                {
-                    inv_no: "D133HK0301001",
-                    inv_date: "09/12/2020",
-                    inv_outstanding: "500000"
-                },
-                {
-                    inv_no: "D133HK0301001",
-                    inv_date: "09/12/2020",
-                    inv_outstanding: "500000"
-                },
-                {
-                    inv_no: "D133HK0301001",
-                    inv_date: "09/12/2020",
-                    inv_outstanding: "500000"
-                },
-                {
-                    inv_no: "D133HK0301001",
-                    inv_date: "09/12/2020",
-                    inv_outstanding: "500000"
-                },
-                {
-                    inv_no: "D133HK0301001",
-                    inv_date: "09/12/2020",
-                    inv_outstanding: "500000"
-                },
-                {
-                    inv_no: "D133HK0301001",
-                    inv_date: "09/12/2020",
-                    inv_outstanding: "500000"
-                },
-                {
-                    inv_no: "D133HK0301001",
-                    inv_date: "09/12/2020",
-                    inv_outstanding: "500000"
-                },
-                {
-                    inv_no: "D133HK0301001",
-                    inv_date: "09/12/2020",
-                    inv_outstanding: "500000"
-                },
-                {
-                    inv_no: "D133HK0301001",
-                    inv_date: "09/12/2020",
-                    inv_outstanding: "500000"
-                },
             ],
             outstanding_modal: false,
             customer_details_modal: false,
@@ -535,181 +487,6 @@ export default {
                     date: "09/12/2020",
                     particular: "Purchase",
                     inv: "cash",
-                    debit: "15,330",
-                    credit: "",
-                },
-                {
-                    date: "09/12/2020",
-                    particular: "Return",
-                    inv: "INV-2231225",
-                    debit: "15,330",
-                    credit: "",
-                },
-                {
-                    date: "09/12/2020",
-                    particular: "Purchase",
-                    inv: "INV-2231225",
-                    debit: "",
-                    credit: "15,330",
-                },
-                {
-                    date: "09/12/2020",
-                    particular: "Purchase",
-                    inv: "cash",
-                    debit: "15,330",
-                    credit: "",
-                },
-                {
-                    date: "09/12/2020",
-                    particular: "Return",
-                    inv: "INV-2231225",
-                    debit: "15,330",
-                    credit: "",
-                },
-                {
-                    date: "09/12/2020",
-                    particular: "Purchase",
-                    inv: "INV-2231225",
-                    debit: "",
-                    credit: "15,330",
-                },
-                {
-                    date: "09/12/2020",
-                    particular: "Purchase",
-                    inv: "cash",
-                    debit: "15,330",
-                    credit: "",
-                },
-                {
-                    date: "09/12/2020",
-                    particular: "Return",
-                    inv: "INV-2231225",
-                    debit: "15,330",
-                    credit: "",
-                },
-                {
-                    date: "09/12/2020",
-                    particular: "Purchase",
-                    inv: "INV-2231225",
-                    debit: "",
-                    credit: "15,330",
-                },
-                {
-                    date: "09/12/2020",
-                    particular: "Purchase",
-                    inv: "cash",
-                    debit: "15,330",
-                    credit: "",
-                },
-                {
-                    date: "09/12/2020",
-                    particular: "Return",
-                    inv: "INV-2231225",
-                    debit: "15,330",
-                    credit: "",
-                },
-                {
-                    date: "09/12/2020",
-                    particular: "Purchase",
-                    inv: "INV-2231225",
-                    debit: "",
-                    credit: "15,330",
-                },
-                {
-                    date: "09/12/2020",
-                    particular: "Purchase",
-                    inv: "cash",
-                    debit: "15,330",
-                    credit: "",
-                },
-                {
-                    date: "09/12/2020",
-                    particular: "Return",
-                    inv: "INV-2231225",
-                    debit: "15,330",
-                    credit: "",
-                },
-                {
-                    date: "09/12/2020",
-                    particular: "Purchase",
-                    inv: "INV-2231225",
-                    debit: "",
-                    credit: "15,330",
-                },
-                {
-                    date: "09/12/2020",
-                    particular: "Purchase",
-                    inv: "cash",
-                    debit: "15,330",
-                    credit: "",
-                },
-                {
-                    date: "09/12/2020",
-                    particular: "Return",
-                    inv: "INV-2231225",
-                    debit: "15,330",
-                    credit: "",
-                },
-                {
-                    date: "09/12/2020",
-                    particular: "Purchase",
-                    inv: "INV-2231225",
-                    debit: "",
-                    credit: "15,330",
-                },
-                {
-                    date: "09/12/2020",
-                    particular: "Purchase",
-                    inv: "cash",
-                    debit: "15,330",
-                    credit: "",
-                },
-                {
-                    date: "09/12/2020",
-                    particular: "Return",
-                    inv: "INV-2231225",
-                    debit: "15,330",
-                    credit: "",
-                },
-                {
-                    date: "09/12/2020",
-                    particular: "Purchase",
-                    inv: "INV-2231225",
-                    debit: "",
-                    credit: "15,330",
-                },
-                {
-                    date: "09/12/2020",
-                    particular: "Purchase",
-                    inv: "cash",
-                    debit: "15,330",
-                    credit: "",
-                },
-                {
-                    date: "09/12/2020",
-                    particular: "Return",
-                    inv: "INV-2231225",
-                    debit: "15,330",
-                    credit: "",
-                },
-                {
-                    date: "09/12/2020",
-                    particular: "Purchase",
-                    inv: "INV-2231225",
-                    debit: "",
-                    credit: "15,330",
-                },
-                {
-                    date: "09/12/2020",
-                    particular: "Purchase",
-                    inv: "cash",
-                    debit: "15,330",
-                    credit: "",
-                },
-                {
-                    date: "09/12/2020",
-                    particular: "Return",
-                    inv: "INV-2231225",
                     debit: "15,330",
                     credit: "",
                 },
@@ -800,6 +577,9 @@ export default {
             NO_PRODUCT_IN_CART_TO_DELIVER: false,
             set_payment_all_due: false,
             all_due_payment_confirmation_popup_modal: false,
+
+            // PAYMENT MODAL
+            PAYMENT_MODAL_IS_TRUE: false,
         }
     },
     async created() {
@@ -918,12 +698,19 @@ export default {
         //------------------------------------------------------------------------------------------
         // Order Submition Actions
         deliveryOrderClickHandler() {
-            if(this.set_payment_all_due) {
+            /*if(this.set_payment_all_due) {
                 console.log(this.set_payment_all_due)
                 this.createAllDUePamentAndProds()
             } else {
                 console.log(this.set_payment_all_due)
                 this.approve_product_confirmation_popup_modal = true
+            }*/
+            if(this.PAYMENT_MODAL_IS_TRUE) {
+                console.log(this.set_payment_all_due)
+                this.createAllDUePamentAndProds()
+            } else {
+                console.log(this.set_payment_all_due)
+                this.PAYMENT_MODAL_IS_TRUE = true
             }
         },
         createAllDUePamentAndProds() {
@@ -1554,6 +1341,11 @@ export default {
         confirmDuePaymentConfirmationClickHandler() {
             this.all_due_payment_confirmation_popup_modal = false
         },
+        // -----------------------------------------------------------------------------
+        // Payment Modal
+        closePaymentModalClickHandler_Child() {
+            this.PAYMENT_MODAL_IS_TRUE = false
+        }
     },
     watch: { 
         async pending_order_list_by_id(newVal, oldVal){

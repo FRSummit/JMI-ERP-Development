@@ -1300,7 +1300,92 @@ export default class PostService {
     })
   }
 
+  // PRODUCT - PRODUCT DETAILS - UPLOAD DOCUMENT FILE
+  async getStockTransferForSingleProd_PRODUCTS_DETAILS(transfer_data) {
+    console.log(transfer_data.from_store_id + '    ' + transfer_data.to_store_id + '    ' + transfer_data.prod_id + '    ' + transfer_data.batch_lot + '    ' + transfer_data.quantity)
+    let web_menu_url = '/api/web/stock-transfer-for-single-prod'
+    return await axios(web_menu_url, {
+      method: 'POST',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+      data: {
+        from_store_id : transfer_data.from_store_id,
+        to_store_id   : transfer_data.to_store_id,
+        prod_id       : transfer_data.prod_id,
+        batch_lot     : transfer_data.batch_lot,
+        quantity      : transfer_data.quantity
+      }
+    })
+  }
+
   // -------------------------------------------------------------------------------------------
+  // COLLECTION - LEFT SIDE - SCHEDULE LIST
+  async getDeliveryScheduleListForCollection_COLLECTION_LEFT() {
+    let web_menu_url = '/api/web/delivery-schedule-list-for-collection'
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
+  
+  // COLLECTION - DETAILS - CUSTOMER LIST
+  async getDeliveryScheduleCustomerListByID_COLLECTION_DETAILS(id) {
+    let web_menu_url = '/api/web/delivery-schedule-customer-list/' + id
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
+  
+  // COLLECTION - DETAILS - COLLECTION MASTER CUSTOMER
+  async getDSCollectionMasterCustomerByDSID_CustomerId_COLLECTION_DETAILS(ds_id, customer_id) {
+    let web_menu_url = '/api/web/delivery-schedule-collection-master-customer/' + ds_id + '/' + customer_id
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
+  
+  // COLLECTION - DETAILS - COLLECTION MASTER CUSTOMER - INVOICE LIST
+  async getDSCollectionCustomerInvoiceListByDSID_CustomerId_COLLECTION_DETAILS(ds_id, customer_id, collection_mode) {
+    console.log(ds_id + '    ' + customer_id + '    ' + collection_mode)
+    let web_menu_url = '/api/web/delivery-schedule-collection-customer-invoice-list/' + ds_id + '/' + customer_id + '/' + collection_mode
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
+  
+  // COLLECTION - DETAILS - COLLECTION AUTO ADJUST
+  async getCollectionAutoAdjust_COLLECTION_DETAILS(dsc_id) {
+    let web_menu_url = '/api/web/collection-auto-adjust/' + dsc_id
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
+  
+  // COLLECTION - DETAILS - COLLECTION - INVOICE ADJUST
+  async getCollectionAdjust_COLLECTION_DETAILS(dsc_id, invoice_id, amount) {
+    let web_menu_url = '/api/web/collection-adjust/' + dsc_id + '/' + invoice_id + '/' + amount
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
 
   // -------------------------------------------------------------------------------------------
 

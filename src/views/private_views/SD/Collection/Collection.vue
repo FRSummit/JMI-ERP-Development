@@ -3,16 +3,22 @@
     <Heading :pathName="pathName" :routeName="routeName" />
 
     <div class="layout-body">
-      <CollectionSidebar />
-      <CollectionDetails />
+      <CollectionSidebar 
+        v-on:select_da_from_left="selectDAFromLeft"/>
+      <CollectionDetails 
+        :DS_CUSTOMER_LIST="DS_CUSTOMER_LIST"/>
     </div>
   </div>
 </template>
 
 <script>
+import ERPSidebarService from "../../../../service/ERPSidebarService";
+const service = new ERPSidebarService();
+
 import Heading from "../../../../components/master_layout/HeadingTitleBreadcrumbT3/HeadingTitleBreadcrumb";
 import CollectionSidebar from "./CollectionSidebar";
 import CollectionDetails from "./CollectionDetails";
+
 export default {
   props: [],
   components: {
@@ -25,7 +31,7 @@ export default {
       routeName: "Collection",
       parentPath: "Local Sales",
       pathName: [],
-      SELECTED_PROD_DETAILS: null,
+      DS_CUSTOMER_LIST: null,
     };
   },
 
@@ -38,6 +44,26 @@ export default {
       this.pathName = [{ name: "Features" }, { name: "Local Sales" }, { name: "Collection" }];
       // this.pathName = breadcrumbFunctions.jmiERPBreadcrumb(window.location.pathname)
     },
+    async selectDAFromLeft(item) {
+      console.log(item)
+      await this.DELIVERY_SCHEDULE_CUSTOMER_LIST__FROM_SERVICE(item.id)
+    },
+    // ---------------------------------------------------------------------------
+    // SERVICE CALL
+    async DELIVERY_SCHEDULE_CUSTOMER_LIST__FROM_SERVICE(id) {
+      this.DS_CUSTOMER_LIST = null
+      await service.getDeliveryScheduleCustomerListByID_COLLECTION_DETAILS(id)
+        .then(res => {
+          console.log(res.data)
+          this.DS_CUSTOMER_LIST = res.data.customer_list
+        })
+        .catch(err => {
+          if(err) {
+            console.log('Server error : ' + err)
+            this.DS_CUSTOMER_LIST = null
+          }
+        })
+    }
   },
 };
 </script>
