@@ -1300,6 +1300,25 @@ export default class PostService {
     })
   }
 
+  // PRODUCT - PRODUCT DETAILS - UPLOAD DOCUMENT FILE
+  async getStockTransferForSingleProd_PRODUCTS_DETAILS(transfer_data) {
+    console.log(transfer_data.from_store_id + '    ' + transfer_data.to_store_id + '    ' + transfer_data.prod_id + '    ' + transfer_data.batch_lot + '    ' + transfer_data.quantity)
+    let web_menu_url = '/api/web/stock-transfer-for-single-prod'
+    return await axios(web_menu_url, {
+      method: 'POST',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+      data: {
+        from_store_id : transfer_data.from_store_id,
+        to_store_id   : transfer_data.to_store_id,
+        prod_id       : transfer_data.prod_id,
+        batch_lot     : transfer_data.batch_lot,
+        quantity      : transfer_data.quantity
+      }
+    })
+  }
+
   // -------------------------------------------------------------------------------------------
   // COLLECTION - LEFT SIDE - SCHEDULE LIST
   async getDeliveryScheduleListForCollection_COLLECTION_LEFT() {
