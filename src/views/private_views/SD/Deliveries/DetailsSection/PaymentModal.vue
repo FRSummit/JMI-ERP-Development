@@ -486,4 +486,7 @@ input:focus {
 .col-12 {
     padding: 12px 0;
 }
+table tbody tr:hover {
+    background-color: #E5F0FA;
+}
 </style>
