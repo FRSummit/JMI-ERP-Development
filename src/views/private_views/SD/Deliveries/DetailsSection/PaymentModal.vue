@@ -16,8 +16,8 @@
                         <td><p>Description Line Here</p></td>
                         <td><p>300.00</p></td>
                         <td>
-                            <a class="edit" href=""><i class="zmdi zmdi-edit"></i></a>
-                            <a class="remove" href=""><i class="fa fa-trash" title="Remove" data-toggle="tooltip" data-placement="bottom" aria-hidden="true"></i></a>
+                            <a class="edit"><i class="zmdi zmdi-edit"></i></a>
+                            <a class="remove"><i class="fa fa-trash" title="Remove" data-toggle="tooltip" data-placement="bottom" aria-hidden="true"></i></a>
                         </td>
                       </tr>
                 </tbody>
