@@ -16,8 +16,8 @@
                         <td><p>Description Line Here</p></td>
                         <td><p>300.00</p></td>
                         <td>
-                            <a class="edit"><i class="zmdi zmdi-edit" @click="tableDataEditClickHandler"></i></a>
-                            <a class="remove"><i class="fa fa-trash" @click="tableDataRemoveClickHandler"></i></a>
+                            <a class="edit"><i class="zmdi zmdi-edit" @click="tableDataEditClickHandler(item, i)"></i></a>
+                            <a class="remove"><i class="fa fa-trash" @click="tableDataRemoveClickHandler(item, i)"></i></a>
                         </td>
                       </tr>
                 </tbody>
@@ -223,8 +223,14 @@ export default {
     methods: {
         // -------------------------------------------------------------------------
         // Table
-        tableDataEditClickHandler() {},
-        tableDataRemoveClickHandler() {},
+        tableDataEditClickHandler(item, i) {
+            console.log(i)
+            console.log(item)
+        },
+        tableDataRemoveClickHandler(item, i) {
+            console.log(i)
+            console.log(item)
+        },
         // -------------------------------------------------------------------------
         // Submition Section
         closePaymentModalClickHandler() {
