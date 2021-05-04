@@ -749,6 +749,29 @@ export default class PostService {
     })
   }
 
+  // DELEVERIES - DETAILS SECTION - PAYMENT MODAL - BANK LIST
+  async getBankList_DELIVERIES_DETAILS() {
+    let web_menu_url = '/api/common/bank-list'
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+    })
+  }
+
+  // DELEVERIES - DETAILS SECTION - PAYMENT MODAL - BANK BRANCH LIST
+  async getBranchListByBankId_DELIVERIES_DETAILS(bank_id) {
+    console.log(bank_id)
+    let web_menu_url = '/api/common/branch-list-by-bank/' + bank_id
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+    })
+  }
+
   // -------------------------------------------------------------------------------------------
   // DS PACKING PREPARATION - LEFT SECTION
   async getDeliveryScheduleProdPreparationListByDA_ID_DS_PACKING_PREPARATION(da_id) {

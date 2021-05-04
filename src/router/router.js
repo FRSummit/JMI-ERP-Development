@@ -302,6 +302,13 @@ export const router = new VueRouter({
       name: 'Collection',
       component: () => import('../views/private_views/SD/Collection/Collection.vue')
     },
+    // --------------------------------------------------------------------------------------
+    // CUSTOMER PAYMENT
+    {
+      path: '/features/local_sales/customer-payment',
+      name: 'Customer Payment',
+      component: () => import('../views/private_views/SD/Payment/Customer/CustomerPayment.vue')
+    },
 
     // --------------------------------------------------------------------------------------
     // 404 PAGES

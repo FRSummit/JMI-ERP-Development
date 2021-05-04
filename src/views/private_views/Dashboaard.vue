@@ -100,6 +100,9 @@
       <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
         <router-link to="/features/local_sales/sd-collection">Collection</router-link>
       </div>
+      <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
+        <router-link to="/features/local_sales/customer-payment">Customer Payment</router-link>
+      </div>
     </div>
     
     <br />

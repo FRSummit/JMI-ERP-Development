@@ -1,13 +1,13 @@
 <template>
     <div class="deliveries-payment-modal">
         <div class="row d-flex justify-content-center">
-            <table class="col-12 delivery-collection-table">
+            <table class="delivery-collection-table">
                 <thead>
                     <tr>
                         <th>Payment Mode</th>
                         <th>Description</th>
                         <th>Taka</th>
-                        <th>Action</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -15,10 +15,7 @@
                         <td><p>Cash</p></td>
                         <td><p>Description Line Here</p></td>
                         <td><p>300.00</p></td>
-                        <td>
-                            <a class="edit"><i class="zmdi zmdi-edit" @click="tableDataEditClickHandler(item, i)"></i></a>
-                            <a class="remove"><i class="fa fa-trash" @click="tableDataRemoveClickHandler(item, i)"></i></a>
-                        </td>
+                        <td><p>A</p></td>
                       </tr>
                 </tbody>
             </table>
@@ -251,7 +248,7 @@ export default {
         // -------------------------------------------------------------------------
         // Submition Section
         closePaymentModalClickHandler() {
-            this.$emit('close_payment_modal')
+            // this.$emit('close_payment_modal')
         },
         paymentPopupModalClickHandler() {
             if(this.payment_popup_modal) {
@@ -444,6 +441,9 @@ export default {
 </script>
 
 <style scoped>
+.deliveries-payment-modal {
+    height: calc(100vh - var(--used-height) - 166px);
+}
 .delivery-collection-table i {
     font-size: 16px;
     color: var(--blue);
@@ -476,7 +476,9 @@ input:focus {
     -webkit-box-shadow: none;
     box-shadow        : none;
 }
-
+.deCollection-footer {
+    margin: 0;
+}
 .col-lg-6 {
     flex: 0 0 49%;
 }
