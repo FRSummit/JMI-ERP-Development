@@ -16,8 +16,8 @@
                         <td><p>Description Line Here</p></td>
                         <td><p>300.00</p></td>
                         <td>
-                            <a class="edit"><i class="zmdi zmdi-edit"></i></a>
-                            <a class="remove"><i class="fa fa-trash" title="Remove" data-toggle="tooltip" data-placement="bottom" aria-hidden="true"></i></a>
+                            <a class="edit"><i class="zmdi zmdi-edit" @click="tableDataEditClickHandler"></i></a>
+                            <a class="remove"><i class="fa fa-trash" @click="tableDataRemoveClickHandler"></i></a>
                         </td>
                       </tr>
                 </tbody>
@@ -26,7 +26,7 @@
         <div class="row deCollection-footer">
             <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="closePaymentModalClickHandler">Close</button></a>
             <!-- <a data-toggle="modal" data-target="#new-payment-modal"><button type="button" class="btn btn-primary btn-global mx-2">New Payment</button></a> -->
-            <a><button type="button" class="btn btn-primary btn-global mx-2" @click="paymentPopupModalCLickHandler">New Payment</button></a>
+            <a><button type="button" class="btn btn-primary btn-global mx-2" @click="paymentPopupModalClickHandler">New Payment</button></a>
         </div>
         
         <!------------ Start Add New Payment Modal------------>
@@ -36,7 +36,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">Payment</h5>
-                            <button type="button" @click="closePaymentPopupModalCLickHandler" class="close" data-dismiss="modal" aria-label="Close">
+                            <button type="button" @click="closePaymentPopupModalClickHandler" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -221,10 +221,16 @@ export default {
         }
     },
     methods: {
+        // -------------------------------------------------------------------------
+        // Table
+        tableDataEditClickHandler() {},
+        tableDataRemoveClickHandler() {},
+        // -------------------------------------------------------------------------
+        // Submition Section
         closePaymentModalClickHandler() {
             this.$emit('close_payment_modal')
         },
-        paymentPopupModalCLickHandler() {
+        paymentPopupModalClickHandler() {
             if(this.payment_popup_modal) {
                 this.payment_popup_modal = false
             } else {
@@ -232,7 +238,9 @@ export default {
             }
             console.log(this.payment_popup_modal)
         },
-        closePaymentPopupModalCLickHandler() {
+        // -------------------------------------------------------------------------
+        // Payment Modal
+        closePaymentPopupModalClickHandler() {
             this.payment_popup_modal = false
             this.payment_mode = 0
         },
@@ -266,12 +274,13 @@ export default {
                     break
             }
         },
-        // -------------------------------------------------------------------------------------
+        // -------------------------------------------------------------------------
+        // Payment Modal Submission
         saveExitClickHandler() {
-            this.closePaymentPopupModalCLickHandler()
+            this.closePaymentPopupModalClickHandler()
         },
         saveNewPaymentClickHandler() {
-            this.closePaymentPopupModalCLickHandler()
+            this.closePaymentPopupModalClickHandler()
         }
     }
 }
