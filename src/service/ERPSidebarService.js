@@ -772,6 +772,18 @@ export default class PostService {
     })
   }
 
+  // DELEVERIES - DETAILS SECTION - PAYMENT MODAL - BANK BRANCH LIST
+  async getCollectionList_DELIVERIES_DETAILS(invoice_id, ds_id) {
+    console.log(invoice_id + '  ' + ds_id)
+    let web_menu_url = '/api/mobile/get-collection-list/' + invoice_id + '/' + ds_id
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+    })
+  }
+
   // DELEVERIES - DETAILS SECTION - PAYMENT MODAL - SAVE INVOICE WITH PAYMENT
   async getSaveInvoiceDeliveryInfoWithPayment_DELIVERIES_DETAILS(invoice_dtls) {
     console.log(invoice_dtls)

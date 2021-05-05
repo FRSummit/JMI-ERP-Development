@@ -11,7 +11,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                      <tr v-for="(item, i) in 20" :key="i">
+                      <tr v-for="(item, i) in COLLECTION_LIST" :key="i">
                         <td><p>Cash</p></td>
                         <td><p>Description Line Here</p></td>
                         <td><p>300.00</p></td>
@@ -19,6 +19,10 @@
                             <a class="edit"><i class="zmdi zmdi-edit" @click="tableDataEditClickHandler(item, i)"></i></a>
                             <a class="remove"><i class="fa fa-trash" @click="tableDataRemoveClickHandler(item, i)"></i></a>
                         </td>
+                      </tr>
+
+                      <tr v-if="!COLLECTION_LIST || !COLLECTION_LIST.length">
+                          <td colspan="4"><p>Data not found</p></td>
                       </tr>
                 </tbody>
             </table>
@@ -314,12 +318,15 @@ export default {
                             'PABNA', 'PANCHAGARH', 'PATUAKHALI', 'PIROJPUR', 'RAJBARI', 'RAJSHAHI',
                             'RANGAMATI', 'RANGPUR', 'SATKHIRA', 'SHARIATPUR', 'SHERPUR', 'SIRAJGANJ',
                             'SUNAMGANJ', 'SYLHET', 'TANGAIL', 'THAKURGAON'
-                        ]
+                        ],
+            
+            COLLECTION_LIST: null,
         }
     },
     computed: {},
     created() {},
     async mounted() {
+        await this.COLLECTION_LIST__FROM_SERVICE()
         await this.LOAD_BANK_LIST__FROM_SERVICE()
     },
     methods: {
@@ -597,6 +604,18 @@ export default {
         },
         // ---------------------------------------------------------------------------
         // SERVICE CALL
+        async COLLECTION_LIST__FROM_SERVICE() {
+            await service.getCollectionList_DELIVERIES_DETAILS(this.INVOICE_DATA_TO_SEND.invoice_id, this.INVOICE_DATA_TO_SEND.ds_id)
+                .then(res => {
+                    console.log(res.data)
+                    this.COLLECTION_LIST = res.data.collection_list
+                })
+                .catch(err => {
+                    if(err) {
+                        alert('Bank list load problem ' + err)
+                    }
+                })
+        },
         async LOAD_BANK_LIST__FROM_SERVICE() {
             console.log('bank api')
             await service.getBankList_DELIVERIES_DETAILS()
@@ -606,7 +625,7 @@ export default {
                 })
                 .catch(err => {
                     if(err) {
-                        alert('Bank list load problem ' + err)
+                        console.log('Bank list load problem ' + err)
                     }
                 })
         },
