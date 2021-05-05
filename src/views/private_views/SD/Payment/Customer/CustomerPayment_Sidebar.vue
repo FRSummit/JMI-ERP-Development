@@ -19,15 +19,15 @@
       <div class="content">
         <div :id="'card_body_' + i" class="card_body" v-for="(item, i) in CUSTOMER_LIST" :key="i" @click="singleCardItemClickHandler(item, i)">
           <div class="row1">
-            <h5>{{ item.display_code }}</h5>
-            <p class="item-type">Customer Type  <span class="type" :class="item.credit_flag === 'Y' ? 'Credit' : 'Cash'">{{ item.credit_flag === "Y" ? "Credit" : "Cash" }}</span></p>
+            <h5>{{ item.customer_area_info ? (item.customer_area_info.customer_info ? (item.customer_area_info.customer_info.display_code ? (item.customer_area_info.customer_info.display_code) : '') : '') : '' }}</h5>
+            <p class="item-type">Customer Type  <span class="type" :class="item.customer_area_info.customer_info.credit_flag === 'Y' ? 'Credit' : 'Cash'">{{ item.customer_area_info.customer_info.credit_flag === "Y" ? "Credit" : "Cash" }}</span></p>
           </div>
           <div class="row2">
-            <p>{{ item.customer_info.customer_name }}</p>
+            <p>{{ item.customer_area_info ? (item.customer_area_info.customer_info ? (item.customer_area_info.customer_info.display_name ? (item.customer_area_info.customer_info.display_name) : '') : '') : '' }}</p>
           </div>
-          <div class="row3">
+          <!-- <div class="row3">
             <p>{{ item.customer_info.customer_address ? item.customer_info.customer_address : "" }}</p>
-          </div>
+          </div> -->
           <p class="jmi-search-key hide">{{ item.search_words }}</p>
         </div>
       </div>
@@ -52,6 +52,7 @@ export default {
   computed: {},
   created() {},
   async mounted() {
+    console.log(this.$store.state.JERP_LOGGED_USER_DATA)
     await this.ALL_CUSTOMER_FOR_DEPOT__FROM_SERVICE()
   },
   methods: {
@@ -68,7 +69,7 @@ export default {
       } else {
         document.querySelector('#card_body_' + index).className = 'card_body'
       }
-      this.$emit("selected_item_from_left", item.customer_info.id)
+      this.$emit("selected_item_from_left", item.customer_area_info.customer_info.customer_id)
     },
     // ---------------------------------------------------------------------------
     // FILTER
@@ -85,10 +86,11 @@ export default {
     // SERVICE CALL
     async ALL_CUSTOMER_FOR_DEPOT__FROM_SERVICE() {
       this.CUSTOMER_LIST = [];
-      await service.getAllCustomerForDepot_CreateOrderLeftList()
+      let da_id = this.$store.state.JERP_LOGGED_USER_DATA.user_detils.id
+      await service.getCustomerUnderDS_SalesArea_CUSTOMER_PAYMENT(da_id)
         .then((res) => {
           console.log(res.data);
-          this.CUSTOMER_LIST = res.data.sbu_customers;
+          this.CUSTOMER_LIST = res.data.dlv_schdl_details;
           console.log(this.CUSTOMER_LIST);
         })
         .catch((err) => {
@@ -97,6 +99,18 @@ export default {
             alert("Server Error 500. " + err);
           }
         });
+        // await service.getAllCustomerForDepot_CreateOrderLeftList()
+        // .then((res) => {
+        //   console.log(res.data);
+        //   this.CUSTOMER_LIST = res.data.sbu_customers;
+        //   console.log(this.CUSTOMER_LIST);
+        // })
+        // .catch((err) => {
+        //   if (err) {
+        //     this.CUSTOMER_LIST = [];
+        //     alert("Server Error 500. " + err);
+        //   }
+        // });
     },
   },
   watch: {},

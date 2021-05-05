@@ -97,9 +97,9 @@
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
-                                <label for="date_range">Filter by SR</label>
+                                <label for="date_range">Filter by Sales Force</label>
                                 <select class="form-control">
-                                    <option value="">Select SR</option>
+                                    <option value="">Select Sales Force</option>
                                     <option value="">Mehedi Hassan</option>
                                     <option value="">Atik Faysal</option>
                                     <option value="">Nahid Ahmed</option>

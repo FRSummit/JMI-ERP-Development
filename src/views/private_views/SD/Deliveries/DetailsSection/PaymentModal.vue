@@ -454,8 +454,8 @@ export default {
                         doc_date: data.challan.date,
                         base64_encoded_file: data.challan.UPLOADED_IMAGE_DATA_BASE_64,
                         file_original_name: data.challan.UPLOADED_IMAGE_NAME,
-                        bank_code: data.challan.bank_name.bb_code,
-                        branch_code: data.challan.branch_name.bb_code,
+                        bank_code: data.challan.bank_name.id,
+                        branch_code: data.challan.branch_name.id,
                         amount: data.cash_amount
                     })
                     break
@@ -466,8 +466,8 @@ export default {
                         doc_date: data.eftn.date,
                         base64_encoded_file: data.eftn.UPLOADED_IMAGE_DATA_BASE_64,
                         file_original_name: data.eftn.UPLOADED_IMAGE_NAME,
-                        bank_code: data.eftn.bank_name.bb_code,
-                        branch_code: data.eftn.branch_name.bb_code,
+                        bank_code: data.eftn.bank_name.id,
+                        branch_code: data.eftn.branch_name.id,
                         bank_ac_no: data.eftn.AC_no,
                         amount: data.cash_amount
                     })
@@ -479,8 +479,8 @@ export default {
                         doc_date: data.cheque.date,
                         base64_encoded_file: data.cheque.UPLOADED_IMAGE_DATA_BASE_64,
                         file_original_name: data.cheque.UPLOADED_IMAGE_NAME,
-                        bank_code: data.cheque.bank_name.bb_code,
-                        branch_code: data.cheque.branch_name.bb_code,
+                        bank_code: data.cheque.bank_name.id,
+                        branch_code: data.cheque.branch_name.id,
                         bank_ac_no: data.cheque.AC_no,
                         amount: data.cash_amount
                     })
@@ -495,14 +495,14 @@ export default {
             let data = this.finalPaymentDataByMode(this.paymentData())
             console.log(this.finalPaymentDataByMode(this.paymentData()))
             await this.SAVE_INVOICE_DELIVERY_INFO_WITH_PAYMENT__FROM_SERVICE(data)
-            await this.RECEIVE_PAYMENT_WITH_DELIVERY_INVOICE__FROM_SERVICE(data)
+            // await this.RECEIVE_PAYMENT_WITH_DELIVERY_INVOICE__FROM_SERVICE(data)
             this.closePaymentPopupModalClickHandler()
             this.defaultModalValueForNewPayment()
         },
         async saveNewPaymentClickHandler() {
             let data = this.finalPaymentDataByMode(this.paymentData())
             await this.SAVE_INVOICE_DELIVERY_INFO_WITH_PAYMENT__FROM_SERVICE(data)
-            await this.RECEIVE_PAYMENT_WITH_DELIVERY_INVOICE__FROM_SERVICE(data)
+            // await this.RECEIVE_PAYMENT_WITH_DELIVERY_INVOICE__FROM_SERVICE(data)
             this.defaultModalValueForNewPayment()
         },
         defaultModalValueForNewPayment() {
