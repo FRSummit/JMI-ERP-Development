@@ -1,13 +1,13 @@
 <template>
     <div class="deliveries-payment-modal">
         <div class="row d-flex justify-content-center">
-            <table class="delivery-collection-table">
+            <table class="col-12 delivery-collection-table">
                 <thead>
                     <tr>
                         <th>Payment Mode</th>
                         <th>Description</th>
                         <th>Taka</th>
-                        <th>Status</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -15,7 +15,10 @@
                         <td><p>Cash</p></td>
                         <td><p>Description Line Here</p></td>
                         <td><p>300.00</p></td>
-                        <td><p>A</p></td>
+                        <td>
+                            <a class="edit"><i class="zmdi zmdi-edit" @click="tableDataEditClickHandler(item, i)"></i></a>
+                            <a class="remove"><i class="fa fa-trash" @click="tableDataRemoveClickHandler(item, i)"></i></a>
+                        </td>
                       </tr>
                 </tbody>
             </table>
@@ -67,18 +70,26 @@
                                     <input type="date" v-model="challan_date" class="form-control" id="challan_date">
                                 </div>
 
-                                <div class="col-lg-6 col-md-6 col-12 form-group">
+                                <div class="col-lg-12 col-md-12 col-12 form-group">
                                     <label for="bank">Bank Name</label>
-                                    <select class="form-control" id="bank" v-model="challan_bank_name" @change="bankSelectionOnChange_Challan">
+                                    <select class="form-control" id="bank_name_selection_challan" v-model="challan_bank_name" @change="bankSelectionOnChange_Challan">
                                         <option :value="null" selected>Select Bank</option>
                                         <option v-for="(item, i) in BANK_INFO" :key="i" :value="item">{{ item.name }}</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="col-lg-6 col-md-6 col-12 form-group" style="margin-right: 2%;">
+                                    <label for="bank">District</label>
+                                    <select class="form-control" id="bank" v-model="bank_branch_district" @change="bankBranchDistrictOnChange">
+                                        <option :value="null" selected>Select District</option>
+                                        <option v-for="(item, i) in DISTRICT_LIST" :key="i" :value="item">{{ item }}</option>
                                     </select>
                                 </div>
 
                                 <div class="col-lg-6 col-md-6 col-12 form-group">
                                     <label for="bank">Bank Branch Name</label>
                                     <select class="form-control" id="bank" v-model="challan_bank_branch_name" @change="bankBranchSelectionOnChange_Challan">
-                                        <option :value="null" selected>Select Bank</option>
+                                        <option :value="null" selected>Select Branch</option>
                                         <option v-for="(item, i) in BANK_BRANCH_INFO_CHALLAN" :key="i" :value="item">{{ item.name }}</option>
                                     </select>
                                 </div>
@@ -115,7 +126,7 @@
                                     <input type="date" v-model="eftn_date" class="form-control" id="challan_date">
                                 </div>
                                 
-                                <div class="col-lg-6 col-md-6 col-12 form-group">
+                                <div class="col-lg-12 col-md-12 col-12 form-group">
                                     <label for="bank">Bank Name</label>
                                     <select class="form-control" id="bank" v-model="eftn_bank_name" @change="bankSelectionOnChange_EFTN">
                                         <option :value="null" selected>Select Bank</option>
@@ -123,23 +134,45 @@
                                     </select>
                                 </div>
                                 
-                                <div class="col-lg-6 col-md-6 col-12 form-group">
-                                    <label for="bank">Bank Branch Name</label>
-                                    <select class="form-control" id="bank" v-model="eftn_bank_branch_name" @change="bankBranchSelectionOnChange_EFTN">
-                                        <option :value="null" selected>Select Bank</option>
-                                        <option v-for="(item, i) in BANK_BRANCH_INFO_EFTN" :key="i" :value="item">{{ item.name }}</option>
+                                <div class="col-lg-6 col-md-6 col-12 form-group" style="margin-right: 2%;">
+                                    <label for="bank">District</label>
+                                    <select class="form-control" id="bank" v-model="bank_branch_district" @change="bankBranchDistrictOnChange">
+                                        <option :value="null" selected>Select District</option>
+                                        <option v-for="(item, i) in DISTRICT_LIST" :key="i" :value="item">{{ item }}</option>
                                     </select>
                                 </div>
                                 
-                                <div class="col-lg-12 col-md-12 col-12 form-group">
-                                    <label for="scannedfile">Scanned File</label>
-                                    <input type="file" class="form-control-file" id="scannedfile" @change="imageChooseEventHandler_EFTN($event)" accept="image/x-png,image/gif,image/jpeg">
+                                <div class="col-lg-6 col-md-6 col-12 form-group">
+                                    <label for="bank">Bank Branch Name</label>
+                                    <select class="form-control" id="bank_name_selection_eftn" v-model="eftn_bank_branch_name" @change="bankBranchSelectionOnChange_EFTN">
+                                        <option :value="null" selected>Select Branch</option>
+                                        <option v-for="(item, i) in BANK_BRANCH_INFO_EFTN" :key="i" :value="item">{{ item.name }}</option>
+                                    </select>
                                 </div>
 
                                 <div class="col-lg-12 col-md-12 col-12 form-group">
                                     <label for="eftn_account_no">Account No</label>
                                     <input type="text" v-model="eftn_AC_no" class="form-control" id="eftn_account_no" placeholder="Enter Account No">
                                 </div> 
+                                
+                                <div class="col-lg-12 col-md-12 col-12 form-group">
+                                    <label for="scannedfile">Scanned File</label>
+                                    <input type="file" class="form-control-file" id="scannedfile" @change="imageChooseEventHandler_EFTN($event)" accept="image/x-png,image/gif,image/jpeg">
+                                </div>
+
+                                <!--Uploaded File-->
+                                <div class="col-6">
+                                    <div class="uploaded-file">
+                                        <img id="eftn_img" src="../../../../../assets/images/products/documents.jpg" style="width:100%;">
+                                        <!-- <div class="file-info">
+                                            <p>File name Line Here</p>
+                                            <div class="file-button">
+                                                <i class="fa fa-download download" aria-hidden="true"></i>
+                                                <i class="fa fa-trash remove" aria-hidden="true"></i>
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                </div>
 
                             </div>
                             <!-- Chaque -->
@@ -154,31 +187,53 @@
                                     <input type="date" v-model="cheque_date" class="form-control" id="chaque_date">
                                 </div>
                                 
-                                <div class="col-lg-6 col-md-6 col-12 form-group">
+                                <div class="col-lg-12 col-md-12 col-12 form-group">
                                     <label for="bank">Bank Name</label>
-                                    <select class="form-control" id="bank" v-model="cheque_bank_name" @change="bankSelectionOnChange_Cheque">
+                                    <select class="form-control" id="bank_name_selection_cheque" v-model="cheque_bank_name" @change="bankSelectionOnChange_Cheque">
                                         <option :value="null" selected>Select Bank</option>
                                         <option v-for="(item, i) in BANK_INFO" :key="i" :value="item">{{ item.name }}</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="col-lg-6 col-md-6 col-12 form-group" style="margin-right: 2%;">
+                                    <label for="bank">District</label>
+                                    <select class="form-control" id="bank" v-model="bank_branch_district" @change="bankBranchDistrictOnChange">
+                                        <option :value="null" selected>Select District</option>
+                                        <option v-for="(item, i) in DISTRICT_LIST" :key="i" :value="item">{{ item }}</option>
                                     </select>
                                 </div>
                                 
                                 <div class="col-lg-6 col-md-6 col-12 form-group">
                                     <label for="bank">Bank Branch Name</label>
                                     <select class="form-control" id="bank" v-model="cheque_bank_branch_name" @change="bankBranchSelectionOnChange_Cheque">
-                                        <option :value="null" selected>Select Bank</option>
+                                        <option :value="null" selected>Select Branch</option>
                                         <option v-for="(item, i) in BANK_BRANCH_INFO_CHEQUE" :key="i" :value="item">{{ item.name }}</option>
                                     </select>
-                                </div>
-                                
-                                <div class="col-lg-12 col-md-12 form-group">
-                                    <label for="scannedfile">Scanned File</label>
-                                    <input type="file" class="form-control-file" id="scannedfile" @change="imageChooseEventHandler_CHEQUE($event)" accept="image/x-png,image/gif,image/jpeg">
                                 </div>
 
                                 <div class="col-lg-12 col-md-12 col-12 form-group">
                                     <label for="eftn_account_no">Account No</label>
                                     <input type="text" v-model="cheque_AC_no" class="form-control" id="eftn_account_no" placeholder="Enter Account No">
                                 </div> 
+                                
+                                <div class="col-lg-12 col-md-12 form-group">
+                                    <label for="scannedfile">Scanned File</label>
+                                    <input type="file" class="form-control-file" id="scannedfile" @change="imageChooseEventHandler_CHEQUE($event)" accept="image/x-png,image/gif,image/jpeg">
+                                </div>
+
+                                <!--Uploaded File-->
+                                <div class="col-6">
+                                    <div class="uploaded-file">
+                                        <img id="cheque_img" src="../../../../../assets/images/products/documents.jpg" style="width:100%;">
+                                        <!-- <div class="file-info">
+                                            <p>File name Line Here</p>
+                                            <div class="file-button">
+                                                <i class="fa fa-download download" aria-hidden="true"></i>
+                                                <i class="fa fa-trash remove" aria-hidden="true"></i>
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="modal-footer justify-content-center">
@@ -191,6 +246,13 @@
             </div>
         </div>
         <!------------ End Add New Payment Modal------------>
+        <!-- Success Message -->
+        <div id="update-successfully-modal" class="modal-popup-section update-successfully-modal" v-if="msg_popup_modal">
+            <div class="modal-popup-section-inner update-successfully-modal-inner">
+                <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
+                <p class="popup-text">{{ msg_popup_modal_msg }}</p>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -199,6 +261,7 @@ import ERPService from '../../../../../service/ERPSidebarService'
 const service = new ERPService()
 
 export default {
+    props: ["INVOICE_DATA_TO_SEND", "ORDER_TABLE_PROD_DATA_LIST_TO_SEND", "ORDER_TABLE_DATA_IS_CHANGE"],
     data() {
         return {
             payment_popup_modal: false,
@@ -233,6 +296,25 @@ export default {
             BANK_BRANCH_INFO_CHALLAN: null,
             BANK_BRANCH_INFO_EFTN: null,
             BANK_BRANCH_INFO_CHEQUE: null,
+
+            msg_popup_modal: false,
+            msg_popup_modal_msg: null,
+
+            selected_bank_id: null,
+            bank_branch_district: null,
+            DISTRICT_LIST: [
+                            'BAGERHAT', 'BANDARBAN', 'BARGUNA', 'BARISHAL', 'BHOLA', 'BOGRA', 'BRAHMANBARIA',
+                            'CHANDPUR', 'CHITTAGONG', 'CHUADANGA', 'COMILLA', 'COXS BAZAR', 'DHAKA-NORTH',
+                            'DHAKA-SOUTH', 'DINAJPUR', 'FARIDPUR', 'FENI', 'GAIBANDHA', 'GAZIPUR',
+                            'GOPALGANJ', 'HABIGANJ', 'JAMALPUR', 'JESSORE', 'JHALOKATHI', 'JHENAIDAH',
+                            'JOYPURHAT', 'KHAGRACHARI', 'KHULNA', 'KISHOREGANJ', 'KURIGRAM', 'KUSHTIA',
+                            'LAKSHMIPUR', 'LALMONIRHAT', 'MADARIPUR', 'MAGURA', 'MANIKGANJ', 'MEHERPUR',
+                            'MOULVI BAZAR', 'MUNSHIGANJ', 'MYMENSINGH', 'NAOGAON', 'NARAIL', 'NARAYANGANJ',
+                            'NARSHINGDI', 'NATORE', 'NAWABGANJ', 'NETROKONA', 'NILPHAMARI', 'NOAKHALI',
+                            'PABNA', 'PANCHAGARH', 'PATUAKHALI', 'PIROJPUR', 'RAJBARI', 'RAJSHAHI',
+                            'RANGAMATI', 'RANGPUR', 'SATKHIRA', 'SHARIATPUR', 'SHERPUR', 'SIRAJGANJ',
+                            'SUNAMGANJ', 'SYLHET', 'TANGAIL', 'THAKURGAON'
+                        ]
         }
     },
     computed: {},
@@ -254,7 +336,7 @@ export default {
         // -------------------------------------------------------------------------
         // Submition Section
         closePaymentModalClickHandler() {
-            // this.$emit('close_payment_modal')
+            this.$emit('close_payment_modal')
         },
         paymentPopupModalClickHandler() {
             if(this.payment_popup_modal) {
@@ -311,7 +393,7 @@ export default {
                     bank_name: this.challan_bank_name,
                     branch_name: this.challan_bank_branch_name,
                     UPLOADED_IMAGE_NAME: this.CHALLAN_UPLOADED_IMAGE_NAME,
-                    UPLOADED_IMAGE_DATA_BASE_64: this.CHALLAN_UPLOADED_IMAGE_DATA_BASE_64,
+                    UPLOADED_IMAGE_DATA_BASE_64: this.CHALLAN_UPLOADED_IMAGE_DATA_BASE_64
                 },
                 eftn: {
                     doc_no: this.eftn_doc_no,
@@ -320,7 +402,7 @@ export default {
                     branch_name: this.eftn_bank_branch_name,
                     UPLOADED_IMAGE_NAME: this.EFTN_UPLOADED_IMAGE_NAME,
                     UPLOADED_IMAGE_DATA_BASE_64: this.EFTN_UPLOADED_IMAGE_DATA_BASE_64,
-                    AC_no: this.eftn_AC_no,
+                    AC_no: this.eftn_AC_no
 
                 },
                 cheque: {
@@ -335,27 +417,137 @@ export default {
             }
             return payment
         },
-        saveExitClickHandler() {
-            let data = this.paymentData()
+        finalPaymentDataByMode(data) {
+            let payment = {
+                invoice_id: this.INVOICE_DATA_TO_SEND.invoice_id,
+                invoice_details: this.ORDER_TABLE_PROD_DATA_LIST_TO_SEND,
+                collection_date: this.INVOICE_DATA_TO_SEND.collection_date,
+                ds_id: this.INVOICE_DATA_TO_SEND.ds_id,
+                customer_id: this.INVOICE_DATA_TO_SEND.customer_id,
+
+                collection_mode: null,
+                doc_no: null,
+                doc_date: null,
+                base64_encoded_file: null,
+                file_original_name: null,
+                bank_code: null,
+                branch_code: null,
+                bank_ac_no: null,
+                amount: null
+            }
             console.log(data)
-            this.closePaymentPopupModalClickHandler()
+            switch(this.payment_mode) {
+                case 0:
+                    Object.assign(payment, {collection_mode: 'CASH', amount: data.cash_amount})
+                    break
+                case 1:
+                    Object.assign(payment, {
+                        collection_mode: 'CHALLAN',
+                        doc_no: data.challan.doc_no,
+                        doc_date: data.challan.date,
+                        base64_encoded_file: data.challan.UPLOADED_IMAGE_DATA_BASE_64,
+                        file_original_name: data.challan.UPLOADED_IMAGE_NAME,
+                        bank_code: data.challan.bank_name.bb_code,
+                        branch_code: data.challan.branch_name.bb_code,
+                        amount: data.cash_amount
+                    })
+                    break
+                case 2:
+                    Object.assign(payment, {
+                        collection_mode: 'EFTN',
+                        doc_no: data.eftn.doc_no,
+                        doc_date: data.eftn.date,
+                        base64_encoded_file: data.eftn.UPLOADED_IMAGE_DATA_BASE_64,
+                        file_original_name: data.eftn.UPLOADED_IMAGE_NAME,
+                        bank_code: data.eftn.bank_name.bb_code,
+                        branch_code: data.eftn.branch_name.bb_code,
+                        bank_ac_no: data.eftn.AC_no,
+                        amount: data.cash_amount
+                    })
+                    break
+                case 3:
+                    Object.assign(payment, {
+                        collection_mode: 'CHEQUE',
+                        doc_no: data.cheque.doc_no,
+                        doc_date: data.cheque.date,
+                        base64_encoded_file: data.cheque.UPLOADED_IMAGE_DATA_BASE_64,
+                        file_original_name: data.cheque.UPLOADED_IMAGE_NAME,
+                        bank_code: data.cheque.bank_name.bb_code,
+                        branch_code: data.cheque.branch_name.bb_code,
+                        bank_ac_no: data.cheque.AC_no,
+                        amount: data.cash_amount
+                    })
+                    break
+                default:
+                    break
+            }
+            return payment
         },
-        saveNewPaymentClickHandler() {
-            let data = this.paymentData()
-            console.log(data)
+        async saveExitClickHandler() {
+            console.log(this.paymentData())
+            let data = this.finalPaymentDataByMode(this.paymentData())
+            console.log(this.finalPaymentDataByMode(this.paymentData()))
+            await this.SAVE_INVOICE_DELIVERY_INFO_WITH_PAYMENT__FROM_SERVICE(data)
+            await this.RECEIVE_PAYMENT_WITH_DELIVERY_INVOICE__FROM_SERVICE(data)
             this.closePaymentPopupModalClickHandler()
+            this.defaultModalValueForNewPayment()
+        },
+        async saveNewPaymentClickHandler() {
+            let data = this.finalPaymentDataByMode(this.paymentData())
+            await this.SAVE_INVOICE_DELIVERY_INFO_WITH_PAYMENT__FROM_SERVICE(data)
+            await this.RECEIVE_PAYMENT_WITH_DELIVERY_INVOICE__FROM_SERVICE(data)
+            this.defaultModalValueForNewPayment()
+        },
+        defaultModalValueForNewPayment() {
+            this.payment_mode = 0
+            this.paymentModeOnChange()
+
+            this.cash_amount = null
+
+            this.challan_doc_no = null
+            this.challan_date = null
+            this.challan_bank_name = null
+            this.challan_bank_branch_name = null
+            this.CHALLAN_UPLOADED_IMAGE_NAME = null
+            this.CHALLAN_UPLOADED_IMAGE_DATA_BASE_64 = null
+
+            this.eftn_doc_no = null
+            this.eftn_date = null
+            this.eftn_bank_name = null
+            this.eftn_bank_branch_name = null
+            this.EFTN_UPLOADED_IMAGE_NAME = null
+            this.EFTN_UPLOADED_IMAGE_DATA_BASE_64 = null
+            this.eftn_AC_no = null
+            
+            this.cheque_doc_no = null
+            this.cheque_date = null
+            this.cheque_bank_name = null
+            this.cheque_bank_branch_name = null
+            this.CHEQUE_UPLOADED_IMAGE_NAME = null
+            this.CHEQUE_UPLOADED_IMAGE_DATA_BASE_64 = null
+            this.cheque_AC_no = null
         },
         bankSelectionOnChange_Challan() {
             console.log(this.challan_bank_name)
-            this.LOAD_BANK_BRANCH__FROM_SERVICE(this.challan_bank_name.id, 'CHALLAN')
+            this.selected_bank_id = this.challan_bank_name.id
+            // this.LOAD_BANK_BRANCH__FROM_SERVICE(this.challan_bank_name.id, 'CHALLAN')
+            document.getElementById('bank_name_selection_challan').options[0].selected = true
         },
         bankSelectionOnChange_EFTN() {
             console.log(this.eftn_bank_name)
-            this.LOAD_BANK_BRANCH__FROM_SERVICE(this.eftn_bank_name.id, 'EFTN')
+            this.selected_bank_id = this.eftn_bank_name.id
+            // this.LOAD_BANK_BRANCH__FROM_SERVICE(this.eftn_bank_name.id, 'EFTN')
+            document.getElementById('bank_name_selection_eftn').options[0].selected = true
         },
         bankSelectionOnChange_Cheque() {
             console.log(this.cheque_bank_name)
-            this.LOAD_BANK_BRANCH__FROM_SERVICE(this.cheque_bank_name.id, 'CHEQUE')
+            this.selected_bank_id = this.cheque_bank_name.id
+            // this.LOAD_BANK_BRANCH__FROM_SERVICE(this.cheque_bank_name.id, 'CHEQUE')
+            document.getElementById('bank_name_selection_cheque').options[0].selected = true
+        },
+        bankBranchDistrictOnChange() {
+            console.log(this.bank_branch_district)
+            this.LOAD_BANK_BRANCH__FROM_SERVICE(this.selected_bank_id)
         },
         // -------------------------------------------------------------------------
         // Image Event
@@ -373,7 +565,7 @@ export default {
             reader.readAsDataURL(file)
         },
         imageChooseEventHandler_EFTN(event) {
-            // this.viewSelectedChallanImage(event)
+            this.viewSelectedChallanImage(event, 'eftn_img')
             this.EFTN_UPLOADED_IMAGE_NAME = null
             this.EFTN_UPLOADED_IMAGE_DATA_BASE_64 = null
             let file = event.target.files[0]
@@ -385,7 +577,7 @@ export default {
             reader.readAsDataURL(file)
         },
         imageChooseEventHandler_CHEQUE(event) {
-            // this.viewSelectedChallanImage(event)
+            this.viewSelectedChallanImage(event, 'cheque_img')
             this.CHEQUE_UPLOADED_IMAGE_NAME = null
             this.CHEQUE_UPLOADED_IMAGE_DATA_BASE_64 = null
             let file = event.target.files[0]
@@ -418,19 +610,19 @@ export default {
                     }
                 })
         },
-        async LOAD_BANK_BRANCH__FROM_SERVICE(bank_id, payment_mode) {
-            await service.getBranchListByBankId_DELIVERIES_DETAILS(bank_id)
+        async LOAD_BANK_BRANCH__FROM_SERVICE(bank_id) {
+            await service.getBranchListByBankId_DELIVERIES_DETAILS(bank_id, this.bank_branch_district)
                 .then(res => {
                     console.log(res.data.branch_info)
                     
-                    switch(payment_mode) {
-                        case 'CHALLAN':
+                    switch(this.payment_mode) {
+                        case 1:
                             this.BANK_BRANCH_INFO_CHALLAN = res.data.branch_info
                             break
-                        case 'EFTN':
+                        case 2:
                             this.BANK_BRANCH_INFO_EFTN = res.data.branch_info
                             break
-                        case 'CHEQUE':
+                        case 3:
                             this.BANK_BRANCH_INFO_CHEQUE = res.data.branch_info
                             break
                         default:
@@ -442,7 +634,61 @@ export default {
                         alert('Bank branch list load problem ' + err)
                     }
                 })
-        }
+        },
+        async SAVE_INVOICE_DELIVERY_INFO_WITH_PAYMENT__FROM_SERVICE(data) {
+            this.msg_popup_modal = true
+            this.msg_popup_modal_msg = 'Please wait. We are processing...'
+            service.getSaveInvoiceDeliveryInfoWithPayment_DELIVERIES_DETAILS(data)
+                .then(res => {
+                    console.log(res.data)
+                    if(res.data.response_code === 200 || res.data.response_code === 201) {
+                        this.msg_popup_modal_msg = res.data.message
+                    } else {
+                        this.msg_popup_modal_msg = res.data.message + ' Response code : ' + res.data.response_code + '.'
+                    }
+                    setTimeout( () => {
+                        this.msg_popup_modal = false
+                        this.msg_popup_modal_msg = null
+                    }, 2000)
+                })
+                .catch(err => {
+                    if(err) {
+                        // alert('Save problem. Server Error ' + err)
+                        this.msg_popup_modal_msg = err
+                        setTimeout( () => {
+                            this.msg_popup_modal = false
+                            this.msg_popup_modal_msg = null
+                        }, 2000)
+                    }
+                })
+        },
+        async RECEIVE_PAYMENT_WITH_DELIVERY_INVOICE__FROM_SERVICE(data) {
+            this.msg_popup_modal = true
+            this.msg_popup_modal_msg = 'Please wait. We are processing...'
+            service.getReceivePaymentWithDeliveryInvoice_DELIVERIES_DETAILS(data)
+                .then(res => {
+                    console.log(res.data)
+                    if(res.data.response_code === 200 || res.data.response_code === 201) {
+                        this.msg_popup_modal_msg = res.data.message
+                    } else {
+                        this.msg_popup_modal_msg = res.data.message + ' Response code : ' + res.data.response_code + '.'
+                    }
+                    setTimeout( () => {
+                        this.msg_popup_modal = false
+                        this.msg_popup_modal_msg = null
+                    }, 2000)
+                })
+                .catch(err => {
+                    if(err) {
+                        // alert('Save problem. Server Error ' + err)
+                        this.msg_popup_modal_msg = err
+                        setTimeout( () => {
+                            this.msg_popup_modal = false
+                            this.msg_popup_modal_msg = null
+                        }, 2000)
+                    }
+                })
+        },
     }
 }
 </script>
@@ -487,7 +733,7 @@ input:focus {
     margin: 0;
 }
 .col-lg-6 {
-    flex: 0 0 49%;
+    flex: 0 0 48%;
 }
 .col-lg-6:nth-child(odd) {
     margin-right: 2%;
