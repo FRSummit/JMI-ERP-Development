@@ -138,6 +138,9 @@
             <!-- PAYMENT MODAL -->
             <PaymentModal 
                 v-if="PENDING_ORDER_DATA_BY_ID && ORDERED_TABLE_DATA__INIT_LIST && PAYMENT_MODAL_IS_TRUE"
+                :INVOICE_DATA_TO_SEND="INVOICE_DATA_TO_SEND"
+                :ORDER_TABLE_PROD_DATA_LIST_TO_SEND="ORDER_TABLE_PROD_DATA_LIST_TO_SEND"
+                :ORDER_TABLE_DATA_IS_CHANGE="ORDER_TABLE_DATA_IS_CHANGE"
                 v-on:close_payment_modal="closePaymentModalClickHandler_Child" />
             <!-- Current Outstanding Modal -->
             <div class="current-outstanding-modal" v-if="outstanding_modal">
@@ -580,6 +583,31 @@ export default {
 
             // PAYMENT MODAL
             PAYMENT_MODAL_IS_TRUE: false,
+
+            ORDER_TABLE_DATA_IS_CHANGE: false,
+        }
+    },
+    computed: {
+        INVOICE_DATA_TO_SEND() {
+            let data = {
+                invoice_id: this.INVOICE_ID_FROM_LEFT,
+                collection_date: this.pending_order_list_by_id ? (this.pending_order_list_by_id.delivery_date ? (this.pending_order_list_by_id.delivery_date) : '') : '',
+                ds_id: this.pending_order_list_by_id ? (this.pending_order_list_by_id.ds_id ? (this.pending_order_list_by_id.ds_id) : '') : '',
+                customer_id: this.pending_order_list_by_id ? (this.pending_order_list_by_id.customer_id ? (this.pending_order_list_by_id.customer_id) : '') : ''
+            }
+            return data
+        },
+        ORDER_TABLE_PROD_DATA_LIST_TO_SEND() {
+            let invoice_dtl = []
+            for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST_NOT_CHANGEABLE.length; i++) {
+                let invoice_details = {
+                    prod_id: this.ORDERED_TABLE_DATA__INIT_LIST_NOT_CHANGEABLE[i].product_info.id,
+                    dlv_qty: parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty),
+                    current_bonus_qty: this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on ? ( parseInt( parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) / parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on) ) ) : 0
+                }
+                invoice_dtl.push(invoice_details)
+            }
+            return invoice_dtl
         }
     },
     async created() {
@@ -605,6 +633,7 @@ export default {
             if(data.qty > 1) {
                 data.qty--
                 this.UPDATE_BTN_ENABLE = true
+                this.ORDER_TABLE_DATA_IS_CHANGE = true
                 // this.UPDATE_BTN_TRUE = true
                 this.createSubtotalCalculation()
             }
@@ -629,6 +658,7 @@ export default {
             }
             data.qty = selector.value
             this.UPDATE_BTN_ENABLE = true
+            this.ORDER_TABLE_DATA_IS_CHANGE = true
             // this.UPDATE_BTN_TRUE = true
             console.log(data.net_qty)
             console.log(data.available_stock)

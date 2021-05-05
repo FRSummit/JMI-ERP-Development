@@ -9,7 +9,7 @@
   height: calc(100vh - (74px + 73px + 32px));
 }
 #create-order-details-section.create-order-details-section::-webkit-scrollbar {
-  width: 2px;
+  width: 4px;
 }
 #create-order-details-section.create-order-details-section::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px grey;
@@ -157,7 +157,7 @@
   scrollbar-width: none;
 }
 #create-order-details-section.create-order-details-section .create-order-details-section-inner .header-summery-section .header-summery-section-inner .row .sr p.selectpicker-pera span.sr-modal span.sr-modal-inner::-webkit-scrollbar {
-  width: 2px;
+  width: 4px;
 }
 #create-order-details-section.create-order-details-section .create-order-details-section-inner .header-summery-section .header-summery-section-inner .row .sr p.selectpicker-pera span.sr-modal span.sr-modal-inner::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px grey;
@@ -248,7 +248,7 @@
   -webkit-flex-flow: row wrap;
 }
 #create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody .table-data-rows::-webkit-scrollbar {
-  width: 2px;
+  width: 4px;
 }
 #create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody .table-data-rows::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px grey;
@@ -420,7 +420,7 @@
   -webkit-flex-flow: row wrap;
 }
 #create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner::-webkit-scrollbar {
-  width: 2px;
+  width: 4px;
 }
 #create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px grey;
@@ -536,7 +536,7 @@
   -webkit-flex-flow: row wrap;
 }
 #create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .input-autofield-show-section .input-autofield-show-section-inner .autofield-show-section .autofield-show-section-inner .response-body::-webkit-scrollbar {
-  width: 2px;
+  width: 4px;
 }
 #create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .input-autofield-show-section .input-autofield-show-section-inner .autofield-show-section .autofield-show-section-inner .response-body::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px grey;
@@ -654,7 +654,7 @@
   -webkit-flex-flow: row wrap;
 }
 #create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product::-webkit-scrollbar {
-  width: 2px;
+  width: 4px;
 }
 #create-order-details-section.create-order-details-section .create-order-details-section-inner .add-order-modal-section .add-order-modal-section-inner .ordered-product-list .ordered-product-list-inner .selected-ordered-product::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px grey;
@@ -862,7 +862,7 @@
   -webkit-flex-flow: row wrap;
 }
 #create-order-details-section.create-order-details-section .create-order-details-section-inner .attachment-modal .attachment-modal-inner::-webkit-scrollbar {
-  width: 2px;
+  width: 4px;
 }
 #create-order-details-section.create-order-details-section .create-order-details-section-inner .attachment-modal .attachment-modal-inner::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px grey;
@@ -927,7 +927,7 @@
   -webkit-flex-flow: row wrap;
 }
 #create-order-details-section.create-order-details-section .create-order-details-section-inner .attachment-modal .attachment-modal-inner .uploadeded-file-list .uploaded-file-list-inner::-webkit-scrollbar {
-  width: 2px;
+  width: 4px;
 }
 #create-order-details-section.create-order-details-section .create-order-details-section-inner .attachment-modal .attachment-modal-inner .uploadeded-file-list .uploaded-file-list-inner::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px grey;

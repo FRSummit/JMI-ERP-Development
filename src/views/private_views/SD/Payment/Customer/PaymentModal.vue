@@ -131,14 +131,14 @@
                                     </select>
                                 </div>
                                 
-                                <div class="col-lg-6 col-md-6 col-12 form-group">
+                                <div class="col-lg-12 col-md-12 col-12 form-group">
                                     <label for="scannedfile">Scanned File</label>
                                     <input type="file" class="form-control-file" id="scannedfile" @change="imageChooseEventHandler_EFTN($event)" accept="image/x-png,image/gif,image/jpeg">
                                 </div>
 
-                                <div class="col-lg-6 col-md-6 col-12 form-group">
-                                    <label for="eftn_acount_no">Acount No</label>
-                                    <input type="text" v-model="eftn_AC_no" class="form-control" id="eftn_acount_no" placeholder="Enter Acount No">
+                                <div class="col-lg-12 col-md-12 col-12 form-group">
+                                    <label for="eftn_account_no">Account No</label>
+                                    <input type="text" v-model="eftn_AC_no" class="form-control" id="eftn_account_no" placeholder="Enter Account No">
                                 </div> 
 
                             </div>
@@ -170,10 +170,15 @@
                                     </select>
                                 </div>
                                 
-                                <div class="col-12 form-group">
+                                <div class="col-lg-12 col-md-12 form-group">
                                     <label for="scannedfile">Scanned File</label>
                                     <input type="file" class="form-control-file" id="scannedfile" @change="imageChooseEventHandler_CHEQUE($event)" accept="image/x-png,image/gif,image/jpeg">
                                 </div>
+
+                                <div class="col-lg-12 col-md-12 col-12 form-group">
+                                    <label for="eftn_account_no">Account No</label>
+                                    <input type="text" v-model="cheque_AC_no" class="form-control" id="eftn_account_no" placeholder="Enter Account No">
+                                </div> 
                             </div>
 
                             <div class="modal-footer justify-content-center">
@@ -222,6 +227,7 @@ export default {
             cheque_bank_branch_name: null,
             CHEQUE_UPLOADED_IMAGE_NAME: null,
             CHEQUE_UPLOADED_IMAGE_DATA_BASE_64: null,
+            cheque_AC_no: null,
 
             BANK_INFO: null,
             BANK_BRANCH_INFO_CHALLAN: null,
@@ -324,6 +330,7 @@ export default {
                     branch_name: this.cheque_bank_branch_name,
                     UPLOADED_IMAGE_NAME: this.CHEQUE_UPLOADED_IMAGE_NAME,
                     UPLOADED_IMAGE_DATA_BASE_64: this.CHEQUE_UPLOADED_IMAGE_DATA_BASE_64,
+                    AC_no: this.cheque_AC_no
                 }  
             }
             return payment

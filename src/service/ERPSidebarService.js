@@ -761,14 +761,67 @@ export default class PostService {
   }
 
   // DELEVERIES - DETAILS SECTION - PAYMENT MODAL - BANK BRANCH LIST
-  async getBranchListByBankId_DELIVERIES_DETAILS(bank_id) {
-    console.log(bank_id)
-    let web_menu_url = '/api/common/branch-list-by-bank/' + bank_id
+  async getBranchListByBankId_DELIVERIES_DETAILS(bank_id, district) {
+    console.log(bank_id + '  ' + district)
+    let web_menu_url = '/api/common/branch-list-by-bank/' + bank_id + '/' + district
     return await axios(web_menu_url, {
       method: 'GET',
       headers: {
         'Authorization': token_type + ' ' + token
       },
+    })
+  }
+
+  // DELEVERIES - DETAILS SECTION - PAYMENT MODAL - SAVE INVOICE WITH PAYMENT
+  async getSaveInvoiceDeliveryInfoWithPayment_DELIVERIES_DETAILS(invoice_dtls) {
+    console.log(invoice_dtls)
+    let web_menu_url = '/api/mobile/save-invoice-delivery-info-with-payment'
+    return await axios(web_menu_url, {
+      method: 'POST',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+      params: {
+        invoice_id: invoice_dtls.invoice_id,
+        invoice_details: JSON.stringify(invoice_dtls.invoice_details),
+        collection_date: invoice_dtls.collection_date,
+        ds_id: invoice_dtls.ds_id,
+        customer_id: invoice_dtls.customer_id,
+        collection_mode: invoice_dtls.collection_mode,
+        doc_no: invoice_dtls.doc_no,
+        doc_date: invoice_dtls.doc_date,
+        base64_encoded_file: invoice_dtls.base64_encoded_file,
+        file_original_name: invoice_dtls.file_original_name,
+        branch_code: invoice_dtls.branch_code,
+        bank_ac_no: invoice_dtls.bank_ac_no,
+        amount: invoice_dtls.amount
+      }
+    })
+  }
+
+  // DELEVERIES - DETAILS SECTION - PAYMENT MODAL - SAVE INVOICE WITH PAYMENT
+  async getReceivePaymentWithDeliveryInvoice_DELIVERIES_DETAILS(invoice_dtls) {
+    console.log(invoice_dtls)
+    let web_menu_url = '/api/mobile/receive-payment-with-delivered-invoice'
+    return await axios(web_menu_url, {
+      method: 'POST',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+      params: {
+        invoice_id: invoice_dtls.invoice_id,
+        collection_date: invoice_dtls.collection_date,
+        ds_id: invoice_dtls.ds_id,
+        customer_id: invoice_dtls.customer_id,
+        collection_mode: invoice_dtls.collection_mode,
+        doc_no: invoice_dtls.doc_no,
+        doc_date: invoice_dtls.doc_date,
+        base64_encoded_file: invoice_dtls.base64_encoded_file,
+        file_original_name: invoice_dtls.file_original_name,
+        branch_code: invoice_dtls.branch_code,
+        bank_ac_no: invoice_dtls.bank_ac_no,
+        amount: invoice_dtls.amount
+      }
     })
   }
 
