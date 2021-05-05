@@ -266,6 +266,8 @@ export default {
             update_inv_amount: null,
             update_inv_amount_inp: null,
 
+            SELECTED_DS_CUS_MODE: null,
+
         }
     },
     computed: {
@@ -343,6 +345,14 @@ export default {
             console.log(this.SELECTED_CUSTOMER_DA_ID_FROM_CUSTOMER_LIST)
             this.SELECTED_DSC_ID = null
             this.SELECTED_DSC_ID = item.id
+
+            let dd = {
+              ds_id: this.SELECTED_CUSTOMER_DA_ID_FROM_CUSTOMER_LIST.ds_id,
+              customer_id: this.SELECTED_CUSTOMER_DA_ID_FROM_CUSTOMER_LIST.customer_id,
+              collection_mode: item.collection_mode
+            }
+            this.SELECTED_DS_CUS_MODE = dd
+
             this.COLLECTION_AUTO_ADJUST__FROM_SERVICE(item.id)
         },
         collectionMasterRowClickHandler(item, i) {
@@ -351,6 +361,7 @@ export default {
             let ds_id = this.SELECTED_CUSTOMER_DA_ID_FROM_CUSTOMER_LIST.ds_id
             let customer_id = this.SELECTED_CUSTOMER_DA_ID_FROM_CUSTOMER_LIST.customer_id
             let collection_mode = item.collection_mode
+            
             this.DS_COLLECTION_CUSTOMER_INVOICE_LIST_BY_DS_ID_CUSTOMER_ID_COLLECTION_MODE__FROM_SERVICE(ds_id, customer_id, collection_mode)
         },
         editCollectionInvoiceModalClickHandler(item) {
@@ -431,6 +442,7 @@ export default {
                 })
         },
         async COLLECTION_AUTO_ADJUST__FROM_SERVICE(id) {
+          console.log(this.SELECTED_DS_CUS_MODE)
             this.msg_popup_modal = true
             this.msg_popup_modal_msg = 'Please wait. We are processing...'
             await service.getCollectionAutoAdjust_COLLECTION_DETAILS(id)
@@ -438,6 +450,8 @@ export default {
                     console.log(res.data)
                     if(res.data.response_code === 200 || res.data.response_code === 201) {
                         this.msg_popup_modal_msg = res.data.message
+                        this.DS_COLLECTION_MASTER_CUSTOMER_BY_DS_ID_CUSTOMER_ID__FROM_SERVICE(this.SELECTED_DS_CUS_MODE.ds_id, this.SELECTED_DS_CUS_MODE.customer_id)
+                        this.DS_COLLECTION_CUSTOMER_INVOICE_LIST_BY_DS_ID_CUSTOMER_ID_COLLECTION_MODE__FROM_SERVICE(this.SELECTED_DS_CUS_MODE.ds_id, this.SELECTED_DS_CUS_MODE.customer_id, this.SELECTED_DS_CUS_MODE.collection_mode)
                     } else {
                         this.msg_popup_modal_msg = res.data.message + ' Response code : ' + res.data.response_code + '.'
                     }
@@ -465,6 +479,8 @@ export default {
                     console.log(res.data)
                     if(res.data.response_code === 200 || res.data.response_code === 201) {
                         this.msg_popup_modal_msg = res.data.message
+                        this.DS_COLLECTION_MASTER_CUSTOMER_BY_DS_ID_CUSTOMER_ID__FROM_SERVICE(this.SELECTED_DS_CUS_MODE.ds_id, this.SELECTED_DS_CUS_MODE.customer_id)
+                        this.DS_COLLECTION_CUSTOMER_INVOICE_LIST_BY_DS_ID_CUSTOMER_ID_COLLECTION_MODE__FROM_SERVICE(this.SELECTED_DS_CUS_MODE.ds_id, this.SELECTED_DS_CUS_MODE.customer_id, this.SELECTED_DS_CUS_MODE.collection_mode)
                     } else {
                         this.msg_popup_modal_msg = res.data.message + ' Response code : ' + res.data.response_code + '.'
                     }
