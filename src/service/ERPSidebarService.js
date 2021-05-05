@@ -718,6 +718,21 @@ export default class PostService {
     })
   }
 
+  // DELEVERIES - DETAILS SECTION - SAVE - FULL DUE
+  async getSaveInvoiceDeliveryInfoFullDue_DELIVERIES(invoice_id, invoice_dtl) {
+    let web_menu_url = '/api/mobile/save-invoice-delivery-info-with-full-due'
+    return await axios(web_menu_url, {
+      method: 'POST',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+      params: {
+        invoice_id: invoice_id,
+        invoice_details: JSON.stringify(invoice_dtl)
+      }
+    })
+  }
+
   // DELEVERIES - DETAILS SECTION - FILE TYPE
   async getElementListByCode_Deliveries() {
     // let code = 14

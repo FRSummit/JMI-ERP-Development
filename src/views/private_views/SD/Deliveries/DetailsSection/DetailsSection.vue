@@ -757,11 +757,12 @@ export default {
                 }
                 invoice_dtl.push(invoice_details)
             }
-            let cash = 0
-            let cheque = 0
-            let net_payable_amount = Number(this.grand_total).toFixed(2)
+            // let cash = 0
+            // let cheque = 0
+            // let net_payable_amount = Number(this.grand_total).toFixed(2)
 
-            this.SAVE_INVOICE_DELIVERY_INFO_AS_DUE__FROM_SERVICE(invoice_id, invoice_dtl, cash, cheque, net_payable_amount)
+            // this.SAVE_INVOICE_DELIVERY_INFO_AS_DUE__FROM_SERVICE(invoice_id, invoice_dtl, cash, cheque, net_payable_amount)
+            this.SAVE_INVOICE_DELIVERY_INFO_WITH_FULL_DUE__FROM_SERVICE(invoice_id, invoice_dtl)
         },
         // ----------------------------------------------------------------------------------------
         // Delivery Order Popup
@@ -1023,6 +1024,25 @@ export default {
             console.log(cheque)
             console.log(net_payable_amount)
             await service.getSaveInvoiceDeliveryInfo_DELIVERIES(invoice_id, invoice_dtl, cash, cheque, net_payable_amount, null, null, null, null)
+            .then(res => {
+                console.log(res.data)
+                if(res.data.response_code === 200) {
+                    localStorage.removeItem("jerp_delivery_details_not_chandable_ordered_data")
+                //     this.$emit('invoice_delivery_info_saved', this.INVOICE_ID_FROM_LEFT)
+                }
+                this.approve_product_confirmation_popup_modal = false
+                this.delivery_success_or_not_msg_modal = true
+                this.delivery_success_or_not_msg = res.data.message
+                setTimeout( ()=> {
+                    this.$router.push('/features/users/dashboard')
+                    this.delivery_success_or_not_msg_modal = false
+                }, 2000)
+            })
+        },
+        async SAVE_INVOICE_DELIVERY_INFO_WITH_FULL_DUE__FROM_SERVICE(invoice_id, invoice_dtl) {
+            console.log(invoice_id)
+            console.log(invoice_dtl)
+            await service.getSaveInvoiceDeliveryInfoFullDue_DELIVERIES(invoice_id, invoice_dtl)
             .then(res => {
                 console.log(res.data)
                 if(res.data.response_code === 200) {
@@ -1369,6 +1389,7 @@ export default {
             document.querySelector('#deliveries-details-section #set_payment_all_due').checked = false
         },
         confirmDuePaymentConfirmationClickHandler() {
+            this.createAllDUePamentAndProds()
             this.all_due_payment_confirmation_popup_modal = false
         },
         // -----------------------------------------------------------------------------
