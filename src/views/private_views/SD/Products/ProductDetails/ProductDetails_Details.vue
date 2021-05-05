@@ -2694,6 +2694,9 @@ export default {
                     console.log(res.data)
                     if(res.data.response_code === 200 || res.data.response_code === 201) {
                         this.prod_creating_progressbar_msg = res.data.message
+                        this.stockPositionTransferChanges()
+                        // this.$store.state.CHANGES_DETECTED_IN_DETAILS_SECTION = new Date()
+                        this.$emit('RELOAD_SELECTED_PROD_DETAILS', this.SELECTED_PROD_DETAILS.prod_id)
                         setTimeout( () => {
                             this.prod_creating_progressbar = false
                             this.prod_creating_progressbar_msg = null
@@ -2716,7 +2719,21 @@ export default {
                         }, 1000)
                     }
                 })
-        }
+        },
+
+        // CHANGES - AFTER API CALL
+        stockPositionTransferChanges() {
+            // console.log(this.stock_position_modal_store_from)
+            // console.log(this.stock_position_modal_store_to)
+            // console.log(this.SELECTED_PROD_DETAILS)
+            console.log(this.SELECTED_PROD_SBU_PROD_DETAILS)
+            this.WAREHOUSE_STORE_INFO__FROM_COMPONENT = null
+            setTimeout( () => {
+                document.querySelector('.product-details-tab ul li:nth-child(6) a').click()
+            }, 2000)
+            // console.log(this.stock_position_modal_batch_lot)
+            // console.log(this.stock_position_modal_stock_qty)
+        },
     },
     watch: {
         SELECTED_PROD_DETAILS(newVal) {
@@ -2754,6 +2771,8 @@ export default {
         SELECTED_PROD_SBU_PROD_DETAILS(newVal) {
             if(newVal) {
                 console.log(newVal)
+
+                
             }
         },
         prod_offer_now_price_d(newVal) {
@@ -2933,5 +2952,8 @@ button.modal-prod-save-btn:hover {
 .document-file .file-name .action-btn svg {
     width: 16px;
     height: 16px;
+}
+.ledgerStock-Area .treeContent .ledgerStock-Area-table tbody {
+  width: 99%;
 }
 </style>
