@@ -1,6 +1,9 @@
 import ComaSeparatedDigits from '../ComaSeparatedDigits'
 const comaSeparatedDigits = new ComaSeparatedDigits()
 
+import GlobalDateFormat from '../GlobalDateFormat'
+const globalDateFormat = new GlobalDateFormat()
+
 let NET_PAYABLE_AFTER_ADJ = 0
 let ROUNDING_ADJ = 0
 let PRODUCT_SERIAL_NO = 1
@@ -11,7 +14,7 @@ var monthShortNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "
 
 export default class PP_Invoice_Type_2_Single {
     
-    print_invoice(data) {
+    print_invoice(data, due_data) {
         var mywindow = window.open('', 'PRINT'); 
         mywindow.document.write(''
                             + '<html>'
@@ -113,7 +116,7 @@ export default class PP_Invoice_Type_2_Single {
                             +                         this.create_net_payable_data(data)
                             +                     '</tbody>'
                             +                 '</table>'
-                            // +                 this.create_credit_status()
+                            +                 this.create_credit_status(due_data)
                             +                 this.create_signature_section()
                             +             '</div>'
                             +         '</div>'
@@ -477,7 +480,7 @@ export default class PP_Invoice_Type_2_Single {
         return net_payable
     }
 
-    create_credit_status() {
+    create_credit_status(due_data) {
         let result = ''
             result += ''
                     +   '<div class="status-section" style=" margin-top: 20px;">'
@@ -485,25 +488,50 @@ export default class PP_Invoice_Type_2_Single {
                     +           '<tr>'
                     +               '<td colspan="4"><p style="text-align: left; font-size: 14px;">Present Credit Status:</p></td>'
                     +           '</tr>'
-                    +           '<tr  style="border-bottom: 1px solid #000000;">'
+                    +           '<tr style="border-bottom: 1px solid #000000;">'
                     +               '<td>Invoice No</td>'
                     +               '<td>Inv Date</td>'
-                    +               '<td>Pay Mode</td>'
-                    +               '<td>Outstanding</td>'
+                    // +               '<td>Pay Mode</td>'
+                    +               '<td style="text-align: right;">Outstanding</td>'
                     +           '</tr>'
-                    +           '<tr>'
-                    +               '<td>' + '' + '</td>'
-                    +               '<td>' + '' + '</td>'
-                    +               '<td>' + '' + '</td>'
-                    +               '<td>' + '' + '</td>'
-                    +           '</tr>'
+                    // +           '<tr>'
+                    // +               '<td>' + '' + '</td>'
+                    // +               '<td>' + '' + '</td>'
+                    // +               '<td>' + '' + '</td>'
+                    // +               '<td>' + '' + '</td>'
+                    // +           '</tr>'
+                    +           this.createCreditStatusData(due_data)
                     +           '<tr style="">'
-                    +               '<td colspan="4">'
-                    +                   '<p style="text-align: right; font-size: 12px; margin: 8px 20px 0 0;">Total: <span style="border-top: 1px dotted #000000; border-bottom: 2px double #000000;">' + '' + '</span></p>'
+                    +               '<td colspan="3">'
+                    +                   '<p style="text-align: right; font-size: 12px; margin: 8px 0px 0 0;">Total: <span style="border-top: 1px dotted #000000; border-bottom: 2px double #000000;">' + comaSeparatedDigits.comaSeparate(Number(this.due_data_outstanding_total(due_data)).toFixed(2)) + '</span></p>'
                     +               '</td>'
                     +           '</tr>'
                     +       '</table>'
                     +   '</div>'
+
+        return result
+    }
+
+    createCreditStatusData(data) {
+        let result = ''
+        for(let i=0; i<data.length; i++) {
+            result += ''
+                    +   '<tr>'
+                    +       '<td>' + data[i].invoice_no + '</td>'
+                    +       '<td>' + globalDateFormat.dateFormatT4(data[i].invoice_date) + '</td>'
+                    // +       '<td>' + '' + '</td>'
+                    +       '<td style="text-align: right;">' + comaSeparatedDigits.comaSeparate(Number(data[i].due_amt).toFixed(2)) + '</td>'
+                    +   '</tr>'
+        }
+
+        return result
+    }
+
+    due_data_outstanding_total(data) {
+        let result = 0
+        for(let i=0; i<data.length; i++) {
+            result += parseFloat(data[i].due_amt)
+        }
 
         return result
     }
