@@ -1402,6 +1402,7 @@ export default {
         async pending_order_list_by_id(newVal, oldVal){
             console.log('changes' + newVal)
             console.log('changes' + oldVal)
+            this.PAYMENT_MODAL_IS_TRUE = false
             this.NO_PRODUCT_IN_CART_TO_DELIVER = false
             localStorage.removeItem("jerp_delivery_details_not_chandable_ordered_data");
             setTimeout( () => {

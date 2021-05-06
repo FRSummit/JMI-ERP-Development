@@ -11,14 +11,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                      <tr v-for="(item, i) in 20" :key="i">
-                        <td><p>Cash</p></td>
-                        <td><p>Description Line Here</p></td>
-                        <td><p>300.00</p></td>
+                      <tr v-for="(item, i) in COLLECTION_LIST" :key="i">
+                        <td><p>{{ item.collection_mode }}</p></td>
+                        <td><p>Pending Amount {{ item.pending_amt }}</p></td>
+                        <td><p>{{ item.amount }}</p></td>
                         <td>
                             <a class="edit"><i class="zmdi zmdi-edit" @click="tableDataEditClickHandler(item, i)"></i></a>
                             <a class="remove"><i class="fa fa-trash" @click="tableDataRemoveClickHandler(item, i)"></i></a>
                         </td>
+                      </tr>
+
+                      <tr v-if="!COLLECTION_LIST || !COLLECTION_LIST.length">
+                          <td colspan="4"><p>Data not found</p></td>
                       </tr>
                 </tbody>
             </table>
@@ -314,12 +318,15 @@ export default {
                             'PABNA', 'PANCHAGARH', 'PATUAKHALI', 'PIROJPUR', 'RAJBARI', 'RAJSHAHI',
                             'RANGAMATI', 'RANGPUR', 'SATKHIRA', 'SHARIATPUR', 'SHERPUR', 'SIRAJGANJ',
                             'SUNAMGANJ', 'SYLHET', 'TANGAIL', 'THAKURGAON'
-                        ]
+                        ],
+            
+            COLLECTION_LIST: null,
         }
     },
     computed: {},
     created() {},
     async mounted() {
+        await this.COLLECTION_LIST__FROM_SERVICE()
         await this.LOAD_BANK_LIST__FROM_SERVICE()
     },
     methods: {
@@ -447,8 +454,8 @@ export default {
                         doc_date: data.challan.date,
                         base64_encoded_file: data.challan.UPLOADED_IMAGE_DATA_BASE_64,
                         file_original_name: data.challan.UPLOADED_IMAGE_NAME,
-                        bank_code: data.challan.bank_name.bb_code,
-                        branch_code: data.challan.branch_name.bb_code,
+                        bank_code: data.challan.bank_name.id,
+                        branch_code: data.challan.branch_name.id,
                         amount: data.cash_amount
                     })
                     break
@@ -459,8 +466,8 @@ export default {
                         doc_date: data.eftn.date,
                         base64_encoded_file: data.eftn.UPLOADED_IMAGE_DATA_BASE_64,
                         file_original_name: data.eftn.UPLOADED_IMAGE_NAME,
-                        bank_code: data.eftn.bank_name.bb_code,
-                        branch_code: data.eftn.branch_name.bb_code,
+                        bank_code: data.eftn.bank_name.id,
+                        branch_code: data.eftn.branch_name.id,
                         bank_ac_no: data.eftn.AC_no,
                         amount: data.cash_amount
                     })
@@ -472,8 +479,8 @@ export default {
                         doc_date: data.cheque.date,
                         base64_encoded_file: data.cheque.UPLOADED_IMAGE_DATA_BASE_64,
                         file_original_name: data.cheque.UPLOADED_IMAGE_NAME,
-                        bank_code: data.cheque.bank_name.bb_code,
-                        branch_code: data.cheque.branch_name.bb_code,
+                        bank_code: data.cheque.bank_name.id,
+                        branch_code: data.cheque.branch_name.id,
                         bank_ac_no: data.cheque.AC_no,
                         amount: data.cash_amount
                     })
@@ -485,17 +492,18 @@ export default {
         },
         async saveExitClickHandler() {
             console.log(this.paymentData())
-            let data = this.finalPaymentDataByMode(this.paymentData())
-            console.log(this.finalPaymentDataByMode(this.paymentData()))
-            await this.SAVE_INVOICE_DELIVERY_INFO_WITH_PAYMENT__FROM_SERVICE(data)
-            await this.RECEIVE_PAYMENT_WITH_DELIVERY_INVOICE__FROM_SERVICE(data)
+            // let data = this.finalPaymentDataByMode(this.paymentData())
+            // console.log(this.finalPaymentDataByMode(this.paymentData()))
+            // await this.SAVE_INVOICE_DELIVERY_INFO_WITH_PAYMENT__FROM_SERVICE(data)
+            // await this.RECEIVE_PAYMENT_WITH_DELIVERY_INVOICE__FROM_SERVICE(data)
             this.closePaymentPopupModalClickHandler()
             this.defaultModalValueForNewPayment()
         },
         async saveNewPaymentClickHandler() {
             let data = this.finalPaymentDataByMode(this.paymentData())
-            await this.SAVE_INVOICE_DELIVERY_INFO_WITH_PAYMENT__FROM_SERVICE(data)
-            await this.RECEIVE_PAYMENT_WITH_DELIVERY_INVOICE__FROM_SERVICE(data)
+            console.log(data)
+            // await this.SAVE_INVOICE_DELIVERY_INFO_WITH_PAYMENT__FROM_SERVICE(data)
+            // await this.RECEIVE_PAYMENT_WITH_DELIVERY_INVOICE__FROM_SERVICE(data)
             this.defaultModalValueForNewPayment()
         },
         defaultModalValueForNewPayment() {
@@ -597,6 +605,18 @@ export default {
         },
         // ---------------------------------------------------------------------------
         // SERVICE CALL
+        async COLLECTION_LIST__FROM_SERVICE() {
+            await service.getCollectionList_DELIVERIES_DETAILS(this.INVOICE_DATA_TO_SEND.invoice_id, this.INVOICE_DATA_TO_SEND.ds_id)
+                .then(res => {
+                    console.log(res.data)
+                    this.COLLECTION_LIST = res.data.collection_list
+                })
+                .catch(err => {
+                    if(err) {
+                        alert('Bank list load problem ' + err)
+                    }
+                })
+        },
         async LOAD_BANK_LIST__FROM_SERVICE() {
             console.log('bank api')
             await service.getBankList_DELIVERIES_DETAILS()
@@ -606,7 +626,7 @@ export default {
                 })
                 .catch(err => {
                     if(err) {
-                        alert('Bank list load problem ' + err)
+                        console.log('Bank list load problem ' + err)
                     }
                 })
         },

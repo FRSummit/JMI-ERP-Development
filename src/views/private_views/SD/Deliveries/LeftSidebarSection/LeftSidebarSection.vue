@@ -414,6 +414,9 @@ export default {
     computed: {
         DELIVERIES__CANCEL_ORDER_FLAG() {
         return this.$store.state.DELIVERIES__CANCEL_ORDER_TIME_STAMP
+        },
+        LOAD_DELIVERIES_INVOICE_LIST() {
+            return this.$store.state.CHANGES_DETECTED_IN_DETAILS_SECTION
         }
     },
     watch: {
@@ -426,6 +429,11 @@ export default {
         async DELIVERIES__CANCEL_ORDER_FLAG(newVal, oldVal) {
             if(newVal !== oldVal) {
                 await this.ALL_DELIVERIES_INVOICE_LIST__FROM_SERVICE()
+            }
+        },
+        async LOAD_DELIVERIES_INVOICE_LIST(newVal) {
+            if(newVal) {
+              await this.ALL_DELIVERIES_INVOICE_LIST__FROM_SERVICE()
             }
         }
     }

@@ -50,6 +50,11 @@ export default {
       SAVED_INVOICE_DELIVERY_INFO_FROM_RIGHT: null,
     };
   },
+  computed: {
+    LOAD_DELIVERIES_INVOICE_LIST() {
+      return this.$store.state.CHANGES_DETECTED_IN_DETAILS_SECTION
+    }
+  },
   created() {
     this.$emit("routeName", this.$route.name);
     this.createBreadcrumbData();
@@ -107,5 +112,12 @@ export default {
         })
     }
   },
+    watch: {
+        async LOAD_DELIVERIES_INVOICE_LIST(newVal) {
+            if(newVal) {
+              this.pending_order_list_by_id = []
+            }
+        }
+    }
 };
 </script>

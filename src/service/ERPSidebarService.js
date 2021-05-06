@@ -791,6 +791,7 @@ export default class PostService {
   async getCollectionList_DELIVERIES_DETAILS(invoice_id, ds_id) {
     console.log(invoice_id + '  ' + ds_id)
     let web_menu_url = '/api/mobile/get-collection-list/' + invoice_id + '/' + ds_id
+    // let web_menu_url = '/api/mobile/get-collection-list/1418/1150'
     return await axios(web_menu_url, {
       method: 'GET',
       headers: {

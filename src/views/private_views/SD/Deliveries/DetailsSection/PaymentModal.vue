@@ -12,9 +12,9 @@
                 </thead>
                 <tbody>
                       <tr v-for="(item, i) in COLLECTION_LIST" :key="i">
-                        <td><p>Cash</p></td>
-                        <td><p>Description Line Here</p></td>
-                        <td><p>300.00</p></td>
+                        <td><p>{{ item.collection_mode }}</p></td>
+                        <td><p>Pending Amount {{ item.pending_amt }}</p></td>
+                        <td><p>{{ item.amount }}</p></td>
                         <td>
                             <a class="edit"><i class="zmdi zmdi-edit" @click="tableDataEditClickHandler(item, i)"></i></a>
                             <a class="remove"><i class="fa fa-trash" @click="tableDataRemoveClickHandler(item, i)"></i></a>
@@ -28,8 +28,8 @@
             </table>
         </div>
         <div class="row deCollection-footer">
-            <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="closePaymentModalClickHandler">Close</button></a>
-            <!-- <a data-toggle="modal" data-target="#new-payment-modal"><button type="button" class="btn btn-primary btn-global mx-2">New Payment</button></a> -->
+            <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="closePaymentModalClickHandler">Back To Invoice</button></a>
+            <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="closePaymentForThisInvoiceClickHandler">Close</button></a>
             <a><button type="button" class="btn btn-primary btn-global mx-2" @click="paymentPopupModalClickHandler">New Payment</button></a>
         </div>
         
@@ -345,6 +345,9 @@ export default {
         closePaymentModalClickHandler() {
             this.$emit('close_payment_modal')
         },
+        closePaymentForThisInvoiceClickHandler() {
+            this.$store.state.CHANGES_DETECTED_IN_DETAILS_SECTION = new Date()
+        },
         paymentPopupModalClickHandler() {
             if(this.payment_popup_modal) {
                 this.payment_popup_modal = false
@@ -491,18 +494,27 @@ export default {
             return payment
         },
         async saveExitClickHandler() {
-            console.log(this.paymentData())
+            // console.log(this.paymentData())
             let data = this.finalPaymentDataByMode(this.paymentData())
-            console.log(this.finalPaymentDataByMode(this.paymentData()))
-            await this.SAVE_INVOICE_DELIVERY_INFO_WITH_PAYMENT__FROM_SERVICE(data)
-            // await this.RECEIVE_PAYMENT_WITH_DELIVERY_INVOICE__FROM_SERVICE(data)
+            // console.log(this.finalPaymentDataByMode(this.paymentData()))
+            console.log(data)
+            if(!this.COLLECTION_LIST || !this.COLLECTION_LIST.length) {
+                // console.log(this.COLLECTION_LIST)
+                await this.SAVE_INVOICE_DELIVERY_INFO_WITH_PAYMENT__FROM_SERVICE(data)
+            } else {
+                // console.log(this.COLLECTION_LIST)
+                await this.RECEIVE_PAYMENT_WITH_DELIVERY_INVOICE__FROM_SERVICE(data)
+            }
             this.closePaymentPopupModalClickHandler()
             this.defaultModalValueForNewPayment()
         },
         async saveNewPaymentClickHandler() {
             let data = this.finalPaymentDataByMode(this.paymentData())
-            await this.SAVE_INVOICE_DELIVERY_INFO_WITH_PAYMENT__FROM_SERVICE(data)
-            // await this.RECEIVE_PAYMENT_WITH_DELIVERY_INVOICE__FROM_SERVICE(data)
+            if(!this.COLLECTION_LIST || !this.COLLECTION_LIST.length) {
+                await this.SAVE_INVOICE_DELIVERY_INFO_WITH_PAYMENT__FROM_SERVICE(data)
+            } else {
+                await this.RECEIVE_PAYMENT_WITH_DELIVERY_INVOICE__FROM_SERVICE(data)
+            }
             this.defaultModalValueForNewPayment()
         },
         defaultModalValueForNewPayment() {
@@ -662,6 +674,7 @@ export default {
                     console.log(res.data)
                     if(res.data.response_code === 200 || res.data.response_code === 201) {
                         this.msg_popup_modal_msg = res.data.message
+                        this.COLLECTION_LIST__FROM_SERVICE()
                     } else {
                         this.msg_popup_modal_msg = res.data.message + ' Response code : ' + res.data.response_code + '.'
                     }
@@ -689,6 +702,7 @@ export default {
                     console.log(res.data)
                     if(res.data.response_code === 200 || res.data.response_code === 201) {
                         this.msg_popup_modal_msg = res.data.message
+                        this.COLLECTION_LIST__FROM_SERVICE()
                     } else {
                         this.msg_popup_modal_msg = res.data.message + ' Response code : ' + res.data.response_code + '.'
                     }
