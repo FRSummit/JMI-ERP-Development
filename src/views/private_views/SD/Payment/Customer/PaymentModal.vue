@@ -28,8 +28,6 @@
             </table>
         </div>
         <div class="row deCollection-footer">
-            <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="closePaymentModalClickHandler">Close</button></a>
-            <!-- <a data-toggle="modal" data-target="#new-payment-modal"><button type="button" class="btn btn-primary btn-global mx-2">New Payment</button></a> -->
             <a><button type="button" class="btn btn-primary btn-global mx-2" @click="paymentPopupModalClickHandler">New Payment</button></a>
         </div>
         
@@ -265,7 +263,7 @@ import ERPService from '../../../../../service/ERPSidebarService'
 const service = new ERPService()
 
 export default {
-    props: ["INVOICE_DATA_TO_SEND", "ORDER_TABLE_PROD_DATA_LIST_TO_SEND", "ORDER_TABLE_DATA_IS_CHANGE"],
+    props: ["SELECTED_CUSTOMER_LEFT"],
     data() {
         return {
             payment_popup_modal: false,
@@ -326,7 +324,6 @@ export default {
     computed: {},
     created() {},
     async mounted() {
-        await this.COLLECTION_LIST__FROM_SERVICE()
         await this.LOAD_BANK_LIST__FROM_SERVICE()
     },
     methods: {
@@ -342,9 +339,6 @@ export default {
         },
         // -------------------------------------------------------------------------
         // Submition Section
-        closePaymentModalClickHandler() {
-            this.$emit('close_payment_modal')
-        },
         paymentPopupModalClickHandler() {
             if(this.payment_popup_modal) {
                 this.payment_popup_modal = false
@@ -426,17 +420,17 @@ export default {
         },
         finalPaymentDataByMode(data) {
             let payment = {
-                invoice_id: this.INVOICE_DATA_TO_SEND.invoice_id,
-                invoice_details: this.ORDER_TABLE_PROD_DATA_LIST_TO_SEND,
-                collection_date: this.INVOICE_DATA_TO_SEND.collection_date,
-                ds_id: this.INVOICE_DATA_TO_SEND.ds_id,
-                customer_id: this.INVOICE_DATA_TO_SEND.customer_id,
+                ds_id: this.SELECTED_CUSTOMER_LEFT.ds_id,
+                customer_id: this.SELECTED_CUSTOMER_LEFT.customer_id,
+                dsd_id: null,
 
                 collection_mode: null,
                 doc_no: null,
                 doc_date: null,
+                object_type: null,
                 base64_encoded_file: null,
                 file_original_name: null,
+                file_upload_path: null,
                 bank_code: null,
                 branch_code: null,
                 bank_ac_no: null,
@@ -452,8 +446,10 @@ export default {
                         collection_mode: 'CHALLAN',
                         doc_no: data.challan.doc_no,
                         doc_date: data.challan.date,
+                        object_type: 131,
                         base64_encoded_file: data.challan.UPLOADED_IMAGE_DATA_BASE_64,
                         file_original_name: data.challan.UPLOADED_IMAGE_NAME,
+                        file_upload_path: '/customers/cheque/',
                         bank_code: data.challan.bank_name.id,
                         branch_code: data.challan.branch_name.id,
                         amount: data.cash_amount
@@ -464,8 +460,10 @@ export default {
                         collection_mode: 'EFTN',
                         doc_no: data.eftn.doc_no,
                         doc_date: data.eftn.date,
+                        object_type: 131,
                         base64_encoded_file: data.eftn.UPLOADED_IMAGE_DATA_BASE_64,
                         file_original_name: data.eftn.UPLOADED_IMAGE_NAME,
+                        file_upload_path: '/customers/cheque/',
                         bank_code: data.eftn.bank_name.id,
                         branch_code: data.eftn.branch_name.id,
                         bank_ac_no: data.eftn.AC_no,
@@ -477,8 +475,10 @@ export default {
                         collection_mode: 'CHEQUE',
                         doc_no: data.cheque.doc_no,
                         doc_date: data.cheque.date,
+                        object_type: 131,
                         base64_encoded_file: data.cheque.UPLOADED_IMAGE_DATA_BASE_64,
                         file_original_name: data.cheque.UPLOADED_IMAGE_NAME,
+                        file_upload_path: '/customers/cheque/',
                         bank_code: data.cheque.bank_name.id,
                         branch_code: data.cheque.branch_name.id,
                         bank_ac_no: data.cheque.AC_no,
@@ -491,19 +491,19 @@ export default {
             return payment
         },
         async saveExitClickHandler() {
-            console.log(this.paymentData())
-            // let data = this.finalPaymentDataByMode(this.paymentData())
+            // console.log(this.paymentData())
+            let data = this.finalPaymentDataByMode(this.paymentData())
             // console.log(this.finalPaymentDataByMode(this.paymentData()))
-            // await this.SAVE_INVOICE_DELIVERY_INFO_WITH_PAYMENT__FROM_SERVICE(data)
-            // await this.RECEIVE_PAYMENT_WITH_DELIVERY_INVOICE__FROM_SERVICE(data)
+            console.log(data)
+            this.SAVE_INVOICE_FROM_CUSTOMER__FROM_SERVICE(data)
+
             this.closePaymentPopupModalClickHandler()
             this.defaultModalValueForNewPayment()
         },
         async saveNewPaymentClickHandler() {
             let data = this.finalPaymentDataByMode(this.paymentData())
-            console.log(data)
-            // await this.SAVE_INVOICE_DELIVERY_INFO_WITH_PAYMENT__FROM_SERVICE(data)
-            // await this.RECEIVE_PAYMENT_WITH_DELIVERY_INVOICE__FROM_SERVICE(data)
+            this.SAVE_INVOICE_FROM_CUSTOMER__FROM_SERVICE(data)
+
             this.defaultModalValueForNewPayment()
         },
         defaultModalValueForNewPayment() {
@@ -606,7 +606,7 @@ export default {
         // ---------------------------------------------------------------------------
         // SERVICE CALL
         async COLLECTION_LIST__FROM_SERVICE() {
-            await service.getCollectionList_DELIVERIES_DETAILS(this.INVOICE_DATA_TO_SEND.invoice_id, this.INVOICE_DATA_TO_SEND.ds_id)
+            await service.getCollectionList_DELIVERIES_DETAILS(this.SELECTED_CUSTOMER_LEFT.customer_id, this.SELECTED_CUSTOMER_LEFT.ds_id)
                 .then(res => {
                     console.log(res.data)
                     this.COLLECTION_LIST = res.data.collection_list
@@ -655,14 +655,15 @@ export default {
                     }
                 })
         },
-        async SAVE_INVOICE_DELIVERY_INFO_WITH_PAYMENT__FROM_SERVICE(data) {
+        async SAVE_INVOICE_FROM_CUSTOMER__FROM_SERVICE(data) {
             this.msg_popup_modal = true
             this.msg_popup_modal_msg = 'Please wait. We are processing...'
-            service.getSaveInvoiceDeliveryInfoWithPayment_DELIVERIES_DETAILS(data)
+            service.getReceivePaymentFromCustomer_CUSTOMER_PAYMENT(data)
                 .then(res => {
                     console.log(res.data)
                     if(res.data.response_code === 200 || res.data.response_code === 201) {
                         this.msg_popup_modal_msg = res.data.message
+                        this.COLLECTION_LIST__FROM_SERVICE()
                     } else {
                         this.msg_popup_modal_msg = res.data.message + ' Response code : ' + res.data.response_code + '.'
                     }
@@ -682,33 +683,13 @@ export default {
                     }
                 })
         },
-        async RECEIVE_PAYMENT_WITH_DELIVERY_INVOICE__FROM_SERVICE(data) {
-            this.msg_popup_modal = true
-            this.msg_popup_modal_msg = 'Please wait. We are processing...'
-            service.getReceivePaymentWithDeliveryInvoice_DELIVERIES_DETAILS(data)
-                .then(res => {
-                    console.log(res.data)
-                    if(res.data.response_code === 200 || res.data.response_code === 201) {
-                        this.msg_popup_modal_msg = res.data.message
-                    } else {
-                        this.msg_popup_modal_msg = res.data.message + ' Response code : ' + res.data.response_code + '.'
-                    }
-                    setTimeout( () => {
-                        this.msg_popup_modal = false
-                        this.msg_popup_modal_msg = null
-                    }, 2000)
-                })
-                .catch(err => {
-                    if(err) {
-                        // alert('Save problem. Server Error ' + err)
-                        this.msg_popup_modal_msg = err
-                        setTimeout( () => {
-                            this.msg_popup_modal = false
-                            this.msg_popup_modal_msg = null
-                        }, 2000)
-                    }
-                })
-        },
+    },
+    watch: {
+        async SELECTED_CUSTOMER_LEFT(newVal) {
+            if(newVal) {
+                await this.COLLECTION_LIST__FROM_SERVICE()
+            }
+        }
     }
 }
 </script>

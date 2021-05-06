@@ -69,7 +69,7 @@ export default {
       } else {
         document.querySelector('#card_body_' + index).className = 'card_body'
       }
-      this.$emit("selected_item_from_left", item.customer_area_info.customer_info.customer_id)
+      this.$emit("selected_item_from_left", item)
     },
     // ---------------------------------------------------------------------------
     // FILTER

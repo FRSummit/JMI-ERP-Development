@@ -25,7 +25,7 @@
                         <tbody>
                             <tr :id="'customer_card_body_' + i" class="customer_card_body" v-for="(item, i) in DS_CUSTOMER_LIST" :key="i" @click="singleCustomerClickHandler(item, i)" style="cursor: pointer;">
                                 <td><p><span class="fa fa-square mr-2" :class="item.legend_status"></span>{{ item.customer_name ? item.customer_name : '' }}</p></td>
-                                <td style="padding: 0;"><p style="min-width: 80px;">{{ item.type ? item.type : '' }}</p></td>
+                                <td style="padding: 0;"><p style="min-width: 80px; font-size: 10px;">{{ item.type ? item.type : '' }}</p></td>
                                 <td><p>{{ item.total_amount ? Number(item.total_amount).toFixed(2) : '' }}</p></td>
                             </tr>
                         </tbody>
@@ -87,9 +87,9 @@
                                 <th colspan="7"><h5>Invoices (<span>{{ COLLECTION_CUSTOMER_INVOICE_LIST ? COLLECTION_CUSTOMER_INVOICE_LIST.length : 0 }}</span>)</h5></th>
                             </tr>
                             <tr>
-                                <th style="min-width: 10%;">Invoice</th>
-                                <th style="min-width: 15%; text-align: center;">Date</th>
-                                <th style="min-width: 15%;">Amount</th>
+                                <th style="min-width: 14%;">Invoice</th>
+                                <th style="min-width: 14%; text-align: center;">Date</th>
+                                <th style="min-width: 12%;">Amount</th>
                                 <th style="min-width: 12%;">Paid</th>
                                 <th style="min-width: 13%;">Panding</th>
                                 <th style="min-width: 12%;">Due</th>
@@ -100,9 +100,9 @@
                     
                         <tbody>
                             <tr v-for="(item, i) in COLLECTION_CUSTOMER_INVOICE_LIST" :key="i">
-                                <td style="min-width: 10%;"><p>{{ item.invoice ? item.invoice : '' }}</p></td>
-                                <td style="min-width: 15%;"><p>{{ item.date ? dateFormat(item.date) : '' }}</p></td>
-                                <td style="min-width: 15%;"><p>{{ item.amount ? Number(item.amount).toFixed(2) : '' }}</p></td>
+                                <td style="min-width: 14%;"><p>{{ item.invoice ? item.invoice : '' }}</p></td>
+                                <td style="min-width: 14%;"><p>{{ item.date ? dateFormat(item.date) : '' }}</p></td>
+                                <td style="min-width: 12%;"><p>{{ item.amount ? Number(item.amount).toFixed(2) : '' }}</p></td>
                                 <td style="min-width: 12%;"><p>{{ item.paid ? Number(item.paid).toFixed(2) : '' }}</p></td>
                                 <td style="min-width: 13%;"><p>{{ item.pending ? Number(item.pending).toFixed(2) : '' }}</p></td>
                                 <td style="min-width: 12%;"><p>{{ item.due ? Number(item.due).toFixed(2) : '' }}</p></td>
@@ -502,6 +502,12 @@ export default {
         }
     },
     watch: {
+      DS_CUSTOMER_LIST(newVal) {
+        if(newVal) {
+          this.COLLECTION_MASTER_CUSTOMER = null
+          this.COLLECTION_CUSTOMER_INVOICE_LIST = null
+        }
+      }
     }
 }
 </script>

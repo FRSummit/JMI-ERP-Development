@@ -5,6 +5,7 @@
             <LeftSidebarSection
                 v-on:selected_item_from_left="selectedItemFromLeft" />
             <DetailsSection 
+                :SELECTED_CUSTOMER_LEFT="SELECTED_CUSTOMER_LEFT"
                 :SELECTED_CUSTOMER_DATA="SELECTED_CUSTOMER_DATA"/>
         </div>
     </div>
@@ -30,6 +31,7 @@ export default {
             parentPath: "Local Sales",
             pathName: [],
 
+            SELECTED_CUSTOMER_LEFT: null,
             SELECTED_CUSTOMER_DATA: null,
         };
     },
@@ -49,9 +51,9 @@ export default {
             ];
         },
         selectedItemFromLeft(value) {
-            this.customer_id = value
+            this.SELECTED_CUSTOMER_LEFT = value
             console.log(value)
-            this.CUSTOMER_INFO_FOR_DEPOT__FROM_SERVICE(value)
+            this.CUSTOMER_INFO_FOR_DEPOT__FROM_SERVICE(value.customer_area_info.customer_info.customer_id)
         },
         // ------------------------------------------------------------------------------------
         // Service call from left sidebar section

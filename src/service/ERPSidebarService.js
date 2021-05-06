@@ -788,9 +788,9 @@ export default class PostService {
   }
 
   // DELEVERIES - DETAILS SECTION - PAYMENT MODAL - BANK BRANCH LIST
-  async getCollectionList_DELIVERIES_DETAILS(invoice_id, ds_id) {
-    console.log(invoice_id + '  ' + ds_id)
-    let web_menu_url = '/api/mobile/get-collection-list/' + invoice_id + '/' + ds_id
+  async getCollectionList_DELIVERIES_DETAILS(customer_id, ds_id) {
+    console.log(customer_id + '  ' + ds_id)
+    let web_menu_url = '/api/mobile/get-collection-list/' + customer_id + '/' + ds_id
     // let web_menu_url = '/api/mobile/get-collection-list/1418/1150'
     return await axios(web_menu_url, {
       method: 'GET',
@@ -1503,6 +1503,34 @@ export default class PostService {
       method: 'GET',
       headers: {
         'Authorization': token_type + ' ' + token
+      }
+    })
+  }
+
+  // DELEVERIES - DETAILS SECTION - PAYMENT MODAL - SAVE INVOICE WITH PAYMENT
+  async getReceivePaymentFromCustomer_CUSTOMER_PAYMENT(invoice_dtls) {
+    console.log(invoice_dtls)
+    let web_menu_url = '/api/common/receive-payment-from-customer'
+    return await axios(web_menu_url, {
+      method: 'POST',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+      data: {
+        ds_id: invoice_dtls.ds_id,
+        dsd_id: invoice_dtls.dsd_id,
+        customer_id: invoice_dtls.customer_id,
+        collection_mode: invoice_dtls.collection_mode,
+        amount: invoice_dtls.amount,
+        doc_no: invoice_dtls.doc_no,
+        doc_date: invoice_dtls.doc_date,
+        object_type: invoice_dtls.object_type,
+        base64_encoded_file: invoice_dtls.base64_encoded_file,
+        file_original_name: invoice_dtls.file_original_name,
+        file_upload_path: invoice_dtls.file_upload_path,
+        bank_code: invoice_dtls.bank_code,
+        branch_code: invoice_dtls.branch_code,
+        bank_ac_no: invoice_dtls.bank_ac_no,
       }
     })
   }

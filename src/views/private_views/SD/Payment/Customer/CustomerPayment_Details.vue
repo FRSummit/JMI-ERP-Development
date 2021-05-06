@@ -4,10 +4,10 @@
             <div class="container-fluid">
                 <div class="col-12 requition_area">
                     <div class="row requition_header"> 
-                        <div class="col-lg-4 col-md-8 col-sm-12 header_top">
+                        <div class="col-lg-4 col-md-12 col-sm-12 header_top">
                             <h5>Customer Name: <span>{{ SELECTED_CUSTOMER_DATA ? SELECTED_CUSTOMER_DATA.display_name : "" }}</span></h5>
                         </div>
-                        <div class="col-lg-8 col-md-8 col-sm-12 header_top">
+                        <div class="col-lg-8 col-md-12 col-sm-12 header_top">
                             <h5>Customer Address: <span>{{ SELECTED_CUSTOMER_DATA ? (SELECTED_CUSTOMER_DATA.customer_info ? (SELECTED_CUSTOMER_DATA.customer_info.customer_address ? SELECTED_CUSTOMER_DATA.customer_info.customer_address : '') : '') : '' }}</span></h5>
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 header_top">
@@ -16,7 +16,8 @@
                     </div>
                     <div class="row requition_content">
                         <div class="col-12">
-                            <PaymentModal />
+                            <PaymentModal
+                                :SELECTED_CUSTOMER_LEFT="SELECTED_CUSTOMER_LEFT" />
                         </div>
                     </div>
                 </div>
@@ -29,7 +30,7 @@
 import PaymentModal from './PaymentModal'
 
 export default {
-    props: ["SELECTED_CUSTOMER_DATA"],
+    props: ["SELECTED_CUSTOMER_LEFT", "SELECTED_CUSTOMER_DATA"],
     components: {
         PaymentModal
     },

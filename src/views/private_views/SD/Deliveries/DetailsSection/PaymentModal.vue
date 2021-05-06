@@ -617,7 +617,7 @@ export default {
         // ---------------------------------------------------------------------------
         // SERVICE CALL
         async COLLECTION_LIST__FROM_SERVICE() {
-            await service.getCollectionList_DELIVERIES_DETAILS(this.INVOICE_DATA_TO_SEND.invoice_id, this.INVOICE_DATA_TO_SEND.ds_id)
+            await service.getCollectionList_DELIVERIES_DETAILS(this.INVOICE_DATA_TO_SEND.customer_id, this.INVOICE_DATA_TO_SEND.ds_id)
                 .then(res => {
                     console.log(res.data)
                     this.COLLECTION_LIST = res.data.collection_list
