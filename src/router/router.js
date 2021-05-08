@@ -309,6 +309,13 @@ export const router = new VueRouter({
       name: 'Customer Payment',
       component: () => import('../views/private_views/SD/Payment/Customer/CustomerPayment.vue')
     },
+    // --------------------------------------------------------------------------------------
+    // CASH REGISTER
+    {
+      path: '/features/local_sales/cash-register',
+      name: 'Cash Register',
+      component: () => import('../views/private_views/SD/CashRegister/CashRegister.vue')
+    },
 
     // --------------------------------------------------------------------------------------
     // 404 PAGES
