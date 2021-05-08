@@ -39,11 +39,33 @@
                           </p>
                       </div>
                       <div class="row">
-                          <p class="transection-history-txt"><b>Transection History</b></p>
-                          <div class="date-selection-section">
-                              <input type="month" v-model="mmyyyy_picker" id="bdaymonth" name="bdaymonth" @change="mmyyyyOnChangeHandler">
-                          </div>
+                          <p class="transection-history-txt"><b>Transection History</b><input type="month" v-model="mmyyyy_picker" id="bdaymonth" name="bdaymonth" @change="mmyyyyOnChangeHandler" style="margin-left: 10%;"></p>
                       </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Particular</th>
+                                    <th style="text-align: right;">Debit</th>
+                                    <th style="text-align: right;">Credit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(item, i) in 20" :key="i" :class="i === 1 ? 'active' : ''">
+                                    <td><p>20 June, 2020</p></td>
+                                    <td><p>No Data Found</p></td>
+                                    <td style="text-align: right;"><p>200</p></td>
+                                    <td style="text-align: right;"><p>100</p></td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="2" style="width: 50%;"><p></p></th>
+                                    <th style="text-align: right;"><p class="notmatch" >Total : 13,032.20</p></th>
+                                    <th style="text-align: right;"><p class="notmatch" >Total : 13,032.20</p></th>
+                                </tr>
+                            </tfoot>
+                        </table>
                   </div>
               </div>
           </div>
@@ -83,5 +105,47 @@ export default {
 }
 .row .date-selection-section {
     display: inline-block;
+}
+table {}
+table tr {
+    display: flex;
+}
+table thead {
+    position:relative;
+    display: block;
+    width:100%;
+}
+table thead tr {}
+table thead tr th {
+    color: var(--blue);
+    width: 25%;
+}
+table tbody {
+    width:100%; 
+    display: block; 
+    position:relative;
+    overflow-y:scroll;
+    font-size: var(--font14);
+    color:var(--text-black);
+    height: calc( 100vh - (var(--used-height) + 240px));
+}
+table tbody tr {
+    border: 0;
+}
+table tbody tr td {
+    padding: 4px;
+    width: 25%;
+}
+table tbody tr td p {}
+table tfoot {
+    position:relative;
+    display: block;
+    width:100%;
+}
+table tfoot th {
+    width: 25%;
+}
+table tbody tr:hover {
+    background-color: #AAC0D9;
 }
 </style>

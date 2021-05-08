@@ -2,9 +2,9 @@
     <div>
         <Heading :pathName="pathName" :routeName="routeName" />
         <div class="container-fluid">
-            <div class="col-12 cash-register">
+            <div class="col-12 cash-register" style="padding-top: 0;">
               <div class="row cash-register-tab">
-                    <div class="col-12">
+                    <div class="col-12" style="padding-top: 0;">
                         <ul class="nav nav-tabs nav-justified" id="cash-register-tab-inner" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active" id="register-single-tab" data-toggle="tab" href="#tab-pending">Pending</a>
@@ -241,7 +241,7 @@
                                     <!------------ Start Add Denomition Modal------------>
                                     <div class="modal" id="add-denomination-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
                                         aria-hidden="true">
-                                        <div class="modal-dialog modal-lg modal-dialog-centered">
+                                        <div class="modal-dialog modal-lg modal-dialog-centered" style="margin: 0; border: none;">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                             <h5 class="modal-title">Add Cash Denomination:<span>12/05/2021</span></h5>
@@ -317,44 +317,44 @@
                                             <div class="modal-body">
                                         <div class="row denomination-modal-table">
                                             <table class="col-12">
-                                            <thead>
-                                                <tr>
-                                                <th>Denomination Type</th>
-                                                <th>Quantity</th>
-                                                <th>Amount</th>
-                                                <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr v-for="(item, i) in 20" :key="i" :class="i === 1 ? 'active' : ''">
-                                                    <td>
-                                                        <select class="form-control-sm" id="unit">
-                                                        <option >Select Unit</option>
-                                                        <option>Box</option>
-                                                        <option>Box 2</option>
-                                                        <option>Box 3</option>
-                                                        </select>
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" class="form-control-sm" id="product_group" placeholder="00">
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" class="form-control-sm" id="product_group" placeholder="00">
-                                                    </td>
-                                                    <td><i class="fa fa-pencil edit" aria-hidden="true"></i></td>
-                                                </tr>
-                                            </tbody>
-                                            <tfoot>
-                                                <tr>
-                                                <th colspan="2">
-                                                    <p>Total:</p>
-                                                </th>
-                                                <th>
-                                                    <p class="notmatch" >13,032.20</p>
-                                                </th>
-                                                <th></th>
-                                                </tr>
-                                            </tfoot>
+                                                <thead>
+                                                    <tr>
+                                                    <th>Denomination Type</th>
+                                                    <th>Quantity</th>
+                                                    <th>Amount</th>
+                                                    <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr v-for="(item, i) in 20" :key="i" :class="i === 1 ? 'active' : ''">
+                                                        <td>
+                                                            <select class="form-control-sm" id="unit">
+                                                            <option >Select Unit</option>
+                                                            <option>Box</option>
+                                                            <option>Box 2</option>
+                                                            <option>Box 3</option>
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control-sm" id="product_group" placeholder="00">
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control-sm" id="product_group" placeholder="00">
+                                                        </td>
+                                                        <td><i class="fa fa-pencil edit" aria-hidden="true"></i></td>
+                                                    </tr>
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                    <th colspan="2">
+                                                        <p>Total:</p>
+                                                    </th>
+                                                    <th>
+                                                        <p class="notmatch" >13,032.20</p>
+                                                    </th>
+                                                    <th></th>
+                                                    </tr>
+                                                </tfoot>
                                             </table>
                                         </div>
                                             </div>
@@ -374,7 +374,7 @@
                             <div class="modal" id="cr-transfer-modal" tabindex="-1" role="dialog" aria-labelledby="InwardTransfer"
                                 aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
+                                <div class="modal-content" style="border: 0;">
                                     <div class="modal-header">
                                     <h5 class="modal-title">Transfer</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -479,7 +479,7 @@ export default {
   }
 .cash-register {
   margin-top: 15px;
-  min-height: calc(100vh - (var(--used-height) - (-30px)));
+  height: calc(100vh - (var(--used-height) + 20px));
   background-color: var(--white);
   -webkit-box-shadow: 0px 0px 8px #026CD11A;
           box-shadow: 0px 0px 8px #026CD11A;
@@ -652,7 +652,7 @@ td i {
     overflow-y:scroll;
     font-size: var(--font14);
     color:var(--text-black);
-    height: calc( 100vh - (var(--used-height) + 220px));
+    height: calc( 100vh - (var(--used-height) + 240px));
   }
   .cr-pending-table tbody tr{
     width: 100%;
@@ -814,7 +814,7 @@ td i {
     overflow-y:scroll;
     font-size: var(--font14);
     color:var(--text-black);
-    height: calc( 100vh - (var(--used-height) + 220px));
+    height: calc( 100vh - (var(--used-height) + 240px));
   }
   .cr-inward-table tbody tr{
     width: 100%;
@@ -947,7 +947,7 @@ td i {
     overflow-y:scroll;
     font-size: var(--font14);
     color:var(--text-black);
-    height: calc( 100vh - (var(--used-height) + 220px));
+    height: calc( 100vh - (var(--used-height) + 240px));
   }
   .cr-outward-table tbody tr{
     width: 100%;
@@ -1065,7 +1065,7 @@ td i {
     overflow-y:scroll;
     font-size: var(--font14);
     color:var(--text-black);
-    height: calc( 100vh - (var(--used-height) + 220px));
+    height: calc( 100vh - (var(--used-height) + 240px));
   }
   .cr-date-closing-table tbody tr{
     width: 100%;
@@ -1245,6 +1245,9 @@ td i {
     border: none;
 }
   /* Start Table Body Area */
+  .modal .modal-content {
+      border: 0;
+  }
   .denomination-modal-table tbody{
     width:100%; 
     display: block; 
@@ -1252,7 +1255,8 @@ td i {
     overflow-y:scroll;
     font-size: var(--font14);
     color:var(--text-black);
-    height: calc( 100vh - (var(--used-height) + 220px));
+    /* height: calc( 100vh - (var(--used-height) + 240px)); */
+    height: calc( 100vh - (var(--used-height) + 340px));
   }
   .denomination-modal-table tbody tr{
     width: 100%;
@@ -1413,5 +1417,19 @@ td i.zmdi-plus {
     font-weight: 500;
     color: #FFFFFF;
     background-color: var(--blue);
+}
+td svg.fa-plus.add {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    padding: 4px;
+    font-size: var(--font16);
+    border-radius: 50%;
+    margin: 0px 5px;
+    font-weight: 100;
+    color: #FFFFFF;
+    background-color: var(--blue);  
 }
 </style>
