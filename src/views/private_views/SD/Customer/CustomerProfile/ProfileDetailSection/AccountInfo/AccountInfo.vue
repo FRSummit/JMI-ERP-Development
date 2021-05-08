@@ -41,7 +41,7 @@
                       <div class="row">
                           <p class="transection-history-txt"><b>Transection History</b></p>
                           <div class="date-selection-section">
-                              date
+                              <input type="month" v-model="mmyyyy_picker" id="bdaymonth" name="bdaymonth" @change="mmyyyyOnChangeHandler">
                           </div>
                       </div>
                   </div>
@@ -57,12 +57,19 @@ export default {
   components: {},
   data() {
     return {
+        mmyyyy_picker: null,
     };
   },
   created() {},
   mounted() {
+      let todate = new Date().getFullYear() + '-' + ((new Date().getMonth() + 1) < 10 ? '0' + (new Date().getMonth() + 1) : (new Date().getMonth() + 1))
+      document.getElementById("bdaymonth").defaultValue = todate
   },
-  methods: {},
+  methods: {
+      mmyyyyOnChangeHandler() {
+          console.log(this.mmyyyy_picker)
+      }
+  },
 };
 </script>
 
