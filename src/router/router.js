@@ -186,7 +186,7 @@ export const router = new VueRouter({
     // --------------------------------------------------------------------------------------
     // CUSTOMER - CUSTOMER PROFILE
     {
-      path: '/features/local_sales/customer_profile',
+      path: '/features/local_sales/customer_profile:id',
       name: 'Create Customer',
       component: () => import('../views/private_views/SD/Customer/CustomerProfile/CustomerProfile.vue')
     },

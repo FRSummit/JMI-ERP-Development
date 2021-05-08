@@ -43,7 +43,7 @@
         <router-link to="/features/local_sales/create_customer">Create Customer</router-link>
       </div>
       <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
-        <router-link to="/features/local_sales/customer_profile">Customer Profile</router-link>
+        <router-link to="/features/local_sales/customer_profile:1">Customer Profile</router-link>
       </div>
       <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
         <router-link to="/features/local_sales/doctors_list">Doctors List</router-link>

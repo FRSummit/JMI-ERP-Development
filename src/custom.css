@@ -1024,11 +1024,15 @@ input[type="checkbox"] {
     /* border: none; */
 }
 
-#doctors-profile-details-section li {
+#doctors-profile-details-section li{
     width: 50%;
 }
+#customer-profile-details-section li {
+    width: 33%;
+}
 
-#doctors-profile-details-section li a {
+#doctors-profile-details-section li a,
+#customer-profile-details-section li a {
     color     : #026CD1;
     border    : none;
     width     : 50%;
@@ -1036,7 +1040,8 @@ input[type="checkbox"] {
     text-align: center;
 }
 
-#doctors-profile-details-section li a.active {
+#doctors-profile-details-section li a.active,
+#customer-profile-details-section li a.active {
     border-bottom: 2px solid #026CD1;
 }
 
