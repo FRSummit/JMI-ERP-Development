@@ -29,7 +29,10 @@
                                     <div class="row1">
                                         <div class="form-group"><i class="fa fa-search"></i><input type="text" placeholder="Search by Name, ID No" class="form-control"></div>
                                         <span class="filter_search"><i class="fa fa-filter"></i></span>
-                                        <span class="filter_calendar"><i class="fa fa-calendar-o"></i></span>
+                                        <!-- <span class="filter_calendar"><i class="fa fa-calendar-o"></i></span> -->
+                                        <span class="filter_calendar" :class="date_data !== '' ? 'active-date' : ''">
+                                            <date-picker class="jmi-single-date" v-model="date_data" range lang="en" type="date" format="YYYY-MM-DD" width="500" @change="dateChangeHandler"></date-picker>
+                                        </span>
                                         <span class="transfer" data-toggle="modal" data-target="#cr-transfer-modal"><i class="material-icons" data-toggle="tooltip" data-placement="bottom" title="Transfer" aria-hidden="true">compare_arrows</i></span>
                                     </div>
                                 </div>
@@ -92,7 +95,10 @@
                                     <div class="row1">
                                         <div class="form-group"><i class="fa fa-search"> </i><input type="text" placeholder="Search by Name, ID No" class="form-control"></div>
                                         <span class="filter_search"><i class="fa fa-filter"> </i> </span>
-                                        <span class="filter_calendar active"><i class="fa fa-calendar-o"> </i> </span>
+                                        <!-- <span class="filter_calendar active"><i class="fa fa-calendar-o"> </i> </span> -->
+                                        <span class="filter_calendar" :class="date_data !== '' ? 'active-date' : ''">
+                                            <date-picker class="jmi-single-date" v-model="date_data" range lang="en" type="date" format="YYYY-MM-DD" width="500" @change="dateChangeHandler"></date-picker>
+                                        </span>
                                         <span class="transfer" data-toggle="modal" data-target="#cr-transfer-modal" ><i class="material-icons"   data-toggle="tooltip" data-placement="bottom" title="Transfer" aria-hidden="true">compare_arrows</i>  </span>
                                     </div>
                                 </div>
@@ -139,7 +145,10 @@
                                     <div class="row1">
                                         <div class="form-group"><i class="fa fa-search"> </i><input type="text" placeholder="Search by Name, ID No" class="form-control"></div>
                                         <span class="filter_search"><i class="fa fa-filter"> </i> </span>
-                                        <span class="filter_calendar active"><i class="fa fa-calendar-o"> </i> </span>
+                                        <!-- <span class="filter_calendar active"><i class="fa fa-calendar-o"> </i> </span> -->
+                                        <span class="filter_calendar" :class="date_data !== '' ? 'active-date' : ''">
+                                            <date-picker class="jmi-single-date" v-model="date_data" range lang="en" type="date" format="YYYY-MM-DD" width="500" @change="dateChangeHandler"></date-picker>
+                                        </span>
                                         <span class="transfer" data-toggle="modal" data-target="#cr-transfer-modal" ><i class="material-icons"   data-toggle="tooltip" data-placement="bottom" title="Transfer" aria-hidden="true">compare_arrows</i>  </span>
                                     </div>
                                 </div>
@@ -183,7 +192,10 @@
                                     <div class="row1">
                                         <div class="form-group"><i class="fa fa-search"> </i><input type="text" placeholder="Search by Name, ID No" class="form-control"></div>
                                         <span class="filter_search"><i class="fa fa-filter"> </i> </span>
-                                        <span class="filter_calendar active"><i class="fa fa-calendar-o"> </i> </span>
+                                        <!-- <span class="filter_calendar active"><i class="fa fa-calendar-o"> </i> </span> -->
+                                        <span class="filter_calendar" :class="date_data !== '' ? 'active-date' : ''">
+                                            <date-picker class="jmi-single-date" v-model="date_data" range lang="en" type="date" format="YYYY-MM-DD" width="500" @change="dateChangeHandler"></date-picker>
+                                        </span>
                                         <span class="transfer" data-toggle="modal" data-target="#cr-transfer-modal" ><i class="material-icons"   data-toggle="tooltip" data-placement="bottom" title="Transfer" aria-hidden="true">compare_arrows</i>  </span>
                                     </div>
                                 </div>
@@ -208,6 +220,7 @@
                                                 <td><p>20,000</p></td>
                                                 <td><p>30,561</p></td>
                                                 <td>
+                                                    <!-- <a title="Add Denomination" data-toggle="tooltip" data-placement="bottom"><i class="zmdi zmdi-plus"></i></a> -->
                                                     <a title="Add Denomination" data-toggle="tooltip" data-placement="bottom"><i class="fa fa-plus add" data-toggle="modal"
                                                         data-target="#add-denomination-modal" aria-hidden="true"></i></a>
 
@@ -418,27 +431,43 @@
 
 <script>
 import Heading from "../../../../components/master_layout/HeadingTitleBreadcrumbT3/HeadingTitleBreadcrumb"
+import DatePicker from 'vue2-datepicker'
 
 export default {
-components:{
-Heading,
-},
-  data() {
-    return {
-      routeName: "Cash Register",
-      parentPath: "Local Sales",
-      pathName: [],
-    };
-  },
-created() {
-    this.$emit('routeName', this.$route.name);
-    this.createBreadcrumbData();
-  },
- methods: {
-    createBreadcrumbData() {
-      this.pathName = [{name: "Features"},{ name: "Local Sales" }, { name: "Cash Register" }];
+    components:{
+        Heading,
+        DatePicker
     },
-  },
+    data() {
+        return {
+            routeName: "Cash Register",
+            parentPath: "Local Sales",
+            pathName: [],
+            
+            date: '',
+            time: '',
+            timePickerOptions: {
+                start: '00:00',
+                step: '00:30',
+                end: '23:30'
+            },
+            datetime: '',
+            range: '',
+            date_data: '',
+        };
+    },
+    created() {
+        this.$emit('routeName', this.$route.name);
+        this.createBreadcrumbData();
+    },
+    methods: {
+        createBreadcrumbData() {
+            this.pathName = [{name: "Features"},{ name: "Local Sales" }, { name: "Cash Register" }];
+        },
+        async dateChangeHandler() {
+            console.log(this.date_data)
+        },
+    },
 }
 </script>
 
@@ -1349,5 +1378,40 @@ td i {
     height: 38px;
     width: 80%;
 }
-
+.active-date {
+    /* width: 400px !important; */
+    width: 92% !important;
+}
+.jmi-single-date.mx-datepicker.mx-datepicker-range .mx-input-wrapper {
+    position: relative;
+}
+.jmi-single-date.mx-datepicker.mx-datepicker-range .mx-input-wrapper input {
+    height: 22px;
+    border-bottom: 0;
+}
+.jmi-single-date.mx-datepicker.mx-datepicker-range .mx-input-wrapper i.mx-icon-clear {
+    display: none;
+}
+.jmi-single-date.mx-datepicker.mx-datepicker-range .mx-input-wrapper i.mx-icon-calendar {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.active-date .jmi-single-date.mx-datepicker.mx-datepicker-range .mx-input-wrapper i.mx-icon-calendar {
+    display: none;
+}
+td i.zmdi-plus {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+    font-size: var(--font16);
+    border-radius: 100px;
+    margin: 0px 5px;
+    font-weight: 500;
+    color: #FFFFFF;
+    background-color: var(--blue);
+}
 </style>
