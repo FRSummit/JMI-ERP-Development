@@ -25,11 +25,12 @@
                             <!------------ Start Pending Table Area ------------>
                             <div id="tab-pending" class="tab-pane active">
                                 <div class="tab-content-header">
-                                    <h5>Pending (<span>00</span>)</h5>
+                                    <h5>Pending (<span>{{ PENDING_CASH_REGISTER ? PENDING_CASH_REGISTER.length : 0 }}</span>)</h5>
                                     <div class="row1">
-                                        <div class="form-group"><i class="fa fa-search"></i><input type="text" placeholder="Search by Name, ID No" class="form-control"></div>
+                                        <!-- <span class="filter_search" v-if="SELECTED_PENDING_DATA"><i class="zmdi zmdi-check verify"></i></span>
+                                        <span class="filter_search" v-if="SELECTED_PENDING_DATA"><i class="zmdi zmdi-close cancel"></i></span> -->
+                                        <div class="form-group"><i class="fa fa-search"></i><input type="text" id="pending-search-filter" v-on:keyup="pendingSearchKeyUpHandler" placeholder="Search by date" class="form-control"></div>
                                         <span class="filter_search"><i class="fa fa-filter"></i></span>
-                                        <!-- <span class="filter_calendar"><i class="fa fa-calendar-o"></i></span> -->
                                         <span class="filter_calendar" :class="date_data !== '' ? 'active-date' : ''">
                                             <date-picker class="jmi-single-date" v-model="date_data" range lang="en" type="date" format="YYYY-MM-DD" width="500" @change="dateChangeHandler"></date-picker>
                                         </span>
@@ -45,11 +46,11 @@
                                                 <div class="dropdown">
                                                 <span id="pendingselection" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action</span>
                                                 <div class="dropdown-menu" aria-labelledby="pendingselection">
-                                                <button class="dropdown-item" type="button">Select All</button>
-                                                <button class="dropdown-item" type="button">Unselect All</button>
-                                                <hr>
-                                                <button class="dropdown-item" type="button">Verify Selected</button>
-                                                <button class="dropdown-item" type="button">Cancel Selected</button>
+                                                    <button class="dropdown-item" type="button">Select All</button>
+                                                    <button class="dropdown-item" type="button">Unselect All</button>
+                                                    <hr>
+                                                    <button class="dropdown-item" type="button">Verify Selected</button>
+                                                    <button class="dropdown-item" type="button">Cancel Selected</button>
                                                 </div>
                                             </div>
                                             </th>
@@ -62,13 +63,13 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="(item, i) in 20" :key="i">
-                                            <td><input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked></td>
-                                            <td><p>02-Oct-2021</p></td>
-                                            <td><p>Cash withdrawal by CHQ 123654,Gulshan br</p></td>
-                                            <td><p>Inward</p></td>
-                                            <td><p>Mehedi Hassan</p></td>
-                                            <td><p>30,561.00</p></td>
+                                        <tr v-for="(item, i) in PENDING_CASH_REGISTER" :key="i" :id="'pending_data_table_row_' + i" class="pending_data_table_row">
+                                            <td><input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" @change="pendingDataCheckboxOnChangeHandler(item)"></td>
+                                            <td><p class="pending-search-option-by">{{ dateFromat(item.transaction_date) }}</p></td>
+                                            <td><p>{{ item.details }}</p></td>
+                                            <td><p>{{ item.direction }}</p></td>
+                                            <td><p>{{ item.user }}</p></td>
+                                            <td><p>{{ Number(item.amount).toFixed(2) }}</p></td>
                                             <td>
                                                 <a title="Verify" data-toggle="tooltip" data-placement="bottom"><i class="zmdi zmdi-check verify"></i></a>
                                                 <a title="Cancel" data-toggle="tooltip" data-placement="bottom"><i class="zmdi zmdi-close cancel"></i></a>
@@ -78,7 +79,7 @@
                                     <tfoot>
                                         <tr>
                                             <th colspan="5"><p>Total:</p></th>
-                                            <th><p>13,032.20</p></th>
+                                            <th><p>{{ PENDING_TAB_AMOUNT_TOTAL }}</p></th>
                                             <th></th>
                                         </tr>
                                     </tfoot>
@@ -204,12 +205,12 @@
                                     <table class="col-12">
                                         <thead>
                                             <tr>
-                                            <th>Date</th>
-                                            <th>Opening</th>
-                                            <th>Inward</th>
-                                            <th>Outward</th>
-                                            <th>Closing</th>
-                                            <th></th>
+                                                <th>Date</th>
+                                                <th>Opening</th>
+                                                <th>Inward</th>
+                                                <th>Outward</th>
+                                                <th>Closing</th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -258,8 +259,8 @@
                                                         <th>Quantity</th>
                                                         <th>Amount</th>
                                                         <th></th>
-                                                        </tr>
-                                                        <tr>
+                                                    </tr>
+                                                    <tr>
                                                         <th>
                                                             <select class="form-control-sm" id="unit">
                                                             <option >Select Unit</option>
@@ -269,10 +270,10 @@
                                                             </select>
                                                         </th>
                                                         <th>
-                                                            <input type="text" class="form-control-sm" id="product_group" placeholder="00">
+                                                            <input type="text" class="form-control-sm" id="product_group_qty" placeholder="00">
                                                         </th>
                                                         <th>
-                                                            <input type="text" class="form-control-sm" id="product_group" placeholder="00">
+                                                            <input type="text" class="form-control-sm" id="product_group_amount" placeholder="00">
                                                         </th>
                                                         <th><button class="btn btn-primary btn-add" href="#" role="button">Add</button></th>
                                                     </tr>
@@ -304,7 +305,7 @@
                                     <!------------ End Add Denomition Modal------------>
 
                                     <!------------ Start Show Denomition Modal------------>
-                                    <div class="modal" id="show-denomination" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+                                    <!-- <div class="modal" id="show-denomination" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
                                         aria-hidden="true">
                                         <div class="modal-dialog modal-lg modal-dialog-centered">
                                         <div class="modal-content">
@@ -363,7 +364,7 @@
                                             </div>
                                         </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <!------------ End Show Denomition Modal------------>
                                 </div>
 
@@ -371,10 +372,9 @@
                             <!------------ DAY CLOSING TAB ENDS ------------>
 
                             <!------------ Start Cash Register Transfer Modal ------------>
-                            <div class="modal" id="cr-transfer-modal" tabindex="-1" role="dialog" aria-labelledby="InwardTransfer"
-                                aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content" style="border: 0;">
+                            <div class="modal" id="cr-transfer-modal" tabindex="-1" role="dialog" aria-labelledby="InwardTransfer" aria-hidden="true" style="width: 500px; height: 230px;">
+                                <div class="modal-dialog modal-dialog-centered" style="margin: 0;">
+                                <div class="modal-content" style="border: 0; padding: 0 20px;">
                                     <div class="modal-header">
                                     <h5 class="modal-title">Transfer</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -426,12 +426,27 @@
               </div>
             </div>
         </div>
+        <!-- Success Message -->
+        <div id="update-successfully-modal" class="modal-popup-section update-successfully-modal" v-if="msg_popup_modal">
+            <div class="modal-popup-section-inner update-successfully-modal-inner">
+                <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
+                <p class="popup-text">{{ msg_popup_modal_msg }}</p>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
 import Heading from "../../../../components/master_layout/HeadingTitleBreadcrumbT3/HeadingTitleBreadcrumb"
 import DatePicker from 'vue2-datepicker'
+
+
+import Service from "../../../../service/ERPSidebarService"
+const service = new Service()
+import GlobalDateFormat from "../../../../functions/GlobalDateFormat"
+const globalDateFormat = new GlobalDateFormat()
+import JMIFIlter from "../../../../functions/JMIFIlter"
+const jMIFIlter = new JMIFIlter()
 
 export default {
     components:{
@@ -454,11 +469,46 @@ export default {
             datetime: '',
             range: '',
             date_data: '',
+
+            SELECTED_PENDING_DATA: null,
+
+            msg_popup_modal: false,
+            msg_popup_modal_msg: null,
+
+            PENDING_CASH_REGISTER: null,
+            IN_WARD_CASH_REGISTER: null,
+            OUT_WARD_CASH_REGISTER: null,
+            DAY_CLOSING_CASH_REGISTER: null,
         };
+    },
+    computed: {
+        // PENDING_DATA_TABLE_ROW_DATA_CHANGE() {
+        //     for(let i=0; i<20; i++) {
+        //         let selector = document.querySelector('#pending_data_table_row_' + i + ' input.form-check-input')
+        //         if(selector.checked === true) {
+        //             document.querySelector('#pending_data_table_row_' + i + ' a').className = 'hide'
+        //         } else {
+        //             document.querySelector('#pending_data_table_row_' + i + ' a').className = ''
+        //         }
+        //     }
+        //     return new Date()
+        // }
+        PENDING_TAB_AMOUNT_TOTAL() {
+            let total = 0
+            if(this.PENDING_CASH_REGISTER) {
+                for(let i=0; i<this.PENDING_CASH_REGISTER.length; i++) {
+                    total += parseFloat(this.PENDING_CASH_REGISTER[i].amount)
+                }
+            }
+            return Number(total).toFixed(2)
+        }
     },
     created() {
         this.$emit('routeName', this.$route.name);
         this.createBreadcrumbData();
+    },
+    async mounted() {
+        await this.COMMON_CASH_REGISTER__FROM_SERVICE()
     },
     methods: {
         createBreadcrumbData() {
@@ -467,7 +517,93 @@ export default {
         async dateChangeHandler() {
             console.log(this.date_data)
         },
+        pendingDataCheckboxOnChangeHandler(item) {
+            console.log(item)
+            // for(let i=0; i<20; i++) {
+            //     let selector = document.querySelector('#pending_data_table_row_' + i + ' input.form-check-input')
+            //     if(selector.checked === true) {
+            //         document.querySelector('#pending_data_table_row_' + i + ' a:first-child').className = 'hide'
+            //         document.querySelector('#pending_data_table_row_' + i + ' a:last-child').className = 'hide'
+            //     } else {
+            //         document.querySelector('#pending_data_table_row_' + i + ' a:first-child').className = ''
+            //         document.querySelector('#pending_data_table_row_' + i + ' a:last-child').className = ''
+            //     }
+            // }
+            // if(this.SELECTED_PENDING_DATA) {
+            //     for(let i=0; i<this.SELECTED_PENDING_DATA.length; i++) {
+
+            //     }
+            // }
+        },
+        dateFromat(dt) {
+            return globalDateFormat.dateFormatT4(dt)
+        },
+        // --------------------------------------------------------------------------------------------
+        // PENDING TAB
+        pendingSearchKeyUpHandler(value) {
+            console.log(value.key)
+            let input = document.getElementById("pending-search-filter");
+            let filter = input.value.toUpperCase();
+            let list = document.querySelectorAll('.pending_data_table_row')
+            let txt_selector = "pending-search-option-by"
+
+            jMIFIlter.searchById_LeftSidebar(filter, list, txt_selector)
+        },
+        // --------------------------------------------------------------------------------------------
+        // INWARD TAB
+        // --------------------------------------------------------------------------------------------
+        // OUT WARD TAB
+        // --------------------------------------------------------------------------------------------
+        // DAY CLOSING TAB
+        // --------------------------------------------------------------------------------------------
+        // SERVICE CALL
+        async COMMON_CASH_REGISTER__FROM_SERVICE() {
+            this.msg_popup_modal = true
+            this.msg_popup_modal_msg = 'Please wait. We are processing...'
+            await service.getCommonCashRegister__CASH_REGISTER()
+                .then(res => {
+                    console.log(res.data)
+                    this.PENDING_CASH_REGISTER = []
+                    this.IN_WARD_CASH_REGISTER = []
+                    this.OUT_WARD_CASH_REGISTER = []
+                    this.DAY_CLOSING_CASH_REGISTER = []
+                    if(res.data.response_code === 200 || res.data.response_code === 201) {
+                        this.msg_popup_modal_msg = res.data.message + ' Data Loaded.'
+
+                        this.PENDING_CASH_REGISTER = res.data.pending_cash_register
+                        this.IN_WARD_CASH_REGISTER = res.data.in_ward_cash_register
+                        this.OUT_WARD_CASH_REGISTER = res.data.out_ward_cash_register
+                        this.DAY_CLOSING_CASH_REGISTER = res.data.day_closing
+                    } else {
+                        this.msg_popup_modal_msg = res.data.message + ' Response code : ' + res.data.response_code + '.'
+                    }
+                    setTimeout( () => {
+                        this.msg_popup_modal = false
+                        this.msg_popup_modal_msg = null
+                    }, 2000)
+                })
+                .catch(err => {
+                    if(err) {
+                        console.log('Server Error 500. ' + err)
+                        this.PENDING_CASH_REGISTER = null
+                        this.IN_WARD_CASH_REGISTER = null
+                        this.OUT_WARD_CASH_REGISTER = null
+                        this.DAY_CLOSING_CASH_REGISTER = null
+                        
+                        this.msg_popup_modal_msg = err
+                        setTimeout( () => {
+                            this.msg_popup_modal = false
+                            this.msg_popup_modal_msg = null
+                        }, 2000)
+                    }
+                })
+        },
     },
+    watch: {
+        // PENDING_DATA_TABLE_ROW_DATA_CHANGE(newVal) {
+        //     console.log(newVal)
+        // }
+    }
 }
 </script>
 
@@ -703,7 +839,7 @@ td i {
     flex-basis:5%;
     flex-grow:1;
     display: flex;
-    justify-content: center;
+    justify-content: left;
   }
   .cr-pending-table thead th:nth-child(2),
   .cr-pending-table tbody td:nth-child(2){
@@ -714,20 +850,29 @@ td i {
   }
   .cr-pending-table thead th:nth-child(3),
   .cr-pending-table tbody td:nth-child(3){
-    flex-basis: 40%;
+    flex-basis: 30%;
     flex-grow:1;
     display: flex;
     justify-content: center;
   }
   .cr-pending-table thead th:nth-child(4),
-  .cr-pending-table tbody td:nth-child(4),
-  .cr-pending-table thead th:nth-child(5),
-  .cr-pending-table tbody td:nth-child(5){
+  .cr-pending-table tbody td:nth-child(4){
     flex-basis: 10%;
     flex-grow:1;
     display: flex;
     justify-content: center;
   }
+  .cr-pending-table thead th:nth-child(5),
+  .cr-pending-table tbody td:nth-child(5){
+    flex-basis: 20%;
+    flex-grow:1;
+    display: flex;
+    justify-content: center;
+  }
+  /* .cr-pending-table thead th:nth-child(5) {
+      justify-content: left;
+  } */
+  
   .cr-pending-table thead th:nth-child(6),
   .cr-pending-table tbody td:nth-child(6),
   .cr-pending-table thead th:nth-child(7),
@@ -746,6 +891,7 @@ td i {
     flex-grow:1;
     display: flex;
     justify-content: flex-end;
+    /* justify-content: left; */
   }
   .bulk-action{
     display: flex;
@@ -1431,5 +1577,9 @@ td svg.fa-plus.add {
     font-weight: 100;
     color: #FFFFFF;
     background-color: var(--blue);  
+}
+.top-action {
+    height: 38px;
+    margin-top: -10px;
 }
 </style>

@@ -1537,6 +1537,17 @@ export default class PostService {
 
 
   // -------------------------------------------------------------------------------------------
+  // CASH REGISTER
+  async getCommonCashRegister__CASH_REGISTER() {
+    let web_menu_url = '/api/common/cash-register'
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
+
 
   // -------------------------------------------------------------------------------------------
 
