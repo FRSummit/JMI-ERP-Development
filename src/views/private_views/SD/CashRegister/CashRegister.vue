@@ -26,9 +26,11 @@
                             <div id="tab-pending" class="tab-pane active">
                                 <div class="tab-content-header">
                                     <h5>Pending (<span>{{ PENDING_CASH_REGISTER ? PENDING_CASH_REGISTER.length : 0 }}</span>)</h5>
-                                    <div class="row1">
-                                        <!-- <span class="filter_search" v-if="SELECTED_PENDING_DATA"><i class="zmdi zmdi-check verify"></i></span>
-                                        <span class="filter_search" v-if="SELECTED_PENDING_DATA"><i class="zmdi zmdi-close cancel"></i></span> -->
+                                    <div class="row1" style="position: relative;">
+                                        <span class="group-action-btn" v-if="SELECTED_PENDING_DATA ? SELECTED_PENDING_DATA.length > 0 : false">
+                                            <i class="zmdi zmdi-check verify" @click="multipleVerifyClickHandlerPendingData"></i>
+                                            <i class="zmdi zmdi-close cancel" @click="multipleCancelClickHandlerPendingData"></i>
+                                        </span>
                                         <div class="form-group"><i class="fa fa-search"></i><input type="text" id="pending-search-filter" v-on:keyup="pendingSearchKeyUpHandler" placeholder="Search by date" class="form-control"></div>
                                         <span class="filter_search"><i class="fa fa-filter"></i></span>
                                         <span class="filter_calendar" :class="date_data !== '' ? 'active-date' : ''">
@@ -64,15 +66,15 @@
                                     </thead>
                                     <tbody>
                                         <tr v-for="(item, i) in PENDING_CASH_REGISTER" :key="i" :id="'pending_data_table_row_' + i" class="pending_data_table_row">
-                                            <td><input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" @change="pendingDataCheckboxOnChangeHandler(item)"></td>
+                                            <td><input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" @change="pendingDataCheckboxOnChangeHandler(item, i)"></td>
                                             <td><p class="pending-search-option-by">{{ dateFromat(item.transaction_date) }}</p></td>
                                             <td><p>{{ item.details }}</p></td>
                                             <td><p>{{ item.direction }}</p></td>
                                             <td><p>{{ item.user }}</p></td>
                                             <td><p>{{ Number(item.amount).toFixed(2) }}</p></td>
                                             <td>
-                                                <a title="Verify" data-toggle="tooltip" data-placement="bottom"><i class="zmdi zmdi-check verify"></i></a>
-                                                <a title="Cancel" data-toggle="tooltip" data-placement="bottom"><i class="zmdi zmdi-close cancel"></i></a>
+                                                <a title="Verify" data-toggle="tooltip" data-placement="bottom"><i class="zmdi zmdi-check verify" @click="singleVerifyClickHandlerPendingData(item)"></i></a>
+                                                <a title="Cancel" data-toggle="tooltip" data-placement="bottom"><i class="zmdi zmdi-close cancel" @click="singleCancelClickHandlerPendingData(item)"></i></a>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -92,15 +94,14 @@
                             <!------------ Start Inward Content Area ------------->    
                             <div id="tab-inward" class="tab-pane">
                                 <div class="tab-content-header">
-                                    <h5><span></span></h5>
+                                    <h5>Inward (<span>{{ IN_WARD_CASH_REGISTER ? IN_WARD_CASH_REGISTER.length : 0 }}</span>)</h5>
                                     <div class="row1">
-                                        <div class="form-group"><i class="fa fa-search"> </i><input type="text" placeholder="Search by Name, ID No" class="form-control"></div>
+                                        <div class="form-group"><i class="fa fa-search"> </i><input type="text" id="inward-search-filter" v-on:keyup="inwardSearchKeyUpHandler" placeholder="Search by date" class="form-control"></div>
                                         <span class="filter_search"><i class="fa fa-filter"> </i> </span>
-                                        <!-- <span class="filter_calendar active"><i class="fa fa-calendar-o"> </i> </span> -->
                                         <span class="filter_calendar" :class="date_data !== '' ? 'active-date' : ''">
                                             <date-picker class="jmi-single-date" v-model="date_data" range lang="en" type="date" format="YYYY-MM-DD" width="500" @change="dateChangeHandler"></date-picker>
                                         </span>
-                                        <span class="transfer" data-toggle="modal" data-target="#cr-transfer-modal" ><i class="material-icons"   data-toggle="tooltip" data-placement="bottom" title="Transfer" aria-hidden="true">compare_arrows</i>  </span>
+                                        <span class="transfer" data-toggle="modal" data-target="#cr-transfer-modal"><i class="material-icons" data-toggle="tooltip" data-placement="bottom" title="Transfer" aria-hidden="true">compare_arrows</i></span>
                                     </div>
                                 </div>
 
@@ -117,19 +118,19 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="(item, i) in 20" :key="i">
-                                            <td><p>02-Oct-2021</p></td>
-                                            <td><p>Cash withdrawal by CHQ 123654,Gulshan br</p></td>
-                                            <td><p>02-Oct-2021</p></td>
-                                            <td><p>Invoice</p></td>
-                                            <td><p>30,561.00</p></td>
+                                        <tr v-for="(item, i) in IN_WARD_CASH_REGISTER" :key="i" :id="'in_ward_data_table_row_' + i" class="in_ward_data_table_row">
+                                            <td><p class="inward-search-option-by">{{ dateFromat(item.receive_date) }}</p></td>
+                                            <td><p>{{ item.details }}</p></td>
+                                            <td><p>{{ dateFromat(item.transaction_date) }}</p></td>
+                                            <td><p>{{ item.source }}</p></td>
+                                            <td><p>{{ Number(item.amount).toFixed(2) }}</p></td>
                                             <td></td>
                                         </tr>
                                     </tbody>
                                     <tfoot>
                                         <tr>
                                             <th colspan="4"><p>Total:</p></th>
-                                            <th><p>13,032.20</p></th>
+                                            <th><p>{{ IN_WARD_TAB_AMOUNT_TOTAL }}</p></th>
                                             <th></th>
                                         </tr>
                                     </tfoot>
@@ -142,7 +143,7 @@
                             <!------------ Starts Outward Content Area ------------>
                             <div id="tab-outward" class="tab-pane">
                                 <div class="tab-content-header">
-                                    <h5><span></span></h5>
+                                    <h5>Outward (<span>{{ OUT_WARD_CASH_REGISTER ? OUT_WARD_CASH_REGISTER.length : 0 }}</span>)</h5>
                                     <div class="row1">
                                         <div class="form-group"><i class="fa fa-search"> </i><input type="text" placeholder="Search by Name, ID No" class="form-control"></div>
                                         <span class="filter_search"><i class="fa fa-filter"> </i> </span>
@@ -150,7 +151,7 @@
                                         <span class="filter_calendar" :class="date_data !== '' ? 'active-date' : ''">
                                             <date-picker class="jmi-single-date" v-model="date_data" range lang="en" type="date" format="YYYY-MM-DD" width="500" @change="dateChangeHandler"></date-picker>
                                         </span>
-                                        <span class="transfer" data-toggle="modal" data-target="#cr-transfer-modal" ><i class="material-icons"   data-toggle="tooltip" data-placement="bottom" title="Transfer" aria-hidden="true">compare_arrows</i>  </span>
+                                        <span class="transfer" data-toggle="modal" data-target="#cr-transfer-modal"><i class="material-icons" data-toggle="tooltip" data-placement="bottom" title="Transfer" aria-hidden="true">compare_arrows</i></span>
                                     </div>
                                 </div>
 
@@ -189,7 +190,7 @@
                             <!------------ DAY CLOSING TAB STARTS ------------>
                             <div id="tab-day-closing" class="tab-pane">
                                 <div class="tab-content-header">
-                                    <h5><span></span></h5>
+                                    <h5>Day Closing (<span>{{ DAY_CLOSING_CASH_REGISTER ? DAY_CLOSING_CASH_REGISTER.length : 0 }}</span>)</h5>
                                     <div class="row1">
                                         <div class="form-group"><i class="fa fa-search"> </i><input type="text" placeholder="Search by Name, ID No" class="form-control"></div>
                                         <span class="filter_search"><i class="fa fa-filter"> </i> </span>
@@ -279,17 +280,17 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr v-for="(item, i) in 20" :key="i">
-                                                        <td><p>TK 1,000</p></td>
-                                                        <td><p>60</p></td>
-                                                        <td><p>30,561.00</p></td>
+                                                    <tr v-for="(item, i) in CASH_DOMINATION_LIST" :key="i">
+                                                        <td><p>{{ item.deno_id }}</p></td>
+                                                        <td><p>{{ item.deno_value }}</p></td>
+                                                        <td><p>{{ item.deno_name }}</p></td>
                                                         <td><i class="fa fa-trash remove" aria-hidden="true"></i></td>
                                                     </tr>
                                                 </tbody>
                                                 <tfoot>
                                                     <tr>
                                                         <th colspan="2"><p>Total:</p></th>
-                                                        <th><p>13,032.20</p></th>
+                                                        <th><p>{{ CASH_DOMINATION_LIST_TOTAL_AMOUNT }}</p></th>
                                                         <th></th>
                                                     </tr>
                                                 </tfoot>
@@ -372,7 +373,7 @@
                             <!------------ DAY CLOSING TAB ENDS ------------>
 
                             <!------------ Start Cash Register Transfer Modal ------------>
-                            <div class="modal" id="cr-transfer-modal" tabindex="-1" role="dialog" aria-labelledby="InwardTransfer" aria-hidden="true" style="width: 500px; height: 230px;">
+                            <div class="modal" id="cr-transfer-modal" tabindex="-1" role="dialog" aria-labelledby="InwardTransfer" aria-hidden="true" style="width: 500px; height: 234px;">
                                 <div class="modal-dialog modal-dialog-centered" style="margin: 0;">
                                 <div class="modal-content" style="border: 0; padding: 0 20px;">
                                     <div class="modal-header">
@@ -470,7 +471,7 @@ export default {
             range: '',
             date_data: '',
 
-            SELECTED_PENDING_DATA: null,
+            SELECTED_PENDING_DATA: [],
 
             msg_popup_modal: false,
             msg_popup_modal_msg: null,
@@ -479,6 +480,8 @@ export default {
             IN_WARD_CASH_REGISTER: null,
             OUT_WARD_CASH_REGISTER: null,
             DAY_CLOSING_CASH_REGISTER: null,
+
+            CASH_DOMINATION_LIST: null,
         };
     },
     computed: {
@@ -501,6 +504,37 @@ export default {
                 }
             }
             return Number(total).toFixed(2)
+        },
+        SELECTED_PENDING_DATA_OBJECT_TO_SEND() {
+            let data_list = []
+            if(this.SELECTED_PENDING_DATA.length ? this.SELECTED_PENDING_DATA.length > 0 : false) {
+                for(let i=0; i<this.SELECTED_PENDING_DATA.length; i++) {
+                    let data = {
+                        register_id: this.SELECTED_PENDING_DATA[i].id,
+                        register_type: 'CASH'
+                    }
+                    data_list.push(data)
+                }
+            }
+            return data_list
+        },
+        IN_WARD_TAB_AMOUNT_TOTAL() {
+            let total = 0
+            if(this.IN_WARD_CASH_REGISTER) {
+                for(let i=0; i<this.IN_WARD_CASH_REGISTER.length; i++) {
+                    total += parseFloat(this.IN_WARD_CASH_REGISTER[i].amount)
+                }
+            }
+            return Number(total).toFixed(2)
+        },
+        CASH_DOMINATION_LIST_TOTAL_AMOUNT() {
+            let total = 0
+            if(this.CASH_DOMINATION_LIST) {
+                for(let i=0; i<this.CASH_DOMINATION_LIST.length; i++) {
+                    total += parseFloat(this.CASH_DOMINATION_LIST[i].deno_value)
+                }
+            }
+            return Number(total).toFixed(2)
         }
     },
     created() {
@@ -509,6 +543,7 @@ export default {
     },
     async mounted() {
         await this.COMMON_CASH_REGISTER__FROM_SERVICE()
+        this.CASH_DOMINATION_LIST__FROM_SERVICE()
     },
     methods: {
         createBreadcrumbData() {
@@ -517,23 +552,23 @@ export default {
         async dateChangeHandler() {
             console.log(this.date_data)
         },
-        pendingDataCheckboxOnChangeHandler(item) {
-            console.log(item)
-            // for(let i=0; i<20; i++) {
-            //     let selector = document.querySelector('#pending_data_table_row_' + i + ' input.form-check-input')
-            //     if(selector.checked === true) {
-            //         document.querySelector('#pending_data_table_row_' + i + ' a:first-child').className = 'hide'
-            //         document.querySelector('#pending_data_table_row_' + i + ' a:last-child').className = 'hide'
-            //     } else {
-            //         document.querySelector('#pending_data_table_row_' + i + ' a:first-child').className = ''
-            //         document.querySelector('#pending_data_table_row_' + i + ' a:last-child').className = ''
-            //     }
-            // }
-            // if(this.SELECTED_PENDING_DATA) {
-            //     for(let i=0; i<this.SELECTED_PENDING_DATA.length; i++) {
-
-            //     }
-            // }
+        pendingDataCheckboxOnChangeHandler(item, i) {
+            // console.log(item)
+            let selector = document.querySelector('#pending_data_table_row_' + i + ' input.form-check-input')
+            if(selector.checked === true) {
+                this.SELECTED_PENDING_DATA.push(item)
+                document.querySelector('#pending_data_table_row_' + i + ' a:first-child').className = 'hide'
+                document.querySelector('#pending_data_table_row_' + i + ' a:last-child').className = 'hide'
+            } else {
+                document.querySelector('#pending_data_table_row_' + i + ' a:first-child').className = ''
+                document.querySelector('#pending_data_table_row_' + i + ' a:last-child').className = ''
+                
+                this.SELECTED_PENDING_DATA.forEach(element => {
+                    if(parseInt(element.id) === parseInt(item.id)) {
+                        this.SELECTED_PENDING_DATA.splice(element, 1)
+                    }
+                });
+            }
         },
         dateFromat(dt) {
             return globalDateFormat.dateFormatT4(dt)
@@ -549,8 +584,57 @@ export default {
 
             jMIFIlter.searchById_LeftSidebar(filter, list, txt_selector)
         },
+        multipleVerifyClickHandlerPendingData() {
+            console.log(this.SELECTED_PENDING_DATA)
+            console.log(this.SELECTED_PENDING_DATA_OBJECT_TO_SEND)
+
+            this.VERIFY_CASH_REGISTER__FROM_SERVICE(this.SELECTED_PENDING_DATA_OBJECT_TO_SEND)
+        },
+        multipleCancelClickHandlerPendingData() {
+            console.log(this.SELECTED_PENDING_DATA)
+            console.log(this.SELECTED_PENDING_DATA_OBJECT_TO_SEND)
+
+            this.CANCEL_CASH_REGISTER__FROM_SERVICE(this.SELECTED_PENDING_DATA_OBJECT_TO_SEND)
+        },
+        singleVerifyClickHandlerPendingData(item) {
+            console.log(item)
+            let data_list = []
+            let data = {
+                register_id: item.id,
+                register_type: 'CASH'
+            }
+            data_list.push(data)
+            this.VERIFY_CASH_REGISTER__FROM_SERVICE(data_list)
+        },
+        singleCancelClickHandlerPendingData(item) {
+            console.log(item)
+            let data_list = []
+            let data = {
+                register_id: item.id,
+                register_type: 'CASH'
+            }
+            data_list.push(data)
+            this.CANCEL_CASH_REGISTER__FROM_SERVICE(data_list)
+        },
+        unselectAllSelectedPendingDataRow() {
+            for(let i=0; i<this.PENDING_CASH_REGISTER.length; i++) {
+                let selector = document.querySelector('#pending_data_table_row_' + i + ' input.form-check-input')
+                selector.checked = false
+                document.querySelector('#pending_data_table_row_' + i + ' a:first-child').className = ''
+                document.querySelector('#pending_data_table_row_' + i + ' a:last-child').className = ''
+            }
+        },
         // --------------------------------------------------------------------------------------------
         // INWARD TAB
+        inwardSearchKeyUpHandler(value) {
+            console.log(value.key)
+            let input = document.getElementById("inward-search-filter");
+            let filter = input.value.toUpperCase();
+            let list = document.querySelectorAll('.in_ward_data_table_row')
+            let txt_selector = "inward-search-option-by"
+
+            jMIFIlter.searchById_LeftSidebar(filter, list, txt_selector)
+        },
         // --------------------------------------------------------------------------------------------
         // OUT WARD TAB
         // --------------------------------------------------------------------------------------------
@@ -595,6 +679,86 @@ export default {
                             this.msg_popup_modal = false
                             this.msg_popup_modal_msg = null
                         }, 2000)
+                    }
+                })
+        },
+        async VERIFY_CASH_REGISTER__FROM_SERVICE(data) {
+            this.msg_popup_modal = true
+            this.msg_popup_modal_msg = 'Please wait. We are processing...'
+            await service.getCommonVerifyCashRegister__CASH_REGISTER_PENDING(data)
+                .then(res => {
+                    console.log(res.data)
+                    if(res.data.response_code === 200 || res.data.response_code === 201) {
+                        this.msg_popup_modal_msg = res.data.message
+                        this.SELECTED_PENDING_DATA = []
+                        this.unselectAllSelectedPendingDataRow()
+                        this.COMMON_CASH_REGISTER__FROM_SERVICE()
+                    } else {
+                        this.msg_popup_modal_msg = res.data.message + ' Response code : ' + res.data.response_code + '.'
+                    }
+                    setTimeout( () => {
+                        this.msg_popup_modal = false
+                        this.msg_popup_modal_msg = null
+                    }, 2000)
+                })
+                .catch(err => {
+                    if(err) {
+                        console.log('Server Error 500. ' + err)
+                        
+                        this.msg_popup_modal_msg = err
+                        setTimeout( () => {
+                            this.msg_popup_modal = false
+                            this.msg_popup_modal_msg = null
+                        }, 2000)
+                    }
+                })
+        },
+        async CANCEL_CASH_REGISTER__FROM_SERVICE(data) {
+            this.msg_popup_modal = true
+            this.msg_popup_modal_msg = 'Please wait. We are processing...'
+            await service.getCommonCancelCashRegister__CASH_REGISTER_PENDING(data)
+                .then(res => {
+                    console.log(res.data)
+                    if(res.data.response_code === 200 || res.data.response_code === 201) {
+                        this.msg_popup_modal_msg = res.data.message
+                        this.SELECTED_PENDING_DATA = []
+                        this.unselectAllSelectedPendingDataRow()
+                        this.COMMON_CASH_REGISTER__FROM_SERVICE()
+                    } else {
+                        this.msg_popup_modal_msg = res.data.message + ' Response code : ' + res.data.response_code + '.'
+                    }
+                    setTimeout( () => {
+                        this.msg_popup_modal = false
+                        this.msg_popup_modal_msg = null
+                    }, 2000)
+                })
+                .catch(err => {
+                    if(err) {
+                        console.log('Server Error 500. ' + err)
+                        
+                        this.msg_popup_modal_msg = err
+                        setTimeout( () => {
+                            this.msg_popup_modal = false
+                            this.msg_popup_modal_msg = null
+                        }, 2000)
+                    }
+                })
+        },
+        async CASH_DOMINATION_LIST__FROM_SERVICE() {
+            await service.getCashDominationList__CASH_REGISTER()
+                .then(res => {
+                    console.log(res.data)
+                    if(res.data.response_code === 200 || res.data.response_code === 201) {
+                        this.CASH_DOMINATION_LIST = res.data.denomination_list
+                    }
+                    setTimeout( () => {
+                        this.msg_popup_modal = false
+                        this.msg_popup_modal_msg = null
+                    }, 2000)
+                })
+                .catch(err => {
+                    if(err) {
+                        console.log('Server Error 500. ' + err)
                     }
                 })
         },
@@ -1581,5 +1745,41 @@ td svg.fa-plus.add {
 .top-action {
     height: 38px;
     margin-top: -10px;
+}
+.group-action-btn {
+    position: absolute;
+    left: -80px;
+    display: inline-flex;
+}
+.group-action-btn i {
+    cursor: pointer;
+}
+.group-action-btn i.verify {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25px;
+    height: 25px;
+    font-size: 18px;
+    font-size: var(--font16);
+    border-radius: 100px;
+    margin: 0px 5px;
+    font-weight: 500;
+    color: #FFFFFF;
+    background-color: var(--blue);
+}
+.group-action-btn i.cancel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25px;
+    height: 25px;
+    font-size: 18px;
+    font-size: var(--font16);
+    border-radius: 100px;
+    margin: 0px 5px;
+    font-weight: 500;
+    color: var(--red);
+    background-color: var(--redish-white);
 }
 </style>

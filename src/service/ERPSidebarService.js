@@ -1537,9 +1537,52 @@ export default class PostService {
 
 
   // -------------------------------------------------------------------------------------------
-  // CASH REGISTER
+  // CASH REGISTER - GET ALL TAB DATA
   async getCommonCashRegister__CASH_REGISTER() {
     let web_menu_url = '/api/common/cash-register'
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
+  
+  // CASH REGISTER - VERIFY DATA - PENDING
+  async getCommonVerifyCashRegister__CASH_REGISTER_PENDING(data) {
+    console.log(data)
+    console.log(JSON.stringify(data))
+    let web_menu_url = '/api/common/verify-cash-register'
+    return await axios(web_menu_url, {
+      method: 'POST',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+      data: {
+        register_info: JSON.stringify(data)
+      }
+    })
+  }
+  
+  // CASH REGISTER - CANCEL DATA - PENDING
+  async getCommonCancelCashRegister__CASH_REGISTER_PENDING(data) {
+    console.log(data)
+    console.log(JSON.stringify(data))
+    let web_menu_url = '/api/common/cancel-cash-register'
+    return await axios(web_menu_url, {
+      method: 'POST',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+      data: {
+        register_info: JSON.stringify(data)
+      }
+    })
+  }
+
+  // CASH REGISTER - CASH DOMINATION LIST
+  async getCashDominationList__CASH_REGISTER() {
+    let web_menu_url = '/api/common/cash-denomination-list'
     return await axios(web_menu_url, {
       method: 'GET',
       headers: {
