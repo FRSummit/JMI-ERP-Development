@@ -20,7 +20,7 @@
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-6 da-sr-name">
                       <div class="da-sr-name-inner">
-                        <span class="label">SR Name</span>
+                        <span class="label">Bearer Name</span>
                         <input type="text" v-model="SR_NAME" readonly/>
                       </div>
                     </div>
@@ -145,11 +145,22 @@ export default {
     async DISPATCH_ENTRY_GP_NO__FROM_SERVICE(gp_no) {
       this.GP_ID = null
       this.SR_NAME = null
+      this.success_dispatch = true
+      this.success_dispatch_msg = 'Please wait. We are processing...'
       await service.getDispatchEntryByGPNo_DS_DISPATCH_ENTRY(gp_no)
         .then(res => {
           console.log(res.data)
-          this.GP_ID = res.data.gate_pass_info.id
-          this.SR_NAME = res.data.gate_pass_info.ds_info.da_info.name
+          if(res.data.response_code === 200 || res.data.response_code === 201) {
+            this.success_dispatch_msg = res.data.message
+            this.GP_ID = res.data.gate_pass_info.id
+            this.SR_NAME = res.data.gate_pass_info.ds_info.da_info.name
+          } else {
+            this.success_dispatch_msg = 'Invalid Gate pass number.'
+          }
+          setTimeout( () => {
+            this.success_dispatch = false
+            this.success_dispatch_msg = null
+          }, 2000)
         })
     },
     async CREATE_DISPATCH__FROM_SERVICE() {
