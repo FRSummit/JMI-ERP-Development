@@ -263,34 +263,32 @@
                                                     </tr>
                                                     <tr>
                                                         <th>
-                                                            <select class="form-control-sm" id="unit">
-                                                            <option >Select Unit</option>
-                                                            <option>Box</option>
-                                                            <option>Box 2</option>
-                                                            <option>Box 3</option>
+                                                            <select class="form-control-sm" id="unit" v-model="selected_cash_domination">
+                                                                <option :value="null" selected>Select Unit</option>
+                                                                <option v-for="(item, i) in CASH_DOMINATION_LIST" :key="i" :value="item">{{ item.deno_name }}</option>
                                                             </select>
                                                         </th>
                                                         <th>
-                                                            <input type="text" class="form-control-sm" id="product_group_qty" placeholder="00">
+                                                            <input type="number" v-model="domination_qty" class="form-control-sm" id="product_group_qty" placeholder="00">
                                                         </th>
                                                         <th>
-                                                            <input type="text" class="form-control-sm" id="product_group_amount" placeholder="00">
+                                                            <input type="number" :value="parseFloat(selected_cash_domination ? selected_cash_domination.deno_value : 0) * parseFloat(domination_qty)" class="form-control-sm" id="product_group_amount" placeholder="00" readonly>
                                                         </th>
-                                                        <th><button class="btn btn-primary btn-add" href="#" role="button">Add</button></th>
+                                                        <th><button class="btn btn-primary btn-add" href="#" role="button" @click="addDominationClickHandler">Add</button></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr v-for="(item, i) in CASH_DOMINATION_LIST" :key="i">
-                                                        <td><p>{{ item.deno_id }}</p></td>
-                                                        <td><p>{{ item.deno_value }}</p></td>
-                                                        <td><p>{{ item.deno_name }}</p></td>
+                                                    <tr v-for="(item, i) in MY_CASH_DOMINATION_LIST" :key="i">
+                                                        <td><p>{{ item.domination_type }}</p></td>
+                                                        <td><p>{{ item.qty }}</p></td>
+                                                        <td><p>{{ item.amount }}</p></td>
                                                         <td><i class="fa fa-trash remove" aria-hidden="true"></i></td>
                                                     </tr>
                                                 </tbody>
                                                 <tfoot>
                                                     <tr>
                                                         <th colspan="2"><p>Total:</p></th>
-                                                        <th><p>{{ CASH_DOMINATION_LIST_TOTAL_AMOUNT }}</p></th>
+                                                        <th><p>{{ MY_CASH_DOMINATION_LIST_TOTAL_AMOUNT }}</p></th>
                                                         <th></th>
                                                     </tr>
                                                 </tfoot>
@@ -482,6 +480,10 @@ export default {
             DAY_CLOSING_CASH_REGISTER: null,
 
             CASH_DOMINATION_LIST: null,
+            MY_CASH_DOMINATION_LIST: [],
+
+            selected_cash_domination: null,
+            domination_qty: 0,
         };
     },
     computed: {
@@ -527,11 +529,11 @@ export default {
             }
             return Number(total).toFixed(2)
         },
-        CASH_DOMINATION_LIST_TOTAL_AMOUNT() {
+        MY_CASH_DOMINATION_LIST_TOTAL_AMOUNT() {
             let total = 0
-            if(this.CASH_DOMINATION_LIST) {
-                for(let i=0; i<this.CASH_DOMINATION_LIST.length; i++) {
-                    total += parseFloat(this.CASH_DOMINATION_LIST[i].deno_value)
+            if(this.MY_CASH_DOMINATION_LIST) {
+                for(let i=0; i<this.MY_CASH_DOMINATION_LIST.length; i++) {
+                    total += parseFloat(this.MY_CASH_DOMINATION_LIST[i].amount)
                 }
             }
             return Number(total).toFixed(2)
@@ -639,6 +641,15 @@ export default {
         // OUT WARD TAB
         // --------------------------------------------------------------------------------------------
         // DAY CLOSING TAB
+        addDominationClickHandler() {
+            let data = {
+                domination_type: this.selected_cash_domination.deno_name,
+                qty: this.domination_qty,
+                amount: parseFloat(this.selected_cash_domination.deno_value) * parseFloat(this.domination_qty)
+            }
+
+            this.MY_CASH_DOMINATION_LIST.push(data)
+        },
         // --------------------------------------------------------------------------------------------
         // SERVICE CALL
         async COMMON_CASH_REGISTER__FROM_SERVICE() {
