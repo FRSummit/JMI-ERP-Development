@@ -244,61 +244,61 @@
                                     <div class="modal" id="add-denomination-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
                                         aria-hidden="true">
                                         <div class="modal-dialog modal-lg modal-dialog-centered" style="margin: 0; border: none;">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                            <h5 class="modal-title">Add Cash Denomination:<span>12/05/2021</span></h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                            </div>
-                                            <div class="modal-body">
-                                        <div class="row denomination-modal-table">
-                                            <table class="col-12">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Denomination Type</th>
-                                                        <th>Quantity</th>
-                                                        <th>Amount</th>
-                                                        <th></th>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>
-                                                            <select class="form-control-sm" id="unit" v-model="selected_cash_domination">
-                                                                <option :value="null" selected>Select Unit</option>
-                                                                <option v-for="(item, i) in CASH_DOMINATION_LIST" :key="i" :value="item">{{ item.deno_name }}</option>
-                                                            </select>
-                                                        </th>
-                                                        <th>
-                                                            <input type="number" v-model="domination_qty" class="form-control-sm" id="product_group_qty" placeholder="00">
-                                                        </th>
-                                                        <th>
-                                                            <input type="number" :value="parseFloat(selected_cash_domination ? selected_cash_domination.deno_value : 0) * parseFloat(domination_qty)" class="form-control-sm" id="product_group_amount" placeholder="00" readonly>
-                                                        </th>
-                                                        <th><button class="btn btn-primary btn-add" href="#" role="button" @click="addDominationClickHandler">Add</button></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr v-for="(item, i) in MY_CASH_DOMINATION_LIST" :key="i">
-                                                        <td><p>{{ item.domination_type }}</p></td>
-                                                        <td><p>{{ item.qty }}</p></td>
-                                                        <td><p>{{ item.amount }}</p></td>
-                                                        <td><i class="fa fa-trash remove" aria-hidden="true"></i></td>
-                                                    </tr>
-                                                </tbody>
-                                                <tfoot>
-                                                    <tr>
-                                                        <th colspan="2"><p>Total:</p></th>
-                                                        <th><p>{{ MY_CASH_DOMINATION_LIST_TOTAL_AMOUNT }}</p></th>
-                                                        <th></th>
-                                                    </tr>
-                                                </tfoot>
-                                            </table>
-                                        </div>
-                                            </div>
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Add Cash Denomination:<span>12/05/2021</span></h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row denomination-modal-table">
+                                                        <table class="col-12">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Denomination Type</th>
+                                                                    <th>Quantity</th>
+                                                                    <th>Amount</th>
+                                                                    <th></th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>
+                                                                        <select class="form-control-sm" id="unit" v-model="selected_cash_domination">
+                                                                            <option :value="null" selected>Select Unit</option>
+                                                                            <option v-for="(item, i) in CASH_DOMINATION_LIST" :key="i" :value="item">{{ item.deno_name }}</option>
+                                                                        </select>
+                                                                    </th>
+                                                                    <th>
+                                                                        <input type="number" v-model="domination_qty" class="form-control-sm" id="product_group_qty" placeholder="00">
+                                                                    </th>
+                                                                    <th>
+                                                                        <input type="number" :value="parseFloat(selected_cash_domination ? selected_cash_domination.deno_value : 0) * parseFloat(domination_qty)" class="form-control-sm" id="product_group_amount" placeholder="00" readonly>
+                                                                    </th>
+                                                                    <th><button class="btn btn-primary btn-add" href="#" role="button" @click="addDominationClickHandler">Add</button></th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr v-for="(item, i) in MY_CASH_DOMINATION_LIST" :key="i">
+                                                                    <td><p>{{ item.domination_type }}</p></td>
+                                                                    <td><p>{{ item.qty }}</p></td>
+                                                                    <td><p>{{ item.amount }}</p></td>
+                                                                    <td><i class="fa fa-trash remove" aria-hidden="true"></i></td>
+                                                                </tr>
+                                                            </tbody>
+                                                            <tfoot>
+                                                                <tr>
+                                                                    <th colspan="2"><p>Total:</p></th>
+                                                                    <th><p>{{ MY_CASH_DOMINATION_LIST_TOTAL_AMOUNT }}</p></th>
+                                                                    <th></th>
+                                                                </tr>
+                                                            </tfoot>
+                                                        </table>
+                                                    </div>
+                                                </div>
                                             <div class="modal-footer justify-content-center">
-                                            <a href="#"><button type="button" class="btn btn-primary btn-global">Save</button></a>
+                                                    <a><button type="button" class="btn btn-primary btn-global" @click="saveDominationInfoClickHandler">Save</button></a>
+                                                </div>
                                             </div>
-                                        </div>
                                         </div>
                                     </div>
                                     <!------------ End Add Denomition Modal------------>
@@ -649,6 +649,9 @@ export default {
             }
 
             this.MY_CASH_DOMINATION_LIST.push(data)
+        },
+        saveDominationInfoClickHandler() {
+            console.log(this.MY_CASH_DOMINATION_LIST)
         },
         // --------------------------------------------------------------------------------------------
         // SERVICE CALL
