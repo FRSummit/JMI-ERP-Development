@@ -83,9 +83,11 @@
                                         </td>
                                         <!-- Option Column -->
                                         <td class="row-action jmi-tr-td-option" style="min-width: 70px; text-align: right;">
-                                            <span v-if="!(data.deal_type === 'F' && data.net_amount === '0')">
-                                                <span class="icon edit-icon" @click="editOrderitemClickHandler(data, i)" v-if="productTableEditableIsValid(data.available_stock, data.transit_stock, data.net_qty)"><i class="zmdi zmdi-edit"></i></span>
-                                                <span class="icon delete-icon" @click="deleteOrderitemClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
+                                            <span v-if="!CURRENT_INVOICE_COLLECTION_LIST || !CURRENT_INVOICE_COLLECTION_LIST.length">
+                                                <span v-if="!(data.deal_type === 'F' && data.net_amount === '0')">
+                                                    <span class="icon edit-icon" @click="editOrderitemClickHandler(data, i)" v-if="productTableEditableIsValid(data.available_stock, data.transit_stock, data.net_qty)"><i class="zmdi zmdi-edit"></i></span>
+                                                    <span class="icon delete-icon" @click="deleteOrderitemClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
+                                                </span>
                                             </span>
                                         </td>
                                     </tr>
@@ -118,7 +120,7 @@
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
                                 <tr class="grand-total bottom-total" style="border-top: 1px solid #BFCFE2;">
-                                    <td style="width: 50%; text-align: left;"><input type="checkbox" id="set_payment_all_due" v-model="set_payment_all_due" @change="dueAllCheckboxOnChangeHandler"><span class="payent-due">Full Payment DUE</span></td>
+                                    <td style="width: 50%; text-align: left;"><span v-if="!CURRENT_INVOICE_COLLECTION_LIST || !CURRENT_INVOICE_COLLECTION_LIST.length"><input type="checkbox" id="set_payment_all_due" v-model="set_payment_all_due" @change="dueAllCheckboxOnChangeHandler"><span class="payent-due">Full Payment DUE</span></span></td>
                                     <td style="width: 25%;">Grand Total</td>
                                     <td style="width: 15%;">{{ Number(grand_total).toFixed(2) }}</td>
                                     <td style="width: 10%; min-width: 70px;"></td>
@@ -132,12 +134,15 @@
             <div class="submit-section" v-if="ORDERED_TABLE_DATA__INIT_LIST && PENDING_ORDER_DATA_BY_ID && !PAYMENT_MODAL_IS_TRUE">
                 <div class="submit-section-inner">
                     <span class="cancel-order" @click="cancelDeliveryOrderClickHandler" v-if="NO_PRODUCT_IN_CART_TO_DELIVER">Cancel Order</span>
-                    <span class="proceed-order" @click="deliveryOrderClickHandler" v-if="!NO_PRODUCT_IN_CART_TO_DELIVER">Delivered Order</span>
+                    <span class="proceed-order" @click="deliveryOrderClickHandler" v-if="!NO_PRODUCT_IN_CART_TO_DELIVER">{{ CURRENT_INVOICE_COLLECTION_LIST ? 'View Payment' : 'Delivered Order' }}</span>
                 </div>
             </div>
             <!-- PAYMENT MODAL -->
             <PaymentModal 
                 v-if="PENDING_ORDER_DATA_BY_ID && ORDERED_TABLE_DATA__INIT_LIST && PAYMENT_MODAL_IS_TRUE"
+                :INVOICE_DATA_TO_SEND="INVOICE_DATA_TO_SEND"
+                :ORDER_TABLE_PROD_DATA_LIST_TO_SEND="ORDER_TABLE_PROD_DATA_LIST_TO_SEND"
+                :ORDER_TABLE_DATA_IS_CHANGE="ORDER_TABLE_DATA_IS_CHANGE"
                 v-on:close_payment_modal="closePaymentModalClickHandler_Child" />
             <!-- Current Outstanding Modal -->
             <div class="current-outstanding-modal" v-if="outstanding_modal">
@@ -580,6 +585,33 @@ export default {
 
             // PAYMENT MODAL
             PAYMENT_MODAL_IS_TRUE: false,
+
+            ORDER_TABLE_DATA_IS_CHANGE: false,
+
+            CURRENT_INVOICE_COLLECTION_LIST: null,
+        }
+    },
+    computed: {
+        INVOICE_DATA_TO_SEND() {
+            let data = {
+                invoice_id: this.INVOICE_ID_FROM_LEFT,
+                collection_date: this.pending_order_list_by_id ? (this.pending_order_list_by_id.delivery_date ? (this.pending_order_list_by_id.delivery_date) : '') : '',
+                ds_id: this.pending_order_list_by_id ? (this.pending_order_list_by_id.ds_id ? (this.pending_order_list_by_id.ds_id) : '') : '',
+                customer_id: this.pending_order_list_by_id ? (this.pending_order_list_by_id.customer_id ? (this.pending_order_list_by_id.customer_id) : '') : ''
+            }
+            return data
+        },
+        ORDER_TABLE_PROD_DATA_LIST_TO_SEND() {
+            let invoice_dtl = []
+            for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST_NOT_CHANGEABLE.length; i++) {
+                let invoice_details = {
+                    prod_id: this.ORDERED_TABLE_DATA__INIT_LIST_NOT_CHANGEABLE[i].product_info.id,
+                    dlv_qty: parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty),
+                    current_bonus_qty: this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on ? ( parseInt( parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) / parseInt(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.offer.bonus_on) ) ) : 0
+                }
+                invoice_dtl.push(invoice_details)
+            }
+            return invoice_dtl
         }
     },
     async created() {
@@ -605,6 +637,7 @@ export default {
             if(data.qty > 1) {
                 data.qty--
                 this.UPDATE_BTN_ENABLE = true
+                this.ORDER_TABLE_DATA_IS_CHANGE = true
                 // this.UPDATE_BTN_TRUE = true
                 this.createSubtotalCalculation()
             }
@@ -629,6 +662,7 @@ export default {
             }
             data.qty = selector.value
             this.UPDATE_BTN_ENABLE = true
+            this.ORDER_TABLE_DATA_IS_CHANGE = true
             // this.UPDATE_BTN_TRUE = true
             console.log(data.net_qty)
             console.log(data.available_stock)
@@ -727,11 +761,12 @@ export default {
                 }
                 invoice_dtl.push(invoice_details)
             }
-            let cash = 0
-            let cheque = 0
-            let net_payable_amount = Number(this.grand_total).toFixed(2)
+            // let cash = 0
+            // let cheque = 0
+            // let net_payable_amount = Number(this.grand_total).toFixed(2)
 
-            this.SAVE_INVOICE_DELIVERY_INFO_AS_DUE__FROM_SERVICE(invoice_id, invoice_dtl, cash, cheque, net_payable_amount)
+            // this.SAVE_INVOICE_DELIVERY_INFO_AS_DUE__FROM_SERVICE(invoice_id, invoice_dtl, cash, cheque, net_payable_amount)
+            this.SAVE_INVOICE_DELIVERY_INFO_WITH_FULL_DUE__FROM_SERVICE(invoice_id, invoice_dtl)
         },
         // ----------------------------------------------------------------------------------------
         // Delivery Order Popup
@@ -1008,8 +1043,28 @@ export default {
                 }, 2000)
             })
         },
-        CANCEL_THIS_DELIVERY__FROM_SERVICE(invoice_details) {
-            service.geSaveCancelDeliveryInfo_Deliveries(this.INVOICE_ID_FROM_LEFT, invoice_details)
+        async SAVE_INVOICE_DELIVERY_INFO_WITH_FULL_DUE__FROM_SERVICE(invoice_id, invoice_dtl) {
+            console.log(invoice_id)
+            console.log(invoice_dtl)
+            await service.getSaveInvoiceDeliveryInfoFullDue_DELIVERIES(invoice_id, invoice_dtl)
+            .then(res => {
+                console.log(res.data)
+                if(res.data.response_code === 200) {
+                    localStorage.removeItem("jerp_delivery_details_not_chandable_ordered_data")
+                //     this.$emit('invoice_delivery_info_saved', this.INVOICE_ID_FROM_LEFT)
+                }
+                this.approve_product_confirmation_popup_modal = false
+                this.delivery_success_or_not_msg_modal = true
+                this.delivery_success_or_not_msg = res.data.message
+                setTimeout( ()=> {
+                    // this.$router.push('/features/users/dashboard')
+                    this.$store.state.CHANGES_DETECTED_IN_DETAILS_SECTION = new Date()
+                    this.delivery_success_or_not_msg_modal = false
+                }, 2000)
+            })
+        },
+        async CANCEL_THIS_DELIVERY__FROM_SERVICE(invoice_details) {
+            await service.geSaveCancelDeliveryInfo_Deliveries(this.INVOICE_ID_FROM_LEFT, invoice_details)
                 .then(res => {
                     console.log(res.data)
                     if(res.data.response_code === 200) {
@@ -1025,6 +1080,23 @@ export default {
                 })
                 .catch(err => {
                     alert('Server Error 500. ' + err)
+                })
+        },
+        async CHECK_COLLECTION_LIST__FROM_SERVICE() {
+            await service.getCollectionList_DELIVERIES_DETAILS(this.INVOICE_DATA_TO_SEND.customer_id, this.INVOICE_DATA_TO_SEND.ds_id)
+                .then(res => {
+                    console.log(res.data)
+                    if(res.data.response_code === 200 || res.data.response_code === 201) {
+                        this.CURRENT_INVOICE_COLLECTION_LIST = res.data.collection_list
+                    } else {
+                        this.CURRENT_INVOICE_COLLECTION_LIST = null
+                    }
+                })
+                .catch(err => {
+                    if(err) {
+                        console.log('Collection load problem ' + err)
+                        this.CURRENT_INVOICE_COLLECTION_LIST = null
+                    }
                 })
         },
         // ----------------------------------------------------------------------------------------------
@@ -1339,6 +1411,7 @@ export default {
             document.querySelector('#deliveries-details-section #set_payment_all_due').checked = false
         },
         confirmDuePaymentConfirmationClickHandler() {
+            this.createAllDUePamentAndProds()
             this.all_due_payment_confirmation_popup_modal = false
         },
         // -----------------------------------------------------------------------------
@@ -1351,8 +1424,10 @@ export default {
         async pending_order_list_by_id(newVal, oldVal){
             console.log('changes' + newVal)
             console.log('changes' + oldVal)
+            this.PAYMENT_MODAL_IS_TRUE = false
             this.NO_PRODUCT_IN_CART_TO_DELIVER = false
             localStorage.removeItem("jerp_delivery_details_not_chandable_ordered_data");
+            await this.CHECK_COLLECTION_LIST__FROM_SERVICE()
             setTimeout( () => {
                 console.log(this.pending_order_list_by_id.invoice_details)
                 this.SHOW_PRINT_ICON = true

@@ -12,7 +12,8 @@
         :SELECTED_PROD_OFFER_DETAILS="SELECTED_PROD_OFFER_DETAILS"
         :SELECTED_PROD_SBU_PROD_DETAILS="SELECTED_PROD_SBU_PROD_DETAILS"
         :SELECTED_PROD_DOCS_DETAILS="SELECTED_PROD_DOCS_DETAILS"
-        :ALL_PRODS_LIST_IN_DB="ALL_PRODS_LIST_IN_DB" />
+        :ALL_PRODS_LIST_IN_DB="ALL_PRODS_LIST_IN_DB"
+        v-on:RELOAD_SELECTED_PROD_DETAILS="reloadSelectedProdDetails" />
     </div>
   </div>
 </template>
@@ -65,6 +66,10 @@ export default {
     getAllProdsList(value) {
       this.ALL_PRODS_LIST_IN_DB = value
     },
+    reloadSelectedProdDetails(value) {
+      console.log(value)
+      this.SELECT_SBU_PRODUCT_DETAILS_BY_PROD_ID__FROM_SERVICE(value)
+    },
     // ---------------------------------------------------------------------------
     // SERVICE CALL
     async SELECT_SBU_PRODUCT_DETAILS_BY_PROD_ID__FROM_SERVICE(prod_id) {
@@ -75,7 +80,7 @@ export default {
       this.SELECTED_PROD_OFFER_DETAILS = null
       this.SELECTED_PROD_SBU_PROD_DETAILS = null
       this.SELECTED_PROD_DOCS_DETAILS = null
-      service.getSBUProductDetails_PRODUCTS_DETAILS(prod_id)
+      await service.getSBUProductDetails_PRODUCTS_DETAILS(prod_id)
         .then(res => {
           console.log(res.data)
           this.SELECTED_PROD_DETAILS = res.data.prod_details

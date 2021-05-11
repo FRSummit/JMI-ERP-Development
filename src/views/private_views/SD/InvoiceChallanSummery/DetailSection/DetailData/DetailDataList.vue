@@ -220,9 +220,9 @@ export default {
           // if(this.tab === 'All' || this.tab === 'Chemist') {
           if(this.tab === 'INVOICE') {
             if(res.data.invoice_details.invoice_details.length > 0) {
-              // pp_Invoice_Type_2_Single.print_invoice(res.data.invoice_details)
+              // pp_Invoice_Type_2_Single.print_invoice(res.data.invoice_details, res.data.due_details)
               if(schedule_customer_type === '422') {
-                pp_Invoice_Type_2_Single.print_invoice(res.data.invoice_details)
+                pp_Invoice_Type_2_Single.print_invoice(res.data.invoice_details, res.data.due_details)
               } else if(schedule_customer_type === '424') {
                 pp_Invoice_Type_3_Institution.print_invoice(res.data.invoice_details)
               }

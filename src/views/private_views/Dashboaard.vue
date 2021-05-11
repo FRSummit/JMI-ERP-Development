@@ -31,6 +31,12 @@
         <router-link to="/sd/delivery-process--dispatch-entry">DS Dispatch Entry</router-link>
       </div>
       <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
+        <router-link to="/sd/pending-ds-invoice-list">Pending DS Invoice List</router-link>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
+        <router-link to="/features/local_sales/ds-transfer-packing-preparation">DS Transfer Packing Preparation</router-link>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
         <router-link to="/features/local_sales/sales_order">Create Order</router-link>
       </div>
       <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
@@ -43,7 +49,7 @@
         <router-link to="/features/local_sales/create_customer">Create Customer</router-link>
       </div>
       <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
-        <router-link to="/features/local_sales/customer_profile">Customer Profile</router-link>
+        <router-link to="/features/local_sales/customer_profile:1">Customer Profile</router-link>
       </div>
       <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
         <router-link to="/features/local_sales/doctors_list">Doctors List</router-link>
@@ -56,9 +62,6 @@
       </div>
       <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
         <router-link to="/features/local_sales/deliveries">Deliveries</router-link>
-      </div>
-      <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
-        <router-link to="/sd/pending-ds-invoice-list">Pending DS Invoice List</router-link>
       </div>
       <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
         <router-link to="/features/local_sales/balance-sheet">Balance Sheet</router-link>
@@ -99,6 +102,12 @@
       </div>
       <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
         <router-link to="/features/local_sales/sd-collection">Collection</router-link>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
+        <router-link to="/features/local_sales/customer-payment">Customer Payment</router-link>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
+        <router-link to="/features/local_sales/cash-register">Cash Register</router-link>
       </div>
     </div>
     

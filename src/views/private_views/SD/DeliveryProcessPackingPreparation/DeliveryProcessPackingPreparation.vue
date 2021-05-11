@@ -69,7 +69,7 @@ export default {
   },
   methods: {
     createBreadcrumbData() {
-      this.pathName = [{name: "Features"},{ name: "Local Sales" }, { name: "Delivery Process Invoice/Challan Printing" }];
+      this.pathName = [{name: "Features"},{ name: "Local Sales" }, { name: "DS Packing Preparation" }];
       // this.pathName = breadcrumbFunctions.jmiERPBreadcrumb(window.location.pathname)
     },
     showInvoiceCountInformationMessagePopup() {

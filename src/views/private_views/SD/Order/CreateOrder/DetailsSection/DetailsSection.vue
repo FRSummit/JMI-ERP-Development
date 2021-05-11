@@ -20,7 +20,7 @@
                                     <optgroup label="" v-if="checkReagionAreaTT(REGION_AREA_TERRITORY_LIST).reg.length > 0">
                                         <option v-for="(rat, m) in checkReagionAreaTT(REGION_AREA_TERRITORY_LIST).reg" :key="m" :value="rat.id"><span v-if="rat.lvl === '3'">{{ rat.display_code }} - {{ rat.area_short_name }}</span></option>
                                     </optgroup>
-                                    <optgroup label="" v-if="checkReagionAreaTT(REGION_AREA_TERRITORY_LIST).area.length > 0">
+                                    <optgroup label="" v-if="checkReagionAreaTT(REGION_AREA_TERRITORY_LIST).area.length > 0" id="area-lvl-select-option">
                                         <option v-for="(rat, m) in checkReagionAreaTT(REGION_AREA_TERRITORY_LIST).area" :key="m" :value="rat.id"><span v-if="rat.lvl === '4'">{{ rat.display_code }} - {{ rat.area_short_name }}</span></option>
                                     </optgroup>
                                     <optgroup label="" v-if="checkReagionAreaTT(REGION_AREA_TERRITORY_LIST).tt.length > 0">
@@ -998,6 +998,12 @@ export default {
                                 // }
                             // }
                         }, 100)
+                    } else {
+                        console.log('Else else')
+                        setTimeout( () => {
+                            document.querySelector('#region_area_tt_list #area-lvl-select-option option:first-child').selected = true
+                            console.log(document.querySelector('#region_area_tt_list #area-lvl-select-option option:first-child'))
+                        }, 2000)
                     }
                 })
                 .catch(err => {

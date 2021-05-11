@@ -113,6 +113,13 @@ export const router = new VueRouter({
       component: () => import('../views/private_views/SD/DeliveryProcessPackingPreparation/DeliveryProcessPackingPreparation.vue')
     },
     // --------------------------------------------------------------------------------------
+    // DS - TRANSFER PACKING PREPARATION
+    {
+      path: '/features/local_sales/ds-transfer-packing-preparation',
+      name: 'DS Transfer Packing Preparation',
+      component: () => import('../views/private_views/SD/DS_TransferPackingPreparation/DeliveryProcessPackingPreparation.vue')
+    },
+    // --------------------------------------------------------------------------------------
     // DS - INVOICE PRINTING
     {
       path: '/sd/delivery-process-invoice-printing:id',
@@ -186,7 +193,7 @@ export const router = new VueRouter({
     // --------------------------------------------------------------------------------------
     // CUSTOMER - CUSTOMER PROFILE
     {
-      path: '/features/local_sales/customer_profile',
+      path: '/features/local_sales/customer_profile:id',
       name: 'Create Customer',
       component: () => import('../views/private_views/SD/Customer/CustomerProfile/CustomerProfile.vue')
     },
@@ -301,6 +308,20 @@ export const router = new VueRouter({
       path: '/features/local_sales/sd-collection',
       name: 'Collection',
       component: () => import('../views/private_views/SD/Collection/Collection.vue')
+    },
+    // --------------------------------------------------------------------------------------
+    // CUSTOMER PAYMENT
+    {
+      path: '/features/local_sales/customer-payment',
+      name: 'Customer Payment',
+      component: () => import('../views/private_views/SD/Payment/Customer/CustomerPayment.vue')
+    },
+    // --------------------------------------------------------------------------------------
+    // CASH REGISTER
+    {
+      path: '/features/local_sales/cash-register',
+      name: 'Cash Register',
+      component: () => import('../views/private_views/SD/CashRegister/CashRegister.vue')
     },
 
     // --------------------------------------------------------------------------------------

@@ -142,7 +142,7 @@
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
                                 <tr class="subtotal bottom-total">
-                                    <td style="width: 50%;"><span class="add-order-attachment-section add-attachment" @click="addAttachmentClickHandler"><i class="zmdi zmdi-attachment-alt"></i>Attachment</span></td>
+                                    <td style="width: 50%;"></td>
                                     <td style="width: 25%;">(-) Discount</td>
                                     <td style="width: 15%;">{{ Number(discount_total).toFixed(2) }}</td>
                                     <td style="width: 10%; min-width: 70px;"></td>
@@ -520,12 +520,12 @@
                 <p class="popup-desc">You want to reject the order.</p>
                 <span class="divider"></span>
                 <div class="popup-submit-section">
-                <div class="popup-cancel-btn-section" @click="cancelRejectionOrderModalClickHandler">
-                    <span>Cancel</span>
-                </div>
-                <div class="popup-confirm-btn-section" @click="proceedRejectionOrderModalClickHandler">
-                    <span>Proceed</span>
-                </div>
+                    <div class="popup-cancel-btn-section" @click="cancelRejectionOrderModalClickHandler">
+                        <span>Cancel</span>
+                    </div>
+                    <div class="popup-confirm-btn-section" @click="proceedRejectionOrderModalClickHandler">
+                        <span>Proceed</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1490,18 +1490,20 @@ export default {
         // SPECIAL DISCOUNT
         CHECK_SPECIAL_DISCOUNT(prod_list) {
             let regular_prods_line_total = null
-            console.log(prod_list.length)
-            console.log(this.ORDERED_TABLE_DATA__INIT_LIST.length)
-            for(let i=0; i<prod_list.length; i++) {
-                console.log(prod_list[i])
-                console.log(prod_list[i].is_regular_product)
-                console.log(prod_list[i].offer.is_regular_product)
-                if(prod_list[i].is_regular_product === 'Y') {
-                    regular_prods_line_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_tp) * parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty)
-                    console.log(regular_prods_line_total)
-                } else if(prod_list[i].offer.is_regular_product === 'Y') {
-                    regular_prods_line_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_tp) * parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty)
-                    console.log(regular_prods_line_total)
+            console.log(prod_list)
+            // console.log(this.ORDERED_TABLE_DATA__INIT_LIST.length)
+            if(prod_list ? prod_list.length : false) {
+                for(let i=0; i<prod_list.length; i++) {
+                    console.log(prod_list[i])
+                    console.log(prod_list[i].is_regular_product)
+                    console.log(prod_list[i].offer.is_regular_product)
+                    if(prod_list[i].is_regular_product === 'Y') {
+                        regular_prods_line_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_tp) * parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty)
+                        console.log(regular_prods_line_total)
+                    } else if(prod_list[i].offer.is_regular_product === 'Y') {
+                        regular_prods_line_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_tp) * parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].qty)
+                        console.log(regular_prods_line_total)
+                    }
                 }
             }
             console.log(regular_prods_line_total)
@@ -1759,11 +1761,13 @@ export default {
             this.gross_total = 0
             this.grand_total = 0
             // console.log(this.ORDERED_TABLE_DATA__INIT_LIST[0])
-            for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST.length; i++) {
-                this.sub_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_tp) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty
-                this.vat_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_vat) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty
-                this.discount_total += (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_tp) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) - (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.price_now_per_qty) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty)
-                // console.log(parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.price_now_per_qty) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty)
+            if(this.ORDERED_TABLE_DATA__INIT_LIST ? this.ORDERED_TABLE_DATA__INIT_LIST.length : false) {
+                for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST.length; i++) {
+                    this.sub_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_tp) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty
+                    this.vat_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_vat) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty
+                    this.discount_total += (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_tp) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) - (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.price_now_per_qty) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty)
+                    // console.log(parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.price_now_per_qty) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty)
+                }
             }
             // this.discount_total = 0
             this.gross_total = this.sub_total + this.vat_total

@@ -163,10 +163,10 @@ export default {
         .then(res => {
           console.log(res.data)
           // ppInvoice_Type_2.print_invoice(res.data)
-          // pp_Invoice_Type_2_Single.print_invoice(res.data.invoice_details)
+          // pp_Invoice_Type_2_Single.print_invoice(res.data.invoice_details, res.data.due_details)
           if(this.tab === 'Chemist') {
             if(res.data.invoice_details.invoice_details.length > 0) {
-              pp_Invoice_Type_2_Single.print_invoice(res.data.invoice_details)
+              pp_Invoice_Type_2_Single.print_invoice(res.data.invoice_details, res.data.due_details)
             } else {
               alert('No data found')
             }

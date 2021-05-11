@@ -1,7 +1,7 @@
 /* ----------------------------------------------------------------------------------------- */
 /*-------- Start Schroll Style --------*/
 ::-webkit-scrollbar {
-    width: 1px;
+    width: 4px;
 }
 
 ::-webkit-scrollbar-track {

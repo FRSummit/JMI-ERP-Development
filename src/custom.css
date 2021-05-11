@@ -135,7 +135,7 @@ input[type="checkbox"] {
 }
 
 #stock-report-t1.stock-report-t1 .stock-report-t1-inner .stock-report-t1-inner-tablse-section::-webkit-scrollbar {
-    width: 2px;
+    width: 4px;
 }
 
 #stock-report-t1.stock-report-t1 .stock-report-t1-inner .stock-report-t1-inner-tablse-section::-webkit-scrollbar-track {
@@ -764,7 +764,7 @@ input[type="checkbox"] {
 
 #doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table tbody::-webkit-scrollbar,
 #customer-profile.customer-profile .data-table-section .data-table-section-inner .v-data-table tbody::-webkit-scrollbar {
-    width: 2px;
+    width: 4px;
 }
 
 #doctors-list.doctors-list .data-table-section .data-table-section-inner .v-data-table tbody::-webkit-scrollbar-track,
@@ -1024,11 +1024,15 @@ input[type="checkbox"] {
     /* border: none; */
 }
 
-#doctors-profile-details-section li {
+#doctors-profile-details-section li{
     width: 50%;
 }
+#customer-profile-details-section li {
+    width: 33%;
+}
 
-#doctors-profile-details-section li a {
+#doctors-profile-details-section li a,
+#customer-profile-details-section li a {
     color     : #026CD1;
     border    : none;
     width     : 50%;
@@ -1036,7 +1040,8 @@ input[type="checkbox"] {
     text-align: center;
 }
 
-#doctors-profile-details-section li a.active {
+#doctors-profile-details-section li a.active,
+#customer-profile-details-section li a.active {
     border-bottom: 2px solid #026CD1;
 }
 
@@ -1090,7 +1095,7 @@ input[type="checkbox"] {
 #order-approval-details-section input:focus,
 #deliveries-details-section input:focus {
     box-shadow   : none;
-    border-bottom: none;
+    /* border-bottom: none; */
     outline      : none;
 }
 
@@ -2716,7 +2721,7 @@ label,
 }
 
 #sd-balance-sheet.sd-balance-sheet .sd-balance-sheet-inner table.data-table tbody::-webkit-scrollbar {
-    width: 2px;
+    width: 4px;
 }
 
 #sd-balance-sheet.sd-balance-sheet .sd-balance-sheet-inner table.data-table tbody::-webkit-scrollbar-track {
@@ -2906,7 +2911,7 @@ button.jmi-confirm-btn:focus {
 }
 
 .jmi-scroll-section::-webkit-scrollbar {
-    width: 2px;
+    width: 4px;
 }
 
 .jmi-scroll-section::-webkit-scrollbar-track {

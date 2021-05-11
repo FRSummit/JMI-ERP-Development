@@ -1030,14 +1030,21 @@
                                                         <div class="row">
                                                             <div class="col-lg-12 form-group">
                                                                 <label for="store_from">Store From <span class="current-stock">(Current Stock: <span>{{ selected_store_current_stock }}</span>)</span></label>
-                                                                <select class="form-control" id="store_from" v-model="stock_position_modal_store_from">
+                                                                <select class="form-control" id="store_from" v-model="stock_position_modal_store_from" @change="warehouseStoreFromOnChange">
                                                                     <option :value="null" selected>Select a Store</option>
                                                                     <option v-for="(item, i) in WAREHOUSE_STORE_INFO__FROM_COMPONENT" :key="i" :value="item">{{ item.store_name }}</option>
                                                                 </select>
                                                             </div>
+                                                            <div class="col-lg-12 form-group" v-if="WAREHOUSE_STORE_INFO_BATCH_LOT__FROM_COMPONENT">
+                                                                <label for="batch_lot">Batch Lot <span class="current-stock">(Current Stock: <span>{{ selected_batch_lot_current_stock }}</span>)</span></label>
+                                                                <select class="form-control" id="batch_lot" v-model="stock_position_modal_batch_lot" @change="selectedBatchLotOnChange">
+                                                                    <option :value="null" selected>Select an option</option>
+                                                                    <option v-for="(item, i) in WAREHOUSE_STORE_INFO_BATCH_LOT__FROM_COMPONENT" :key="i" :value="item">{{ item.batch_lot_no }}</option>
+                                                                </select>
+                                                            </div>
                                                             <div class="col-lg-12 form-group">
-                                                                <label for="store_to">Store To</label>
-                                                                <select class="form-control" id="store_to" v-model="stock_position_modal_store_to">
+                                                                <label for="store_to">Store To <span class="current-stock">(Current Stock: <span>{{ selected_store_to_current_stock }}</span>)</span></label>
+                                                                <select class="form-control" id="store_to" v-model="stock_position_modal_store_to" @change="warehouseStoreToOnChange">
                                                                     <option :value="null" selected>Select a Store</option>
                                                                     <option v-for="(item, i) in WAREHOUSE_STORE_INFO__FROM_COMPONENT" :key="i" :value="item">{{ item.store_name }}</option>
                                                                 </select>
@@ -1493,10 +1500,14 @@ export default {
 
             // STOCK POSITION
             WAREHOUSE_STORE_INFO__FROM_COMPONENT: null,
+            WAREHOUSE_STORE_INFO_BATCH_LOT__FROM_COMPONENT: null,
 
-            selected_store_current_stock: null,
+            selected_store_current_stock: 0,
+            selected_batch_lot_current_stock: 0,
+            selected_store_to_current_stock: 0,
 
             stock_position_modal_store_from: null,
+            stock_position_modal_batch_lot: null,
             stock_position_modal_store_to: null,
             stock_position_modal_stock_qty: null,
 
@@ -2216,6 +2227,17 @@ export default {
         getWarehouseInfo(value) {
             this.WAREHOUSE_STORE_INFO__FROM_COMPONENT = value.warehouse_store_info
         },
+        warehouseStoreFromOnChange() {
+            this.selected_store_current_stock = this.stock_position_modal_store_from.wh_store_stock_info[0].current_stock
+            this.WAREHOUSE_STORE_INFO_BATCH_LOT__FROM_COMPONENT = this.stock_position_modal_store_from ? this.stock_position_modal_store_from.wh_store_stock_info[0].whss_batch_lot_info : null
+        },
+        selectedBatchLotOnChange() {
+            this.selected_batch_lot_current_stock = this.stock_position_modal_batch_lot.current_stock
+        },
+        warehouseStoreToOnChange() {
+            // console.log(this.stock_position_modal_store_to)
+            this.selected_store_to_current_stock = this.stock_position_modal_store_to.wh_store_stock_info[0] ? this.stock_position_modal_store_to.wh_store_stock_info[0].current_stock : 0
+        },
         setTransferStockDefaultValue() {
             this.selected_store_current_stock = 0
             this.stock_position_modal_store_from = null
@@ -2233,7 +2255,7 @@ export default {
                 from_store_id: this.stock_position_modal_store_from.id,
                 to_store_id: this.stock_position_modal_store_to.id,
                 prod_id: this.SELECTED_PROD_DETAILS.prod_id,
-                batch_lot: null,
+                batch_lot: this.stock_position_modal_batch_lot.batch_lot_no,
                 quantity: this.stock_position_modal_stock_qty,
             }
 
@@ -2672,6 +2694,9 @@ export default {
                     console.log(res.data)
                     if(res.data.response_code === 200 || res.data.response_code === 201) {
                         this.prod_creating_progressbar_msg = res.data.message
+                        this.stockPositionTransferChanges()
+                        // this.$store.state.CHANGES_DETECTED_IN_DETAILS_SECTION = new Date()
+                        this.$emit('RELOAD_SELECTED_PROD_DETAILS', this.SELECTED_PROD_DETAILS.prod_id)
                         setTimeout( () => {
                             this.prod_creating_progressbar = false
                             this.prod_creating_progressbar_msg = null
@@ -2694,7 +2719,21 @@ export default {
                         }, 1000)
                     }
                 })
-        }
+        },
+
+        // CHANGES - AFTER API CALL
+        stockPositionTransferChanges() {
+            // console.log(this.stock_position_modal_store_from)
+            // console.log(this.stock_position_modal_store_to)
+            // console.log(this.SELECTED_PROD_DETAILS)
+            console.log(this.SELECTED_PROD_SBU_PROD_DETAILS)
+            this.WAREHOUSE_STORE_INFO__FROM_COMPONENT = null
+            setTimeout( () => {
+                document.querySelector('.product-details-tab ul li:nth-child(6) a').click()
+            }, 2000)
+            // console.log(this.stock_position_modal_batch_lot)
+            // console.log(this.stock_position_modal_stock_qty)
+        },
     },
     watch: {
         SELECTED_PROD_DETAILS(newVal) {
@@ -2732,6 +2771,8 @@ export default {
         SELECTED_PROD_SBU_PROD_DETAILS(newVal) {
             if(newVal) {
                 console.log(newVal)
+
+                
             }
         },
         prod_offer_now_price_d(newVal) {
@@ -2911,5 +2952,8 @@ button.modal-prod-save-btn:hover {
 .document-file .file-name .action-btn svg {
     width: 16px;
     height: 16px;
+}
+.ledgerStock-Area .treeContent .ledgerStock-Area-table tbody {
+  width: 99%;
 }
 </style>

@@ -422,6 +422,37 @@ export default class PP_Invoice_Type_2 {
         return net_payable
     }
 
+    create_credit_status() {
+        let result = ''
+            result += ''
+                    +   '<div class="status-section" style=" margin-top: 20px;">'
+                    +       '<table style="width: 50%; margin-left: 0%; page-break-inside: avoid;">'
+                    +           '<tr>'
+                    +               '<td colspan="4"><p style="text-align: left; font-size: 14px;">Present Credit Status:</p></td>'
+                    +           '</tr>'
+                    +           '<tr  style="border-bottom: 1px solid #000000;">'
+                    +               '<td>Invoice No</td>'
+                    +               '<td>Inv Date</td>'
+                    +               '<td>Pay Mode</td>'
+                    +               '<td>Outstanding</td>'
+                    +           '</tr>'
+                    +           '<tr>'
+                    +               '<td>' + '' + '</td>'
+                    +               '<td>' + '' + '</td>'
+                    +               '<td>' + '' + '</td>'
+                    +               '<td>' + '' + '</td>'
+                    +           '</tr>'
+                    +           '<tr style="">'
+                    +               '<td colspan="4">'
+                    +                   '<p style="text-align: right; font-size: 12px; margin: 8px 20px 0 0;">Total: <span style="border-top: 1px dotted #000000; border-bottom: 2px double #000000;">' + '' + '</span></p>'
+                    +               '</td>'
+                    +           '</tr>'
+                    +       '</table>'
+                    +   '</div>'
+
+        return result
+    }
+
     create_footer() {
       let footer_text = ''
       footer_text += ''
