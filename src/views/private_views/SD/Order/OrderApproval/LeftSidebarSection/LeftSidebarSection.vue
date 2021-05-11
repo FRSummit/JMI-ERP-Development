@@ -38,7 +38,7 @@
                         <div class="customer-id-type-section">
                             <div class="customer-id-type-section-inner">
                                 <div class="id-section">
-                                    <p class="customer-id">{{ customer ? (customer.order_no ? (customer.order_no) : '' ) : "" }}</p>
+                                    <p class="customer-id">{{ customer ? (customer.sbu_customer_info ? customer.sbu_customer_info.display_name : '') : "" }}</p>
                                     <p class="customer-id-2 hide">{{ customer ? (customer.search_key ? (customer.search_key) : '' ) : "" }}</p>
                                 </div>
                                 <div class="type-section">
@@ -51,7 +51,7 @@
                             <div class="customer-name-section-inner">
                                 <div class="name-section">
                                     <!-- <p class="customer-name">{{ customer ? customer.customer_info.customer_address : "" }}</p> -->
-                                    <p class="customer-name">{{ customer ? (customer.sbu_customer_info ? customer.sbu_customer_info.display_name : '') : "" }}</p>
+                                    <p class="customer-name">{{ customer ? (customer.order_no ? (customer.order_no) : '' ) : "" }}</p>
                                 </div>
                                 <div class="status-section">
                                     <!-- <p class="status" :class="customer.order_status"><span class="status-icon" :class="customer.order_status"></span>{{ customer ? (customer.order_status ? customer.order_status : "Pending") : "Pending" }}</p> -->

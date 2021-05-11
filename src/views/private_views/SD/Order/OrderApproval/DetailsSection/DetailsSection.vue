@@ -52,6 +52,7 @@
                                 <th>Name</th>
                                 <th>Trade Price<span class="with-vat">(With VAT)</span></th>
                                 <th>Quantity</th>
+                                <th>Stock</th>
                                 <th>Discount</th>
                                 <th>Bonus</th>
                                 <th>Total Price</th>
@@ -98,6 +99,9 @@
                                                     <span class="qty-decrease" @click="increaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
                                                 </span>
                                             </span>
+                                        </td>
+                                        <td>
+                                            <span>{{ data ? (data.available_stock ? data.available_stock : 0) : 0 }}</span>
                                         </td>
                                         <!-- Discount Column -->
                                         <td>
@@ -1699,7 +1703,7 @@ export default {
                 await service.getApproveSingleOrderByOrderId_OrderApproval(order_details)
                     .then(res => {
                         console.log(res.data)
-                        if(res.data.response_code === 200) {
+                        if(res.data.response_code === 200 || res.data.response_code === 201) {
                             this.approve_product_confirmation_popup_modal = false
                             this.approved_single_order_modal = true
                             this.ORDER_SUCCESS_MESSAGE = res.data.message
