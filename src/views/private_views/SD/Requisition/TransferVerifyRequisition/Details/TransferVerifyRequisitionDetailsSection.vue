@@ -97,9 +97,9 @@
                                     <td>
                                         <form>
                                             <div class="quantity-input">
-                                                <input class='minus hide' type='button' value='-' field='quantity' @click="decreaseRequisitionQtyClickHandler(item, i)" />
+                                                <input class='minus' type='button' value='-' field='quantity' @click="decreaseRequisitionQtyClickHandler(item, i)" />
                                                 <input class='quantity' type='number' name='quantity' placeholder="0" :value="item.req_qty" :id="'req_qty_' + i" v-on:keyup="reqQtyKeyUpEventHandler(item, $event, i)" v-on:keydown="reqQtyKeyDownEventHandler($event, i)" readonly/>
-                                                <input class='plus hide' type='button' value='+' field='quantity' @click="increaseRequisitionQtyClickHandler(item, i)" />
+                                                <input class='plus' type='button' value='+' field='quantity' @click="increaseRequisitionQtyClickHandler(item, i)" />
                                             </div>
                                         </form>
                                     </td>

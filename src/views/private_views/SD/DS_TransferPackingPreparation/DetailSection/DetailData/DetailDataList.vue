@@ -140,7 +140,7 @@ export default {
     },
     printAllClickHandler() {
       console.log('print all')
-      console.log(this.PROD_PREPARATION_LIST)
+      console.log(this.INVOICE_ID_FROM_LEFT.batch_info)
       // if(this.tab === 'INVOICE' || this.tab === 'CHALLAN') {
         console.log()
         let table_header = [
@@ -154,7 +154,7 @@ export default {
         ]
         console.log(table_header.length)
         let table_data = []
-        for(let i=0; i<this.PROD_PREPARATION_LIST.length; i++) {
+        for(let i=0; i<this.INVOICE_ID_FROM_LEFT.batch_info.length; i++) {
           // console.log(this.PROD_PREPARATION_LIST[i])
           let group_table = {
             sep_moi_name: "Dummy SEP MIO",

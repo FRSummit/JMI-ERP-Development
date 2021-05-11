@@ -18,21 +18,21 @@
                                 </select>
                             </div> -->
                         </div>
-                        <div class="col-lg-3 col-md-3 col-12">
+                        <div class="col-lg-6 col-md-3 col-12">
                             <div class="form-group">
                                 <label for="requisition_to" class="col-form-label">Requisition To:</label>
-                                <select class="form-control-sm" id="requisition_to" v-model="wh_from" @change="onChangeWH()">
+                                <select class="form-control-sm" id="requisition_to" v-model="wh_from" @change="onChangeWH()" style="width: 75%;">
                                     <option >Select Area</option>
                                     <option v-for="(depot, i) in DEPOT_LIST" :key="i" :value="depot.id">{{ depot.wh_name }}</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-3 col-12">
+                        <div class="col-lg-3 col-md-3 col-12">
                             <p>Requisition Date: <span class="text-data"><input type="date" v-model="requisition_date"></span></p>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-12">
+                        <!-- <div class="col-lg-2 col-md-2 col-12">
                             <p>Status: <span class="draft">{{ REQ_STATUS ? REQ_STATUS : 'DRAFT' }}</span></p>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="row requition_content">
                         <table class="col-12">
@@ -41,6 +41,8 @@
                                     <th>Name</th>
                                     <th>Unit</th>
                                     <th>Quantity</th>
+                                    <th>Current Stock</th>
+                                    <th style="text-align: center;">Safety Stock</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -58,14 +60,6 @@
                                             <p class="type">{{ item.base_uom }}</p>
                                         </div>
                                     </td>
-                                    <!-- <td>
-                                        <select class="form-control-sm" id="unit">
-                                        <option >Select Unit</option>
-                                        <option>Box</option>
-                                        <option>Box 2</option>
-                                        <option>Box 3</option>
-                                        </select>
-                                    </td> -->
                                     <td>
                                         <form>
                                             <div class="quantity-input">
@@ -74,6 +68,16 @@
                                                 <input class='plus' type='button' value='+' field='quantity' @click="increaseRequisitionQtyClickHandler(item, i)" />
                                             </div>
                                         </form>
+                                    </td>
+                                    <td>
+                                        <div class="product">
+                                            <p class="type">{{ item.current_stock }}</p>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="product">
+                                            <p class="type" style="text-align: center;">{{ item.safety_stock }}</p>
+                                        </div>
                                     </td>
                                     <td>
                                         <!-- <a class="edit" @click="singleItemEditClickHandler"><i class="zmdi zmdi-edit"></i></a> -->
