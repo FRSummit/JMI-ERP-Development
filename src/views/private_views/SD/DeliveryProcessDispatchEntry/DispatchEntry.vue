@@ -151,6 +151,7 @@ export default {
     async DISPATCH_ENTRY_GP_NO__FROM_SERVICE(gp_no) {
       this.GP_ID = null
       this.SR_NAME = null
+      this.gate_pass_no = null
       // this.success_dispatch = true
       // this.success_dispatch_msg = 'Please wait. We are processing...'
       await service.getDispatchEntryByGPNo_DS_DISPATCH_ENTRY(gp_no)
@@ -158,6 +159,7 @@ export default {
           console.log(res.data)
           if(res.data.response_code === 200 || res.data.response_code === 201) {
             // this.success_dispatch_msg = res.data.message
+            this.gate_pass_no = res.data.gate_pass_info.gp_no
             this.GP_ID = res.data.gate_pass_info.id
             // this.SR_NAME = res.data.gate_pass_info.ds_info.da_info.name
             this.SR_NAME = res.data.gate_pass_info.gp_for
