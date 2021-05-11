@@ -153,7 +153,8 @@ export default {
           if(res.data.response_code === 200 || res.data.response_code === 201) {
             this.success_dispatch_msg = res.data.message
             this.GP_ID = res.data.gate_pass_info.id
-            this.SR_NAME = res.data.gate_pass_info.ds_info.da_info.name
+            // this.SR_NAME = res.data.gate_pass_info.ds_info.da_info.name
+            this.SR_NAME = res.data.gate_pass_info.gp_for
           } else {
             this.success_dispatch_msg = 'Invalid Gate pass number.'
           }
