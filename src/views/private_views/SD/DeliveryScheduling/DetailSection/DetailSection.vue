@@ -9,7 +9,7 @@
                 <p>DSID:<span>#</span></p>
               </div>
               <div class="date-section">
-                <p>Current Date: <span>10/01/2021</span></p>
+                <p>Current Date: <span>{{ dateFormat(new Date) }}</span></p>
               </div>
             </div>
           </div>
@@ -143,6 +143,9 @@
 <script>
 import * as VueGoogleMaps from 'vue2-google-maps'
 // import { google } from 'google-maps';
+
+import GlobalDateFormat from '../../../../../functions/GlobalDateFormat'
+const globalDateFormat = new GlobalDateFormat()
 
 export default {
   data() {
@@ -306,6 +309,9 @@ export default {
           this.infoWinOpen = true;
           this.currentMidx = index;
         }
+    },
+    dateFormat(dt) {
+      return globalDateFormat.dateFormatT4(dt)
     },
     getInfoWindowContent(marker) {
       return (`<div class="card" style="visibility: visible; margin: 0; border: none; box-shadow: none;">

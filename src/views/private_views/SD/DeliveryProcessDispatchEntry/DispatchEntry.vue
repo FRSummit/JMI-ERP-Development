@@ -15,13 +15,13 @@
                     <div class="col-lg-3 col-md-3 col-sm-6 delivery-schedule-no">
                       <div class="delivery-schedule-no-inner">
                         <span class="label">Gate Pass No</span>
-                        <input type="text" id="ds_gate_pass_no" v-on:keyup="gatePassNoKeyUpHnadler($event)"/>
+                        <input type="text" v-model="gate_pass_no" id="ds_gate_pass_no" v-on:keyup="gatePassNoKeyUpHnadler($event)" @mouseleave="mouseOverBearerNameEventandler"/>
                       </div>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-6 da-sr-name">
                       <div class="da-sr-name-inner">
                         <span class="label">Bearer Name</span>
-                        <input type="text" v-model="SR_NAME" readonly/>
+                        <input type="text" v-model="SR_NAME" @mouseover="mouseOverBearerNameEventandler" readonly/>
                       </div>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-6 dispatch-date">
@@ -106,6 +106,8 @@ export default {
       routeName: "Dispatch Entry",
       parentPath: "Local Sales",
       pathName: [],
+
+      gate_pass_no: null,
       GP_ID: null,
       SR_NAME: null,
       dispatch_date: null,
@@ -128,14 +130,18 @@ export default {
       // this.pathName = breadcrumbFunctions.jmiERPBreadcrumb(window.location.pathname)
     },
     gatePassNoKeyUpHnadler(value) {
+      console.log(value.which)
       console.log(value.key)
       let selector = document.querySelector('#ds_gate_pass_no')
       console.log(selector.value)
 
-      if(value.key === 'Enter') {
+      if(value.key === 'Enter' || value.key === 'Tab') {
         this.DISPATCH_ENTRY_GP_NO__FROM_SERVICE(selector.value.toString().toUpperCase())
       }
       // this.DISPATCH_ENTRY_GP_NO__FROM_SERVICE()
+    },
+    mouseOverBearerNameEventandler() {
+      console.log('working ' + this.gate_pass_no)
     },
     dispatchNowClickHandler() {
       this.CREATE_DISPATCH__FROM_SERVICE()
@@ -145,23 +151,36 @@ export default {
     async DISPATCH_ENTRY_GP_NO__FROM_SERVICE(gp_no) {
       this.GP_ID = null
       this.SR_NAME = null
-      this.success_dispatch = true
-      this.success_dispatch_msg = 'Please wait. We are processing...'
+      // this.success_dispatch = true
+      // this.success_dispatch_msg = 'Please wait. We are processing...'
       await service.getDispatchEntryByGPNo_DS_DISPATCH_ENTRY(gp_no)
         .then(res => {
           console.log(res.data)
           if(res.data.response_code === 200 || res.data.response_code === 201) {
-            this.success_dispatch_msg = res.data.message
+            // this.success_dispatch_msg = res.data.message
             this.GP_ID = res.data.gate_pass_info.id
             // this.SR_NAME = res.data.gate_pass_info.ds_info.da_info.name
             this.SR_NAME = res.data.gate_pass_info.gp_for
+
+            // document.getElementById('ds_dispatch_date').value = new Date().toISOString().substring(0, 10)
+            // document.getElementById('ds_dispatch_time').value = new Date().toString().split(' ')[4]
+
+            
+            this.dispatch_date = new Date().toISOString().substring(0, 10)
+            this.dispatch_time = new Date().toString().split(' ')[4]
           } else {
+            this.success_dispatch = true
             this.success_dispatch_msg = 'Invalid Gate pass number.'
           }
           setTimeout( () => {
             this.success_dispatch = false
             this.success_dispatch_msg = null
           }, 2000)
+        })
+        .catch(err => {
+            if(err) {
+              console.log('Server Error 500. ' + err)
+            }
         })
     },
     async CREATE_DISPATCH__FROM_SERVICE() {
@@ -174,6 +193,11 @@ export default {
             this.success_dispatch = false
             this.$router.push('/features/users/dashboard')
           }, 2000)
+        })
+        .catch(err => {
+            if(err) {
+              console.log('Server Error 500. ' + err)
+            }
         })
     }
   },

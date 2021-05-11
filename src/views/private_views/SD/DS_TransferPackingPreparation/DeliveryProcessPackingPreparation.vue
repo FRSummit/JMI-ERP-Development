@@ -3,13 +3,18 @@
     <Heading :pathName="pathName" :routeName="routeName" />
     <div class="invoice-challan-printing-section">
       <div class="invoice-challan-printing-inner">
-        <InvoiceChallanPrintingLeftList
-          v-on:invoice_id_from_left="invoiceIdFromLeftHandler"/>
+        <!-- <InvoiceChallanPrintingLeftList
+          v-on:invoice_id_from_left="invoiceIdFromLeftHandler"/> -->
+          <InvoiceChallanPrintingLeftList 
+            :STOCK_TRANSFER_PACKING_PREPARATION="STOCK_TRANSFER_PACKING_PREPARATION"
+            v-on:invoice_id_from_left="invoiceIdFromLeftHandler" />
         <div class="invoice-challan-printing-detail-section">
           <div class="invoice-challan-printing-detail-inner">
             <DetailSection 
-              :PROD_PREPARATION_LIST="PROD_PREPARATION_LIST"
-              :PROD_PREPARATION_LIST_HEADER_INFO="PROD_PREPARATION_LIST_HEADER_INFO" />
+              :STOCK_TRANSFER_PACKING_PREPARATION="STOCK_TRANSFER_PACKING_PREPARATION"
+              :INVOICE_ID_FROM_LEFT="INVOICE_ID_FROM_LEFT" />
+              <!-- :PROD_PREPARATION_LIST="PROD_PREPARATION_LIST"
+              :PROD_PREPARATION_LIST_HEADER_INFO="PROD_PREPARATION_LIST_HEADER_INFO" /> -->
           </div>
         </div>
       </div>
@@ -48,7 +53,7 @@ export default {
   },
   data() {
     return {
-      routeName: "DS Packing Preparation",
+      routeName: "Stock Transfer Packing Preparation",
       parentPath: "Local Sales",
       pathName: [],
       info_modal_schedult_count: false,
@@ -58,18 +63,22 @@ export default {
       PROD_PREPARATION_LIST_GROUP_BY: [],
       loading_popup_modal: false,
       loading_message: null,
+
+      STOCK_TRANSFER_PACKING_PREPARATION: null,
+      INVOICE_ID_FROM_LEFT: null,
     };
   },
   created() {
     this.$emit("routeName", this.$route.name);
     this.createBreadcrumbData();
   },
-  mounted() {
+  async mounted() {
     // this.showInvoiceCountInformationMessagePopup()
+    await this.STOCK_TRANSFER_PACKING_PREPARATION__FROM_SERVICE()
   },
   methods: {
     createBreadcrumbData() {
-      this.pathName = [{name: "Features"},{ name: "Local Sales" }, { name: "DS Packing Preparation" }];
+      this.pathName = [{name: "Features"},{ name: "Local Sales" }, { name: "Stock Transfer Packing Preparation" }];
       // this.pathName = breadcrumbFunctions.jmiERPBreadcrumb(window.location.pathname)
     },
     showInvoiceCountInformationMessagePopup() {
@@ -81,25 +90,18 @@ export default {
     },
     async invoiceIdFromLeftHandler(val) {
       console.log(val)
-      await this.DELIVERY_SCHEDULE_DETAILS__FROM_SERVICE(val)
+      this.INVOICE_ID_FROM_LEFT = val
     },
     // -------------------------------------------------------------------------------
     // Service Call
-    async DELIVERY_SCHEDULE_DETAILS__FROM_SERVICE(schedule_id) {
-      await service.getDeliveryScheduleProdPreparationListByDA_ID_DS_PACKING_PREPARATION(schedule_id)
+    async STOCK_TRANSFER_PACKING_PREPARATION__FROM_SERVICE() {
+      await service.getTransferProdPreparationList__STOCK_TRANSFER_PACKING_PREPARATION()
         .then(res => {
-          this.PROD_PREPARATION_LIST = []
-          this.PROD_PREPARATION_LIST_HEADER_INFO = []
+          this.STOCK_TRANSFER_PACKING_PREPARATION = []
           console.log(res.data)
-          this.PROD_PREPARATION_LIST = res.data.prod_preparation_list
-          this.PROD_PREPARATION_LIST_HEADER_INFO = res.data.header
-          // if(this.PROD_PREPARATION_LIST) {
-          //   for(let i=0; i<this.PROD_PREPARATION_LIST.length; i++) {
-          //     for(let j=0; j<this.PROD_PREPARATION_LIST[i]; j++) {
-          //       this.
-          //     }
-          //   }
-          // }
+          if(res.data.response_code === 200 || res.data.response_code === 201) {
+            this.STOCK_TRANSFER_PACKING_PREPARATION = res.data.transfer_prod_list_n_details
+          }
         })
         .catch(err => {
           if(err) {

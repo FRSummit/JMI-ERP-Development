@@ -656,8 +656,8 @@ export default {
         // --------------------------------------------------------------------------------------------
         // SERVICE CALL
         async COMMON_CASH_REGISTER__FROM_SERVICE() {
-            this.msg_popup_modal = true
-            this.msg_popup_modal_msg = 'Please wait. We are processing...'
+            // this.msg_popup_modal = true
+            // this.msg_popup_modal_msg = 'Please wait. We are processing...'
             await service.getCommonCashRegister__CASH_REGISTER()
                 .then(res => {
                     console.log(res.data)
@@ -666,13 +666,14 @@ export default {
                     this.OUT_WARD_CASH_REGISTER = []
                     this.DAY_CLOSING_CASH_REGISTER = []
                     if(res.data.response_code === 200 || res.data.response_code === 201) {
-                        this.msg_popup_modal_msg = res.data.message + ' Data Loaded.'
+                        // this.msg_popup_modal_msg = res.data.message + ' Data Loaded.'
 
                         this.PENDING_CASH_REGISTER = res.data.pending_cash_register
                         this.IN_WARD_CASH_REGISTER = res.data.in_ward_cash_register
                         this.OUT_WARD_CASH_REGISTER = res.data.out_ward_cash_register
                         this.DAY_CLOSING_CASH_REGISTER = res.data.day_closing
                     } else {
+                        this.msg_popup_modal = true
                         this.msg_popup_modal_msg = res.data.message + ' Response code : ' + res.data.response_code + '.'
                     }
                     setTimeout( () => {
@@ -697,17 +698,19 @@ export default {
                 })
         },
         async VERIFY_CASH_REGISTER__FROM_SERVICE(data) {
-            this.msg_popup_modal = true
-            this.msg_popup_modal_msg = 'Please wait. We are processing...'
+            // this.msg_popup_modal = true
+            // this.msg_popup_modal_msg = 'Please wait. We are processing...'
             await service.getCommonVerifyCashRegister__CASH_REGISTER_PENDING(data)
                 .then(res => {
                     console.log(res.data)
                     if(res.data.response_code === 200 || res.data.response_code === 201) {
+                        this.msg_popup_modal = true
                         this.msg_popup_modal_msg = res.data.message
                         this.SELECTED_PENDING_DATA = []
                         this.unselectAllSelectedPendingDataRow()
                         this.COMMON_CASH_REGISTER__FROM_SERVICE()
                     } else {
+                        this.msg_popup_modal = true
                         this.msg_popup_modal_msg = res.data.message + ' Response code : ' + res.data.response_code + '.'
                     }
                     setTimeout( () => {
@@ -728,17 +731,19 @@ export default {
                 })
         },
         async CANCEL_CASH_REGISTER__FROM_SERVICE(data) {
-            this.msg_popup_modal = true
-            this.msg_popup_modal_msg = 'Please wait. We are processing...'
+            // this.msg_popup_modal = true
+            // this.msg_popup_modal_msg = 'Please wait. We are processing...'
             await service.getCommonCancelCashRegister__CASH_REGISTER_PENDING(data)
                 .then(res => {
                     console.log(res.data)
                     if(res.data.response_code === 200 || res.data.response_code === 201) {
+                        this.msg_popup_modal = true
                         this.msg_popup_modal_msg = res.data.message
                         this.SELECTED_PENDING_DATA = []
                         this.unselectAllSelectedPendingDataRow()
                         this.COMMON_CASH_REGISTER__FROM_SERVICE()
                     } else {
+                        this.msg_popup_modal = true
                         this.msg_popup_modal_msg = res.data.message + ' Response code : ' + res.data.response_code + '.'
                     }
                     setTimeout( () => {

@@ -113,6 +113,13 @@ export const router = new VueRouter({
       component: () => import('../views/private_views/SD/DeliveryProcessPackingPreparation/DeliveryProcessPackingPreparation.vue')
     },
     // --------------------------------------------------------------------------------------
+    // DS - TRANSFER PACKING PREPARATION
+    {
+      path: '/features/local_sales/ds-transfer-packing-preparation',
+      name: 'DS Transfer Packing Preparation',
+      component: () => import('../views/private_views/SD/DS_TransferPackingPreparation/DeliveryProcessPackingPreparation.vue')
+    },
+    // --------------------------------------------------------------------------------------
     // DS - INVOICE PRINTING
     {
       path: '/sd/delivery-process-invoice-printing:id',

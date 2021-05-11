@@ -1591,6 +1591,25 @@ export default class PostService {
     })
   }
 
+  // -------------------------------------------------------------------------------------------
+  // STOCK TRANSFER PACKING PREPARATION
+  async getTransferProdPreparationList__STOCK_TRANSFER_PACKING_PREPARATION() {
+    let web_menu_url = '/api/web/transfer-prod-preparation-list'
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
+
+
+  // -------------------------------------------------------------------------------------------
+
+  // -------------------------------------------------------------------------------------------
+
+  // -------------------------------------------------------------------------------------------
+
 
   // -------------------------------------------------------------------------------------------
 
