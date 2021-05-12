@@ -67,19 +67,19 @@
                                     </td> -->
                                     <td>
                                         <div class="product">
-                                            <p class="type">{{ DATA_DEPOT_NAME_FROM_TR_AR ? DATA_DEPOT_NAME_FROM_TR_AR : '' }}</p>
+                                            <p class="type">{{ item.current_stock ? item.current_stock : 0 }}</p>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="product">
-                                            <p class="type">{{ DATA_DEPOT_NAME_TO_TR_AR ? DATA_DEPOT_NAME_TO_TR_AR : '' }}</p>
+                                            <p class="type">{{ item.req_current_stock ? item.req_current_stock : 0 }}</p>
                                         </div>
                                     </td>
                                     <td>
                                         <form>
                                             <div class="quantity-input">
                                                 <input class='minus' type='button' value='-' field='quantity' @click="decreaseRequisitionQtyClickHandler(item, i)" />
-                                                <input class='quantity' type='number' name='quantity' placeholder="0" :value="item.req_qty" :id="'req_qty_' + i" v-on:keyup="reqQtyKeyUpEventHandler(item, $event, i)" v-on:keydown="reqQtyKeyDownEventHandler($event, i)" />
+                                                <input class='quantity' type='number' name='quantity' placeholder="0" :value="item.trans_qty" :id="'req_qty_' + i" v-on:keyup="reqQtyKeyUpEventHandler(item, $event, i)" v-on:keydown="reqQtyKeyDownEventHandler($event, i)" />
                                                 <input class='plus' type='button' value='+' field='quantity' @click="increaseRequisitionQtyClickHandler(item, i)" />
                                             </div>
                                         </form>
@@ -128,8 +128,8 @@
 <script>
 // import DemoData from '../../DemoData'
 // const demoData = new DemoData()
-// import ERPService from '../../../../../../service/ERPSidebarService'
-// const service = new ERPService()
+import ERPService from '../../../../../../service/ERPSidebarService'
+const service = new ERPService()
 
 export default {
     props: ["DEPOT_NAME", "SELECTED_REQUISITION_DATA"],
@@ -162,7 +162,7 @@ export default {
                 for(let i=0; i<this.SELECTED_REQUISITION_DATA.length; i++) {
                     console.log(this.SELECTED_REQUISITION_DATA[i])
                     let prods = {
-                        // id: this.REQUISITION_ID_NO,
+                        id: this.REQUISITION_ID_NO,
                         detail_id: this.SELECTED_REQUISITION_DATA[i].detail_id ? this.SELECTED_REQUISITION_DATA[i].detail_id : null,
                         prod_id: this.SELECTED_REQUISITION_DATA[i].prod_id,
                         trans_qty: this.SELECTED_REQUISITION_DATA[i].req_qty
@@ -288,35 +288,35 @@ export default {
             }
         },
         changeThisComponent() {
-            this.$router.push('/features/local_sales/verified-requisition')
+            this.$router.push('/features/local_sales/transfer-approve-requisition')
         },
         // -----------------------------------------------------
         // SERVICE CALL
         async UPDATE_TRANSFER_VERIFY_REQUISITION__FROM_SERVICE(requisition_id) {
             console.log(requisition_id)
             console.log(this.REQUISITION_DATA_TO_SAVE_OR_SEND)
-            // service.getUpdateNewRequisition_TRANSFER_VERIFY_REQUISITION_UPDATE(requisition_id, this.REQUISITION_DATA_TO_SAVE_OR_SEND)
-            //     .then(res => {
-            //         console.log(res.data)
-            //         if(res.data.response_code === 200 || res.data.response_code === 201) {
-            //             this.status_modal_msg = 'Requisition update successfully'
-            //             setTimeout( () => {
-            //                 this.status_modal = false
-            //                 this.status_modal_msg = null
-            //             }, 2000)
-            //             this.changeThisComponent()
-            //         }
-            //     })
-            //     .catch(err => {
-            //         if(err) {
-            //             console.log(err)
-            //             this.status_modal_msg = 'Server problem 500'
-            //             setTimeout( () => {
-            //                 this.status_modal = false
-            //                 this.status_modal_msg = null
-            //             }, 2000)
-            //         }
-            //     })
+            service.getUpdateNewRequisition_TRANSFER_VERIFY_REQUISITION_UPDATE(requisition_id, this.REQUISITION_DATA_TO_SAVE_OR_SEND)
+                .then(res => {
+                    console.log(res.data)
+                    if(res.data.response_code === 200 || res.data.response_code === 201) {
+                        this.status_modal_msg = 'Requisition update successfully'
+                        setTimeout( () => {
+                            this.status_modal = false
+                            this.status_modal_msg = null
+                        }, 2000)
+                        this.changeThisComponent()
+                    }
+                })
+                .catch(err => {
+                    if(err) {
+                        console.log(err)
+                        this.status_modal_msg = 'Server problem 500'
+                        setTimeout( () => {
+                            this.status_modal = false
+                            this.status_modal_msg = null
+                        }, 2000)
+                    }
+                })
         },
     },
     watch: {}
