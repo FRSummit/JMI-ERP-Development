@@ -90,7 +90,8 @@
                                     <th>Name</th>
                                     <th>Unit</th>
                                     <th>Quantity</th>
-                                    <th>Stock</th>
+                                    <th>{{ SELECTED_REQUISITION_DETAILS ? SELECTED_REQUISITION_DETAILS.req_from_info.wh_code : '' }} Stock</th>
+                                    <th>{{ SELECTED_REQUISITION_DETAILS ? SELECTED_REQUISITION_DETAILS.req_to_info.wh_code : '' }} Stock</th>
                                     <!-- <th></th> -->
                                 </tr>
                             </thead>
@@ -127,9 +128,19 @@
                                         </form>
                                         <!-- <p class="type">{{ item.req_qty }}</p> -->
                                     </td>
-                                    <td>
+                                    <!-- <td>
                                         <div class="product">
                                             <p class="type">{{ item.available_stock }}</p>
+                                        </div>
+                                    </td> -->
+                                    <td>
+                                        <div class="product">
+                                            <p class="type">{{ item.current_stock ? item.current_stock : 0 }}</p>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="product">
+                                            <p class="type">{{ item.req_current_stock ? item.req_current_stock : 0 }}</p>
                                         </div>
                                     </td>
                                     <!-- <td>
