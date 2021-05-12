@@ -162,7 +162,7 @@ export default {
                 for(let i=0; i<this.SELECTED_REQUISITION_DATA.length; i++) {
                     console.log(this.SELECTED_REQUISITION_DATA[i])
                     let prods = {
-                        id: this.REQUISITION_ID_NO,
+                        // id: this.REQUISITION_ID_NO,
                         detail_id: this.SELECTED_REQUISITION_DATA[i].detail_id ? this.SELECTED_REQUISITION_DATA[i].detail_id : null,
                         prod_id: this.SELECTED_REQUISITION_DATA[i].prod_id,
                         trans_qty: this.SELECTED_REQUISITION_DATA[i].req_qty
