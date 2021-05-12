@@ -28,7 +28,7 @@ export default {
   },
   data() {
     return {
-      routeName: "Transfer Approve Requisition",
+      routeName: "Transfer Approve Requisition Update",
       parentPath: "Local Sales",
       pathName: [],
       DEPOT_NAME: null,
@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     createBreadcrumbData() {
-      this.pathName = [{ name: "Features" }, { name: "Local Sales" }, { name: "Transfer Approve Requisition" }];
+      this.pathName = [{ name: "Features" }, { name: "Local Sales" }, { name: "Transfer Approve Requisition Update" }];
       // this.pathName = breadcrumbFunctions.jmiERPBreadcrumb(window.location.pathname)
     },
     depotNameFromList(value) {

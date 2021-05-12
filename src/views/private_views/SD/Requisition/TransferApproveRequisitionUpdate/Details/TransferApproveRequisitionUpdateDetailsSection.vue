@@ -228,10 +228,8 @@ export default {
         },
         increaseRequisitionQtyClickHandler(item, index) {
             // console.log(index)
-            console.log(item.req_qty)
             item.req_qty++
             let selector = document.querySelector('#transfet-verify-requisition-update #req_qty_' + index)
-            console.log(selector)
             selector.value = item.req_qty
         },
         reqQtyKeyUpEventHandler(item, event, index) {
