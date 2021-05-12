@@ -30,7 +30,7 @@ export default {
   },
   data() {
     return {
-      routeName: "Transfer Verify Requisition",
+      routeName: "Transfer Requisition Verify",
       parentPath: "Local Sales",
       pathName: [],
       SELECTED_REQUISITION_DETAILS: [],
@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     createBreadcrumbData() {
-      this.pathName = [{ name: "Features" }, { name: "Local Sales" }, { name: "Transfer Verify Requisition" }];
+      this.pathName = [{ name: "Features" }, { name: "Local Sales" }, { name: "Transfer Requisition Verify" }];
       // this.pathName = breadcrumbFunctions.jmiERPBreadcrumb(window.location.pathname)
     },
     async singleItemClicked(item) {

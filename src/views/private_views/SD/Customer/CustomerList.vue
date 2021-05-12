@@ -96,12 +96,12 @@ export default {
           value: "name",
         },
         {
-          text: "Type",
+          text: "Code",
           value: "type",
         },
-        { text: "Designation", value: "designation" },
-        { text: "Specialization", value: "specialization" },
-        { text: "Territory", value: "territory" },
+        { text: "Address", value: "designation" },
+        { text: "Phone", value: "specialization" },
+        { text: "Enrolled", value: "territory" },
         { text: "Status", value: "status" },
       ];
     },

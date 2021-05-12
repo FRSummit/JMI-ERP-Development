@@ -26,7 +26,7 @@
                     <div class="row requition_header"> 
                         <div class="col-12 header_top">
                             <h5>Requisition No: <span>{{ SELECTED_REQUISITION_DETAILS.requisition_no ? SELECTED_REQUISITION_DETAILS.requisition_no : '' }}</span></h5>
-                            <a class="edit hide" @click="editRequisitionClickHandler"><i class="zmdi zmdi-edit"></i></a>
+                            <a class="edit" @click="editRequisitionClickHandler"><i class="zmdi zmdi-edit"></i></a>
                         </div>
                         <div class="col-lg-3 col-md-3 col-12">
                             <!-- <p>Requisition From: <span class="text-data">{{ SELECTED_REQUISITION_DETAILS_WH_NAME }}</span></p> -->
@@ -67,8 +67,9 @@
                                 <tr>
                                     <th>Name</th>
                                     <th>Unit</th>
+                                    <th>{{ SELECTED_REQUISITION_DETAILS ? SELECTED_REQUISITION_DETAILS.req_from_info.wh_code : '' }} Stock</th>
+                                    <th>{{ SELECTED_REQUISITION_DETAILS ? SELECTED_REQUISITION_DETAILS.req_to_info.wh_code : '' }} Stock</th>
                                     <th>Quantity</th>
-                                    <!-- <th></th> -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -95,11 +96,21 @@
                                         </select>
                                     </td> -->
                                     <td>
+                                        <div class="product">
+                                            <p class="type">{{ SELECTED_REQUISITION_DETAILS ? SELECTED_REQUISITION_DETAILS.req_from_info.wh_code : '' }}</p>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="product">
+                                            <p class="type">{{ SELECTED_REQUISITION_DETAILS ? SELECTED_REQUISITION_DETAILS.req_to_info.wh_code : '' }}</p>
+                                        </div>
+                                    </td>
+                                    <td>
                                         <form>
                                             <div class="quantity-input">
-                                                <input class='minus' type='button' value='-' field='quantity' @click="decreaseRequisitionQtyClickHandler(item, i)" />
+                                                <input class='minus hide' type='button' value='-' field='quantity' @click="decreaseRequisitionQtyClickHandler(item, i)" />
                                                 <input class='quantity' type='number' name='quantity' placeholder="0" :value="item.req_qty" :id="'req_qty_' + i" v-on:keyup="reqQtyKeyUpEventHandler(item, $event, i)" v-on:keydown="reqQtyKeyDownEventHandler($event, i)" readonly/>
-                                                <input class='plus' type='button' value='+' field='quantity' @click="increaseRequisitionQtyClickHandler(item, i)" />
+                                                <input class='plus hide' type='button' value='+' field='quantity' @click="increaseRequisitionQtyClickHandler(item, i)" />
                                             </div>
                                         </form>
                                     </td>
@@ -114,7 +125,7 @@
                     <div class="row requition_footer">
                         <!-- <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="saveAsDraftClickHandler">Save As Draft</button></a>
                         <a><button type="button" class="btn btn-primary btn-global mx-2" @click="sendRequestClickHandler">Approve</button></a> -->
-                        <a><button type="button" class="btn btn-primary btn-global mx-2" @click="saveAsVerifyClickHandler" style="color: #FFFFFF;">Save As Verify</button></a>
+                        <a><button type="button" class="btn btn-primary btn-global mx-2" @click="saveAsVerifyClickHandler" style="color: #FFFFFF;">Verify</button></a>
                     </div>
                 </div>
             </div>
@@ -185,6 +196,8 @@ export default {
             if(this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS.length ? this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS.length > 0 : false) {
                 for(let i=0; i<this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS.length; i++) {
                     let prods = {
+                        id: this.SELECTED_REQUISITION_DETAILS.id,
+                        detail_id: this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS[i].id,
                         prod_id: this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS[i].prod_id,
                         req_qty: this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS[i].req_qty
                     }
@@ -359,6 +372,8 @@ export default {
                 })
         },
         async SAVE_TRANSFER_VERIFY__FROM_SERVICE(req_no) {
+            console.log(req_no)
+            console.log(this.REQUISITION_DATA_TO_SAVE_OR_SEND)
             await service.getSaveTransferVerify_TRANSFER_REQUISITION(req_no)
                 .then(res => {
                     console.log(res.data)

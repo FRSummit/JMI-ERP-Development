@@ -25,8 +25,10 @@
                 <div class="col-12 requition_area">
                     <div class="row requition_header"> 
                         <div class="col-12 header_top">
-                            <h5>Requisition No: <span>{{ SELECTED_REQUISITION_DETAILS.requisition_no ? SELECTED_REQUISITION_DETAILS.requisition_no : '' }}</span></h5>
-                            <a class="edit hide" @click="editRequisitionClickHandler"><i class="zmdi zmdi-edit"></i></a>
+                            <div class="col-lg-6 col-md-6 col-12">
+                                <h5>Requisition No: <span>{{ SELECTED_REQUISITION_DETAILS.requisition_no ? SELECTED_REQUISITION_DETAILS.requisition_no : '' }}</span></h5>
+                            </div>
+                            
                             <!-- <div class="col-lg-3 col-md-3 col-12">
                                 <div class="form-group">
                                     <label for="requisition_to" class="col-form-label">Driver</label>
@@ -44,6 +46,8 @@
                                     </select>
                                 </div>
                             </div>
+                            
+                            <a class="edit col-lg-3 col-md-3 col-6" @click="editRequisitionClickHandler"><i class="zmdi zmdi-edit fl-right" v-if="SELECTED_REQUISITION_DETAILS.requisition_no ? true : false"></i></a>
                         </div>
                         <div class="col-lg-3 col-md-3 col-12">
                             <!-- <p>Requisition From: <span class="text-data">{{ SELECTED_REQUISITION_DETAILS_WH_NAME }}</span></p> -->
@@ -230,14 +234,13 @@ export default {
             return globalDateFormat.dateFormatT4(date)
         },
         editRequisitionClickHandler() {
-            console.log('editRequisitionClickHandler')
-            // console.log(this.SELECTED_REQUISITION_DETAILS)
-            // if(this.SELECTED_REQUISITION_DETAILS.id) {
-            //     this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT = this.SELECTED_REQUISITION_DETAILS
-            //     this.$router.push('/features/local_sales/create-requisition')
-            // } else {
-            //     alert('Please select a requisitor from left.')
-            // }
+            console.log(this.SELECTED_REQUISITION_DETAILS)
+            if(this.SELECTED_REQUISITION_DETAILS.id) {
+                this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT = this.SELECTED_REQUISITION_DETAILS
+                this.$router.push('/features/local_sales/transfer-approve-requisition-update')
+            } else {
+                alert('Please select a requisitor from left.')
+            }
         },
         onChangeDriver() {
             console.log(this.wh_from)
@@ -448,11 +451,15 @@ export default {
     text-transform: unset;
 }
 /* Data Section */
+.requition_area .requition_header {
+    padding: 10px 0;
+}
 .requition_area .requition_header .header_top {
     padding: 0;
 }
 .requition_area .requition_header h5 {
-    margin: 0;
+    margin: 7px 0 3px;
+    height: 30px;
 }
 .requition_area .requition_header .form-group label {
     display: inline-block;

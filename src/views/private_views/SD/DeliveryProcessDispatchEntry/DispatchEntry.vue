@@ -15,13 +15,13 @@
                     <div class="col-lg-3 col-md-3 col-sm-6 delivery-schedule-no">
                       <div class="delivery-schedule-no-inner">
                         <span class="label">Gate Pass No</span>
-                        <input type="text" v-model="gate_pass_no" id="ds_gate_pass_no" v-on:keyup="gatePassNoKeyUpHnadler($event)" @mouseleave="mouseOverBearerNameEventandler"/>
+                        <input type="text" v-model="gate_pass_no" id="ds_gate_pass_no" v-on:keyup="gatePassNoKeyUpHnadler($event)" @mouseover="mouseOverBearerNameEventandler($event)" @mouseleave="mouseOverBearerNameEventandler($event)"/>
                       </div>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-6 da-sr-name">
                       <div class="da-sr-name-inner">
                         <span class="label">Bearer Name</span>
-                        <input type="text" v-model="SR_NAME" @mouseover="mouseOverBearerNameEventandler" readonly/>
+                        <input type="text" v-model="SR_NAME" readonly/>
                       </div>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-6 dispatch-date">
@@ -140,8 +140,9 @@ export default {
       }
       // this.DISPATCH_ENTRY_GP_NO__FROM_SERVICE()
     },
-    mouseOverBearerNameEventandler() {
+    mouseOverBearerNameEventandler(value) {
       console.log('working ' + this.gate_pass_no)
+      this.gatePassNoKeyUpHnadler(value)
     },
     dispatchNowClickHandler() {
       this.CREATE_DISPATCH__FROM_SERVICE()

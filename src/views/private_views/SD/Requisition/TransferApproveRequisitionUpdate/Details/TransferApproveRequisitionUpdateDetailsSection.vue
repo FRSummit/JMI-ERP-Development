@@ -128,8 +128,8 @@
 <script>
 // import DemoData from '../../DemoData'
 // const demoData = new DemoData()
-// import ERPService from '../../../../../../service/ERPSidebarService'
-// const service = new ERPService()
+import ERPService from '../../../../../../service/ERPSidebarService'
+const service = new ERPService()
 
 export default {
     props: ["DEPOT_NAME", "SELECTED_REQUISITION_DATA"],
@@ -152,7 +152,6 @@ export default {
             REQ_STATUS: null,
             STORED_DATA: null,
             REQUISITION_NO_: null,
-            REQUISITION_ID_NO: null,
         }
     },
     computed: {
@@ -161,10 +160,10 @@ export default {
             if(this.SELECTED_REQUISITION_DATA.length ? this.SELECTED_REQUISITION_DATA.length > 0 : false) {
                 for(let i=0; i<this.SELECTED_REQUISITION_DATA.length; i++) {
                     let prods = {
-                        id: this.REQUISITION_ID_NO,
-                        detail_id: this.SELECTED_REQUISITION_DATA[i].detail_id ? this.SELECTED_REQUISITION_DATA[i].detail_id : null,
+                        id: this.STORED_DATA ? this.STORED_DATA.id : null,
+                        detail_id: null,
                         prod_id: this.SELECTED_REQUISITION_DATA[i].prod_id,
-                        trans_qty: this.SELECTED_REQUISITION_DATA[i].req_qty
+                        req_qty: this.SELECTED_REQUISITION_DATA[i].req_qty
                     }
                     prod_info.push(prods)
                 }
@@ -192,7 +191,6 @@ export default {
         if(this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT !== null ? this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT.id : false) {
             console.log(this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT)
             this.STORED_DATA = this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT
-            this.REQUISITION_ID_NO = this.STORED_DATA.id
             this.DATA_DEPOT_NAME_FROM_TR_AR = this.STORED_DATA.req_from_info.wh_code
             this.DATA_DEPOT_NAME_FROM_TR_AR_DTL = this.STORED_DATA.req_from_info.wh_name
             this.DATA_DEPOT_NAME_TO_TR_AR = this.STORED_DATA.req_to_info.wh_code
@@ -328,6 +326,9 @@ export default {
 }
 .layout-container {
     height: calc(100vh - (74px + 54px + 32px));
+}
+.requition_area .requition_header {
+    padding: 0;
 }
 .requition_area .requition_header .header_top {
     padding: 0;
