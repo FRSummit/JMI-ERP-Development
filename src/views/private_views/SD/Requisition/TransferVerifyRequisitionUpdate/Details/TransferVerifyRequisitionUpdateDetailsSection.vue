@@ -128,8 +128,8 @@
 <script>
 // import DemoData from '../../DemoData'
 // const demoData = new DemoData()
-// import ERPService from '../../../../../../service/ERPSidebarService'
-// const service = new ERPService()
+import ERPService from '../../../../../../service/ERPSidebarService'
+const service = new ERPService()
 
 export default {
     props: ["DEPOT_NAME", "SELECTED_REQUISITION_DATA"],
