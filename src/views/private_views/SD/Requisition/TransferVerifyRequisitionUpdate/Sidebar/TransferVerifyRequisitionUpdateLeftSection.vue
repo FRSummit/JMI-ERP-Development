@@ -92,8 +92,9 @@ export default {
             for(let i=0; i<this.items.length; i++) {
                 for(let j=0; j<pre_selected_prods.length; j++) {
                     if(parseInt(this.items[i].prod_id) === parseInt(pre_selected_prods[j].prod_id)) {
-                        Object.assign(this.items[i], {req_qty: pre_selected_prods[j].req_qty})
-                        Object.assign(this.items[i], {trans_qty: pre_selected_prods[j].trans_qty})
+                        // Object.assign(this.items[i], {req_qty: pre_selected_prods[j].req_qty})
+                        // Object.assign(this.items[i], {trans_qty: pre_selected_prods[j].trans_qty})
+                        Object.assign(this.items[i], {req_qty: pre_selected_prods[j].trans_qty})
                         Object.assign(this.items[i], {detail_id: pre_selected_prods[j].id})
                         Object.assign(this.items[i], {current_stock: pre_selected_prods[j].current_stock})
                         Object.assign(this.items[i], {req_current_stock: pre_selected_prods[j].req_current_stock})

@@ -79,7 +79,7 @@
                                         <form>
                                             <div class="quantity-input">
                                                 <input class='minus' type='button' value='-' field='quantity' @click="decreaseRequisitionQtyClickHandler(item, i)" />
-                                                <input class='quantity' type='number' name='quantity' placeholder="0" :value="item.trans_qty" :id="'req_qty_' + i" v-on:keyup="reqQtyKeyUpEventHandler(item, $event, i)" v-on:keydown="reqQtyKeyDownEventHandler($event, i)" />
+                                                <input class='quantity' type='number' name='quantity' placeholder="0" :value="item.req_qty" :id="'req_qty_' + i" v-on:keyup="reqQtyKeyUpEventHandler(item, $event, i)" v-on:keydown="reqQtyKeyDownEventHandler($event, i)" />
                                                 <input class='plus' type='button' value='+' field='quantity' @click="increaseRequisitionQtyClickHandler(item, i)" />
                                             </div>
                                         </form>
@@ -161,7 +161,7 @@ export default {
             if(this.SELECTED_REQUISITION_DATA.length ? this.SELECTED_REQUISITION_DATA.length > 0 : false) {
                 for(let i=0; i<this.SELECTED_REQUISITION_DATA.length; i++) {
                     let prods = {
-                        // id: this.REQUISITION_ID_NO,
+                        id: this.REQUISITION_ID_NO,
                         detail_id: this.SELECTED_REQUISITION_DATA[i].detail_id ? this.SELECTED_REQUISITION_DATA[i].detail_id : null,
                         prod_id: this.SELECTED_REQUISITION_DATA[i].prod_id,
                         trans_qty: this.SELECTED_REQUISITION_DATA[i].req_qty
