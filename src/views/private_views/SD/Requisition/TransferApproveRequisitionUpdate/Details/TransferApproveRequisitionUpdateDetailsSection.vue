@@ -1,5 +1,5 @@
 <template>
-    <div class="transfet-verify-requisition-update-details">
+    <div id="transfet-verify-requisition-update" class="transfet-verify-requisition-update-details">
         <div class="layout-container">
             <div class="container-fluid">
                 <div class="col-12 requition_area">
@@ -128,8 +128,8 @@
 <script>
 // import DemoData from '../../DemoData'
 // const demoData = new DemoData()
-import ERPService from '../../../../../../service/ERPSidebarService'
-const service = new ERPService()
+// import ERPService from '../../../../../../service/ERPSidebarService'
+// const service = new ERPService()
 
 export default {
     props: ["DEPOT_NAME", "SELECTED_REQUISITION_DATA"],
@@ -152,6 +152,7 @@ export default {
             REQ_STATUS: null,
             STORED_DATA: null,
             REQUISITION_NO_: null,
+            REQUISITION_ID_NO: null,
         }
     },
     computed: {
@@ -159,11 +160,12 @@ export default {
             let prod_info = []
             if(this.SELECTED_REQUISITION_DATA.length ? this.SELECTED_REQUISITION_DATA.length > 0 : false) {
                 for(let i=0; i<this.SELECTED_REQUISITION_DATA.length; i++) {
+                    console.log(this.SELECTED_REQUISITION_DATA[i])
                     let prods = {
-                        id: this.STORED_DATA ? this.STORED_DATA.id : null,
-                        detail_id: null,
+                        id: this.REQUISITION_ID_NO,
+                        detail_id: this.SELECTED_REQUISITION_DATA[i].detail_id ? this.SELECTED_REQUISITION_DATA[i].detail_id : null,
                         prod_id: this.SELECTED_REQUISITION_DATA[i].prod_id,
-                        req_qty: this.SELECTED_REQUISITION_DATA[i].req_qty
+                        trans_qty: this.SELECTED_REQUISITION_DATA[i].req_qty
                     }
                     prod_info.push(prods)
                 }
@@ -191,6 +193,7 @@ export default {
         if(this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT !== null ? this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT.id : false) {
             console.log(this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT)
             this.STORED_DATA = this.$store.state.SELECTED_REQUISITION_DATA_TO_EDIT
+            this.REQUISITION_ID_NO = this.STORED_DATA.id
             this.DATA_DEPOT_NAME_FROM_TR_AR = this.STORED_DATA.req_from_info.wh_code
             this.DATA_DEPOT_NAME_FROM_TR_AR_DTL = this.STORED_DATA.req_from_info.wh_name
             this.DATA_DEPOT_NAME_TO_TR_AR = this.STORED_DATA.req_to_info.wh_code
@@ -225,8 +228,10 @@ export default {
         },
         increaseRequisitionQtyClickHandler(item, index) {
             // console.log(index)
+            console.log(item.req_qty)
             item.req_qty++
             let selector = document.querySelector('#transfet-verify-requisition-update #req_qty_' + index)
+            console.log(selector)
             selector.value = item.req_qty
         },
         reqQtyKeyUpEventHandler(item, event, index) {
@@ -274,8 +279,8 @@ export default {
             this.proceed_modal_popup = false
         },
         async proceedOrderModalClickHandler() {
-            this.status_modal = true
-            this.status_modal_msg = "Updating..."
+            // this.status_modal = true
+            // this.status_modal_msg = "Updating..."
             this.proceed_modal_popup = false
             if(this.STORED_DATA !== null ? this.STORED_DATA.id : false) {
                 let requisition_id = this.STORED_DATA.id
@@ -292,28 +297,28 @@ export default {
         async UPDATE_TRANSFER_VERIFY_REQUISITION__FROM_SERVICE(requisition_id) {
             console.log(requisition_id)
             console.log(this.REQUISITION_DATA_TO_SAVE_OR_SEND)
-            service.getUpdateNewRequisition_TRANSFER_VERIFY_REQUISITION_UPDATE(requisition_id, this.REQUISITION_DATA_TO_SAVE_OR_SEND)
-                .then(res => {
-                    console.log(res.data)
-                    if(res.data.response_code === 200 || res.data.response_code === 201) {
-                        this.status_modal_msg = 'Requisition update successfully'
-                        setTimeout( () => {
-                            this.status_modal = false
-                            this.status_modal_msg = null
-                        }, 2000)
-                        this.changeThisComponent()
-                    }
-                })
-                .catch(err => {
-                    if(err) {
-                        console.log(err)
-                        this.status_modal_msg = 'Server problem 500'
-                        setTimeout( () => {
-                            this.status_modal = false
-                            this.status_modal_msg = null
-                        }, 2000)
-                    }
-                })
+            // service.getUpdateNewRequisition_TRANSFER_VERIFY_REQUISITION_UPDATE(requisition_id, this.REQUISITION_DATA_TO_SAVE_OR_SEND)
+            //     .then(res => {
+            //         console.log(res.data)
+            //         if(res.data.response_code === 200 || res.data.response_code === 201) {
+            //             this.status_modal_msg = 'Requisition update successfully'
+            //             setTimeout( () => {
+            //                 this.status_modal = false
+            //                 this.status_modal_msg = null
+            //             }, 2000)
+            //             this.changeThisComponent()
+            //         }
+            //     })
+            //     .catch(err => {
+            //         if(err) {
+            //             console.log(err)
+            //             this.status_modal_msg = 'Server problem 500'
+            //             setTimeout( () => {
+            //                 this.status_modal = false
+            //                 this.status_modal_msg = null
+            //             }, 2000)
+            //         }
+            //     })
         },
     },
     watch: {}
@@ -369,6 +374,8 @@ export default {
     background-color: #f5bec6;
     border-radius: 50%;
     padding-top: 6px;
+    display: flex;
+    justify-content: space-around;
 }
 .requition_area table tbody td a.remove svg {
     color: #df2a43;

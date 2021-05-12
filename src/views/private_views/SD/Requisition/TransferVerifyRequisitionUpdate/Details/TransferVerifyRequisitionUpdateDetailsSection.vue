@@ -67,12 +67,12 @@
                                     </td> -->
                                     <td>
                                         <div class="product">
-                                            <p class="type">{{ DATA_DEPOT_NAME_FROM_TR_AR ? DATA_DEPOT_NAME_FROM_TR_AR : '' }}</p>
+                                            <p class="type">{{ item.current_stock ? item.current_stock : 0 }}</p>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="product">
-                                            <p class="type">{{ DATA_DEPOT_NAME_TO_TR_AR ? DATA_DEPOT_NAME_TO_TR_AR : '' }}</p>
+                                            <p class="type">{{ item.req_current_stock ? item.req_current_stock : 0 }}</p>
                                         </div>
                                     </td>
                                     <td>
@@ -368,6 +368,8 @@ export default {
     background-color: #f5bec6;
     border-radius: 50%;
     padding-top: 6px;
+    display: flex;
+    justify-content: space-around;
 }
 .requition_area table tbody td a.remove svg {
     color: #df2a43;

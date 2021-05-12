@@ -94,6 +94,8 @@ export default {
                     if(parseInt(this.items[i].prod_id) === parseInt(pre_selected_prods[j].prod_id)) {
                         Object.assign(this.items[i], {req_qty: pre_selected_prods[j].req_qty})
                         Object.assign(this.items[i], {detail_id: pre_selected_prods[j].id})
+                        Object.assign(this.items[i], {current_stock: pre_selected_prods[j].current_stock})
+                        Object.assign(this.items[i], {req_current_stock: pre_selected_prods[j].req_current_stock})
                         this.$emit('SINGLE_REQUISITOR_ITEM_SELECTED', this.items[i])
                         let checkbox_selector = document.querySelector('#card_body_input_' + i)
                         checkbox_selector.checked = true

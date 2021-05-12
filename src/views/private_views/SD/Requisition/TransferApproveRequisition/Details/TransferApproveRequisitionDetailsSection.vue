@@ -452,13 +452,15 @@ export default {
 }
 /* Data Section */
 .requition_area .requition_header {
-    padding: 10px 0;
+    /* padding: 10px 0; */
+    padding: 6px 0;
 }
 .requition_area .requition_header .header_top {
     padding: 0;
 }
 .requition_area .requition_header h5 {
-    margin: 7px 0 3px;
+    /* margin: 7px 0 3px; */
+    margin: 0;
     height: 30px;
 }
 .requition_area .requition_header .form-group label {
