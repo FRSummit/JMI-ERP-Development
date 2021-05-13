@@ -43,6 +43,7 @@
                                 </div>
                                 <div class="type-section">
                                     <p class="customer-type"><span class="type">{{ customer ? (customer.order_date).split(' ')[0] : "" }}</span></p>
+                                    <p class="customer-type-date-filter hide"><span class="type">{{ customer ? (customer.order_date).split(' ')[0] : "" }}</span></p>
                                     <!-- <p class="customer-type"><span class="type">{{ customer ? (customer.order_date) : "" }}</span></p> -->
                                 </div>
                             </div>
@@ -77,10 +78,16 @@
         <!-- Filter Modal -->
         <div class="filter-sort-modal-section" v-if="filter_modal">
             <div class="filter-sort-modal-section-inner" v-click-outside="filterModalOutsideClick">
-                <span class="sort-text" style="color: red;">Development in progress</span>
-                <p class="sort-text">Sort by</p>
+                <!-- <span class="sort-text" style="color: red;">Development in progress</span> -->
+                <p class="sort-text" style="margin-bottom: 10px;">Sort by</p>
                 <div class="sort-section">
                     <div class="sort-section-inner">
+                        <b>Date From</b>
+                        <input type="date" v-model="date_filter_order" @change="dateFilterOnChangeHandler">
+                        <span style="display: block; margin-top: 10px;"></span>
+                        <b>Date To</b>
+                        <input type="date" v-model="date_filter_order_to" @change="dateFilterToOnChangeHandler">
+                        <!-- <date-picker v-model="range" lang="en" range type="date" format="YYYY-MM-DD" width="500" @change="dateRangeOnChangeHandler"></date-picker> -->
                         <!-- <div class="input-section">
                             <div class="select-options">
                                 <span class="right-icon"
@@ -93,12 +100,12 @@
                                 </select>
                             </div>
                         </div> -->
-                        <div class="assending-desending-sort">
+                        <!-- <div class="assending-desending-sort">
                             <form class="input-btns">
                                 <p><input type="radio" checked="checked" name="serialRange" value="a_to_z" @change="onChange('a_to_z')" /> <span :class="radioSpanDefaultClass">A-Z</span></p>
                                 <p><input type="radio" name="serialRange" value="z_to_a" @change="onChange('z_to_a')" /> <span :class="radioSpanCustomClass">Z-A</span></p>
                             </form>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <!-- <p class="filter-text">Filter by</p>
@@ -187,9 +194,13 @@ import ERPService from '../../../../../../service/ERPSidebarService'
 const service = new ERPService()
 import JMIFilter from '.././../../../../../functions/JMIFIlter'
 const jmiFilter = new JMIFilter()
+// import DatePicker from 'vue2-datepicker'
 
 export default {
     props: ["rejected_order_id", "approved_order_id"],
+    components: {
+        // DatePicker
+    },
     data() {
         return {
             ALL_PENDING_ORDERS_CUSTOMER_LIST: [],
@@ -364,6 +375,19 @@ export default {
             SELECTED_ORDER_INDEX: null,
             SELECT_ORDER_COUNT: null,
             SELECT_ORDER_APPROVED_COUNT: null,
+
+            date_filter_order: null,
+            date_filter_order_to: null,
+            
+            date: '',
+            time: '',
+            timePickerOptions: {
+                start: '00:00',
+                step: '00:30',
+                end: '23:30'
+            },
+            datetime: '',
+            range: ''
         }
     },
     created() {},
@@ -378,7 +402,38 @@ export default {
             } else {
                 this.filter_modal = true
                 this.$emit('filter_modal', this.filter_modal)
+
+                this.date_filter_order = ''
+                this.dateFilterOnChangeHandler()
             }
+        },
+        dateFilterOnChangeHandler() {
+            console.log(this.date_filter_order)
+            // document.querySelector('#search-filter').value = this.date_filter_order
+            let filter = this.date_filter_order
+            let list = document.querySelectorAll('.customer-section-list')
+            let txt_selector = "customer-id-2"
+
+            jmiFilter.searchById_LeftSidebar(filter, list, txt_selector)
+        },
+        dateFilterToOnChangeHandler() {
+            console.log(this.date_filter_order_to)
+
+            let list = document.querySelectorAll('.customer-section-list')
+            let txt_selector = "customer-type-date-filter"
+            if(this.date_filter_order) {
+                let filter = ''
+                jmiFilter.searchById_LeftSidebar(filter, list, txt_selector)
+            }
+            let date_from = new Date(this.date_filter_order).getTime()
+            let date_to = new Date(this.date_filter_order_to).getTime()
+            console.log(date_from)
+            console.log(date_to)
+
+            jmiFilter.searchByDateRange(date_from, date_to, list, txt_selector)
+        },
+        dateRangeOnChangeHandler() {
+            console.log(this.range)
         },
         filterModalOutsideClick() {
             this.filter_modal = false

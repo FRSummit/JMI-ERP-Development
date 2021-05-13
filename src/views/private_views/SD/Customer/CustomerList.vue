@@ -97,11 +97,11 @@ export default {
         },
         {
           text: "Code",
-          value: "type",
+          value: "code",
         },
-        { text: "Address", value: "designation" },
-        { text: "Phone", value: "specialization" },
-        { text: "Enrolled", value: "territory" },
+        { text: "Address", value: "address" },
+        { text: "Phone", value: "phone" },
+        { text: "Enrolled", value: "enrolled" },
         { text: "Status", value: "status" },
       ];
     },
@@ -151,22 +151,24 @@ export default {
     // -------------------------------------------------------------------------------------
     // SERVICE CALL
     async GET_ALL_CUSTOMER_LIST__FROM_SERVICE() {
-      await service.getCommonAllCustomerList_CUSTOMER_LIST().then((res) => {
-        console.log(res.data.customer_info);
-        this.CUSTOMER_LIST = res.data.customer_info;
-        console.log(res.data.customer_info.length)
-        for(let i=0; i<this.CUSTOMER_LIST.length; i++) {
-            let customer = {
-              name: this.CUSTOMER_LIST[i].display_name ? this.CUSTOMER_LIST[i].display_name : '',
-              type: this.CUSTOMER_LIST[i].customer_info.customer_type ? (this.checkCustomerType(this.CUSTOMER_LIST[i].customer_info.customer_type)) : '',
-              designation: "DUMMY DATA",
-              specialization: "DUMMY DATA",
-              territory: "DUMMY DATA",
-              status: "DUMMY DATA"
+      await service.getSbuVustomerListList_CUSTOMER_LIST()
+        .then((res) => {
+          console.log(res.data);
+          this.CUSTOMER_LIST = res.data.customer_list;
+          console.log(this.CUSTOMER_LIST)
+        //   console.log(res.data.customer_info.length)
+          for(let i=0; i<this.CUSTOMER_LIST.length; i++) {
+              let customer = {
+                name: this.CUSTOMER_LIST[i].display_name ? this.CUSTOMER_LIST[i].display_name : '',
+                code: this.CUSTOMER_LIST[i].display_code ? this.CUSTOMER_LIST[i].display_code : '',
+                address: this.CUSTOMER_LIST[i].address ? this.CUSTOMER_LIST[i].address : '',
+                phone: this.CUSTOMER_LIST[i].phone ? this.CUSTOMER_LIST[i].phone : '',
+                enrolled: this.CUSTOMER_LIST[i].enrollment_date ? this.CUSTOMER_LIST[i].enrollment_date : '',
+                status: '',
+              }
+              this.customer_list.push(customer)
             }
-            this.customer_list.push(customer)
-          }
-      });
+        });
     },
   },
 };

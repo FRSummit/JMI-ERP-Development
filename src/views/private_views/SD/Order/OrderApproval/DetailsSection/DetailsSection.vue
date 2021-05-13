@@ -20,7 +20,24 @@
             <div class="header-summery-section">
                 <div class="header-summery-section-inner">
                     <div class="row">
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="am">AM: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info.name) : '') : '') : '') : '') : '' }}</span></p></div>
+                        <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="am">MU: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info.name) : '') : '') : '') : '') : '' }}</span></p></div> -->
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="sr" style="display: table-cell; width: 33%; padding-right: 20px; padding-bottom: 0; line-height: 1;">
+                                <span class="jmi-lvl">MU: </span>
+                                <p class="selectpicker-pera">
+                                    <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_70" @click="srAddIconClickHandler">{{ selected_sr }}</span>
+                                    <span class="sr-modal" v-if="sr_add_modal">
+                                        <span class="sr-modal-inner" v-click-outside="srModalSectionOutsideClick">
+                                            <span class="jmi-title">Select SR</span>
+                                            <span class="sr-loop" v-for="(sr, m) in SR_LIST__DA" :key="m">
+                                                <span  class="sr-name" @click="selectedSRClickHandler(sr)">{{ sr.name }}</span>
+                                            </span>
+                                        </span>
+                                    </span>
+                                    <span class="sr-add-icon" @click="srAddIconClickHandler"><i class="zmdi zmdi-plus"></i></span>
+                                </p>
+                            </div>
+                        </div>
                         <div class="col-lg-3 col-md-6 col-sm-6"><p class="mio">MIO: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info.name) : '') : '') : '') : '') : '') : '') : '' }}</span></p></div>
                         <div class="col-lg-3 col-md-6 col-sm-6" style="line-height: 1;">
                             <div class="sr" style="display: table-cell; width: 33%; padding-right: 20px; padding-bottom: 0; line-height: 1;">
@@ -974,6 +991,8 @@ export default {
             removing_last_product_from_cart: false,
             show_comment_popup: false,
             customer_comment: null,
+
+            mu_add_modal: false,
         }
     },
     async created() {

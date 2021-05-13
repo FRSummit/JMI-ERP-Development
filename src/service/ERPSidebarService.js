@@ -293,6 +293,18 @@ export default class PostService {
     })
   }
 
+  // -------------------------------------------------------------------------------------------
+  // CUSTOMER - CUSTOMER LIST
+  async getSbuVustomerListList_CUSTOMER_LIST() {
+    let web_menu_url = '/api/mobile/get-sbu-customer-list'
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
+
   //////////////////////////////////////////////////////////////////////////////////////////
   // Order
 
