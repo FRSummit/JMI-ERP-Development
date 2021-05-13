@@ -25,16 +25,16 @@
                             <div class="sr" style="display: table-cell; width: 33%; padding-right: 20px; padding-bottom: 0; line-height: 1;">
                                 <span class="jmi-lvl">MU: </span>
                                 <p class="selectpicker-pera">
-                                    <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_70" @click="srAddIconClickHandler">{{ selected_sr }}</span>
-                                    <span class="sr-modal" v-if="sr_add_modal">
-                                        <span class="sr-modal-inner" v-click-outside="srModalSectionOutsideClick">
-                                            <span class="jmi-title">Select SR</span>
-                                            <span class="sr-loop" v-for="(sr, m) in SR_LIST__DA" :key="m">
-                                                <span  class="sr-name" @click="selectedSRClickHandler(sr)">{{ sr.name }}</span>
+                                    <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_70" @click="muAddIconClickHandler">{{ selected_mu }}</span>
+                                    <span class="sr-modal" v-if="mu_add_modal">
+                                        <span class="sr-modal-inner" v-click-outside="muModalSectionOutsideClick">
+                                            <span class="jmi-title">Select MU</span>
+                                            <span class="sr-loop" v-for="(sr, m) in MU_LIST__DA" :key="m">
+                                                <span  class="sr-name" @click="selectedMUClickHandler(sr)">{{ sr.area_name }}</span>
                                             </span>
                                         </span>
                                     </span>
-                                    <span class="sr-add-icon" @click="srAddIconClickHandler"><i class="zmdi zmdi-plus"></i></span>
+                                    <span class="sr-add-icon" @click="muAddIconClickHandler"><i class="zmdi zmdi-plus"></i></span>
                                 </p>
                             </div>
                         </div>
@@ -67,7 +67,7 @@
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Trade Price<span class="with-vat">(With VAT)</span></th>
+                                <th>Unit Price<span class="with-vat">(TP+VAT)</span></th>
                                 <th>Quantity</th>
                                 <th>Stock</th>
                                 <th>Discount</th>
@@ -636,6 +636,7 @@ export default {
         return {
             on_change_SR_dropdown: null,
             SR_LIST__DA: [],
+            MU_LIST__DA: [],
             header_date: null,
             order_table_header: ["Name", "Unit Price", "Quantity", "Bonus", "Total Price"],
             PRODUCT_MODAL_DATA_LIST: [],
@@ -957,6 +958,10 @@ export default {
             InfoWindow: VueGoogleMaps.InfoWindow,
             Map: VueGoogleMaps.Map,
             // This Component Dynamic Data Starts here
+            selected_mu: null,
+            mu_add_modal: false,
+            selected_mu_id: null,
+
             sr_add_modal: false,
             selected_sr: null,
             selected_sr_id: null,
@@ -991,8 +996,6 @@ export default {
             removing_last_product_from_cart: false,
             show_comment_popup: false,
             customer_comment: null,
-
-            mu_add_modal: false,
         }
     },
     async created() {
@@ -1008,6 +1011,13 @@ export default {
         onChangeSRDropdown() {
             console.log(this.on_change_SR_dropdown)
         },
+        muAddIconClickHandler() {
+            if(this.mu_add_modal) {
+                this.mu_add_modal = false
+            } else {
+                this.mu_add_modal = true
+            }
+        },
         srAddIconClickHandler() {
             if(this.sr_add_modal) {
                 this.sr_add_modal = false
@@ -1015,8 +1025,17 @@ export default {
                 this.sr_add_modal = true
             }
         },
+        muModalSectionOutsideClick() {
+            this.mu_add_modal = false
+        },
         srModalSectionOutsideClick() {
             this.sr_add_modal = false
+        },
+        selectedMUClickHandler(value) {
+            console.log(value)
+            this.selected_mu = value.area_name
+            this.selected_mu_id = value.id
+            this.mu_add_modal = false
         },
         selectedSRClickHandler(value) {
             console.log(value)
@@ -1707,6 +1726,7 @@ export default {
             let order_approval_details = {
                 id: this.order_id_from_left_side,
                 da_id: this.selected_sr_id,
+                micro_union_id: this.selected_mu_id,
                 est_delivery_date: this.header_date,
             }
             order_details.push(order_approval_details)
@@ -1947,6 +1967,9 @@ export default {
                 console.log(this.order_id_from_left_side)
                 this.createSubtotalCalculation()
                 console.log(this.ORDERED_TABLE_DATA__INIT_LIST)
+
+                this.MU_LIST__DA = newVal.micro_union
+                console.log(newVal)
             }, 100)
         },
     }
