@@ -18,7 +18,7 @@
         </div>
         <!-- Customer Counter -->
         <div class="title-count">
-            <p class="total-customer">Pending Orders (<span class="count">{{ ALL_PENDING_ORDERS_CUSTOMER_LIST.length }}</span>)</p>
+            <p class="total-customer">Pending Orders (<span id="total_order_counter" class="count">{{ ALL_PENDING_ORDERS_CUSTOMER_LIST.length }}</span>)</p>
             <div class="select-options">
                 <span class="right-icon"><i class="fas fa-chevron-right"></i></span>
                     <select title="Pick a customer" class="selectpicker" v-model="on_change_status" @change="onChangeStatusDropdown()">
@@ -79,7 +79,7 @@
         <div class="filter-sort-modal-section" v-if="filter_modal">
             <div class="filter-sort-modal-section-inner" v-click-outside="filterModalOutsideClick">
                 <!-- <span class="sort-text" style="color: red;">Development in progress</span> -->
-                <p class="sort-text" style="margin-bottom: 10px;">Sort by</p>
+                <p class="sort-text" style="margin-bottom: 10px;">Filter <span style="float: right; color: var(--red); cursor: pointer;" @click="filterCLoseClickHandler">X</span></p>
                 <div class="sort-section">
                     <div class="sort-section-inner">
                         <b>Date From</b>
@@ -390,6 +390,7 @@ export default {
             range: ''
         }
     },
+    computed: {},
     created() {},
     async mounted() {
         await this.ALL_PENDING_ORDERS_CUSTOMER_LIST__FROM_SERVICE()
@@ -404,8 +405,13 @@ export default {
                 this.$emit('filter_modal', this.filter_modal)
 
                 this.date_filter_order = ''
+                this.date_filter_order_to = ''
                 this.dateFilterOnChangeHandler()
+                document.getElementById('total_order_counter').textContent = this.ALL_PENDING_ORDERS_CUSTOMER_LIST.length
             }
+        },
+        filterCLoseClickHandler() {
+            this.filter_modal = false
         },
         dateFilterOnChangeHandler() {
             console.log(this.date_filter_order)
@@ -430,7 +436,7 @@ export default {
             console.log(date_from)
             console.log(date_to)
 
-            jmiFilter.searchByDateRange(date_from, date_to, list, txt_selector)
+            jmiFilter.searchByDateRange(date_from, date_to, list, txt_selector, this.ALL_PENDING_ORDERS_CUSTOMER_LIST.length)
         },
         dateRangeOnChangeHandler() {
             console.log(this.range)
