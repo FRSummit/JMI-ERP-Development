@@ -373,19 +373,19 @@ export default {
             this.popup_modal_for__save_or_send = null
             console.log(transfer_id + '  ' + wh_from + '  ' + req_status)
             console.log(this.REQUISITION_DATA_TO_SAVE_OR_SEND)
-            service.getUpdateNewRequisition_CREATE_REQUISITION(transfer_id, wh_from, req_status, this.REQUISITION_DATA_TO_SAVE_OR_SEND)
+            await service.getUpdateNewRequisition_CREATE_REQUISITION(transfer_id, wh_from, req_status, this.REQUISITION_DATA_TO_SAVE_OR_SEND)
                 .then(res => {
                     console.log(res.data)
                     if(res.data.response_code === 200 || res.data.response_code === 201) {
-                        this.status_modal_msg = 'Requisition saved successfully'
+                        this.status_modal_msg = res.data.message
                         this.SELECTED_REQUISITION_DETAILS = []
                         this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS = []
                         this.$store.state.TRANSFER_APPROVE_REQUISITION__RELOAD_LEFT_SECTION = new Date()
-                        setTimeout( () => {
-                            this.status_modal = false
-                            this.status_modal_msg = null
-                        }, 2000)
                     }
+                    setTimeout( () => {
+                        this.status_modal = false
+                        this.status_modal_msg = null
+                    }, 2000)
                 })
                 .catch(err => {
                     if(err) {
@@ -402,20 +402,22 @@ export default {
             console.log('APPROVE_REQUISITION__FROM_SERVICE')
             console.log(transfer_id + '    ' + driver_usr_id)
             this.popup_modal_for__save_or_send = null
-            service.getApproveTransferRequisition_TRANSFER_APPROVE_REQUISITION(transfer_id, driver_usr_id)
+            // this.status_modal_msg = 'res.data.message'
+            await service.getApproveTransferRequisition_TRANSFER_APPROVE_REQUISITION(transfer_id, driver_usr_id)
                 .then(res => {
                     console.log(res.data)
+                    this.status_modal_msg = res.data.message
+                    console.log(res.data.message)
                     if(res.data.response_code === 200 || res.data.response_code === 201) {
-                        this.status_modal_msg = 'Requisition approve successfully'
                         this.SELECTED_REQUISITION_DETAILS = []
                         this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS = []
                         this.driver_user_id = null
                         this.$store.state.TRANSFER_APPROVE_REQUISITION__RELOAD_LEFT_SECTION = new Date()
-                        setTimeout( () => {
-                            this.status_modal = false
-                            this.status_modal_msg = null
-                        }, 2000)
                     }
+                    setTimeout( () => {
+                        this.status_modal = false
+                        this.status_modal_msg = null
+                    }, 2000)
                 })
                 .catch(err => {
                     if(err) {

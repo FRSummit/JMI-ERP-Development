@@ -50,9 +50,7 @@
                   <div class="da-name-section">
                     <p class="da-name-text">
                       <span class="default-text">SR Name:</span>
-                      <span class="da-name" v-if="monthlyPlanDetailsSection && selectedSchedule">{{
-                        selectedSchedule.name
-                      }}</span>
+                      <span class="da-name" v-if="monthlyPlanDetailsSection && selectedSchedule">{{ selectedSchedule.name }} ({{ selectedSchedule.id }})</span>
                     </p>
                   </div>
                   <div class="territory-details-section" v-if="selectedSchedule">
