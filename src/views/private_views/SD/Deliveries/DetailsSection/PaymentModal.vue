@@ -58,7 +58,7 @@
 
                                 <div class="col-lg-6 form-group">
                                     <label for="cash_amount">Amount</label>
-                                    <input type="text" v-model="cash_amount" class="form-control" id="cash_amount" placeholder="Enter Amount">
+                                    <input type="number" v-model="cash_amount" class="form-control" id="cash_amount" placeholder="Enter Amount">
                                 </div>
                             </div>
 
@@ -257,6 +257,23 @@
                 <p class="popup-text">{{ msg_popup_modal_msg }}</p>
             </div>
         </div>
+        <!-- CONFIRMATION MODAL -->
+        <div class="modal-popup-section order-proceed-modal" v-if="payment_confirmation_popup_modal">
+            <div class="modal-popup-section-inner order-proceed-modal-inner">
+                <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
+                <p class="popup-text">Are you sure?</p>
+                <p class="popup-desc">{{ payment_confirmation_popup_modal_msg ? payment_confirmation_popup_modal_msg : '' }}</p>
+                <span class="divider"></span>
+                <div class="popup-submit-section">
+                <div class="popup-cancel-btn-section">
+                    <span @click="cancelPaymentConfirmationClickHandler">Cancel</span>
+                </div>
+                <div class="popup-confirm-btn-section">
+                    <span @click="confirmPaymentConfirmationClickHandler">Confirm</span>
+                </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -321,6 +338,10 @@ export default {
                         ],
             
             COLLECTION_LIST: null,
+
+            payment_confirmation_popup_modal: false,
+            payment_confirmation_popup_modal_msg: null,
+            PAYMENT_CONFIRM_FOR: null,
         }
     },
     computed: {},
@@ -494,28 +515,54 @@ export default {
             return payment
         },
         async saveExitClickHandler() {
-            // console.log(this.paymentData())
-            let data = this.finalPaymentDataByMode(this.paymentData())
-            // console.log(this.finalPaymentDataByMode(this.paymentData()))
-            console.log(data)
-            if(!this.COLLECTION_LIST || !this.COLLECTION_LIST.length) {
-                // console.log(this.COLLECTION_LIST)
-                await this.SAVE_INVOICE_DELIVERY_INFO_WITH_PAYMENT__FROM_SERVICE(data)
+            this.PAYMENT_CONFIRM_FOR = 'SAVE AND EXIT'
+            if(this.payment_confirmation_popup_modal) {
+                this.payment_confirmation_popup_modal = false
             } else {
-                // console.log(this.COLLECTION_LIST)
-                await this.RECEIVE_PAYMENT_WITH_DELIVERY_INVOICE__FROM_SERVICE(data)
+                this.payment_confirmation_popup_modal = true
             }
-            this.closePaymentPopupModalClickHandler()
-            this.defaultModalValueForNewPayment()
         },
         async saveNewPaymentClickHandler() {
-            let data = this.finalPaymentDataByMode(this.paymentData())
-            if(!this.COLLECTION_LIST || !this.COLLECTION_LIST.length) {
-                await this.SAVE_INVOICE_DELIVERY_INFO_WITH_PAYMENT__FROM_SERVICE(data)
+            this.PAYMENT_CONFIRM_FOR = 'SAVE AND NEW'
+            if(this.payment_confirmation_popup_modal) {
+                this.payment_confirmation_popup_modal = false
             } else {
-                await this.RECEIVE_PAYMENT_WITH_DELIVERY_INVOICE__FROM_SERVICE(data)
+                this.payment_confirmation_popup_modal = true
             }
-            this.defaultModalValueForNewPayment()
+        },
+        cancelPaymentConfirmationClickHandler() {
+            this.payment_confirmation_popup_modal = false
+        },
+        async confirmPaymentConfirmationClickHandler() {
+            let data = this.finalPaymentDataByMode(this.paymentData())
+            switch(this.PAYMENT_CONFIRM_FOR) {
+                case 'SAVE AND EXIT':
+                    // console.log(this.paymentData())
+                    // console.log(this.finalPaymentDataByMode(this.paymentData()))
+                    console.log(data)
+                    if(!this.COLLECTION_LIST || !this.COLLECTION_LIST.length) {
+                        // console.log(this.COLLECTION_LIST)
+                        await this.SAVE_INVOICE_DELIVERY_INFO_WITH_PAYMENT__FROM_SERVICE(data)
+                    } else {
+                        // console.log(this.COLLECTION_LIST)
+                        await this.RECEIVE_PAYMENT_WITH_DELIVERY_INVOICE__FROM_SERVICE(data)
+                    }
+                    this.closePaymentPopupModalClickHandler()
+                    this.defaultModalValueForNewPayment()
+                    break
+                case 'SAVE AND NEW':
+                    // let data = this.finalPaymentDataByMode(this.paymentData())
+                    if(!this.COLLECTION_LIST || !this.COLLECTION_LIST.length) {
+                        await this.SAVE_INVOICE_DELIVERY_INFO_WITH_PAYMENT__FROM_SERVICE(data)
+                    } else {
+                        await this.RECEIVE_PAYMENT_WITH_DELIVERY_INVOICE__FROM_SERVICE(data)
+                    }
+                    this.defaultModalValueForNewPayment()
+                    break
+                default:
+                    break
+            }
+            this.PAYMENT_CONFIRM_FOR = null
         },
         defaultModalValueForNewPayment() {
             this.payment_mode = 0
@@ -667,6 +714,7 @@ export default {
                 })
         },
         async SAVE_INVOICE_DELIVERY_INFO_WITH_PAYMENT__FROM_SERVICE(data) {
+            this.payment_confirmation_popup_modal = false
             this.msg_popup_modal = true
             this.msg_popup_modal_msg = 'Please wait. We are processing...'
             service.getSaveInvoiceDeliveryInfoWithPayment_DELIVERIES_DETAILS(data)
@@ -695,6 +743,7 @@ export default {
                 })
         },
         async RECEIVE_PAYMENT_WITH_DELIVERY_INVOICE__FROM_SERVICE(data) {
+            this.payment_confirmation_popup_modal = false
             this.msg_popup_modal = true
             this.msg_popup_modal_msg = 'Please wait. We are processing...'
             service.getReceivePaymentWithDeliveryInvoice_DELIVERIES_DETAILS(data)
