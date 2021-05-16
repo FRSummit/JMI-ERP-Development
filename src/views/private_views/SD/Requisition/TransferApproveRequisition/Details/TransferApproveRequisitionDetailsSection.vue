@@ -90,8 +90,8 @@
                                     <th>Name</th>
                                     <th>Unit</th>
                                     <th>Quantity</th>
-                                    <th>{{ SELECTED_REQUISITION_DETAILS ? (SELECTED_REQUISITION_DETAILS.req_from_info.wh_code ? SELECTED_REQUISITION_DETAILS.req_from_info.wh_code : '') : '' }} Stock</th>
-                                    <th>{{ SELECTED_REQUISITION_DETAILS ? (SELECTED_REQUISITION_DETAILS.req_to_info.wh_code ? SELECTED_REQUISITION_DETAILS.req_to_info.wh_code : '') : '' }} Stock</th>
+                                    <th>{{ SELECTED_REQUISITION_DETAILS ? (SELECTED_REQUISITION_DETAILS.req_from_info ? (SELECTED_REQUISITION_DETAILS.req_from_info.wh_code ? SELECTED_REQUISITION_DETAILS.req_from_info.wh_code : '') : '') : '' }} Stock</th>
+                                    <th>{{ SELECTED_REQUISITION_DETAILS ? (SELECTED_REQUISITION_DETAILS.req_to_info ? (SELECTED_REQUISITION_DETAILS.req_to_info.wh_code ? SELECTED_REQUISITION_DETAILS.req_to_info.wh_code : '') : '') : '' }} Stock</th>
                                     <!-- <th></th> -->
                                 </tr>
                             </thead>
@@ -316,7 +316,7 @@ export default {
         },
         async proceedOrderModalClickHandler() {
             let wh_from = this.wh_from ? this.wh_from : this.SELECTED_REQUISITION_DETAILS.wh_from
-            this.status_modal = true
+            // this.status_modal = true
             this.proceed_modal_popup = false
             if(this.popup_modal_for__save_or_send === 'SAVE') {
                 let req_status = null
@@ -402,13 +402,15 @@ export default {
             console.log('APPROVE_REQUISITION__FROM_SERVICE')
             console.log(transfer_id + '    ' + driver_usr_id)
             this.popup_modal_for__save_or_send = null
-            // this.status_modal_msg = 'res.data.message'
+            this.status_modal = true
+            this.status_modal_msg = 'res.data.message'
             await service.getApproveTransferRequisition_TRANSFER_APPROVE_REQUISITION(transfer_id, driver_usr_id)
                 .then(res => {
                     console.log(res.data)
-                    this.status_modal_msg = res.data.message
-                    console.log(res.data.message)
                     if(res.data.response_code === 200 || res.data.response_code === 201) {
+                        console.log(res.data.message)
+                        this.status_modal_msg = res.data.message
+                        console.log(this.status_modal_msg)
                         this.SELECTED_REQUISITION_DETAILS = []
                         this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS = []
                         this.driver_user_id = null

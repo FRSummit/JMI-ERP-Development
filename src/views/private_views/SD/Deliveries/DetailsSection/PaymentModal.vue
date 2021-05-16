@@ -512,6 +512,7 @@ export default {
                 default:
                     break
             }
+            this.payment_confirmation_popup_modal_msg = 'Your receive amount is ' + payment.amount
             return payment
         },
         async saveExitClickHandler() {
@@ -521,8 +522,8 @@ export default {
             } else {
                 this.payment_confirmation_popup_modal = true
 
-                let data = this.finalPaymentDataByMode(this.paymentData())
-                this.payment_confirmation_popup_modal_msg = 'Your receive amount is ' + data.amount
+                // let data = this.finalPaymentDataByMode(this.paymentData())
+                // this.payment_confirmation_popup_modal_msg = 'Your receive amount is ' + data.amount
             }
         },
         async saveNewPaymentClickHandler() {
@@ -532,8 +533,8 @@ export default {
             } else {
                 this.payment_confirmation_popup_modal = true
 
-                let data = this.finalPaymentDataByMode(this.paymentData())
-                this.payment_confirmation_popup_modal_msg = 'Your receive amount is ' + data.amount
+                // let data = this.finalPaymentDataByMode(this.paymentData())
+                // this.payment_confirmation_popup_modal_msg = 'Your receive amount is ' + data.amount
             }
         },
         cancelPaymentConfirmationClickHandler() {
