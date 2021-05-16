@@ -5,7 +5,8 @@
           <div class="personal-info-section">
               <div class="personal-info-section-inner">
                   <div class="title">
-                      <span>Personal Info</span>
+                        <span>Personal Info</span>
+                        <a class="inl-bl fl-right"><i class="zmdi zmdi-edit" @click="personalInfoEditModalClickHandler"></i></a>
                   </div>
                   <div class="details">
                       <div class="row">
@@ -234,6 +235,17 @@
               </div>
           </div>
       </div>
+        <!-- PERSONAL INFO EDIT MODAL -->
+        <div id="update-successfully-modal" class="modal-popup-section update-successfully-modal" v-if="personal_info_edit_popup_modal">
+            <div class="modal-popup-section-inner update-successfully-modal-inner" v-click-outside="personalInfoEditPopupModalOutsideClick">
+                <p>PERSONAL INFO EDIT MODAL</p>
+                <p>PERSONAL INFO EDIT MODAL</p>
+                <p>PERSONAL INFO EDIT MODAL</p>
+                <p>PERSONAL INFO EDIT MODAL</p>
+                <p>PERSONAL INFO EDIT MODAL</p>
+                <p>PERSONAL INFO EDIT MODAL</p>
+            </div>
+        </div>
   </div>
 </template>
 
@@ -243,12 +255,25 @@ export default {
   components: {},
   data() {
     return {
+        PERSONAL_INFO_EDIT_MODAL: false,
+        personal_info_edit_popup_modal: false,
     };
   },
   created() {},
   mounted() {
   },
-  methods: {},
+  methods: {
+      personalInfoEditModalClickHandler() {
+          if(this.personal_info_edit_popup_modal) {
+              this.personal_info_edit_popup_modal = false
+          } else {
+              this.personal_info_edit_popup_modal = true
+          }
+      },
+      personalInfoEditPopupModalOutsideClick() {
+          this.personal_info_edit_popup_modal = false
+      }
+  },
 };
 </script>
 

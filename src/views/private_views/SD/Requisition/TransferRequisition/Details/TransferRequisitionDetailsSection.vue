@@ -27,7 +27,7 @@
                         <div class="col-12 header_top">
                             <h5>Requisition No: <span>{{ SELECTED_REQUISITION_DETAILS.requisition_no ? SELECTED_REQUISITION_DETAILS.requisition_no : '' }}</span></h5>
                             <span>
-                                <a class="edit create-new" @click="createRequisitionClickHandler" style="color: #026cd1">Create New</a>
+                                <a class="edit create-new" @click="createRequisitionClickHandler" style="color: #FFFFFF; border: 1px solid #026cd1; background-color: #026cd1; padding: 4px 6px; border-radius: 4px;">Create New</a>
                                 <a class="edit" @click="editRequisitionClickHandler" v-if="SELECTED_REQUISITION_DETAILS ? (SELECTED_REQUISITION_DETAILS.req_status === 'DRAFT' ? true : false) : false"><i class="zmdi zmdi-edit"></i></a>
                             </span>
                         </div>

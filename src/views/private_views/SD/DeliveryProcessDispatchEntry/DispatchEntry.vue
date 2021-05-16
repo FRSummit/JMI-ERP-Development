@@ -15,13 +15,13 @@
                     <div class="col-lg-3 col-md-3 col-sm-6 delivery-schedule-no">
                       <div class="delivery-schedule-no-inner">
                         <span class="label">Gate Pass No</span>
-                        <input type="text" v-model="gate_pass_no" id="ds_gate_pass_no" v-on:keyup="gatePassNoKeyUpHnadler($event)" @mouseleave="mouseOverBearerNameEventandler"/>
+                        <input type="text" v-model="gate_pass_no" id="ds_gate_pass_no" v-on:keyup="gatePassNoKeyUpHnadler($event)" @mouseover="mouseOverBearerNameEventandler($event)" @mouseleave="mouseOverBearerNameEventandler($event)"/>
                       </div>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-6 da-sr-name">
                       <div class="da-sr-name-inner">
                         <span class="label">Bearer Name</span>
-                        <input type="text" v-model="SR_NAME" @mouseover="mouseOverBearerNameEventandler" readonly/>
+                        <input type="text" v-model="SR_NAME" readonly/>
                       </div>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-6 dispatch-date">
@@ -140,8 +140,9 @@ export default {
       }
       // this.DISPATCH_ENTRY_GP_NO__FROM_SERVICE()
     },
-    mouseOverBearerNameEventandler() {
+    mouseOverBearerNameEventandler(value) {
       console.log('working ' + this.gate_pass_no)
+      this.gatePassNoKeyUpHnadler(value)
     },
     dispatchNowClickHandler() {
       this.CREATE_DISPATCH__FROM_SERVICE()
@@ -151,6 +152,7 @@ export default {
     async DISPATCH_ENTRY_GP_NO__FROM_SERVICE(gp_no) {
       this.GP_ID = null
       this.SR_NAME = null
+      this.gate_pass_no = null
       // this.success_dispatch = true
       // this.success_dispatch_msg = 'Please wait. We are processing...'
       await service.getDispatchEntryByGPNo_DS_DISPATCH_ENTRY(gp_no)
@@ -158,6 +160,7 @@ export default {
           console.log(res.data)
           if(res.data.response_code === 200 || res.data.response_code === 201) {
             // this.success_dispatch_msg = res.data.message
+            this.gate_pass_no = res.data.gate_pass_info.gp_no
             this.GP_ID = res.data.gate_pass_info.id
             // this.SR_NAME = res.data.gate_pass_info.ds_info.da_info.name
             this.SR_NAME = res.data.gate_pass_info.gp_for

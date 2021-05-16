@@ -1,13 +1,13 @@
 <template>
-  <div id="transfet-verify-requisition-update" class="transfet-verify-requisition-update">
+  <div id="transfet-approve-requisition-update" class="transfet-approve-requisition-update">
     <Heading :pathName="pathName" :routeName="routeName" />
     <!-- <div class="transfer-requisition-inner"> -->
     <div class="layout-body">
-      <TransferVerifyRequisitionUpdateLeftSection
+      <TransferApproveRequisitionUpdateLeftSection
         v-on:SINGLE_REQUISITOR_ITEM_SELECTED="singleRequisitorItemSelected"
         v-on:SINGLE_REQUISITOR_ITEM_REMOVED="singleRequisitorItemRemoved"
         v-on:DEPOT_NAME="depotNameFromList" />
-      <TransferVerifyRequisitionUpdateDetailsSection
+      <TransferApproveRequisitionUpdateDetailsSection
         :DEPOT_NAME="DEPOT_NAME"
         :SELECTED_REQUISITION_DATA="SELECTED_REQUISITION_DATA"
         v-on:SINGLE_ITEM_REMOVE_FROM_TABLE="singleItemRemoveFromTable" />
@@ -17,18 +17,18 @@
 
 <script>
 import Heading from "../../../../../components/master_layout/HeadingTitleBreadcrumbT3/HeadingTitleBreadcrumb";
-import TransferVerifyRequisitionUpdateLeftSection from "./Sidebar/TransferVerifyRequisitionUpdateLeftSection";
-import TransferVerifyRequisitionUpdateDetailsSection from "./Details/TransferVerifyRequisitionUpdateDetailsSection";
+import TransferApproveRequisitionUpdateLeftSection from "./Sidebar/TransferApproveRequisitionUpdateLeftSection";
+import TransferApproveRequisitionUpdateDetailsSection from "./Details/TransferApproveRequisitionUpdateDetailsSection";
 
 export default {
   components: {
     Heading,
-    TransferVerifyRequisitionUpdateLeftSection,
-    TransferVerifyRequisitionUpdateDetailsSection,
+    TransferApproveRequisitionUpdateLeftSection,
+    TransferApproveRequisitionUpdateDetailsSection,
   },
   data() {
     return {
-      routeName: "Transfer Requisition Verify",
+      routeName: "Transfer Approve Requisition Update",
       parentPath: "Local Sales",
       pathName: [],
       DEPOT_NAME: null,
@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     createBreadcrumbData() {
-      this.pathName = [{ name: "Features" }, { name: "Local Sales" }, { name: "Transfer Requisition Verify" }];
+      this.pathName = [{ name: "Features" }, { name: "Local Sales" }, { name: "Transfer Approve Requisition Update" }];
       // this.pathName = breadcrumbFunctions.jmiERPBreadcrumb(window.location.pathname)
     },
     depotNameFromList(value) {

@@ -289,6 +289,13 @@ export const router = new VueRouter({
       component: () => import('../views/private_views/SD/Requisition/TransferApproveRequisition/TransferApproveRequisition.vue')
     },
     // --------------------------------------------------------------------------------------
+    // REQUISITION - Transfer Approve Update
+    {
+      path: '/features/local_sales/transfer-approve-requisition-update',
+      name: 'Transfer Approve Requisition Update',
+      component: () => import('../views/private_views/SD/Requisition/TransferApproveRequisitionUpdate/TransferApproveRequisitionUpdate.vue')
+    },
+    // --------------------------------------------------------------------------------------
     // PRODUCTS - ALL PRODUCTS
     {
       path: '/features/local_sales/all-products',

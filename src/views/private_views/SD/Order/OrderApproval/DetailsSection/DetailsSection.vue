@@ -20,7 +20,24 @@
             <div class="header-summery-section">
                 <div class="header-summery-section-inner">
                     <div class="row">
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="am">AM: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info.name) : '') : '') : '') : '') : '' }}</span></p></div>
+                        <!-- <div class="col-lg-3 col-md-6 col-sm-6"><p class="am">MU: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info.name) : '') : '') : '') : '') : '' }}</span></p></div> -->
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="sr" style="display: table-cell; width: 33%; padding-right: 20px; padding-bottom: 0; line-height: 1;">
+                                <span class="jmi-lvl">MU: </span>
+                                <p class="selectpicker-pera">
+                                    <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_70" @click="muAddIconClickHandler">{{ selected_mu }}</span>
+                                    <span class="sr-modal" v-if="mu_add_modal">
+                                        <span class="sr-modal-inner" v-click-outside="muModalSectionOutsideClick">
+                                            <span class="jmi-title">Select MU</span>
+                                            <span class="sr-loop" v-for="(sr, m) in MU_LIST__DA" :key="m">
+                                                <span  class="sr-name" @click="selectedMUClickHandler(sr)">{{ sr.area_name }}</span>
+                                            </span>
+                                        </span>
+                                    </span>
+                                    <span class="sr-add-icon" @click="muAddIconClickHandler"><i class="zmdi zmdi-plus"></i></span>
+                                </p>
+                            </div>
+                        </div>
                         <div class="col-lg-3 col-md-6 col-sm-6"><p class="mio">MIO: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info.name) : '') : '') : '') : '') : '') : '') : '' }}</span></p></div>
                         <div class="col-lg-3 col-md-6 col-sm-6" style="line-height: 1;">
                             <div class="sr" style="display: table-cell; width: 33%; padding-right: 20px; padding-bottom: 0; line-height: 1;">
@@ -50,8 +67,9 @@
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Trade Price<span class="with-vat">(With VAT)</span></th>
+                                <th>Unit Price<span class="with-vat">(TP+VAT)</span></th>
                                 <th>Quantity</th>
+                                <th>Stock</th>
                                 <th>Discount</th>
                                 <th>Bonus</th>
                                 <th>Total Price</th>
@@ -98,6 +116,9 @@
                                                     <span class="qty-decrease" @click="increaseOrderedItemClickHandler(data, i)"><i class="zmdi zmdi-plus"></i></span>
                                                 </span>
                                             </span>
+                                        </td>
+                                        <td>
+                                            <span>{{ data ? (data.available_stock ? data.available_stock : 0) : 0 }}</span>
                                         </td>
                                         <!-- Discount Column -->
                                         <td>
@@ -615,6 +636,7 @@ export default {
         return {
             on_change_SR_dropdown: null,
             SR_LIST__DA: [],
+            MU_LIST__DA: [],
             header_date: null,
             order_table_header: ["Name", "Unit Price", "Quantity", "Bonus", "Total Price"],
             PRODUCT_MODAL_DATA_LIST: [],
@@ -936,6 +958,10 @@ export default {
             InfoWindow: VueGoogleMaps.InfoWindow,
             Map: VueGoogleMaps.Map,
             // This Component Dynamic Data Starts here
+            selected_mu: null,
+            mu_add_modal: false,
+            selected_mu_id: null,
+
             sr_add_modal: false,
             selected_sr: null,
             selected_sr_id: null,
@@ -985,6 +1011,13 @@ export default {
         onChangeSRDropdown() {
             console.log(this.on_change_SR_dropdown)
         },
+        muAddIconClickHandler() {
+            if(this.mu_add_modal) {
+                this.mu_add_modal = false
+            } else {
+                this.mu_add_modal = true
+            }
+        },
         srAddIconClickHandler() {
             if(this.sr_add_modal) {
                 this.sr_add_modal = false
@@ -992,8 +1025,17 @@ export default {
                 this.sr_add_modal = true
             }
         },
+        muModalSectionOutsideClick() {
+            this.mu_add_modal = false
+        },
         srModalSectionOutsideClick() {
             this.sr_add_modal = false
+        },
+        selectedMUClickHandler(value) {
+            console.log(value)
+            this.selected_mu = value.area_name
+            this.selected_mu_id = value.id
+            this.mu_add_modal = false
         },
         selectedSRClickHandler(value) {
             console.log(value)
@@ -1684,6 +1726,7 @@ export default {
             let order_approval_details = {
                 id: this.order_id_from_left_side,
                 da_id: this.selected_sr_id,
+                micro_union_id: this.selected_mu_id,
                 est_delivery_date: this.header_date,
             }
             order_details.push(order_approval_details)
@@ -1699,7 +1742,7 @@ export default {
                 await service.getApproveSingleOrderByOrderId_OrderApproval(order_details)
                     .then(res => {
                         console.log(res.data)
-                        if(res.data.response_code === 200) {
+                        if(res.data.response_code === 200 || res.data.response_code === 201) {
                             this.approve_product_confirmation_popup_modal = false
                             this.approved_single_order_modal = true
                             this.ORDER_SUCCESS_MESSAGE = res.data.message
@@ -1924,6 +1967,9 @@ export default {
                 console.log(this.order_id_from_left_side)
                 this.createSubtotalCalculation()
                 console.log(this.ORDERED_TABLE_DATA__INIT_LIST)
+
+                this.MU_LIST__DA = newVal.micro_union
+                console.log(newVal)
             }, 100)
         },
     }

@@ -1,5 +1,5 @@
 <template>
-    <div class="transfet-verify-requisition-update-details">
+    <div id="transfet-verify-requisition-update" class="transfet-verify-requisition-update-details">
         <div class="layout-container">
             <div class="container-fluid">
                 <div class="col-12 requition_area">
@@ -160,6 +160,7 @@ export default {
             let prod_info = []
             if(this.SELECTED_REQUISITION_DATA.length ? this.SELECTED_REQUISITION_DATA.length > 0 : false) {
                 for(let i=0; i<this.SELECTED_REQUISITION_DATA.length; i++) {
+                    console.log(this.SELECTED_REQUISITION_DATA[i])
                     let prods = {
                         id: this.REQUISITION_ID_NO,
                         detail_id: this.SELECTED_REQUISITION_DATA[i].detail_id ? this.SELECTED_REQUISITION_DATA[i].detail_id : null,
@@ -276,8 +277,8 @@ export default {
             this.proceed_modal_popup = false
         },
         async proceedOrderModalClickHandler() {
-            this.status_modal = true
-            this.status_modal_msg = "Updating..."
+            // this.status_modal = true
+            // this.status_modal_msg = "Updating..."
             this.proceed_modal_popup = false
             if(this.STORED_DATA !== null ? this.STORED_DATA.id : false) {
                 let requisition_id = this.STORED_DATA.id
@@ -287,7 +288,7 @@ export default {
             }
         },
         changeThisComponent() {
-            this.$router.push('/features/local_sales/verified-requisition')
+            this.$router.push('/features/local_sales/transfer-approve-requisition')
         },
         // -----------------------------------------------------
         // SERVICE CALL
@@ -328,6 +329,9 @@ export default {
 }
 .layout-container {
     height: calc(100vh - (74px + 54px + 32px));
+}
+.requition_area .requition_header {
+    padding: 0;
 }
 .requition_area .requition_header .header_top {
     padding: 0;
