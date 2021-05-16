@@ -93,6 +93,7 @@
                         </table>
                     </div>
                     <div class="row requition_footer" v-if="SELECTED_REQUISITION_DATA.length ? SELECTED_REQUISITION_DATA.length > 0 : false">
+                        <a><button type="button" class="btn btn-primary btn-global mx-2" @click="cancelRequestTVRClickHandler" style="color: #000000; background-color: #FFFFFF; border: 1px solid #000000;">Cancel</button></a>
                         <a><button type="button" class="btn btn-primary btn-global mx-2" @click="updateRequestTVRClickHandler" style="color: #FFFFFF;">Update</button></a>
                     </div>
                 </div>
@@ -262,7 +263,11 @@ export default {
             let selector = document.querySelector('#transfet-verify-requisition-update #req_qty_' + i)
             selector.value = 0
         },
-        // FOR TRANSFER VERIFY REQUISITION
+        // FOR TRANSFER VERIFY REQUISITION ACTION
+        cancelRequestTVRClickHandler() {
+            this.$store.state.SELECTED_REQUISITION_DATA_BACK_FROM_EDIT = this.REQUISITION_NO_
+            this.$router.push('/features/local_sales/verified-requisition')
+        },
         updateRequestTVRClickHandler() {
             if(this.proceed_modal_popup) {
                 this.proceed_modal_popup = false
