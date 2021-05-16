@@ -90,8 +90,8 @@
                                     <th>Name</th>
                                     <th>Unit</th>
                                     <th>Quantity</th>
-                                    <th>{{ SELECTED_REQUISITION_DETAILS ? SELECTED_REQUISITION_DETAILS.req_from_info.wh_code : '' }} Stock</th>
-                                    <th>{{ SELECTED_REQUISITION_DETAILS ? SELECTED_REQUISITION_DETAILS.req_to_info.wh_code : '' }} Stock</th>
+                                    <th>{{ SELECTED_REQUISITION_DETAILS ? (SELECTED_REQUISITION_DETAILS.req_from_info.wh_code ? SELECTED_REQUISITION_DETAILS.req_from_info.wh_code : '') : '' }} Stock</th>
+                                    <th>{{ SELECTED_REQUISITION_DETAILS ? (SELECTED_REQUISITION_DETAILS.req_to_info.wh_code ? SELECTED_REQUISITION_DETAILS.req_to_info.wh_code : '') : '' }} Stock</th>
                                     <!-- <th></th> -->
                                 </tr>
                             </thead>
