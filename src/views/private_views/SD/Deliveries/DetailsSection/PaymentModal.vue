@@ -520,6 +520,9 @@ export default {
                 this.payment_confirmation_popup_modal = false
             } else {
                 this.payment_confirmation_popup_modal = true
+
+                let data = this.finalPaymentDataByMode(this.paymentData())
+                this.payment_confirmation_popup_modal_msg = 'Your receive amount is ' + data.amount
             }
         },
         async saveNewPaymentClickHandler() {
@@ -528,10 +531,14 @@ export default {
                 this.payment_confirmation_popup_modal = false
             } else {
                 this.payment_confirmation_popup_modal = true
+
+                let data = this.finalPaymentDataByMode(this.paymentData())
+                this.payment_confirmation_popup_modal_msg = 'Your receive amount is ' + data.amount
             }
         },
         cancelPaymentConfirmationClickHandler() {
             this.payment_confirmation_popup_modal = false
+            this.payment_confirmation_popup_modal_msg = null
         },
         async confirmPaymentConfirmationClickHandler() {
             let data = this.finalPaymentDataByMode(this.paymentData())
@@ -715,6 +722,7 @@ export default {
         },
         async SAVE_INVOICE_DELIVERY_INFO_WITH_PAYMENT__FROM_SERVICE(data) {
             this.payment_confirmation_popup_modal = false
+            this.payment_confirmation_popup_modal_msg = null
             this.msg_popup_modal = true
             this.msg_popup_modal_msg = 'Please wait. We are processing...'
             service.getSaveInvoiceDeliveryInfoWithPayment_DELIVERIES_DETAILS(data)
@@ -744,6 +752,7 @@ export default {
         },
         async RECEIVE_PAYMENT_WITH_DELIVERY_INVOICE__FROM_SERVICE(data) {
             this.payment_confirmation_popup_modal = false
+            this.payment_confirmation_popup_modal_msg = null
             this.msg_popup_modal = true
             this.msg_popup_modal_msg = 'Please wait. We are processing...'
             service.getReceivePaymentWithDeliveryInvoice_DELIVERIES_DETAILS(data)
