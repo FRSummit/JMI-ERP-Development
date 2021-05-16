@@ -8,7 +8,7 @@
                     <div class="col-lg-3 col-md-4 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Phone:</span> <span class="jmi-lvl-value">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_info.person_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_info.person_info.phone ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_info.person_info.phone) : '') : '') : '') : '') : '' }}</span></p></div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-12"><p class="jmi-title">Total Bill: <span class="jmi-lvl-value">{{ PENDING_ORDER_DATA_BY_ID ? Number(PENDING_ORDER_DATA_BY_ID.net_total).toFixed(2) : '' }}</span></p></div>
+                    <div class="col-lg-3 col-md-3 col-sm-12"><p class="jmi-title">Total Due: <span class="jmi-lvl-value">{{ PENDING_ORDER_DATA_BY_ID ? Number(PENDING_ORDER_DATA_BY_ID.net_total).toFixed(2) : '' }}</span></p></div>
                     <!-- <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><span class="jmi-lvl-value address">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_info.customer_address ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_info.customer_address) : '') : '') : '') : '' }}</span></p></div> -->
                     <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><span class="jmi-lvl-value address">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.delivery_address ? (PENDING_ORDER_DATA_BY_ID.delivery_address) : '') : '' }}</span></p></div>
                     <div class="col-lg-3 col-md-3 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Order Placed:</span><span class="jmi-lvl-value address">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.created_at ? (PENDING_ORDER_DATA_BY_ID.created_at).split('T')[0] : '') : '' }}</span></p></div>
@@ -85,7 +85,8 @@
                                         <td class="row-action jmi-tr-td-option" style="min-width: 70px; text-align: right;">
                                             <span v-if="!CURRENT_INVOICE_COLLECTION_LIST || !CURRENT_INVOICE_COLLECTION_LIST.length">
                                                 <span v-if="!(data.deal_type === 'F' && data.net_amount === '0')">
-                                                    <span class="icon edit-icon" @click="editOrderitemClickHandler(data, i)" v-if="productTableEditableIsValid(data.available_stock, data.transit_stock, data.net_qty)"><i class="zmdi zmdi-edit"></i></span>
+                                                    <!-- <span class="icon edit-icon" @click="editOrderitemClickHandler(data, i)" v-if="productTableEditableIsValid(data.available_stock, data.transit_stock, data.net_qty)"><i class="zmdi zmdi-edit"></i></span> -->
+                                                    <span class="" @click="editOrderitemClickHandler(data, i)" v-if="productTableEditableIsValid(data.available_stock, data.transit_stock, data.net_qty)"><i class="zmdi zmdi-edit"></i></span>
                                                     <span class="icon delete-icon" @click="deleteOrderitemClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
                                                 </span>
                                             </span>

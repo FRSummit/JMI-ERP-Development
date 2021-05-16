@@ -344,7 +344,8 @@ export default {
             PAYMENT_CONFIRM_FOR: null,
         }
     },
-    computed: {},
+    computed: {
+    },
     created() {},
     async mounted() {
         await this.COLLECTION_LIST__FROM_SERVICE()
@@ -384,6 +385,7 @@ export default {
             this.payment_mode = 0
         },
         paymentModeOnChange() {
+
             switch(this.payment_mode) {
                 case 0:
                     document.getElementById('d-Challan').className = 'row hide'
@@ -512,7 +514,7 @@ export default {
                 default:
                     break
             }
-            this.payment_confirmation_popup_modal_msg = 'Your receive amount is ' + payment.amount
+            // this.payment_confirmation_popup_modal_msg = 'Your receive amount is ' + payment.amount
             return payment
         },
         async saveExitClickHandler() {
@@ -522,8 +524,8 @@ export default {
             } else {
                 this.payment_confirmation_popup_modal = true
 
-                // let data = this.finalPaymentDataByMode(this.paymentData())
-                // this.payment_confirmation_popup_modal_msg = 'Your receive amount is ' + data.amount
+                let data = this.finalPaymentDataByMode(this.paymentData())
+                this.payment_confirmation_popup_modal_msg = 'Your receive amount is ' + data.amount
             }
         },
         async saveNewPaymentClickHandler() {
@@ -533,8 +535,8 @@ export default {
             } else {
                 this.payment_confirmation_popup_modal = true
 
-                // let data = this.finalPaymentDataByMode(this.paymentData())
-                // this.payment_confirmation_popup_modal_msg = 'Your receive amount is ' + data.amount
+                let data = this.finalPaymentDataByMode(this.paymentData())
+                this.payment_confirmation_popup_modal_msg = 'Your receive amount is ' + data.amount
             }
         },
         cancelPaymentConfirmationClickHandler() {
@@ -780,6 +782,20 @@ export default {
                         }, 2000)
                     }
                 })
+        },
+    },
+    watch: {
+        cash_amount(newVal) {
+            if(newVal) {
+                // this.payment_confirmation_popup_modal = false
+                this.payment_confirmation_popup_modal_msg = 'Your receive amount is ' + newVal
+            }
+        },
+        payment_mode(newVal) {
+            if(newVal) {
+                // this.payment_confirmation_popup_modal = false
+                this.payment_confirmation_popup_modal_msg = 'Your receive amount is ' + this.cash_amount
+            }
         },
     }
 }
