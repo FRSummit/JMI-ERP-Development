@@ -2,17 +2,8 @@ import Vue from 'vue'
 import App from './App.vue'
 import { router } from './router'
 import { store } from './store'
-import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
 import vuetify from './plugins/vuetify';
 import $ from 'jquery'
-import './custom.css'
-import './custom.less'
-import './custom.js'
-import './assets/roboto-font.css'
-import './assets/t2-style.css'
-import './assets/style-transfer_requition.css'
 import '../node_modules/materialize-css/dist/css/materialize.min.css'
 import '../node_modules/materialize-css/dist/js/materialize.min.js'
 import '@fortawesome/fontawesome-free/css/all.css'
@@ -28,9 +19,25 @@ import * as VueGoogleMaps from "vue2-google-maps";
 // import VueGoogleMap from 'vuejs-google-maps'
 import VueGeolocation from 'vue-browser-geolocation'
 
+// =========================================================================
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+
+import './assets/roboto-font.css'
+
+import './custom.less'
+import './custom.js'
+
+// ------------------------------------------------------------------------
+import './custom.css'
+
+import './assets/t2-style.css'
+import './assets/style-transfer_requition.css'
+
 import './assets/css/styles.css'
 import './assets/css/styles_page_included.css'
-
+// =========================================================================
 // const options = {
 //   name: '_blank',
 //   specs: [

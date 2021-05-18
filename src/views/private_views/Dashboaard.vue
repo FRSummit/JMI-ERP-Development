@@ -182,6 +182,9 @@ export default {
 </script>
 
 <style scoped>
+@import '../../custom.css';
+
+
 button {
   background: #026cd1;
   color: #fff;
