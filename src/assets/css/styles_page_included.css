@@ -195,7 +195,8 @@
 }
 
 .product-body .product-header {
-    padding      : 10px 0px;
+    /* padding      : 10px 0px; */
+    padding      : 10px;
     border-bottom: 1px solid var(--border-color);
 }
 
@@ -967,7 +968,8 @@
 }
 
 .product-body .product-header {
-    padding      : 10px 0px;
+    /* padding      : 10px 0px; */
+    padding      : 10px;
     border-bottom: 1px solid var(--border-color);
 }
 

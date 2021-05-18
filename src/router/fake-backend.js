@@ -76,7 +76,8 @@ export function configureFakeBackend() {
                                 sbu_id: users.data.user.sbu_id,
                                 sbu_name: users.data.user.sbu_name,
                                 role_id: users.data.user.role_id,
-                                role_name: users.data.user.role_name
+                                role_name: users.data.user.role_name,
+                                user_area: users.data.user_area
                             }
                         };
                         // console.log(responseJson)

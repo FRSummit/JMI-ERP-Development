@@ -42,6 +42,7 @@ export default class PostService {
   }
 
   async getWEB_SystemAssignedSBU(token_2) {
+    // token = JSON.parse(localStorage.getItem('jerp_logged_user')).accessToken ? JSON.parse(localStorage.getItem('jerp_logged_user')).accessToken : null
     token = JSON.parse(localStorage.getItem('jerp_logged_user')).accessToken
     let web_menu_url = '/api/system/AssignedSBU'
     return await axios(web_menu_url, {
