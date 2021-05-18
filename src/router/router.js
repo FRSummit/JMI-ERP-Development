@@ -144,7 +144,7 @@ export const router = new VueRouter({
     // --------------------------------------------------------------------------------------
     // DS DISPATCH ENTRY
     {
-      path: '/sd/delivery-process--dispatch-entry',
+      path: '/sd/dispatch-entry',
       name: 'Delivery Process - Dispatch Entry',
       component: () => import('../views/private_views/SD/DeliveryProcessDispatchEntry/DispatchEntry.vue')
     },

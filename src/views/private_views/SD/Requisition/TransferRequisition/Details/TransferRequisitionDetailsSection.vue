@@ -331,6 +331,9 @@ export default {
     text-transform: unset;
 }
 /* Data Section */
+.requition_area .requition_header {
+    padding: 10px;
+}
 .requition_area .requition_header .header_top {
     padding: 0;
 }

@@ -28,7 +28,7 @@
         <router-link to="/sd/invoice-challan-summery">Invoice Challan Summary</router-link>
       </div>
       <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
-        <router-link to="/sd/delivery-process--dispatch-entry">DS Dispatch Entry</router-link>
+        <router-link to="/sd/dispatch-entry">Dispatch Entry</router-link>
       </div>
       <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
         <router-link to="/sd/pending-ds-invoice-list">Pending DS Invoice List</router-link>

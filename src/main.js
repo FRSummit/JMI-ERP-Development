@@ -108,3 +108,15 @@ new Vue({
   vuetify,
   render: h => h(App)
 }).$mount('#app')
+
+
+
+
+
+/*
+*
+* All popup modal should have cross icon to close
+* Screen which has left and right section - before click left item right section has a message
+* Every page should have Navigation id, feature id - common feature.
+* 
+*/
