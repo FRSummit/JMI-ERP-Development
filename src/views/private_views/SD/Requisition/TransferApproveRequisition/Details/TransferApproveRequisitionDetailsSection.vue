@@ -91,8 +91,8 @@
                                     <th>Unit</th>
                                     <th>Quantity</th>
                                     <th>{{ SELECTED_REQUISITION_DETAILS ? (SELECTED_REQUISITION_DETAILS.req_from_info ? (SELECTED_REQUISITION_DETAILS.req_from_info.wh_code ? SELECTED_REQUISITION_DETAILS.req_from_info.wh_code : '') : '') : '' }} Stock</th>
-                                    <th>{{ SELECTED_REQUISITION_DETAILS ? (SELECTED_REQUISITION_DETAILS.req_to_info ? (SELECTED_REQUISITION_DETAILS.req_to_info.wh_code ? SELECTED_REQUISITION_DETAILS.req_to_info.wh_code : '') : '') : '' }} Stock</th>
-                                    <!-- <th></th> -->
+                                    <th style="text-align: center;">{{ SELECTED_REQUISITION_DETAILS ? (SELECTED_REQUISITION_DETAILS.req_to_info ? (SELECTED_REQUISITION_DETAILS.req_to_info.wh_code ? SELECTED_REQUISITION_DETAILS.req_to_info.wh_code : '') : '') : '' }} Stock</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -138,11 +138,12 @@
                                             <p class="type">{{ item.current_stock ? item.current_stock : 0 }}</p>
                                         </div>
                                     </td>
-                                    <td>
+                                    <td style="text-align: center;">
                                         <div class="product">
                                             <p class="type">{{ item.req_current_stock ? item.req_current_stock : 0 }}</p>
                                         </div>
                                     </td>
+                                    <th></th>
                                     <!-- <td>
                                         <a class="edit" @click="singleItemEditClickHandler"><i class="zmdi zmdi-edit"></i></a>
                                         <a class="remove" @click="singleItemDeleteClickHandler"><i class="fas fa-trash-alt"></i></a>

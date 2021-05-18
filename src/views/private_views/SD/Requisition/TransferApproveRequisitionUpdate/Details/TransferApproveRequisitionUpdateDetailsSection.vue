@@ -25,7 +25,7 @@
                             </p>
                         </div>
                         <div class="col-lg-4 col-md-3 col-12">
-                            <p>Requisition Date: <span class="text-data jmi-tool-tip-parent">{{ requisition_date }}</span></p>
+                            <p>Requisition Date: <span class="text-data jmi-tool-tip-parent">{{ dateFormat(requisition_date) }}</span></p>
                         </div>
                         <div class="col-lg-2 col-md-2 col-12">
                             <p>Status: <span class="approved">{{ REQ_STATUS ? REQ_STATUS : 'DRAFT' }}</span></p>
@@ -34,12 +34,12 @@
                     <div class="row requition_content">
                         <table class="col-12">
                             <thead>
-                                <tr>
+                                <tr style="padding-top: 2px;">
                                     <th>Name</th>
                                     <th>Unit</th>
-                                    <th>{{ DATA_DEPOT_NAME_FROM_TR_AR ? DATA_DEPOT_NAME_FROM_TR_AR : '' }} Stock</th>
-                                    <th>{{ DATA_DEPOT_NAME_TO_TR_AR ? DATA_DEPOT_NAME_TO_TR_AR : '' }} Stock</th>
                                     <th>Quantity</th>
+                                    <th>{{ DATA_DEPOT_NAME_FROM_TR_AR ? DATA_DEPOT_NAME_FROM_TR_AR : '' }} Stock</th>
+                                    <th style="text-align: center;">{{ DATA_DEPOT_NAME_TO_TR_AR ? DATA_DEPOT_NAME_TO_TR_AR : '' }} Stock</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -66,16 +66,6 @@
                                         </select>
                                     </td> -->
                                     <td>
-                                        <div class="product">
-                                            <p class="type">{{ item.current_stock ? item.current_stock : 0 }}</p>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="product">
-                                            <p class="type">{{ item.req_current_stock ? item.req_current_stock : 0 }}</p>
-                                        </div>
-                                    </td>
-                                    <td>
                                         <form>
                                             <div class="quantity-input">
                                                 <input class='minus' type='button' value='-' field='quantity' @click="decreaseRequisitionQtyClickHandler(item, i)" />
@@ -83,6 +73,16 @@
                                                 <input class='plus' type='button' value='+' field='quantity' @click="increaseRequisitionQtyClickHandler(item, i)" />
                                             </div>
                                         </form>
+                                    </td>
+                                    <td>
+                                        <div class="product">
+                                            <p class="type">{{ item.current_stock ? item.current_stock : 0 }}</p>
+                                        </div>
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <div class="product">
+                                            <p class="type">{{ item.req_current_stock ? item.req_current_stock : 0 }}</p>
+                                        </div>
                                     </td>
                                     <td>
                                         <!-- <a class="edit" @click="singleItemEditClickHandler"><i class="zmdi zmdi-edit"></i></a> -->
@@ -131,6 +131,8 @@
 // const demoData = new DemoData()
 import ERPService from '../../../../../../service/ERPSidebarService'
 const service = new ERPService()
+import GlobalDateFormat from '../../../../../../functions/GlobalDateFormat'
+const globalDateFormat = new GlobalDateFormat()
 
 export default {
     props: ["DEPOT_NAME", "SELECTED_REQUISITION_DATA"],
@@ -295,6 +297,9 @@ export default {
         changeThisComponent() {
             this.$router.push('/features/local_sales/transfer-approve-requisition')
         },
+        dateFormat(dt) {
+            return globalDateFormat.dateFormatT4(dt)
+        },
         // -----------------------------------------------------
         // SERVICE CALL
         async UPDATE_TRANSFER_VERIFY_REQUISITION__FROM_SERVICE(requisition_id) {
@@ -337,6 +342,7 @@ export default {
 }
 .requition_area .requition_header {
     padding: 0;
+    padding-bottom: 5px;
 }
 .requition_area .requition_header .header_top {
     padding: 0;
@@ -419,7 +425,34 @@ export default {
     color: #000000;
 }
 .requition_area .requition_header .header_top {
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     height: 30px;
+}
+table tr th,
+table tr td {
+    flex-basis: 20%;
+}
+table tr th:first-child,
+table tr td:first-child {
+    max-width: 203.95px;
+    flex-basis: 31%;
+}
+/* table tr th:nth-child(2),
+table tr td:nth-child(2) {
+    flex-basis: 20%;
+} */
+table tr th:nth-child(2),
+table tr td:nth-child(2),
+table tr th:nth-child(3),
+table tr td:nth-child(3),
+table tr th:nth-child(4),
+table tr td:nth-child(4),
+table tr th:nth-child(5),
+table tr td:nth-child(5) {
+    max-width: 164.33px;
+}
+table tr th:last-child,
+table tr td:last-child {
+    flex-basis: 15%;
 }
 </style>
