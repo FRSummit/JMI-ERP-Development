@@ -28,7 +28,7 @@
                             <p>Requisition Date: <span class="text-data jmi-tool-tip-parent">{{ dateFormat(requisition_date) }}</span></p>
                         </div>
                         <div class="col-lg-2 col-md-2 col-12">
-                            <p>Status: <span class="approved">{{ REQ_STATUS ? REQ_STATUS : 'DRAFT' }}</span></p>
+                            <p>Status: <span class="transfer verified">{{ STORED_DATA ? STORED_DATA.tr_status : 'DRAFT' }}</span></p>
                         </div>
                     </div>
                     <div class="row requition_content">

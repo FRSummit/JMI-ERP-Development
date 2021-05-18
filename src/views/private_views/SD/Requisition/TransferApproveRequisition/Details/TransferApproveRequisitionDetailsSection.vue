@@ -571,4 +571,31 @@ export default {
 .out-of-stock {
     background-color: #f5bec6;
 }
+table tr th,
+table tr td {
+    flex-basis: 20%;
+}
+table tr th:first-child,
+table tr td:first-child {
+    max-width: 203.95px;
+    flex-basis: 31%;
+}
+/* table tr th:nth-child(2),
+table tr td:nth-child(2) {
+    flex-basis: 20%;
+} */
+table tr th:nth-child(2),
+table tr td:nth-child(2),
+table tr th:nth-child(3),
+table tr td:nth-child(3),
+table tr th:nth-child(4),
+table tr td:nth-child(4),
+table tr th:nth-child(5),
+table tr td:nth-child(5) {
+    max-width: 164.33px;
+}
+table tr th:last-child,
+table tr td:last-child {
+    flex-basis: 15%;
+}
 </style>
