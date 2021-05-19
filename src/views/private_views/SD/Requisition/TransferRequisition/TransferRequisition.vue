@@ -96,5 +96,5 @@ export default {
 /* #transfer-requisition.transfer-requisition .layout-body {
     height: calc(100vh - (74px + 54px + 32px + 10px));
 } */
-@import '../../../../../assets/style-transfer_requition.css';
+@import url("../../../../../assets/style-transfer_requition.css");
 </style>
