@@ -18,8 +18,8 @@
                         </div>
                         <!-- Start Change Photo Modal -->
                             <div class="modal" id="change-photo" tabindex="-1" role="dialog" aria-labelledby="changePhoto" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
+                                <div class="modal-dialog modal-dialog-centered" role="document" style="min-height: auto; margin: 0;">
+                                    <div class="modal-content" style="border: none;">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="changePhoto">Change Photo</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="changePhotoModalCloseClickHandler" style="width: 50px;">
@@ -28,7 +28,7 @@
                                         </div>
                                         <form class="modal-body">
                                             <div class="form-group">
-                                                <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                                                <input type="file" class="form-control-file" id="exampleFormControlFile1" style="padding-top: 5px;">
                                             </div>
                                         </form>
                                         <div class="modal-footer justify-content-center">
@@ -50,7 +50,7 @@
                     <!-- Start Classification Modal Area -->
                     <div class="modal" id="classification-modal" tabindex="-1" role="dialog" aria-labelledby="classification" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="margin: 0; display: contents;">
-                            <div class="modal-content" style="padding: 14px 0; border: 0;">
+                            <div class="modal-content" style="padding: 0; border: 0;">
                                 <div class="modal-header">
                                     <h5 class="modal-title">Add Product</h5>
                                     <button type="button" id="classification-modal-close-btn" class="close" data-dismiss="modal" aria-label="Close" style="width: 50px;">
@@ -2955,5 +2955,23 @@ button.modal-prod-save-btn:hover {
 }
 .ledgerStock-Area .treeContent .ledgerStock-Area-table tbody {
   width: 99%;
+}
+
+#change-photo {
+    height: 245px;
+    width: 500px;
+}
+#change-photo .modal.show .modal-dialog {
+    min-height: auto;
+    margin: 0;
+}
+#change-photo .modal .modal-content {
+    border: none;
+}
+#classification-modal {
+    width: 500px;
+}
+.modal {
+    width: 500px;
 }
 </style>

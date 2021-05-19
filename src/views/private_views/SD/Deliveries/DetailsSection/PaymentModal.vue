@@ -35,7 +35,7 @@
         
         <!------------ Start Add New Payment Modal------------>
         <div class="modal-popup-section order-proceed-modal" v-if="payment_popup_modal">
-            <div class="modal" id="new-payment-modal" tabindex="-1" role="dialog" aria-labelledby="AddCollection" aria-hidden="true">
+            <div class="modal jmi-scroll-section" id="new-payment-modal" tabindex="-1" role="dialog" aria-labelledby="AddCollection" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -104,7 +104,7 @@
                                 </div>
 
                                 <!--Uploaded File-->
-                                <div class="col-6">
+                                <div class="col-6" v-if="CHALLAN_UPLOADED_IMAGE_DATA_BASE_64">
                                     <div class="uploaded-file">
                                         <img id="challan_img" src="../../../../../assets/images/products/documents.jpg" style="width:100%;">
                                         <!-- <div class="file-info">
@@ -165,7 +165,7 @@
                                 </div>
 
                                 <!--Uploaded File-->
-                                <div class="col-6">
+                                <div class="col-6" v-if="EFTN_UPLOADED_IMAGE_DATA_BASE_64">
                                     <div class="uploaded-file">
                                         <img id="eftn_img" src="../../../../../assets/images/products/documents.jpg" style="width:100%;">
                                         <!-- <div class="file-info">
@@ -226,7 +226,7 @@
                                 </div>
 
                                 <!--Uploaded File-->
-                                <div class="col-6">
+                                <div class="col-6" v-if="CHEQUE_UPLOADED_IMAGE_DATA_BASE_64">
                                     <div class="uploaded-file">
                                         <img id="cheque_img" src="../../../../../assets/images/products/documents.jpg" style="width:100%;">
                                         <!-- <div class="file-info">
@@ -375,6 +375,7 @@ export default {
                 this.payment_popup_modal = false
             } else {
                 this.payment_popup_modal = true
+                // alert(this.payment_mode)
             }
             console.log(this.payment_popup_modal)
         },
@@ -522,10 +523,27 @@ export default {
             if(this.payment_confirmation_popup_modal) {
                 this.payment_confirmation_popup_modal = false
             } else {
-                this.payment_confirmation_popup_modal = true
-
-                let data = this.finalPaymentDataByMode(this.paymentData())
-                this.payment_confirmation_popup_modal_msg = 'Your receive amount is ' + data.amount
+                // let data = this.finalPaymentDataByMode(this.paymentData())
+                if(this.payment_mode === 0 && this.cash_amount) {
+                    let data = this.finalPaymentDataByMode(this.paymentData())
+                    this.payment_confirmation_popup_modal = true
+                    this.payment_confirmation_popup_modal_msg = 'Your receive amount is ' + data.amount
+                } else if(this.payment_mode === 1 && this.cash_amount && this.challan_doc_no && this.challan_date && this.challan_bank_name && this.challan_bank_branch_name) {
+                    let data = this.finalPaymentDataByMode(this.paymentData())
+                    this.payment_confirmation_popup_modal = true
+                    this.payment_confirmation_popup_modal_msg = 'Your receive amount is ' + data.amount
+                } else if(this.payment_mode === 2 && this.cash_amount && this.eftn_doc_no && this.eftn_date && this.eftn_bank_name && this.eftn_bank_branch_name) {
+                    let data = this.finalPaymentDataByMode(this.paymentData())
+                    this.payment_confirmation_popup_modal = true
+                    this.payment_confirmation_popup_modal_msg = 'Your receive amount is ' + data.amount
+                } else if(this.payment_mode === 3 && this.cash_amount && this.cheque_doc_no && this.cheque_date && this.challan_bank_name && this.cheque_bank_branch_name) {
+                    let data = this.finalPaymentDataByMode(this.paymentData())
+                    this.payment_confirmation_popup_modal = true
+                    this.payment_confirmation_popup_modal_msg = 'Your receive amount is ' + data.amount
+                } else {
+                    alert('Data field should not be null')
+                    this.payment_popup_modal = false
+                }
             }
         },
         async saveNewPaymentClickHandler() {
@@ -533,10 +551,26 @@ export default {
             if(this.payment_confirmation_popup_modal) {
                 this.payment_confirmation_popup_modal = false
             } else {
-                this.payment_confirmation_popup_modal = true
-
-                let data = this.finalPaymentDataByMode(this.paymentData())
-                this.payment_confirmation_popup_modal_msg = 'Your receive amount is ' + data.amount
+                if(this.payment_mode === 0 && this.cash_amount) {
+                    let data = this.finalPaymentDataByMode(this.paymentData())
+                    this.payment_confirmation_popup_modal = true
+                    this.payment_confirmation_popup_modal_msg = 'Your receive amount is ' + data.amount
+                } else if(this.payment_mode === 1 && this.challan_doc_no && this.challan_date && this.challan_bank_name && this.challan_bank_branch_name) {
+                    let data = this.finalPaymentDataByMode(this.paymentData())
+                    this.payment_confirmation_popup_modal = true
+                    this.payment_confirmation_popup_modal_msg = 'Your receive amount is ' + data.amount
+                } else if(this.payment_mode === 2 && this.eftn_doc_no && this.eftn_date && this.eftn_bank_name && this.eftn_bank_branch_name) {
+                    let data = this.finalPaymentDataByMode(this.paymentData())
+                    this.payment_confirmation_popup_modal = true
+                    this.payment_confirmation_popup_modal_msg = 'Your receive amount is ' + data.amount
+                } else if(this.payment_mode === 3 && this.cheque_doc_no && this.cheque_date && this.challan_bank_name && this.cheque_bank_branch_name) {
+                    let data = this.finalPaymentDataByMode(this.paymentData())
+                    this.payment_confirmation_popup_modal = true
+                    this.payment_confirmation_popup_modal_msg = 'Your receive amount is ' + data.amount
+                } else {
+                    alert('Data field should not be null')
+                    this.payment_popup_modal = false
+                }
             }
         },
         cancelPaymentConfirmationClickHandler() {
@@ -846,5 +880,38 @@ input:focus {
 }
 table tbody tr:hover {
     background-color: #E5F0FA;
+}
+.row {
+    margin-bottom: 0;
+}
+.modal-body .form-group {
+    padding-top: 0;
+}
+
+
+.jmi-scroll-section {
+    width            : 100%;
+    display          : list-item;
+    height           : 600px;
+    overflow         : auto;
+    -webkit-flex-flow: row wrap;
+}
+
+.jmi-scroll-section::-webkit-scrollbar {
+    width: 4px;
+}
+
+.jmi-scroll-section::-webkit-scrollbar-track {
+    box-shadow   : inset 0 0 5px grey;
+    border-radius: 10px;
+}
+
+.jmi-scroll-section::-webkit-scrollbar-thumb {
+    background   : #168fff;
+    border-radius: 10px;
+}
+
+.jmi-scroll-section::-webkit-scrollbar-thumb:hover {
+    background: #004e98;
 }
 </style>

@@ -11,7 +11,7 @@
                     <div class="col-lg-3 col-md-3 col-sm-12"><p class="jmi-title">Total Due: <span class="jmi-lvl-value">{{ PENDING_ORDER_DATA_BY_ID ? Number(PENDING_ORDER_DATA_BY_ID.net_total).toFixed(2) : '' }}</span></p></div>
                     <!-- <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><span class="jmi-lvl-value address">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_info.customer_address ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_info.customer_address) : '') : '') : '') : '' }}</span></p></div> -->
                     <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><span class="jmi-lvl-value address">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.delivery_address ? (PENDING_ORDER_DATA_BY_ID.delivery_address) : '') : '' }}</span></p></div>
-                    <div class="col-lg-3 col-md-3 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Order Placed:</span><span class="jmi-lvl-value address">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.created_at ? (PENDING_ORDER_DATA_BY_ID.created_at).split('T')[0] : '') : '' }}</span></p></div>
+                    <div class="col-lg-3 col-md-3 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Order Placed:</span><span class="jmi-lvl-value address">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.created_at ? dateFormat(PENDING_ORDER_DATA_BY_ID.created_at) : '') : '' }}</span></p></div>
                     
                 </div>
             </div>
@@ -22,7 +22,7 @@
                         <div class="col-lg-3 col-md-6 col-sm-6"><p class="am">AM: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info.name) : '') : '') : '') : '') : '' }}</span></p></div>
                         <div class="col-lg-3 col-md-6 col-sm-6"><p class="mio">MIO: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info.name) : '') : '') : '') : '') : '') : '') : '' }}</span></p></div>
                         <div class="col-lg-3 col-md-6 col-sm-6"><p class="mio">SR: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.get_sales_area ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.get_sales_area ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.get_sales_area.area_name ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.get_sales_area.area_name) : '') : '') : '') : '') : '') : '') : '' }}</span></p></div>
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="mio">Delivery Date: <span class="jmi-lvl-value">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.delivery_date ? (PENDING_ORDER_DATA_BY_ID.delivery_date).split(' ')[0] : '') : '' }}</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="mio">Delivery Date: <span class="jmi-lvl-value">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.delivery_date ? dateFormat(PENDING_ORDER_DATA_BY_ID.delivery_date) : '') : '' }}</span></p></div>
                     </div>
                 </div>
             </div>
@@ -33,9 +33,9 @@
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Trade Price<span class="with-vat">(With VAT)</span></th>
+                                <th>Trade Price<span class="with-vat">(TP + VAT)</span></th>
                                 <th>Quantity</th>
-                                <th>Discount</th>
+                                <th style="text-align: center;">Discount</th>
                                 <th>Bonus</th>
                                 <th>Total Price</th>
                                 <th style="min-width: 70px;"></th>
@@ -70,7 +70,7 @@
                                             </span>
                                         </td>
                                         <!-- Discount Column -->
-                                        <td>
+                                        <td style="text-align: center;">
                                             <span v-if="!(data.deal_type === 'F' && data.net_amount === '0')">{{ data ? (data.offer ? (data.offer.offer ? (data.offer.offer.discount_percentage ? Number(data.offer.offer.discount_percentage).toFixed(2) : 0) : 0) : 0) : 0 }}%</span>
                                         </td>
                                         <!-- Bonus Column -->
@@ -422,6 +422,8 @@
 // import * as VueGoogleMaps from 'vue2-google-maps'
 import JMIFilter from '.././../../../../functions/JMIFIlter'
 const jmiFilter = new JMIFilter()
+import GlobalDateFormat from '.././../../../../functions/GlobalDateFormat'
+const globalDateFormat = new GlobalDateFormat()
 import ERPService from '../../../../../service/ERPSidebarService'
 const service = new ERPService()
 
@@ -626,6 +628,9 @@ export default {
         await this.LOAD_FILE_TYPE__FROM_SERVICE()
     },
     methods: {
+        dateFormat(dt) {
+            return globalDateFormat.dateFormatT4(dt)
+        },
         //------------------------------------------------------------------------------------------
         // Increase Table Row's Single Product/Order
         increaseOrderedItemClickHandler(data, index) {
@@ -1084,6 +1089,7 @@ export default {
                 })
         },
         async CHECK_COLLECTION_LIST__FROM_SERVICE() {
+            if(this.INVOICE_DATA_TO_SEND.customer_id !== '' && this.INVOICE_DATA_TO_SEND.ds_id !== '')
             await service.getCollectionList_DELIVERIES_DETAILS(this.INVOICE_DATA_TO_SEND.customer_id, this.INVOICE_DATA_TO_SEND.ds_id)
                 .then(res => {
                     console.log(res.data)
@@ -1110,11 +1116,13 @@ export default {
             this.gross_total = 0
             this.grand_total = 0
             // console.log(this.ORDERED_TABLE_DATA__INIT_LIST[0])
-            for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST.length; i++) {
-                this.sub_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_tp) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty
-                this.vat_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_vat) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty
-                this.discount_total += (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_tp) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) - (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.price_now_per_qty) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty)
-                // console.log(parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.price_now_per_qty) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty)
+            if(this.ORDERED_TABLE_DATA__INIT_LIST.length) {
+                for(let i=0; i<this.ORDERED_TABLE_DATA__INIT_LIST.length; i++) {
+                    this.sub_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_tp) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty
+                    this.vat_total += parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_vat) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty
+                    this.discount_total += (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].unit_tp) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty) - (parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.price_now_per_qty) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty)
+                    // console.log(parseFloat(this.ORDERED_TABLE_DATA__INIT_LIST[i].offer.price_now_per_qty) * this.ORDERED_TABLE_DATA__INIT_LIST[i].qty)
+                }
             }
             // this.discount_total = 0
             this.gross_total = this.sub_total + this.vat_total
@@ -1462,4 +1470,33 @@ export default {
 
 <style lang="less" scoped>
 @import url('./DetailsSection.less');
+</style>
+
+<style scoped>
+.col-lg-2,
+.col-lg-3,
+.col-lg-4,
+.col-lg-5,
+.col-lg-6,
+.col-lg-8,
+.col-lg-10,
+.col-lg-12,
+.col-md-2,
+.col-md-3,
+.col-md-4,
+.col-md-5,
+.col-md-6,
+.col-md-8,
+.col-md-10,
+.col-md-12,
+.col-sm-2,
+.col-sm-3,
+.col-sm-4,
+.col-sm-5,
+.col-sm-6,
+.col-sm-8,
+.col-sm-10,
+.col-sm-12 {
+    padding: 0;
+}
 </style>
