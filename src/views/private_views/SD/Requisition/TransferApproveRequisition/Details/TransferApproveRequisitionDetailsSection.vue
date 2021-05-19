@@ -468,8 +468,8 @@ export default {
 }
 /* Data Section */
 .requition_area .requition_header {
-    /* padding: 10px 0; */
-    padding: 6px 0;
+    padding: 10px;
+    /* padding: 6px 0; */
 }
 .requition_area .requition_header .header_top {
     padding: 0;
