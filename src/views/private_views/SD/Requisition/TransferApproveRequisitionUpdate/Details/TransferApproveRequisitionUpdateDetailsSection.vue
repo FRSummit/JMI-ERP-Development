@@ -70,7 +70,7 @@
                                             <div class="quantity-input">
                                                 <input class='minus' type='button' value='-' field='quantity' @click="decreaseRequisitionQtyClickHandler(item, i)" />
                                                 <input class='quantity' type='number' name='quantity' placeholder="0" :value="item.req_qty" :id="'req_qty_' + i" v-on:keyup="reqQtyKeyUpEventHandler(item, $event, i)" v-on:keydown="reqQtyKeyDownEventHandler($event, i)" />
-                                                <input class='plus' type='button' value='+' field='quantity' @click="increaseRequisitionQtyClickHandler(item, i)" />
+                                                <input class='plus' type='button' value='+' field='quantity' @click="increaseRequisitionQtyClickHandler(item, i)" style="padding-top: 1px;"/>
                                             </div>
                                         </form>
                                     </td>
@@ -341,8 +341,8 @@ export default {
     height: calc(100vh - (74px + 54px + 32px));
 }
 .requition_area .requition_header {
-    padding: 0;
-    padding-bottom: 5px;
+    padding: 10px;
+    /* padding-bottom: 5px; */
 }
 .requition_area .requition_header .header_top {
     padding: 0;
