@@ -79,7 +79,8 @@
                                         <div class="product">
                                             <!-- <p class="name">{{ item..prod_info.prod_name }}<span> {{ item.qty }}</span></p> -->
                                             <p class="name">{{ item.prod_info.prod_name }}</p>
-                                            <p class="type">{{ item.type ? item.type : 'Dummy Paricatamole' }}</p>
+                                            <!-- <p class="type">{{ item.generic_info ? (item.generic_info.generic_name ? item.generic_info.generic_name : '') : '' }}</p> -->
+                                            <p class="type jmi-txt-nowrap-ellipsis-middle_50"><span v-for="(elem, j) in item.details_info.generic_name" :key="j">{{ elem.element_name }}{{ checkElementLengthToSetComma(j, item.details_info.generic_name) }}</span></p>
                                         </div>
                                     </td>
                                     <td>
@@ -298,6 +299,12 @@ export default {
                 await this.APPROVE_REQUISITION__FROM_SERVICE(wh_from, req_status)
             }
         },
+        checkElementLengthToSetComma(j, element) {
+            console.log(j)
+            // console.log(element.length)
+            // return element
+            return (j < element.length - 1) ? ', ' : ''
+        },
         // -----------------------------------------------------
         // SERVICE CALL
         async ALL_DEPOT_UNDER_SBU__FROM_SERVICE() {
@@ -487,5 +494,12 @@ export default {
 }
 .requition_area .row.requition_footer a:first-child .btn.btn-primary.btn-global {
     color: #000000;
+}
+.jmi-txt-nowrap-ellipsis-middle_50 {
+    width         : 150px;
+    white-space   : nowrap;
+    overflow      : hidden;
+    text-overflow : ellipsis;
+    vertical-align: middle;
 }
 </style>

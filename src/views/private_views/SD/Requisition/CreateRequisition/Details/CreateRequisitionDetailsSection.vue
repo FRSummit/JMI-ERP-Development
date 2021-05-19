@@ -41,8 +41,8 @@
                                     <th>Name</th>
                                     <th>Unit</th>
                                     <th>Quantity</th>
-                                    <th>Current Stock</th>
-                                    <th style="text-align: center;">Safety Stock</th>
+                                    <th v-if="STORED_DATA">Current Stock</th>
+                                    <th v-if="STORED_DATA" style="text-align: center;">Safety Stock</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -69,19 +69,19 @@
                                             </div>
                                         </form>
                                     </td>
-                                    <td>
+                                    <td v-if="STORED_DATA">
                                         <div class="product">
                                             <p class="type">{{ item.current_stock }}</p>
                                         </div>
                                     </td>
-                                    <td>
+                                    <td v-if="STORED_DATA">
                                         <div class="product">
-                                            <p class="type" style="text-align: center;">{{ item.safety_stock }}</p>
+                                            <p class="type" style="text-align: center;">{{ item.req_current_stock }}</p>
                                         </div>
                                     </td>
                                     <td>
                                         <!-- <a class="edit" @click="singleItemEditClickHandler"><i class="zmdi zmdi-edit"></i></a> -->
-                                        <a class="remove" @click="singleItemDeleteClickHandler(item, i)"><i class="fas fa-trash-alt"></i></a>
+                                        <a class="remove" :class="STORED_DATA ? 'edit' : ''" @click="singleItemDeleteClickHandler(item, i)"><i class="fas fa-trash-alt"></i></a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -694,5 +694,10 @@ export default {
 }
 .requition_area .row.requition_footer a:first-child .btn.btn-primary.btn-global {
     color: #000000;
+}
+a.remove.edit {
+    padding-top: 8px;
+    display: flex;
+    justify-content: space-around;
 }
 </style>
