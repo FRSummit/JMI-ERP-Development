@@ -39,7 +39,7 @@
                                     <th>Unit</th>
                                     <th>{{ DATA_DEPOT_NAME_FROM_TR_AR ? DATA_DEPOT_NAME_FROM_TR_AR : '' }} Stock</th>
                                     <th>{{ DATA_DEPOT_NAME_TO_TR_AR ? DATA_DEPOT_NAME_TO_TR_AR : '' }} Stock</th>
-                                    <th>Quantity</th>
+                                    <th style="text-align: center; min-width: 138px;">Quantity</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -75,7 +75,7 @@
                                             <p class="type">{{ item.req_current_stock ? item.req_current_stock : 0 }}</p>
                                         </div>
                                     </td>
-                                    <td>
+                                    <td style="text-align: center;">
                                         <form>
                                             <div class="quantity-input">
                                                 <input class='minus' type='button' value='-' field='quantity' @click="decreaseRequisitionQtyClickHandler(item, i)" />
@@ -417,5 +417,31 @@ export default {
 .requition_area .requition_header .header_top {
     margin-bottom: 10px;
     height: 30px;
+}
+.col-lg-2,
+.col-lg-3,
+.col-lg-4,
+.col-lg-5,
+.col-lg-6,
+.col-lg-8,
+.col-lg-10,
+.col-lg-12,
+.col-md-2,
+.col-md-3,
+.col-md-4,
+.col-md-5,
+.col-md-6,
+.col-md-8,
+.col-md-10,
+.col-md-12,
+.col-sm-2,
+.col-sm-3,
+.col-sm-4,
+.col-sm-5,
+.col-sm-6,
+.col-sm-8,
+.col-sm-10,
+.col-sm-12 {
+    padding: 0 !important;
 }
 </style>
