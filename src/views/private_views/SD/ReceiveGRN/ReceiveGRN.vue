@@ -136,3 +136,10 @@ export default {
 <style lang="less" scoped>
 @import url("./ReceiveGRN.less");
 </style>
+
+<style scoped>
+@import url("../../../../custom.css");
+@import url("../../../../assets/css/styles.css");
+@import url("../../../../assets/t2-style.css");
+@import url("../../../../assets/style-transfer_requition.css");
+</style>
