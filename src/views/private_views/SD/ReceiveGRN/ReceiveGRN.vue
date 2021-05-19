@@ -4,7 +4,8 @@
     <div class="invoice-challan-printing-section">
       <div class="invoice-challan-printing-inner">
         <ReceiveGRNLeftList
-          v-on:invoice_id_from_left="invoiceIdFromLeftHandler"/>
+          v-on:invoice_id_from_left="invoiceIdFromLeftHandler"
+          :RECEIVE_GRN_BTN_CLICKED="RECEIVE_GRN_BTN_CLICKED"/>
         <div class="invoice-challan-printing-detail-section">
           <div class="invoice-challan-printing-detail-inner">
             <DetailSection 
@@ -58,6 +59,8 @@ export default {
       HEADER_DATA: [],
       loading_popup_modal: false,
       loading_message: null,
+
+      RECEIVE_GRN_BTN_CLICKED: null,
     };
   },
   created() {
@@ -84,8 +87,10 @@ export default {
       this.DA_ID = null
       this.DS_ID = null
       this.HEADER_DATA = []
+      this.GRN_DATA = []
+      this.INVOICE_FOR_CURRENT_DS_LIST = []
       localStorage.removeItem('jmi_return_grn_data_list')
-      service.getGRN_InfoByGRN_No__DELIVERY_GRN(grn_no)
+      await service.getGRN_InfoByGRN_No__DELIVERY_GRN(grn_no)
         .then(res => {
           console.log(res.data)
           this.GRN_DATA = res.data.grn_info
@@ -105,6 +110,8 @@ export default {
             this.DA_ID = null
             this.DS_ID = null
             this.HEADER_DATA = []
+            this.GRN_DATA = []
+            this.INVOICE_FOR_CURRENT_DS_LIST = []
             localStorage.removeItem('jmi_return_grn_data_list')
             this.loading_message = 'Request failed to load or no data found'
             this.loading_popup_modal = true
@@ -115,17 +122,33 @@ export default {
         })
     },
     async returnGrnBtnClick() {
+      // this.RECEIVE_GRN_BTN_CLICKED = null
       await service.getReturnGRN__DELIVERY_GRN(this.CURRENT_SCHEDULE_ID)
         .then(res => {
           console.log(res.data)
           localStorage.removeItem('jmi_return_grn_data_list')
           if(res.data.response_code === 200) {
+            this.RECEIVE_GRN_BTN_CLICKED = new Date()
+            
+            this.SCHEDULE_DETAILS_LIST = []
+            this.DA_ID = null
+            this.DS_ID = null
+            this.HEADER_DATA = []
+            this.GRN_DATA = []
+            this.INVOICE_FOR_CURRENT_DS_LIST = []
+
             this.loading_message = 'Return GRN Success'
             this.loading_popup_modal = true
             setTimeout( () => {
               this.loading_popup_modal = false
               this.loading_message = null
             }, 2000)
+          }
+        })
+        .catch(err => {
+          if(err) {
+            console.log(err)
+            this.RECEIVE_GRN_BTN_CLICKED = null
           }
         })
     },

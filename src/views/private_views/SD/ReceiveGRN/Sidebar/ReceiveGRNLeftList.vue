@@ -96,6 +96,7 @@ import GlobalDateFormat from '../../../../../functions/GlobalDateFormat'
 const globalDateFormat = new GlobalDateFormat()
 
 export default {
+  props: ["RECEIVE_GRN_BTN_CLICKED"],
   components: {
     // HotelDatePicker,
     // DatePicker
@@ -170,7 +171,7 @@ export default {
     async DELIVERY_SCHEDULE_LIST__FROM_SERVICE() {
       this.INVOICE_LIST = []
       // service.getDeliveryScheduleList_DELIVERY_SCHEDULING_INVOICE_CHALLAN_PRINTING()
-      service.getCompleteDeliveryScheduleList__DELIVERY_GRN_SR()
+      await service.getCompleteDeliveryScheduleList__DELIVERY_GRN_SR()
         .then(res => {
           console.log(res.data)
           this.INVOICE_LIST = res.data.schedule_list
@@ -182,6 +183,13 @@ export default {
         })
     }
   },
+  watch: {
+    RECEIVE_GRN_BTN_CLICKED(newVal) {
+      if(newVal) {
+        this.DELIVERY_SCHEDULE_LIST__FROM_SERVICE()
+      }
+    }
+  }
 };
 </script>
 
