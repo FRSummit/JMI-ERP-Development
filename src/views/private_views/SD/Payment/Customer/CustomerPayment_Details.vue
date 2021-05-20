@@ -17,6 +17,7 @@
                     <div class="row requition_content">
                         <div class="col-12">
                             <PaymentModal
+                                v-if="SELECTED_CUSTOMER_LEFT"
                                 :SELECTED_CUSTOMER_LEFT="SELECTED_CUSTOMER_LEFT" />
                         </div>
                     </div>
@@ -54,7 +55,35 @@ export default {
 .row.requition_header {
     margin: 0;
 }
-.header_top {
+.header_top,
+.row.requition_header {
+    padding: 0;
+}
+
+.col-lg-2,
+.col-lg-3,
+.col-lg-4,
+.col-lg-5,
+.col-lg-6,
+.col-lg-8,
+.col-lg-10,
+.col-lg-12,
+.col-md-2,
+.col-md-3,
+.col-md-4,
+.col-md-5,
+.col-md-6,
+.col-md-8,
+.col-md-10,
+.col-md-12,
+.col-sm-2,
+.col-sm-3,
+.col-sm-4,
+.col-sm-5,
+.col-sm-6,
+.col-sm-8,
+.col-sm-10,
+.col-sm-12 {
     padding: 0;
 }
 </style>
