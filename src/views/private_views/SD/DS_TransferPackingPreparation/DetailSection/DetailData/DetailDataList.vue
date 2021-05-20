@@ -73,16 +73,16 @@
 </template>
 
 <script>
-import Service from "../../../../../../service/ERPSidebarService";
-const service = new Service();
+// import Service from "../../../../../../service/ERPSidebarService";
+// const service = new Service();
 
 // import PP_Invoice_Type_2 from '../../../../../../functions/Print_Func/PP_Invoice_Type_2'
 // const ppInvoice_Type_2 = new PP_Invoice_Type_2()
 
-import PP_Invoice_Type_2_Single from '../../../../../../functions/Print_Func/PP_Invoice_Type_2_Single'
-const pp_Invoice_Type_2_Single = new PP_Invoice_Type_2_Single()
-import PP_Invoice_Type_3_Institution from '../../../../../../functions/Print_Func/PP_Invoice_Type_3_Institution'
-const pp_Invoice_Type_3_Institution = new PP_Invoice_Type_3_Institution()
+// import PP_Invoice_Type_2_Single from '../../../../../../functions/Print_Func/PP_Invoice_Type_2_Single'
+// const pp_Invoice_Type_2_Single = new PP_Invoice_Type_2_Single()
+// import PP_Invoice_Type_3_Institution from '../../../../../../functions/Print_Func/PP_Invoice_Type_3_Institution'
+// const pp_Invoice_Type_3_Institution = new PP_Invoice_Type_3_Institution()
 import PP_PackingSummeryAll_T1 from '../../../../../../functions/Print_Func/PP_TransferPackingSummeryAll_T1'
 const pp_PackingSummeryAll_T1 = new PP_PackingSummeryAll_T1()
 
