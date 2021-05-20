@@ -27,7 +27,7 @@
                         <div class="col-12 header_top">
                             <h5>Requisition No: <span>{{ SELECTED_REQUISITION_DETAILS.requisition_no ? SELECTED_REQUISITION_DETAILS.requisition_no : '' }}</span></h5>
                             <span>
-                                <a class="edit create-new" @click="createRequisitionClickHandler" style="color: #FFFFFF; border: 1px solid #026cd1; background-color: #026cd1; padding: 4px 6px; border-radius: 4px;">Create New</a>
+                                <a class="edit create-new" @click="createRequisitionClickHandler" style="color: #FFFFFF; border: 1px solid #026cd1; background-color: #026cd1; padding: 4px 6px; border-radius: 4px;"><i class="zmdi zmdi-plus"></i>Create New</a>
                                 <a class="edit" @click="editRequisitionClickHandler" v-if="SELECTED_REQUISITION_DETAILS ? (SELECTED_REQUISITION_DETAILS.req_status === 'DRAFT' ? true : false) : false"><i class="zmdi zmdi-edit"></i></a>
                             </span>
                         </div>
@@ -362,6 +362,16 @@ export default {
 .requition_area .header_top .edit i {
     font-size: 16px;
     cursor: pointer;
+}
+.requition_area .header_top .edit.create-new i {
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block;
+    background: transparent;
+    color: #FFFFFF;
+    height: auto;
+    width: unset;
+    margin-right: 8px;
 }
 .requition_area table tbody td a {
     cursor: pointer;

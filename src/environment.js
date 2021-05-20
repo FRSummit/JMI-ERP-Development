@@ -14,8 +14,8 @@ export default {
   // apiBaseUrl: "http://203.188.246.138:8885",
 
 
-  // apiBaseUrl: "http://203.188.245.58:8885",
-  apiBaseUrl: "https://jerpapi.mononsoft.org:8889",
+  apiBaseUrl: "http://203.188.245.58:8885",
+  // apiBaseUrl: "https://jerpapi.mononsoft.org:8889",
 
 
   // apiBaseUrl: "http://192.168.10.76:8000",

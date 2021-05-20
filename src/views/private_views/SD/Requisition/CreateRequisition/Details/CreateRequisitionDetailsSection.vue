@@ -28,7 +28,7 @@
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-3 col-12">
-                            <p>Requisition Date: <span class="text-data"><input type="date" v-model="requisition_date"></span></p>
+                            <p>Date: <span class="text-data"><input type="date" v-model="requisition_date"></span></p>
                         </div>
                         <!-- <div class="col-lg-2 col-md-2 col-12">
                             <p>Status: <span class="draft">{{ REQ_STATUS ? REQ_STATUS : 'DRAFT' }}</span></p>
@@ -88,6 +88,7 @@
                         </table>
                     </div>
                     <div class="row requition_footer" v-if="(SELECTED_REQUISITION_DATA.length ? SELECTED_REQUISITION_DATA.length > 0 : false) && (PREVIOUS_ROUTE_NAME === 'Create Requisition' || PREVIOUS_ROUTE_NAME === 'Transfer Requisition')">
+                        <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="cancelCreateClickHandler">Cancel</button></a>
                         <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="saveAsDraftClickHandler">Draft</button></a>
                         <a><button type="button" class="btn btn-primary btn-global mx-2" @click="sendRequestClickHandler">Submit</button></a>
                     </div>
@@ -268,6 +269,9 @@ export default {
             selector.value = item.req_qty
         },
         // FOR CREATE OR TRANSFER REQUISITION
+        cancelCreateClickHandler() {
+            this.$router.push('/features/local_sales/transfer-requisition')
+        },
         saveAsDraftClickHandler() {
             if(this.proceed_modal_popup) {
                 this.proceed_modal_popup = false
@@ -636,9 +640,10 @@ export default {
     min-width: unset;
 }
 .requition_area .requition_header input[type=date] {
-    width: 50%;
+    width: 60%;
     height: auto;
     border: none;
+    font-size: 12px;
 }
 .requition_area .header_top .edit i {
     font-size: 16px;

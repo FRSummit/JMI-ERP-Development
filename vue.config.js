@@ -3,7 +3,7 @@ module.exports = {
     "vuetify"
   ],
   devServer: {     
-      https: true
+      https: false
   }
   // plugins: [
   //   { src: '~/plugins/vuejs-google-maps.js', mode: 'all' }

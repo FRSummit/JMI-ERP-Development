@@ -130,12 +130,12 @@
                                         </td>
                                         <!-- Total Price Column -->
                                         <td>
-                                            <span v-if="!(data.deal_type === 'F' && data.net_amount === '0')">{{ Number((data.unit_tp) * (data.qty)).toFixed(2) }}</span>
+                                            <span v-if="!(data.deal_type === 'F' && data.net_amount === '0')">{{ comaSeparationDigit(Number((data.unit_tp) * (data.qty)).toFixed(2)) }}</span>
                                         </td>
                                         <!-- Option Column -->
                                         <td class="row-action jmi-tr-td-option" style="min-width: 70px; text-align: right;">
                                             <span v-if="!(data.deal_type === 'F' && data.net_amount === '0')">
-                                                <span class="icon edit-icon" @click="editOrderitemClickHandler(data, i)" v-if="productTableEditableIsValid(data.available_stock, data.transit_stock, data.net_qty)"><i class="zmdi zmdi-edit"></i></span>
+                                                <span class="icon edit-icon" @click="editOrderitemClickHandler(data, i)" v-if="productTableEditableIsValid(data.available_stock, data.transit_stock, data.net_qty)"><i class="zmdi zmdi-edit" style="color: #FFFFFF; margin: 0;"></i></span>
                                                 <span class="icon delete-icon" @click="deleteOrderitemClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
                                             </span>
                                         </td>
@@ -147,31 +147,31 @@
                                 <tr class="subtotal bottom-total" style="border-top: 1px solid #BFCFE2;">
                                     <td style="width: 50%;"><span class="add-order-attachment-section add-order" @click="addOrderClickHandler" v-if="parseInt(ORDER_CREATED_BY) === parseInt(ORDER_AUTH_USER)"><i class="zmdi zmdi-plus"></i>Add Products</span></td>
                                     <td style="width: 25%;"><span>Subtotal</span></td>
-                                    <td style="width: 15%;"><span>{{ Number(sub_total).toFixed(2) }}</span></td>
+                                    <td style="width: 15%;"><span>{{ comaSeparationDigit(Number(sub_total).toFixed(2)) }}</span></td>
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
                                 <tr class="subtotal bottom-total">
                                     <td style="width: 50%;"><span class="add-order-attachment-section add-order" @click="showCommentClickHandler">Show Order Note</span></td>
                                     <td style="width: 25%;">(+) Vat</td>
-                                    <td style="width: 15%;">{{ Number(vat_total).toFixed(2) }}</td>
+                                    <td style="width: 15%;">{{ comaSeparationDigit(Number(vat_total).toFixed(2)) }}</td>
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
                                 <tr class="subtotal bottom-total">
                                     <td style="width: 50%;"></td>
                                     <td style="width: 25%;">Gross Total</td>
-                                    <td style="width: 15%;">{{ Number(gross_total).toFixed(2) }}</td>
+                                    <td style="width: 15%;">{{ comaSeparationDigit(Number(gross_total).toFixed(2)) }}</td>
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
                                 <tr class="subtotal bottom-total">
                                     <td style="width: 50%;"></td>
                                     <td style="width: 25%;">(-) Discount</td>
-                                    <td style="width: 15%;">{{ Number(discount_total).toFixed(2) }}</td>
+                                    <td style="width: 15%;">{{ comaSeparationDigit(Number(discount_total).toFixed(2)) }}</td>
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
                                 <tr class="subtotal bottom-total">
                                     <td style="width: 50%;"><span class="add-order-attachment-section add-attachment" @click="addAttachmentClickHandler"><i class="zmdi zmdi-attachment-alt"></i>Attachment</span></td>
                                     <td style="width: 25%;">(-) SP Discount</td>
-                                    <td style="width: 15%;">{{ Number(special_discount).toFixed(2) }}</td>
+                                    <td style="width: 15%;">{{ comaSeparationDigit(Number(special_discount).toFixed(2)) }}</td>
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
                                 <tr class="grand-total bottom-total" style="border-top: 1px solid #BFCFE2;">
@@ -180,7 +180,7 @@
                                         <span class="order-reject" @click="orderRejectClickHandler">Reject Order</span>
                                     </td>
                                     <td style="width: 25%;">Grand Total</td>
-                                    <td style="width: 15%;">{{ Number(grand_total).toFixed(2) }}</td>
+                                    <td style="width: 15%;">{{ comaSeparationDigit(Number(grand_total).toFixed(2)) }}</td>
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
                             </div>
@@ -628,6 +628,9 @@ const service = new ERPService()
 import PP_Invoice_Type_1 from '../../../../../../functions/Print_Func/PP_Invoice_Type_1'
 const ppInvoice_Type_1 = new PP_Invoice_Type_1()
 
+import ComaSeparatedDigits from '../../../../../../functions/ComaSeparatedDigits'
+const comaSeparatedDigits = new ComaSeparatedDigits()
+
 export default {
     props: ["pending_order_list_by_id", "order_id_from_left_side"],
     components: {
@@ -1008,6 +1011,9 @@ export default {
         await this.DIC_WISE_USERS__FROM_SERVICE()
     },
     methods: {
+        comaSeparationDigit(dt) {
+            return comaSeparatedDigits.comaSeparate(dt)
+        },
         onChangeSRDropdown() {
             console.log(this.on_change_SR_dropdown)
         },
@@ -2007,4 +2013,6 @@ export default {
 .col-sm-12 {
     padding: 0;
 }
+
+
 </style>

@@ -135,3 +135,7 @@ export default {
 <style lang="less" scoped>
 @import url("./OrderApproval.less");
 </style>
+
+<style  scoped>
+@import url("./OrderApproval.css");
+</style>
