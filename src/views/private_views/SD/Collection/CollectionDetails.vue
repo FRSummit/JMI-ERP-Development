@@ -8,7 +8,7 @@
                             <tr>
                                 <th class="type1" colspan="2">
                                 <h5>Customers (<span>{{ DS_CUSTOMER_LIST ? DS_CUSTOMER_LIST.length : 0 }}</span>)</h5>
-                                <div class="about-color">
+                                <div class="about-color hide">
                                     <p><span class="fa fa-square green"></span>Adjusted</p>
                                     <p><span class="fa fa-square orange"></span>Pending</p>
                                     <p><span class="fa fa-square gray"></span>Unadjusted</p>
@@ -60,7 +60,7 @@
                     
                         <tbody>
                             <tr v-for="(item, i) in COLLECTION_MASTER_CUSTOMER" :key="i" style="height: 50px;">
-                                <td style="flex-basis: 10%;"><p  @click="collectionMasterRowClickHandler(item, i)" style="cursor: pointer; color: var(--blue);">{{ item.collection_mode ? item.collection_mode : '' }}</p></td>
+                                <td style="flex-basis: 10%;"><p :id="'collection_mode_click_selector_' + i"  @click="collectionMasterRowClickHandler(item, i)" style="cursor: pointer; color: var(--blue);">{{ item.collection_mode ? item.collection_mode : '' }}</p></td>
                                 <td style="flex-basis: 35%;"><p>{{ item.description ? item.description : '' }}</p></td>
                                 <td style="flex-basis: 15%;"><p>{{ item.amount ? Number(item.amount).toFixed(2) : '' }}</p></td>
                                 <td style="flex-basis: 15%;"><p>{{ item.unadjusted_amt ? Number(item.unadjusted_amt).toFixed(2) : '' }}</p></td>
@@ -91,7 +91,7 @@
                                 <th style="min-width: 14%; text-align: center;">Date</th>
                                 <th style="min-width: 12%;">Amount</th>
                                 <th style="min-width: 12%;">Paid</th>
-                                <th style="min-width: 13%;">Panding</th>
+                                <th style="min-width: 13%;">Pending</th>
                                 <th style="min-width: 12%;">Due</th>
                                 <th style="min-width: 13%;">Adjustment</th>
                                 <th style="min-width: 10%;"></th>
@@ -400,6 +400,10 @@ export default {
                     console.log(res.data)
                     if(res.data.response_code === 200 || res.data.response_code === 201) {
                         this.COLLECTION_MASTER_CUSTOMER = res.data.collection_list
+
+                        if(this.COLLECTION_MASTER_CUSTOMER.length === 1) {
+                          this.collectionMasterRowClickHandler(this.COLLECTION_MASTER_CUSTOMER[0], 0)
+                        }
                     }
                 })
                 .catch(err => {
