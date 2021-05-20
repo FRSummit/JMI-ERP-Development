@@ -101,7 +101,7 @@
                         <tbody>
                             <tr v-for="(item, i) in COLLECTION_CUSTOMER_INVOICE_LIST" :key="i">
                                 <td style="min-width: 14%;"><p>{{ item.invoice ? item.invoice : '' }}</p></td>
-                                <td style="min-width: 14%;"><p>{{ item.date ? dateFormat(item.date) : '' }}</p></td>
+                                <td style="min-width: 14%; text-align: center;"><p>{{ item.date ? dateFormat(item.date) : '' }}</p></td>
                                 <td style="min-width: 12%;"><p>{{ item.amount ? Number(item.amount).toFixed(2) : '' }}</p></td>
                                 <td style="min-width: 12%;"><p>{{ item.paid ? Number(item.paid).toFixed(2) : '' }}</p></td>
                                 <td style="min-width: 13%;"><p>{{ item.pending ? Number(item.pending).toFixed(2) : '' }}</p></td>
