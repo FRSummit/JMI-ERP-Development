@@ -119,7 +119,7 @@ export default class PP_Invoice_Type_2_Single {
                             +                     '</tbody>'
                             +                 '</table>'
                             +                 this.create_credit_status(due_data)
-                            +                 this.create_signature_section()
+                            +                 this.create_signature_section(data)
                             +             '</div>'
                             +         '</div>'
                 )
@@ -538,11 +538,11 @@ export default class PP_Invoice_Type_2_Single {
         return result
     }
 
-    create_signature_section() {
+    create_signature_section(data) {
         let result = ''
             result += ''
                     +   '<div class="signature-section" style="float: right; page-break-after: always; page-break-inside: avoid; margin-top: 60px; font-size: 12px;">'
-                    +       '<p style="margin: 0; text-align: right; font-family: calibri; "><span style="border-bottom: 1px solid #000000; width: 200px; display: block; padding-bottom: 2px;"></span><span style="width: 200px; display: block; padding-top: 2px;">For NIPRO JMI Pharma Ltd.</span></p>'
+                    +       '<p style="margin: 0; text-align: right; font-family: calibri; "><span style="border-bottom: 1px solid #000000; width: 200px; display: block; padding-bottom: 2px;">' + data.approver_by.name + '</span><span style="width: 200px; display: block; padding-top: 2px;">For NIPRO JMI Pharma Ltd.</span></p>'
                     +   '</div>'
 
         return result
