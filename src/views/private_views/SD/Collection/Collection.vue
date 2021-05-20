@@ -71,6 +71,7 @@ export default {
 
 
 <style>
+@import url("./Collection.css");
 :root {
   --table-height: 40px;
 }
