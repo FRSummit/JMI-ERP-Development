@@ -126,13 +126,13 @@ export default {
     };
   },
   created() {
-    service.getDAlistForDeliverySchedule().then((res) => {
-      this.DSI_list = res.data;
-    });
+    // service.getDAlistForDeliverySchedule().then((res) => {
+    //   this.DSI_list = res.data;
+    // });
 
-    service.getInvoiceChallanListForDeliverySchedule().then((res) => {
-      this.locations_details_list = res.data;
-    });
+    // service.getInvoiceChallanListForDeliverySchedule().then((res) => {
+    //   this.locations_details_list = res.data;
+    // });
   },
   async mounted() {
     await this.DELIVERY_SCHEDULE_LIST__FROM_SERVICE()

@@ -69,8 +69,8 @@
 </template>
 
 <script>
-import ERPSidebarService from "../../../../../service/ERPSidebarService";
-const service = new ERPSidebarService();
+// import ERPSidebarService from "../../../../../service/ERPSidebarService";
+// const service = new ERPSidebarService();
 
 export default {
   data() {
@@ -81,9 +81,9 @@ export default {
     };
   },
   created() {
-    service.getSBUData().then((res) => {
-      this.customAttrData = res.data;
-    });
+    // service.getSBUData().then((res) => {
+    //   this.customAttrData = res.data;
+    // });
   },
   methods: {
       attributeForm() {

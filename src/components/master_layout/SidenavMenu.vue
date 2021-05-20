@@ -91,8 +91,8 @@
 </template>
 
 <script>
-import ERPSidebarService from "../../service/ERPSidebarService";
-const service = new ERPSidebarService();
+// import ERPSidebarService from "../../service/ERPSidebarService";
+// const service = new ERPSidebarService();
 // import $ from 'jquery'
 
 export default {
@@ -109,9 +109,9 @@ export default {
     };
   },
   created() {
-    service.getAllSidebarMenu().then((res) => {
-      this.menu_list = res.data;
-    });
+    // service.getAllSidebarMenu().then((res) => {
+    //   this.menu_list = res.data;
+    // });
   },
   mounted() {},
   methods: {

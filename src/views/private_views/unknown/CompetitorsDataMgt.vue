@@ -103,8 +103,8 @@
 </template>
 
 <script>
-import ERPSidebarService from "../../../service/ERPSidebarService";
-const service = new ERPSidebarService();
+// import ERPSidebarService from "../../../service/ERPSidebarService";
+// const service = new ERPSidebarService();
 export default {
   name: "DatatableComponent",
   data() {
@@ -132,9 +132,9 @@ export default {
   },
   created() {
     this.$emit('routeName', this.$route.name);
-    service.getCompetitorsDataMgt().then((res) => {
-      this.competitor_table_data = res.data;
-    });
+    // service.getCompetitorsDataMgt().then((res) => {
+    //   this.competitor_table_data = res.data;
+    // });
   },
   //this one will populate new data set when user changes current page.
   watch: {
@@ -149,17 +149,17 @@ export default {
     //Reading data from API method.
     readDataFromAPI() {
       this.loading = true;
-      const { page, itemsPerPage } = this.options;
-      let pageNumber = page - 1;
-      service.getPassengersList(itemsPerPage, pageNumber).then((response) => {
-        //Then injecting the result to datatable parameters.
-        this.loading = false;
-        this.passengers = response.data[0].data;
-        this.totalPassengers = response.data[0].totalPassengers;
-        this.numberOfPages = response.data[0].totalPages;
-        // console.log(response.data);
-        // console.log(response.data[0]);
-      });
+      // const { page, itemsPerPage } = this.options;
+      // let pageNumber = page - 1;
+      // service.getPassengersList(itemsPerPage, pageNumber).then((response) => {
+      //   //Then injecting the result to datatable parameters.
+      //   this.loading = false;
+      //   this.passengers = response.data[0].data;
+      //   this.totalPassengers = response.data[0].totalPassengers;
+      //   this.numberOfPages = response.data[0].totalPages;
+      //   // console.log(response.data);
+      //   // console.log(response.data[0]);
+      // });
     },
   },
   //this will trigger in the onReady State

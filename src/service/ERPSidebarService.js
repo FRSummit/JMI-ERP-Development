@@ -5,7 +5,7 @@ import env from '../environment'
 axios.defaults.baseURL = env.apiBaseUrl;
 let token = JSON.parse(localStorage.getItem('jerp_logged_user')) ? JSON.parse(localStorage.getItem('jerp_logged_user')).accessToken : null
 let token_type = JSON.parse(localStorage.getItem('jerp_logged_user')) ? JSON.parse(localStorage.getItem('jerp_logged_user')).token_type : null
-let FRSAPIURL = env.apiBaseUrlFRS
+// let FRSAPIURL = env.apiBaseUrlFRS
 
 export default class PostService {
 
@@ -1630,135 +1630,135 @@ export default class PostService {
   //////////////////////////////////////////////////////////////////////////////////////////
 
   // Get Doctors Profile
-  async autocomplete() {
-    let web_menu_url = 'https://api.publicapis.org/entries'
-    return await axios(web_menu_url)
-  }
+  // async autocomplete() {
+  //   let web_menu_url = 'https://api.publicapis.org/entries'
+  //   return await axios(web_menu_url)
+  // }
 
 
 
-  async getAllSidebarMenu() {
-    // return await axios.get('/jerp_menu');
-    return await axios({
-      method: 'GET',
-      url: FRSAPIURL + '/jerp_menu'
-    });
-  }
+  // async getAllSidebarMenu() {
+  //   // return await axios.get('/jerp_menu');
+  //   return await axios({
+  //     method: 'GET',
+  //     url: FRSAPIURL + '/jerp_menu'
+  //   });
+  // }
 
-  async getAllCompanyList() {
-    // return await axios.get('/company_list');
-    return await axios({
-      method: 'GET',
-      url: FRSAPIURL + '/company_list'
-    });
-  }
+  // async getAllCompanyList() {
+  //   // return await axios.get('/company_list');
+  //   return await axios({
+  //     method: 'GET',
+  //     url: FRSAPIURL + '/company_list'
+  //   });
+  // }
 
-  async getAllChatList() {
-    // return await axios.get('/chat');
-    return await axios({
-      method: 'GET',
-      url: FRSAPIURL + '/chat'
-    });
-  }
+  // async getAllChatList() {
+  //   // return await axios.get('/chat');
+  //   return await axios({
+  //     method: 'GET',
+  //     url: FRSAPIURL + '/chat'
+  //   });
+  // }
 
-  async getAllNoificationList() {
-    // return await axios.get('/noification');
-    return await axios({
-      method: 'GET',
-      url: FRSAPIURL + '/noification'
-    });
-  }
+  // async getAllNoificationList() {
+  //   // return await axios.get('/noification');
+  //   return await axios({
+  //     method: 'GET',
+  //     url: FRSAPIURL + '/noification'
+  //   });
+  // }
 
-  async getAllUser() {
-    // return await axios.get('/user');
-    return await axios({
-      method: 'GET',
-      url: FRSAPIURL + '/user'
-    });
-  }
+  // async getAllUser() {
+  //   // return await axios.get('/user');
+  //   return await axios({
+  //     method: 'GET',
+  //     url: FRSAPIURL + '/user'
+  //   });
+  // }
 
-  async getUsersList() {
+  /*async getUsersList() {
     // return await axios.get('/users');
     return await axios({
       method: 'GET',
       url: FRSAPIURL + '/users'
     });
-  }
+  }*/
 
-  async getLoginRequestUserData(username, password) {
-    // return await axios.get(`/users?username=${username}&password=${password}`);
-    return await axios({
-      method: 'GET',
-      url: FRSAPIURL + '/' + `users?username=${username}&password=${password}`
-    });
-  }
+  // async getLoginRequestUserData(username, password) {
+  //   // return await axios.get(`/users?username=${username}&password=${password}`);
+  //   return await axios({
+  //     method: 'GET',
+  //     url: FRSAPIURL + '/' + `users?username=${username}&password=${password}`
+  //   });
+  // }
 
-  async getPassengersList(itemsPerPage, pageNumber) {
-    console.log(itemsPerPage + '    ' + pageNumber)
-    // return await axios.get('/passengers_list');
-    return await axios({
-      method: 'GET',
-      url: FRSAPIURL + '/passengers_list'
-    });
+  // async getPassengersList(itemsPerPage, pageNumber) {
+  //   console.log(itemsPerPage + '    ' + pageNumber)
+  //   // return await axios.get('/passengers_list');
+  //   return await axios({
+  //     method: 'GET',
+  //     url: FRSAPIURL + '/passengers_list'
+  //   });
 
 
-    // return await axios.get("https://api.instantwebtools.net/v1/passenger?size=" +
-    //                   itemsPerPage + "&page=" + pageNumber);
-    // const url = new URL("http://localhost:3001");
-    // return await axios({
-    //   url: url,
-    //   method: "GET"
-    // });
-  }
+  //   // return await axios.get("https://api.instantwebtools.net/v1/passenger?size=" +
+  //   //                   itemsPerPage + "&page=" + pageNumber);
+  //   // const url = new URL("http://localhost:3001");
+  //   // return await axios({
+  //   //   url: url,
+  //   //   method: "GET"
+  //   // });
+  // }
 
-  async getCompetitorsDataMgt() {
-    // return await axios.get('/competitors_data');
-    return await axios({
-      method: 'GET',
-      url: FRSAPIURL + '/competitors_data'
-    });
-  }
+  // async getCompetitorsDataMgt() {
+  //   // return await axios.get('/competitors_data');
+  //   return await axios({
+  //     method: 'GET',
+  //     url: FRSAPIURL + '/competitors_data'
+  //   });
+  // }
 
-  async getSBUData() {
-    // return await axios.get('/sub_data');
-    return await axios({
-      method: 'GET',
-      url: FRSAPIURL + '/sub_data'
-    });
-  }
+  // async getSBUData() {
+  //   // return await axios.get('/sub_data');
+  //   return await axios({
+  //     method: 'GET',
+  //     url: FRSAPIURL + '/sub_data'
+  //   });
+  // }
 
-  async getSBUSisterConcernData() {
-    // return await axios.get('/sister_concern_data');
-    return await axios({
-      method: 'GET',
-      url: FRSAPIURL + '/sister_concern_data'
-    });
-  }
+  // async getSBUSisterConcernData() {
+  //   // return await axios.get('/sister_concern_data');
+  //   return await axios({
+  //     method: 'GET',
+  //     url: FRSAPIURL + '/sister_concern_data'
+  //   });
+  // }
 
-  async getSDGeoLocation() {
-    // return await axios.get('/geo_location');
-    return await axios({
-      method: 'GET',
-      url: FRSAPIURL + '/geo_location'
-    });
-  }
+  // async getSDGeoLocation() {
+  //   // return await axios.get('/geo_location');
+  //   return await axios({
+  //     method: 'GET',
+  //     url: FRSAPIURL + '/geo_location'
+  //   });
+  // }
 
-  async getDAlistForDeliverySchedule() {
-    return await axios(FRSAPIURL + '/DA_list', {
-      method: 'GET',
-      // headers: {
-      //   'Authorization': token_type + ' ' + token
-      // }
-    })
-  }
+  // async getDAlistForDeliverySchedule() {
+  //   return await axios(FRSAPIURL + '/DA_list', {
+  //     method: 'GET',
+  //     // headers: {
+  //     //   'Authorization': token_type + ' ' + token
+  //     // }
+  //   })
+  // }
 
-  async getInvoiceChallanListForDeliverySchedule() {
-    return await axios(FRSAPIURL + '/delivery_schedule_invoice_chalan_list', {
-      method: 'GET',
-      // headers: {
-      //   'Authorization': token_type + ' ' + token
-      // }
-    })
-  }
+  // async getInvoiceChallanListForDeliverySchedule() {
+  //   return await axios(FRSAPIURL + '/delivery_schedule_invoice_chalan_list', {
+  //     method: 'GET',
+  //     // headers: {
+  //     //   'Authorization': token_type + ' ' + token
+  //     // }
+  //   })
+  // }
 }
 

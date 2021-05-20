@@ -127,13 +127,13 @@ export default {
     };
   },
   created() {
-    service.getDAlistForDeliverySchedule().then((res) => {
-      this.DSI_list = res.data;
-    });
+    // service.getDAlistForDeliverySchedule().then((res) => {
+    //   this.DSI_list = res.data;
+    // });
 
-    service.getInvoiceChallanListForDeliverySchedule().then((res) => {
-      this.locations_details_list = res.data;
-    });
+    // service.getInvoiceChallanListForDeliverySchedule().then((res) => {
+    //   this.locations_details_list = res.data;
+    // });
   },
   async mounted() {
     // console.log(this.$store.state.INVOICE_CAHLLAN_SUMMERY__NEW_GATE_PASS_CREATED)

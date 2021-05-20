@@ -61,8 +61,8 @@
 </template>
 
 <script>
-import ERPSidebarService from "../../service/ERPSidebarService";
-const service = new ERPSidebarService();
+// import ERPSidebarService from "../../service/ERPSidebarService";
+// const service = new ERPSidebarService();
 
 export default {
   data() {
@@ -72,10 +72,10 @@ export default {
     };
   },
   created() {
-    service.getAllChatList().then((res) => {
-      this.chat = res.data;
-      this.progress = false;
-    });
+    // service.getAllChatList().then((res) => {
+    //   this.chat = res.data;
+    //   this.progress = false;
+    // });
   },
 };
 </script>

@@ -62,8 +62,8 @@
 <script>
 import Heading from "../../../../components/master_layout/HeadingTitleBreadcrumb/HeadingTitleBreadcrumb";
 import PaginationSection from "../../../../components/private_view_components/ADM/SBU/PaginationSidebarSection";
-import ERPSidebarService from "../../../../service/ERPSidebarService";
-const service = new ERPSidebarService();
+// import ERPSidebarService from "../../../../service/ERPSidebarService";
+// const service = new ERPSidebarService();
 import Draggable from 'vuedraggable';
 
 export default {
@@ -87,9 +87,9 @@ export default {
   created() {
     this.$emit("routeName", this.$route.name);
     this.createBreadcrumbData();
-    service.getSBUSisterConcernData().then((res) => {
-      this.users = res.data;
-    });
+    // service.getSBUSisterConcernData().then((res) => {
+    //   this.users = res.data;
+    // });
   },
   methods: {
     createBreadcrumbData() {

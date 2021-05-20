@@ -150,9 +150,9 @@ export default {
     //   this.DA_list = res.data;
     // });
 
-    service.getInvoiceChallanListForDeliverySchedule().then((res) => {
-      this.locations_details_list = res.data;
-    });
+    // service.getInvoiceChallanListForDeliverySchedule().then((res) => {
+    //   this.locations_details_list = res.data;
+    // });
   },
   async mounted() {
     await this.DIC_WISE_USERS__FROM_SERVICE()

@@ -4,9 +4,9 @@ const service = new ERPSidebarService();
 class AccountModule {
     loginChecker() {
         console.log('account module login checker');
-        service.getUsersList().then(res => {
-            console.log(res.data)
-        });
+        // service.getUsersList().then(res => {
+        //     console.log(res.data)
+        // });
     }
 
     logout(){
