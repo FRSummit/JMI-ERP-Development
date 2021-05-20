@@ -132,3 +132,7 @@ export default {
 <style lang="less" scoped>
 @import url("./DeliveryGRN.less");
 </style>
+
+<style scoped>
+@import url("./DeliveryGRN.css");
+</style>

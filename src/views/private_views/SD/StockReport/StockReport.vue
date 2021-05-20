@@ -146,3 +146,7 @@ export default {
   watch: {},
 };
 </script>
+
+<style scoped>
+@import url("./StockReport.css");
+</style>
