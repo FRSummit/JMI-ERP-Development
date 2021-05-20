@@ -1616,6 +1616,18 @@ export default class PostService {
     })
   }
 
+  // -------------------------------------------------------------------------------------------
+  // DP DELIVERY SCHEDULE
+  async getDPDSList__DP_DS() {
+    let web_menu_url = '/api/web/get-dp-ds-list'
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
+
 
   // -------------------------------------------------------------------------------------------
 

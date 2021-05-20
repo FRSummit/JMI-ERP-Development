@@ -330,6 +330,13 @@ export const router = new VueRouter({
       name: 'Cash Register',
       component: () => import('../views/private_views/SD/CashRegister/CashRegister.vue')
     },
+    // --------------------------------------------------------------------------------------
+    // DP DELIVERY SCHEDULE
+    {
+      path: '/features/local_sales/dp-ds',
+      name: 'Delivery Schedule',
+      component: () => import('../views/private_views/SD/DP_DeliverySchedule/DeliverySchedule.vue')
+    },
 
     // --------------------------------------------------------------------------------------
     // 404 PAGES
