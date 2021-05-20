@@ -155,3 +155,7 @@ export default {
 <style lang="less" scoped>
 @import url("./InvoiceChallanSummery.less");
 </style>
+
+<style scoped>
+@import url("./InvoiceChallanSummery.css");
+</style>

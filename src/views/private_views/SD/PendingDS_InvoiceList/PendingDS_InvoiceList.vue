@@ -175,3 +175,7 @@ export default {
 <style lang="less" scoped>
 @import url("./PendingDS_InvoiceList.less");
 </style>
+
+<style scoped>
+@import url("./PendingDS_InvoiceList.css");
+</style>

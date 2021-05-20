@@ -10,6 +10,8 @@ var monthShortNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "
 export default class PP_Invoice_Type_3_Institution {
     
     print_invoice(data) {
+        PRODUCT_SERIAL_NO = null
+        PRODUCT_SERIAL_NO = 1
         var mywindow = window.open('', 'PRINT'); 
         mywindow.document.write(''
                             + '<html>'
@@ -391,7 +393,7 @@ export default class PP_Invoice_Type_3_Institution {
                     +       '<td>' + '' + '</td>'
                     +       '<td colspan="5" style="text-align: right;">' + 'Net Payable :' + '</td>'
                     +       '<td style="text-align: right; border-bottom: 1px solid #000000;">' + '' + '</td>'
-                    +       '<td style="text-align: right; border-bottom: 1px solid #000000;">' + comaSeparatedDigits.comaSeparate(Number(NET_PAYABLE_AFTER_ADJ).toFixed(2)) + '.00</td>'
+                    +       '<td style="text-align: right; border-bottom: 1px solid #000000;">' + comaSeparatedDigits.comaSeparate(Number(NET_PAYABLE_AFTER_ADJ).toFixed(2)) + '</td>'
                     +   '</tr>'
         return net_payable
     }

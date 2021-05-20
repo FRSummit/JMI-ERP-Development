@@ -71,3 +71,7 @@ export default {
 <style lang="less" scoped>
 @import url("./CustomerProfile.less");
 </style>
+
+<style scoped>
+@import url("./CustomerProfile.css");
+</style>

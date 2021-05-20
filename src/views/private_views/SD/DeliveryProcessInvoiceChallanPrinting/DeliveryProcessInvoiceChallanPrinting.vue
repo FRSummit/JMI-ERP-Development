@@ -129,3 +129,7 @@ export default {
 <style lang="less" scoped>
 @import url("./DeliveryProcessInvoiceChallanPrinting.less");
 </style>
+
+<style scoped>
+@import url("./DeliveryProcessInvoiceChallanPrinting.css");
+</style>
