@@ -108,4 +108,9 @@ export default {
 </script>
 
 <style scoped>
+@import url("../../../../../custom.css");
+@import url("../../../../../assets/css/styles.css");
+@import url("../../../../../assets/t2-style.css");
+@import url("../../../../../assets/style-transfer_requition.css");
+@import url("../../../../../assets/css/styles_page_included.css");
 </style>

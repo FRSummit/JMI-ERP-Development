@@ -90,9 +90,9 @@
                                     <th>Name</th>
                                     <th>Unit</th>
                                     <th>Quantity</th>
-                                    <th>{{ SELECTED_REQUISITION_DETAILS ? (SELECTED_REQUISITION_DETAILS.req_from_info.wh_code ? SELECTED_REQUISITION_DETAILS.req_from_info.wh_code : '') : '' }} Stock</th>
-                                    <th>{{ SELECTED_REQUISITION_DETAILS ? (SELECTED_REQUISITION_DETAILS.req_to_info.wh_code ? SELECTED_REQUISITION_DETAILS.req_to_info.wh_code : '') : '' }} Stock</th>
-                                    <!-- <th></th> -->
+                                    <th>{{ SELECTED_REQUISITION_DETAILS ? (SELECTED_REQUISITION_DETAILS.req_from_info ? (SELECTED_REQUISITION_DETAILS.req_from_info.wh_code ? SELECTED_REQUISITION_DETAILS.req_from_info.wh_code : '') : '') : '' }} Stock</th>
+                                    <th style="text-align: center;">{{ SELECTED_REQUISITION_DETAILS ? (SELECTED_REQUISITION_DETAILS.req_to_info ? (SELECTED_REQUISITION_DETAILS.req_to_info.wh_code ? SELECTED_REQUISITION_DETAILS.req_to_info.wh_code : '') : '') : '' }} Stock</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -102,7 +102,8 @@
                                         <div class="product">
                                             <!-- <p class="name">{{ item..prod_info.prod_name }}<span> {{ item.qty }}</span></p> -->
                                             <p class="name">{{ item.prod_info.prod_name }}</p>
-                                            <p class="type">{{ item.type ? item.type : 'Dummy Paricatamole' }}</p>
+                                            <!-- <p class="type">{{ item.generic_info ? (item.generic_info.generic_name ? item.generic_info.generic_name : '') : '' }}</p> -->
+                                            <p class="type"><span v-for="(elem, j) in item.details_info.generic_name" :key="j">{{ elem.element_name }}{{ checkElementLengthToSetComma(j, item.details_info.generic_name) }}</span></p>
                                         </div>
                                     </td>
                                     <td>
@@ -138,11 +139,12 @@
                                             <p class="type">{{ item.current_stock ? item.current_stock : 0 }}</p>
                                         </div>
                                     </td>
-                                    <td>
+                                    <td style="text-align: center;">
                                         <div class="product">
                                             <p class="type">{{ item.req_current_stock ? item.req_current_stock : 0 }}</p>
                                         </div>
                                     </td>
+                                    <th></th>
                                     <!-- <td>
                                         <a class="edit" @click="singleItemEditClickHandler"><i class="zmdi zmdi-edit"></i></a>
                                         <a class="remove" @click="singleItemDeleteClickHandler"><i class="fas fa-trash-alt"></i></a>
@@ -316,7 +318,7 @@ export default {
         },
         async proceedOrderModalClickHandler() {
             let wh_from = this.wh_from ? this.wh_from : this.SELECTED_REQUISITION_DETAILS.wh_from
-            this.status_modal = true
+            // this.status_modal = true
             this.proceed_modal_popup = false
             if(this.popup_modal_for__save_or_send === 'SAVE') {
                 let req_status = null
@@ -329,6 +331,12 @@ export default {
                     this.status_modal = false
                 }
             }
+        },
+        checkElementLengthToSetComma(j, element) {
+            console.log(j)
+            // console.log(element.length)
+            // return element
+            return (j < element.length - 1) ? ', ' : ''
         },
         // -----------------------------------------------------
         // SERVICE CALL
@@ -373,19 +381,19 @@ export default {
             this.popup_modal_for__save_or_send = null
             console.log(transfer_id + '  ' + wh_from + '  ' + req_status)
             console.log(this.REQUISITION_DATA_TO_SAVE_OR_SEND)
-            service.getUpdateNewRequisition_CREATE_REQUISITION(transfer_id, wh_from, req_status, this.REQUISITION_DATA_TO_SAVE_OR_SEND)
+            await service.getUpdateNewRequisition_CREATE_REQUISITION(transfer_id, wh_from, req_status, this.REQUISITION_DATA_TO_SAVE_OR_SEND)
                 .then(res => {
                     console.log(res.data)
                     if(res.data.response_code === 200 || res.data.response_code === 201) {
-                        this.status_modal_msg = 'Requisition saved successfully'
+                        this.status_modal_msg = res.data.message
                         this.SELECTED_REQUISITION_DETAILS = []
                         this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS = []
                         this.$store.state.TRANSFER_APPROVE_REQUISITION__RELOAD_LEFT_SECTION = new Date()
-                        setTimeout( () => {
-                            this.status_modal = false
-                            this.status_modal_msg = null
-                        }, 2000)
                     }
+                    setTimeout( () => {
+                        this.status_modal = false
+                        this.status_modal_msg = null
+                    }, 2000)
                 })
                 .catch(err => {
                     if(err) {
@@ -402,20 +410,24 @@ export default {
             console.log('APPROVE_REQUISITION__FROM_SERVICE')
             console.log(transfer_id + '    ' + driver_usr_id)
             this.popup_modal_for__save_or_send = null
-            service.getApproveTransferRequisition_TRANSFER_APPROVE_REQUISITION(transfer_id, driver_usr_id)
+            this.status_modal = true
+            this.status_modal_msg = 'res.data.message'
+            await service.getApproveTransferRequisition_TRANSFER_APPROVE_REQUISITION(transfer_id, driver_usr_id)
                 .then(res => {
                     console.log(res.data)
                     if(res.data.response_code === 200 || res.data.response_code === 201) {
-                        this.status_modal_msg = 'Requisition approve successfully'
+                        console.log(res.data.message)
+                        this.status_modal_msg = res.data.message
+                        console.log(this.status_modal_msg)
                         this.SELECTED_REQUISITION_DETAILS = []
                         this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS = []
                         this.driver_user_id = null
                         this.$store.state.TRANSFER_APPROVE_REQUISITION__RELOAD_LEFT_SECTION = new Date()
-                        setTimeout( () => {
-                            this.status_modal = false
-                            this.status_modal_msg = null
-                        }, 2000)
                     }
+                    setTimeout( () => {
+                        this.status_modal = false
+                        this.status_modal_msg = null
+                    }, 2000)
                 })
                 .catch(err => {
                     if(err) {
@@ -463,8 +475,8 @@ export default {
 }
 /* Data Section */
 .requition_area .requition_header {
-    /* padding: 10px 0; */
-    padding: 6px 0;
+    padding: 10px;
+    /* padding: 6px 0; */
 }
 .requition_area .requition_header .header_top {
     padding: 0;
@@ -565,5 +577,58 @@ export default {
 }
 .out-of-stock {
     background-color: #f5bec6;
+}
+table tr th,
+table tr td {
+    flex-basis: 20%;
+}
+table tr th:first-child,
+table tr td:first-child {
+    max-width: 203.95px;
+    flex-basis: 31%;
+}
+/* table tr th:nth-child(2),
+table tr td:nth-child(2) {
+    flex-basis: 20%;
+} */
+table tr th:nth-child(2),
+table tr td:nth-child(2),
+table tr th:nth-child(3),
+table tr td:nth-child(3),
+table tr th:nth-child(4),
+table tr td:nth-child(4),
+table tr th:nth-child(5),
+table tr td:nth-child(5) {
+    max-width: 164.33px;
+}
+table tr th:last-child,
+table tr td:last-child {
+    flex-basis: 15%;
+}
+.col-lg-2,
+.col-lg-3,
+.col-lg-4,
+.col-lg-5,
+.col-lg-6,
+.col-lg-8,
+.col-lg-10,
+.col-lg-12,
+.col-md-2,
+.col-md-3,
+.col-md-4,
+.col-md-5,
+.col-md-6,
+.col-md-8,
+.col-md-10,
+.col-md-12,
+.col-sm-2,
+.col-sm-3,
+.col-sm-4,
+.col-sm-5,
+.col-sm-6,
+.col-sm-8,
+.col-sm-10,
+.col-sm-12 {
+    padding: 0 !important;
 }
 </style>

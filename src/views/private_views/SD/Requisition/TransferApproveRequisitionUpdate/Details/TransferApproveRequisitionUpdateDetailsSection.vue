@@ -25,21 +25,21 @@
                             </p>
                         </div>
                         <div class="col-lg-4 col-md-3 col-12">
-                            <p>Requisition Date: <span class="text-data jmi-tool-tip-parent">{{ requisition_date }}</span></p>
+                            <p>Requisition Date: <span class="text-data jmi-tool-tip-parent">{{ dateFormat(requisition_date) }}</span></p>
                         </div>
                         <div class="col-lg-2 col-md-2 col-12">
-                            <p>Status: <span class="approved">{{ REQ_STATUS ? REQ_STATUS : 'DRAFT' }}</span></p>
+                            <p>Status: <span class="transfer verified">{{ STORED_DATA ? STORED_DATA.tr_status : 'DRAFT' }}</span></p>
                         </div>
                     </div>
                     <div class="row requition_content">
                         <table class="col-12">
                             <thead>
-                                <tr>
+                                <tr style="padding-top: 2px;">
                                     <th>Name</th>
                                     <th>Unit</th>
-                                    <th>{{ DATA_DEPOT_NAME_FROM_TR_AR ? DATA_DEPOT_NAME_FROM_TR_AR : '' }} Stock</th>
-                                    <th>{{ DATA_DEPOT_NAME_TO_TR_AR ? DATA_DEPOT_NAME_TO_TR_AR : '' }} Stock</th>
                                     <th>Quantity</th>
+                                    <th>{{ DATA_DEPOT_NAME_FROM_TR_AR ? DATA_DEPOT_NAME_FROM_TR_AR : '' }} Stock</th>
+                                    <th style="text-align: center;">{{ DATA_DEPOT_NAME_TO_TR_AR ? DATA_DEPOT_NAME_TO_TR_AR : '' }} Stock</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -66,23 +66,23 @@
                                         </select>
                                     </td> -->
                                     <td>
-                                        <div class="product">
-                                            <p class="type">{{ item.current_stock ? item.current_stock : 0 }}</p>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="product">
-                                            <p class="type">{{ item.req_current_stock ? item.req_current_stock : 0 }}</p>
-                                        </div>
-                                    </td>
-                                    <td>
                                         <form>
                                             <div class="quantity-input">
                                                 <input class='minus' type='button' value='-' field='quantity' @click="decreaseRequisitionQtyClickHandler(item, i)" />
                                                 <input class='quantity' type='number' name='quantity' placeholder="0" :value="item.req_qty" :id="'req_qty_' + i" v-on:keyup="reqQtyKeyUpEventHandler(item, $event, i)" v-on:keydown="reqQtyKeyDownEventHandler($event, i)" />
-                                                <input class='plus' type='button' value='+' field='quantity' @click="increaseRequisitionQtyClickHandler(item, i)" />
+                                                <input class='plus' type='button' value='+' field='quantity' @click="increaseRequisitionQtyClickHandler(item, i)" style="padding-top: 1px;"/>
                                             </div>
                                         </form>
+                                    </td>
+                                    <td>
+                                        <div class="product">
+                                            <p class="type">{{ item.current_stock ? item.current_stock : 0 }}</p>
+                                        </div>
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <div class="product">
+                                            <p class="type">{{ item.req_current_stock ? item.req_current_stock : 0 }}</p>
+                                        </div>
                                     </td>
                                     <td>
                                         <!-- <a class="edit" @click="singleItemEditClickHandler"><i class="zmdi zmdi-edit"></i></a> -->
@@ -93,6 +93,7 @@
                         </table>
                     </div>
                     <div class="row requition_footer" v-if="SELECTED_REQUISITION_DATA.length ? SELECTED_REQUISITION_DATA.length > 0 : false">
+                        <a><button type="button" class="btn btn-primary btn-global mx-2" @click="cancelRequestTVRClickHandler" style="color: #000000; background-color: #FFFFFF; border: 1px solid #000000;">Cancel</button></a>
                         <a><button type="button" class="btn btn-primary btn-global mx-2" @click="updateRequestTVRClickHandler" style="color: #FFFFFF;">Update</button></a>
                     </div>
                 </div>
@@ -130,6 +131,8 @@
 // const demoData = new DemoData()
 import ERPService from '../../../../../../service/ERPSidebarService'
 const service = new ERPService()
+import GlobalDateFormat from '../../../../../../functions/GlobalDateFormat'
+const globalDateFormat = new GlobalDateFormat()
 
 export default {
     props: ["DEPOT_NAME", "SELECTED_REQUISITION_DATA"],
@@ -263,7 +266,11 @@ export default {
             let selector = document.querySelector('#transfet-verify-requisition-update #req_qty_' + i)
             selector.value = 0
         },
-        // FOR TRANSFER VERIFY REQUISITION
+        // FOR TRANSFER VERIFY REQUISITION ACTION
+        cancelRequestTVRClickHandler() {
+            this.$store.state.SELECTED_REQUISITION_DATA_BACK_FROM_EDIT = this.REQUISITION_NO_
+            this.$router.push('/features/local_sales/transfer-approve-requisition')
+        },
         updateRequestTVRClickHandler() {
             if(this.proceed_modal_popup) {
                 this.proceed_modal_popup = false
@@ -289,6 +296,9 @@ export default {
         },
         changeThisComponent() {
             this.$router.push('/features/local_sales/transfer-approve-requisition')
+        },
+        dateFormat(dt) {
+            return globalDateFormat.dateFormatT4(dt)
         },
         // -----------------------------------------------------
         // SERVICE CALL
@@ -331,7 +341,8 @@ export default {
     height: calc(100vh - (74px + 54px + 32px));
 }
 .requition_area .requition_header {
-    padding: 0;
+    padding: 10px;
+    /* padding-bottom: 5px; */
 }
 .requition_area .requition_header .header_top {
     padding: 0;
@@ -414,7 +425,60 @@ export default {
     color: #000000;
 }
 .requition_area .requition_header .header_top {
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     height: 30px;
+}
+table tr th,
+table tr td {
+    flex-basis: 20%;
+}
+table tr th:first-child,
+table tr td:first-child {
+    max-width: 203.95px;
+    flex-basis: 31%;
+}
+/* table tr th:nth-child(2),
+table tr td:nth-child(2) {
+    flex-basis: 20%;
+} */
+table tr th:nth-child(2),
+table tr td:nth-child(2),
+table tr th:nth-child(3),
+table tr td:nth-child(3),
+table tr th:nth-child(4),
+table tr td:nth-child(4),
+table tr th:nth-child(5),
+table tr td:nth-child(5) {
+    max-width: 164.33px;
+}
+table tr th:last-child,
+table tr td:last-child {
+    flex-basis: 15%;
+}
+.col-lg-2,
+.col-lg-3,
+.col-lg-4,
+.col-lg-5,
+.col-lg-6,
+.col-lg-8,
+.col-lg-10,
+.col-lg-12,
+.col-md-2,
+.col-md-3,
+.col-md-4,
+.col-md-5,
+.col-md-6,
+.col-md-8,
+.col-md-10,
+.col-md-12,
+.col-sm-2,
+.col-sm-3,
+.col-sm-4,
+.col-sm-5,
+.col-sm-6,
+.col-sm-8,
+.col-sm-10,
+.col-sm-12 {
+    padding: 0 !important;
 }
 </style>

@@ -79,7 +79,8 @@
                                         <div class="product">
                                             <!-- <p class="name">{{ item..prod_info.prod_name }}<span> {{ item.qty }}</span></p> -->
                                             <p class="name">{{ item.prod_info.prod_name }}</p>
-                                            <p class="type">{{ item.type ? item.type : 'Dummy Paricatamole' }}</p>
+                                            <!-- <p class="type">{{ item.generic_info ? (item.generic_info.generic_name ? item.generic_info.generic_name : '') : '' }}</p> -->
+                                            <p class="type jmi-txt-nowrap-ellipsis-middle_50"><span v-for="(elem, j) in item.details_info.generic_name" :key="j">{{ elem.element_name }}{{ checkElementLengthToSetComma(j, item.details_info.generic_name) }}</span></p>
                                         </div>
                                     </td>
                                     <td>
@@ -298,6 +299,12 @@ export default {
                 await this.APPROVE_REQUISITION__FROM_SERVICE(wh_from, req_status)
             }
         },
+        checkElementLengthToSetComma(j, element) {
+            console.log(j)
+            // console.log(element.length)
+            // return element
+            return (j < element.length - 1) ? ', ' : ''
+        },
         // -----------------------------------------------------
         // SERVICE CALL
         async ALL_DEPOT_UNDER_SBU__FROM_SERVICE() {
@@ -487,5 +494,38 @@ export default {
 }
 .requition_area .row.requition_footer a:first-child .btn.btn-primary.btn-global {
     color: #000000;
+}
+.jmi-txt-nowrap-ellipsis-middle_50 {
+    width         : 150px;
+    white-space   : nowrap;
+    overflow      : hidden;
+    text-overflow : ellipsis;
+    vertical-align: middle;
+}
+.col-lg-2,
+.col-lg-3,
+.col-lg-4,
+.col-lg-5,
+.col-lg-6,
+.col-lg-8,
+.col-lg-10,
+.col-lg-12,
+.col-md-2,
+.col-md-3,
+.col-md-4,
+.col-md-5,
+.col-md-6,
+.col-md-8,
+.col-md-10,
+.col-md-12,
+.col-sm-2,
+.col-sm-3,
+.col-sm-4,
+.col-sm-5,
+.col-sm-6,
+.col-sm-8,
+.col-sm-10,
+.col-sm-12 {
+    padding: 0 !important;
 }
 </style>

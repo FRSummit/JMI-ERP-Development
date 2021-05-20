@@ -35,7 +35,7 @@ export default class PP_InvoiceChallanSummeryTD_Type1 {
                             +                         '</tr>'
                             +                         '<tr style="">'
                             +                             '<td colspan="6" style="">'
-                            +                                 '<p style="display: inline-block; float: left;"><span class="label">DS No</span><span class="label-value">: ' + (summery ? (summery.ds_no ? (summery.ds_no) : '') : '') + '</span></p>'
+                            +                                 '<p style="display: inline-block; float: left;"><span class="label">DS No</span><span class="label-value">: DS' + (summery ? (summery.ds_no ? (summery.ds_no) : '') : '') + '</span></p>'
                             +                                 '<p style="display: inline-block; float: right;"><span class="label">Delivery Date</span><span class="label-value">: ' + (summery ? (summery.delivery_date ? (summery.delivery_date).split(' ')[0] : '') : '') + '</span></p>'
                             +                             '</td>'
                             +                         '</tr>'

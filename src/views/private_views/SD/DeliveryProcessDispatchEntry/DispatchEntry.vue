@@ -39,7 +39,7 @@
                   </div>
                 </div>
                 <div class="row submit-section">
-                  <div class="col-lg-12 col-md-12 col-sm-12 submit-section-inner" v-if="SR_NAME">
+                  <div class="col-lg-12 col-md-12 col-sm-12 submit-section-inner" v-if="SR_NAME && DISPATCH_DONE_OR_UNDONE">
                     <button @click="dispatchNowClickHandler">Dispatch Now</button>
                   </div>
                 </div>
@@ -86,6 +86,14 @@
                 </div>
             </div>
         </div>
+        <div class="modal-popup-section order-proceed-modal" v-if="success_dispatch">
+            <div class="modal-popup-section-inner order-proceed-modal-inner">
+                <div id="progressbar" class="jmi-progressbar">
+                    <v-progress-circular indeterminate color="primary" v-if="!success_dispatch_msg"></v-progress-circular>
+                    <p>{{ success_dispatch_msg }}</p>
+                </div>
+            </div>
+        </div>
   </div>
 </template>
 
@@ -114,6 +122,8 @@ export default {
       dispatch_time: null,
       success_dispatch: false,
       success_dispatch_msg: null,
+
+      DISPATCH_DONE_OR_UNDONE: false,
     };
   },
   created() {
@@ -171,6 +181,15 @@ export default {
             
             this.dispatch_date = new Date().toISOString().substring(0, 10)
             this.dispatch_time = new Date().toString().split(' ')[4]
+
+            if(res.data.gate_pass_info.execute_by) {
+              this.success_dispatch = true
+              this.success_dispatch_msg = 'Already executed'
+              this.DISPATCH_DONE_OR_UNDONE = false
+            } else {
+              this.DISPATCH_DONE_OR_UNDONE = true
+            }
+
           } else {
             this.success_dispatch = true
             this.success_dispatch_msg = 'Invalid Gate pass number.'

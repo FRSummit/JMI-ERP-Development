@@ -1270,7 +1270,7 @@ i.zmdi-edit {
 .col-sm-8,
 .col-sm-10,
 .col-sm-12 {
-    padding: 0;
+    /* padding: 0; */
 }
 
 #expected-delivery-date {

@@ -136,7 +136,7 @@ export default {
     },
     decreaseRequisitionQtyClickHandler(item, i) {
       console.log(i)
-      if(item.grn_qty > 1) {
+      if(item.grn_qty > 0) {
         item.grn_qty--
       }
     },

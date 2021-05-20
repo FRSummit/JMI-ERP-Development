@@ -5,7 +5,7 @@
                 <thead>
                     <tr>
                         <th>Payment Mode</th>
-                        <th>Description</th>
+                        <th style="justify-content: left;">Description</th>
                         <th>Taka</th>
                         <th>Action</th>
                     </tr>
@@ -13,8 +13,8 @@
                 <tbody>
                       <tr v-for="(item, i) in COLLECTION_LIST" :key="i">
                         <td><p>{{ item.collection_mode }}</p></td>
-                        <td><p>Pending Amount {{ item.pending_amt }}</p></td>
-                        <td><p>{{ item.amount }}</p></td>
+                        <td style="justify-content: left;"><p>Pending Amount {{ item.pending_amt }}</p></td>
+                        <td><p>{{ Number(item.amount).toFixed(2) }}</p></td>
                         <td>
                             <a class="edit"><i class="zmdi zmdi-edit" @click="tableDataEditClickHandler(item, i)"></i></a>
                             <a class="remove"><i class="fa fa-trash" @click="tableDataRemoveClickHandler(item, i)"></i></a>

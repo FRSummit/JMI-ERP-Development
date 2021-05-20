@@ -17,7 +17,7 @@
             
             <!--Start Secondary Sidebar Content Area--> 
             <div class="content jmi-scroll-section">
-                <div class="card_body" v-for="(item, i) in items" :key="i" @click="singleItemClickHandler(item, i)">
+                <div :id="'card_body-' + i" class="card_body" v-for="(item, i) in items" :key="i" @click="singleItemClickHandler(item, i)">
                     <div class="row1">
                         <h5>{{ item.requisition_no }}</h5>
                         <p>{{ (item.req_date).split(' ')[0] }}</p>
@@ -51,7 +51,7 @@ export default {
     components: {},
     data() {
         return {
-            items: []
+            items: [],
         }
     },
     computed: {
@@ -63,6 +63,19 @@ export default {
     async mounted() {
         // this.items = demoData.demo_data().requisition_items
         await this.SOTCK_REQUISITION_LIST__FROM_SERVICE()
+
+        if(this.$store.state.SELECTED_REQUISITION_DATA_BACK_FROM_EDIT !== null ? this.$store.state.SELECTED_REQUISITION_DATA_BACK_FROM_EDIT : false) {
+            let selected_requisition = this.$store.state.SELECTED_REQUISITION_DATA_BACK_FROM_EDIT
+            this.$store.state.SELECTED_REQUISITION_DATA_BACK_FROM_EDIT = null
+
+            console.log(selected_requisition)
+
+            for(let i=0; i<this.items.length; i++) {
+                if(this.items[i].requisition_no === selected_requisition) {
+                    document.getElementById('card_body-' + i).click()
+                }
+            }
+        }
     },
     methods: {
         searchKeyUpHandler(value) {

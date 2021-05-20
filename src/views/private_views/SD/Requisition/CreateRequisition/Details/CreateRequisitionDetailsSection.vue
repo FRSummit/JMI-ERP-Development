@@ -41,8 +41,8 @@
                                     <th>Name</th>
                                     <th>Unit</th>
                                     <th>Quantity</th>
-                                    <th>Current Stock</th>
-                                    <th style="text-align: center;">Safety Stock</th>
+                                    <th v-if="STORED_DATA">Current Stock</th>
+                                    <th v-if="STORED_DATA" style="text-align: center;">Safety Stock</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -65,38 +65,38 @@
                                             <div class="quantity-input">
                                                 <input class='minus' type='button' value='-' field='quantity' @click="decreaseRequisitionQtyClickHandler(item, i)" />
                                                 <input class='quantity' type='number' name='quantity' placeholder="0" :value="item.req_qty" :id="'req_qty_' + i" v-on:keyup="reqQtyKeyUpEventHandler(item, $event, i)" v-on:keydown="reqQtyKeyDownEventHandler($event, i)" />
-                                                <input class='plus' type='button' value='+' field='quantity' @click="increaseRequisitionQtyClickHandler(item, i)" />
+                                                <input class='plus' type='button' value='+' field='quantity' @click="increaseRequisitionQtyClickHandler(item, i)" style="padding-top: 2px;" />
                                             </div>
                                         </form>
                                     </td>
-                                    <td>
+                                    <td v-if="STORED_DATA">
                                         <div class="product">
                                             <p class="type">{{ item.current_stock }}</p>
                                         </div>
                                     </td>
-                                    <td>
+                                    <td v-if="STORED_DATA">
                                         <div class="product">
-                                            <p class="type" style="text-align: center;">{{ item.safety_stock }}</p>
+                                            <p class="type" style="text-align: center;">{{ item.req_current_stock }}</p>
                                         </div>
                                     </td>
                                     <td>
                                         <!-- <a class="edit" @click="singleItemEditClickHandler"><i class="zmdi zmdi-edit"></i></a> -->
-                                        <a class="remove" @click="singleItemDeleteClickHandler(item, i)"><i class="fas fa-trash-alt"></i></a>
+                                        <a class="remove" :class="STORED_DATA ? 'edit' : ''" @click="singleItemDeleteClickHandler(item, i)"><i class="fas fa-trash-alt"></i></a>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="row requition_footer" v-if="(SELECTED_REQUISITION_DATA.length ? SELECTED_REQUISITION_DATA.length > 0 : false) && (PREVIOUS_ROUTE_NAME === 'Create Requisition' || PREVIOUS_ROUTE_NAME === 'Transfer Requisition')">
-                        <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="saveAsDraftClickHandler">Save As Draft</button></a>
+                        <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="saveAsDraftClickHandler">Draft</button></a>
                         <a><button type="button" class="btn btn-primary btn-global mx-2" @click="sendRequestClickHandler">Submit</button></a>
                     </div>
                     <div class="row requition_footer" v-if="(SELECTED_REQUISITION_DATA.length ? SELECTED_REQUISITION_DATA.length > 0 : false) && (PREVIOUS_ROUTE_NAME === 'Approve Requisition')">
-                        <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="saveAsSubmitClickHandler">Save As Submit</button></a>
+                        <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="saveAsSubmitClickHandler">Submit</button></a>
                         <a><button type="button" class="btn btn-primary btn-global mx-2" @click="approveRequestClickHandler">Approve</button></a>
                     </div>
                     <div class="row requition_footer" v-if="(SELECTED_REQUISITION_DATA.length ? SELECTED_REQUISITION_DATA.length > 0 : false) && (PREVIOUS_ROUTE_NAME === 'Transfer Approve Requisition')">
-                        <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="saveAsDraftTARClickHandler">Save As Draft</button></a>
+                        <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="saveAsDraftTARClickHandler">Draft</button></a>
                         <a><button type="button" class="btn btn-primary btn-global mx-2" @click="approveRequestTARClickHandler">Approve</button></a>
                     </div>
                 </div>
@@ -162,7 +162,8 @@ export default {
                 for(let i=0; i<this.SELECTED_REQUISITION_DATA.length; i++) {
                     let prods = {
                         prod_id: this.SELECTED_REQUISITION_DATA[i].prod_id,
-                        req_qty: this.SELECTED_REQUISITION_DATA[i].req_qty
+                        req_qty: this.SELECTED_REQUISITION_DATA[i].req_qty,
+                        status: this.SELECTED_REQUISITION_DATA[i].status
                     }
                     prod_info.push(prods)
                 }
@@ -259,8 +260,12 @@ export default {
         },
         singleItemEditClickHandler() {},
         singleItemDeleteClickHandler(item, i) {
-            console.log(i)
-            this.$emit('SINGLE_ITEM_REMOVE_FROM_TABLE', item, i)
+            // console.log(i)
+            // this.$emit('SINGLE_ITEM_REMOVE_FROM_TABLE', item, i)
+            item.req_qty = 0
+            item.status = 'DEL'
+            let selector = document.querySelector('#create-requisition #req_qty_' + i)
+            selector.value = item.req_qty
         },
         // FOR CREATE OR TRANSFER REQUISITION
         saveAsDraftClickHandler() {
@@ -611,6 +616,9 @@ export default {
 .layout-container {
     height: calc(100vh - (74px + 54px + 32px));
 }
+.requition_area .requition_header {
+    padding: 10px;
+}
 .requition_area .requition_header .header_top {
     padding: 0;
 }
@@ -686,5 +694,10 @@ export default {
 }
 .requition_area .row.requition_footer a:first-child .btn.btn-primary.btn-global {
     color: #000000;
+}
+a.remove.edit {
+    padding-top: 8px;
+    display: flex;
+    justify-content: space-around;
 }
 </style>

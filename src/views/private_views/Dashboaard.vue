@@ -28,7 +28,7 @@
         <router-link to="/sd/invoice-challan-summery">Invoice Challan Summary</router-link>
       </div>
       <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
-        <router-link to="/sd/delivery-process--dispatch-entry">DS Dispatch Entry</router-link>
+        <router-link to="/sd/dispatch-entry">Dispatch Entry</router-link>
       </div>
       <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
         <router-link to="/sd/pending-ds-invoice-list">Pending DS Invoice List</router-link>
@@ -182,11 +182,40 @@ export default {
 </script>
 
 <style scoped>
+@import '../../custom.css';
+
+
 button {
   background: #026cd1;
   color: #fff;
   padding: 7px 20px;
   border-radius: 4px;
   cursor: pointer;
+}
+.col-lg-2,
+.col-lg-3,
+.col-lg-4,
+.col-lg-5,
+.col-lg-6,
+.col-lg-8,
+.col-lg-10,
+.col-lg-12,
+.col-md-2,
+.col-md-3,
+.col-md-4,
+.col-md-5,
+.col-md-6,
+.col-md-8,
+.col-md-10,
+.col-md-12,
+.col-sm-2,
+.col-sm-3,
+.col-sm-4,
+.col-sm-5,
+.col-sm-6,
+.col-sm-8,
+.col-sm-10,
+.col-sm-12 {
+    padding: 0;
 }
 </style>

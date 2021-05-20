@@ -83,7 +83,8 @@
                                         <div class="product">
                                             <!-- <p class="name">{{ item..prod_info.prod_name }}<span> {{ item.qty }}</span></p> -->
                                             <p class="name">{{ item.prod_info.prod_name }}</p>
-                                            <p class="type">{{ item.type ? item.type : 'Dummy Paricatamole' }}</p>
+                                            <!-- <p class="type">{{ item.generic_info ? (item.generic_info.generic_name ? item.generic_info.generic_name : '') : '' }}</p> -->
+                                            <p class="type"><span v-for="(elem, j) in item.details_info.generic_name" :key="j">{{ elem.element_name }}{{ checkElementLengthToSetComma(j, item.details_info.generic_name) }}</span></p>
                                         </div>
                                     </td>
                                     <td>
@@ -178,7 +179,8 @@ export default {
                 for(let i=0; i<this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS.length; i++) {
                     let prods = {
                         prod_id: this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS[i].prod_id,
-                        req_qty: this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS[i].req_qty
+                        req_qty: this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS[i].req_qty,
+                        status: 'OLD'
                     }
                     prod_info.push(prods)
                 }
@@ -254,6 +256,12 @@ export default {
             let req_status = 'S'
             let requisition_id = this.SELECTED_REQUISITION_DETAILS.id
             await this.SEND_NEW_REQUISITION__FROM_SERVICE(requisition_id, wh_from, req_status)
+        },
+        checkElementLengthToSetComma(j, element) {
+            console.log(j)
+            // console.log(element.length)
+            // return element
+            return (j < element.length - 1) ? ', ' : ''
         },
         // ----------------------------------------------------------------
         // SERVICE CALL
@@ -331,8 +339,13 @@ export default {
     text-transform: unset;
 }
 /* Data Section */
+.requition_area .requition_header {
+    padding: 10px 0;
+}
 .requition_area .requition_header .header_top {
-    padding: 0;
+    /* padding: 0; */
+    padding-top: 0;
+    padding-bottom: 0;
 }
 .requition_area .requition_header h5 {
     margin: 0;

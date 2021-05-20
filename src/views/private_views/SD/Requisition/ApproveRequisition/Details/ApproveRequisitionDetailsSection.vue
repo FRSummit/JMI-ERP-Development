@@ -68,7 +68,7 @@
                                     <th>Name</th>
                                     <th>Unit</th>
                                     <th>Quantity</th>
-                                    <th></th>
+                                    <!-- <th></th> -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -78,7 +78,8 @@
                                         <div class="product">
                                             <!-- <p class="name">{{ item..prod_info.prod_name }}<span> {{ item.qty }}</span></p> -->
                                             <p class="name">{{ item.prod_info.prod_name }}</p>
-                                            <p class="type">{{ item.type ? item.type : 'Dummy Paricatamole' }}</p>
+                                            <!-- <p class="type">{{ item.generic_info ? (item.generic_info.generic_name ? item.generic_info.generic_name : '') : '' }}</p> -->
+                                            <p class="type" v-if="item.details_info ? item.details_info.generic_name ? true : false : false"><span v-for="(elem, j) in item.details_info.generic_name" :key="j">{{ elem.element_name }}{{ checkElementLengthToSetComma(j, item.details_info.generic_name) }}</span></p>
                                         </div>
                                     </td>
                                     <td>
@@ -97,22 +98,22 @@
                                     <td>
                                         <form>
                                             <div class="quantity-input">
-                                                <input class='minus' type='button' value='-' field='quantity' @click="decreaseRequisitionQtyClickHandler(item, i)" />
+                                                <input class='minus hide' type='button' value='-' field='quantity' @click="decreaseRequisitionQtyClickHandler(item, i)" />
                                                 <input class='quantity' type='number' name='quantity' placeholder="0" :value="item.req_qty" :id="'req_qty_' + i" v-on:keyup="reqQtyKeyUpEventHandler(item, $event, i)" v-on:keydown="reqQtyKeyDownEventHandler($event, i)" />
-                                                <input class='plus' type='button' value='+' field='quantity' @click="increaseRequisitionQtyClickHandler(item, i)" />
+                                                <input class='plus hide' type='button' value='+' field='quantity' @click="increaseRequisitionQtyClickHandler(item, i)" />
                                             </div>
                                         </form>
                                     </td>
-                                    <td>
+                                    <!-- <td>
                                         <a class="edit" @click="singleItemEditClickHandler"><i class="zmdi zmdi-edit"></i></a>
                                         <a class="remove" @click="singleItemDeleteClickHandler"><i class="fas fa-trash-alt"></i></a>
-                                    </td>
+                                    </td> -->
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="row requition_footer" v-if="SELECTED_REQUISITION_DETAILS.id ? true : false">
-                        <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="saveAsDraftClickHandler">Save As Draft</button></a>
+                        <a><button type="button" class="btn btn-primary btn-global btn-draft mx-2" @click="saveAsDraftClickHandler">Draft</button></a>
                         <a><button type="button" class="btn btn-primary btn-global mx-2" @click="sendRequestClickHandler">Approve</button></a>
                         
                     </div>
@@ -177,7 +178,8 @@ export default {
                 for(let i=0; i<this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS.length; i++) {
                     let prods = {
                         prod_id: this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS[i].prod_id,
-                        req_qty: this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS[i].req_qty
+                        req_qty: this.SELECTED_REQUISITION_DETAILS_TRANSFER_DETAILS[i].req_qty,
+                        status: 'OLD'
                     }
                     prod_info.push(prods)
                 }
@@ -276,6 +278,12 @@ export default {
                 let req_status = 'A'
                 await this.APPROVE_REQUISITION__FROM_SERVICE(requisition_id, wh_from, req_status)
             }
+        },
+        checkElementLengthToSetComma(j, element) {
+            console.log(j)
+            // console.log(element.length)
+            // return element
+            return (j < element.length - 1) ? ', ' : ''
         },
         // -----------------------------------------------------
         // SERVICE CALL
@@ -442,5 +450,31 @@ export default {
 }
 .requition_area .row.requition_footer a:first-child .btn.btn-primary.btn-global {
     color: #000000;
+}
+.col-lg-2,
+.col-lg-3,
+.col-lg-4,
+.col-lg-5,
+.col-lg-6,
+.col-lg-8,
+.col-lg-10,
+.col-lg-12,
+.col-md-2,
+.col-md-3,
+.col-md-4,
+.col-md-5,
+.col-md-6,
+.col-md-8,
+.col-md-10,
+.col-md-12,
+.col-sm-2,
+.col-sm-3,
+.col-sm-4,
+.col-sm-5,
+.col-sm-6,
+.col-sm-8,
+.col-sm-10,
+.col-sm-12 {
+    padding: 0;
 }
 </style>

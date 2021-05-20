@@ -115,4 +115,14 @@ export default {
 </script>
 
 <style scoped>
+/* GLOBAL STYLES */
+/* @import '../../custom.css';
+
+@import '../../assets/roboto-font.css';
+@import '../../assets/t2-style.css';
+@import '../../assets/style-transfer_requition.css';
+
+@import '../../assets/css/styles.css';
+@import '../../assets/css/styles_page_included.css'; */
+/* GLOBAL STYLES */
 </style>

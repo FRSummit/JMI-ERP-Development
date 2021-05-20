@@ -423,7 +423,8 @@
 }
 
 .requition_area .requition_header {
-    padding      : 10px 0px;
+    /* padding      : 10px 0px; */
+    padding      : 10px;
     display      : flex;
     align-items  : center;
     border-bottom: 1px solid var(--border-color);

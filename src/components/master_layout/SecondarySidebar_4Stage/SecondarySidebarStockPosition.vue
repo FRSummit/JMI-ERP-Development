@@ -15,11 +15,11 @@
               <p class="primary-name" @click="primaryClick(i)">{{ SELECTED_PROD_SBU_PROD_DETAILS.sbu_name }}</p>
               <div :id="'secondary-area-section-' + i" class="secondary-area-section hide">
                 <div class="secondary-area" v-for="(item_02, j) in SELECTED_PROD_SBU_PROD_DETAILS.plant_info" :key="j" :id="'secondary-area-' + i + '-' + j">
-                  <div class="icon-arrow" @click="secondaryArrowClick(i, j)">
+                  <div class="icon-arrow" @click="secondaryArrowClick(i, j)" v-if="checkUserAreaWarehouseId(item_02)">
                     <span :id="'secondary-right-arrow-' + i + '-' + j" class=""><i class="fas fa-chevron-right"></i></span>
                     <span :id="'secondary-down-arrow-' + i + '-' + j" class="hide"><i class="fas fa-chevron-down"></i></span>
                   </div>
-                  <div class="secondary-inner">
+                  <div class="secondary-inner" v-if="checkUserAreaWarehouseId(item_02)">
                     <p class="secondary-name" @click="secondaryClick(i, j)">{{ item_02.plant_name }}</p>
                     <div :id="'tertiary-area-section-' + i + '-' + j" class="tertiary-area-section hide">
                       <div class="tertiary-area" v-for="(item_03, k) in item_02.warehouse_info" :key="k" :id="'tertiary-area-' + i + '-' + j + '-' + k">
@@ -166,6 +166,19 @@ export default {
     //   console.log(item)
     //   this.$emit('wh_store_stock_info', item)
     // },
+    checkUserAreaWarehouseId(data) {
+      // let cls = ''
+      console.log(data)
+      let user_area_dtl__wh_code = this.$store.state.JERP_LOGGED_USER_DATA.user_detils.user_area.wh_code
+      console.log(user_area_dtl__wh_code)
+      if(data.plant_code !== user_area_dtl__wh_code) {
+        // cls = 'hide'
+        return false
+      } else {
+        return true
+      }
+      // return cls
+    }
   },
 }
 </script>

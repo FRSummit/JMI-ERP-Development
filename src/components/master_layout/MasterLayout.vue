@@ -26,7 +26,7 @@
           </div>
         </div>
         <div class="right-section">
-          <div class="chat-section" v-click-outside="chatModalOutsideClick">
+          <div class="chat-section hide" v-click-outside="chatModalOutsideClick">
             <div class="chat-section-inner" @click="chatIconClick()">
               <span class="chat-icon-chat">
                 <i class="zmdi zmdi-comment-text"></i>
@@ -35,7 +35,7 @@
               <ChatModal />
             </div>
           </div>
-          <div class="notification-section" v-click-outside="notificationModalOutsideClick">
+          <div class="notification-section hide" v-click-outside="notificationModalOutsideClick">
             <div class="notification-section-inner" @click="bellIconClick()">
               <span class="bell-icon-bell">
                 <i class="zmdi zmdi-notifications"></i>

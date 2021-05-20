@@ -48,7 +48,7 @@ export default {
   },
   data() {
     return {
-      routeName: "DS Packing Preparation",
+      routeName: "Packing Summary",
       parentPath: "Local Sales",
       pathName: [],
       info_modal_schedult_count: false,
@@ -69,7 +69,7 @@ export default {
   },
   methods: {
     createBreadcrumbData() {
-      this.pathName = [{name: "Features"},{ name: "Local Sales" }, { name: "DS Packing Preparation" }];
+      this.pathName = [{name: "Features"},{ name: "Local Sales" }, { name: "Packing Summary" }];
       // this.pathName = breadcrumbFunctions.jmiERPBreadcrumb(window.location.pathname)
     },
     showInvoiceCountInformationMessagePopup() {

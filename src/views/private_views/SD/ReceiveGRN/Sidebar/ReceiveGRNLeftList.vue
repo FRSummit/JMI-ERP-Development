@@ -45,7 +45,7 @@
         </div>
         <div class="location-title">
           <div class="location-title-inner">
-            <p>Delivery Schedule List (<span>{{ INVOICE_LIST.length }}</span>)</p>
+            <p>Delivery Schedule GRN List (<span>{{ INVOICE_LIST.length }}</span>)</p>
           </div>
         </div>
         <div class="location-list-section">
@@ -60,22 +60,22 @@
               <div class="invoice-challan-printing-section-list-inner">
                 <div class="name-status-section">
                   <div class="name-section">
-                    <p class="name-text">DS{{ invoice.id }}</p>
+                    <p class="name-text">{{ invoice.return_grn_no }}</p>
                   </div>
                   <div class="status-section">
                     <p class="status-text">
-                      {{ (invoice.schedule_date).split(' ')[0] }}
+                      {{ dateFormat(invoice.schedule_date) }}
                     </p>
                   </div>
                 </div>
                 <div class="contact-number-section">
                   <p class="contact-number jmi-txt-nowrap-ellipsis-middle_60">{{ invoice.da_info.name }}</p>
                   <!-- <p class="status"><span class="status-icon"></span>Initial Phase</p> -->
-                  <p class="status" :class="invoice.gate_pass_id ? 'Completed' : 'Initial'"><span class="status-icon"></span>{{ invoice.gate_pass_id ? 'On Delivery' : 'Initial Phase' }}</p>
+                  <p class="status hide" :class="invoice.gate_pass_id ? 'Completed' : 'Initial'"><span class="status-icon"></span>{{ invoice.gate_pass_id ? 'On Delivery' : 'Initial Phase' }}</p>
                 </div>
-                <!-- <div class="territory-text-section">
-                  <p class="territory-text">{{ invoice }}</p>
-                </div> -->
+                <div class="territory-text-section">
+                  <p class="territory-text">{{ invoice.da_info.employee_code ? invoice.da_info.employee_code : '' }}</p>
+                </div>
               </div>
             </div>
           </div>
@@ -92,8 +92,11 @@ const service = new Service();
 // import DatePicker from 'vue2-datepicker'
 import JMIFilter from '../../../../../functions/JMIFIlter'
 const jmiFilter = new JMIFilter()
+import GlobalDateFormat from '../../../../../functions/GlobalDateFormat'
+const globalDateFormat = new GlobalDateFormat()
 
 export default {
+  props: ["RECEIVE_GRN_BTN_CLICKED"],
   components: {
     // HotelDatePicker,
     // DatePicker
@@ -139,6 +142,9 @@ export default {
     onChange() {
       console.log(this.selectedDA);
     },
+    dateFormat(dt) {
+      return globalDateFormat.dateFormatT4(dt)
+    },
     invoiceClickHandler(invoice, index) {
             let length = document.getElementsByClassName('invoice-challan-printing-section-list').length
             for(let i=0; i<length; i++) {
@@ -165,7 +171,7 @@ export default {
     async DELIVERY_SCHEDULE_LIST__FROM_SERVICE() {
       this.INVOICE_LIST = []
       // service.getDeliveryScheduleList_DELIVERY_SCHEDULING_INVOICE_CHALLAN_PRINTING()
-      service.getCompleteDeliveryScheduleList__DELIVERY_GRN_SR()
+      await service.getCompleteDeliveryScheduleList__DELIVERY_GRN_SR()
         .then(res => {
           console.log(res.data)
           this.INVOICE_LIST = res.data.schedule_list
@@ -177,6 +183,13 @@ export default {
         })
     }
   },
+  watch: {
+    RECEIVE_GRN_BTN_CLICKED(newVal) {
+      if(newVal) {
+        this.DELIVERY_SCHEDULE_LIST__FROM_SERVICE()
+      }
+    }
+  }
 };
 </script>
 
