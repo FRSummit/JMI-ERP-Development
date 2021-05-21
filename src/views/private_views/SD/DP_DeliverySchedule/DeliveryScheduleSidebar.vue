@@ -312,8 +312,9 @@ export default {
 .layout-sidebar.delivery_schedule .content .ds_accordion .card .card-header .btn-link{
     text-align: left;
     text-decoration: none;
-    width: 100%;
-    min-width: 160px;
+    /* width: 100%; */
+    /* min-width: 160px; */
+    width: 100px;
     box-shadow: none;
     position: relative;
 }
@@ -336,7 +337,8 @@ export default {
     border: 5px;
     position: absolute;
     /* right: 0px; */
-    right: -96px;
+    /* right: -96px; */
+    right: -150px;
     top:10px;
 }
 .layout-sidebar.delivery_schedule .content .ds_accordion .card .card-header .btn-link.collapsed:after{
