@@ -16,31 +16,31 @@
         <!--Start Secondary Sidebar Content Area--> 
         <div class="content">
             <div class="ds_accordion" id="accordion-1">
-                <div :id="'card-' + i" class="card" v-for="(item, i) in DELIVERY_SCHEDULE_LIST" :key="i" @click="parentCardClickHandler(item, i)">
+                <div :id="'card-' + i" class="card" v-for="(item, i) in DELIVERY_SCHEDULE_LIST" :key="i">
                     <div class="card-header" :id="'headingOne-' + i">
                         <button class="btn btn-link">
-                            <h5>{{ dateFormat(item.date) }}</h5> 
-                            <!-- <h5>{{ myObject(item[0]) }}</h5>  -->
+                            <h5>{{ dateFormat(item.date) }}</h5>
                         </button>
-                        <span>{{'1222'}}</span>
+                        <span>{{ Number(item.total).toFixed(2) }}</span>
+                        <span class="transparent-span" @click="parentCardClickHandler(item, i)"></span>
                     </div>
                 
                     <div :id="'collapseOne-' + i" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-1">
-                        <div class="card-body" v-for="(card, j) in item.data" :key="j">
+                        <div class="card-body" v-for="(card, j) in item.data" :key="j" @click="childCardBodyClickHandler(card, j)">
                             <!-- Start Item -->
                             <div class="ds_innerItem">
                                 <div class="row1"> 
                                     <div class="group-1"> 
                                         <!-- <i class="fa fa-square status-active" aria-hidden="true"></i>  -->
-                                        <p>Abu Naser Tuhin (<span>DHK213686</span>)</p>
+                                        <p>{{ card.dp_force.force_name }} <span class="hide">DHK213686</span></p>
                                     </div>
-                                    <h5>32,500.00</h5>
+                                    <h5>{{ card.dp_force.force_inv_total ? Number(card.dp_force.force_inv_total).toFixed(2) : 0.00 }}</h5>
                                 </div>
                                 <div class="row2">
-                                    <p>Tangi Bazar,Mall Gate</p>
+                                    <p>{{ card.dp_force.micro_union_name }}</p>
                                 </div>
                                 <div class="row3"> 
-                                    <div class="group-2"><p>Scheduled: <span>08</span></p><p>New: <span>03</span></p></div> 
+                                    <div class="group-2"><p>Scheduled: <span>{{ card.dp_force.planned }}</span></p><p style="margin-left: 10px;">New: <span>{{ card.dp_force.new }}</span></p></div> 
                                 <!-- <i class="material-icons">auto_fix_normal</i> -->
                                 </div>
                             </div>
@@ -90,6 +90,11 @@ export default {
                 document.querySelector('#card-' + index).className = 'card'
                 document.querySelector('#headingOne-' + index).className = 'card-header'
             }
+        },
+        childCardBodyClickHandler(card, index) {
+            console.log(index)
+            console.log(card)
+            this.$emit('SINGLE_ITEM_FROM_LEFT', card)
         },
         myObject(item) {
             console.log(item.length)
@@ -163,11 +168,11 @@ export default {
     font-size: var(--font14);
 }
 .layout-sidebar.delivery_schedule .header .row1 .form-group input{
-    padding-left: 36px;
-    border-radius: 2px;
-    border: 1px solid var(--border-color);
-    width: 80%;
-    height: 38px;
+    padding-left: 36px !important;
+    border-radius: 2px !important;
+    border: 1px solid var(--border-color) !important;
+    /* width: 80%; */
+    height: 38px !important;
 }
 .layout-sidebar.delivery_schedule .header .row1 .form-group input::placeholder{
     font-size: var(--font14) ;
@@ -219,6 +224,7 @@ export default {
     border-bottom: 1px solid var(--border-color);
     justify-content: space-between;
     cursor: pointer;
+    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
 }
 .layout-sidebar.delivery_schedule .content .ds_accordion .card .card-header button{
  height: 100%;
@@ -279,6 +285,18 @@ export default {
     text-align: left;
     text-decoration: none;
     width: 100%;
+    min-width: 160px;
+    box-shadow: none;
+    position: relative;
+}
+.layout-sidebar.delivery_schedule .content .ds_accordion .card .transparent-span {
+    width: 35px !important;
+    height: 30px !important;
+    position: absolute !important;
+    right: -50px !important;
+    top:10px !important;
+    text-align: center !important;
+    opacity: 0;
 }
 .layout-sidebar.delivery_schedule .content .ds_accordion .card .card-header .btn-link:after{
     color: var(--text-black);
@@ -289,7 +307,8 @@ export default {
     text-align: center;
     border: 5px;
     position: absolute;
-    right: 0px;
+    /* right: 0px; */
+    right: -96px;
     top:10px;
 }
 .layout-sidebar.delivery_schedule .content .ds_accordion .card .card-header .btn-link.collapsed:after{
@@ -306,6 +325,7 @@ export default {
 .layout-sidebar.delivery_schedule .content .ds_accordion .card .card-body{
     border: none!important;
     padding: 0rem;
+    cursor: pointer;
 }
 .ds_accordion .card .card-body .ds_innerItem {
     padding: 10px;

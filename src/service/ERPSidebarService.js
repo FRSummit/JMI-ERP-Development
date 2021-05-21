@@ -1627,6 +1627,17 @@ export default class PostService {
       }
     })
   }
+  
+  // DP DELIVERY SCHEDULE - DETAILS BY DATE & FORCE ID
+  async getDPDS_INV_LIST__DP_DS(date, force_id) {
+    let web_menu_url = '/api/web/get-dp-ds-inv-list/' + date + '/' + force_id
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
 
 
   // -------------------------------------------------------------------------------------------

@@ -45,21 +45,21 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr v-for="(item, i) in 20" :key="i">
+                          <tr v-for="(item, i) in SELECTED_DP_DS_LIST_DETAILS" :key="i">
                               <td>
                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
                               </td>
                               <td>
                                   <div>
-                                      <p class="customer_name">Mehedi Hassan</p>
-                                      <p class="order">Order: <span>87256798678</span> <span>(2 days Ago)</span> </p>
+                                      <p class="customer_name">{{ item.customer_name }}</p>
+                                      <p class="order">Order: <span>{{ dateFormat(item.order_date) }}</span> <span>({{ dateDifference(item.order_date) }} days Ago)</span> </p>
                                   </div>
                               </td>
                               <td>
-                                <p data-toggle="modal" data-target="#invoice-modal">DHK002151</p>
+                                <p data-toggle="modal" data-target="#invoice-modal" @click="singleInvoiceClickHandler(item)">{{ item.invoice_no }}</p>
                               </td>
                               <td style="justify-content: flex-end;">
-                                <p>30,561.00</p>
+                                <p>{{ Number(item.inv_total).toFixed(2) }}</p>
                               </td>
                               <td>
                                 <a title="Add bulk-button" data-toggle="tooltip" data-placement="bottom"><i class="zmdi zmdi-plus"></i></a>
@@ -73,8 +73,8 @@
                                   <span class="bulk-button"><span class="fa fa-plus" aria-hidden="true" style="margin-right: 6px;"></span>Bulk Add</span>
                                   <span class="bulk-button" data-toggle="modal" data-target="#reshedule-modal"><i class="zmdi zmdi-calendar-alt"></i>Bulk Reshedule</span>
                               </th>
-                              <th><p>Total: <span>3323</span></p></th>
-                              <th style="justify-content: flex-end;"><p>Total: <span>13,032.20</span></p></th>
+                              <th><p>Total Invoice: <span>{{ SELECTED_DP_DS_LIST_DETAILS ? SELECTED_DP_DS_LIST_DETAILS.length : 0 }}</span></p></th>
+                              <th style="justify-content: flex-end;"><p>Total: <span>{{ DP_DS_TOTAL_INVOICE_AMOUNT }}</span></p></th>
                               <th></th>
                           </tr>
                         </tfoot>
@@ -221,10 +221,68 @@
 </template>
 
 <script>
+import GlobalDateFormat from '../../../../functions/GlobalDateFormat'
+const globalDateFormat = new GlobalDateFormat()
+
 export default {
-    
+    props: ["SELECTED_DP_DS_LIST_DETAILS"],
+    data() {
+      return {
+        DP_DS_TOTAL_INVOICE_AMOUNT: 0.00,
+      }
+    },
+    computed: {
+    },
+    components: {},
+    created() {},
+    mounted() {},
+    methods: {
+      dateFormat(dt) {
+        return globalDateFormat.dateFormatT4(dt)
+      },
+      dateDifference(dt) {
+        let date1 = new Date(dt)
+        let date2 = new Date()
+        /*var diff = new Date(date2.getTime() - date1.getTime())
+        console.log(date2.getTime() / (24 * 60 * 60 * 1000))
+        // console.log(date1.getTime())
+
+        let yr_diff = diff.getUTCFullYear() - 1970
+        let mn_diff = diff.getUTCMonth()
+        let dd_diff = diff.getUTCDate() - 1
+
+        let str = '0'
+        if(yr_diff > 0) {
+          str = yr_diff + ' ' + (yr_diff > 1 ? 'years' : 'year') + ' ' + mn_diff + ' ' + (mn_diff > 1 ? 'months' : 'month') + ' ' + dd_diff + ' ' + (dd_diff > 1 ? 'days' : 'day')
+        } else if(yr_diff === 0 && mn_diff > 0) {
+          str = mn_diff + ' ' + (mn_diff > 1 ? 'months' : 'month') + ' ' + dd_diff + ' ' + (dd_diff > 1 ? 'days' : 'day')
+        } else if(yr_diff === 0 && mn_diff === 0 && dd_diff >= 0) {
+          str = dd_diff + ' ' + (dd_diff > 1 ? 'days' : 'day')
+        }
+        return str*/
+        let diffInMs   = new Date(date2) - new Date(date1)
+        let diffInDays = diffInMs / (1000 * 60 * 60 * 24);
+
+        return parseInt(diffInDays)
+      },
+      singleInvoiceClickHandler(item) {
+        
+      },
+    },
+    watch: {
+      SELECTED_DP_DS_LIST_DETAILS(newVal) {
+        if(newVal) {
+          console.log(newVal)
+          for(let i=0; i<newVal.length; i++) {
+            this.DP_DS_TOTAL_INVOICE_AMOUNT += parseFloat(this.SELECTED_DP_DS_LIST_DETAILS[i].inv_total)
+            console.log(this.DP_DS_TOTAL_INVOICE_AMOUNT)
+          }
+        }
+      }
+    },
 }
 </script>
+
 <style>
 :root{
   --table-height-2: 45px;
