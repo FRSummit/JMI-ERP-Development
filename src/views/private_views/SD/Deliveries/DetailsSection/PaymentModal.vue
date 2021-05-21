@@ -35,7 +35,7 @@
         
         <!------------ Start Add New Payment Modal------------>
         <div class="modal-popup-section order-proceed-modal" v-if="payment_popup_modal">
-            <div class="modal jmi-scroll-section" id="new-payment-modal" tabindex="-1" role="dialog" aria-labelledby="AddCollection" aria-hidden="true">
+            <div class="modal jmi-scroll-section" id="new-payment-modal" tabindex="-1" role="dialog" aria-labelledby="AddCollection" aria-hidden="true" style="">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
