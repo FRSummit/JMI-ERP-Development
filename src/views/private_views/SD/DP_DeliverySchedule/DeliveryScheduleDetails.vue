@@ -62,7 +62,7 @@
                                 <p>{{ Number(item.inv_total).toFixed(2) }}</p>
                               </td>
                               <td>
-                                <a title="Add bulk-button" data-toggle="tooltip" data-placement="bottom" v-if="SELECTED_INVOICE_LIST_FROM_TABLE.length === 0"><i class="zmdi zmdi-plus"></i></a>
+                                <a title="Add bulk-button" @click="singleInvoicePlusClickHandler(item, i)" data-toggle="tooltip" data-placement="bottom" v-if="SELECTED_INVOICE_LIST_FROM_TABLE.length === 0"><i class="zmdi zmdi-plus"></i></a>
                                 <!-- <a title="Reshedule" data-toggle="tooltip" data-placement="bottom" v-if="SELECTED_INVOICE_LIST_FROM_TABLE.length === 0" @click="singleRescheduleCalenderClickHandler(item, i)"><i class="zmdi zmdi-calendar-alt"></i></a> -->
                                 <a title="Reshedule" data-toggle="modal" data-target="#reshedule-modal" data-placement="bottom" v-if="SELECTED_INVOICE_LIST_FROM_TABLE.length === 0" @click="singleRescheduleCalenderClickHandler(item, i)"><i class="zmdi zmdi-calendar-alt"></i></a>
                               </td>
@@ -362,6 +362,12 @@ export default {
                     document.querySelector('#flexCheckChecked-' + i).checked = false
                 }
             }
+        },
+        singleInvoicePlusClickHandler(item, i) {
+            console.log(i)
+            // this.SELECTED_INVOICE_LIST_FROM_TABLE = []
+            // this.SELECTED_INVOICE_LIST_FROM_TABLE.push(item)
+            console.log(item)
         },
         // --------------------------------------------------------------------------------------------
         // SERVICE CALL
