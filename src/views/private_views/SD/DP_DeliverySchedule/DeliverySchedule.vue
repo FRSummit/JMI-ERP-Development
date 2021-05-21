@@ -1,5 +1,5 @@
 <template>
-  <div class="sd_collection">
+  <div id="dp_delivery_schedule" class="sd_collection">
     <Heading :pathName="pathName" :routeName="routeName" />
 
     <div class="layout-body">

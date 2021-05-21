@@ -679,4 +679,7 @@ padding: 10px 0px;
     --table-height-2: 40px;
     }
 }
+.row.customer_info {
+  margin-bottom: 0;
+}
 </style>

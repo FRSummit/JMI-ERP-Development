@@ -19,14 +19,14 @@
                 <div :id="'card-' + i" class="card" v-for="(item, i) in DELIVERY_SCHEDULE_LIST" :key="i" @click="parentCardClickHandler(item, i)">
                     <div class="card-header" :id="'headingOne-' + i">
                         <button class="btn btn-link">
-                            <h5>{{ dateFormat(item[0].date) }}</h5> 
+                            <h5>{{ dateFormat(item.date) }}</h5> 
                             <!-- <h5>{{ myObject(item[0]) }}</h5>  -->
                         </button>
-                        <span>1222</span>
+                        <span>{{'1222'}}</span>
                     </div>
                 
                     <div :id="'collapseOne-' + i" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-1">
-                        <div class="card-body" v-for="(card, j) in item.length" :key="j">
+                        <div class="card-body" v-for="(card, j) in item.data" :key="j">
                             <!-- Start Item -->
                             <div class="ds_innerItem">
                                 <div class="row1"> 
@@ -76,11 +76,11 @@ export default {
             console.log(index)
             console.log(item)
 
-            for(let i=0; i<this.parentCard; i++) {
-                document.querySelector('#card-' + i + ' #collapseOne-' + i).className = 'collapse'
-                document.querySelector('#card-' + i).className = 'card'
-                document.querySelector('#headingOne-' + i).className = 'card-header'
-            }
+            // for(let i=0; i<this.DELIVERY_SCHEDULE_LIST.length; i++) {
+            //     document.querySelector('#card-' + i + ' #collapseOne-' + i).className = 'collapse'
+            //     document.querySelector('#card-' + i).className = 'card'
+            //     document.querySelector('#headingOne-' + i).className = 'card-header'
+            // }
             if(document.querySelector('#card-' + index + ' #collapseOne-' + index).className === 'collapse') {
                 document.querySelector('#card-' + index + ' #collapseOne-' + index).className = 'collapse show'
                 document.querySelector('#card-' + index).className = 'card open'
