@@ -36,7 +36,7 @@
                         <thead>
                           <tr>
                               <th>
-                                <!-- <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked> -->
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" style="opacity: 0 !important;">
                               </th>
                               <th>Customer</th>
                               <th>Invoice No</th>
@@ -47,7 +47,8 @@
                         <tbody>
                           <tr v-for="(item, i) in SELECTED_DP_DS_LIST_DETAILS" :key="i">
                               <td>
-                                <input class="form-check-input" type="checkbox" value="" :id="'flexCheckChecked-' + i" @change="inputCheckboxOnChangeHandler(item, i)">
+                                <!-- <input class="form-check-input" type="checkbox" value="" :id="'flexCheckChecked-' + i" @change="inputCheckboxOnChangeHandler(item, i)" v-if="DS_STATUS === 'OPEN'"> -->
+                                <input class="form-check-input" type="checkbox" value="" :id="'flexCheckChecked-' + i" @change="inputCheckboxOnChangeHandler(item, i)" v-if="DS_STATUS === 'OPEN'">
                               </td>
                               <td>
                                   <div>
@@ -62,17 +63,17 @@
                                 <p>{{ Number(item.inv_total).toFixed(2) }}</p>
                               </td>
                               <td>
-                                <a title="Add bulk-button" @click="singleInvoicePlusClickHandler(item, i)" data-toggle="tooltip" data-placement="bottom" v-if="SELECTED_INVOICE_LIST_FROM_TABLE.length === 0"><i class="zmdi zmdi-plus"></i></a>
+                                <a title="Add bulk-button" @click="singleInvoicePlusClickHandler(item, i)" data-toggle="tooltip" data-placement="bottom" v-if="SELECTED_INVOICE_LIST_FROM_TABLE.length === 0 && DS_STATUS === 'OPEN'"><i class="zmdi zmdi-plus"></i></a>
                                 <!-- <a title="Reshedule" data-toggle="tooltip" data-placement="bottom" v-if="SELECTED_INVOICE_LIST_FROM_TABLE.length === 0" @click="singleRescheduleCalenderClickHandler(item, i)"><i class="zmdi zmdi-calendar-alt"></i></a> -->
-                                <a title="Reshedule" data-toggle="modal" data-target="#reshedule-modal" data-placement="bottom" v-if="SELECTED_INVOICE_LIST_FROM_TABLE.length === 0" @click="singleRescheduleCalenderClickHandler(item, i)"><i class="zmdi zmdi-calendar-alt"></i></a>
+                                <a title="Reshedule" data-toggle="modal" data-target="#reshedule-modal" data-placement="bottom" v-if="SELECTED_INVOICE_LIST_FROM_TABLE.length === 0 && DS_STATUS === 'OPEN'" @click="singleRescheduleCalenderClickHandler(item, i)"><i class="zmdi zmdi-calendar-alt"></i></a>
                               </td>
                           </tr>
                         </tbody>
                         <tfoot>
                           <tr>
                               <th colspan="2">
-                                  <span class="bulk-button" @click="bulkAddClickHandler"><span class="fa fa-plus" aria-hidden="true" style="margin-right: 6px;"></span>Bulk Add</span>
-                                  <span class="bulk-button" data-toggle="modal" data-target="#reshedule-modal"><i class="zmdi zmdi-calendar-alt"></i>Bulk Reshedule</span>
+                                  <span class="bulk-button" @click="bulkAddClickHandler" v-if="DS_STATUS === 'OPEN'"><span class="fa fa-plus" aria-hidden="true" style="margin-right: 6px;"></span>Bulk Add</span>
+                                  <span class="bulk-button" data-toggle="modal" data-target="#reshedule-modal" v-if="DS_STATUS === 'OPEN'"><i class="zmdi zmdi-calendar-alt"></i>Bulk Reschedule</span>
                               </th>
                               <th><p>Total Invoice: <span>{{ SELECTED_DP_DS_LIST_DETAILS ? SELECTED_DP_DS_LIST_DETAILS.length : 0 }}</span></p></th>
                               <th style="justify-content: flex-end;"><p>Total: <span>{{ Number(DP_DS_TOTAL_INVOICE_AMOUNT).toFixed(2) }}</span></p></th>
@@ -107,9 +108,9 @@
                             <div class="row">
                               <div class="col-lg-6 form-group">
                                 <label for="sr_name">Select SR</label>
-                                <select class="form-control" id="sr_name">
-                                  <option>Mehedi Hassan</option>
-                                  <option>Sahid Nawaz</option>
+                                <select class="form-control" id="sr_name" v-model="selected_da_from_dp_list">
+                                    <option :value="null" selected>Select SR</option>
+                                  <option v-for="(item, i) in DP_LIST_WITH_DA" :key="i" :value="item">{{ item.get_adm_user.name }}</option>
                                 </select>
                               </div>
                               <div class="col-lg-6 form-group" >
@@ -119,7 +120,7 @@
                             </div>
 
                             <div class="modal-footer justify-content-center">
-                              <a href="#"><button type="button" class="btn btn-primary btn-global">Save</button></a>
+                              <a><button type="button" class="btn btn-primary btn-global" @click="bulkReschedulingSaveBtnClickHandler">Save</button></a>
                             </div>
                           </div>
                         </div>
@@ -232,6 +233,31 @@
 
           </div>
         </div>
+
+        <!-- CONFIRMATION MODAL -->
+        <div class="modal-popup-section order-proceed-modal" v-if="inv_confirm_modal">
+            <div class="modal-popup-section-inner order-proceed-modal-inner">
+                <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
+                <p class="popup-text">Are you sure?</p>
+                <p class="popup-desc">{{ inv_confirm_modal_msg ? inv_confirm_modal_msg : '' }}</p>
+                <span class="divider"></span>
+                <div class="popup-submit-section">
+                <div class="popup-cancel-btn-section">
+                    <span @click="cancelPaymentConfirmationClickHandler">Cancel</span>
+                </div>
+                <div class="popup-confirm-btn-section">
+                    <span @click="confirmPaymentConfirmationClickHandler">Confirm</span>
+                </div>
+                </div>
+            </div>
+        </div>
+        <!-- Success Message -->
+        <div id="update-successfully-modal" class="modal-popup-section update-successfully-modal" v-if="msg_popup_modal">
+            <div class="modal-popup-section-inner update-successfully-modal-inner">
+                <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
+                <p class="popup-text">{{ msg_popup_modal_msg }}</p>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -260,13 +286,50 @@ export default {
             },
 
             SELECTED_INVOICE_LIST_FROM_TABLE: [],
+            SELECTED_INVOICE_ID_LIST_FROM_TABLE: [],
+            DP_LIST_WITH_DA: null,
+            selected_da_from_dp_list: null,
+
+            inv_confirm_modal: false,
+            inv_confirm_modal_msg: null,
+
+            msg_popup_modal: false,
+            msg_popup_modal_msg: null,
         }
     },
     computed: {
+        SELECTED_INVOICE_NUMBERS_LIST() {
+            let invoice_id_list = []
+            if(this.SELECTED_INVOICE_LIST_FROM_TABLE.length > 0) {
+                for(let i=0; i<this.SELECTED_INVOICE_LIST_FROM_TABLE.length; i++) {
+                    let inv = {
+                        invoice_id: this.SELECTED_INVOICE_LIST_FROM_TABLE[i].inv_id
+                    }
+                    invoice_id_list.push(inv)
+                }
+            }
+            return invoice_id_list
+        },
+        SELECTED_INVOICE_NUMBERS_LIST_FOR_INV_STAT_N() {
+            let invoice_id_list = []
+            if(this.SELECTED_INVOICE_LIST_FROM_TABLE.length > 0) {
+                for(let i=0; i<this.SELECTED_INVOICE_LIST_FROM_TABLE.length; i++) {
+                    if(this.SELECTED_INVOICE_LIST_FROM_TABLE[i].inv_stat === 'N') {
+                        let inv = {
+                            invoice_id: this.SELECTED_INVOICE_LIST_FROM_TABLE[i].inv_id
+                        }
+                        invoice_id_list.push(inv)
+                    }
+                }
+            }
+            return invoice_id_list
+        },
     },
-    components: {},
+    components: {
+    },
     created() {},
-    mounted() {},
+    async mounted() {
+    },
     methods: {
         dateFormat(dt) {
             return globalDateFormat.dateFormatT4(dt)
@@ -349,6 +412,23 @@ export default {
             return (j < element.length - 1) ? ', ' : ''
         },
         bulkAddClickHandler() {
+            console.log(this.SELECTED_INVOICE_NUMBERS_LIST_FOR_INV_STAT_N)
+            if(this.inv_confirm_modal) {
+                this.inv_confirm_modal = false
+            } else {
+                this.inv_confirm_modal = true
+                this.inv_confirm_modal_msg = 'Invoice add to DS'
+            }
+        },
+        cancelPaymentConfirmationClickHandler() {
+            this.inv_confirm_modal = false
+        },
+        async confirmPaymentConfirmationClickHandler() {
+            this.inv_confirm_modal = false
+            await this.ADD_INVOICE_TO_CURRENT_DS__FROM_SERVICE()
+        },
+        bulkReschedulingSaveBtnClickHandler() {
+            console.log(this.SELECTED_INVOICE_NUMBERS_LIST)
         },
         singleRescheduleCalenderClickHandler(item, i) {
             console.log(i)
@@ -387,18 +467,75 @@ export default {
                         this.CURRENT_DUE = null
                     }
                 })
+        },
+        async DP_LIST_WITH_DA__FROM_SERVICE() {
+            this.DP_LIST_WITH_DA = null
+            await service.getDPListWithDA__DP_DS()
+                .then(res => {
+                    console.log(res.data)
+                    this.DP_LIST_WITH_DA = res.data.da_list
+                })
+                .catch(err => {
+                    if(err) {
+                        console.log(err)
+                        this.DP_LIST_WITH_DA = null
+                    }
+                })
+        },
+        async ADD_INVOICE_TO_CURRENT_DS__FROM_SERVICE() {
+            this.msg_popup_modal = true
+            this.msg_popup_modal_msg = 'Please wait...'
+            await service.getAddInvoiceToCurrentDS__DP_DS(this.SELECTED_DP_DS_LIST_ITEM.dp_force.ds_id, this.SELECTED_INVOICE_NUMBERS_LIST_FOR_INV_STAT_N)
+                .then(res => {
+                    console.log(res.data)
+                    this.msg_popup_modal_msg = res.data.message + '. ' + res.data.invoice_info
+
+                    this.$emit('RELOAD_LEFT_SECTION')
+                    setTimeout( () => {
+                        this.msg_popup_modal = false
+                        this.msg_popup_modal_msg = null
+                    }, 2000)
+                })
+                .catch(err => {
+                    if(err) {
+                        console.log(err)
+                        this.msg_popup_modal_msg = err
+                        setTimeout( () => {
+                            this.msg_popup_modal = false
+                            this.msg_popup_modal_msg = null
+                        }, 2000)
+                    }
+                })
         }
     },
     watch: {
         SELECTED_DP_DS_LIST_DETAILS(newVal) {
+            console.log(newVal)
+            this.DP_DS_TOTAL_INVOICE_AMOUNT = 0.00
+
+            this.INVOICE_DETAILS_TOTAL_SECTION.subtotal = 0.00
+            this.INVOICE_DETAILS_TOTAL_SECTION.vat = 0.00
+            this.INVOICE_DETAILS_TOTAL_SECTION.discount = 0.00
+            this.INVOICE_DETAILS_TOTAL_SECTION.gross_total = 0.00
+            this.INVOICE_DETAILS_TOTAL_SECTION.rounding_adj = 0.00
+            this.INVOICE_DETAILS_TOTAL_SECTION.grand_total = 0.00
+
             if(newVal) {
                 console.log(newVal)
                 for(let i=0; i<newVal.length; i++) {
                     this.DP_DS_TOTAL_INVOICE_AMOUNT += parseFloat(newVal[i].inv_total)
                     console.log(this.DP_DS_TOTAL_INVOICE_AMOUNT)
 
-                    this.DS_STATUS = this.createDSStatus(newVal[i].ds_status)
+                    // this.DS_STATUS = this.createDSStatus(newVal[i].ds_status)
                 }
+                this.DP_LIST_WITH_DA__FROM_SERVICE()
+            }
+        },
+        SELECTED_DP_DS_LIST_ITEM(newVal) {
+            this.DS_STATUS = null
+            if(newVal) {
+                console.log(newVal.dp_force.ds_status)
+                this.DS_STATUS = this.createDSStatus(newVal.dp_force.ds_status)
             }
         },
         DP_DS_INVOICE_DETAILS(newVal) {
@@ -434,7 +571,17 @@ export default {
                 this.INVOICE_DETAILS_TOTAL_SECTION.rounding_adj = ROUNDING_ADJ
                 this.INVOICE_DETAILS_TOTAL_SECTION.grand_total = newVal.net_total
             }
-        }
+        },
+        SELECTED_INVOICE_NUMBERS_LIST(newVal) {
+            if(newVal) {
+                console.log(newVal)
+            }
+        },
+        SELECTED_INVOICE_NUMBERS_LIST_FOR_INV_STAT_N(newVal) {
+            if(newVal) {
+                console.log(newVal)
+            }
+        },
     },
 }
 </script>
@@ -467,7 +614,7 @@ export default {
 .delivery_schedule-body .ds-header .sr_name span{
   color: var(--blue);
   font-weight: 500;
-  text-decoration: underline;
+  /* text-decoration: underline; */
 }
 .delivery_schedule-body .ds-header p{
   color: var(--text-black);

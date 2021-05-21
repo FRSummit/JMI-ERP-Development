@@ -4,10 +4,12 @@
 
     <div class="layout-body">
       <DeliveryScheduleSidebar 
-        v-on:SINGLE_ITEM_FROM_LEFT="itemClickFromLeftEventHandler"/>
+        v-on:SINGLE_ITEM_FROM_LEFT="itemClickFromLeftEventHandler"
+        :RELOAD_LEFT_SECTION="RELOAD_LEFT_SECTION"/>
       <DeliveryScheduleDetails
         :SELECTED_DP_DS_LIST_ITEM="SELECTED_DP_DS_LIST_ITEM"
-        :SELECTED_DP_DS_LIST_DETAILS="SELECTED_DP_DS_LIST_DETAILS"/>
+        :SELECTED_DP_DS_LIST_DETAILS="SELECTED_DP_DS_LIST_DETAILS"
+        v-on:RELOAD_LEFT_SECTION="reloadLeftSection"/>
     </div>
   </div>
 </template>
@@ -34,6 +36,7 @@ export default {
       pathName: [],
       SELECTED_DP_DS_LIST_ITEM: null,
       SELECTED_DP_DS_LIST_DETAILS: null,
+      RELOAD_LEFT_SECTION: null
     };
   },
 
@@ -53,6 +56,11 @@ export default {
     async itemClickFromLeftEventHandler(value) {
       this.SELECTED_DP_DS_LIST_ITEM = value
       await this.DPDS_INV_LIST__FROM_SERVICE(value.date, value.dp_force.force_id)
+    },
+    reloadLeftSection() {
+      this.RELOAD_LEFT_SECTION = new Date()
+      this.SELECTED_DP_DS_LIST_ITEM = null
+      this.SELECTED_DP_DS_LIST_DETAILS = null
     },
     // --------------------------------------------------------------------------------------------
     // SERVICE CALL

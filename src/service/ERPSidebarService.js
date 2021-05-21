@@ -1638,6 +1638,34 @@ export default class PostService {
       }
     })
   }
+  
+  // DP DELIVERY SCHEDULE - DETAILS BY DATE & FORCE ID
+  async getDPListWithDA__DP_DS() {
+    let web_menu_url = '/api/web/dp-list-with-da'
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
+  
+  // DP DELIVERY SCHEDULE - DETAILS BY DATE & FORCE ID
+  async getAddInvoiceToCurrentDS__DP_DS(ds_id, invoices) {
+    console.log(ds_id)
+    console.log(JSON.stringify(invoices))
+    let web_menu_url = '/api/web/add-invoices-to-current-delivery-schedule'
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+      params: {
+        ds_id: ds_id,
+        invoices: JSON.stringify(invoices)
+      }
+    })
+  }
 
 
   // -------------------------------------------------------------------------------------------

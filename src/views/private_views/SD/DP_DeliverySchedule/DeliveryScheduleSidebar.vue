@@ -26,22 +26,23 @@
                     </div>
                 
                     <div :id="'collapseOne-' + i" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-1">
-                        <div class="card-body" v-for="(card, j) in item.data" :key="j" @click="childCardBodyClickHandler(card, j)">
+                        <div class="card-body" v-for="(card, j) in item.data" :key="j">
                             <!-- Start Item -->
                             <div class="ds_innerItem">
-                                <div class="row1"> 
+                                <div class="row1" @click="childCardBodyClickHandler(card, j)"> 
                                     <div class="group-1"> 
                                         <!-- <i class="fa fa-square status-active" aria-hidden="true"></i>  -->
                                         <p>{{ card.dp_force.force_name }} <span class="hide">DHK213686</span></p>
                                     </div>
                                     <h5>{{ card.dp_force.force_inv_total ? Number(card.dp_force.force_inv_total).toFixed(2) : 0.00 }}</h5>
                                 </div>
-                                <div class="row2">
+                                <div class="row2" @click="childCardBodyClickHandler(card, j)">
                                     <p>{{ card.dp_force.micro_union_name }}</p>
                                 </div>
                                 <div class="row3"> 
-                                    <div class="group-2"><p>Scheduled: <span>{{ card.dp_force.planned }}</span></p><p style="margin-left: 10px;">New: <span>{{ card.dp_force.new }}</span></p></div> 
-                                <!-- <i class="material-icons">auto_fix_normal</i> -->
+                                    <div class="group-2" @click="childCardBodyClickHandler(card, j)"><p>Scheduled: <span>{{ card.dp_force.planned }}</span></p><p style="margin-left: 10px;">New: <span>{{ card.dp_force.new }}</span></p></div> 
+                                    <i class="material-icons" v-if="card.dp_force.ds_status === 'N'" @click="agorBatiIconClickHandler(card, j)">auto_fix_normal</i>
+                                    <!-- <i class="material-icons">auto_fix_normal</i> -->
                                 </div>
                             </div>
                         </div>
@@ -61,6 +62,7 @@ import GlobalDateFormat from '../../../../functions/GlobalDateFormat'
 const globalDateFormat = new GlobalDateFormat()
 
 export default {
+    props: ["RELOAD_LEFT_SECTION"],
     data() {
         return {
             parentCard: 5,
@@ -102,6 +104,12 @@ export default {
         dateFormat(dt) {
             return globalDateFormat.dateFormatT4(dt)
         },
+        agorBatiIconClickHandler(card, i) {
+            console.log(i)
+            console.log(card)
+            console.log(card.date + '    ' + card.dp_force.force_id)
+            this.CREATE_DELIVERY_SCHEDULE_INVOICE_LIST_BY_DA(card.dp_force.force_id, card.date)
+        },
         // --------------------------------------------------------------------------------------------
         // SERVICE CALL
         async DP_DS_LIST__FROM_SERVICE() {
@@ -117,6 +125,26 @@ export default {
                         this.DELIVERY_SCHEDULE_LIST = null
                     }
                 })
+        },
+        async CREATE_DELIVERY_SCHEDULE_INVOICE_LIST_BY_DA(da_id, date) {
+            this.PENDING_DELIVERY_SCHEDULE_INV_LIST = []
+            await service.getCreateDeliveryScheduleBy_DA_DELIVERY_SCHEDULING(da_id, date)
+                .then(res => {
+                    console.log(res.data.invoice_count)
+                    this.DP_DS_LIST__FROM_SERVICE()
+                })
+                .catch(err => {
+                    if(err) {
+                        console.log(err)
+                    }
+                })
+        },
+    },
+    watch: {
+        RELOAD_LEFT_SECTION(newVal) {
+            if(newVal) {
+                this.DP_DS_LIST__FROM_SERVICE()
+            }
         }
     }
 }
@@ -387,6 +415,9 @@ export default {
   color: var(--blue);
   font-weight: 500;
 }
+.ds_accordion .card .card-body:hover .ds_innerItem .row3 i {
+    background-color: #FFFFFF;
+}
 .ds_accordion .card .card-body .ds_innerItem .row3 i {
   height: 30px;
   width: 30px;
@@ -395,7 +426,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--bluish-white);
+  background-color: #FFFFFF;
   color: var(--blue);
 }
 @media screen and (max-width: 768px) { 
@@ -414,11 +445,11 @@ export default {
     background-color: transparent;
 }
 .layout-sidebar.delivery_schedule .content .ds_accordion .card .card-header .btn-link:after {
-    transform: rotate(0deg);
+    transform: rotate(-180deg);
     color: var(--blue);
 }
 .layout-sidebar.delivery_schedule .content .ds_accordion .card.open .card-header .btn-link:after {
-    transform: rotate(-180deg);
+    transform: rotate(0deg);
     color: #FFFFFF;
 }
 </style>
