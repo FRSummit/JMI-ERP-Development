@@ -115,7 +115,7 @@
                               </div>
                               <div class="col-lg-6 form-group" >
                                 <label for="shift_to">Shift to</label>
-                                <input type="date" class="form-control" id="shift_to">
+                                <input type="date" class="form-control" id="shift_to" v-model="bulk_reschedule_date">
                               </div>
                             </div>
 
@@ -242,12 +242,12 @@
                 <p class="popup-desc">{{ inv_confirm_modal_msg ? inv_confirm_modal_msg : '' }}</p>
                 <span class="divider"></span>
                 <div class="popup-submit-section">
-                <div class="popup-cancel-btn-section">
-                    <span @click="cancelPaymentConfirmationClickHandler">Cancel</span>
-                </div>
-                <div class="popup-confirm-btn-section">
-                    <span @click="confirmPaymentConfirmationClickHandler">Confirm</span>
-                </div>
+                    <div class="popup-cancel-btn-section">
+                        <span @click="cancelPaymentConfirmationClickHandler">Cancel</span>
+                    </div>
+                    <div class="popup-confirm-btn-section">
+                        <span @click="confirmPaymentConfirmationClickHandler">Confirm</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -289,9 +289,11 @@ export default {
             SELECTED_INVOICE_ID_LIST_FROM_TABLE: [],
             DP_LIST_WITH_DA: null,
             selected_da_from_dp_list: null,
+            bulk_reschedule_date: null,
 
             inv_confirm_modal: false,
             inv_confirm_modal_msg: null,
+            CONFIRM_MODAL_FOR: null,
 
             msg_popup_modal: false,
             msg_popup_modal_msg: null,
@@ -416,19 +418,40 @@ export default {
             if(this.inv_confirm_modal) {
                 this.inv_confirm_modal = false
             } else {
+                    this.CONFIRM_MODAL_FOR = 'BULK ADD'
                 this.inv_confirm_modal = true
                 this.inv_confirm_modal_msg = 'Invoice add to DS'
             }
         },
+        bulkReschedulingSaveBtnClickHandler() {
+            console.log(this.SELECTED_INVOICE_NUMBERS_LIST)
+            console.log(this.selected_da_from_dp_list)
+            console.log(this.bulk_reschedule_date)
+            if(this.selected_da_from_dp_list && this.bulk_reschedule_date && this.SELECTED_INVOICE_NUMBERS_LIST) {
+                if(this.inv_confirm_modal) {
+                    this.inv_confirm_modal = false
+                } else {
+                    this.CONFIRM_MODAL_FOR = 'BULK RESCHEDULE'
+                    this.inv_confirm_modal = true
+                    this.inv_confirm_modal_msg = 'Reschedule invoices to DS'
+                }
+            } else {
+                alert('Invoice, SR, Date should not be empty')
+            }
+        },
         cancelPaymentConfirmationClickHandler() {
             this.inv_confirm_modal = false
+            this.CONFIRM_MODAL_FOR = null
         },
         async confirmPaymentConfirmationClickHandler() {
             this.inv_confirm_modal = false
-            await this.ADD_INVOICE_TO_CURRENT_DS__FROM_SERVICE()
-        },
-        bulkReschedulingSaveBtnClickHandler() {
-            console.log(this.SELECTED_INVOICE_NUMBERS_LIST)
+            if(this.CONFIRM_MODAL_FOR === 'BULK ADD') {
+                await this.ADD_INVOICE_TO_CURRENT_DS__FROM_SERVICE()
+                this.CONFIRM_MODAL_FOR = null
+            } else if(this.CONFIRM_MODAL_FOR === 'BULK RESCHEDULE') {
+                await this.RESCHEDULE_INVOICE__FROM_SERVICE()
+                this.CONFIRM_MODAL_FOR = null
+            }
         },
         singleRescheduleCalenderClickHandler(item, i) {
             console.log(i)
@@ -506,7 +529,32 @@ export default {
                         }, 2000)
                     }
                 })
-        }
+        },
+        async RESCHEDULE_INVOICE__FROM_SERVICE() {
+            this.msg_popup_modal = true
+            this.msg_popup_modal_msg = 'Please wait...'
+            await service.getRescheduleInvoice__DP_DS(this.selected_da_from_dp_list.user_id, this.bulk_reschedule_date, this.SELECTED_INVOICE_NUMBERS_LIST)
+                .then(res => {
+                    console.log(res.data)
+                    this.msg_popup_modal_msg = res.data.message
+
+                    this.$emit('RELOAD_LEFT_SECTION')
+                    setTimeout( () => {
+                        this.msg_popup_modal = false
+                        this.msg_popup_modal_msg = null
+                    }, 2000)
+                })
+                .catch(err => {
+                    if(err) {
+                        console.log(err)
+                        this.msg_popup_modal_msg = err
+                        setTimeout( () => {
+                            this.msg_popup_modal = false
+                            this.msg_popup_modal_msg = null
+                        }, 2000)
+                    }
+                })
+        },
     },
     watch: {
         SELECTED_DP_DS_LIST_DETAILS(newVal) {

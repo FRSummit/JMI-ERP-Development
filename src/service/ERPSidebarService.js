@@ -1639,7 +1639,7 @@ export default class PostService {
     })
   }
   
-  // DP DELIVERY SCHEDULE - DETAILS BY DATE & FORCE ID
+  // DP DELIVERY SCHEDULE - DETAILS - DP LIST
   async getDPListWithDA__DP_DS() {
     let web_menu_url = '/api/web/dp-list-with-da'
     return await axios(web_menu_url, {
@@ -1650,7 +1650,7 @@ export default class PostService {
     })
   }
   
-  // DP DELIVERY SCHEDULE - DETAILS BY DATE & FORCE ID
+  // DP DELIVERY SCHEDULE - DETAILS - ADD INVOICES TO DS
   async getAddInvoiceToCurrentDS__DP_DS(ds_id, invoices) {
     console.log(ds_id)
     console.log(JSON.stringify(invoices))
@@ -1662,6 +1662,25 @@ export default class PostService {
       },
       params: {
         ds_id: ds_id,
+        invoices: JSON.stringify(invoices)
+      }
+    })
+  }
+  
+  // DP DELIVERY SCHEDULE - DETAILS BY DATE & FORCE ID
+  async getRescheduleInvoice__DP_DS(force_id, new_date, invoices) {
+    console.log(force_id)
+    console.log(new_date)
+    console.log(JSON.stringify(invoices))
+    let web_menu_url = '/api/web/reschedule-invoice'
+    return await axios(web_menu_url, {
+      method: 'POST',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+      data: {
+        force_id: force_id,
+        new_date: new_date,
         invoices: JSON.stringify(invoices)
       }
     })
