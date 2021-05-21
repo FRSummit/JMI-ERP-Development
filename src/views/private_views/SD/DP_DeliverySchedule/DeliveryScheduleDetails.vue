@@ -92,7 +92,7 @@
                         <div class="modal-content" style="padding: 0; border: none;">
                           <div class="modal-header">
                             <h5 class="modal-title">Bulk Reshedule</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <button type="button" id="bulk-reschedule-close-btn" class="close" data-dismiss="modal" aria-label="Close">
                               <span aria-hidden="true" @click="bulkRescheduleCloseClickHandler">&times;</span>
                             </button>
                           </div>
@@ -453,11 +453,6 @@ export default {
                 this.CONFIRM_MODAL_FOR = null
             }
         },
-        singleRescheduleCalenderClickHandler(item, i) {
-            console.log(i)
-            this.SELECTED_INVOICE_LIST_FROM_TABLE = []
-            this.SELECTED_INVOICE_LIST_FROM_TABLE.push(item)
-        },
         bulkRescheduleCloseClickHandler() {
             this.SELECTED_INVOICE_LIST_FROM_TABLE = []
             for(let i=0; i<this.SELECTED_DP_DS_LIST_DETAILS.length; i++) {
@@ -471,6 +466,15 @@ export default {
             // this.SELECTED_INVOICE_LIST_FROM_TABLE = []
             // this.SELECTED_INVOICE_LIST_FROM_TABLE.push(item)
             console.log(item)
+
+            this.SELECTED_INVOICE_LIST_FROM_TABLE.push(item)
+            this.ADD_INVOICE_TO_CURRENT_DS__FROM_SERVICE()
+        },
+        singleRescheduleCalenderClickHandler(item, i) {
+            console.log(i)
+
+            this.SELECTED_INVOICE_LIST_FROM_TABLE.push(item)
+            // this.RESCHEDULE_INVOICE__FROM_SERVICE()
         },
         // --------------------------------------------------------------------------------------------
         // SERVICE CALL
@@ -537,7 +541,8 @@ export default {
                 .then(res => {
                     console.log(res.data)
                     this.msg_popup_modal_msg = res.data.message
-
+                    this.bulkRescheduleCloseClickHandler()
+                    document.getElementById('bulk-reschedule-close-btn').click()
                     this.$emit('RELOAD_LEFT_SECTION')
                     setTimeout( () => {
                         this.msg_popup_modal = false
@@ -548,6 +553,8 @@ export default {
                     if(err) {
                         console.log(err)
                         this.msg_popup_modal_msg = err
+                        this.bulkRescheduleCloseClickHandler()
+                        document.getElementById('bulk-reschedule-close-btn').click()
                         setTimeout( () => {
                             this.msg_popup_modal = false
                             this.msg_popup_modal_msg = null
