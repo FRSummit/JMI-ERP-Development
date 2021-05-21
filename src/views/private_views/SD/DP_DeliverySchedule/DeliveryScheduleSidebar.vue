@@ -8,7 +8,7 @@
                 <span class="filter_search"><i class="fa fa-filter"> </i> </span>
             </div>
             <div class="row2">
-            <h5>Delivery Schedule: <span>200</span></h5>
+            <h5>Delivery Schedule: <span>{{ DELIVERY_SCHEDULE_LIST ? DELIVERY_SCHEDULE_LIST.length : 0 }}</span></h5>
             </div>
         </div>
         <!--End Secondary Sidebar Header Area-->  

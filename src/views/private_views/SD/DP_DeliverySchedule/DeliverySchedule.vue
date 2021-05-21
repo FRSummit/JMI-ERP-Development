@@ -5,7 +5,8 @@
     <div class="layout-body">
       <DeliveryScheduleSidebar 
         v-on:SINGLE_ITEM_FROM_LEFT="itemClickFromLeftEventHandler"/>
-      <DeliveryScheduleDetails 
+      <DeliveryScheduleDetails
+        :SELECTED_DP_DS_LIST_ITEM="SELECTED_DP_DS_LIST_ITEM"
         :SELECTED_DP_DS_LIST_DETAILS="SELECTED_DP_DS_LIST_DETAILS"/>
     </div>
   </div>
@@ -31,6 +32,7 @@ export default {
       routeName: "Delivery Schedule",
       parentPath: "Delivery Schedule",
       pathName: [],
+      SELECTED_DP_DS_LIST_ITEM: null,
       SELECTED_DP_DS_LIST_DETAILS: null,
     };
   },
@@ -49,6 +51,7 @@ export default {
       // this.pathName = breadcrumbFunctions.jmiERPBreadcrumb(window.location.pathname)
     },
     async itemClickFromLeftEventHandler(value) {
+      this.SELECTED_DP_DS_LIST_ITEM = value
       await this.DPDS_INV_LIST__FROM_SERVICE(value.date, value.dp_force.force_id)
     },
     // --------------------------------------------------------------------------------------------

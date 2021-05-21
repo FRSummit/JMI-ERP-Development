@@ -3325,13 +3325,6 @@
     background-color: transparent;
 }
 
-#dp_delivery_schedule .layout-container {
-    height: calc(100vh - var(--used-height));
-    ;
-    overflow-y      : auto;
-    background-color: transparent;
-}
-
 @media screen and (max-width: 768px) {
     #dp_delivery_schedule .grid-container {
         display              : grid;
@@ -3871,8 +3864,7 @@
 }
 
 #dp_delivery_schedule .layout-container {
-    height: calc(100vh - var(--used-height));
-    ;
+    height: calc(100vh - var(--used-height) - 5px);
     overflow-y      : auto;
     background-color: transparent;
 }

@@ -4,14 +4,14 @@
         <div class="col-12 delivery_schedule-body">
           <div class="row ds-header" style="margin-bottom: 0;"> 
               <div class="col-lg-6 col-6">
-                <p class="sr_name">SR: <span>Mehedi Hassan</span></p>
+                <p class="sr_name">SR: <span>{{ SELECTED_DP_DS_LIST_ITEM ? SELECTED_DP_DS_LIST_ITEM.dp_force.force_name : '' }}</span></p>
               </div>
 
               <div class="col-lg-6 col-6 d-flex align-items-center justify-content-end">
                 <div class="product-header-info"> 
                     <div class="info">
-                        <p>Status: <span class="open">Open</span></p>
-                        <p>Date: <span class="date">11-May-2021</span></p>
+                        <p>Status: <span class="open">{{ DS_STATUS }}</span></p>
+                        <p>Date: <span class="date">{{ SELECTED_DP_DS_LIST_ITEM ? dateFormat(SELECTED_DP_DS_LIST_ITEM.date) : '' }}</span></p>
                     </div>
                 </div>
               </div>
@@ -47,7 +47,7 @@
                         <tbody>
                           <tr v-for="(item, i) in SELECTED_DP_DS_LIST_DETAILS" :key="i">
                               <td>
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                                <input class="form-check-input" type="checkbox" value="" :id="'flexCheckChecked-' + i" @change="inputCheckboxOnChangeHandler(item, i)">
                               </td>
                               <td>
                                   <div>
@@ -62,37 +62,48 @@
                                 <p>{{ Number(item.inv_total).toFixed(2) }}</p>
                               </td>
                               <td>
-                                <a title="Add bulk-button" data-toggle="tooltip" data-placement="bottom"><i class="zmdi zmdi-plus"></i></a>
-                                <a title="Reshedule" data-toggle="tooltip" data-placement="bottom"><i class="zmdi zmdi-calendar-alt"></i></a>
+                                <a title="Add bulk-button" data-toggle="tooltip" data-placement="bottom" v-if="SELECTED_INVOICE_LIST_FROM_TABLE.length === 0"><i class="zmdi zmdi-plus"></i></a>
+                                <!-- <a title="Reshedule" data-toggle="tooltip" data-placement="bottom" v-if="SELECTED_INVOICE_LIST_FROM_TABLE.length === 0" @click="singleRescheduleCalenderClickHandler(item, i)"><i class="zmdi zmdi-calendar-alt"></i></a> -->
+                                <a title="Reshedule" data-toggle="modal" data-target="#reshedule-modal" data-placement="bottom" v-if="SELECTED_INVOICE_LIST_FROM_TABLE.length === 0" @click="singleRescheduleCalenderClickHandler(item, i)"><i class="zmdi zmdi-calendar-alt"></i></a>
                               </td>
                           </tr>
                         </tbody>
                         <tfoot>
                           <tr>
                               <th colspan="2">
-                                  <span class="bulk-button"><span class="fa fa-plus" aria-hidden="true" style="margin-right: 6px;"></span>Bulk Add</span>
+                                  <span class="bulk-button" @click="bulkAddClickHandler"><span class="fa fa-plus" aria-hidden="true" style="margin-right: 6px;"></span>Bulk Add</span>
                                   <span class="bulk-button" data-toggle="modal" data-target="#reshedule-modal"><i class="zmdi zmdi-calendar-alt"></i>Bulk Reshedule</span>
                               </th>
                               <th><p>Total Invoice: <span>{{ SELECTED_DP_DS_LIST_DETAILS ? SELECTED_DP_DS_LIST_DETAILS.length : 0 }}</span></p></th>
-                              <th style="justify-content: flex-end;"><p>Total: <span>{{ DP_DS_TOTAL_INVOICE_AMOUNT }}</span></p></th>
+                              <th style="justify-content: flex-end;"><p>Total: <span>{{ Number(DP_DS_TOTAL_INVOICE_AMOUNT).toFixed(2) }}</span></p></th>
                               <th></th>
                           </tr>
                         </tfoot>
                     </table>
 
+
+
+
+
                     <!------------ Start Reshedule Modal ------------>
-                    <div class="modal" id="reshedule-modal" tabindex="-1" role="dialog" aria-labelledby="InwardTransfer"
-                      aria-hidden="true">
-                      <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
+                    <div class="modal" id="reshedule-modal" tabindex="-1" role="dialog" aria-labelledby="InwardTransfer" aria-hidden="true" style="width: 500px; height: 260px; padding: 0;">
+                      <div class="modal-dialog modal-dialog-centered" style="margin: 0; margin-right: -17px;">
+                        <div class="modal-content" style="padding: 0; border: none;">
                           <div class="modal-header">
                             <h5 class="modal-title">Bulk Reshedule</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
+                              <span aria-hidden="true" @click="bulkRescheduleCloseClickHandler">&times;</span>
                             </button>
                           </div>
                           <div class="modal-body">
-                            <p class="invoice-list">Invoices: <span>INV32152612, INV31866556, INV32152612 <span class="moreInvoice">More 20+</span></span></p> 
+                            <p class="invoice-list">Invoices: 
+                                <span class="inv-nowrap">
+                                    <span v-for="(item, i) in SELECTED_INVOICE_LIST_FROM_TABLE" :key="i">{{ item.invoice_no }}{{ checkElementLengthToSetComma(i, SELECTED_INVOICE_LIST_FROM_TABLE) }}</span>
+                                </span>
+                                <span v-if="SELECTED_INVOICE_LIST_FROM_TABLE ? (SELECTED_INVOICE_LIST_FROM_TABLE.length - 2) > 0 : false">
+                                    <span class="moreInvoice">More {{ SELECTED_INVOICE_LIST_FROM_TABLE ? (SELECTED_INVOICE_LIST_FROM_TABLE.length - 2) : 0 }}+</span>
+                                </span>
+                            </p> 
                             <div class="row">
                               <div class="col-lg-6 form-group">
                                 <label for="sr_name">Select SR</label>
@@ -115,9 +126,12 @@
                       </div>
                     </div>
 
+
+
+
                     <!------------ Start Invoice Modal------------>
-                    <div class="modal" id="invoice-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="width: 60%; height: 490px, max-height: unset;">
-                      <div class="modal-dialog modal-lg modal-dialog-centered" style="margin: 0;">
+                    <div class="modal" id="invoice-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="width: 60%; min-width: 650px; max-width: 800px; height: 490px, max-height: unset; padding-right: 0;">
+                      <div class="modal-dialog modal-lg modal-dialog-centered" style="margin: 0; max-width: unset; margin-right: -17px;">
                         <div class="modal-content" style="padding: 0; width: 100%; border: none;">
                           <div class="modal-header">
                             <h5 class="modal-title">Invoice</h5>
@@ -128,28 +142,29 @@
                           <div class="modal-body">
                           <div class="row customer_info">
                             <div class="col-lg-4 col-12">
-                            <p>Order/Invoice No: <span>INV32646668</span></p>
+                            <p>Order/Invoice No: <span>{{ DP_DS_INVOICE_DETAILS ? DP_DS_INVOICE_DETAILS.invoice_no : '' }}</span></p>
                             </div>
                             <div class="col-lg-4 col-12">
-                              <p>Date: <span>11-May-2021</span></p>
+                              <p>Date: <span>{{ DP_DS_INVOICE_DETAILS ? dateFormat(DP_DS_INVOICE_DETAILS.invoice_date) : '' }}</span></p>
                             </div>
                             <div class="col-lg-4 col-12">
-                              <p>Total: <span>3,550.00</span></p>
+                              <p>Total: <span>{{ DP_DS_INVOICE_DETAILS ? Number(DP_DS_INVOICE_DETAILS.inv_tp).toFixed(2) : '' }}</span></p>
                             </div>
                             <div class="col-lg-4 col-12">
-                              <p>Customer: <span>Lazz Pharma</span></p>
+                              <p>Customer: <span>{{ DP_DS_INVOICE_DETAILS ? DP_DS_INVOICE_DETAILS.sbu_customer_info.display_name : '' }}</span></p>
                               </div>
                               <div class="col-lg-4 col-12">
-                                <p>Type: <span>Cash</span></p>
+                                <p>Type: <span>{{ DP_DS_INVOICE_DETAILS ? (DP_DS_INVOICE_DETAILS.sbu_customer_info.credit_flag === "N" ? 'CASH' : 'CREDIT') : '' }}</span></p>
                               </div>
                               <div class="col-lg-4 col-12">
-                                <p>Current Due: <span>5,500.00</span></p>
+                                <p>Current Due: <span>{{ CURRENT_DUE ? Number(CURRENT_DUE).toFixed(2) : 0.00 }}</span></p>
                               </div>
                               <div class="col-lg-4 col-12">
-                                <p>SR: <span>Abu Naser Tuhin</span></p>
+                                <!-- <p>SR: <span>{{ DP_DS_INVOICE_DETAILS ? DP_DS_INVOICE_DETAILS.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info.name : '' }}</span></p> -->
+                                <p>SR: <span>{{ SELECTED_DP_DS_LIST_ITEM ? SELECTED_DP_DS_LIST_ITEM.dp_force.force_name : '' }}</span></p>
                               </div>
                               <div class="col-lg-4 col-12">
-                                <p>Scheduled: <span>11-May-2021</span></p>
+                                <p>Scheduled: <span>{{ DP_DS_INVOICE_DETAILS ? dateFormat(DP_DS_INVOICE_DETAILS.invoice_date) : '' }}</span></p>
                               </div>
                           </div>
 
@@ -163,42 +178,42 @@
                                 </tr>
                               </thead>
                               <tbody>  
-                                <tr v-for="(item, i) in 10" :key="i">
+                                <tr v-for="(item, i) in DP_DS_INVOICE_DETAILS ? DP_DS_INVOICE_DETAILS.invoice_details : 0" :key="i">
                                   <td>
-                                    <p>5 X Altrip. Almotriptan.</p>
+                                    <p>{{ item.product_info.com_pack_size }} - {{ item.product_info.prod_name }}</p>
                                   </td>
                                   <td>
-                                    <p>Regular (R)</p>
+                                    <p>{{ item.sbu_product_info.element_info.element_name }}</p>
                                   </td>
                                   <td>
-                                    <p>30,561.00</p>
+                                    <p>{{ Number(item.inv_tp).toFixed(2) }}</p>
                                   </td>
                                 </tr>
                               </tbody>
                               <tfoot>
                                 <tr>
                                   <th colspan="2"><span>Subtotal:</span></th>
-                                  <th><p>13,032.20</p></th>
+                                  <th><p>{{ Number(INVOICE_DETAILS_TOTAL_SECTION.subtotal).toFixed(2) }}</p></th>
                                 </tr>
                                 <tr>
                                   <th colspan="2"><span>(+) Vat:</span></th>
-                                  <th><p>50.00</p></th>
+                                  <th><p>{{ Number(INVOICE_DETAILS_TOTAL_SECTION.vat).toFixed(2) }}</p></th>
                                 </tr>
                                 <tr>
                                   <th colspan="2"><span>(-) Discount:</span></th>
-                                  <th><p>250.00</p></th>
+                                  <th><p>{{ Number(INVOICE_DETAILS_TOTAL_SECTION.discount).toFixed(2) }}</p></th>
                                 </tr>
                                 <tr>
                                   <th colspan="2"><span>Gross Total:</span></th>
-                                  <th><p>13,032.20</p></th>
+                                  <th><p>{{ Number(INVOICE_DETAILS_TOTAL_SECTION.gross_total).toFixed(2) }}</p></th>
                                 </tr>
                                 <tr>
                                   <th colspan="2"><span>(+/-) Rounding Adjustment:</span></th>
-                                  <th><p>-0.20</p></th>
+                                  <th><p>{{ Number(INVOICE_DETAILS_TOTAL_SECTION.rounding_adj).toFixed(2) }}</p></th>
                                 </tr>
                                 <tr>
                                   <th colspan="2"> <span>Grand Total:</span></th>
-                                  <th><p>13,032.00</p></th>
+                                  <th><p>{{ Number(INVOICE_DETAILS_TOTAL_SECTION.grand_total).toFixed(2) }}</p></th>
                                 </tr>
                               </tfoot>
                             </table>
@@ -224,12 +239,28 @@
 import GlobalDateFormat from '../../../../functions/GlobalDateFormat'
 const globalDateFormat = new GlobalDateFormat()
 
+import Service from '../../../../service/ERPSidebarService'
+const service = new Service()
+
 export default {
-    props: ["SELECTED_DP_DS_LIST_DETAILS"],
+    props: ["SELECTED_DP_DS_LIST_ITEM", "SELECTED_DP_DS_LIST_DETAILS"],
     data() {
-      return {
-        DP_DS_TOTAL_INVOICE_AMOUNT: 0.00,
-      }
+        return {
+            DS_STATUS: null,
+            DP_DS_TOTAL_INVOICE_AMOUNT: 0.00,
+            DP_DS_INVOICE_DETAILS: null,
+            CURRENT_DUE: null,
+            INVOICE_DETAILS_TOTAL_SECTION: {
+                subtotal: 0.00,
+                vat: 0.00,
+                discount: 0.00,
+                gross_total: 0.00,
+                rounding_adj: 0.00,
+                grand_total: 0.00,
+            },
+
+            SELECTED_INVOICE_LIST_FROM_TABLE: [],
+        }
     },
     computed: {
     },
@@ -237,48 +268,167 @@ export default {
     created() {},
     mounted() {},
     methods: {
-      dateFormat(dt) {
-        return globalDateFormat.dateFormatT4(dt)
-      },
-      dateDifference(dt) {
-        let date1 = new Date(dt)
-        let date2 = new Date()
-        /*var diff = new Date(date2.getTime() - date1.getTime())
-        console.log(date2.getTime() / (24 * 60 * 60 * 1000))
-        // console.log(date1.getTime())
+        dateFormat(dt) {
+            return globalDateFormat.dateFormatT4(dt)
+        },
+        dateDifference(dt) {
+            let date1 = new Date(dt)
+            let date2 = new Date()
+            /*var diff = new Date(date2.getTime() - date1.getTime())
+            console.log(date2.getTime() / (24 * 60 * 60 * 1000))
+            // console.log(date1.getTime())
 
-        let yr_diff = diff.getUTCFullYear() - 1970
-        let mn_diff = diff.getUTCMonth()
-        let dd_diff = diff.getUTCDate() - 1
+            let yr_diff = diff.getUTCFullYear() - 1970
+            let mn_diff = diff.getUTCMonth()
+            let dd_diff = diff.getUTCDate() - 1
 
-        let str = '0'
-        if(yr_diff > 0) {
-          str = yr_diff + ' ' + (yr_diff > 1 ? 'years' : 'year') + ' ' + mn_diff + ' ' + (mn_diff > 1 ? 'months' : 'month') + ' ' + dd_diff + ' ' + (dd_diff > 1 ? 'days' : 'day')
-        } else if(yr_diff === 0 && mn_diff > 0) {
-          str = mn_diff + ' ' + (mn_diff > 1 ? 'months' : 'month') + ' ' + dd_diff + ' ' + (dd_diff > 1 ? 'days' : 'day')
-        } else if(yr_diff === 0 && mn_diff === 0 && dd_diff >= 0) {
-          str = dd_diff + ' ' + (dd_diff > 1 ? 'days' : 'day')
+            let str = '0'
+            if(yr_diff > 0) {
+            str = yr_diff + ' ' + (yr_diff > 1 ? 'years' : 'year') + ' ' + mn_diff + ' ' + (mn_diff > 1 ? 'months' : 'month') + ' ' + dd_diff + ' ' + (dd_diff > 1 ? 'days' : 'day')
+            } else if(yr_diff === 0 && mn_diff > 0) {
+            str = mn_diff + ' ' + (mn_diff > 1 ? 'months' : 'month') + ' ' + dd_diff + ' ' + (dd_diff > 1 ? 'days' : 'day')
+            } else if(yr_diff === 0 && mn_diff === 0 && dd_diff >= 0) {
+            str = dd_diff + ' ' + (dd_diff > 1 ? 'days' : 'day')
+            }
+            return str*/
+            let diffInMs   = new Date(date2) - new Date(date1)
+            let diffInDays = diffInMs / (1000 * 60 * 60 * 24);
+
+            return parseInt(diffInDays)
+        },
+        createDSStatus(status) {
+            let str = ''
+            switch(status) {
+                case 'N':
+                    str = 'NEW'
+                    break
+                case 'O':
+                    str = 'OPEN'
+                    break
+                case 'L':
+                    str = 'LOCKED'
+                    break
+                case 'DP':
+                    str = 'DELIVERYING'
+                    break
+                case 'DC':
+                    str = 'DELIVERY COMPLETED'
+                    break
+                case 'C':
+                    str = 'CLOSED'
+                    break
+                default:
+                    break
+            }
+            return str
+        },
+        async singleInvoiceClickHandler(item) {
+            console.log(item)
+            await this.DP_DS_INVOICE_DETAILS__FROM_SERVICE(item.inv_id)
+        },
+        inputCheckboxOnChangeHandler(item, i) {
+            console.log(i)
+            console.log(item)
+            if(document.querySelector('#flexCheckChecked-' + i).checked === true) {
+                this.SELECTED_INVOICE_LIST_FROM_TABLE.push(item)
+            } else {
+                console.log('not checked : ' + item.inv_id)
+                if(this.SELECTED_INVOICE_LIST_FROM_TABLE.length) {
+                    for( let i=0; i<this.SELECTED_INVOICE_LIST_FROM_TABLE.length; i++ ) {
+                        if(parseInt(this.SELECTED_INVOICE_LIST_FROM_TABLE[i].inv_id) === parseInt(item.inv_id)) {
+                            console.log(this.SELECTED_INVOICE_LIST_FROM_TABLE[i].inv_id)
+                            console.log(item.inv_id)
+                            this.SELECTED_INVOICE_LIST_FROM_TABLE.splice(i, 1)
+                        }
+                    }
+                }
+            }
+            console.log(this.SELECTED_INVOICE_LIST_FROM_TABLE)
+        },
+        checkElementLengthToSetComma(j, element) {
+            return (j < element.length - 1) ? ', ' : ''
+        },
+        bulkAddClickHandler() {
+        },
+        singleRescheduleCalenderClickHandler(item, i) {
+            console.log(i)
+            this.SELECTED_INVOICE_LIST_FROM_TABLE = []
+            this.SELECTED_INVOICE_LIST_FROM_TABLE.push(item)
+        },
+        bulkRescheduleCloseClickHandler() {
+            this.SELECTED_INVOICE_LIST_FROM_TABLE = []
+            for(let i=0; i<this.SELECTED_DP_DS_LIST_DETAILS.length; i++) {
+                if(document.querySelector('#flexCheckChecked-' + i).checked === true) {
+                    document.querySelector('#flexCheckChecked-' + i).checked = false
+                }
+            }
+        },
+        // --------------------------------------------------------------------------------------------
+        // SERVICE CALL
+        async DP_DS_INVOICE_DETAILS__FROM_SERVICE(invoice_id) {
+            this.DP_DS_INVOICE_DETAILS = null
+            this.CURRENT_DUE = null
+            await service.getPrintInvoiceDetails_INVOICE_CHALLAN_PRINTING(invoice_id)
+                .then(res => {
+                    console.log(res.data)
+                    this.DP_DS_INVOICE_DETAILS = res.data.invoice_details
+                    this.CURRENT_DUE = res.data.current_due
+                })
+                .catch(err => {
+                    if(err) {
+                        console.log(err)
+                        this.DP_DS_INVOICE_DETAILS = null
+                        this.CURRENT_DUE = null
+                    }
+                })
         }
-        return str*/
-        let diffInMs   = new Date(date2) - new Date(date1)
-        let diffInDays = diffInMs / (1000 * 60 * 60 * 24);
-
-        return parseInt(diffInDays)
-      },
-      singleInvoiceClickHandler(item) {
-        
-      },
     },
     watch: {
-      SELECTED_DP_DS_LIST_DETAILS(newVal) {
-        if(newVal) {
-          console.log(newVal)
-          for(let i=0; i<newVal.length; i++) {
-            this.DP_DS_TOTAL_INVOICE_AMOUNT += parseFloat(this.SELECTED_DP_DS_LIST_DETAILS[i].inv_total)
-            console.log(this.DP_DS_TOTAL_INVOICE_AMOUNT)
-          }
+        SELECTED_DP_DS_LIST_DETAILS(newVal) {
+            if(newVal) {
+                console.log(newVal)
+                for(let i=0; i<newVal.length; i++) {
+                    this.DP_DS_TOTAL_INVOICE_AMOUNT += parseFloat(newVal[i].inv_total)
+                    console.log(this.DP_DS_TOTAL_INVOICE_AMOUNT)
+
+                    this.DS_STATUS = this.createDSStatus(newVal[i].ds_status)
+                }
+            }
+        },
+        DP_DS_INVOICE_DETAILS(newVal) {
+            if(newVal) {
+                
+                // this.INVOICE_DETAILS_TOTAL_SECTION = {
+                //     subtotal: 0.00,
+                //     vat: 0.00,
+                //     discount: 0.00,
+                //     gross_total: 0.00,
+                //     rounding_adj: 0.00,
+                //     grand_total: 0.00,
+                // }
+                console.log(newVal.invoice_details)
+                // for(let i=0; i<newVal.invoice_details.length; i++) {
+                //     this.INVOICE_DETAILS_TOTAL_SECTION.subtotal += parseFloat(newVal.invoice_details[i].net_amount)
+                //     this.INVOICE_DETAILS_TOTAL_SECTION.vat += parseFloat(newVal.invoice_details[i].ret_vat)
+                //     this.INVOICE_DETAILS_TOTAL_SECTION.discount += parseFloat(newVal.invoice_details[i].ret_discount)
+                //     this.INVOICE_DETAILS_TOTAL_SECTION.gross_total += parseFloat(newVal.invoice_details[i].net_amount)
+                //     this.INVOICE_DETAILS_TOTAL_SECTION.rounding_adj += parseFloat(newVal.invoice_details[i].net_amount)
+                //     this.INVOICE_DETAILS_TOTAL_SECTION.grand_total += parseFloat(newVal.invoice_details[i].net_amount)
+                // }
+
+                this.INVOICE_DETAILS_TOTAL_SECTION.subtotal = newVal.inv_tp
+                this.INVOICE_DETAILS_TOTAL_SECTION.vat = newVal.inv_vat
+                this.INVOICE_DETAILS_TOTAL_SECTION.discount = newVal.inv_discount
+                this.INVOICE_DETAILS_TOTAL_SECTION.gross_total = newVal.inv_total - newVal.inv_discount
+                
+                let total = this.INVOICE_DETAILS_TOTAL_SECTION.gross_total
+                let round_total = Math.round(total);
+                let ROUNDING_ADJ = (total - round_total).toFixed(2);
+
+                this.INVOICE_DETAILS_TOTAL_SECTION.rounding_adj = ROUNDING_ADJ
+                this.INVOICE_DETAILS_TOTAL_SECTION.grand_total = newVal.net_total
+            }
         }
-      }
     },
 }
 </script>
@@ -739,5 +889,12 @@ padding: 10px 0px;
 }
 .row.customer_info {
   margin-bottom: 0;
+}
+.inv-nowrap {
+    width         : 180px;
+    white-space   : nowrap;
+    overflow      : hidden;
+    text-overflow : ellipsis;
+    vertical-align: middle;
 }
 </style>
