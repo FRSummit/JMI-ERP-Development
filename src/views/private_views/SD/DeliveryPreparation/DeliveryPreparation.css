@@ -3195,7 +3195,7 @@
     height          : 40px;
     padding         : 0px 10px;
     font-size       : var(--font14);
-    background-color: var(--blue);
+    background-color: var(--blue) !important;
     border-radius   : 2px;
     border          : none;
     transition      : all 0.3s ease 0s;

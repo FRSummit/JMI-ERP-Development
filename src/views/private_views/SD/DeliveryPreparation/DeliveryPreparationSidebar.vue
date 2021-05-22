@@ -13,112 +13,170 @@
             <!--Start Secondary Sidebar Content Area--> 
             <div class="content">
                 <div class="deliveryPre_accordion" id="accordion-1">
-                  <div class="card">
-                      <div class="card-header active" id="headingOne">
-                          <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                              <h5>12 May 2021</h5> 
-                          </button>
-                      </div>
+                    <div :id="'card-' + i" class="card" v-for="(item, i) in DS_PREPARATION_LIST" :key="i">
+                        <div class="card-header active" :id="'headingOne-' + i">
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <h5>{{ dateFormat(item.sch_date) }}</h5> 
+                                <span class="transparent-span" @click="parentCardClickHandler(item, i)">XX</span>
+                            </button>
+                        </div>
+                    
+                        <div :id="'collapseOne-' + i" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion-1">
+                            <div class="card-body" v-for="(card, j) in item.force_list" :key="j" @click="childCardBodyClickHandler(card, j)">
+                                <!-- Start Item -->
+                                <div class="ds_innerItem">
+                                    <div class="row1"> 
+                                        <h5>{{ card.force_name }}</h5>
+                                        <span>{{ Number(card.force_inv_total).toFixed(2) }}</span>
+                                    </div>
+                                    <div class="row2">
+                                        <p>Total Invoice: <span>{{ card.inv_cnt }}</span></p>
+                                        <!-- <span class="fa fa-check-circle status"></span> -->
+                                    </div>
+                                </div>
+        
+                                <!-- Start Item -->
+                                <!-- <div class="ds_innerItem">
+                                    <div class="row1"> 
+                                    <h5>Abu Naser Tuhin</h5>
+                                    <span>11-May-2021</span>
+                                    </div>
+                                    <div class="row2">
+                                    <p>Total Invoice: <span>08</span></p>
+                                    <span class="fa fa-check-circle status"></span>
+                                    </div>
+                                </div> -->
+        
+                                <!-- Start Item -->
+                                <!-- <div class="ds_innerItem">
+                                    <div class="row1"> 
+                                    <h5>Abu Naser Tuhin</h5>
+                                    <span>11-May-2021</span>
+                                    </div>
+                                    <div class="row2">
+                                    <p>Total Invoice: <span>08</span></p>
+                                    <span class="fa fa-check-circle status"></span>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
                   
-                      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion-1">
+                    <!-- <div class="card">
+                        <div class="card-header" id="headingTwo">
+                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                <h5>12 May 2021</h5> 
+                            </button>
+                        </div>
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion-1">
                         <div class="card-body">
-                        <!-- Start Item -->
-                        <div class="ds_innerItem">
+                            <div class="ds_innerItem">
                             <div class="row1"> 
-                              <h5>Abu Naser Tuhin</h5>
-                              <span>11-May-2021</span>
+                                <h5>Abu Naser Tuhin</h5>
+                                <span>11-May-2021</span>
                             </div>
                             <div class="row2">
-                              <p>Total Invoice: <span>08</span></p>
-                              <!-- <span class="fa fa-check-circle status"></span> -->
+                                <p>Total Invoice: <span>08</span></p>
+                                <span class="fa fa-check-circle status"></span>
                             </div>
-                          </div>
-  
-                        <!-- Start Item -->
-                        <div class="ds_innerItem">
-                            <div class="row1"> 
-                              <h5>Abu Naser Tuhin</h5>
-                              <span>11-May-2021</span>
                             </div>
-                            <div class="row2">
-                              <p>Total Invoice: <span>08</span></p>
-                              <span class="fa fa-check-circle status"></span>
-                            </div>
-                          </div>
-  
-                        <!-- Start Item -->
-                        <div class="ds_innerItem">
-                            <div class="row1"> 
-                              <h5>Abu Naser Tuhin</h5>
-                              <span>11-May-2021</span>
-                            </div>
-                            <div class="row2">
-                              <p>Total Invoice: <span>08</span></p>
-                              <span class="fa fa-check-circle status"></span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                  </div>
-                  
-                  <div class="card">
-                      <div class="card-header" id="headingTwo">
-                          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                              <h5>12 May 2021</h5> 
-                          </button>
-                      </div>
-                      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion-1">
-                      <div class="card-body">
-                        <!-- Start Item -->
-                        <div class="ds_innerItem">
-                          <div class="row1"> 
-                            <h5>Abu Naser Tuhin</h5>
-                            <span>11-May-2021</span>
-                          </div>
-                          <div class="row2">
-                            <p>Total Invoice: <span>08</span></p>
-                            <span class="fa fa-check-circle status"></span>
-                          </div>
-                        </div>
 
-                        <!-- Start Item -->
-                        <div class="ds_innerItem">
-                            <div class="row1"> 
-                              <h5>Abu Naser Tuhin</h5>
-                              <span>11-May-2021</span>
+                            <div class="ds_innerItem">
+                                <div class="row1"> 
+                                <h5>Abu Naser Tuhin</h5>
+                                <span>11-May-2021</span>
+                                </div>
+                                <div class="row2">
+                                <p>Total Invoice: <span>08</span></p>
+                                <span class="fa fa-check-circle status"></span>
+                                </div>
                             </div>
-                            <div class="row2">
-                              <p>Total Invoice: <span>08</span></p>
-                              <span class="fa fa-check-circle status"></span>
-                            </div>
-                        </div>
 
-                        <!-- Start Item -->
-                        <div class="ds_innerItem">
-                            <div class="row1"> 
-                              <h5>Abu Naser Tuhin</h5>
-                              <span>11-May-2021</span>
+                            <div class="ds_innerItem">
+                                <div class="row1"> 
+                                <h5>Abu Naser Tuhin</h5>
+                                <span>11-May-2021</span>
+                                </div>
+                                <div class="row2">
+                                <p>Total Invoice: <span>08</span></p>
+                                <span class="fa fa-check-circle status"></span>
+                                </div>
                             </div>
-                            <div class="row2">
-                              <p>Total Invoice: <span>08</span></p>
-                              <span class="fa fa-check-circle status"></span>
-                            </div>
-                        </div>
 
-                      </div>
-                      </div>
-                  </div>
-              </div>
+                        </div>
+                        </div>
+                    </div> -->
+                </div>
             </div>
             <!--End Secondary Sidebar Content Area--> 
         </div>
         <!-- End Secondary Sidebar Area--> 
 </template>
-<script>
 
+<script>
+import Service from '../../../../service/ERPSidebarService'
+const service = new Service()
+import GlobalDateFormat from '../../../../functions/GlobalDateFormat'
+const globalDateFormat = new GlobalDateFormat()
 
 export default {
-    
+    props: [],
+    data() {
+        return {
+            DS_PREPARATION_LIST: null,
+        }
+    },
+    computed: {},
+    created() {},
+    async mounted() {
+        await this.DS_PREPARATION_LIST__FROM_SERVICE()
+    },
+    methods: {
+        dateFormat(dt) {
+            return globalDateFormat.dateFormatT4(dt)
+        },
+        parentCardClickHandler(item, index) {
+            console.log(index)
+            console.log(item)
+
+            // for(let i=0; i<this.DELIVERY_SCHEDULE_LIST.length; i++) {
+            //     document.querySelector('#card-' + i + ' #collapseOne-' + i).className = 'collapse'
+            //     document.querySelector('#card-' + i).className = 'card'
+            //     document.querySelector('#headingOne-' + i).className = 'card-header'
+            // }
+            if(document.querySelector('#card-' + index + ' #collapseOne-' + index).className === 'collapse') {
+                document.querySelector('#card-' + index + ' #collapseOne-' + index).className = 'collapse show'
+                document.querySelector('#card-' + index).className = 'card open'
+                document.querySelector('#headingOne-' + index).className = 'card-header active'
+            } else {
+                document.querySelector('#card-' + index + ' #collapseOne-' + index).className = 'collapse'
+                document.querySelector('#card-' + index).className = 'card'
+                document.querySelector('#headingOne-' + index).className = 'card-header'
+            }
+        },
+        childCardBodyClickHandler(card, index) {
+            console.log(index)
+            console.log(card)
+            this.$emit('SINGLE_ITEM_FROM_LEFT', card)
+        },
+        // --------------------------------------------------------------------------------------------
+        // SERVICE CALL
+        async DS_PREPARATION_LIST__FROM_SERVICE() {
+            this.DS_PREPARATION_LIST = null
+            await service.getDS_PREPARATION_LIST__DELIVERY_PREPARATION()
+                .then(res => {
+                    console.log(res.data)
+                    this.DS_PREPARATION_LIST = res.data.preparation_list
+                })
+                .catch(err => {
+                    if(err) {
+                        console.log(err)
+                        this.DS_PREPARATION_LIST = null
+                    }
+                })
+        },
+    },
+    watch: {},
 }
 </script>
 
@@ -233,6 +291,17 @@ height: 100%;
   text-align: left;
   text-decoration: none;
   width: 100%;
+  position: relative;
+}
+.transparent-span {
+    width: 35px !important;
+    height: 30px !important;
+    position: absolute !important;
+    right: 0px !important;
+    top: 10px !important;
+    text-align: center !important;
+    opacity: 0;
+    z-index: 5;
 }
 .layout-sidebar.delivery_preparation .content .deliveryPre_accordion .card .card-header .btn-link:after{
   color: var(--text-black);

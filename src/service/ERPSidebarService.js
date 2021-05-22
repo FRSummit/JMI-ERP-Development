@@ -1686,6 +1686,29 @@ export default class PostService {
     })
   }
 
+  // -------------------------------------------------------------------------------------------
+  // DELIVERY PREPARATION - LEFT LIST
+  async getDS_PREPARATION_LIST__DELIVERY_PREPARATION() {
+    let web_menu_url = '/api/web/ds-preparation-list'
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
+  
+  // DELIVERY PREPARATION - DETAILS BY DS ID
+  async getDS_PREPARATION_DETAILS__DELIVERY_PREPARATION(ds_id) {
+    let web_menu_url = '/api/web/delivery-schedule-details/' + ds_id
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
+
 
   // -------------------------------------------------------------------------------------------
 
