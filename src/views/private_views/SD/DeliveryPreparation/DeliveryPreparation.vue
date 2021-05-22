@@ -4,10 +4,12 @@
 
         <div class="layout-body">
             <DeliveryPreparationSidebar
-                v-on:SINGLE_ITEM_FROM_LEFT="itemClickFromLeftEventHandler"/>
+                v-on:SINGLE_ITEM_FROM_LEFT="itemClickFromLeftEventHandler"
+                :RELOAD_LEFT_SECTION="RELOAD_LEFT_SECTION" />
             <DeliveryPreparationDetails
                 :SELECTED_ITEM_FROM_LEFT="SELECTED_ITEM_FROM_LEFT"
-                :DS_DETAILS="DS_DETAILS"/>
+                :DS_DETAILS="DS_DETAILS"
+                v-on:RELOAD_LEFT_SECTION="reloadLeftSection" />
         </div>
     </div>
 </template>
@@ -35,6 +37,7 @@ export default {
 
       DS_DETAILS: null,
       SELECTED_ITEM_FROM_LEFT: null,
+      RELOAD_LEFT_SECTION: null,
     };
   },
 
@@ -51,6 +54,11 @@ export default {
         this.DS_DETAILS = null
         this.SELECTED_ITEM_FROM_LEFT = value
         await this.DS_DETAILS__FROM_SERVICE(value.ds_id)
+    },
+    reloadLeftSection() {
+      this.RELOAD_LEFT_SECTION = new Date()
+      this.DS_DETAILS = null
+      this.SELECTED_ITEM_FROM_LEFT = null
     },
     // --------------------------------------------------------------------------------------------
     // SERVICE CALL

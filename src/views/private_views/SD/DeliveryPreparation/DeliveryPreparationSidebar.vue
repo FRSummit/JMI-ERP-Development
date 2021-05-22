@@ -120,7 +120,7 @@ import GlobalDateFormat from '../../../../functions/GlobalDateFormat'
 const globalDateFormat = new GlobalDateFormat()
 
 export default {
-    props: [],
+    props: ["RELOAD_LEFT_SECTION"],
     data() {
         return {
             DS_PREPARATION_LIST: null,
@@ -176,7 +176,13 @@ export default {
                 })
         },
     },
-    watch: {},
+    watch: {
+        RELOAD_LEFT_SECTION(newVal) {
+            if(newVal) {
+                this.DS_PREPARATION_LIST__FROM_SERVICE()
+            }
+        }
+    },
 }
 </script>
 
@@ -396,5 +402,14 @@ font-weight: 500;
     left:10px; 
     color: #AAC0D9;
     font-size: var(--font14);
+}
+.layout-sidebar.delivery_preparation .content .deliveryPre_accordion .card .card-header .btn-link:after {
+    transform: rotate(-180deg);
+    /* color: var(--blue); */
+    /* color: #FFFFFF; */
+}
+.layout-sidebar.delivery_preparation .content .deliveryPre_accordion .card.open .card-header .btn-link:after {
+    transform: rotate(0deg);
+    /* color: var(--blue); */
 }
 </style>

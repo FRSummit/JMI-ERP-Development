@@ -1734,6 +1734,17 @@ export default class PostService {
       }
     })
   }
+  
+  // DELIVERY PREPARATION - DETAILS BY DS ID
+  async getDS_HANDOVER__DELIVERY_PREPARATION(ds_id) {
+    let web_menu_url = '/api/web/ds-handover/' + ds_id
+    return await axios(web_menu_url, {
+      method: 'PUT',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+    })
+  }
 
 
   // -------------------------------------------------------------------------------------------

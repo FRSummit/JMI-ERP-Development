@@ -75,7 +75,7 @@
                 </div>
               </div>
               <div class="col-12 d-flex justify-content-center">
-                  <a href="#"><button type="button" class="btn btn-primary btn-global disabled">Handover</button></a>
+                  <a><button type="button" class="btn btn-primary btn-global" @click="handoverClickHandler">Handover</button></a>
               </div>
           </div>
         </div>
@@ -276,6 +276,9 @@ export default {
                 this.PRING_INVOCIE_DETAILS__FROM_SERVICE(item.id, 424)
             }
         },
+        async handoverClickHandler() {
+            await this.DS_HHANDOVER__FROM_SERVICE()
+        },
         // -------------------------------------------------------------------
         // SERVICE CALL
         async PRING_INVOCIE_DETAILS__FROM_SERVICE(invoice_id, schedule_customer_type) {
@@ -363,14 +366,26 @@ export default {
                 .then(res => {
                     console.log(res.data)
                     this.MULTI_INV_DTL = res.data
-                    pp_Invoice_Type_2_Multiple(this.SELECTED_DATA_DETAILS)
+                    // pp_Invoice_Type_2_Multiple(this.SELECTED_DATA_DETAILS)
                 })
                 .catch(err => {
                     if(err) {
                         this.MULTI_INV_DTL = null
                     }
                 })
-        }
+        },
+        async DS_HHANDOVER__FROM_SERVICE() {
+            await service.getDS_HANDOVER__DELIVERY_PREPARATION(this.SELECTED_ITEM_FROM_LEFT.ds_id)
+                .then(res => {
+                    console.log(res.data)
+                    this.$emit('RELOAD_LEFT_SECTION')
+                })
+                .catch(err => {
+                    if(err) {
+                        console.log(err)
+                    }
+                })
+        },
     },
     watch: {
         DS_DETAILS(newVal) {

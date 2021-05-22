@@ -11,7 +11,7 @@
                     <div class="col-lg-3 col-md-4 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Status:</span> <span class="jmi-lvl-value">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.is_approved === 'N' ? 'Pending' : '') : '' }}</span></p></div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-3 col-md-4 col-sm-12"><p class="jmi-title">Territory: <span class="jmi-lvl-value">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.get_sales_area ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.get_sales_area.area_name) : '') : '') : '') : '') : '' }}</span></p></div>
+                    <div class="col-lg-3 col-md-4 col-sm-12"><p class="jmi-title">Territory: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_70">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.get_sales_area ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.get_sales_area.area_name) : '') : '') : '') : '') : '' }}</span></p></div>
                     <div class="col-lg-9 col-md-8 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><span class="jmi-lvl-value address">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.delivery_address ? (PENDING_ORDER_DATA_BY_ID.delivery_address) : '') : '' }}</span></p></div>
                     
                 </div>
@@ -133,10 +133,10 @@
                                             <span v-if="!(data.deal_type === 'F' && data.net_amount === '0')">{{ comaSeparationDigit(Number((data.unit_tp) * (data.qty)).toFixed(2)) }}</span>
                                         </td>
                                         <!-- Option Column -->
-                                        <td class="row-action jmi-tr-td-option" style="min-width: 70px; text-align: right;">
+                                        <td class="row-action jmi-tr-td-option" style="min-width: 90px; text-align: right;">
                                             <span v-if="!(data.deal_type === 'F' && data.net_amount === '0')">
-                                                <span class="icon edit-icon" @click="editOrderitemClickHandler(data, i)" v-if="productTableEditableIsValid(data.available_stock, data.transit_stock, data.net_qty)"><i class="zmdi zmdi-edit" style="color: #FFFFFF; margin: 0;"></i></span>
-                                                <span class="icon delete-icon" @click="deleteOrderitemClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
+                                                <span class="icon edit-icon" @click="editOrderitemClickHandler(data, i)" v-if="productTableEditableIsValid(data.available_stock, data.transit_stock, data.net_qty)" style="background: none; padding: 3px;"><i class="zmdi zmdi-edit" style="color: #FFFFFF; margin: 0;"></i></span>
+                                                <span class="icon delete-icon" @click="deleteOrderitemClickHandler(data, i)" style="padding: 1px 1px 0 0; width: 24px; height: 24px;"><i class="fas fa-trash-alt"></i></span>
                                             </span>
                                         </td>
                                     </tr>
