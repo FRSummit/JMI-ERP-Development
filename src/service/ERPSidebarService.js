@@ -1719,6 +1719,21 @@ export default class PostService {
       }
     })
   }
+  
+  // DELIVERY PREPARATION - DETAILS BY DS ID
+  async getPRINT_MULTI_INVOICE_DETAILS__DELIVERY_PREPARATION(inv) {
+    console.log(JSON.stringify(inv))
+    let web_menu_url = '/api/web/print-multiple-invoice-details'
+    return await axios(web_menu_url, {
+      method: 'POST',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+      data: {
+        invoice_list: JSON.stringify(inv)
+      }
+    })
+  }
 
 
   // -------------------------------------------------------------------------------------------

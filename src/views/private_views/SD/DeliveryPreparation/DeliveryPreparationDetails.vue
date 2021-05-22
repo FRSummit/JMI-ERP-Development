@@ -12,14 +12,14 @@
                         <div class="print-category">
                           <h5 @click="printTypeSelectionClickHandler('INVOICE')">Invoices</h5>
                           <div class="action-status">
-                            <span class="material-icons-outlined print hide" style="color: var(--blue)"><i class="zmdi zmdi-print"></i></span>
+                            <span class="material-icons-outlined print" @click="printAllInvoiceClickHandler('INVOICE')" style="color: var(--blue)"><i class="zmdi zmdi-print"></i></span>
                             <span class="fa fa-check-circle status complete hide"></span>
                           </div>
                         </div>
                         <div class="print-category">
                           <h5 @click="printTypeSelectionClickHandler('CHALLAN')">Challan</h5>
                           <div class="action-status">
-                            <span class="material-icons-outlined print hide" style="color: var(--blue)"><i class="zmdi zmdi-print"></i></span>
+                            <span class="material-icons-outlined print hide" @click="printAllChallanClickHandler('CHALLAN')" style="color: var(--blue)"><i class="zmdi zmdi-print"></i></span>
                             <span class="fa fa-check-circle status complete hide"></span>
                           </div>
                         </div>
@@ -97,6 +97,9 @@ const pp_PackingSummeryAll_T1 = new PP_PackingSummeryAll_T1()
 import PP_InvoiceChallanSummeryTD_Type1 from '../../../../functions/Print_Func/PP_InvoiceChallanSummeryTD_Type1'
 const pp_InvoiceChallanSummeryTD_Type1 = new PP_InvoiceChallanSummeryTD_Type1()
 
+// import PP_Invoice_Type_2_Multiple from '../../../../functions/Print_Func/PP_Invoice_Type_2_Multiple'
+// const pp_Invoice_Type_2_Multiple = new PP_Invoice_Type_2_Multiple()
+
 export default {
     props: ["SELECTED_ITEM_FROM_LEFT", "DS_DETAILS"],
     data() {
@@ -111,6 +114,8 @@ export default {
 
             INVOICE_CHALLAN_SUMMERY: null,
             HEADER_DATA: null,
+
+            MULTI_INV_DTL: null,
         }
     },
     computed: {},
@@ -128,6 +133,7 @@ export default {
                             }
                         }
                         console.log(this.SELECTED_DATA_DETAILS)
+                        // pp_Invoice_Type_2_Multiple(this.SELECTED_DATA_DETAILS)
                     }
                     break
                 case 'CHALLAN':
@@ -144,6 +150,25 @@ export default {
                     break
             }
         },
+        async printAllInvoiceClickHandler() {
+            this.SELECTED_DATA_DETAILS = []
+            let selected_invoice = []
+            if(this.DS_DETAILS) {
+                for(let i=0; i<this.DS_DETAILS.length; i++) {
+                    if(parseInt(this.DS_DETAILS[i].customer_info.customer_type) === 422) {
+                        this.SELECTED_DATA_DETAILS.push(this.DS_DETAILS[i])
+                        let inv = {
+                            invoice_id: this.DS_DETAILS[i].invoice_id
+                        }
+                        selected_invoice.push(inv)
+                    }
+                }
+                console.log(selected_invoice)
+                await this.PRINT_MULTIPLE_INVOICE_DETAILS__FROM_SERVICE(selected_invoice)
+                // pp_Invoice_Type_2_Multiple(this.SELECTED_DATA_DETAILS)
+            }
+        },
+        async printAllChallanClickHandler() {},
         async invoiceSummeryClickHandler() {
             await this.DELIVERY_SCHEDULE_DETAILS_INVOICE_SUMMERY__FROM_SERVICE(this.SELECTED_ITEM_FROM_LEFT.ds_id)
 
@@ -332,6 +357,20 @@ export default {
                         }
                     })
         },
+        async PRINT_MULTIPLE_INVOICE_DETAILS__FROM_SERVICE(inv_list) {
+            this.MULTI_INV_DTL = []
+            await service.getPRINT_MULTI_INVOICE_DETAILS__DELIVERY_PREPARATION(inv_list)
+                .then(res => {
+                    console.log(res.data)
+                    this.MULTI_INV_DTL = res.data
+                    pp_Invoice_Type_2_Multiple(this.SELECTED_DATA_DETAILS)
+                })
+                .catch(err => {
+                    if(err) {
+                        this.MULTI_INV_DTL = null
+                    }
+                })
+        }
     },
     watch: {
         DS_DETAILS(newVal) {
@@ -554,6 +593,9 @@ export default {
     display: flex;
     justify-content: flex-end;
   }
+  .dPlaning_printing-table thead th:last-child {
+      color: #FFFFFF;
+  }
   .dPlaning_printing-table .done{
     display: flex;
     align-items: center;
@@ -632,5 +674,9 @@ table td i.zmdi-print {
     color: var(--blue);
     border-radius: 50%;
     cursor: pointer;
+}
+#dp_delivery_preparation .btn-global {
+    opacity: 1;
+    color: #FFFFFF !important;
 }
 </style>
