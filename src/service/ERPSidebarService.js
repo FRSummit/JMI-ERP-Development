@@ -1685,6 +1685,17 @@ export default class PostService {
       }
     })
   }
+  
+  // DELIVERY PREPARATION - LEFT - DS LOCK
+  async getDS_LOCK__DELIVERY_PREPARATION(ds_id) {
+    let web_menu_url = '/api/web/ds-lock/' + ds_id
+    return await axios(web_menu_url, {
+      method: 'PUT',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
 
   // -------------------------------------------------------------------------------------------
   // DELIVERY PREPARATION - LEFT LIST

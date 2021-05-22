@@ -42,6 +42,8 @@
                                 <div class="row3"> 
                                     <div class="group-2" @click="childCardBodyClickHandler(card, j)"><p>Scheduled: <span>{{ card.dp_force.planned }}</span></p><p style="margin-left: 10px;">New: <span>{{ card.dp_force.new }}</span></p></div> 
                                     <i class="material-icons" v-if="card.dp_force.ds_status === 'N'" @click="agorBatiIconClickHandler(card, j)">auto_fix_normal</i>
+                                    <i class="zmdi zmdi-lock-open" v-if="(card.dp_force.ds_status === 'O') && (parseInt(card.dp_force.planned) > 0) && (parseInt(card.dp_force.new) === 0)" @click="unlockIconClickHandler(card, j)"></i>
+                                    <i class="zmdi zmdi-lock-outline" v-if="card.dp_force.ds_status === 'L'"></i>
                                     <!-- <i class="material-icons">auto_fix_normal</i> -->
                                 </div>
                             </div>
@@ -110,6 +112,11 @@ export default {
             console.log(card.date + '    ' + card.dp_force.force_id)
             this.CREATE_DELIVERY_SCHEDULE_INVOICE_LIST_BY_DA(card.dp_force.force_id, card.date)
         },
+        async unlockIconClickHandler(card, i) {
+            console.log(i)
+            console.log(card)
+            await this.DS_LOCK_BY_DS_ID__FROM_SERVICE(card.dp_force.ds_id)
+        },
         // --------------------------------------------------------------------------------------------
         // SERVICE CALL
         async DP_DS_LIST__FROM_SERVICE() {
@@ -131,6 +138,18 @@ export default {
             await service.getCreateDeliveryScheduleBy_DA_DELIVERY_SCHEDULING(da_id, date)
                 .then(res => {
                     console.log(res.data.invoice_count)
+                    this.DP_DS_LIST__FROM_SERVICE()
+                })
+                .catch(err => {
+                    if(err) {
+                        console.log(err)
+                    }
+                })
+        },
+        async DS_LOCK_BY_DS_ID__FROM_SERVICE(ds_id) {
+            await service.getDS_LOCK__DELIVERY_PREPARATION(ds_id)
+                .then(res => {
+                    console.log(res.data)
                     this.DP_DS_LIST__FROM_SERVICE()
                 })
                 .catch(err => {
@@ -423,7 +442,8 @@ export default {
 .ds_accordion .card .card-body .ds_innerItem .row3 i {
   height: 30px;
   width: 30px;
-  font-size: var(--font16);
+  font-size: 18px;
+  font-weight: bold;
   border-radius: 100px;
   display: flex;
   align-items: center;
