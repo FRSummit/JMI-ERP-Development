@@ -48,7 +48,6 @@
                   </div>
               </div>
               <div class="col-8">
-              <!-- Start Invoice Table -->
                 <div class="delivery_preparation-block">
                     <div class="heading">
                         <h5>All Printings (<span>{{ SELECTED_DATA_DETAILS ? SELECTED_DATA_DETAILS.length : 0 }}</span>)</h5>
@@ -70,33 +69,10 @@
                                     <td><p class="done">{{ Number(item.invoice_amt).toFixed(2) }}</p></td>
                                     <td><p><i class="zmdi zmdi-print" @click="printSingleData(item)"></i></p></td>
                                 </tr>
-                                <!-- <tr>
-                                    <td><p>07</p></td>
-                                    <td><p>INV232156336</p></td>
-                                    <td><p class="printing">Printing...</p></td>
-                                </tr>
-                                <tr>
-                                    <td><p>08</p></td>
-                                    <td><p>INV232156336</p></td>
-                                    <td>
-                                        <p class="error">Error <span class="material-icons-outlined print" style="cursor: pointer;"><i class="zmdi zmdi-print"></i></span></p>
-                                    </td>
-                                </tr> -->
                             </tbody>
                         </table>
                     </div>
                 </div>
-              <!-- End Invoice Table -->
-
-              <!-- Start Complete State -->
-              <!-- <div class="delivery_preparation-block d-flex align-items-center justify-content-center">
-                  <div class="printIllustration-body">
-                      <img src="./printing-done.png" alt="Icon">
-                    <h5>All Prints are Done</h5>
-                    <p>You Can Handover Now</p>
-                  </div>
-              </div> -->
-              <!-- End Complete State -->
               </div>
               <div class="col-12 d-flex justify-content-center">
                   <a href="#"><button type="button" class="btn btn-primary btn-global disabled">Handover</button></a>
@@ -151,6 +127,7 @@ export default {
                                 this.SELECTED_DATA_DETAILS.push(this.DS_DETAILS[i])
                             }
                         }
+                        console.log(this.SELECTED_DATA_DETAILS)
                     }
                     break
                 case 'CHALLAN':
@@ -285,14 +262,14 @@ export default {
                             if(schedule_customer_type === 422) {
                                 pp_Invoice_Type_2_Single.print_invoice(res.data.invoice_details, res.data.due_details)
                             } else if(schedule_customer_type === 424) {
-                                pp_Invoice_Type_3_Institution.print_invoice(res.data.invoice_details)
+                                pp_Invoice_Type_3_Institution.print_invoice(res.data.invoice_details, res.data.due_details)
                             }
                         } else {
                             alert('No Invoice data found')
                         }
                     // } else if(this.tab === 'CHALLAN') {
                     //     if(res.data.invoice_details.invoice_details.length > 0) {
-                    //         pp_Invoice_Type_3_Institution.print_invoice(res.data.invoice_details)
+                    //         pp_Invoice_Type_3_Institution.print_invoice(res.data.invoice_details, res.data.due_details)
                     //     } else {
                     //         alert('No GATE PASS data found')
                     //     }
