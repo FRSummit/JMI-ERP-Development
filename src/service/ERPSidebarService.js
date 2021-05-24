@@ -321,6 +321,18 @@ export default class PostService {
     })
   }
 
+  
+  // CREATE ORDER - LEFT SECTION _TERRITORY LIST
+  async getTerritoryList_CreateOrderLeftList() {
+    let web_menu_url = '/api/web/get-territory-list'
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
+
   // CREATE ORDER
   async getCustomerInfoForDepot_CreateOrderLeftList(customer_id) {
     let web_menu_url = '/api/web/customer-info-for-depot/' + customer_id
