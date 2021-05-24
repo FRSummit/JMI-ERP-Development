@@ -1663,7 +1663,7 @@
 /* ------------- SELECT - OPTION ----------------------------- */
 #create-order select {
     display: block !important;
-    border : 1px solid #BFCFE2;
+    /* border : 1px solid #BFCFE2; */
 }
 
 #create-order select:focus {

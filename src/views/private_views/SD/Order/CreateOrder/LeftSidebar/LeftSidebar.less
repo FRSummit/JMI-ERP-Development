@@ -124,6 +124,8 @@
                                 float      : left;
                                 position   : relative;
 
+                                border: 1px solid #BFCFE2;
+
                                 span.right-icon {
                                     svg {
                                         position : absolute;
@@ -135,10 +137,20 @@
                                 }
 
                                 select.selectpicker {
-                                    display     : block;
-                                    height      : 30px;
-                                    padding-left: 10px;
-                                    border      : 1px solid #BFCFE2;
+                                    display        : block;
+                                    height         : 30px;
+                                    padding-left   : 10px;
+                                    // border      : 1px solid #BFCFE2;
+                                    border         : none;
+                                    font-size      : 12px;
+
+                                    width         : 92%;
+                                    white-space   : nowrap;
+                                    overflow      : hidden;
+                                    text-overflow : ellipsis;
+                                    vertical-align: middle;
+
+                                    span {}
 
                                     option {}
                                 }

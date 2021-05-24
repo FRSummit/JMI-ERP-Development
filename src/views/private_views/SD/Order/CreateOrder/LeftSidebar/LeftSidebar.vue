@@ -28,7 +28,7 @@
                             ></span>
                             <select title="Pick a customer" class="selectpicker" v-model="selected_territory">
                                 <option :value="null" selected>Select Territory</option>
-                                <option v-for="(tt, i) in TERRITORY_LIST" :key="i" :value="tt">{{ tt.area_name }}</option>
+                                <option v-for="(tt, i) in TERRITORY_LIST" :key="i" :value="tt"><span>{{ tt.display_code }} - {{ tt.area_name }}</span></option>
                             </select>
                         </div>
                     </div>
@@ -44,6 +44,10 @@
                 <div id="progressbar" class="progressbar" v-if="!customer_data_list">
                     <!-- <v-progress-circular indeterminate color="primary"></v-progress-circular> -->
                     <p>Please select territory</p>
+                </div>
+                <div id="progressbar" class="progressbar" v-if="customer_data_list && customer_data_list.length === 0">
+                    <!-- <v-progress-circular indeterminate color="primary"></v-progress-circular> -->
+                    <p>No customer found</p>
                 </div>
                 <div :id="'customer-section-list-' + c" class="customer-section-list" v-for="(customer, c) in customer_data_list" :key="c" @click="customerClickHandlerFromList(customer, c)">
                     <div :id="'customer-section-list-inner-' + c" class="customer-section-list-inner">
