@@ -21,7 +21,7 @@
                         <button class="btn btn-link">
                             <h5>{{ dateFormat(item.date) }}</h5>
                         </button>
-                        <span>{{ Number(item.total).toFixed(2) }}</span>
+                        <span style="min-width: 75px;">{{ Number(item.total).toFixed(2) }}</span>
                         <span class="transparent-span" @click="parentCardClickHandler(item, i)"></span>
                     </div>
                 
@@ -341,12 +341,16 @@ export default {
     width: 35px !important;
     height: 30px !important;
     position: absolute !important;
-    right: -50px !important;
+    /* right: -50px !important; */
+    right: 0px !important;
     top:10px !important;
     text-align: center !important;
     opacity: 0;
+    z-index: 999;
+    margin-right: 0px !important;
 }
-.layout-sidebar.delivery_schedule .content .ds_accordion .card .card-header .btn-link:after{
+/* .layout-sidebar.delivery_schedule .content .ds_accordion .card .card-header .btn-link:after{ */
+.layout-sidebar.delivery_schedule .content .ds_accordion .card .card-header:after{
     color: var(--text-black);
     font-family: FontAwesome;
     content:'\f106';
@@ -355,12 +359,13 @@ export default {
     text-align: center;
     border: 5px;
     position: absolute;
-    /* right: 0px; */
+    right: 0px;
     /* right: -96px; */
-    right: -150px;
+    /* right: -150px; */
     top:10px;
 }
-.layout-sidebar.delivery_schedule .content .ds_accordion .card .card-header .btn-link.collapsed:after{
+/* .layout-sidebar.delivery_schedule .content .ds_accordion .card .card-header .btn-link.collapsed:after{ */
+.layout-sidebar.delivery_schedule .content .ds_accordion .card .card-header .collapsed:after{
     font-family: FontAwesome;
     content:'\f107';
     width: 35px;
@@ -466,11 +471,12 @@ export default {
 .btn.btn-link:focus {
     background-color: transparent;
 }
-.layout-sidebar.delivery_schedule .content .ds_accordion .card .card-header .btn-link:after {
+/* .layout-sidebar.delivery_schedule .content .ds_accordion .card .card-header .btn-link:after { */
+.layout-sidebar.delivery_schedule .content .ds_accordion .card .card-header:after {
     transform: rotate(-180deg);
     color: var(--blue);
 }
-.layout-sidebar.delivery_schedule .content .ds_accordion .card.open .card-header .btn-link:after {
+.layout-sidebar.delivery_schedule .content .ds_accordion .card.open .card-header:after {
     transform: rotate(0deg);
     color: #FFFFFF;
 }

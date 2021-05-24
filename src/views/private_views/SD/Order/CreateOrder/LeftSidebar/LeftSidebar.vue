@@ -17,6 +17,25 @@
           <span @click="filterClick"><i class="fas fa-filter"></i></span>
         </div>
         <!-- Customer Counter -->
+        <div class="territory-selection">
+            <p class="text">Select Territory</p>
+            <div class="sort-section">
+                <div class="sort-section-inner">
+                    <div class="input-section">
+                        <div class="select-options">
+                            <span class="right-icon"
+                                ><i class="fas fa-chevron-right"></i
+                            ></span>
+                            <select title="Pick a customer" class="selectpicker" @change="onChange()">
+                                <option v-for="(customer, m) in 10" :key="m">
+                                {{ m }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="title-count">
             <p class="total-customer">Total Customer (<span class="count">{{ customer_data_list.length }}</span>)</p>
         </div>
@@ -138,7 +157,8 @@ export default {
     },
     created() {},
     async mounted() {
-        await this.ALL_CUSTOMER_FOR_DEPOT__FROM_SERVICE()
+        console.log('Customer list loading')
+        // await this.ALL_CUSTOMER_FOR_DEPOT__FROM_SERVICE()
     },
     methods: {
         filterClick() {

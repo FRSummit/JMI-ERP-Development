@@ -85,6 +85,116 @@
                 }
             }
 
+            .territory-selection {
+                padding: 10px 20px;
+                width  : 100%;
+                display: block;
+
+                p.text {
+                    font-size  : 12px;
+                    color      : #111213;
+                    margin     : 0;
+                    font-weight: 400;
+                    display    : inline-block;
+                    width      : 34%;
+                    vertical-align: bottom;
+                }
+
+                .sort-section {
+                    display: inline-block;
+                    width  : 65%;
+                    float  : right;
+
+                    .sort-section-inner {
+                        display: block;
+                        width  : 100%;
+
+                        .input-section {
+                            height        : 30px;
+                            display       : inline-block;
+                            width         : 100%;
+                            vertical-align: middle;
+
+                            .select-options {
+                                display    : inline-block;
+                                width      : 100%;
+                                // float   : right;
+                                float      : left;
+                                position   : relative;
+
+                                span.right-icon {
+                                    svg {
+                                        position : absolute;
+                                        right    : 8px;
+                                        top      : 8px;
+                                        color    : #BFCFE2;
+                                        transform: rotate(90deg);
+                                    }
+                                }
+
+                                select.selectpicker {
+                                    display     : block;
+                                    height      : 30px;
+                                    padding-left: 10px;
+                                    border      : 1px solid #BFCFE2;
+
+                                    option {}
+                                }
+
+                            }
+                        }
+
+                        .assending-desending-sort {
+                            display       : inline-block;
+                            width         : 50%;
+                            vertical-align: middle;
+
+                            form.input-btns {
+                                display       : inline-block;
+                                vertical-align: middle;
+
+                                p {
+                                    font-size  : 14px;
+                                    margin     : 0 10px;
+                                    line-height: 1;
+                                    display    : inline-block;
+
+                                    input {
+                                        display       : inline-block;
+                                        width         : 16px;
+                                        height        : 16px;
+                                        border-radius : 50%;
+                                        opacity       : 1;
+                                        cursor        : pointer;
+                                        position      : relative;
+                                        pointer-events: auto;
+                                    }
+
+                                    span {
+                                        display       : inline-block;
+                                        padding       : 0;
+                                        vertical-align: bottom;
+                                        font-weight   : 400;
+
+                                        &::before {
+                                            display: none;
+                                        }
+
+                                        &::after {
+                                            display: none;
+                                        }
+                                    }
+
+                                    span.active {
+                                        color: #026CD1;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             .title-count {
                 padding: 10px 20px;
 
@@ -189,6 +299,7 @@
                                             span.Credit {
                                                 color: #28A411;
                                             }
+
                                             span.Cash {
                                                 color: #FF584C;
                                             }
@@ -437,6 +548,7 @@
     #create-order-left-sidebar.create-order-left-sidebar .create-order-left-sidebar-section .create-order-left-sidebar-section-inner .customer-list-section .customer-list-section-inner .customer-section-list .customer-section-list-inner .customer-name-section .customer-name-section-inner .status-section p.status {
         font-size: 12px;
     }
+
     #create-order-left-sidebar.create-order-left-sidebar .create-order-left-sidebar-section .create-order-left-sidebar-section-inner .customer-list-section .customer-list-section-inner .customer-section-list .customer-section-list-inner {
         padding: 12px 10px;
     }

@@ -1001,8 +1001,10 @@ export default {
                     } else {
                         console.log('Else else')
                         setTimeout( () => {
-                            document.querySelector('#region_area_tt_list #area-lvl-select-option option:first-child').selected = true
-                            console.log(document.querySelector('#region_area_tt_list #area-lvl-select-option option:first-child'))
+                            if(document.querySelector('#region_area_tt_list #area-lvl-select-option option:first-child')) {
+                                document.querySelector('#region_area_tt_list #area-lvl-select-option option:first-child').selected = true
+                                console.log(document.querySelector('#region_area_tt_list #area-lvl-select-option option:first-child'))
+                            }
                         }, 2000)
                     }
                 })
