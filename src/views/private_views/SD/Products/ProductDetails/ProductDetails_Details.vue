@@ -1119,7 +1119,7 @@
                                         
                                         <div class="col-lg-3 col-md-4 col-12" v-for="(item, i) in SELECTED_PROD_DOCS_DETAILS" :key="i">
                                             <!-- PHOTO -->
-                                            <div class="document-file" v-if="parseInt(item.blob_info.object_type) === 131">
+                                            <div class="document-file" v-if="item.blob_info ? parseInt(item.blob_info.object_type) === 131 : false">
                                                 <div class="thumbnail">
                                                     <div class="view">
                                                         <i class="view-btn fa fa-eye"></i>
@@ -1140,7 +1140,7 @@
                                                 </div>
                                             </div>
                                             <!-- SCANNED DOCUMENT -->
-                                            <div class="document-file" v-if="parseInt(item.blob_info.object_type) === 132">
+                                            <div class="document-file" v-if="item.blob_info ? parseInt(item.blob_info.object_type) === 132 : false">
                                                 <div class="thumbnail">
                                                     <div class="view">
                                                         <i class="view-btn fa fa-eye"></i>
@@ -1162,7 +1162,7 @@
                                                 </div>
                                             </div>
                                             <!-- WORD DOCUMENT -->
-                                            <div class="document-file" v-if="parseInt(item.blob_info.object_type) === 133">
+                                            <div class="document-file" v-if="item.blob_info ? parseInt(item.blob_info.object_type) === 133 : false">
                                                 <div class="thumbnail">
                                                     <div class="view">
                                                         <i class="view-btn fa fa-eye"></i>
@@ -1183,7 +1183,7 @@
                                                 </div>
                                             </div>
                                             <!-- EXCEL DOCUMENT -->
-                                            <div class="document-file" v-if="parseInt(item.blob_info.object_type) === 134">
+                                            <div class="document-file" v-if="item.blob_info ? parseInt(item.blob_info.object_type) === 134 : false">
                                                 <div class="thumbnail">
                                                     <div class="view">
                                                         <i class="view-btn fa fa-eye"></i>
@@ -1204,7 +1204,7 @@
                                                 </div>
                                             </div>
                                             <!-- PDF DOCUMENT -->
-                                            <div class="document-file" v-if="parseInt(item.blob_info.object_type) === 135">
+                                            <div class="document-file" v-if="item.blob_info ? parseInt(item.blob_info.object_type) === 135 : false">
                                                 <div class="thumbnail">
                                                     <div class="view">
                                                         <i class="view-btn fa fa-eye"></i>
@@ -2783,7 +2783,7 @@ export default {
             this.ALGO_CHEMIST_PROFIT = ( parseFloat(this.prod_price_tab_max_retail_price) / parseFloat(this.ALGO_UNIT_PRICE_NOW) ) * 100
             // PRICE ALGO FROM LEADER
             this.prod_offer_discount_tp_d = Number(this.ALGO_DISCOUNT_TP).toFixed(2)
-        }
+        },
     },
 }
 </script>
