@@ -1,5 +1,3 @@
-
-
 /*--------------------custom.css--------------------*/
 /*--------------------assets/css/styles.css--------------------*/
 /*--------------------assets/t2-style.css--------------------*/
@@ -468,7 +466,7 @@
     margin: 0 !important;
 }
 
-#product-details .mx-datepicker-main.mx-datepicker-popup {
+.mx-datepicker-main.mx-datepicker-popup {
     background   : #FBFCFE;
     top          : calc(74px + 73px + 60px + 30px) !important;
     box-shadow   : 0px 0px 22px -6px #026cd1;
@@ -476,32 +474,31 @@
     border-radius: 4px;
     z-index      : 9999;
 }
-
-#product-details .mx-datepicker .mx-datepicker-range input {
+.mx-datepicker .mx-datepicker-range input {
     padding-left: 4px;
 }
 
-#product-details .mx-calendar.mx-calendar-panel-date {
+.mx-calendar.mx-calendar-panel-date {
     display      : inline-block;
     border       : 2px solid #5b9fec;
     border-radius: 4px;
     padding      : 4px 8px;
 }
 
-#product-details .mx-calendar.mx-calendar-panel-date {
+.mx-calendar.mx-calendar-panel-date {
     text-align: center;
 }
 
-#product-details .mx-calendar.mx-calendar-panel-date:nth-child(1) {
+.mx-calendar.mx-calendar-panel-date:nth-child(1) {
     /* margin-right: 20px; */
 }
 
-#product-details .mx-calendar.mx-calendar-panel-date:nth-child(2) {
+.mx-calendar.mx-calendar-panel-date:nth-child(2) {
     display: none;
 }
 
-#product-details .mx-btn.mx-btn-text.mx-btn-icon-left,
-#product-details .mx-btn.mx-btn-text.mx-btn-icon-right {
+.mx-btn.mx-btn-text.mx-btn-icon-left,
+.mx-btn.mx-btn-text.mx-btn-icon-right {
     display         : inline-block;
     background-color: transparent;
     background      : transparent;
@@ -511,12 +508,12 @@
     top             : 20px;
 }
 
-#product-details .mx-btn.mx-btn-text.mx-btn-icon-left {
+.mx-btn.mx-btn-text.mx-btn-icon-left {
     background-image: url('../../../../../assets/icons/arrow_left.svg');
     left            : 20px;
 }
 
-#product-details .mx-btn.mx-btn-text.mx-btn-icon-right {
+.mx-btn.mx-btn-text.mx-btn-icon-right {
     background-image: url('../../../../../assets/icons/arrow_right.svg');
     right           : 20px;
 }
@@ -574,28 +571,28 @@
     right   : 18px;
 }
 
-#product-details .mx-datepicker-main.mx-datepicker-popup .mx-date-row td {
+.mx-datepicker-main.mx-datepicker-popup .mx-date-row td {
     color: #000000;
 }
 
-#product-details .mx-datepicker-main.mx-datepicker-popup .mx-date-row td.not-current-month {
+.mx-datepicker-main.mx-datepicker-popup .mx-date-row td.not-current-month {
     color: #949494;
 }
 
-#product-details .mx-datepicker-main.mx-datepicker-popup .mx-date-row td:hover {
+.mx-datepicker-main.mx-datepicker-popup .mx-date-row td:hover {
     background: #E2EDFA;
 }
 
-#product-details .mx-datepicker-main.mx-datepicker-popup .mx-date-row td.active {
+.mx-datepicker-main.mx-datepicker-popup .mx-date-row td.active {
     background: #026CD1;
 }
 
-#product-details .mx-datepicker-main.mx-datepicker-popup .mx-date-row td.in-range {
+.mx-datepicker-main.mx-datepicker-popup .mx-date-row td.in-range {
     background: #E2EDFA;
     color     : #4377a7;
 }
 
-#product-details .mx-datepicker-main.mx-datepicker-popup .mx-date-row td div {
+.mx-datepicker-main.mx-datepicker-popup .mx-date-row td div {
     cursor     : pointer;
     overflow   : hidden;
     line-height: 1;
@@ -1035,9 +1032,10 @@
     /* border: none; */
 }
 
-#product-details #doctors-profile-details-section li{
+#product-details #doctors-profile-details-section li {
     width: 50%;
 }
+
 #product-details #customer-profile-details-section li {
     width: 33%;
 }
@@ -1057,19 +1055,19 @@
 }
 
 #product-details i.zmdi-edit {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 25px;
-    height: 25px;
-    font-size: 18px;
-    font-size: var(--font16);
-    border-radius: 100px;
-    margin: 0px 5px;
-    font-weight: 500;
-    color: #FFFFFF;
+    display         : flex;
+    justify-content : center;
+    align-items     : center;
+    width           : 25px;
+    height          : 25px;
+    font-size       : 18px;
+    font-size       : var(--font16);
+    border-radius   : 100px;
+    margin          : 0px 5px;
+    font-weight     : 500;
+    color           : #FFFFFF;
     background-color: var(--blue);
-    cursor: pointer;
+    cursor          : pointer;
 }
 
 #product-details .inl-bl {
@@ -1129,9 +1127,9 @@
 #product-details #create-order-details-section input:focus,
 #product-details #order-Approval-details-section input:focus,
 #product-details #deliveries-details-section input:focus {
-    box-shadow   : none;
+    box-shadow      : none;
     /* border-bottom: none; */
-    outline      : none;
+    outline         : none;
 }
 
 #product-details #create-order-details-section .options.available-options {
@@ -3644,10 +3642,11 @@
         margin : 0px;
         padding: 0px;
     }
+
     #product-details .deCollection-footer .btn-global {
-        width           : 120px;
-        height          : 36px;
-    
+        width : 120px;
+        height: 36px;
+
     }
 }
 
@@ -5052,8 +5051,8 @@
 
 /* End Classification Modal Area */
 #product-details .product-details-tab .btn-active {
-    color           : var(--white) !important;
-    background-color: var(--blue) !important;
+    /* color           : var(--white) !important;
+    background-color: var(--blue) !important; */
 }
 
 #product-details .product-details-tab #product-details-tab-inner {
@@ -5684,8 +5683,8 @@
 }
 
 #product-details .product-details-tab .btn-active {
-    color           : var(--white) !important;
-    background-color: var(--blue) !important;
+    /* color           : var(--white) !important;
+    background-color: var(--blue) !important; */
 }
 
 #product-details .product-details-tab .tab-content .tab-content-header {

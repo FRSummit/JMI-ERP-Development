@@ -150,7 +150,7 @@ export default {
   font-size: var(--font14);
 }
 .header input {
-  width: 80%;
+  width: 100%;
   height: 36px;
   margin: 0;
   font-size: 14px;
