@@ -203,7 +203,7 @@ export default {
           if(this.tab === 'All') {
             pp_Invoice_Type_2_Single.print_invoice(res.data.invoice_details, res.data.due_details)
           } else {
-            pp_Invoice_Type_3_Institution.print_invoice(res.data.invoice_details)
+            pp_Invoice_Type_3_Institution.print_invoice(res.data.invoice_details, res.data.due_details)
           }
         })
     }

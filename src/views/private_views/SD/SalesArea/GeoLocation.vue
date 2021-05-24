@@ -132,8 +132,8 @@
 
 <script>
 import Heading from "../../../../components/master_layout/HeadingTitleBreadcrumb/HeadingTitleBreadcrumb";
-import ERPSidebarService from "../../../../service/ERPSidebarService";
-const service = new ERPSidebarService();
+// import ERPSidebarService from "../../../../service/ERPSidebarService";
+// const service = new ERPSidebarService();
 import SecondarySidebar from "../../../../components/master_layout/SecondarySidebar/SecondarySidebar";
 
 export default {
@@ -155,10 +155,10 @@ export default {
   created() {
     this.$emit("routeName", this.$route.name);
     this.createBreadcrumbData();
-    service.getSDGeoLocation().then((res) => {
-      this.geoLoctionList = res.data;
-      this.secondarySidebarData = res.data;
-    });
+    // service.getSDGeoLocation().then((res) => {
+    //   this.geoLoctionList = res.data;
+    //   this.secondarySidebarData = res.data;
+    // });
   },
   methods: {
     createBreadcrumbData() {

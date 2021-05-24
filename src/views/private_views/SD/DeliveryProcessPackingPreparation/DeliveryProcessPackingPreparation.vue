@@ -120,3 +120,7 @@ export default {
 <style lang="less" scoped>
 @import url("./DeliveryProcessPackingPreparation.less");
 </style>
+
+<style scoped>
+@import url("./DeliveryProcessPackingPreparation.css");
+</style>

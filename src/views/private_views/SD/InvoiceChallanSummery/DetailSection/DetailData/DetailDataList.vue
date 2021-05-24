@@ -95,6 +95,7 @@ import PP_Invoice_Type_2_Single from '../../../../../../functions/Print_Func/PP_
 const pp_Invoice_Type_2_Single = new PP_Invoice_Type_2_Single()
 import PP_Invoice_Type_3_Institution from '../../../../../../functions/Print_Func/PP_Invoice_Type_3_Institution'
 const pp_Invoice_Type_3_Institution = new PP_Invoice_Type_3_Institution()
+
 import PP_InvoiceChallanSummeryTD_Type1 from '../../../../../../functions/Print_Func/PP_InvoiceChallanSummeryTD_Type1'
 const pp_InvoiceChallanSummeryTD_Type1 = new PP_InvoiceChallanSummeryTD_Type1()
 import PP_InvoiceChallanSummeryTD_GatePass from '../../../../../../functions/Print_Func/PP_InvoiceChallanSummeryTD_GatePass'
@@ -224,15 +225,15 @@ export default {
               if(schedule_customer_type === '422') {
                 pp_Invoice_Type_2_Single.print_invoice(res.data.invoice_details, res.data.due_details)
               } else if(schedule_customer_type === '424') {
-                pp_Invoice_Type_3_Institution.print_invoice(res.data.invoice_details)
+                pp_Invoice_Type_3_Institution.print_invoice(res.data.invoice_details, res.data.due_details)
               }
             } else {
               alert('No Invoice data found')
             }
           } else if(this.tab === 'CHALLAN') {
-            // pp_Invoice_Type_3_Institution.print_invoice(res.data.invoice_details)
+            // pp_Invoice_Type_3_Institution.print_invoice(res.data.invoice_details, res.data.due_details)
             if(res.data.invoice_details.invoice_details.length > 0) {
-              pp_Invoice_Type_3_Institution.print_invoice(res.data.invoice_details)
+              pp_Invoice_Type_3_Institution.print_invoice(res.data.invoice_details, res.data.due_details)
             } else {
               alert('No GATE PASS data found')
             }

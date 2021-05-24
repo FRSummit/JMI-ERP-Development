@@ -5,7 +5,7 @@ import env from '../environment'
 axios.defaults.baseURL = env.apiBaseUrl;
 let token = JSON.parse(localStorage.getItem('jerp_logged_user')) ? JSON.parse(localStorage.getItem('jerp_logged_user')).accessToken : null
 let token_type = JSON.parse(localStorage.getItem('jerp_logged_user')) ? JSON.parse(localStorage.getItem('jerp_logged_user')).token_type : null
-let FRSAPIURL = env.apiBaseUrlFRS
+// let FRSAPIURL = env.apiBaseUrlFRS
 
 export default class PostService {
 
@@ -1616,6 +1616,136 @@ export default class PostService {
     })
   }
 
+  // -------------------------------------------------------------------------------------------
+  // DP DELIVERY SCHEDULE
+  async getDPDSList__DP_DS() {
+    let web_menu_url = '/api/web/get-dp-ds-list'
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
+  
+  // DP DELIVERY SCHEDULE - DETAILS BY DATE & FORCE ID
+  async getDPDS_INV_LIST__DP_DS(date, force_id) {
+    let web_menu_url = '/api/web/get-dp-ds-inv-list/' + date + '/' + force_id
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
+  
+  // DP DELIVERY SCHEDULE - DETAILS - DP LIST
+  async getDPListWithDA__DP_DS() {
+    let web_menu_url = '/api/web/dp-list-with-da'
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
+  
+  // DP DELIVERY SCHEDULE - DETAILS - ADD INVOICES TO DS
+  async getAddInvoiceToCurrentDS__DP_DS(ds_id, invoices) {
+    console.log(ds_id)
+    console.log(JSON.stringify(invoices))
+    let web_menu_url = '/api/web/add-invoices-to-current-delivery-schedule'
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+      params: {
+        ds_id: ds_id,
+        invoices: JSON.stringify(invoices)
+      }
+    })
+  }
+  
+  // DP DELIVERY SCHEDULE - DETAILS BY DATE & FORCE ID
+  async getRescheduleInvoice__DP_DS(force_id, new_date, invoices) {
+    console.log(force_id)
+    console.log(new_date)
+    console.log(JSON.stringify(invoices))
+    let web_menu_url = '/api/web/reschedule-invoice'
+    return await axios(web_menu_url, {
+      method: 'POST',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+      data: {
+        force_id: force_id,
+        new_date: new_date,
+        invoices: JSON.stringify(invoices)
+      }
+    })
+  }
+  
+  // DELIVERY PREPARATION - LEFT - DS LOCK
+  async getDS_LOCK__DELIVERY_PREPARATION(ds_id) {
+    let web_menu_url = '/api/web/ds-lock/' + ds_id
+    return await axios(web_menu_url, {
+      method: 'PUT',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
+
+  // -------------------------------------------------------------------------------------------
+  // DELIVERY PREPARATION - LEFT LIST
+  async getDS_PREPARATION_LIST__DELIVERY_PREPARATION() {
+    let web_menu_url = '/api/web/ds-preparation-list'
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
+  
+  // DELIVERY PREPARATION - DETAILS BY DS ID
+  async getDS_PREPARATION_DETAILS__DELIVERY_PREPARATION(ds_id) {
+    let web_menu_url = '/api/web/delivery-schedule-details/' + ds_id
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
+  
+  // DELIVERY PREPARATION - DETAILS BY DS ID
+  async getPRINT_MULTI_INVOICE_DETAILS__DELIVERY_PREPARATION(inv) {
+    console.log(JSON.stringify(inv))
+    let web_menu_url = '/api/web/print-multiple-invoice-details'
+    return await axios(web_menu_url, {
+      method: 'POST',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+      data: {
+        invoice_list: JSON.stringify(inv)
+      }
+    })
+  }
+  
+  // DELIVERY PREPARATION - DETAILS BY DS ID
+  async getDS_HANDOVER__DELIVERY_PREPARATION(ds_id) {
+    let web_menu_url = '/api/web/ds-handover/' + ds_id
+    return await axios(web_menu_url, {
+      method: 'PUT',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      },
+    })
+  }
+
 
   // -------------------------------------------------------------------------------------------
 
@@ -1630,135 +1760,135 @@ export default class PostService {
   //////////////////////////////////////////////////////////////////////////////////////////
 
   // Get Doctors Profile
-  async autocomplete() {
-    let web_menu_url = 'https://api.publicapis.org/entries'
-    return await axios(web_menu_url)
-  }
+  // async autocomplete() {
+  //   let web_menu_url = 'https://api.publicapis.org/entries'
+  //   return await axios(web_menu_url)
+  // }
 
 
 
-  async getAllSidebarMenu() {
-    // return await axios.get('/jerp_menu');
-    return await axios({
-      method: 'GET',
-      url: FRSAPIURL + '/jerp_menu'
-    });
-  }
+  // async getAllSidebarMenu() {
+  //   // return await axios.get('/jerp_menu');
+  //   return await axios({
+  //     method: 'GET',
+  //     url: FRSAPIURL + '/jerp_menu'
+  //   });
+  // }
 
-  async getAllCompanyList() {
-    // return await axios.get('/company_list');
-    return await axios({
-      method: 'GET',
-      url: FRSAPIURL + '/company_list'
-    });
-  }
+  // async getAllCompanyList() {
+  //   // return await axios.get('/company_list');
+  //   return await axios({
+  //     method: 'GET',
+  //     url: FRSAPIURL + '/company_list'
+  //   });
+  // }
 
-  async getAllChatList() {
-    // return await axios.get('/chat');
-    return await axios({
-      method: 'GET',
-      url: FRSAPIURL + '/chat'
-    });
-  }
+  // async getAllChatList() {
+  //   // return await axios.get('/chat');
+  //   return await axios({
+  //     method: 'GET',
+  //     url: FRSAPIURL + '/chat'
+  //   });
+  // }
 
-  async getAllNoificationList() {
-    // return await axios.get('/noification');
-    return await axios({
-      method: 'GET',
-      url: FRSAPIURL + '/noification'
-    });
-  }
+  // async getAllNoificationList() {
+  //   // return await axios.get('/noification');
+  //   return await axios({
+  //     method: 'GET',
+  //     url: FRSAPIURL + '/noification'
+  //   });
+  // }
 
-  async getAllUser() {
-    // return await axios.get('/user');
-    return await axios({
-      method: 'GET',
-      url: FRSAPIURL + '/user'
-    });
-  }
+  // async getAllUser() {
+  //   // return await axios.get('/user');
+  //   return await axios({
+  //     method: 'GET',
+  //     url: FRSAPIURL + '/user'
+  //   });
+  // }
 
-  async getUsersList() {
+  /*async getUsersList() {
     // return await axios.get('/users');
     return await axios({
       method: 'GET',
       url: FRSAPIURL + '/users'
     });
-  }
+  }*/
 
-  async getLoginRequestUserData(username, password) {
-    // return await axios.get(`/users?username=${username}&password=${password}`);
-    return await axios({
-      method: 'GET',
-      url: FRSAPIURL + '/' + `users?username=${username}&password=${password}`
-    });
-  }
+  // async getLoginRequestUserData(username, password) {
+  //   // return await axios.get(`/users?username=${username}&password=${password}`);
+  //   return await axios({
+  //     method: 'GET',
+  //     url: FRSAPIURL + '/' + `users?username=${username}&password=${password}`
+  //   });
+  // }
 
-  async getPassengersList(itemsPerPage, pageNumber) {
-    console.log(itemsPerPage + '    ' + pageNumber)
-    // return await axios.get('/passengers_list');
-    return await axios({
-      method: 'GET',
-      url: FRSAPIURL + '/passengers_list'
-    });
+  // async getPassengersList(itemsPerPage, pageNumber) {
+  //   console.log(itemsPerPage + '    ' + pageNumber)
+  //   // return await axios.get('/passengers_list');
+  //   return await axios({
+  //     method: 'GET',
+  //     url: FRSAPIURL + '/passengers_list'
+  //   });
 
 
-    // return await axios.get("https://api.instantwebtools.net/v1/passenger?size=" +
-    //                   itemsPerPage + "&page=" + pageNumber);
-    // const url = new URL("http://localhost:3001");
-    // return await axios({
-    //   url: url,
-    //   method: "GET"
-    // });
-  }
+  //   // return await axios.get("https://api.instantwebtools.net/v1/passenger?size=" +
+  //   //                   itemsPerPage + "&page=" + pageNumber);
+  //   // const url = new URL("http://localhost:3001");
+  //   // return await axios({
+  //   //   url: url,
+  //   //   method: "GET"
+  //   // });
+  // }
 
-  async getCompetitorsDataMgt() {
-    // return await axios.get('/competitors_data');
-    return await axios({
-      method: 'GET',
-      url: FRSAPIURL + '/competitors_data'
-    });
-  }
+  // async getCompetitorsDataMgt() {
+  //   // return await axios.get('/competitors_data');
+  //   return await axios({
+  //     method: 'GET',
+  //     url: FRSAPIURL + '/competitors_data'
+  //   });
+  // }
 
-  async getSBUData() {
-    // return await axios.get('/sub_data');
-    return await axios({
-      method: 'GET',
-      url: FRSAPIURL + '/sub_data'
-    });
-  }
+  // async getSBUData() {
+  //   // return await axios.get('/sub_data');
+  //   return await axios({
+  //     method: 'GET',
+  //     url: FRSAPIURL + '/sub_data'
+  //   });
+  // }
 
-  async getSBUSisterConcernData() {
-    // return await axios.get('/sister_concern_data');
-    return await axios({
-      method: 'GET',
-      url: FRSAPIURL + '/sister_concern_data'
-    });
-  }
+  // async getSBUSisterConcernData() {
+  //   // return await axios.get('/sister_concern_data');
+  //   return await axios({
+  //     method: 'GET',
+  //     url: FRSAPIURL + '/sister_concern_data'
+  //   });
+  // }
 
-  async getSDGeoLocation() {
-    // return await axios.get('/geo_location');
-    return await axios({
-      method: 'GET',
-      url: FRSAPIURL + '/geo_location'
-    });
-  }
+  // async getSDGeoLocation() {
+  //   // return await axios.get('/geo_location');
+  //   return await axios({
+  //     method: 'GET',
+  //     url: FRSAPIURL + '/geo_location'
+  //   });
+  // }
 
-  async getDAlistForDeliverySchedule() {
-    return await axios(FRSAPIURL + '/DA_list', {
-      method: 'GET',
-      // headers: {
-      //   'Authorization': token_type + ' ' + token
-      // }
-    })
-  }
+  // async getDAlistForDeliverySchedule() {
+  //   return await axios(FRSAPIURL + '/DA_list', {
+  //     method: 'GET',
+  //     // headers: {
+  //     //   'Authorization': token_type + ' ' + token
+  //     // }
+  //   })
+  // }
 
-  async getInvoiceChallanListForDeliverySchedule() {
-    return await axios(FRSAPIURL + '/delivery_schedule_invoice_chalan_list', {
-      method: 'GET',
-      // headers: {
-      //   'Authorization': token_type + ' ' + token
-      // }
-    })
-  }
+  // async getInvoiceChallanListForDeliverySchedule() {
+  //   return await axios(FRSAPIURL + '/delivery_schedule_invoice_chalan_list', {
+  //     method: 'GET',
+  //     // headers: {
+  //     //   'Authorization': token_type + ' ' + token
+  //     // }
+  //   })
+  // }
 }
 

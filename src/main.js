@@ -113,10 +113,10 @@ new Vue({
 
 
 
-/*
-*
-* All popup modal should have cross icon to close
-* Screen which has left and right section - before click left item right section has a message
-* Every page should have Navigation id, feature id - common feature.
-* 
-*/
+/**
+  * 
+  * All popup modal should have cross icon to close
+  * Screen which has left and right section - before click left item right section has a message
+  * Every page should have Navigation id, feature id - common feature.
+  * 
+**/

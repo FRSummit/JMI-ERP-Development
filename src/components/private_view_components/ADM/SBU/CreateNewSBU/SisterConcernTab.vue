@@ -76,8 +76,8 @@
 </template>
 
 <script>
-import ERPSidebarService from "../../../../../service/ERPSidebarService";
-const service = new ERPSidebarService();
+// import ERPSidebarService from "../../../../../service/ERPSidebarService";
+// const service = new ERPSidebarService();
 
 export default {
   data() {
@@ -88,9 +88,9 @@ export default {
     };
   },
   created() {
-    service.getSBUSisterConcernData().then((res) => {
-      this.sbu_sister_concern_data = res.data;
-    });
+    // service.getSBUSisterConcernData().then((res) => {
+    //   this.sbu_sister_concern_data = res.data;
+    // });
   },
   methods: {
     attributeForm() {

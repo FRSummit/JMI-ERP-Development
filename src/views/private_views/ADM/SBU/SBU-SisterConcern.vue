@@ -55,8 +55,8 @@
 <script>
 import Heading from "../../../../components/private_view_components/ADM/SBU/Heading-section";
 import PaginationSection from "../../../../components/private_view_components/ADM/SBU/PaginationSidebarSection";
-import ERPSidebarService from "../../../../service/ERPSidebarService";
-const service = new ERPSidebarService();
+// import ERPSidebarService from "../../../../service/ERPSidebarService";
+// const service = new ERPSidebarService();
 
 export default {
   components: {
@@ -79,9 +79,9 @@ export default {
   created() {
     this.$emit('routeName', this.$route.name);
     this.createBreadcrumbData();
-    service.getSBUSisterConcernData().then((res) => {
-      this.sbu_sister_concern_data = res.data;
-    });
+    // service.getSBUSisterConcernData().then((res) => {
+    //   this.sbu_sister_concern_data = res.data;
+    // });
     // console.log(this.$route.path.split(":")[1]);
   },
   methods: {

@@ -6,7 +6,7 @@ const globalDateFormat = new GlobalDateFormat()
 
 let NET_PAYABLE_AFTER_ADJ = 0
 let ROUNDING_ADJ = 0
-let PRODUCT_SERIAL_NO = 1
+let PRODUCT_SERIAL_NO = null
 
 var monthShortNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
@@ -15,6 +15,8 @@ var monthShortNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "
 export default class PP_Invoice_Type_2_Single {
     
     print_invoice(data, due_data) {
+        PRODUCT_SERIAL_NO = null
+        PRODUCT_SERIAL_NO = 1
         var mywindow = window.open('', 'PRINT'); 
         mywindow.document.write(''
                             + '<html>'
@@ -117,7 +119,7 @@ export default class PP_Invoice_Type_2_Single {
                             +                     '</tbody>'
                             +                 '</table>'
                             +                 this.create_credit_status(due_data)
-                            +                 this.create_signature_section()
+                            +                 this.create_signature_section(data)
                             +             '</div>'
                             +         '</div>'
                 )
@@ -475,7 +477,7 @@ export default class PP_Invoice_Type_2_Single {
                     +       '<td>' + '' + '</td>'
                     +       '<td colspan="5" style="text-align: right;">' + 'Net Payable :' + '</td>'
                     +       '<td style="text-align: right; border-bottom: 1px solid #000000;">' + '' + '</td>'
-                    +       '<td style="text-align: right; border-bottom: 1px solid #000000; padding-bottom: 2px;">' + comaSeparatedDigits.comaSeparate(Number(NET_PAYABLE_AFTER_ADJ).toFixed(2)) + '.00</td>'
+                    +       '<td style="text-align: right; border-bottom: 1px solid #000000; padding-bottom: 2px;">' + comaSeparatedDigits.comaSeparate(Number(NET_PAYABLE_AFTER_ADJ).toFixed(2)) + '</td>'
                     +   '</tr>'
         return net_payable
     }
@@ -536,11 +538,11 @@ export default class PP_Invoice_Type_2_Single {
         return result
     }
 
-    create_signature_section() {
+    create_signature_section(data) {
         let result = ''
             result += ''
                     +   '<div class="signature-section" style="float: right; page-break-after: always; page-break-inside: avoid; margin-top: 60px; font-size: 12px;">'
-                    +       '<p style="margin: 0; text-align: right; font-family: calibri; "><span style="border-bottom: 1px solid #000000; width: 200px; display: block; padding-bottom: 2px;"></span><span style="width: 200px; display: block; padding-top: 2px;">For NIPRO JMI Pharma Ltd.</span></p>'
+                    +       '<p style="margin: 0; text-align: right; font-family: calibri; "><span style="border-bottom: 1px solid #000000; width: 200px; display: block; padding-bottom: 2px;">' + data.approver_by.name + '</span><span style="width: 200px; display: block; padding-top: 2px;">For NIPRO JMI Pharma Ltd.</span></p>'
                     +   '</div>'
 
         return result

@@ -172,7 +172,7 @@ export default {
             }
           } else if(this.tab === 'Institution') {
             if(res.data.invoice_details.invoice_details.length > 0) {
-              pp_Invoice_Type_3_Institution.print_invoice(res.data.invoice_details)
+              pp_Invoice_Type_3_Institution.print_invoice(res.data.invoice_details, res.data.due_details)
             } else {
               alert('No data found')
             }

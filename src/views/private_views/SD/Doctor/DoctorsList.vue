@@ -1,73 +1,75 @@
 <template>
-  <div id="doctors-list" class="doctors-list">
-    <Heading :pathName="pathName" :routeName="routeName" />
-    <div class="data-table-section">
-      <div class="data-table-section-inner">
-        <v-data-table
-          :headers="headers"
-          :items="customer_list"
-          :key="name"
-          class="elevation-1"
-          :search="search"
-          :custom-filter="filterOnlyCapsText"
-          @click:row="handleRowClick"
-          :items-per-page="5"
-          :footer-props="{
-            showFirstLastPage: true,
-            'items-per-page-options': [5, 10,15, 30, 50, 100],
-            'items-per-page-text':'Entries'
-          }"
-          @update:items-per-page="getItemPerPage"
-        >
-          <!-- <template v-slot:top>
-            <v-text-field
-              v-model="search"
-              label="Search (UPPER CASE ONLY)"
-              class="mx-4"
-            ></v-text-field>
-          </template> -->
-          <!-- <template v-slot:body.append>
-            <tr> -->
-              <!-- <td></td>
-              <td>
-                <v-text-field
-                  v-model="calories"
-                  type="number"
-                  label="Less than"
-                ></v-text-field>
-              </td> -->
-              <!-- <td colspan="4"></td>
-            </tr>
-          </template> -->
-        </v-data-table>
-        <div class="add-search-print-section">
-          <div class="add-search-print-section-inner">
-            <!-- ADD BTN -->
-            <div class="add-section">
-              <button class="add-customer"><i class="zmdi zmdi-plus"></i>ADD</button>
-            </div>
-            <!-- SEARCH INPUT -->
-            <div class="search-section">
-              <div class="form-group has-search">
-                <span class="fa fa-search form-control-feedback"></span>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="search-filter"
-                  placeholder="Search by ID No"
-                  v-on:keyup="searchKeyUpHandler"
-                />
+  <div id="doctor-list-unq">
+    <div id="doctors-list" class="doctors-list">
+      <Heading :pathName="pathName" :routeName="routeName" />
+      <div class="data-table-section">
+        <div class="data-table-section-inner">
+          <v-data-table
+            :headers="headers"
+            :items="customer_list"
+            :key="name"
+            class="elevation-1"
+            :search="search"
+            :custom-filter="filterOnlyCapsText"
+            @click:row="handleRowClick"
+            :items-per-page="5"
+            :footer-props="{
+              showFirstLastPage: true,
+              'items-per-page-options': [5, 10,15, 30, 50, 100],
+              'items-per-page-text':'Entries'
+            }"
+            @update:items-per-page="getItemPerPage"
+          >
+            <!-- <template v-slot:top>
+              <v-text-field
+                v-model="search"
+                label="Search (UPPER CASE ONLY)"
+                class="mx-4"
+              ></v-text-field>
+            </template> -->
+            <!-- <template v-slot:body.append>
+              <tr> -->
+                <!-- <td></td>
+                <td>
+                  <v-text-field
+                    v-model="calories"
+                    type="number"
+                    label="Less than"
+                  ></v-text-field>
+                </td> -->
+                <!-- <td colspan="4"></td>
+              </tr>
+            </template> -->
+          </v-data-table>
+          <div class="add-search-print-section">
+            <div class="add-search-print-section-inner">
+              <!-- ADD BTN -->
+              <div class="add-section">
+                <button class="add-customer"><i class="zmdi zmdi-plus"></i>ADD</button>
+              </div>
+              <!-- SEARCH INPUT -->
+              <div class="search-section">
+                <div class="form-group has-search">
+                  <span class="fa fa-search form-control-feedback"></span>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="search-filter"
+                    placeholder="Search by ID No"
+                    v-on:keyup="searchKeyUpHandler"
+                  />
+                </div>
+              </div>
+              <!-- PRINT & PDF -->
+              <div class="print-pdf-section">
+                <div class="print-pdf-section-inner">
+                  <span class="print-icon" @click="printIconClickHandler"><i class="zmdi zmdi-print"></i></span>
+                  <span class="pdf-icon" @click="pdfIconClickHandler"><i class="zmdi zmdi-file"></i></span>
+                </div>
               </div>
             </div>
-            <!-- PRINT & PDF -->
-            <div class="print-pdf-section">
-              <div class="print-pdf-section-inner">
-                <span class="print-icon" @click="printIconClickHandler"><i class="zmdi zmdi-print"></i></span>
-                <span class="pdf-icon" @click="pdfIconClickHandler"><i class="zmdi zmdi-file"></i></span>
-              </div>
-            </div>
-          </div>
 
+          </div>
         </div>
       </div>
     </div>
@@ -197,4 +199,8 @@ export default {
 
 <style lang="less" scoped>
 @import url("./DoctorsList.less");
+</style>
+
+<style scoped>
+@import url("./DoctorsList.css");
 </style>

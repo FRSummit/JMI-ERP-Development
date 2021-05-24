@@ -28,6 +28,15 @@
                 <p class="jmi-search-key hide">{{ createSearchString(item) }}</p>
             </div>
         </div>
+        <table>
+            <tfoot>
+                <tr>
+                    <th><p><span class="fa fa-square green"></span>Adjusted</p></th>
+                    <th><p><span class="fa fa-square orange"></span>Pending</p></th>
+                    <th><p><span class="fa fa-square gray"></span>Unadjusted</p></th>
+                </tr>
+            </tfoot>
+        </table>
         <!--End Secondary Sidebar Content Area--> 
                     <!-- Start Filter Modal -->
             <!-- <div class="modal" id="CollectionFilter" tabindex="-1" role="dialog" aria-labelledby="CollectionFilterTitle"
@@ -239,6 +248,9 @@ export default {
     border-right: 1px solid  var(--border-color);
     margin: 0;
     border-top: none;
+    height: calc( 100vh - (var(--used-height) + 14px) );
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 /* Start Collection Filter Modal */
 #CollectionFilter{
@@ -340,7 +352,8 @@ export default {
 /*Start Secondary Sidebar Content Area*/
 .layout-sidebar.collection .content{
     /* height: calc( 100vh - (var(--used-height) + 68px) ); */
-    height: calc( 100vh - (var(--used-height) + 84px) );
+    /* height: calc( 100vh - (var(--used-height) + 84px) ); */
+    height: calc( 100vh - (var(--used-height) + 128px) );
     overflow-y: scroll;
 }
 .layout-sidebar.collection .content .card_body {
@@ -422,6 +435,30 @@ color: var(--text-black);
 }
 .filter-modal .modal-dialog .modal-footer button {
     width: 100%;
+}
+.modal-popup-section .modal-popup-section-inner {
+    padding: 0;
+    width: 250px;
+    text-align: left;
+    top: 20%;
+    left: 350px;
+}
+
+table {}
+table tfoot {}
+table tfoot tr {
+    background-color: #E2EDFA;
+}
+table tfoot tr th {
+    padding: 10px 5px;
+}
+table tfoot tr p {
+    font-size: 10px;
+}
+table tfoot tr p svg {
+    margin-right: 6px;
+    width: 10px;
+    height: 10px;
 }
 
 </style>

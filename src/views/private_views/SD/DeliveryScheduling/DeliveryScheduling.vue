@@ -95,3 +95,7 @@ export default {
 <style lang="less" scoped>
 @import url("./DeliveryScheduling.less");
 </style>
+
+<style  scoped>
+@import url("./DeliveryScheduling.css");
+</style>

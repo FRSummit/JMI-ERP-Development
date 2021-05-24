@@ -1,6 +1,9 @@
 import ComaSeparatedDigits from '../ComaSeparatedDigits'
 const comaSeparatedDigits = new ComaSeparatedDigits()
 
+import GlobalDateFormat from '../GlobalDateFormat'
+const globalDateFormat = new GlobalDateFormat()
+
 let NET_PAYABLE_AFTER_ADJ = 0
 let ROUNDING_ADJ = 0
 let PRODUCT_SERIAL_NO = 1
@@ -9,7 +12,9 @@ var monthShortNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "
 
 export default class PP_Invoice_Type_3_Institution {
     
-    print_invoice(data) {
+    print_invoice(data, due_data) {
+        PRODUCT_SERIAL_NO = null
+        PRODUCT_SERIAL_NO = 1
         var mywindow = window.open('', 'PRINT'); 
         mywindow.document.write(''
                             + '<html>'
@@ -96,7 +101,7 @@ export default class PP_Invoice_Type_3_Institution {
                             +                         this.create_multiple_person_table_body_data(data)
                             +                     '</tbody>'
                             +                 '</table>'
-                            +                 this.createInvoiceForChallan(data)
+                            +                 this.createInvoiceForChallan(data, due_data)
                             +             '</div>'
                             +         '</div>'
                 )
@@ -391,9 +396,65 @@ export default class PP_Invoice_Type_3_Institution {
                     +       '<td>' + '' + '</td>'
                     +       '<td colspan="5" style="text-align: right;">' + 'Net Payable :' + '</td>'
                     +       '<td style="text-align: right; border-bottom: 1px solid #000000;">' + '' + '</td>'
-                    +       '<td style="text-align: right; border-bottom: 1px solid #000000;">' + comaSeparatedDigits.comaSeparate(Number(NET_PAYABLE_AFTER_ADJ).toFixed(2)) + '.00</td>'
+                    +       '<td style="text-align: right; border-bottom: 1px solid #000000;">' + comaSeparatedDigits.comaSeparate(Number(NET_PAYABLE_AFTER_ADJ).toFixed(2)) + '</td>'
                     +   '</tr>'
         return net_payable
+    }
+
+    create_credit_status(due_data) {
+        let result = ''
+            result += ''
+                    +   '<div class="status-section" style=" margin-top: 20px;">'
+                    +       '<table style="width: 50%; margin-left: 0%; page-break-inside: avoid;">'
+                    +           '<tr>'
+                    +               '<td colspan="4"><p style="text-align: left; font-size: 14px;">Present Credit Status:</p></td>'
+                    +           '</tr>'
+                    +           '<tr style="border-bottom: 1px solid #000000;">'
+                    +               '<td>Invoice No</td>'
+                    +               '<td>Inv Date</td>'
+                    // +               '<td>Pay Mode</td>'
+                    +               '<td style="text-align: right;">Outstanding</td>'
+                    +           '</tr>'
+                    // +           '<tr>'
+                    // +               '<td>' + '' + '</td>'
+                    // +               '<td>' + '' + '</td>'
+                    // +               '<td>' + '' + '</td>'
+                    // +               '<td>' + '' + '</td>'
+                    // +           '</tr>'
+                    +           this.createCreditStatusData(due_data)
+                    +           '<tr style="">'
+                    +               '<td colspan="3">'
+                    +                   '<p style="text-align: right; font-size: 12px; margin: 8px 0px 0 0;">Total: <span style="border-top: 1px dotted #000000; border-bottom: 2px double #000000;">' + comaSeparatedDigits.comaSeparate(Number(this.due_data_outstanding_total(due_data)).toFixed(2)) + '</span></p>'
+                    +               '</td>'
+                    +           '</tr>'
+                    +       '</table>'
+                    +   '</div>'
+
+        return result
+    }
+
+    createCreditStatusData(data) {
+        let result = ''
+        for(let i=0; i<data.length; i++) {
+            result += ''
+                    +   '<tr>'
+                    +       '<td>' + data[i].invoice_no + '</td>'
+                    +       '<td>' + globalDateFormat.dateFormatT4(data[i].invoice_date) + '</td>'
+                    // +       '<td>' + '' + '</td>'
+                    +       '<td style="text-align: right;">' + comaSeparatedDigits.comaSeparate(Number(data[i].due_amt).toFixed(2)) + '</td>'
+                    +   '</tr>'
+        }
+
+        return result
+    }
+
+    due_data_outstanding_total(data) {
+        let result = 0
+        for(let i=0; i<data.length; i++) {
+            result += parseFloat(data[i].due_amt)
+        }
+
+        return result
     }
 
     convert_number_to_word(num) {
@@ -414,7 +475,7 @@ export default class PP_Invoice_Type_3_Institution {
 
     // --------------------------------------------------------------------------------------
     // INVOICE AFTER CHALLAN
-    createInvoiceForChallan(data) {
+    createInvoiceForChallan(data, due_data) {
         let result = ''
         result += '' +
         '<table style="page-break-before: always;">' +
@@ -506,8 +567,8 @@ export default class PP_Invoice_Type_3_Institution {
                 this.create_net_payable_data(data) +
             '</tbody>' +
         '</table>' +
-        // this.create_credit_status() +
-        this.create_signature_section()
+        this.create_credit_status(due_data) +
+        this.create_signature_section(data)
 
         return result
     }
@@ -579,11 +640,11 @@ export default class PP_Invoice_Type_3_Institution {
         return deal_type + result + this.create_subtotal_data(product_details)
     }
 
-    create_signature_section() {
+    create_signature_section(data) {
         let result = ''
             result += ''
                     +   '<div class="signature-section" style="float: right; page-break-after: always; page-break-inside: avoid; margin-top: 60px; font-size: 12px;">'
-                    +       '<p style="margin: 0; text-align: right; font-family: calibri; "><span style="border-bottom: 1px solid #000000; width: 200px; display: block; padding-bottom: 2px;"></span><span style="width: 200px; display: block; padding-top: 2px;">For NIPRO JMI Pharma Ltd.</span></p>'
+                    +       '<p style="margin: 0; text-align: right; font-family: calibri; "><span style="border-bottom: 1px solid #000000; width: 200px; display: block; padding-bottom: 2px;">' + data.approver_by.name + '</span><span style="width: 200px; display: block; padding-top: 2px;">For NIPRO JMI Pharma Ltd.</span></p>'
                     +   '</div>'
 
         return result

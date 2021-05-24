@@ -177,3 +177,7 @@ export default {
 <style lang="less" scoped>
 @import url("./CustomerList.less");
 </style>
+
+<style scoped>
+@import url("./CustomerList.css");
+</style>

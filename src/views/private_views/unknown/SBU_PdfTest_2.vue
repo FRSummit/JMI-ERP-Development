@@ -157,8 +157,8 @@
 <script>
 import Heading from "../../../components/master_layout/HeadingTitleBreadcrumb/HeadingTitleBreadcrumb";
 import PaginationSection from "../../../components/private_view_components/ADM/SBU/PaginationSidebarSection";
-import ERPSidebarService from "../../../service/ERPSidebarService";
-const service = new ERPSidebarService();
+// import ERPSidebarService from "../../../service/ERPSidebarService";
+// const service = new ERPSidebarService();
 import SBUStatus from "../../../models/SBU_Status";
 const sbuStatus = new SBUStatus();
 import jsPDF from 'jspdf' 
@@ -199,9 +199,9 @@ export default {
     // console.log(this.$route.name);
     // this.pathName = brd.createBreadcrumbBita(this.parentPath, this.$route.name);
     this.createBreadcrumbData();
-    service.getSBUData().then((res) => {
-      this.sub_data = res.data;
-    });
+    // service.getSBUData().then((res) => {
+    //   this.sub_data = res.data;
+    // });
     console.log(sbuStatus.Active);
   },
   methods: {

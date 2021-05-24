@@ -5,7 +5,7 @@
                 <thead>
                     <tr>
                         <th>Payment Mode</th>
-                        <th>Description</th>
+                        <th style="justify-content: left;">Description</th>
                         <th>Taka</th>
                         <th>Action</th>
                     </tr>
@@ -13,8 +13,8 @@
                 <tbody>
                       <tr v-for="(item, i) in COLLECTION_LIST" :key="i">
                         <td><p>{{ item.collection_mode }}</p></td>
-                        <td><p>Pending Amount {{ item.pending_amt }}</p></td>
-                        <td><p>{{ item.amount }}</p></td>
+                        <td style="justify-content: left;"><p>Pending Amount {{ item.pending_amt }}</p></td>
+                        <td><p>{{ Number(item.amount).toFixed(2) }}</p></td>
                         <td>
                             <a class="edit"><i class="zmdi zmdi-edit" @click="tableDataEditClickHandler(item, i)"></i></a>
                             <a class="remove"><i class="fa fa-trash" @click="tableDataRemoveClickHandler(item, i)"></i></a>
@@ -35,7 +35,7 @@
         
         <!------------ Start Add New Payment Modal------------>
         <div class="modal-popup-section order-proceed-modal" v-if="payment_popup_modal">
-            <div class="modal jmi-scroll-section" id="new-payment-modal" tabindex="-1" role="dialog" aria-labelledby="AddCollection" aria-hidden="true">
+            <div class="modal jmi-scroll-section" id="new-payment-modal" tabindex="-1" role="dialog" aria-labelledby="AddCollection" aria-hidden="true" style="">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -78,7 +78,7 @@
                                     <label for="bank">Bank Name</label>
                                     <select class="form-control" id="bank_name_selection_challan" v-model="challan_bank_name" @change="bankSelectionOnChange_Challan">
                                         <option :value="null" selected>Select Bank</option>
-                                        <option v-for="(item, i) in BANK_INFO" :key="i" :value="item">{{ item.name }}</option>
+                                        <option v-for="(item, i) in BANK_INFO" :key="i" :value="item" :class="item.id === 38 || item.id === 35 ? '' : 'hide'">{{ item.name }}</option>
                                     </select>
                                 </div>
                                 
@@ -479,8 +479,10 @@ export default {
                         collection_mode: 'CHALLAN',
                         doc_no: data.challan.doc_no,
                         doc_date: data.challan.date,
+                        object_type: 131,
                         base64_encoded_file: data.challan.UPLOADED_IMAGE_DATA_BASE_64,
                         file_original_name: data.challan.UPLOADED_IMAGE_NAME,
+                        file_upload_path: '/customers/cheque/',
                         bank_code: data.challan.bank_name.id,
                         branch_code: data.challan.branch_name.id,
                         amount: data.cash_amount
@@ -491,8 +493,10 @@ export default {
                         collection_mode: 'EFTN',
                         doc_no: data.eftn.doc_no,
                         doc_date: data.eftn.date,
+                        object_type: 131,
                         base64_encoded_file: data.eftn.UPLOADED_IMAGE_DATA_BASE_64,
                         file_original_name: data.eftn.UPLOADED_IMAGE_NAME,
+                        file_upload_path: '/customers/cheque/',
                         bank_code: data.eftn.bank_name.id,
                         branch_code: data.eftn.branch_name.id,
                         bank_ac_no: data.eftn.AC_no,
@@ -504,8 +508,10 @@ export default {
                         collection_mode: 'CHEQUE',
                         doc_no: data.cheque.doc_no,
                         doc_date: data.cheque.date,
+                        object_type: 131,
                         base64_encoded_file: data.cheque.UPLOADED_IMAGE_DATA_BASE_64,
                         file_original_name: data.cheque.UPLOADED_IMAGE_NAME,
+                        file_upload_path: '/customers/cheque/',
                         bank_code: data.cheque.bank_name.id,
                         branch_code: data.cheque.branch_name.id,
                         bank_ac_no: data.cheque.AC_no,
@@ -876,7 +882,7 @@ input:focus {
     margin-right: 2%;
 }
 .col-12 {
-    padding: 12px 0;
+    padding: 12px;
 }
 table tbody tr:hover {
     background-color: #E5F0FA;

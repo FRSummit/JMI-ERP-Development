@@ -76,8 +76,8 @@
 </template>
 
 <script>
-import ERPSidebarService from "../../service/ERPSidebarService";
-const service = new ERPSidebarService();
+// import ERPSidebarService from "../../service/ERPSidebarService";
+// const service = new ERPSidebarService();
 
 export default {
   data() {
@@ -87,10 +87,10 @@ export default {
     };
   },
   created() {
-    service.getAllNoificationList().then((res) => {
-      this.notification = res.data;
-      this.progress = false;
-    });
+    // service.getAllNoificationList().then((res) => {
+    //   this.notification = res.data;
+    //   this.progress = false;
+    // });
   },
   methods: {
     attachmentNotificationClick(notification) {

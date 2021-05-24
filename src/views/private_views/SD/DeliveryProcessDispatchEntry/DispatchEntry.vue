@@ -40,7 +40,7 @@
                 </div>
                 <div class="row submit-section">
                   <div class="col-lg-12 col-md-12 col-sm-12 submit-section-inner" v-if="SR_NAME && DISPATCH_DONE_OR_UNDONE">
-                    <button @click="dispatchNowClickHandler">Dispatch Now</button>
+                    <button @click="dispatchNowClickHandler">Dispatch</button>
                   </div>
                 </div>
               </div>
@@ -69,7 +69,7 @@
                 </div>
                 <div class="row submit-section">
                   <div class="col-lg-12 col-md-12 col-sm-12 submit-section-inner">
-                    <button>Dispatch Now</button>
+                    <button>Dispatch</button>
                   </div>
                 </div>
               </div>
