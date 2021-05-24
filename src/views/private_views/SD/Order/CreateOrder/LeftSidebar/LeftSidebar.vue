@@ -36,13 +36,14 @@
             </div>
         </div>
         <div class="title-count">
-            <p class="total-customer">Total Customer (<span class="count">{{ customer_data_list.length }}</span>)</p>
+            <p class="total-customer">Total Customer (<span class="count">{{ customer_data_list ? customer_data_list.length : 0 }}</span>)</p>
         </div>
         <!-- Customer List -->
         <div class="customer-list-section">
             <div class="customer-list-section-inner">
                 <div id="progressbar" class="progressbar" v-if="!customer_data_list">
-                    <v-progress-circular indeterminate color="primary"></v-progress-circular>
+                    <!-- <v-progress-circular indeterminate color="primary"></v-progress-circular> -->
+                    <p>Please select territory</p>
                 </div>
                 <div :id="'customer-section-list-' + c" class="customer-section-list" v-for="(customer, c) in customer_data_list" :key="c" @click="customerClickHandlerFromList(customer, c)">
                     <div :id="'customer-section-list-inner-' + c" class="customer-section-list-inner">
@@ -153,7 +154,7 @@ export default {
             filter_modal: false,
             TERRITORY_LIST: null,
             selected_territory: null,
-            customer_data_list: [],
+            customer_data_list: null,
         }
     },
     created() {},
@@ -240,11 +241,18 @@ export default {
         },
         async ALL_CUSTOMER_FOR_DEPOT_BY_TT__FROM_SERVICE(id) {
             console.log(id)
-            // await service.getAllCustomerForDepot_CreateOrderLeftList(id)
-            //     .then(res => {
-            //         console.log(res.data)
-            //         this.customer_data_list = res.data.sbu_customers
-            //     })
+            this.customer_data_list = []
+            await service.getAllCustomerForDepotByTTId_CreateOrderLeftList(id)
+                .then(res => {
+                    console.log(res.data)
+                    this.customer_data_list = res.data.sbu_customers
+                })
+                .catch(err => {
+                    if(err) {
+                        console.log(err)
+                        this.customer_data_list = null
+                    }
+                })
         },
     },
     watch: {
