@@ -383,6 +383,16 @@ export const router = new VueRouter({
       component: () => import('../views/private_views/LockScreen/LockScreen.vue')
     },
 
+    // --------------------------------------------------------------------------------------
+    // TEST PAGES
+    {
+      path: '/inf-scroll',
+      name: 'Infinity Scroll',
+      component: () => import('../views/private_views/unknown/InfinityScrollPagination.vue')
+    },
+    // TEST PAGES
+    // --------------------------------------------------------------------------------------
+
     // otherwise redirect to home
     // {
     //   path: '*', 
