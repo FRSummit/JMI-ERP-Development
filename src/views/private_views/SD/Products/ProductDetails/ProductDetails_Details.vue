@@ -48,7 +48,7 @@
                     </div>
 
                     <!-- Start Classification Modal Area -->
-                    <div class="modal" id="classification-modal" tabindex="-1" role="dialog" aria-labelledby="classification" aria-hidden="true">
+                    <div class="modal" id="classification-modal" tabindex="-1" role="dialog" aria-labelledby="classification" aria-hidden="true" style="height: 430px;">
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="margin: 0; display: contents;">
                             <div class="modal-content" style="padding: 0; border: 0;">
                                 <div class="modal-header">
@@ -534,7 +534,7 @@
                                     </div>
                                     <!------------ Start Create Offer Modal------------>
                                     <!-- <div class="modal create-offer-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="width: 70%; height: 302px;"> -->
-                                    <div id="modal_create_offer_modal" class="modal create-offer-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="width: 70%;">
+                                    <div id="modal_create_offer_modal" class="modal create-offer-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="width: 70%; height: 440px;">
                                         <div class="modal-dialog modal-lg modal-dialog-centered" style="margin: 0; max-width: unset;">
                                             <div class="modal-content" style="border: none;">
                                                 <div class="modal-header">
@@ -643,7 +643,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg-4 form-group">
+                                                        <div class="col-lg-4 form-group hide">
                                                             <label for="date_range">Discount TP</label>
                                                             <div class="input-group">
                                                                 <input v-model="prod_offer_discount_tp_d" type="number" class="form-control" placeholder="Enter Discount" aria-describedby="basic-addon2" readonly>
@@ -2796,8 +2796,12 @@ export default {
   height: calc(100vh - (74px + 54px + 32px));
 }
 .form-group {
-  padding: 12px;
+  /* padding: 12px; */
+  padding: 10px 15px;
 }
+/* #tab-basic .form-group {
+    padding: 15px;
+} */
 .form-group input {
   border: 1px solid #e2edfa;
   box-sizing: border-box;
@@ -2958,8 +2962,17 @@ button.modal-prod-save-btn:hover {
 }
 
 #change-photo {
-    height: 245px;
+    height: 250px;
     width: 500px;
+}
+#manage-attribute-modal {
+    height: 560px;
+}
+#modal_edit_price_modal {
+    height: 500px;
+}
+#upload_document_file_modal {
+    height: 500px;
 }
 #change-photo .modal.show .modal-dialog {
     min-height: auto;
