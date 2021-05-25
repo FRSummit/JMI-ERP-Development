@@ -1761,7 +1761,8 @@ export default {
                         } else {
                             this.approve_product_confirmation_popup_modal = false
                             this.approved_single_order_modal = true
-                            this.ORDER_SUCCESS_MESSAGE = res.data.message
+                            // this.ORDER_SUCCESS_MESSAGE = res.data.message
+                            this.ORDER_SUCCESS_MESSAGE = 'System error. Please contact with administrator.'
                             this.$emit('single_order_approved_failed', this.order_id_from_left_side)
                             setTimeout( () => {
                                 this.approved_single_order_modal = false

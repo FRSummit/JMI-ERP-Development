@@ -1272,7 +1272,7 @@ export default {
                 // if(newVal.customer_id !== oldVal.customer_id) {
                 if(newVal.customer_id) {
                     this.SALSE_AREA_ID = newVal.customer_area_info ? (newVal.customer_area_info.sales_area_id ? (newVal.customer_area_info.sales_area_id) : null) : null
-                    this.SELECTED_CUSTOMER_ADDRESS = newVal.customer_address ? newVal.customer_address : ''
+                    this.SELECTED_CUSTOMER_ADDRESS = newVal.customer_info ? (newVal.customer_info.customer_address ? (newVal.customer_info.customer_address) : '') : ''
                     this.AREA_LIST_BY_USER__FROM_SERVICE()
                     this.defaultAllThisComponentData()
                 }
