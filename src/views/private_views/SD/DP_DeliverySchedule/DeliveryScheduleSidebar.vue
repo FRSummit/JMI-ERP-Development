@@ -5,7 +5,7 @@
         <div class="header">  
             <div class="row1">
                 <div class="form-group"><i class="fa fa-search"> </i><input type="text" placeholder="Search" class="form-control"></div>
-                <span class="filter_search"><i class="fa fa-filter"> </i> </span>
+                <span class="filter_search hide"><i class="fa fa-filter"> </i> </span>
             </div>
             <div class="row2">
             <h5>Delivery Schedule: <span>{{ DELIVERY_SCHEDULE_LIST ? DELIVERY_SCHEDULE_LIST.length : 0 }}</span></h5>
@@ -219,6 +219,8 @@ export default {
     border-radius: 2px !important;
     border: 1px solid var(--border-color) !important;
     /* width: 80%; */
+    width: 100%;
+    box-sizing: border-box;
     height: 38px !important;
 }
 .layout-sidebar.delivery_schedule .header .row1 .form-group input::placeholder{

@@ -7,7 +7,7 @@
                     <div class="form-group"><i class="fa fa-search"></i>
                         <input type="text" placeholder="Search" id="search-filter" class="form-control" v-on:keyup="searchKeyUpHandler">
                     </div>
-                    <span class="filter_search"><i class="fa fa-filter"> </i> </span>
+                    <span class="filter_search hide"><i class="fa fa-filter"> </i> </span>
                </div>
                <div class="row2">
                     <h5>Products List: <span>{{ items ? (items.length ? items.length : 0) : 0 }}</span></h5>
@@ -202,7 +202,9 @@ export default {
     font-size: var(--font14);
 }
 .header input {
-    width: 80%;
+    /* width: 80%; */
+    width: 100%;
+    box-sizing: border-box;
     height: 36px;
     margin: 0;
     font-size: 14px;

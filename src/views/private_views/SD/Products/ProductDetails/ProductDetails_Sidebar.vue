@@ -13,7 +13,7 @@
               v-on:keyup="searchKeyUpHandler"
             />
           </div>
-          <span class="filter_search"><i class="fa fa-filter"> </i> </span>
+          <span class="filter_search hide"><i class="fa fa-filter"> </i> </span>
         </div>
       </div>
       <div class="content">
@@ -150,10 +150,12 @@ export default {
   font-size: var(--font14);
 }
 .header input {
-  width: 100%;
-  height: 36px;
-  margin: 0;
-  font-size: 14px;
+    /* width: 80%; */
+    width: 100%;
+    box-sizing: border-box;
+    height: 36px;
+    margin: 0;
+    font-size: 14px;
 }
 .layout-sidebar .header .row2 h5 {
   font-weight: 500;

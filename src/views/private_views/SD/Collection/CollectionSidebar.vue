@@ -6,7 +6,7 @@
         <div class="row1">
             <div class="form-group"><i class="fa fa-search"> </i><input type="text" placeholder="Search" id="search-filter" class="form-control" v-on:keyup="searchKeyUpHandler"></div>
             <!-- <span class="filter_search" data-toggle="modal" data-target="#CollectionFilter"><i class="fa fa-filter"> </i> </span> -->
-            <span class="filter_search" @click="openFilterModal"><i class="fa fa-filter"> </i> </span>
+            <span class="filter_search hide" @click="openFilterModal"><i class="fa fa-filter"> </i> </span>
 
         </div>
         </div>
@@ -319,7 +319,9 @@ export default {
     padding-left: 36px;
     border-radius: 2px;
     border: 1px solid  var(--border-color);
-    width: 80%;
+    /* width: 80%; */
+    width: 100%;
+    box-sizing: border-box;
     height: 38px;
 }
 .layout-sidebar.collection .header .row1 .form-group input::placeholder{
