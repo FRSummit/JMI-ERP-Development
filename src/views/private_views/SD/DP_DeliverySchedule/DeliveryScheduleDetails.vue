@@ -572,6 +572,7 @@ export default {
                 })
         },
         async PRING_INVOCIE_DETAILS__FROM_SERVICE(invoice_id) {
+          console.log(invoice_id)
           await service.getPrintInvoiceDetails_INVOICE_CHALLAN_PRINTING(invoice_id)
             .then(res => {
               console.log(res.data)
