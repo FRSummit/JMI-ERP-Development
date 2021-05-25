@@ -76,7 +76,7 @@
                                     </td>
                                     <td v-if="STORED_DATA">
                                         <div class="product">
-                                            <p class="type" style="text-align: center;">{{ item.req_current_stock }}</p>
+                                            <p class="type" style="text-align: center;">{{ item.safety_stock }}</p>
                                         </div>
                                     </td>
                                     <td>

@@ -96,7 +96,7 @@ export default {
                         Object.assign(this.items[i], {status: 'OLD'})
                         Object.assign(this.items[i], {detail_id: pre_selected_prods[j].id})
                         Object.assign(this.items[i], {current_stock: pre_selected_prods[j].current_stock})
-                        Object.assign(this.items[i], {req_current_stock: pre_selected_prods[j].req_current_stock})
+                        Object.assign(this.items[i], {safety_stock: pre_selected_prods[j].safety_stock})
                         this.$emit('SINGLE_REQUISITOR_ITEM_SELECTED', this.items[i])
                         let checkbox_selector = document.querySelector('#card_body_input_' + i)
                         checkbox_selector.checked = true
