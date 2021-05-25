@@ -37,6 +37,9 @@
                                     <h5>{{ card.dp_force.force_inv_total ? Number(card.dp_force.force_inv_total).toFixed(2) : 0.00 }}</h5>
                                 </div>
                                 <div class="row2" @click="childCardBodyClickHandler(card, j)">
+                                    <p>{{ card.dp_force.phone }}</p>
+                                </div>
+                                <div class="row2" @click="childCardBodyClickHandler(card, j)">
                                     <p>{{ card.dp_force.micro_union_name }}</p>
                                 </div>
                                 <div class="row3"> 

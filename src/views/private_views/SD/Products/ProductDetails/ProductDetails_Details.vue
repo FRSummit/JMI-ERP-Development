@@ -623,7 +623,7 @@
                                                             </p>
                                                         </div> -->
                                                         
-                                                        <div class="col-lg-6 form-group">
+                                                        <div class="col-lg-6 form-group hide">
                                                             <label for="offer_type">Applied To</label>
                                                             <!-- <select class="form-control" multiple id="offer_type" v-model="offer_type_offers_modal" @change="onChangeOfferTypeOfferModal">
                                                                 <option :value="null" selected>Select an option</option>

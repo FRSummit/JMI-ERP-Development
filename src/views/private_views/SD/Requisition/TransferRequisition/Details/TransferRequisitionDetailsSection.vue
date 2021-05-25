@@ -27,7 +27,7 @@
                         <div class="col-12 header_top">
                             <h5>Requisition No: <span>{{ SELECTED_REQUISITION_DETAILS.requisition_no ? SELECTED_REQUISITION_DETAILS.requisition_no : '' }}</span></h5>
                             <span>
-                                <a class="edit create-new" @click="createRequisitionClickHandler" style="color: #FFFFFF; border: 1px solid #026cd1; background-color: #026cd1; padding: 4px 6px; border-radius: 4px;"><i class="zmdi zmdi-plus"></i>Create New</a>
+                                <a class="edit create-new hide" @click="createRequisitionClickHandler" style="color: #FFFFFF; border: 1px solid #026cd1; background-color: #026cd1; padding: 4px 6px; border-radius: 4px;"><i class="zmdi zmdi-plus"></i>Create New</a>
                                 <a class="edit" @click="editRequisitionClickHandler" v-if="SELECTED_REQUISITION_DETAILS ? (SELECTED_REQUISITION_DETAILS.req_status === 'DRAFT' ? true : false) : false"><i class="zmdi zmdi-edit"></i></a>
                             </span>
                         </div>
@@ -74,6 +74,8 @@
                                     <th>Unit</th>
                                     <th>Quantity</th>
                                     <!-- <th></th> -->
+                                    <th>Current Stock</th>
+                                    <th>Safety Stock</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -113,6 +115,16 @@
                                         <a class="edit hide" @click="singleItemEditClickHandler"><i class="zmdi zmdi-edit"></i></a>
                                         <a class="remove hide" @click="singleItemDeleteClickHandler"><i class="fas fa-trash-alt"></i></a>
                                     </td> -->
+                                    <td>
+                                        <div class="product">
+                                            <p class="type">{{ item.current_stock ? item.current_stock : '' }}</p>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="product">
+                                            <p class="type">{{ item.safety_stock ? item.safety_stock : '' }}</p>
+                                        </div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

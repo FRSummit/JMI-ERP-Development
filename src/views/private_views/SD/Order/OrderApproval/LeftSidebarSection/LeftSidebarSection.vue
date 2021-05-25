@@ -19,7 +19,7 @@
         <!-- Customer Counter -->
         <div class="title-count">
             <p class="total-customer">Pending Orders (<span id="total_order_counter" class="count">{{ ALL_PENDING_ORDERS_CUSTOMER_LIST.length }}</span>)</p>
-            <div class="select-options">
+            <div class="select-options" v-if="ALL_PENDING_ORDERS_CUSTOMER_LIST.length">
                 <span class="right-icon"><i class="fas fa-chevron-right"></i></span>
                     <select title="Pick a customer" class="selectpicker" v-model="on_change_status" @change="onChangeStatusDropdown()">
                         <option v-for="(status, m) in status_list" :key="m">{{ status.status }}</option>

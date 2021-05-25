@@ -58,7 +58,7 @@
               <div :id="'monthly-delivery-plan-section-list-inner-' + p" class="monthly-delivery-plan-section-list-inner">
                 <div class="name-status-section">
                   <div class="name-section">
-                    <p class="name-text">{{ plan.name }} ({{ plan.id }})</p>
+                    <p class="name-text">{{ plan.name }} ({{ plan.emp_id }})</p>
                     <p class="name-text-search hide">{{ plan.name }} {{ plan.id }} {{ plan.person_info.phone }} {{ plan.status }}</p>
                   </div>
                 </div>
