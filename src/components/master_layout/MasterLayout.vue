@@ -114,272 +114,277 @@ const service = new ERPSidebarService();
 import firebase from 'firebase'
 
 export default {
-  components: {
-    SidenavMenu,
-    GroupModal,
-    NotificationModal,
-    ChatModal,
-    ProfileModal,
-  },
-  data() {
-    return {
-      userName: null,
-      userDesignation: null,
-      // authenticated: null,
-      // userName: JSON.parse(localStorage.getItem("jerp_logged_user")) ? JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.name : "",
-      // userDesignation: JSON.parse(localStorage.getItem("jerp_logged_user")) ? JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.role_name : "",
-      authenticated: this.$store.state.userIsAuthorized,
-      sidenav: false,
-      privatePage: false,
-      mouseOverTriger: true,
-      sbu_name: null,
-      sbu_list_is_present: false,
-      ASSIGNED_SBU_LIST: null,
-      WEB_MENU: [],
-      err_popup_modal: false,
-      err_message: null,
-    };
-  },
-  created() {},
-  mounted() {
-      // this.userName = JSON.parse(localStorage.getItem("jerp_logged_user")) ? JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.name : ""
-      // this.userDesignation = JSON.parse(localStorage.getItem("jerp_logged_user")) ? JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.role_name : ""
-      // this.authenticated = this.$store.state.userIsAuthorized
-    // console.log(this.$route.name);
-    if(JSON.parse(localStorage.getItem("jerp_logged_user"))) {
-      setTimeout( () => {
-        console.log('local storage')
+    components: {
+        SidenavMenu,
+        GroupModal,
+        NotificationModal,
+        ChatModal,
+        ProfileModal,
+    },
+    data() {
+        return {
+        userName: null,
+        userDesignation: null,
+        // authenticated: null,
+        // userName: JSON.parse(localStorage.getItem("jerp_logged_user")) ? JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.name : "",
+        // userDesignation: JSON.parse(localStorage.getItem("jerp_logged_user")) ? JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.role_name : "",
+        authenticated: this.$store.state.userIsAuthorized,
+        sidenav: false,
+        privatePage: false,
+        mouseOverTriger: true,
+        sbu_name: null,
+        sbu_list_is_present: false,
+        ASSIGNED_SBU_LIST: null,
+        WEB_MENU: [],
+        err_popup_modal: false,
+        err_message: null,
+        };
+    },
+    created() {},
+    mounted() {
         // this.userName = JSON.parse(localStorage.getItem("jerp_logged_user")) ? JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.name : ""
         // this.userDesignation = JSON.parse(localStorage.getItem("jerp_logged_user")) ? JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.role_name : ""
         // this.authenticated = this.$store.state.userIsAuthorized
-      }, 1000)
-      this.newDashboardOccuredEventHandler()
-    }
-  },
-  methods: {
-    closeSideNav() {
-      this.sidenav = false;
-      this.mouseOverTriger = false
-      document.getElementById("sidenavbar").style.width = "60px";
-      document.querySelector(".menu-section-inner").style.left = "-350px";
-      document.querySelector(".menu-section-colps-icon").style.right = "0px";
-      document.querySelector('.hamburger').innerHTML = '<i class="zmdi zmdi-menu"></i>'
-      setTimeout( () => {
-        this.mouseOverTriger = true
-      }, 1000)
-    },
-    toggleNav() {
-      if (this.sidenav) {
-        this.sidenav = false;
-        document.getElementById("sidenavbar").style.width = "60px";
-        document.querySelector(".menu-section-inner").style.left = "-350px";
-        document.querySelector(".menu-section-colps-icon").style.right = "0px";
-        document.querySelector('.hamburger').innerHTML = '<i class="zmdi zmdi-menu"></i>'
-      } else {
-        this.sidenav = true;
-        document.getElementById("sidenavbar").style.width = "350px";
-        document.querySelector(".menu-section-inner").style.left = "0px";
-        document.querySelector(".menu-section-colps-icon").style.right =
-          "-60px";
-        document.querySelector('.hamburger').innerHTML = '<i class="zmdi zmdi-close" style="color: #000000"></i>'
-      }
-    },
-    selectGroup() {
-      this.modalToggle("group-list-section");
-    },
-    chatIconClick() {
-      this.modalToggle("chat-modal");
-    },
-    bellIconClick() {
-      this.modalToggle("notification-modal");
-    },
-    profileClick() {
-      this.modalToggle("profile-modal");
-      this.profileArrowRotation();
-    },
-    modalToggle(id) {
-      if (document.querySelector("#" + id).className === id + " hide") {
-        this.closeOtherModals(id);
-        document.querySelector("#" + id).className = id;
-      } else {
-        document.querySelector("#" + id).className = id + " hide";
-      }
-    },
-    closeOtherModals(currentModal) {
-      let modals = [
-        { name: "group-list-section" },
-        { name: "chat-modal" },
-        { name: "notification-modal" },
-        { name: "profile-modal" },
-      ];
-
-      for (let i = 0; i < modals.length; i++) {
-        let selectedSelector = document.querySelector("#" + modals[i].name);
-        if (currentModal !== modals[i].name) {
-          if (selectedSelector.className === modals[i].name) {
-            selectedSelector.className = modals[i].name + " hide";
-          }
+        // console.log(this.$route.name);
+        if(JSON.parse(localStorage.getItem("jerp_logged_user"))) {
+        setTimeout( () => {
+            console.log('local storage')
+            // this.userName = JSON.parse(localStorage.getItem("jerp_logged_user")) ? JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.name : ""
+            // this.userDesignation = JSON.parse(localStorage.getItem("jerp_logged_user")) ? JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.role_name : ""
+            // this.authenticated = this.$store.state.userIsAuthorized
+        }, 1000)
+        this.newDashboardOccuredEventHandler()
         }
-      }
     },
-    profileArrowRotation() {
-      if (
-        document.getElementById("profile-modal").className === "profile-modal"
-      ) {
-        document.querySelector(".profile-arrow").className =
-          "profile-arrow profile-arrow-rotation";
-      } else {
-        document.querySelector(".profile-arrow").className = "profile-arrow";
-      }
+    methods: {
+        closeSideNav() {
+            this.sidenav = false;
+            this.mouseOverTriger = false
+            document.getElementById("sidenavbar").style.width = "60px";
+            document.querySelector(".menu-section-inner").style.left = "-350px";
+            document.querySelector(".menu-section-colps-icon").style.right = "0px";
+            document.querySelector('.hamburger').innerHTML = '<i class="zmdi zmdi-menu"></i>'
+            setTimeout( () => {
+                this.mouseOverTriger = true
+            }, 1000)
+        },
+        toggleNav() {
+            if (this.sidenav) {
+                this.sidenav = false;
+                document.getElementById("sidenavbar").style.width = "60px";
+                document.querySelector(".menu-section-inner").style.left = "-350px";
+                document.querySelector(".menu-section-colps-icon").style.right = "0px";
+                document.querySelector('.hamburger').innerHTML = '<i class="zmdi zmdi-menu"></i>'
+            } else {
+                this.sidenav = true;
+                document.getElementById("sidenavbar").style.width = "350px";
+                document.querySelector(".menu-section-inner").style.left = "0px";
+                document.querySelector(".menu-section-colps-icon").style.right =
+                "-60px";
+                document.querySelector('.hamburger').innerHTML = '<i class="zmdi zmdi-close" style="color: #000000"></i>'
+            }
+        },
+        selectGroup() {
+            this.modalToggle("group-list-section");
+        },
+        chatIconClick() {
+            this.modalToggle("chat-modal");
+        },
+        bellIconClick() {
+            this.modalToggle("notification-modal");
+        },
+        profileClick() {
+            this.modalToggle("profile-modal");
+            this.profileArrowRotation();
+        },
+        modalToggle(id) {
+            if (document.querySelector("#" + id).className === id + " hide") {
+                this.closeOtherModals(id);
+                document.querySelector("#" + id).className = id;
+            } else {
+                document.querySelector("#" + id).className = id + " hide";
+            }
+        },
+        closeOtherModals(currentModal) {
+            let modals = [
+                { name: "group-list-section" },
+                { name: "chat-modal" },
+                { name: "notification-modal" },
+                { name: "profile-modal" },
+            ];
+
+            for (let i = 0; i < modals.length; i++) {
+                let selectedSelector = document.querySelector("#" + modals[i].name);
+                if (currentModal !== modals[i].name) {
+                if (selectedSelector.className === modals[i].name) {
+                    selectedSelector.className = modals[i].name + " hide";
+                }
+                }
+            }
+        },
+        profileArrowRotation() {
+            if (
+                document.getElementById("profile-modal").className === "profile-modal"
+            ) {
+                document.querySelector(".profile-arrow").className =
+                "profile-arrow profile-arrow-rotation";
+            } else {
+                document.querySelector(".profile-arrow").className = "profile-arrow";
+            }
+        },
+        currentRouteName(name) {
+            if (name !== "Login") {
+                this.privatePage = true;
+            } else if(name === "Login") {
+                this.privatePage = false;
+                // localStorage.removeItem('jerp_logged_user');
+            }
+        },
+        sidebarHoverOver() {
+            setTimeout( () => {
+                if(document.getElementById("sidenavbar").matches(':hover')) {
+                    if (!this.sidenav && this.mouseOverTriger) {
+                        document.getElementById("sidenavbar").style.width = "350px";
+                        document.querySelector(".menu-section-inner").style.left = "0px";
+                        document.querySelector(".menu-section-colps-icon").style.right = "-60px";
+                    }
+                }
+            }, 500)
+        },
+        sidebarHoverLeave() {
+            setTimeout( () => {
+                if (!this.sidenav) {
+                    document.getElementById("sidenavbar").style.width = "60px";
+                    document.querySelector(".menu-section-inner").style.left = "-350px";
+                    document.querySelector(".menu-section-colps-icon").style.right = "0px";
+                }
+            }, 500)
+        },
+        lockScreenClicked() {
+            this.modalToggle("profile-modal");
+            this.profileArrowRotation();
+        },
+        // Modal Outside Click Action
+        groupModalOutsideClick() {
+            if(document.querySelector('#group-list-section').className === 'group-list-section') {
+                this.modalToggle("group-list-section");
+            }
+        },
+        chatModalOutsideClick() {
+            if(document.querySelector('#chat-modal').className === 'chat-modal') {
+                this.modalToggle("chat-modal");
+            }
+        },
+        notificationModalOutsideClick() {
+            if(document.querySelector('#notification-modal').className === 'notification-modal') {
+                this.modalToggle("notification-modal");
+            }
+        },
+        profileModalOutsideClick() {
+            if(document.querySelector('#profile-modal').className === 'profile-modal') {
+                this.modalToggle("profile-modal");
+                this.profileArrowRotation();
+            }
+        },
+        // profileUserName(username, designation, sbu_name, token) {
+            //   this.userName = username
+            //   this.userDesignation = designation
+            //   this.sbu_name = sbu_name
+            //   console.log(token)
+        // },
+        sbuListIsPresent(flag) {
+            console.log(flag)
+            this.sbu_list_is_present = flag
+        },
+        async newDashboardOccuredEventHandler() {
+            console.log('newDashboardOccuredEventHandler')
+            // let token = JSON.parse(localStorage.getItem("jerp_logged_user")) ? JSON.parse(localStorage.getItem("jerp_logged_user")).accessToken : ''
+            let token = JSON.parse(localStorage.getItem("jerp_logged_user")).accessToken
+            this.userName = JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.name
+            this.userDesignation = JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.role_name
+            this.sbu_name = JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.sbu_name
+
+            // console.log(token)
+            // console.log(this.$store.state.userData)
+
+            await this.SYSTEM_WEB_MENU__FROM_SERVICE()
+            await this.WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE(token)
+            this.loadNotification()
+        },
+        loadNotification() {
+            firebase.database().ref('users').on('value', (snapshot)=> {
+                console.log(snapshot.val())
+            });
+        },
+        // ----------------------------------------------------------------------------------------
+        // SERVICE IMPLEMENTATION
+        async WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE(token) {
+            this.ASSIGNED_SBU_LIST = []
+            await service.getWEB_SystemAssignedSBU(token)
+                .then(res => {
+                    console.log(res.data)
+                    this.ASSIGNED_SBU_LIST = res.data.data
+                    this.progress = false;
+                })
+                .catch(err => {
+                    if(err) {
+                        // window.location.reload()
+                        console.log(err)
+                    }
+                })
+        },
+        async SYSTEM_WEB_MENU__FROM_SERVICE() {
+            this.WEB_MENU = []
+            // console.log(JSON.parse(localStorage.getItem("jerp_logged_user")))
+            await service.getWebSideMenu()
+                .then(res => {
+                    console.log(res.data)
+                    this.WEB_MENU = res.data.data
+                    // console.log(JSON.parse(localStorage.getItem("jerp_logged_user")))
+                    if(JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils === null) {
+                        window.location.reload()
+                    }
+                })
+                .catch(err => {
+                    if(err) {
+                        // this.err_popup_modal = true
+                        // this.err_message = 'New Login, please reload'
+                        // setTimeout( () => {
+                        //   this.err_popup_modal = false
+                        //   this.err_message = null
+                        //   // window.location.reload()
+                        // }, 2000)
+                        // console.log(err)
+                        if(this.WEB_MENU.length === 0) {
+                            // window.location.reload()
+                        }
+                    }
+                })
+        }
     },
-    currentRouteName(name) {
-      if (name !== "Login") {
-        this.privatePage = true;
-      } else if(name === "Login") {
-        this.privatePage = false;
-        // localStorage.removeItem('jerp_logged_user');
-      }
-    },
-    sidebarHoverOver() {
-      if (!this.sidenav && this.mouseOverTriger) {
-        document.getElementById("sidenavbar").style.width = "350px";
-        document.querySelector(".menu-section-inner").style.left = "0px";
-        document.querySelector(".menu-section-colps-icon").style.right =
-          "-60px";
-      }
-    },
-    sidebarHoverLeave() {
-      if (!this.sidenav) {
-        document.getElementById("sidenavbar").style.width = "60px";
-        document.querySelector(".menu-section-inner").style.left = "-350px";
-        document.querySelector(".menu-section-colps-icon").style.right = "0px";
-      }
-    },
-    lockScreenClicked() {
-      this.modalToggle("profile-modal");
-      this.profileArrowRotation();
-    },
-    // Modal Outside Click Action
-    groupModalOutsideClick() {
-      if(document.querySelector('#group-list-section').className === 'group-list-section') {
-        this.modalToggle("group-list-section");
-      }
-    },
-    chatModalOutsideClick() {
-      if(document.querySelector('#chat-modal').className === 'chat-modal') {
-        this.modalToggle("chat-modal");
-      }
-    },
-    notificationModalOutsideClick() {
-      if(document.querySelector('#notification-modal').className === 'notification-modal') {
-        this.modalToggle("notification-modal");
-      }
-    },
-    profileModalOutsideClick() {
-      if(document.querySelector('#profile-modal').className === 'profile-modal') {
-        this.modalToggle("profile-modal");
-        this.profileArrowRotation();
-      }
-    },
-    // profileUserName(username, designation, sbu_name, token) {
-    //   this.userName = username
-    //   this.userDesignation = designation
-    //   this.sbu_name = sbu_name
-    //   console.log(token)
+    // computed: {
+    //   current_pathname() {
+    //     console.log(this.$route.path)
+    //     if(this.$route.path === '/') {
+    //       console.log('login page')
+    //       console.log(this.WEB_MENU)
+    //     } else {
+    //       console.log('private page')
+    //       console.log(this.WEB_MENU)
+    //       if(this.WEB_MENU.length === 0) {
+    //         window.location.reload()
+    //       }
+    //     }
+    //     return this.$router.pathname
+    //   }
     // },
-    sbuListIsPresent(flag) {
-      console.log(flag)
-      this.sbu_list_is_present = flag
-    },
-    async newDashboardOccuredEventHandler() {
-      console.log('newDashboardOccuredEventHandler')
-      // let token = JSON.parse(localStorage.getItem("jerp_logged_user")) ? JSON.parse(localStorage.getItem("jerp_logged_user")).accessToken : ''
-      let token = JSON.parse(localStorage.getItem("jerp_logged_user")).accessToken
-      this.userName = JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.name
-      this.userDesignation = JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.role_name
-      this.sbu_name = JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.sbu_name
-
-      // console.log(token)
-      // console.log(this.$store.state.userData)
-
-      await this.SYSTEM_WEB_MENU__FROM_SERVICE()
-      await this.WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE(token)
-      this.loadNotification()
-    },
-    loadNotification() {
-      firebase.database().ref('users').on('value', (snapshot)=> {
-        console.log(snapshot.val())
-      });
-    },
-    // ----------------------------------------------------------------------------------------
-    // SERVICE IMPLEMENTATION
-    async WEB_SYSTEM_ASSIGNED_SBU__FROM_SERVICE(token) {
-      this.ASSIGNED_SBU_LIST = []
-      await service.getWEB_SystemAssignedSBU(token)
-        .then(res => {
-          console.log(res.data)
-          this.ASSIGNED_SBU_LIST = res.data.data
-          this.progress = false;
-        })
-        .catch(err => {
-            if(err) {
-                // window.location.reload()
-                console.log(err)
-            }
-        })
-    },
-    async SYSTEM_WEB_MENU__FROM_SERVICE() {
-      this.WEB_MENU = []
-      // console.log(JSON.parse(localStorage.getItem("jerp_logged_user")))
-      await service.getWebSideMenu()
-        .then(res => {
-          console.log(res.data)
-          this.WEB_MENU = res.data.data
-          // console.log(JSON.parse(localStorage.getItem("jerp_logged_user")))
-          if(JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils === null) {
-              window.location.reload()
-          }
-        })
-        .catch(err => {
-            if(err) {
-              // this.err_popup_modal = true
-              // this.err_message = 'New Login, please reload'
-              // setTimeout( () => {
-              //   this.err_popup_modal = false
-              //   this.err_message = null
-              //   // window.location.reload()
-              // }, 2000)
-              // console.log(err)
-              if(this.WEB_MENU.length === 0) {
-                // window.location.reload()
-              }
-            }
-        })
-    }
-  },
-  // computed: {
-  //   current_pathname() {
-  //     console.log(this.$route.path)
-  //     if(this.$route.path === '/') {
-  //       console.log('login page')
-  //       console.log(this.WEB_MENU)
-  //     } else {
-  //       console.log('private page')
-  //       console.log(this.WEB_MENU)
-  //       if(this.WEB_MENU.length === 0) {
-  //         window.location.reload()
-  //       }
-  //     }
-  //     return this.$router.pathname
-  //   }
-  // },
-  // watch: {
-  //   current_pathname(newVal, oldVal) {
-  //     if(newVal !== oldVal) {
-  //       console.log(newVal)
-  //     }
-  //   }
-  // }
+    // watch: {
+    //   current_pathname(newVal, oldVal) {
+    //     if(newVal !== oldVal) {
+    //       console.log(newVal)
+    //     }
+    //   }
+    // }
 };
 </script>
 
