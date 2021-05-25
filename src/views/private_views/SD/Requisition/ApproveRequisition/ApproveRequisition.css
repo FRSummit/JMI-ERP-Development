@@ -4523,7 +4523,9 @@ button:focus {
 }
 
 .requition_content td:nth-child(4),
-.requition_content th:nth-child(4) {
+.requition_content th:nth-child(4),,
+.requition_content td:nth-child(5),
+.requition_content th:nth-child(5) {
     flex-basis     : 30%;
     flex-grow      : 1;
     text-align     : center;
