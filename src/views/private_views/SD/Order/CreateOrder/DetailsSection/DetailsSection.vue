@@ -79,7 +79,7 @@
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Trade Price<span class="with-vat">(With VAT)</span></th>
+                                <th>Trade Price<span class="with-vat">(TP+VAT)</span></th>
                                 <th>Quantity</th>
                                 <th>Discount</th>
                                 <th>Bonus</th>
@@ -144,7 +144,7 @@
                                 </tr>
                                 <tr class="subtotal bottom-total" v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">
                                     <td style="width: 50%;"><span class="add-order-attachment-section add-order" @click="addCommentClickHandler"><i class="zmdi zmdi-plus"></i>Order Note</span></td>
-                                    <td style="width: 25%;">(+) Vat</td>
+                                    <td style="width: 25%;">(+) VAT</td>
                                     <td style="width: 15%;">{{ Number(vat_total).toFixed(2) }}</td>
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>

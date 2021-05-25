@@ -198,7 +198,7 @@
                                   <th><p>{{ Number(INVOICE_DETAILS_TOTAL_SECTION.subtotal).toFixed(2) }}</p></th>
                                 </tr>
                                 <tr>
-                                  <th colspan="2"><span>(+) Vat:</span></th>
+                                  <th colspan="2"><span>(+) VAT:</span></th>
                                   <th><p>{{ Number(INVOICE_DETAILS_TOTAL_SECTION.vat).toFixed(2) }}</p></th>
                                 </tr>
                                 <tr>
