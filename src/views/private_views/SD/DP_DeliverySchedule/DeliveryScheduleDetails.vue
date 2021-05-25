@@ -92,7 +92,7 @@
                       <div class="modal-dialog modal-dialog-centered" style="margin: 0; margin-right: -17px;">
                         <div class="modal-content" style="padding: 0; border: none;">
                           <div class="modal-header">
-                            <h5 class="modal-title">Bulk Reshedule</h5>
+                            <h5 class="modal-title">Bulk Reschedule</h5>
                             <button type="button" id="bulk-reschedule-close-btn" class="close" data-dismiss="modal" aria-label="Close">
                               <span aria-hidden="true" @click="bulkRescheduleCloseClickHandler">&times;</span>
                             </button>
@@ -422,10 +422,25 @@ export default {
             if(this.inv_confirm_modal) {
                 this.inv_confirm_modal = false
             } else {
-                    this.CONFIRM_MODAL_FOR = 'BULK ADD'
+              if(this.anyCheckboxIsSelected() > 0) {
+                this.CONFIRM_MODAL_FOR = 'BULK ADD'
                 this.inv_confirm_modal = true
                 this.inv_confirm_modal_msg = 'Invoice add to DS'
+              } else {
+                alert('PLease select at least one invoice')
+              }
             }
+        },
+        anyCheckboxIsSelected() {
+          let selector = document.querySelectorAll('table tbody .form-check-input')
+          console.log(selector.length)
+          let count = 0
+          for(let i=0; i<selector.length; i++) {
+            if(selector[i].checked === true) {
+              count++
+            }
+          }
+          return count
         },
         bulkReschedulingSaveBtnClickHandler() {
             console.log(this.SELECTED_INVOICE_NUMBERS_LIST)
