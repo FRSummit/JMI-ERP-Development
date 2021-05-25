@@ -44,7 +44,7 @@
                                 </div>
                                 <div class="row3"> 
                                     <div class="group-2" @click="childCardBodyClickHandler(card, j)"><p>Scheduled: <span>{{ card.dp_force.planned }}</span></p><p style="margin-left: 10px;">New: <span>{{ card.dp_force.new }}</span></p></div> 
-                                    <i class="material-icons" v-if="card.dp_force.ds_status === 'N'" @click="agorBatiIconClickHandler(card, j)">auto_fix_normal</i>
+                                    <i class="material-icons" :class="parseInt(card.dp_force.new) === 0 ? 'disabled_icon' : ''" v-if="card.dp_force.ds_status === 'N'" @click="parseInt(card.dp_force.new) !== 0 ? agorBatiIconClickHandler(card, j) : false">auto_fix_normal</i>
                                     <i class="zmdi zmdi-lock-open" v-if="(card.dp_force.ds_status === 'O') && (parseInt(card.dp_force.planned) > 0) && (parseInt(card.dp_force.new) === 0)" @click="unlockIconClickHandler(card, j)"></i>
                                     <i class="zmdi zmdi-lock-outline" v-if="card.dp_force.ds_status === 'L'"></i>
                                     <!-- <i class="material-icons">auto_fix_normal</i> -->
@@ -484,5 +484,8 @@ export default {
 .layout-sidebar.delivery_schedule .content .ds_accordion .card.open .card-header:after {
     transform: rotate(0deg);
     color: #FFFFFF;
+}
+.disabled_icon {
+    opacity: 0.5;
 }
 </style>

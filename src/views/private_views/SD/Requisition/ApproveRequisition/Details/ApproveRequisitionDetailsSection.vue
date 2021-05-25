@@ -69,6 +69,8 @@
                                     <th>Unit</th>
                                     <th>Quantity</th>
                                     <!-- <th></th> -->
+                                    <th>Current Stock</th>
+                                    <th>Safety Stock</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -108,6 +110,16 @@
                                         <a class="edit" @click="singleItemEditClickHandler"><i class="zmdi zmdi-edit"></i></a>
                                         <a class="remove" @click="singleItemDeleteClickHandler"><i class="fas fa-trash-alt"></i></a>
                                     </td> -->
+                                    <td>
+                                        <div class="product">
+                                            <p class="type">{{ item.current_stock ? item.current_stock : '' }}</p>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="product">
+                                            <p class="type">{{ item.safety_stock ? item.safety_stock : '' }}</p>
+                                        </div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
