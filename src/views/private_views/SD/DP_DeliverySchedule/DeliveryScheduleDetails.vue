@@ -109,8 +109,9 @@
                               <div class="col-lg-6 form-group">
                                 <label for="sr_name">Select SR</label>
                                 <select class="form-control" id="sr_name" v-model="selected_da_from_dp_list">
-                                    <option :value="null" selected>Select SR</option>
-                                  <option v-for="(item, i) in DP_LIST_WITH_DA" :key="i" :value="item">{{ item.get_adm_user.name }}</option>
+                                  <option :value="null" selected>Select SR</option>
+                                  <!-- <option v-for="(item, i) in DP_LIST_WITH_DA" :key="i" :value="item">{{ item.get_adm_user.name }}</option> -->
+                                  <option v-for="(item, i) in DP_LIST_WITH_DA" :key="i" :value="item">{{ item.get_adm_user ? ((item.get_adm_user.employee_id) + " - " + item.get_adm_user.name + (item.get_adm_user.get_person_detail.phone ? (" (" + item.get_adm_user.get_person_detail.phone + ")") : '')) : '' }}</option>
                                 </select>
                               </div>
                               <div class="col-lg-6 form-group" >

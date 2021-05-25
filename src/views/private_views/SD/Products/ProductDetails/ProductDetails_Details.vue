@@ -614,25 +614,17 @@
                                                             </div>
                                                         </div>
                                                         <!-- <div class="col-lg-6 form-group"> -->
-                                                        <div class="col-lg-12 form-group">
+                                                        <!-- <div class="col-lg-12 form-group">
                                                             <label for="offer_type">Applied to</label>
                                                             <div class="input-group">
-                                                                <p class="applied_to"><span v-for="(item, i) in applied_to_prods ? 10 : 0" :key="i" :value="item"><input type="checkbox" />{{ 'item.prod_name' }}</span></p>
+                                                                <p class="applied_to"><span v-for="(item, i) in applied_to_prods ? 10 : 0" :key="i" :value="item"><input type="checkbox" />{{ 'item.prod_name' }}</span></p> -->
                                                                 <!-- <p class="applied_to"><span v-for="(item, i) in applied_to_prods ? applied_to_prods : 0" :key="i" :value="item"><input type="checkbox" />{{ item.prod_name }}</span><i class="zmdi zmdi-plus" @click="appliedTOProdClickHandler"></i></p> -->
                                                                 <!-- <input id="prod_offer_now_price_d" v-model="prod_offer_now_price_d" type="number" class="form-control" placeholder="" aria-describedby="addon1" v-on:keyup="prod_offer_now_price_d_KeyUp_ordered_table($event)" required>
                                                                 <div class="input-group-append">
                                                                     <span class="input-group-text" id="addon1">TK</span>
                                                                 </div> -->
-                                                            </div>
-                                                            <!-- <select id="ingredients" multiple="multiple">
-                                                                <option value="cheese">Cheese</option>
-                                                                <option value="tomatoes">Tomatoes</option>
-                                                                <option value="mozarella">Mozzarella</option>
-                                                                <option value="mushrooms">Mushrooms</option>
-                                                                <option value="pepperoni">Pepperoni</option>
-                                                                <option value="onions">Onions</option>
-                                                            </select> -->
-                                                        </div>
+                                                            <!-- </div>
+                                                        </div> -->
                                                         <!-- <div class="col-lg-2 form-group">
                                                             <button type="button" class="btn btn-primary btn-global" style="position: absolute; bottom: 20px; background-color: #495057;">Save Flat Rate</button>
                                                         </div> -->
