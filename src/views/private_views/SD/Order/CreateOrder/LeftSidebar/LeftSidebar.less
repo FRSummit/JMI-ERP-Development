@@ -90,20 +90,22 @@
                 width  : 100%;
                 display: block;
 
-                p.text {
-                    font-size  : 12px;
-                    color      : #111213;
-                    margin     : 0;
-                    font-weight: 400;
-                    display    : inline-block;
-                    width      : 34%;
-                    vertical-align: bottom;
-                }
+                // p.text {
+                //     font-size  : 12px;
+                //     color      : #111213;
+                //     margin     : 0;
+                //     font-weight: 400;
+                //     display    : inline-block;
+                //     width      : 34%;
+                //     vertical-align: bottom;
+                // }
 
                 .sort-section {
-                    display: inline-block;
-                    width  : 65%;
-                    float  : right;
+                    // display: inline-block;
+                    // width  : 65%;
+                    // float  : right;
+                    width  : 100%;
+                    display: block;
 
                     .sort-section-inner {
                         display: block;
@@ -122,6 +124,8 @@
                                 float      : left;
                                 position   : relative;
 
+                                border: 1px solid #BFCFE2;
+
                                 span.right-icon {
                                     svg {
                                         position : absolute;
@@ -133,10 +137,20 @@
                                 }
 
                                 select.selectpicker {
-                                    display     : block;
-                                    height      : 30px;
-                                    padding-left: 10px;
-                                    border      : 1px solid #BFCFE2;
+                                    display        : block;
+                                    height         : 30px;
+                                    padding-left   : 10px;
+                                    // border      : 1px solid #BFCFE2;
+                                    border         : none;
+                                    font-size      : 12px;
+
+                                    width         : 92%;
+                                    white-space   : nowrap;
+                                    overflow      : hidden;
+                                    text-overflow : ellipsis;
+                                    vertical-align: middle;
+
+                                    span {}
 
                                     option {}
                                 }

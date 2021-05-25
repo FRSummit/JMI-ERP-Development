@@ -1,0 +1,53 @@
+
+
+.mx-datepicker-main.mx-datepicker-popup {
+    background   : #FBFCFE;
+    top          : calc(74px + 73px + 60px + 30px) !important;
+    box-shadow   : 0px 0px 22px -6px #026cd1;
+    padding      : 10px;
+    border-radius: 4px;
+    z-index      : 9999;
+}
+.mx-datepicker .mx-datepicker-range input {
+    padding-left: 4px;
+}
+
+.mx-calendar.mx-calendar-panel-date {
+    display      : inline-block;
+    border       : 2px solid #5b9fec;
+    border-radius: 4px;
+    padding      : 4px 8px;
+}
+
+.mx-calendar.mx-calendar-panel-date {
+    text-align: center;
+}
+
+.mx-calendar.mx-calendar-panel-date:nth-child(1) {
+    /* margin-right: 20px; */
+}
+
+.mx-calendar.mx-calendar-panel-date:nth-child(2) {
+    display: none;
+}
+
+.mx-btn.mx-btn-text.mx-btn-icon-left,
+.mx-btn.mx-btn-text.mx-btn-icon-right {
+    display         : inline-block;
+    background-color: transparent;
+    background      : transparent;
+    width           : 25px;
+    height          : 25px;
+    position        : absolute;
+    top             : 20px;
+}
+
+.mx-btn.mx-btn-text.mx-btn-icon-left {
+    background-image: url('../../../../../assets/icons/arrow_left.svg');
+    left            : 20px;
+}
+
+.mx-btn.mx-btn-text.mx-btn-icon-right {
+    background-image: url('../../../../../assets/icons/arrow_right.svg');
+    right           : 20px;
+}

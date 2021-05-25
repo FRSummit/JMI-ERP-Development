@@ -168,9 +168,9 @@ export default {
     // },
     checkUserAreaWarehouseId(data) {
       // let cls = ''
-      console.log(data)
+      // console.log(data)
       let user_area_dtl__wh_code = this.$store.state.JERP_LOGGED_USER_DATA.user_detils.user_area.wh_code
-      console.log(user_area_dtl__wh_code)
+      // console.log(user_area_dtl__wh_code)
       if(data.plant_code !== user_area_dtl__wh_code) {
         // cls = 'hide'
         return false

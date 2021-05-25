@@ -18,7 +18,7 @@
         </div>
         <!-- Customer Counter -->
         <div class="territory-selection">
-            <p class="text">Select Territory</p>
+            <!-- <p class="text">Select Territory</p> -->
             <div class="sort-section">
                 <div class="sort-section-inner">
                     <div class="input-section">
@@ -26,10 +26,9 @@
                             <span class="right-icon"
                                 ><i class="fas fa-chevron-right"></i
                             ></span>
-                            <select title="Pick a customer" class="selectpicker" @change="onChange()">
-                                <option v-for="(customer, m) in 10" :key="m">
-                                {{ m }}
-                                </option>
+                            <select title="Pick a customer" class="selectpicker" v-model="selected_territory">
+                                <option :value="null" selected>Select Territory</option>
+                                <option v-for="(tt, i) in TERRITORY_LIST" :key="i" :value="tt"><span>{{ tt.display_code }} - {{ tt.area_name }}</span></option>
                             </select>
                         </div>
                     </div>
@@ -37,13 +36,18 @@
             </div>
         </div>
         <div class="title-count">
-            <p class="total-customer">Total Customer (<span class="count">{{ customer_data_list.length }}</span>)</p>
+            <p class="total-customer">Total Customer (<span class="count">{{ customer_data_list ? customer_data_list.length : 0 }}</span>)</p>
         </div>
         <!-- Customer List -->
         <div class="customer-list-section">
             <div class="customer-list-section-inner">
                 <div id="progressbar" class="progressbar" v-if="!customer_data_list">
-                    <v-progress-circular indeterminate color="primary"></v-progress-circular>
+                    <!-- <v-progress-circular indeterminate color="primary"></v-progress-circular> -->
+                    <p>Please select territory</p>
+                </div>
+                <div id="progressbar" class="progressbar" v-if="customer_data_list && customer_data_list.length === 0">
+                    <!-- <v-progress-circular indeterminate color="primary"></v-progress-circular> -->
+                    <p>No customer found</p>
                 </div>
                 <div :id="'customer-section-list-' + c" class="customer-section-list" v-for="(customer, c) in customer_data_list" :key="c" @click="customerClickHandlerFromList(customer, c)">
                     <div :id="'customer-section-list-inner-' + c" class="customer-section-list-inner">
@@ -152,13 +156,16 @@ export default {
                 },
             ],
             filter_modal: false,
-            customer_data_list: [],
+            TERRITORY_LIST: null,
+            selected_territory: null,
+            customer_data_list: null,
         }
     },
     created() {},
     async mounted() {
         console.log('Customer list loading')
         // await this.ALL_CUSTOMER_FOR_DEPOT__FROM_SERVICE()
+        await this.GET_TERRITORY_LIST__FROM_SERVICE()
     },
     methods: {
         filterClick() {
@@ -215,13 +222,49 @@ export default {
             jmiFilter.searchById_LeftSidebar(filter, list, txt_selector)
         },
         /*----------- Service implementation ------------*/
-        async ALL_CUSTOMER_FOR_DEPOT__FROM_SERVICE() {
+        /*async ALL_CUSTOMER_FOR_DEPOT__FROM_SERVICE() {
             await service.getAllCustomerForDepot_CreateOrderLeftList()
                 .then(res => {
-                console.log(res.data)
-                this.customer_data_list = res.data.sbu_customers
+                    console.log(res.data)
+                    this.customer_data_list = res.data.sbu_customers
+                })
+        },*/
+        async GET_TERRITORY_LIST__FROM_SERVICE() {
+            this.TERRITORY_LIST = []
+            await service.getTerritoryList_CreateOrderLeftList()
+                .then(res => {
+                    console.log(res.data)
+                    this.TERRITORY_LIST = res.data.territory_list
+                })
+                .catch(err => {
+                    if(err) {
+                        console.log(err)
+                        this.TERRITORY_LIST = null
+                    }
                 })
         },
+        async ALL_CUSTOMER_FOR_DEPOT_BY_TT__FROM_SERVICE(id) {
+            console.log(id)
+            this.customer_data_list = []
+            await service.getAllCustomerForDepotByTTId_CreateOrderLeftList(id)
+                .then(res => {
+                    console.log(res.data)
+                    this.customer_data_list = res.data.sbu_customers
+                })
+                .catch(err => {
+                    if(err) {
+                        console.log(err)
+                        this.customer_data_list = null
+                    }
+                })
+        },
+    },
+    watch: {
+        selected_territory(newVal) {
+            if(newVal) {
+                this.ALL_CUSTOMER_FOR_DEPOT_BY_TT__FROM_SERVICE(newVal.id)
+            }
+        }
     }
 };
 </script>

@@ -311,8 +311,30 @@ export default class PostService {
 
   // -------------------------------------------------------------------------------------------
   // CREATE ORDER
-  async getAllCustomerForDepot_CreateOrderLeftList() {
+  /*async getAllCustomerForDepot_CreateOrderLeftList() {
     let web_menu_url = '/api/web/all-customers-for-depot'
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }*/
+
+  
+  // CREATE ORDER - LEFT SECTION _TERRITORY LIST
+  async getTerritoryList_CreateOrderLeftList() {
+    let web_menu_url = '/api/web/get-territory-list'
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
+  // CREATE ORDER
+  async getAllCustomerForDepotByTTId_CreateOrderLeftList(tt_id) {
+    let web_menu_url = '/api/web/all-customers-for-depot-by-territory/' + tt_id
     return await axios(web_menu_url, {
       method: 'GET',
       headers: {

@@ -17,7 +17,7 @@
                             <p class="product-code">Code: <span>{{ SELECTED_PROD_DETAILS ? (SELECTED_PROD_DETAILS.product_info ? SELECTED_PROD_DETAILS.product_info.prod_code : '') : '' }}</span></p>
                         </div>
                         <!-- Start Change Photo Modal -->
-                            <div class="modal" id="change-photo" tabindex="-1" role="dialog" aria-labelledby="changePhoto" aria-hidden="true">
+                            <div class="modal" id="change-photo" tabindex="-1" role="dialog" aria-labelledby="changePhoto" aria-hidden="true" style="padding-right: 0;">
                                 <div class="modal-dialog modal-dialog-centered" role="document" style="min-height: auto; margin: 0;">
                                     <div class="modal-content" style="border: none;">
                                         <div class="modal-header">
@@ -48,7 +48,7 @@
                     </div>
 
                     <!-- Start Classification Modal Area -->
-                    <div class="modal" id="classification-modal" tabindex="-1" role="dialog" aria-labelledby="classification" aria-hidden="true">
+                    <div class="modal" id="classification-modal" tabindex="-1" role="dialog" aria-labelledby="classification" aria-hidden="true" style="height: 430px; padding-right: 0;">
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="margin: 0; display: contents;">
                             <div class="modal-content" style="padding: 0; border: 0;">
                                 <div class="modal-header">
@@ -286,7 +286,7 @@
                                             </ul>
                                         </div>
                                         <!-- Start Manage Attribute Modal -->
-                                        <div class="modal" id="manage-attribute-modal" tabindex="-1" role="dialog" aria-labelledby="manageattribute" aria-hidden="true">
+                                        <div class="modal" id="manage-attribute-modal" tabindex="-1" role="dialog" aria-labelledby="manageattribute" aria-hidden="true" style=" padding-right: 0;">
                                             <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="margin: 0;">
                                                 <div class="modal-content" style="border: none;">
                                                 <div class="modal-header">
@@ -440,7 +440,7 @@
                                     </div> -->
                                     <!------------ Start Price Edit Modal------------>
                                     <!-- <div class="modal create-offer-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="width: 70%; height: 302px;"> -->
-                                    <div id="modal_edit_price_modal" class="modal edit-price-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="width: 70%;">
+                                    <div id="modal_edit_price_modal" class="modal edit-price-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="width: 70%; padding-right: 0;">
                                         <div class="modal-dialog modal-lg modal-dialog-centered" style="margin: 0; max-width: unset;">
                                             <div class="modal-content" style="border: none;">
                                                 <div class="modal-header">
@@ -534,7 +534,7 @@
                                     </div>
                                     <!------------ Start Create Offer Modal------------>
                                     <!-- <div class="modal create-offer-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="width: 70%; height: 302px;"> -->
-                                    <div id="modal_create_offer_modal" class="modal create-offer-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="width: 70%;">
+                                    <div id="modal_create_offer_modal" class="modal create-offer-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="width: 50%; max-width: 700px; height: 440px; padding-right: 0;">
                                         <div class="modal-dialog modal-lg modal-dialog-centered" style="margin: 0; max-width: unset;">
                                             <div class="modal-content" style="border: none;">
                                                 <div class="modal-header">
@@ -545,41 +545,23 @@
                                                 </div>
                                                 <div class="modal-body">
                                                     <div class="row">
-                                                        <div class="col-lg-4 form-group">
+                                                        <div class="col-lg-6 form-group">
                                                             <label for="offer_type">Offer Type</label>
                                                             <select class="form-control" id="offer_type" v-model="offer_type_offers_modal" @change="onChangeOfferTypeOfferModal">
                                                                 <option :value="null" selected>Select an option</option>
-                                                                <!-- <option v-for="(item, i) in OFFERS" :key="i" :value="item.name"><span v-if="OFFERS_LIST[i].offer_name !== item.name">{{ item.name }}</span></option> -->
                                                                 <option v-for="(item, i) in OFFERS" :key="i" :value="item.name">
-                                                                    <!-- <span v-if="OFFERS_LIST.length ? true : false">
-                                                                        <span v-for="(offer, j) in OFFERS_LIST" :key="j">
-                                                                            <span>{{ item.name }}</span>
-                                                                        </span>
-                                                                    </span>
-                                                                    <span v-else>
-                                                                        <span>{{ item.name }}</span>
-                                                                    </span> -->
                                                                     <span>{{ item.name }}</span>
                                                                 </option>
                                                             </select>
                                                         </div>
-                                                        <div class="col-lg-4 form-group">
+                                                        <!-- <div class="col-lg-4 form-group">
                                                             <label for="offer_name">Offer Name</label>
                                                             <input v-model="offer_type_offers_modal" type="text" class="form-control" id="offer_name" placeholder="Enter Offer Name" readonly>
-                                                        </div>
-                                                        <div class="col-lg-4 form-group">
+                                                        </div> -->
+                                                        <div class="col-lg-6 form-group">
                                                             <label for="date_range">Start &amp; End Date</label>
-                                                            <!-- <input type="date" class="form-control" id="date_range" placeholder="DD/MM/YY - DD/MM/YY"> -->
-                                                            <!-- <input type="text" name="daterange" value="01/01/2018 - 01/15/2018" /> -->
-                                                            <!-- <div class="date-range">
-                                                                <div class="date-range-inner"> -->
-                                                                    <!-- <p>
-                                                                        <span>Date Range</span> -->
-                                                                        <date-picker v-model="range" lang="en" range type="date" format="YYYY-MM-DD" width="500"></date-picker>
-                                                                    <!-- </p> -->
-                                                                <!-- </div>
-                                                            </div> -->
-                                                        </div>
+                                                                <date-picker v-model="range" lang="en" range type="date" format="YYYY-MM-DD" width="500"></date-picker>
+                                                            </div>
                                                     </div>
 
                                                     
@@ -587,7 +569,7 @@
                                                     <!-- <div class="row" id="percentage_discount" style="display: none;"> -->
                                                     <div class="row hide" id="percentage_discount">
                                                         <div class="col-12 hide"><h5>Percentage Discount</h5><hr></div>
-                                                        <div class="col-lg-4 form-group">
+                                                        <div class="col-lg-6 form-group">
                                                             <label for="quantity">Minimum Buy QTY</label>
                                                             <div class="input-group">
                                                                 <input v-model="prod_offer_minimum_qty" type="number" class="form-control" placeholder="" aria-describedby="addon1" required>
@@ -597,7 +579,7 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-lg-4 form-group">
+                                                        <div class="col-lg-6 form-group">
                                                             <label for="discount">Discount</label>
                                                             <div class="input-group">
                                                                 <input v-model="prod_offer_discount_p" type="number" class="form-control" placeholder="Enter Discount" aria-describedby="basic-addon2" required>
@@ -612,16 +594,7 @@
                                                     <!-- <div class="row" id="fixed_discount" style="display: none;"> -->
                                                     <div class="row hide" id="fixed_discount">
                                                         <div class="col-12 hide"><h5>Fixed Discount</h5><hr></div>
-                                                        <div class="col-lg-4 form-group">
-                                                            <label for="offer_name">Now Price</label>
-                                                            <div class="input-group">
-                                                                <input v-model="prod_offer_now_price_d" type="number" class="form-control" placeholder="" aria-describedby="addon1" required>
-                                                                <div class="input-group-append">
-                                                                <span class="input-group-text" id="addon1">TK</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-4 form-group">
+                                                        <div class="col-lg-6 form-group">
                                                             <label for="offer_name">For</label>
                                                             <div class="input-group">
                                                                 <input v-model="prod_offer_for_d" type="number" class="form-control" placeholder="" aria-describedby="addon1" required>
@@ -631,10 +604,38 @@
                                                                 <!-- <button type="button" class="btn btn-primary btn-global" style="position: absolute; bottom: 20px;">Save Flat Rate</button> -->
                                                             </div>
                                                         </div>
+                                                        <div class="col-lg-6 form-group">
+                                                            <label for="offer_name">New Price</label>
+                                                            <div class="input-group">
+                                                                <input id="prod_offer_now_price_d" v-model="prod_offer_now_price_d" type="number" class="form-control" placeholder="" aria-describedby="addon1" v-on:keyup="prod_offer_now_price_d_KeyUp_ordered_table($event)" required>
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text" id="addon1">TK</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- <div class="col-lg-6 form-group"> -->
+                                                        <div class="col-lg-6 form-group">
+                                                            <label for="offer_type">Applied to</label>
+                                                            <div class="input-group">
+                                                                <p class="applied_to"><span v-for="(item, i) in applied_to_prods ? applied_to_prods : 0" :key="i" :value="item">{{ item.prod_name }}</span><i class="zmdi zmdi-plus" @click="appliedTOProdClickHandler"></i></p>
+                                                                <!-- <input id="prod_offer_now_price_d" v-model="prod_offer_now_price_d" type="number" class="form-control" placeholder="" aria-describedby="addon1" v-on:keyup="prod_offer_now_price_d_KeyUp_ordered_table($event)" required>
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text" id="addon1">TK</span>
+                                                                </div> -->
+                                                            </div>
+                                                            <!-- <select id="ingredients" multiple="multiple">
+                                                                <option value="cheese">Cheese</option>
+                                                                <option value="tomatoes">Tomatoes</option>
+                                                                <option value="mozarella">Mozzarella</option>
+                                                                <option value="mushrooms">Mushrooms</option>
+                                                                <option value="pepperoni">Pepperoni</option>
+                                                                <option value="onions">Onions</option>
+                                                            </select> -->
+                                                        </div>
                                                         <!-- <div class="col-lg-2 form-group">
                                                             <button type="button" class="btn btn-primary btn-global" style="position: absolute; bottom: 20px; background-color: #495057;">Save Flat Rate</button>
                                                         </div> -->
-                                                        <div class="col-lg-4 form-group">
+                                                        <div class="col-lg-6 form-group hide">
                                                             <label for="offer_name">Minimum Buy QTY</label>
                                                             <div class="input-group">
                                                                 <input v-model="prod_offer_for_d" type="number" class="form-control" placeholder="" aria-describedby="addon1" readonly>
@@ -643,7 +644,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg-4 form-group">
+                                                        <div class="col-lg-6 form-group hide">
                                                             <label for="date_range">Discount TP</label>
                                                             <div class="input-group">
                                                                 <input v-model="prod_offer_discount_tp_d" type="number" class="form-control" placeholder="Enter Discount" aria-describedby="basic-addon2" readonly>
@@ -658,7 +659,7 @@
                                                     <!-- <div class="row" id="bonus_product" style="display: none;"> -->
                                                     <div class="row hide" id="bonus_product">
                                                         <div class="col-12 hide"><h5>Bonus Product</h5><hr></div>
-                                                        <div class="col-lg-4 form-group">
+                                                        <div class="col-lg-6 form-group">
                                                             <label for="offer_name">Minimum Buy QTY</label>
                                                             <div class="input-group">
                                                                 <input v-model="prod_offer_min_qty_b" type="number" class="form-control" placeholder="" aria-describedby="addon1" required>
@@ -667,7 +668,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg-4 form-group">
+                                                        <div class="col-lg-6 form-group">
                                                             <label for="date_range">Bonus QTY</label>
                                                             <div class="input-group">
                                                                 <input v-model="prod_offer_bonus_qty_b" type="number" class="form-control" placeholder="" aria-describedby="addon1" required>
@@ -695,9 +696,6 @@
                                                             <select class="form-control" v-model="free_prod_offer_selected_prod">
                                                                 <option value="null" selected>Select Product</option>
                                                                 <option v-for="(item, i) in ALL_PRODS_LIST_IN_DB" :key="i" :value="item.prod_id">{{ item.prod_name }}</option>
-                                                                <!-- <option value="">Product 2</option>
-                                                                <option value="">Product 3</option>
-                                                                <option value="">Product 4</option> -->
                                                             </select>
                                                         </div>
                                                         <div class="col-lg-4 form-group">
@@ -1077,7 +1075,7 @@
                                         <button class="btn btn-primary btn-save" data-toggle="modal" data-target=".upload-document-file-modal" role="button" @click="openDocumentUploadModalClickHandler">Upload</button>
                                         <!-- <a class="btn-edit" ><i class="zmdi zmdi-edit"></i></a> -->
                                     </div>
-                                    <div id="upload_document_file_modal" class="modal upload-document-file-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="width: 70%;">
+                                    <div id="upload_document_file_modal" class="modal upload-document-file-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="width: 70%; padding-right: 0;">
                                         <div class="modal-dialog modal-lg modal-dialog-centered" style="margin: 0; max-width: unset;">
                                             <div class="modal-content" style="border: none;">
                                                 <div class="modal-header">
@@ -1119,7 +1117,7 @@
                                         
                                         <div class="col-lg-3 col-md-4 col-12" v-for="(item, i) in SELECTED_PROD_DOCS_DETAILS" :key="i">
                                             <!-- PHOTO -->
-                                            <div class="document-file" v-if="parseInt(item.blob_info.object_type) === 131">
+                                            <div class="document-file" v-if="item.blob_info ? parseInt(item.blob_info.object_type) === 131 : false">
                                                 <div class="thumbnail">
                                                     <div class="view">
                                                         <i class="view-btn fa fa-eye"></i>
@@ -1140,7 +1138,7 @@
                                                 </div>
                                             </div>
                                             <!-- SCANNED DOCUMENT -->
-                                            <div class="document-file" v-if="parseInt(item.blob_info.object_type) === 132">
+                                            <div class="document-file" v-if="item.blob_info ? parseInt(item.blob_info.object_type) === 132 : false">
                                                 <div class="thumbnail">
                                                     <div class="view">
                                                         <i class="view-btn fa fa-eye"></i>
@@ -1162,7 +1160,7 @@
                                                 </div>
                                             </div>
                                             <!-- WORD DOCUMENT -->
-                                            <div class="document-file" v-if="parseInt(item.blob_info.object_type) === 133">
+                                            <div class="document-file" v-if="item.blob_info ? parseInt(item.blob_info.object_type) === 133 : false">
                                                 <div class="thumbnail">
                                                     <div class="view">
                                                         <i class="view-btn fa fa-eye"></i>
@@ -1183,7 +1181,7 @@
                                                 </div>
                                             </div>
                                             <!-- EXCEL DOCUMENT -->
-                                            <div class="document-file" v-if="parseInt(item.blob_info.object_type) === 134">
+                                            <div class="document-file" v-if="item.blob_info ? parseInt(item.blob_info.object_type) === 134 : false">
                                                 <div class="thumbnail">
                                                     <div class="view">
                                                         <i class="view-btn fa fa-eye"></i>
@@ -1204,7 +1202,7 @@
                                                 </div>
                                             </div>
                                             <!-- PDF DOCUMENT -->
-                                            <div class="document-file" v-if="parseInt(item.blob_info.object_type) === 135">
+                                            <div class="document-file" v-if="item.blob_info ? parseInt(item.blob_info.object_type) === 135 : false">
                                                 <div class="thumbnail">
                                                     <div class="view">
                                                         <i class="view-btn fa fa-eye"></i>
@@ -1359,6 +1357,12 @@
                     <span @click="confirmConfirmationPopupModalClickHandler">Confirm</span>
                 </div>
                 </div>
+            </div>
+        </div>
+        <!-- APPLIED TO PRODS LIST -->
+        <div class="modal-popup-section order-proceed-modal" v-if="applied_to_popup_modal">
+            <div class="modal-popup-section-inner order-proceed-modal-inner">
+                <p>APPLIED TO PRODS</p>
             </div>
         </div>
     </div>
@@ -1526,6 +1530,9 @@ export default {
             confirmation_popup_modal_title: null,
             confirmation_popup_modal_description: null,
             CONFIRMATION_POPUP_MODAL_DATA: null,
+
+            applied_to_prods: null,
+            applied_to_popup_modal: false,
         }
     },
     computed: {},
@@ -2734,6 +2741,23 @@ export default {
             // console.log(this.stock_position_modal_batch_lot)
             // console.log(this.stock_position_modal_stock_qty)
         },
+        prod_offer_now_price_d_KeyUp_ordered_table(value) {
+            console.log(value.key)
+            let selector = document.querySelector('#prod_offer_now_price_d')
+            console.log(selector.value)
+            if(selector.value === '0') {
+                selector.value = 0
+            } else if(selector.value === '') {
+                selector.value = 0
+            }
+        },
+        appliedTOProdClickHandler() {
+            if(this.applied_to_popup_modal) {
+                this.applied_to_popup_modal = false
+            } else {
+                this.applied_to_popup_modal = true
+            }
+        },
     },
     watch: {
         SELECTED_PROD_DETAILS(newVal) {
@@ -2776,6 +2800,15 @@ export default {
             }
         },
         prod_offer_now_price_d(newVal) {
+            console.log(newVal)
+            console.log(parseFloat(this.prod_price_tab_trade_price) * parseFloat(this.prod_offer_for_d))
+            if(parseFloat(newVal) > (parseFloat(this.prod_price_tab_trade_price) * parseFloat(this.prod_offer_for_d))) {
+                this.prod_offer_now_price_d = Number(parseFloat(newVal)/10).toFixed(2)
+            } else if(parseFloat(newVal) === '') {
+                this.prod_offer_now_price_d = 0
+            }
+
+
             // PRICE ALGO FROM LEADER
             this.ALGO_UNIT_PRICE_NOW = parseFloat(newVal) / parseFloat(this.prod_offer_for_d)
             this.ALGO_MODIFIED_TP = parseFloat(this.ALGO_UNIT_PRICE_NOW) - parseFloat(this.prod_price_tab_vat)
@@ -2783,7 +2816,7 @@ export default {
             this.ALGO_CHEMIST_PROFIT = ( parseFloat(this.prod_price_tab_max_retail_price) / parseFloat(this.ALGO_UNIT_PRICE_NOW) ) * 100
             // PRICE ALGO FROM LEADER
             this.prod_offer_discount_tp_d = Number(this.ALGO_DISCOUNT_TP).toFixed(2)
-        }
+        },
     },
 }
 </script>
@@ -2796,8 +2829,12 @@ export default {
   height: calc(100vh - (74px + 54px + 32px));
 }
 .form-group {
-  padding: 12px;
+  /* padding: 12px; */
+  padding: 10px 15px;
 }
+/* #tab-basic .form-group {
+    padding: 15px;
+} */
 .form-group input {
   border: 1px solid #e2edfa;
   box-sizing: border-box;
@@ -2958,8 +2995,23 @@ button.modal-prod-save-btn:hover {
 }
 
 #change-photo {
-    height: 245px;
+    height: 250px;
     width: 500px;
+    padding-right: 0 !important;
+}
+#manage-attribute-modal {
+    height: 560px;
+    padding-right: 0 !important;
+}
+#modal_edit_price_modal {
+    height: 465px;
+    max-width: 650px;
+    padding-right: 0 !important;
+}
+#upload_document_file_modal {
+    height: 500px;
+    max-width: 450px;
+    padding-right: 0 !important;
 }
 #change-photo .modal.show .modal-dialog {
     min-height: auto;
@@ -2970,8 +3022,19 @@ button.modal-prod-save-btn:hover {
 }
 #classification-modal {
     width: 500px;
+    padding-right: 0 !important;
 }
 .modal {
     width: 500px;
+    padding-right: 0 !important;
+}
+#product-details .modal-body .form-group .applied_to i {
+    display: block !important;
+    font-size: 18px;
+    color: var(--blue);
+    background-color: #AAC0D9;
+    padding: 6px 10px;
+    border-radius: 50%;
+    cursor: pointer;
 }
 </style>

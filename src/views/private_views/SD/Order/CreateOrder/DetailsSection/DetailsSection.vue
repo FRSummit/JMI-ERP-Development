@@ -5,13 +5,13 @@
                 <div class="row">
                     <!-- <div class="col-lg-4 col-md-4 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer ID:</span><span class="id">{{ customer_data ? customer_data.customer_id : ""}}</span><span class="customer-type">{{ customer_data ? customer_data.credit_flag === "Y" ? "Credit" : "Cash" : "No Customer" }}</span></p></div> -->
                     <!-- <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer ID:</span><span class="id">{{ customer_data ? customer_data.display_code : ""}}</span><span class="customer-type" v-if="customer_data">{{ customer_data }}</span></p></div> -->
-                    <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer ID:</span><span class="id">{{ customer_data ? customer_data.display_code : ""}}</span><span class="customer-type" v-if="customer_data ? (customer_data.credit_flag ? true : false) : false">{{ customer_data ? (customer_data.credit_flag ? (customer_data.credit_flag === "Y" ? "Credit" : "Cash") : '') : "" }}</span></p></div>
-                    <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer Name:</span><span class="jmi-lvl-value">{{ customer_data ? customer_data.display_name : "" }}</span></p></div>
+                    <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer ID:</span><span class="id">{{ customer_data ? (customer_data.display_code ? (customer_data.display_code) : '') : ""}}</span><span class="customer-type" v-if="customer_data ? (customer_data.credit_flag ? true : false) : false">{{ customer_data ? (customer_data.credit_flag ? (customer_data.credit_flag === "Y" ? "Credit" : "Cash") : '') : "" }}</span></p></div>
+                    <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer Name:</span><span class="jmi-lvl-value">{{ customer_data ? (customer_data.display_name ? (customer_data.display_name) : '') : "" }}</span></p></div>
                 </div>
                 <div class="row">
                     <!-- <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><span class="jmi-lvl-value address">{{ customer_data ? customer_data.customer_info.customer_address !== null ? customer_data.customer_info.customer_address : "Null" : "" }}</span></p></div> -->
                     <!-- <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><input class="jmi-lvl-value-input" v-model="customer_address" /></p></div> -->
-                    <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><input class="jmi-lvl-value-input" v-model="SELECTED_CUSTOMER_ADDRESS" /></p></div>
+                    <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><input class="jmi-lvl-value-input address-input" v-model="SELECTED_CUSTOMER_ADDRESS" /></p></div>
                     <!-- <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title">Territory: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_70">{{ customer_data ? customer_data.customer_area_info.sales_force.get_sales_area.area_name : "" }}</span></p></div>                       -->
                     <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title">Order Territory: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_70" style="float: right;">
                         <div class="select-options jmi-select-options-section" style="width: 100%;">
@@ -45,8 +45,9 @@
                     <!-- </div> -->
                     <div class="row">
                         <!-- <div class="col-lg-3 col-md-6 col-sm-12"><p class="jmi-title">Territory: <span class="jmi-lvl-value">{{ customer_data ? customer_data.customer_area_info.sales_force.get_sales_area.area_name : "" }}</span></p></div> -->
-                        <div class="col-lg-3 col-md-6 col-sm-12"><p class="am">AM: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ customer_data ? customer_data.customer_area_info.sales_force.manager_info.name : "" }}</span></p></div>
-                        <div class="col-lg-3 col-md-6 col-sm-12"><p class="mio">MIO: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ customer_data ? customer_data.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info.name : "" }}</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-12"><p class="am">AM: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ customer_data ? (customer_data.customer_area_info ? (customer_data.customer_area_info.sales_force ? (customer_data.customer_area_info.sales_force.manager_info ? (customer_data.customer_area_info.sales_force.manager_info.name ? (customer_data.customer_area_info.sales_force.manager_info.name) : '') : '') : '') : '') : "" }}</span></p></div>
+                        <!-- <div class="col-lg-3 col-md-6 col-sm-12"><p class="mio">MIO: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ customer_data ? (customer_data.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info.name) : "" }}</span></p></div> -->
+                        <div class="col-lg-3 col-md-6 col-sm-12"><p class="mio">MIO: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ customer_data ? (customer_data.customer_area_info ? (customer_data.customer_area_info.sales_force ? (customer_data.customer_area_info.sales_force.manager_info ? (customer_data.customer_area_info.sales_force.manager_info.rsm_sales_force ? (customer_data.customer_area_info.sales_force.manager_info.rsm_sales_force ? (customer_data.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info ? (customer_data.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info.name ? (customer_data.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info.name) : '') : '') : '') : '') : '') : '') : '') : "" }}</span></p></div>
                         <div class="col-lg-3 col-md-6 col-sm-12">
                             <div class="sr" style="display: table-cell; width: 33%; padding-right: 20px; padding-bottom: 0px; line-height: 1;">
                                 <span class="jmi-lvl">SR: </span>
@@ -989,15 +990,17 @@ export default {
                     }, 1000)*/
                     if(this.REGION_AREA_TERRITORY_LIST.length === 1) {
                         setTimeout( () => {
-                            var options = document.getElementById("region_area_tt_list").options;
-                            // for (var i = 0; i < options.length; i++) {
-                            //     if (options[i].text == "DHK1 - DHAKA-A") {
-                                    options[0].selected = true;
-                                    this.on_change_reg_area_tt = this.REGION_AREA_TERRITORY_LIST[0].id
-                                //     break;
+                            // if(document.getElementById("region_area_tt_list")) {
+                                var options = document.getElementById("region_area_tt_list").options;
+                                // for (var i = 0; i < options.length; i++) {
+                                //     if (options[i].text == "DHK1 - DHAKA-A") {
+                                        options[0].selected = true;
+                                        this.on_change_reg_area_tt = this.REGION_AREA_TERRITORY_LIST[0].id
+                                    //     break;
+                                    // }
                                 // }
                             // }
-                        }, 100)
+                        }, 300)
                     } else {
                         console.log('Else else')
                         setTimeout( () => {
@@ -1265,6 +1268,7 @@ export default {
             this.AREA_LIST_BY_USER__FROM_SERVICE()
             // if( newVal && oldVal) {
             if( newVal) {
+                console.log(newVal)
                 // if(newVal.customer_id !== oldVal.customer_id) {
                 if(newVal.customer_id) {
                     this.SALSE_AREA_ID = newVal.customer_area_info ? (newVal.customer_area_info.sales_area_id ? (newVal.customer_area_info.sales_area_id) : null) : null
