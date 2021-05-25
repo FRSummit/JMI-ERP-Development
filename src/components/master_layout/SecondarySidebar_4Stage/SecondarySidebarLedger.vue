@@ -12,9 +12,9 @@
               <span :id="'primary-down-arrow-' + i" class="hide"><i class="fas fa-chevron-down"></i></span>
             </div>
             <div class="primary-inner">
-              <p class="primary-name" @click="primaryClick(i)">{{ SBU_LIST_MENU_WAREHOUSE.sbu_name }}</p>
+              <p class="primary-name" @click="primaryClick(i)">{{ SBU_LIST_MENU_WAREHOUSE ? SBU_LIST_MENU_WAREHOUSE.sbu_name : '' }}</p>
               <div :id="'secondary-area-section-' + i" class="secondary-area-section hide">
-                <div class="secondary-area" v-for="(item_02, j) in SBU_LIST_MENU_WAREHOUSE.plant_info" :key="j" :id="'secondary-area-' + i + '-' + j">
+                <div class="secondary-area" v-for="(item_02, j) in SBU_LIST_MENU_WAREHOUSE ? SBU_LIST_MENU_WAREHOUSE.plant_info : 0" :key="j" :id="'secondary-area-' + i + '-' + j">
                   <div class="icon-arrow" @click="secondaryArrowClick(i, j)">
                     <span :id="'secondary-right-arrow-' + i + '-' + j" class=""><i class="fas fa-chevron-right"></i></span>
                     <span :id="'secondary-down-arrow-' + i + '-' + j" class="hide"><i class="fas fa-chevron-down"></i></span>

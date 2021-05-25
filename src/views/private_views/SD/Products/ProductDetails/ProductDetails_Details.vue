@@ -721,14 +721,15 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">Offer Type</th>
-                                            <th scope="col">Min Qty</th>
+                                            <th scope="col">Description</th>
+                                            <!-- <th scope="col">Min Qty</th>
                                             <th scope="col">Disc(%)</th>
                                             <th scope="col">Disc(TP)</th>
                                             <th scope="col">Bonus On</th>
                                             <th scope="col">Bonus Qty</th>
                                             <th scope="col">Free Required Qty</th>
                                             <th scope="col">Free Prod</th>
-                                            <th scope="col">Free Qty</th>
+                                            <th scope="col">Free Qty</th> -->
                                             <th scope="col">Discount Period</th>
                                             <th scope="col">Status</th>
                                             <th scope="col">Action</th>
@@ -737,14 +738,15 @@
                                     <tbody>
                                         <tr v-for="(item, i) in OFFERS_LIST" :key="i">
                                             <td>{{ checkOfferType_Short(item.offer_type) }}</td>
-                                            <td>{{ item.min_qty }}</td>
+                                            <td>{{ item.description }}</td>
+                                            <!-- <td>{{ item.min_qty }}</td>
                                             <td>{{ item.discount_pct }}</td>
                                             <td>{{ item.discount_tp }}</td>
                                             <td>{{ item.bonus_on }}</td>
                                             <td>{{ item.bonus_qty }}</td>
                                             <td>{{ item.free_req_qty }}</td>
                                             <td>{{ getProdNameById(item.free_prod_id) }}</td>
-                                            <td>{{ item.free_prod_qty }}</td>
+                                            <td>{{ item.free_prod_qty }}</td> -->
 
                                             <td>{{ item.offer_discount_period }}</td>
 
@@ -1681,6 +1683,8 @@ export default {
                             start_date  : offers[i][j].start_date ? offers[i][j].start_date : null,
                             status      : offers[i][j].status ? offers[i][j].status : null,
                             valid_until : offers[i][j].valid_until ? offers[i][j].valid_until : null,
+
+                            description : offers[i][j].description ? offers[i][j].description : null,
 
 
                             // PERCENTAGE
