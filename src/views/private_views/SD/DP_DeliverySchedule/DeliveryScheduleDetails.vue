@@ -483,7 +483,7 @@ export default {
         singleReschedulePrintClickHandler(item, i) {
           console.log(i)
           console.log(item)
-          this.PRING_INVOCIE_DETAILS__FROM_SERVICE(item.invoice_id)
+          this.PRING_INVOCIE_DETAILS__FROM_SERVICE(item.inv_id)
         },
         // --------------------------------------------------------------------------------------------
         // SERVICE CALL
