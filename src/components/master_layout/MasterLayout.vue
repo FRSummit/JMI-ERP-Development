@@ -135,7 +135,7 @@ export default {
         sbu_name: null,
         sbu_list_is_present: false,
         ASSIGNED_SBU_LIST: null,
-        WEB_MENU: [],
+        WEB_MENU: null,
         err_popup_modal: false,
         err_message: null,
         };
@@ -334,30 +334,21 @@ export default {
                 })
         },
         async SYSTEM_WEB_MENU__FROM_SERVICE() {
-            this.WEB_MENU = []
-            // console.log(JSON.parse(localStorage.getItem("jerp_logged_user")))
+            this.WEB_MENU = null
             await service.getWebSideMenu()
                 .then(res => {
                     console.log(res.data)
                     this.WEB_MENU = res.data.data
-                    // console.log(JSON.parse(localStorage.getItem("jerp_logged_user")))
                     if(JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils === null) {
                         window.location.reload()
                     }
                 })
                 .catch(err => {
                     if(err) {
-                        // this.err_popup_modal = true
-                        // this.err_message = 'New Login, please reload'
-                        // setTimeout( () => {
-                        //   this.err_popup_modal = false
-                        //   this.err_message = null
-                        //   // window.location.reload()
-                        // }, 2000)
-                        // console.log(err)
-                        if(this.WEB_MENU.length === 0) {
-                            // window.location.reload()
-                        }
+                        this.WEB_MENU = null
+                        // if(this.WEB_MENU.length === 0) {
+                        //     // window.location.reload()
+                        // }
                     }
                 })
         }

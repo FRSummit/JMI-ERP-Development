@@ -13,7 +13,7 @@
                     <span class="single-primary-icon" v-for="(static_menu, i) in static_menu_list" :key="i">
                         <i :class="static_menu.icon_class"></i>
                     </span>
-                    <span class="single-primary-icon" v-for="(primary, i) in WEB_MENU" :key="i">
+                    <span class="single-primary-icon" v-for="(primary, i) in WEB_MENU ? WEB_MENU : 0" :key="i">
                         <i :class="primary.icon_class"></i>
                     </span>
                 </div>
@@ -64,7 +64,7 @@
 
         <div class="dynamic-menu">
           <div class="primary-menu-section">
-            <div class="primary-menu-section-inner" v-for="(primary, i) in WEB_MENU" :key="i">
+            <div class="primary-menu-section-inner" v-for="(primary, i) in WEB_MENU ? WEB_MENU : 0" :key="i">
                 <div :id="'primary-menu-icon-inner-' + i" class="primary-menu-icon-inner">
                 <span :id="'primary-icon-' + i" class="primary-icon" @click="primaryMenuClick(i, primary)">
                     <i :class="primary.icon_class"></i>
