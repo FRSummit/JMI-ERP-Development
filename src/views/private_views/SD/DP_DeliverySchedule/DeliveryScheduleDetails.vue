@@ -66,6 +66,7 @@
                                 <a title="Add bulk-button" @click="singleInvoicePlusClickHandler(item, i)" data-toggle="tooltip" data-placement="bottom" v-if="SELECTED_INVOICE_LIST_FROM_TABLE.length === 0 && DS_STATUS === 'OPEN'"><i class="zmdi zmdi-plus"></i></a>
                                 <!-- <a title="Reshedule" data-toggle="tooltip" data-placement="bottom" v-if="SELECTED_INVOICE_LIST_FROM_TABLE.length === 0" @click="singleRescheduleCalenderClickHandler(item, i)"><i class="zmdi zmdi-calendar-alt"></i></a> -->
                                 <a title="Reshedule" data-toggle="modal" data-target="#reshedule-modal" data-placement="bottom" v-if="SELECTED_INVOICE_LIST_FROM_TABLE.length === 0 && DS_STATUS === 'OPEN'" @click="singleRescheduleCalenderClickHandler(item, i)"><i class="zmdi zmdi-calendar-alt"></i></a>
+                                <a title="Reshedule" v-if="SELECTED_INVOICE_LIST_FROM_TABLE.length === 0 && DS_STATUS === 'OPEN'" @click="singleReschedulePrintClickHandler(item, i)"><i class="zmdi zmdi-print"></i></a>
                               </td>
                           </tr>
                         </tbody>
@@ -265,6 +266,8 @@
 <script>
 import GlobalDateFormat from '../../../../functions/GlobalDateFormat'
 const globalDateFormat = new GlobalDateFormat()
+import PP_Invoice_Type_2_Single from '../../../../functions/Print_Func/PP_Invoice_Type_2_Single'
+const pp_Invoice_Type_2_Single = new PP_Invoice_Type_2_Single()
 
 import Service from '../../../../service/ERPSidebarService'
 const service = new Service()
@@ -477,6 +480,11 @@ export default {
             this.SELECTED_INVOICE_LIST_FROM_TABLE.push(item)
             // this.RESCHEDULE_INVOICE__FROM_SERVICE()
         },
+        singleReschedulePrintClickHandler(item, i) {
+          console.log(i)
+          console.log(item)
+          this.PRING_INVOCIE_DETAILS__FROM_SERVICE(item.invoice_id)
+        },
         // --------------------------------------------------------------------------------------------
         // SERVICE CALL
         async DP_DS_INVOICE_DETAILS__FROM_SERVICE(invoice_id) {
@@ -563,6 +571,17 @@ export default {
                     }
                 })
         },
+        async PRING_INVOCIE_DETAILS__FROM_SERVICE(invoice_id) {
+          await service.getPrintInvoiceDetails_INVOICE_CHALLAN_PRINTING(invoice_id)
+            .then(res => {
+              console.log(res.data)
+              if(res.data.invoice_details.invoice_details.length > 0) {
+                pp_Invoice_Type_2_Single.print_invoice(res.data.invoice_details, res.data.due_details)           
+              } else {
+                alert('No Invoice data found')
+              }
+            })
+        }
     },
     watch: {
         SELECTED_DP_DS_LIST_DETAILS(newVal) {
