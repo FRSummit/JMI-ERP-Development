@@ -5,7 +5,7 @@
             <div class="header">  
                <div class="row1">
                     <div class="form-group"><i class="fa fa-search"></i>
-                        <input type="text" placeholder="Search by Name, ID No" id="search-filter" class="form-control" v-on:keyup="searchKeyUpHandler">
+                        <input type="text" placeholder="Search" id="search-filter" class="form-control" v-on:keyup="searchKeyUpHandler">
                     </div>
                     <span class="filter_search"><i class="fa fa-filter"> </i> </span>
                </div>

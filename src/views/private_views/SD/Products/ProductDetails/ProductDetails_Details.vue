@@ -61,7 +61,7 @@
                                     <div class="row" style="margin-bottom: 0;">
                                         <div class="col-6" style="padding-top: 0; padding-bottom: 0;">
                                             <div class="product-list" style="padding-top: 0; padding-bottom: 0;">
-                                                <div class="form-group" style="padding-left: 0; padding-right: 0;"><i class="fa fa-search"> </i><input type="text" placeholder="Search by Name, ID No" id="products-modal-search-filter" v-on:keyup="searchKeyUpHandlerProductModal" class="form-control" style="padding-left: 30px;"></div>
+                                                <div class="form-group" style="padding-left: 0; padding-right: 0;"><i class="fa fa-search"> </i><input type="text" placeholder="Search" id="products-modal-search-filter" v-on:keyup="searchKeyUpHandlerProductModal" class="form-control" style="padding-left: 30px;"></div>
                                                 <div class="product-list-inner" style="margin-top: 0;">
                                                     <div class="product-card2" v-for="(item, i) in PRODUCTS_LIST" :key="i" @click="singleProductClickFromProductList_ProductModal(item)">
                                                         <div class="row1"><h5>{{ item.prod_name }}</h5> <p>Code: <span>{{ item.prod_code }}</span></p></div>
@@ -920,7 +920,7 @@
                                             <div class="treeHeader">
                                                 <div class="form-group" style="padding: 0;">
                                                     <i class="fa fa-search"> </i>
-                                                    <input type="text" placeholder="Search by Name or code" class="form-control">
+                                                    <input type="text" placeholder="Search" class="form-control">
                                                 </div>
                                             </div>
                                 
@@ -976,7 +976,7 @@
                                             <div class="treeHeader">
                                                 <div class="form-group" style="padding: 0;">
                                                     <i class="fa fa-search"></i>
-                                                    <input type="text" placeholder="Search by Name or code" class="form-control">
+                                                    <input type="text" placeholder="Search" class="form-control">
                                                 </div>
                                             </div>
                                             

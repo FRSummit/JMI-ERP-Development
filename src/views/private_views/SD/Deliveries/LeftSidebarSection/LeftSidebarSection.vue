@@ -10,7 +10,7 @@
               type="text"
               class="form-control"
               id="search-filter"
-              placeholder="Search by ID No"
+              placeholder="Search"
               v-on:keyup="searchKeyUpHandler"
             />
           </div>
@@ -134,7 +134,7 @@
                         type="text"
                         class="form-control"
                         id="search-filter"
-                        placeholder="Search by Name, ID No"
+                        placeholder="Search"
                         />
                     </div>
                 </div> -->

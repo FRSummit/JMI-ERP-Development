@@ -218,7 +218,7 @@
                             <div class="autofield-show-section">
                                 <div class="autofield-show-section-inner">
                                     <div class="header">
-                                        <input id="order-approval-add-product" class="jmi-auto-filter-input" type="text" placeholder="Search By Batch Number" v-on:keyup="searchKeyUpAddProductHandler" />
+                                        <input id="order-approval-add-product" class="jmi-auto-filter-input" type="text" placeholder="Search" v-on:keyup="searchKeyUpAddProductHandler" />
                                         <tr class="jmi-add-product-autofill-header-row">
                                             <td><span class="td-span-title">Name</span></td>
                                             <td><span class="td-span-title">Price</span></td>

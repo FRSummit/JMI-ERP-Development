@@ -4,7 +4,7 @@
             <!-- Start Secondary Sidebar Header Area-->  
             <div class="header">  
                <div class="row1">
-                    <div class="form-group"><i class="fa fa-search"> </i><input type="text" placeholder="Search by Name, ID No" class="form-control"></div>
+                    <div class="form-group"><i class="fa fa-search"> </i><input type="text" placeholder="Search" class="form-control"></div>
                     <span class="filter_search"><i class="fa fa-filter"> </i> </span>
                </div>
             </div>

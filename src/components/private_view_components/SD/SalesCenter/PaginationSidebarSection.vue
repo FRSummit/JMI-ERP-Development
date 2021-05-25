@@ -57,7 +57,7 @@
             <input
               type="text"
               class="searchTerm"
-              placeholder="Search by Name, ID Number, Phone Number"
+              placeholder="Search"
             />
           </div>
         </div>

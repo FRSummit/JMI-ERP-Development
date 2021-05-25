@@ -7,7 +7,7 @@
             <i class="fa fa-search"> </i>
             <input
               type="text"
-              placeholder="Search by Name"
+              placeholder="Search"
               class="form-control"
               id="search-filter"
               v-on:keyup="searchKeyUpHandler"

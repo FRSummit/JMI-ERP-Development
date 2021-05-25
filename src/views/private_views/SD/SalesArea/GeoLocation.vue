@@ -10,7 +10,7 @@
               <input
                 type="text"
                 class="form-control"
-                placeholder="Search by Name, ID No"
+                placeholder="Search"
               />
             </div>
             <i class="fas fa-filter"></i>

@@ -7,7 +7,7 @@
             <i class="fa fa-search"> </i>
             <input
               type="text"
-              placeholder="Search by Name, ID No"
+              placeholder="Search"
               class="form-control"
             />
           </div>

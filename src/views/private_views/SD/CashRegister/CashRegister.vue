@@ -31,7 +31,7 @@
                                             <i class="zmdi zmdi-check verify" @click="multipleVerifyClickHandlerPendingData"></i>
                                             <i class="zmdi zmdi-close cancel" @click="multipleCancelClickHandlerPendingData"></i>
                                         </span>
-                                        <div class="form-group"><i class="fa fa-search"></i><input type="text" id="pending-search-filter" v-on:keyup="pendingSearchKeyUpHandler" placeholder="Search by date" class="form-control"></div>
+                                        <div class="form-group"><i class="fa fa-search"></i><input type="text" id="pending-search-filter" v-on:keyup="pendingSearchKeyUpHandler" placeholder="Search" class="form-control"></div>
                                         <span class="filter_search"><i class="fa fa-filter"></i></span>
                                         <span class="filter_calendar" :class="date_data !== '' ? 'active-date' : ''">
                                             <date-picker class="jmi-single-date" v-model="date_data" range lang="en" type="date" format="YYYY-MM-DD" width="500" @change="dateChangeHandler"></date-picker>
@@ -96,7 +96,7 @@
                                 <div class="tab-content-header">
                                     <h5>Inward (<span>{{ IN_WARD_CASH_REGISTER ? IN_WARD_CASH_REGISTER.length : 0 }}</span>)</h5>
                                     <div class="row1">
-                                        <div class="form-group"><i class="fa fa-search"> </i><input type="text" id="inward-search-filter" v-on:keyup="inwardSearchKeyUpHandler" placeholder="Search by date" class="form-control"></div>
+                                        <div class="form-group"><i class="fa fa-search"> </i><input type="text" id="inward-search-filter" v-on:keyup="inwardSearchKeyUpHandler" placeholder="Search" class="form-control"></div>
                                         <span class="filter_search"><i class="fa fa-filter"> </i> </span>
                                         <span class="filter_calendar" :class="date_data !== '' ? 'active-date' : ''">
                                             <date-picker class="jmi-single-date" v-model="date_data" range lang="en" type="date" format="YYYY-MM-DD" width="500" @change="dateChangeHandler"></date-picker>
@@ -145,7 +145,7 @@
                                 <div class="tab-content-header">
                                     <h5>Outward (<span>{{ OUT_WARD_CASH_REGISTER ? OUT_WARD_CASH_REGISTER.length : 0 }}</span>)</h5>
                                     <div class="row1">
-                                        <div class="form-group"><i class="fa fa-search"> </i><input type="text" placeholder="Search by Name, ID No" class="form-control"></div>
+                                        <div class="form-group"><i class="fa fa-search"> </i><input type="text" placeholder="Search" class="form-control"></div>
                                         <span class="filter_search"><i class="fa fa-filter"> </i> </span>
                                         <!-- <span class="filter_calendar active"><i class="fa fa-calendar-o"> </i> </span> -->
                                         <span class="filter_calendar" :class="date_data !== '' ? 'active-date' : ''">
@@ -192,7 +192,7 @@
                                 <div class="tab-content-header">
                                     <h5>Day Closing (<span>{{ DAY_CLOSING_CASH_REGISTER ? DAY_CLOSING_CASH_REGISTER.length : 0 }}</span>)</h5>
                                     <div class="row1">
-                                        <div class="form-group"><i class="fa fa-search"> </i><input type="text" placeholder="Search by Name, ID No" class="form-control"></div>
+                                        <div class="form-group"><i class="fa fa-search"> </i><input type="text" placeholder="Search" class="form-control"></div>
                                         <span class="filter_search"><i class="fa fa-filter"> </i> </span>
                                         <!-- <span class="filter_calendar active"><i class="fa fa-calendar-o"> </i> </span> -->
                                         <span class="filter_calendar" :class="date_data !== '' ? 'active-date' : ''">

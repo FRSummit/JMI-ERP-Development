@@ -10,11 +10,11 @@
               type="text"
               class="form-control"
               id="search-filter"
-              placeholder="Search by ID No"
+              placeholder="Search"
               v-on:keyup="searchKeyUpHandler"
             />
           </div>
-          <span @click="filterClick"><i class="fas fa-filter"></i></span>
+          <span @click="filterClick" class="hide"><i class="fas fa-filter"></i></span>
         </div>
         <!-- Customer Counter -->
         <div class="territory-selection">

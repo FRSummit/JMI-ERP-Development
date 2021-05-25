@@ -4,7 +4,7 @@
         <!-- Start Secondary Sidebar Header Area-->  
         <div class="header">  
         <div class="row1">
-            <div class="form-group"><i class="fa fa-search"> </i><input type="text" placeholder="Search by Name, ID No" id="search-filter" class="form-control" v-on:keyup="searchKeyUpHandler"></div>
+            <div class="form-group"><i class="fa fa-search"> </i><input type="text" placeholder="Search" id="search-filter" class="form-control" v-on:keyup="searchKeyUpHandler"></div>
             <!-- <span class="filter_search" data-toggle="modal" data-target="#CollectionFilter"><i class="fa fa-filter"> </i> </span> -->
             <span class="filter_search" @click="openFilterModal"><i class="fa fa-filter"> </i> </span>
 
