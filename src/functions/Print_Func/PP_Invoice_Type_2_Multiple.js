@@ -14,7 +14,7 @@ var monthShortNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "
 
 export default class PP_Invoice_Type_2_Multiple {
     
-    print_invoice(data, due_data) {
+    print_invoice(data) {
         PRODUCT_SERIAL_NO = null
         PRODUCT_SERIAL_NO = 1
         var mywindow = window.open('', 'PRINT'); 
@@ -27,7 +27,7 @@ export default class PP_Invoice_Type_2_Multiple {
                             +         '</style>'
                             +     '</head>'
                             +     '<body style="">'
-                            +      this.create_print_body(data, due_data)
+                            +      this.readyToPrintMultiple(data)
                 )
 
         mywindow.document.write('</body></html>');
@@ -39,7 +39,19 @@ export default class PP_Invoice_Type_2_Multiple {
         return true;
     }
 
+    readyToPrintMultiple(data) {
+        let str = ''
+        // console.log(data)
+        for(let i=0; i<data.length; i++) {
+            str += this.create_print_body(data[i].invoice_details, data[i].due_details)
+            // alert(this.create_print_body(data[0].invoice_details))
+        }
+        return str
+    }
+
     create_print_body(data, due_data) {
+        console.log(data)
+        console.log(due_data.length)
         +         '<div class="print-section" style="page-break-before: always; overflow: hidden; padding-right: 1px;">'
         +             '<div class="print-section-inner">'
         +                 '<table style="">'

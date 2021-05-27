@@ -11,7 +11,8 @@
               <span :id="'primary-right-arrow-' + i" class=""><i class="fas fa-chevron-right"></i></span>
               <span :id="'primary-down-arrow-' + i" class="hide"><i class="fas fa-chevron-down"></i></span>
             </div>
-            <div class="primary-inner">
+            <!-- FROM PLANT -->
+            <div class="primary-inner" v-if="SELECTED_PROD_SBU_PROD_DETAILS.plant_info">
               <p class="primary-name" @click="primaryClick(i)">{{ SELECTED_PROD_SBU_PROD_DETAILS ? SELECTED_PROD_SBU_PROD_DETAILS.sbu_name : '' }}</p>
               <div :id="'secondary-area-section-' + i" class="secondary-area-section hide">
                 <div class="secondary-area" v-for="(item_02, j) in SELECTED_PROD_SBU_PROD_DETAILS ? SELECTED_PROD_SBU_PROD_DETAILS.plant_info : 0" :key="j" :id="'secondary-area-' + i + '-' + j">
@@ -23,28 +24,11 @@
                     <p class="secondary-name" @click="secondaryClick(i, j)">{{ item_02.plant_name }}</p>
                     <div :id="'tertiary-area-section-' + i + '-' + j" class="tertiary-area-section hide">
                       <div class="tertiary-area" v-for="(item_03, k) in item_02.warehouse_info" :key="k" :id="'tertiary-area-' + i + '-' + j + '-' + k">
-                        <!-- <div class="icon-square" @click="tertiaryClick(i, j, k)">
-                          <span class="square-icon"></span>
-                        </div> -->
                         <div :id="'icon-square-' + i + '-' + j + '-' + k" class="icon-square" @click="tertiaryClick(i, j, k, item_03)">
                           <span class="square-icon"></span>
                         </div>
-                        <!-- <div class="icon-arrow" @click="tertiaryClick(i, j, k)">
-                            <span :id="'tertiary-right-arrow-' + i + '-' + j + '-' + k" class=""><i class="fas fa-chevron-right"></i></span>
-                            <span :id="'tertiary-down-arrow-' + i + '-' + j + '-' + k" class="hide"><i class="fas fa-chevron-down"></i></span>
-                        </div> -->
                         <div class="tertiary-inner">
                           <p :id="'tertiary-name-' + i + '-' + j + '-' + k" class="tertiary-name" @click="tertiaryClick(i, j, k, item_03)">{{ item_03.wh_name }}</p>
-                          <!-- <div :id="'poly-tertiary-area-section-' + i + '-' + j + '-' + k" class="poly-tertiary-area-section hide">
-                                <div class="poly-tertiary-area" v-for="(item_04, l) in item_03.warehouse_store_info" :key="l" :id="'tertiary-area-' + i + '-' + j + '-' + k + '-' + l">
-                                    <div :id="'icon-square-' + i + '-' + j + '-' + k + '-' + l" class="icon-square" @click="polyTertiaryClick(i, j, k, l, item_04)">
-                                        <span class="square-icon"></span>
-                                    </div>
-                                    <div class="poly-tertiary-inner">
-                                        <p :id="'poly-tertiary-name-' + i + '-' + j + '-' + k + '-' + l" class="poly-tertiary-name" @click="polyTertiaryClick(i, j, k, l, item_04)">{{ item_04.store_name }}</p>
-                                    </div>
-                                </div>
-                          </div> -->
                         </div>
                       </div>
                     </div>
@@ -52,6 +36,12 @@
                 </div>
               </div>
             </div>
+
+            <!-- FROM WAREHOUSE -->
+            <div class="primary-inner" v-if="SELECTED_PROD_SBU_PROD_DETAILS.warehouse_store_info">
+              <p class="primary-name" @click="warehouseStoreInfoClick" style="cursor: pointer;">{{ SELECTED_PROD_SBU_PROD_DETAILS ? SELECTED_PROD_SBU_PROD_DETAILS.wh_name : '' }}</p>
+            </div>
+
           </div>
         </div>
       </div>
@@ -61,6 +51,9 @@
 <script>
 export default {
     props: ["SELECTED_PROD_SBU_PROD_DETAILS"],
+    mounted() {
+      console.log(this.SELECTED_PROD_SBU_PROD_DETAILS)
+    },
   methods: {
     sidebarTitleIconClick() {
       console.log("Area Location List Click");
@@ -152,6 +145,9 @@ export default {
 
       console.log(item)
       this.$emit('warehouse_info', item)
+    },
+    warehouseStoreInfoClick() {
+      this.$emit('warehouse_info', this.SELECTED_PROD_SBU_PROD_DETAILS)
     },
     // polyTertiaryClick(i, j, k, l, item) {
     //   let poly_t_icon = document.querySelector("#secondary-sidebar-stock-position #icon-square-" + i + "-" + j + "-" + k + "-" + l + " .square-icon")

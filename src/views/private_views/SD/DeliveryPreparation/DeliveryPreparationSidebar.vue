@@ -14,14 +14,14 @@
             <div class="content">
                 <div class="deliveryPre_accordion" id="accordion-1">
                     <div :id="'card-' + i" class="card" v-for="(item, i) in DS_PREPARATION_LIST" :key="i">
-                        <div class="card-header active" :id="'headingOne-' + i">
+                        <div class="card-header" :id="'headingOne-' + i">
                             <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                 <h5>{{ dateFormat(item.sch_date) }}</h5> 
                                 <span class="transparent-span" @click="parentCardClickHandler(item, i)">XX</span>
                             </button>
                         </div>
                     
-                        <div :id="'collapseOne-' + i" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion-1">
+                        <div :id="'collapseOne-' + i" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-1">
                             <div class="card-body" v-for="(card, j) in item.force_list" :key="j" @click="childCardBodyClickHandler(card, j)">
                                 <!-- Start Item -->
                                 <div class="ds_innerItem">
@@ -337,6 +337,7 @@ height: 100%;
 .layout-sidebar.delivery_preparation .content .deliveryPre_accordion .card .card-body{
   border: none!important;
   padding: 0rem;
+  cursor: pointer;
 }
 .deliveryPre_accordion .card .card-body .ds_innerItem {
   padding: 10px;

@@ -97,8 +97,8 @@ const pp_PackingSummeryAll_T1 = new PP_PackingSummeryAll_T1()
 import PP_InvoiceChallanSummeryTD_Type1 from '../../../../functions/Print_Func/PP_InvoiceChallanSummeryTD_Type1'
 const pp_InvoiceChallanSummeryTD_Type1 = new PP_InvoiceChallanSummeryTD_Type1()
 
-// import PP_Invoice_Type_2_Multiple from '../../../../functions/Print_Func/PP_Invoice_Type_2_Multiple'
-// const pp_Invoice_Type_2_Multiple = new PP_Invoice_Type_2_Multiple()
+import PP_Invoice_Type_2_Multiple from '../../../../functions/Print_Func/PP_Invoice_Type_2_Multiple'
+const pp_Invoice_Type_2_Multiple = new PP_Invoice_Type_2_Multiple()
 
 export default {
     props: ["SELECTED_ITEM_FROM_LEFT", "DS_DETAILS"],
@@ -133,7 +133,6 @@ export default {
                             }
                         }
                         console.log(this.SELECTED_DATA_DETAILS)
-                        // pp_Invoice_Type_2_Multiple(this.SELECTED_DATA_DETAILS)
                     }
                     break
                 case 'CHALLAN':
@@ -165,7 +164,6 @@ export default {
                 }
                 console.log(selected_invoice)
                 await this.PRINT_MULTIPLE_INVOICE_DETAILS__FROM_SERVICE(selected_invoice)
-                // pp_Invoice_Type_2_Multiple(this.SELECTED_DATA_DETAILS)
             }
         },
         async printAllChallanClickHandler() {},
@@ -365,8 +363,8 @@ export default {
             await service.getPRINT_MULTI_INVOICE_DETAILS__DELIVERY_PREPARATION(inv_list)
                 .then(res => {
                     console.log(res.data)
-                    this.MULTI_INV_DTL = res.data
-                    // pp_Invoice_Type_2_Multiple(this.SELECTED_DATA_DETAILS)
+                    this.MULTI_INV_DTL = res.data.data
+                    pp_Invoice_Type_2_Multiple.print_invoice(res.data.data)
                 })
                 .catch(err => {
                     if(err) {
