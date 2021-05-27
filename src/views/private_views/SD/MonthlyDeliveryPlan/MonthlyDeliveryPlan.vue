@@ -80,7 +80,7 @@
                                     type="text"
                                     class="form-control"
                                     id="territory-search-filter"
-                                    placeholder="Search by Territory Name"
+                                    placeholder="Search"
                                     v-on:keyup="searchKeyUpHandler"
                                   />
                                 </div>
@@ -164,7 +164,7 @@
             <div class="search-territory-inner">
               <div class="form-group has-search">
                 <span class="fa fa-search form-control-feedback"></span>
-                <input type="text" class="form-control" id="territory-search-filter-copy-modal" placeholder="Search by Name, ID No" v-on:keyup="searchKeyUpHandler_2"/>
+                <input type="text" class="form-control" id="territory-search-filter-copy-modal" placeholder="Search" v-on:keyup="searchKeyUpHandler_2"/>
               </div>
             </div>
           </div>

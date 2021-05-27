@@ -124,7 +124,7 @@
                                 </tr>
                                 <tr class="subtotal bottom-total" v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">
                                     <td style="width: 50%;"></td>
-                                    <td style="width: 25%;">(+) Vat</td>
+                                    <td style="width: 25%;">(+) VAT</td>
                                     <td style="width: 15%;">{{ Number(vat_total).toFixed(2) }}</td>
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
@@ -188,12 +188,12 @@
                         <div class="input-autofield-show-section">
                             <div class="input-autofield-show-section-inner">
                                 <!-- <div class="input-autofield">
-                                    <AdvancedSearch class="advanced-search" v-model="autocomplete_modal" :options="autocomplete_options" type="text" placeholder="Search By Batch Number"></AdvancedSearch>
+                                    <AdvancedSearch class="advanced-search" v-model="autocomplete_modal" :options="autocomplete_options" type="text" placeholder="Search"></AdvancedSearch>
                                 </div> -->
                                 <div class="autofield-show-section">
                                     <div class="autofield-show-section-inner">
                                         <div class="header">
-                                            <input id="sd_return-add-product" class="jmi-auto-filter-input" type="text" placeholder="Search By Name or Product ID" v-on:keyup="searchKeyUpAddProductHandler" />
+                                            <input id="sd_return-add-product" class="jmi-auto-filter-input" type="text" placeholder="Search" v-on:keyup="searchKeyUpAddProductHandler" />
                                             <tr class="jmi-add-product-autofill-header-row">
                                                 <td><span class="td-span-title">Name</span></td>
                                                 <td><span class="td-span-title">Price</span></td>

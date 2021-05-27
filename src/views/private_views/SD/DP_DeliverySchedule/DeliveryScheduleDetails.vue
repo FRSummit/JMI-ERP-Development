@@ -66,6 +66,7 @@
                                 <a title="Add bulk-button" @click="singleInvoicePlusClickHandler(item, i)" data-toggle="tooltip" data-placement="bottom" v-if="SELECTED_INVOICE_LIST_FROM_TABLE.length === 0 && DS_STATUS === 'OPEN'"><i class="zmdi zmdi-plus"></i></a>
                                 <!-- <a title="Reshedule" data-toggle="tooltip" data-placement="bottom" v-if="SELECTED_INVOICE_LIST_FROM_TABLE.length === 0" @click="singleRescheduleCalenderClickHandler(item, i)"><i class="zmdi zmdi-calendar-alt"></i></a> -->
                                 <a title="Reshedule" data-toggle="modal" data-target="#reshedule-modal" data-placement="bottom" v-if="SELECTED_INVOICE_LIST_FROM_TABLE.length === 0 && DS_STATUS === 'OPEN'" @click="singleRescheduleCalenderClickHandler(item, i)"><i class="zmdi zmdi-calendar-alt"></i></a>
+                                <a title="Reshedule" v-if="SELECTED_INVOICE_LIST_FROM_TABLE.length === 0 && DS_STATUS === 'OPEN'" @click="singleReschedulePrintClickHandler(item, i)"><i class="zmdi zmdi-print"></i></a>
                               </td>
                           </tr>
                         </tbody>
@@ -91,7 +92,7 @@
                       <div class="modal-dialog modal-dialog-centered" style="margin: 0; margin-right: -17px;">
                         <div class="modal-content" style="padding: 0; border: none;">
                           <div class="modal-header">
-                            <h5 class="modal-title">Bulk Reshedule</h5>
+                            <h5 class="modal-title">Bulk Reschedule</h5>
                             <button type="button" id="bulk-reschedule-close-btn" class="close" data-dismiss="modal" aria-label="Close">
                               <span aria-hidden="true" @click="bulkRescheduleCloseClickHandler">&times;</span>
                             </button>
@@ -109,8 +110,9 @@
                               <div class="col-lg-6 form-group">
                                 <label for="sr_name">Select SR</label>
                                 <select class="form-control" id="sr_name" v-model="selected_da_from_dp_list">
-                                    <option :value="null" selected>Select SR</option>
-                                  <option v-for="(item, i) in DP_LIST_WITH_DA" :key="i" :value="item">{{ item.get_adm_user.name }}</option>
+                                  <option :value="null" selected>Select SR</option>
+                                  <!-- <option v-for="(item, i) in DP_LIST_WITH_DA" :key="i" :value="item">{{ item.get_adm_user.name }}</option> -->
+                                  <option v-for="(item, i) in DP_LIST_WITH_DA" :key="i" :value="item">{{ item.get_adm_user ? ((item.get_adm_user.employee_id) + " - " + item.get_adm_user.name + (item.get_adm_user.get_person_detail.phone ? (" (" + item.get_adm_user.get_person_detail.phone + ")") : '')) : '' }}</option>
                                 </select>
                               </div>
                               <div class="col-lg-6 form-group" >
@@ -197,7 +199,7 @@
                                   <th><p>{{ Number(INVOICE_DETAILS_TOTAL_SECTION.subtotal).toFixed(2) }}</p></th>
                                 </tr>
                                 <tr>
-                                  <th colspan="2"><span>(+) Vat:</span></th>
+                                  <th colspan="2"><span>(+) VAT:</span></th>
                                   <th><p>{{ Number(INVOICE_DETAILS_TOTAL_SECTION.vat).toFixed(2) }}</p></th>
                                 </tr>
                                 <tr>
@@ -264,6 +266,8 @@
 <script>
 import GlobalDateFormat from '../../../../functions/GlobalDateFormat'
 const globalDateFormat = new GlobalDateFormat()
+import PP_Invoice_Type_2_Single from '../../../../functions/Print_Func/PP_Invoice_Type_2_Single'
+const pp_Invoice_Type_2_Single = new PP_Invoice_Type_2_Single()
 
 import Service from '../../../../service/ERPSidebarService'
 const service = new Service()
@@ -418,10 +422,25 @@ export default {
             if(this.inv_confirm_modal) {
                 this.inv_confirm_modal = false
             } else {
-                    this.CONFIRM_MODAL_FOR = 'BULK ADD'
+              if(this.anyCheckboxIsSelected() > 0) {
+                this.CONFIRM_MODAL_FOR = 'BULK ADD'
                 this.inv_confirm_modal = true
                 this.inv_confirm_modal_msg = 'Invoice add to DS'
+              } else {
+                alert('PLease select at least one invoice')
+              }
             }
+        },
+        anyCheckboxIsSelected() {
+          let selector = document.querySelectorAll('table tbody .form-check-input')
+          console.log(selector.length)
+          let count = 0
+          for(let i=0; i<selector.length; i++) {
+            if(selector[i].checked === true) {
+              count++
+            }
+          }
+          return count
         },
         bulkReschedulingSaveBtnClickHandler() {
             console.log(this.SELECTED_INVOICE_NUMBERS_LIST)
@@ -475,6 +494,11 @@ export default {
 
             this.SELECTED_INVOICE_LIST_FROM_TABLE.push(item)
             // this.RESCHEDULE_INVOICE__FROM_SERVICE()
+        },
+        singleReschedulePrintClickHandler(item, i) {
+          console.log(i)
+          console.log(item)
+          this.PRING_INVOCIE_DETAILS__FROM_SERVICE(item.inv_id)
         },
         // --------------------------------------------------------------------------------------------
         // SERVICE CALL
@@ -562,6 +586,18 @@ export default {
                     }
                 })
         },
+        async PRING_INVOCIE_DETAILS__FROM_SERVICE(invoice_id) {
+          console.log(invoice_id)
+          await service.getPrintInvoiceDetails_INVOICE_CHALLAN_PRINTING(invoice_id)
+            .then(res => {
+              console.log(res.data)
+              if(res.data.invoice_details.invoice_details.length > 0) {
+                pp_Invoice_Type_2_Single.print_invoice(res.data.invoice_details, res.data.due_details)           
+              } else {
+                alert('No Invoice data found')
+              }
+            })
+        }
     },
     watch: {
         SELECTED_DP_DS_LIST_DETAILS(newVal) {

@@ -33,7 +33,7 @@ export default class PostService {
     // token = JSON.parse(localStorage.getItem('jerp_logged_user')).accessToken
     // console.log(token)
     this.getToken()
-    return await axios(web_menu_url, {
+    return axios(web_menu_url, {
       method: 'GET',
       headers: {
         'Authorization': token_type + ' ' + token
@@ -45,7 +45,7 @@ export default class PostService {
     // token = JSON.parse(localStorage.getItem('jerp_logged_user')).accessToken ? JSON.parse(localStorage.getItem('jerp_logged_user')).accessToken : null
     token = JSON.parse(localStorage.getItem('jerp_logged_user')).accessToken
     let web_menu_url = '/api/system/AssignedSBU'
-    return await axios(web_menu_url, {
+    return axios(web_menu_url, {
       method: 'GET',
       headers: {
         'Authorization': token_type + ' ' + token_2

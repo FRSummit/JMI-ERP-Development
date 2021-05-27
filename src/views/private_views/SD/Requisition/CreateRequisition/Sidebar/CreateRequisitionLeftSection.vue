@@ -5,9 +5,9 @@
             <div class="header">  
                <div class="row1">
                     <div class="form-group"><i class="fa fa-search"></i>
-                        <input type="text" placeholder="Search by Name, ID No" id="search-filter" class="form-control" v-on:keyup="searchKeyUpHandler">
+                        <input type="text" placeholder="Search" id="search-filter" class="form-control" v-on:keyup="searchKeyUpHandler">
                     </div>
-                    <span class="filter_search"><i class="fa fa-filter"> </i> </span>
+                    <span class="filter_search hide"><i class="fa fa-filter"> </i> </span>
                </div>
                <div class="row2">
                     <h5>Products List: <span>{{ items ? (items.length ? items.length : 0) : 0 }}</span></h5>
@@ -96,7 +96,7 @@ export default {
                         Object.assign(this.items[i], {status: 'OLD'})
                         Object.assign(this.items[i], {detail_id: pre_selected_prods[j].id})
                         Object.assign(this.items[i], {current_stock: pre_selected_prods[j].current_stock})
-                        Object.assign(this.items[i], {req_current_stock: pre_selected_prods[j].req_current_stock})
+                        Object.assign(this.items[i], {safety_stock: pre_selected_prods[j].safety_stock})
                         this.$emit('SINGLE_REQUISITOR_ITEM_SELECTED', this.items[i])
                         let checkbox_selector = document.querySelector('#card_body_input_' + i)
                         checkbox_selector.checked = true
@@ -202,7 +202,9 @@ export default {
     font-size: var(--font14);
 }
 .header input {
-    width: 80%;
+    /* width: 80%; */
+    width: 100%;
+    box-sizing: border-box;
     height: 36px;
     margin: 0;
     font-size: 14px;

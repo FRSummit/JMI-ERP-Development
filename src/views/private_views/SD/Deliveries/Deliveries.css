@@ -1901,7 +1901,8 @@ select:focus {
     position      : relative;
     display       : inline-block;
     vertical-align: middle;
-    width         : 85%;
+    /* width         : 85%; */
+    width         : 100%;
 }
 
 #deliveries-left-sidebar.deliveries-left-sidebar .deliveries-left-sidebar-section .deliveries-left-sidebar-section-inner .search-section .has-search .form-control {

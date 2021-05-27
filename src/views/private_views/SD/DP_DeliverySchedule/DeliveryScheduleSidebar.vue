@@ -4,8 +4,8 @@
         <!-- Start Secondary Sidebar Header Area-->  
         <div class="header">  
             <div class="row1">
-                <div class="form-group"><i class="fa fa-search"> </i><input type="text" placeholder="Search by Name, ID No" class="form-control"></div>
-                <span class="filter_search"><i class="fa fa-filter"> </i> </span>
+                <div class="form-group"><i class="fa fa-search"> </i><input type="text" placeholder="Search" class="form-control"></div>
+                <span class="filter_search hide"><i class="fa fa-filter"> </i> </span>
             </div>
             <div class="row2">
             <h5>Delivery Schedule: <span>{{ DELIVERY_SCHEDULE_LIST ? DELIVERY_SCHEDULE_LIST.length : 0 }}</span></h5>
@@ -37,11 +37,14 @@
                                     <h5>{{ card.dp_force.force_inv_total ? Number(card.dp_force.force_inv_total).toFixed(2) : 0.00 }}</h5>
                                 </div>
                                 <div class="row2" @click="childCardBodyClickHandler(card, j)">
+                                    <p>{{ card.dp_force.phone }}</p>
+                                </div>
+                                <div class="row2" @click="childCardBodyClickHandler(card, j)">
                                     <p>{{ card.dp_force.micro_union_name }}</p>
                                 </div>
                                 <div class="row3"> 
                                     <div class="group-2" @click="childCardBodyClickHandler(card, j)"><p>Scheduled: <span>{{ card.dp_force.planned }}</span></p><p style="margin-left: 10px;">New: <span>{{ card.dp_force.new }}</span></p></div> 
-                                    <i class="material-icons" v-if="card.dp_force.ds_status === 'N'" @click="agorBatiIconClickHandler(card, j)">auto_fix_normal</i>
+                                    <i class="material-icons" :class="parseInt(card.dp_force.new) === 0 ? 'disabled_icon' : ''" v-if="card.dp_force.ds_status === 'N'" @click="parseInt(card.dp_force.new) !== 0 ? agorBatiIconClickHandler(card, j) : false">auto_fix_normal</i>
                                     <i class="zmdi zmdi-lock-open" v-if="(card.dp_force.ds_status === 'O') && (parseInt(card.dp_force.planned) > 0) && (parseInt(card.dp_force.new) === 0)" @click="unlockIconClickHandler(card, j)"></i>
                                     <i class="zmdi zmdi-lock-outline" v-if="card.dp_force.ds_status === 'L'"></i>
                                     <!-- <i class="material-icons">auto_fix_normal</i> -->
@@ -219,6 +222,8 @@ export default {
     border-radius: 2px !important;
     border: 1px solid var(--border-color) !important;
     /* width: 80%; */
+    width: 100%;
+    box-sizing: border-box;
     height: 38px !important;
 }
 .layout-sidebar.delivery_schedule .header .row1 .form-group input::placeholder{
@@ -479,5 +484,8 @@ export default {
 .layout-sidebar.delivery_schedule .content .ds_accordion .card.open .card-header:after {
     transform: rotate(0deg);
     color: #FFFFFF;
+}
+.disabled_icon {
+    opacity: 0.5;
 }
 </style>

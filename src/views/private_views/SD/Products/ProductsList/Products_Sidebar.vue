@@ -7,11 +7,11 @@
             <i class="fa fa-search"> </i>
             <input
               type="text"
-              placeholder="Search by Name, ID No"
+              placeholder="Search"
               class="form-control"
             />
           </div>
-          <span class="filter_search"><i class="fa fa-filter"> </i> </span>
+          <span class="filter_search hide"><i class="fa fa-filter"> </i> </span>
         </div>
       </div>
       <div class="content">
@@ -121,7 +121,9 @@ export default {
     font-size: var(--font14);
 }
 .header input {
-    width: 80%;
+    /* width: 80%; */
+    width: 100%;
+    box-sizing: border-box;
     height: 36px;
     margin: 0;
     font-size: 14px;

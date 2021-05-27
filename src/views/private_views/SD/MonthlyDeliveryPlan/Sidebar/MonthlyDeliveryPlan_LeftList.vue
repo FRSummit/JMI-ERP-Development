@@ -12,11 +12,11 @@
               type="text"
               class="form-control"
               id="search-filter"
-              placeholder="Search by SR Name"
+              placeholder="Search"
               v-on:keyup="searchKeyUpHandler"
             />
           </div>
-          <i class="fas fa-filter"></i>
+          <i class="fas fa-filter hide"></i>
         </div>
         <div class="month-selection-section">
           <div class="month-selection-section-inner">
@@ -58,7 +58,8 @@
               <div :id="'monthly-delivery-plan-section-list-inner-' + p" class="monthly-delivery-plan-section-list-inner">
                 <div class="name-status-section">
                   <div class="name-section">
-                    <p class="name-text">{{ plan.name }} ({{ plan.id }})</p>
+                    <p class="name-text">{{ plan.name }} ({{ plan.emp_id }})</p>
+                    <p class="name-text-search hide">{{ plan.name }} {{ plan.id }} {{ plan.person_info.phone }} {{ plan.status }}</p>
                   </div>
                 </div>
                 <div class="contact-number-section">
@@ -107,7 +108,7 @@
             <div class="search-territory-inner">
               <div class="form-group has-search">
                 <span class="fa fa-search form-control-feedback"></span>
-                <input type="text" class="form-control" placeholder="Search by Name, ID No"/>
+                <input type="text" class="form-control" placeholder="Search"/>
               </div>
             </div>
           </div>
@@ -301,7 +302,7 @@ export default {
         let input = document.getElementById("search-filter");
         let filter = input.value.toUpperCase();
         let list = document.querySelectorAll('.monthly-delivery-plan-section-list')
-        let txt_selector = "name-text"
+        let txt_selector = "name-text-search"
 
         jmiFilter.searchById_LeftSidebar(filter, list, txt_selector)
     },

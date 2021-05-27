@@ -2619,12 +2619,12 @@
 
 #sd_collection input,
 #sd_collection #sd-balance-sheet.sd-balance-sheet .sd-balance-sheet-inner input {
-    box-sizing: border-box;
+    /* box-sizing: border-box;
     border    : 1px solid #BFCFE2;
     margin    : 0;
     font-size : 14px;
     height    : auto;
-    padding   : 6px;
+    padding   : 6px; */
 }
 
 #sd_collection label,

@@ -79,7 +79,7 @@
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Trade Price<span class="with-vat">(With VAT)</span></th>
+                                <th>Trade Price<span class="with-vat">(TP+VAT)</span></th>
                                 <th>Quantity</th>
                                 <th>Discount</th>
                                 <th>Bonus</th>
@@ -144,7 +144,7 @@
                                 </tr>
                                 <tr class="subtotal bottom-total" v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">
                                     <td style="width: 50%;"><span class="add-order-attachment-section add-order" @click="addCommentClickHandler"><i class="zmdi zmdi-plus"></i>Order Note</span></td>
-                                    <td style="width: 25%;">(+) Vat</td>
+                                    <td style="width: 25%;">(+) VAT</td>
                                     <td style="width: 15%;">{{ Number(vat_total).toFixed(2) }}</td>
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
@@ -207,12 +207,12 @@
                     <div class="input-autofield-show-section">
                         <div class="input-autofield-show-section-inner">
                             <!-- <div class="input-autofield">
-                                <AdvancedSearch class="advanced-search" v-model="autocomplete_modal" :options="autocomplete_options" type="text" placeholder="Search By Batch Number"></AdvancedSearch>
+                                <AdvancedSearch class="advanced-search" v-model="autocomplete_modal" :options="autocomplete_options" type="text" placeholder="Search"></AdvancedSearch>
                             </div> -->
                             <div class="autofield-show-section">
                                 <div class="autofield-show-section-inner">
                                     <div class="header">
-                                        <input id="create-order-add-product" class="jmi-auto-filter-input" type="text" placeholder="Search By Name or Product ID" v-on:keyup="searchKeyUpAddProductHandler" />
+                                        <input id="create-order-add-product" class="jmi-auto-filter-input" type="text" placeholder="Search" v-on:keyup="searchKeyUpAddProductHandler" />
                                         <tr class="jmi-add-product-autofill-header-row">
                                             <td><span class="td-span-title">Name</span></td>
                                             <td><span class="td-span-title">Price</span></td>
@@ -1272,7 +1272,7 @@ export default {
                 // if(newVal.customer_id !== oldVal.customer_id) {
                 if(newVal.customer_id) {
                     this.SALSE_AREA_ID = newVal.customer_area_info ? (newVal.customer_area_info.sales_area_id ? (newVal.customer_area_info.sales_area_id) : null) : null
-                    this.SELECTED_CUSTOMER_ADDRESS = newVal.customer_address ? newVal.customer_address : ''
+                    this.SELECTED_CUSTOMER_ADDRESS = newVal.customer_info ? (newVal.customer_info.customer_address ? (newVal.customer_info.customer_address) : '') : ''
                     this.AREA_LIST_BY_USER__FROM_SERVICE()
                     this.defaultAllThisComponentData()
                 }

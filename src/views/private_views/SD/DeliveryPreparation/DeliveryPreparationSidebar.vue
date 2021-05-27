@@ -4,8 +4,8 @@
             <!-- Start Secondary Sidebar Header Area-->  
             <div class="header">  
                <div class="row1">
-                    <div class="form-group"><i class="fa fa-search"> </i><input type="text" placeholder="Search by Name, ID No" class="form-control"></div>
-                    <span class="filter_search"><i class="fa fa-filter"> </i> </span>
+                    <div class="form-group"><i class="fa fa-search"> </i><input type="text" placeholder="Search" class="form-control"></div>
+                    <span class="filter_search hide"><i class="fa fa-filter"> </i> </span>
                </div>
             </div>
             <!--End Secondary Sidebar Header Area-->  
@@ -218,6 +218,8 @@ export default {
   padding-left: 36px;
   border-radius: 2px;
   border: 1px solid var(--border-color);
+  width: 100%;
+  box-sizing: border-box;
 }
 .layout-sidebar.delivery_preparation .header .row1 .form-group input::placeholder{
   font-size: var(--font14) ;

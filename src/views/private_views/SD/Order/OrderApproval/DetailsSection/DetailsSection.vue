@@ -152,7 +152,7 @@
                                 </tr>
                                 <tr class="subtotal bottom-total">
                                     <td style="width: 50%;"><span class="add-order-attachment-section add-order" @click="showCommentClickHandler">Show Order Note</span></td>
-                                    <td style="width: 25%;">(+) Vat</td>
+                                    <td style="width: 25%;">(+) VAT</td>
                                     <td style="width: 15%;">{{ comaSeparationDigit(Number(vat_total).toFixed(2)) }}</td>
                                     <td style="width: 10%; min-width: 70px;"></td>
                                 </tr>
@@ -218,7 +218,7 @@
                             <div class="autofield-show-section">
                                 <div class="autofield-show-section-inner">
                                     <div class="header">
-                                        <input id="order-approval-add-product" class="jmi-auto-filter-input" type="text" placeholder="Search By Batch Number" v-on:keyup="searchKeyUpAddProductHandler" />
+                                        <input id="order-approval-add-product" class="jmi-auto-filter-input" type="text" placeholder="Search" v-on:keyup="searchKeyUpAddProductHandler" />
                                         <tr class="jmi-add-product-autofill-header-row">
                                             <td><span class="td-span-title">Name</span></td>
                                             <td><span class="td-span-title">Price</span></td>
@@ -493,7 +493,7 @@
                                         <b-tab title="Business">
                                             <div class="business-section">
                                                 <div class="business-section-inner">
-                                                    <p class="business-data"><span class="lvl">Vat Registration Number:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_info ? (SHOW_CUSTOMER_PROFILE.customer_info.vat_reg_no ? SHOW_CUSTOMER_PROFILE.customer_info.vat_reg_no : '') : '') : '' }}</span></p>
+                                                    <p class="business-data"><span class="lvl">VAT Registration Number:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_info ? (SHOW_CUSTOMER_PROFILE.customer_info.vat_reg_no ? SHOW_CUSTOMER_PROFILE.customer_info.vat_reg_no : '') : '') : '' }}</span></p>
                                                     <p class="business-data"><span class="lvl">Trade License:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_info ? (SHOW_CUSTOMER_PROFILE.customer_info.trade_licence_no ? SHOW_CUSTOMER_PROFILE.customer_info.trade_licence_no : '') : '') : '' }}</span></p>
                                                     <p class="business-data"><span class="lvl">VIN:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_info ? (SHOW_CUSTOMER_PROFILE.customer_info.vin_no ? SHOW_CUSTOMER_PROFILE.customer_info.vin_no : '') : '') : '' }}</span></p>
                                                     <p class="business-data"><span class="lvl">TIN:</span><span class="lvl-value">{{ SHOW_CUSTOMER_PROFILE ? (SHOW_CUSTOMER_PROFILE.customer_info ? (SHOW_CUSTOMER_PROFILE.customer_info.tin_no ? SHOW_CUSTOMER_PROFILE.customer_info.tin_no : '') : '') : '' }}</span></p>
@@ -1761,7 +1761,8 @@ export default {
                         } else {
                             this.approve_product_confirmation_popup_modal = false
                             this.approved_single_order_modal = true
-                            this.ORDER_SUCCESS_MESSAGE = res.data.message
+                            // this.ORDER_SUCCESS_MESSAGE = res.data.message
+                            this.ORDER_SUCCESS_MESSAGE = 'System error. Please contact with administrator.'
                             this.$emit('single_order_approved_failed', this.order_id_from_left_side)
                             setTimeout( () => {
                                 this.approved_single_order_modal = false

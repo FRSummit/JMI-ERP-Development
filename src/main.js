@@ -28,6 +28,7 @@ import './assets/roboto-font.css'
 
 import './custom.less'
 import './custom.js'
+import './assets/css/global_style.css'
 
 // ------------------------------------------------------------------------
 // import './custom.css'
@@ -119,4 +120,10 @@ new Vue({
   * Screen which has left and right section - before click left item right section has a message
   * Every page should have Navigation id, feature id - common feature.
   * 
+  * 
+  * Global register
+  * Vue.component('multiselect', Multiselect)
+  * 
+  * Local Register
+  * components: { Multiselect },
 **/

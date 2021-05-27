@@ -55,7 +55,7 @@
                     type="text"
                     class="form-control"
                     id="search-filter"
-                    placeholder="Search by ID No"
+                    placeholder="Search"
                     v-on:keyup="searchKeyUpHandler"
                   />
                 </div>
