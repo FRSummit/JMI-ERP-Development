@@ -23,8 +23,8 @@
                 <div class="sort-section-inner">
                     <div class="input-section">
                         <div class="select-options">
-                            <!-- <span class="right-icon"><i class="fas fa-chevron-right"></i></span>
-                            <select title="Pick a customer" class="selectpicker" v-model="selected_territory">
+                            <span class="right-icon"><i class="fas fa-chevron-right"></i></span>
+                            <!-- <select title="Pick a customer" class="selectpicker" v-model="selected_territory">
                                 <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
                                 <option :value="null" selected>Select and search Territory</option>
                                 <option v-for="(tt, i) in TERRITORY_LIST" :key="i" :value="tt"><span>{{ tt.display_code }} - {{ tt.area_name }}</span></option>
@@ -334,7 +334,15 @@ export default {
 <style lang="less" scoped>
 @import url("./LeftSidebar.less");
 
-
+.select-options input {
+    width         : 90%;
+    white-space   : nowrap;
+    overflow      : hidden;
+    text-overflow : ellipsis;
+    vertical-align: middle;
+    border: none !important;
+    padding-right: 0 !important;
+}
 
 .add-territory-modal-section {
     position           : fixed;
