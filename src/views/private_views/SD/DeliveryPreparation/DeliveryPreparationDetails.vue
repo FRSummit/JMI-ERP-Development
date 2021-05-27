@@ -19,7 +19,7 @@
                         <div class="print-category">
                           <h5 @click="printTypeSelectionClickHandler('CHALLAN')">Challan</h5>
                           <div class="action-status">
-                            <span class="material-icons-outlined print hide" @click="printAllChallanClickHandler('CHALLAN')" style="color: var(--blue)"><i class="zmdi zmdi-print"></i></span>
+                            <span class="material-icons-outlined print" @click="printAllChallanClickHandler('CHALLAN')" style="color: var(--blue)"><i class="zmdi zmdi-print"></i></span>
                             <span class="fa fa-check-circle status complete hide"></span>
                           </div>
                         </div>

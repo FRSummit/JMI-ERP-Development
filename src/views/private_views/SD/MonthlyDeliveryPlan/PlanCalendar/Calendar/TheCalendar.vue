@@ -7,14 +7,16 @@
             <span :class="day.day === 'F' ? 'friday' : null">{{ day.day }}</span>
           </div>
         </div>
-        <div
-          :id="territoryData.area_id + '-dates-section-' + (d + 1)"
-          class="dates-section"
-          @click="sendDateFromCalendarToParentComponent(d + 1)"
-          :class="check(d + 1) ? 'DA-DATA' : null"
-        >
-          <div class="dates-section-inner">
-            <span>{{ d + 1 }}</span>
+        <div :class="dateIsOld(d + 1)">
+          <div
+            :id="territoryData.area_id + '-dates-section-' + (d + 1)"
+            class="dates-section"
+            @click="dateIsOld(d + 1) === 'OLD_DAY' ? false : sendDateFromCalendarToParentComponent(d + 1)"
+            :class="check(d + 1) ? 'DA-DATA' : null"
+          >
+            <div class="dates-section-inner">
+              <span>{{ d + 1 }}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -65,6 +67,15 @@ export default {
           document.getElementById(this.territoryData.area_id + "-dates-section-" + date).className = "dates-section"
       }
     },
+    dateIsOld(d) {
+      let cls = ''
+      if(parseInt(d) < new Date().getDate()) {
+        cls = 'OLD_DAY'
+      } else {
+        cls = ''
+      }
+      return cls
+    },
     check(d) {
       let day = d < 10 ? ('0' + (d)) : (d).toString()
       if(this.territoryData.get_days) {
@@ -82,4 +93,12 @@ export default {
 
 <style lang="less" scoped>
 @import url("./TheCalendar.less");
+
+.OLD_DAY .dates-section {
+  background: #dedede !important;
+  color: #000000;
+}
+.OLD_DAY .dates-section-inner span {
+  color: #000000 !important;
+}
 </style>
