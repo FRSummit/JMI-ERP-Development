@@ -98,6 +98,9 @@ export default {
   background: #dedede !important;
   color: #000000;
 }
+.OLD_DAY .dates-section.DA-DATA {
+  background: #026dd14d !important;
+}
 .OLD_DAY .dates-section-inner span {
   color: #000000 !important;
 }
