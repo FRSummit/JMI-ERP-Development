@@ -623,7 +623,7 @@
                                                             </p>
                                                         </div> -->
                                                         
-                                                        <div class="col-lg-6 form-group hide">
+                                                        <div class="col-lg-6 form-group">
                                                             <label for="offer_type">Applied To</label>
                                                             <!-- <select class="form-control" multiple id="offer_type" v-model="offer_type_offers_modal" @change="onChangeOfferTypeOfferModal">
                                                                 <option :value="null" selected>Select an option</option>
@@ -631,6 +631,21 @@
                                                                     <span>{{ item.name }}</span>
                                                                 </option>
                                                             </select> -->
+
+                                                            <v-container fluid>
+                                                                <v-row>
+                                                                    <v-col cols="12">
+                                                                        <v-combobox
+                                                                            v-model="select"
+                                                                            :items="items"
+                                                                            label="Combobox"
+                                                                            multiple
+                                                                            outlined
+                                                                            dense
+                                                                        ></v-combobox>
+                                                                    </v-col>
+                                                                </v-row>
+                                                            </v-container>
                                                             
                                                             <select v-model="multi_selec">
                                                                 <option :value="null"></option>
