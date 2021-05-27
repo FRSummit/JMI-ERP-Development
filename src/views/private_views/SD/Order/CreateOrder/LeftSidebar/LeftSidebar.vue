@@ -23,18 +23,39 @@
                 <div class="sort-section-inner">
                     <div class="input-section">
                         <div class="select-options">
-                            <!-- <span class="right-icon"><i class="fas fa-chevron-right"></i></span> -->
-                            <!-- <select title="Pick a customer" class="selectpicker" v-model="selected_territory">
+                            <!-- <span class="right-icon"><i class="fas fa-chevron-right"></i></span>
+                            <select title="Pick a customer" class="selectpicker" v-model="selected_territory">
                                 <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
                                 <option :value="null" selected>Select and search Territory</option>
                                 <option v-for="(tt, i) in TERRITORY_LIST" :key="i" :value="tt"><span>{{ tt.display_code }} - {{ tt.area_name }}</span></option>
                             </select> -->
-                            <form>
+                            <!-- <form>
                                 <input list="browsers" name="browser" placeholder="Select and search Territory" v-model="selected_territory" @click="territoryInputClickOccured">
-                                <datalist id="browsers" class="selectpicker">
+                                <datalist id="browsers">
                                     <option v-for="(tt, i) in TERRITORY_LIST" :key="i" :value="tt.display_code + ' - ' + tt.area_name" />
                                 </datalist>
-                            </form>
+                            </form> -->
+                            <input 
+                                placeholder="Select and search Territory" 
+                                v-model="selected_territory" 
+                                @click="territoryInputClickOccured"
+                                id="territory-search-filter"
+                                v-on:keyup="territorySearchKeyUpHandler" />
+
+                            <div class="add-territory-modal-section" v-if="territory_modal">
+                                <div class="add-territory-modal" v-click-outside="territoryModalSectionOutsideClick">
+                                    <div class="add-territory-modal-inner">
+                                        <div class="territory-list">
+                                            <div class="territory-list-inner">
+                                                <p class="territory-name" v-for="(territory, i) in TERRITORY_LIST" :key="i" @click="territoryNameAddClick(territory)">
+                                                    <span class="territory_nm">{{ territory.display_code }} - {{ territory.area_name }}</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -165,7 +186,7 @@ export default {
             selected_territory: null,
             customer_data_list: null,
 
-            search: null,
+            territory_modal: false,
         }
     },
     created() {},
@@ -267,7 +288,31 @@ export default {
         },
         // ------------------------------------------------------------------------------
         territoryInputClickOccured() {
-            this.selected_territory = null
+            // this.selected_territory = null
+            if(this.territory_modal) {
+                this.territory_modal = false
+            } else {
+                this.selected_territory = null
+                this.territory_modal = true
+            }
+        },
+        territorySearchKeyUpHandler(value) {
+            console.log(value.key)
+            let input = document.getElementById("territory-search-filter");
+            let filter = input.value.toUpperCase();
+            let list = document.querySelectorAll('.add-territory-modal .territory-name')
+            let txt_selector = "territory_nm"
+
+            jmiFilter.searchById_LeftSidebar(filter, list, txt_selector)
+        },
+        territoryModalSectionOutsideClick() {
+            this.territory_modal = false
+        },
+        territoryNameAddClick(territory) {
+            console.log(territory)
+            this.selected_territory = territory.display_code + ' - ' + territory.area_name
+            this.ALL_CUSTOMER_FOR_DEPOT_BY_TT__FROM_SERVICE(territory.id)
+            this.territory_modal = false
         }
     },
     watch: {
@@ -275,11 +320,11 @@ export default {
             if(newVal) {
                 console.log(newVal)
                 // this.ALL_CUSTOMER_FOR_DEPOT_BY_TT__FROM_SERVICE(newVal.id)
-                for(let i=0; i<this.TERRITORY_LIST.length; i++) {
-                    if(this.TERRITORY_LIST[i].display_code === newVal.split('-')[0].trim()) {
-                        this.ALL_CUSTOMER_FOR_DEPOT_BY_TT__FROM_SERVICE(this.TERRITORY_LIST[i].id)
-                    }
-                }
+                // for(let i=0; i<this.TERRITORY_LIST.length; i++) {
+                //     if(this.TERRITORY_LIST[i].display_code === newVal.split('-')[0].trim()) {
+                //         this.ALL_CUSTOMER_FOR_DEPOT_BY_TT__FROM_SERVICE(this.TERRITORY_LIST[i].id)
+                //     }
+                // }
             }
         }
     }
@@ -288,4 +333,95 @@ export default {
 
 <style lang="less" scoped>
 @import url("./LeftSidebar.less");
+
+
+
+.add-territory-modal-section {
+    position           : fixed;
+    width              : 100%;
+    height             : 100%;
+    left               : 0;
+    top                : 0;
+    // background-color: rgba(0, 18, 35, 0%);
+    z-index            : 999;
+
+    .add-territory-modal {
+        position     : fixed;
+        top          : 260px;
+        left         : 80px;
+        width        : 258px;
+        height       : 400px;
+        background   : #FFFFFF 0% 0% no-repeat padding-box;
+        box-shadow   : 0px 0px 20px #026cd129;
+        // border-radius: 8px;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        padding      : 10px;
+
+        .add-territory-modal-inner {
+            width   : 100%;
+            position: relative;
+
+
+            .territory-list {
+                display: block;
+                width  : 100%;
+
+                .territory-list-inner {
+                    width     : 100%;
+                    overflow-y: scroll;
+                    height    : 380px;
+
+                    &::-webkit-scrollbar {
+                        width: 4px;
+                    }
+
+                    &::-webkit-scrollbar-track {
+                        box-shadow   : inset 0 0 5px grey;
+                        border-radius: 10px;
+                    }
+
+                    &::-webkit-scrollbar-thumb {
+                        background   : #168fff;
+                        border-radius: 10px;
+                    }
+
+                    &::-webkit-scrollbar-thumb:hover {
+                        background: #004e98;
+                    }
+
+                    p.territory-name {
+                        // padding       : 10px 20px;
+                        padding       : 6px 0px;
+                        text-align    : left;
+                        letter-spacing: 0px;
+                        color         : #36454F;
+                        font-size     : 14px;
+                        border-bottom : 1px solid #F0F6FC;
+                        cursor        : pointer;
+
+                        span {
+                            color   : #36454F;
+                            // width: 100%;
+                            display : inline-block;
+                            margin  : 0;
+
+                            span {
+                                font-weight: 500;
+                            }
+                        }
+
+                        span:first-child {
+                            margin-bottom: 4px;
+                        }
+
+                        &:hover {
+                            background: #E2EDFA;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 </style>
