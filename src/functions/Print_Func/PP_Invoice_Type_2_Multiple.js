@@ -15,8 +15,6 @@ var monthShortNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "
 export default class PP_Invoice_Type_2_Multiple {
     
     print_invoice(data) {
-        PRODUCT_SERIAL_NO = null
-        PRODUCT_SERIAL_NO = 1
         var mywindow = window.open('', 'PRINT'); 
         mywindow.document.write(''
                             + '<html>'
@@ -48,6 +46,9 @@ export default class PP_Invoice_Type_2_Multiple {
     }
 
     create_print_body(data, due_data) {
+        PRODUCT_SERIAL_NO = null
+        PRODUCT_SERIAL_NO = 1
+        
         let str = ''
         str += ''
 
