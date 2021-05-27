@@ -613,69 +613,25 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <!-- <div class="col-lg-12 form-group">
-                                                            <label for="offer_type">Applied to</label>
-                                                            <p class="applied_to">
-                                                                <span v-for="(item, i) in 5" :key="i" style="margin-right: 20px;">
-                                                                    <input type="checkbox" :id="'applied_to_prod_' + i" @change="appliedToOnChangeHandler(item, i)" style="margin-right: 6px;">
-                                                                    <label for="vehicle1">Prod Name</label>
-                                                                </span>
-                                                            </p>
-                                                        </div> -->
                                                         
-                                                        <div class="col-lg-6 form-group">
+                                                        <div class="col-lg-12 form-group">
                                                             <label for="offer_type">Applied To</label>
-                                                            <!-- <select class="form-control" multiple id="offer_type" v-model="offer_type_offers_modal" @change="onChangeOfferTypeOfferModal">
-                                                                <option :value="null" selected>Select an option</option>
-                                                                <option v-for="(item, i) in OFFERS" :key="i" :value="item.name">
-                                                                    <span>{{ item.name }}</span>
-                                                                </option>
-                                                            </select> -->
 
-                                                            <v-container fluid>
+                                                            <!-- <v-container fluid>
                                                                 <v-row>
-                                                                    <v-col cols="12">
+                                                                    <v-col cols="12"> -->
                                                                         <v-combobox
-                                                                            v-model="select"
-                                                                            :items="items"
-                                                                            label="Combobox"
+                                                                            v-model="APPLIED_TO_PROD_LIST"
+                                                                            :items="MULTI_SELECT_DATA_OPTION"
                                                                             multiple
                                                                             outlined
                                                                             dense
+                                                                            return-object
                                                                         ></v-combobox>
-                                                                    </v-col>
+                                                                    <!-- </v-col>
                                                                 </v-row>
-                                                            </v-container>
-                                                            
-                                                            <select v-model="multi_selec">
-                                                                <option :value="null"></option>
-                                                                <option v-for="(item, i) in MULTI_SELECT_DATA_OPTION" :key="i" :value="item">{{ item.name }}</option>
-                                                                <!-- <option value=""></option>
-                                                                <option>American Black Bear</option>
-                                                                <option>Asiatic Black Bear</option>
-                                                                <option>Brown Bear</option>
-                                                                <option>Giant Panda</option>
-                                                                <option>Sloth Bear</option>
-                                                                <option>Sun Bear</option>
-                                                                <option>Polar Bear</option>
-                                                                <option>Spectacled Bear</option> -->
-                                                            </select>
-                                                            <!-- <multiselect v-model="multi_select_data" :options="MULTI_SELECT_DATA_OPTION"></multiselect> -->
+                                                            </v-container> -->
                                                         </div>
-                                                        <!-- <div class="col-lg-12 form-group">
-                                                            <label for="offer_type">Applied to</label>
-                                                            <div class="input-group">
-                                                                <p class="applied_to"><span v-for="(item, i) in applied_to_prods ? 10 : 0" :key="i" :value="item"><input type="checkbox" />{{ 'item.prod_name' }}</span></p> -->
-                                                                <!-- <p class="applied_to"><span v-for="(item, i) in applied_to_prods ? applied_to_prods : 0" :key="i" :value="item"><input type="checkbox" />{{ item.prod_name }}</span><i class="zmdi zmdi-plus" @click="appliedTOProdClickHandler"></i></p> -->
-                                                                <!-- <input id="prod_offer_now_price_d" v-model="prod_offer_now_price_d" type="number" class="form-control" placeholder="" aria-describedby="addon1" v-on:keyup="prod_offer_now_price_d_KeyUp_ordered_table($event)" required>
-                                                                <div class="input-group-append">
-                                                                    <span class="input-group-text" id="addon1">TK</span>
-                                                                </div> -->
-                                                            <!-- </div>
-                                                        </div> -->
-                                                        <!-- <div class="col-lg-2 form-group">
-                                                            <button type="button" class="btn btn-primary btn-global" style="position: absolute; bottom: 20px; background-color: #495057;">Save Flat Rate</button>
-                                                        </div> -->
                                                         <div class="col-lg-6 form-group hide">
                                                             <label for="offer_name">Minimum Buy QTY</label>
                                                             <div class="input-group">
@@ -1583,13 +1539,15 @@ export default {
             // OFFER TAB
             APPLIED_TO_PROD_LIST: [],
             multi_select_data: null,
-            MULTI_SELECT_DATA_OPTION: [
-                    {name: 'Option 1', id: 1}, 
-                    {name: 'Option 2', id: 2}, 
-                    {name: 'Option 3', id: 3}, 
-                    {name: 'Option 4', id: 4}
-                ],
+            MULTI_SELECT_DATA_OPTION: ['Option 1', 'Option 2', 'Option 3', 'Option 4'],
             multi_selec: null,
+            items: [
+                'Programming',
+                'Design',
+                'Vue',
+                'Vuetify',
+            ],
+
         }
     },
     computed: {},
@@ -2817,25 +2775,6 @@ export default {
                 this.applied_to_popup_modal = true
             }
         },
-        appliedToOnChangeHandler(item, i) {
-            console.log(i)
-            console.log(item)
-            if(document.querySelector('#applied_to_prod_' + i).checked === true) {
-                this.APPLIED_TO_PROD_LIST.push(item)
-            } else {
-                console.log('not checked : ' + item.inv_id)
-                if(this.APPLIED_TO_PROD_LIST.length) {
-                    for( let i=0; i<this.APPLIED_TO_PROD_LIST.length; i++ ) {
-                        if(parseInt(this.APPLIED_TO_PROD_LIST[i].inv_id) === parseInt(item.inv_id)) {
-                            console.log(this.APPLIED_TO_PROD_LIST[i].inv_id)
-                            console.log(item.inv_id)
-                            this.APPLIED_TO_PROD_LIST.splice(i, 1)
-                        }
-                    }
-                }
-            }
-            console.log(this.APPLIED_TO_PROD_LIST)
-        }
     },
     watch: {
         SELECTED_PROD_DETAILS(newVal) {
@@ -2929,6 +2868,11 @@ export default {
                     }
                 }
                 console.log(this.APPLIED_TO_PROD_LIST)
+            }
+        },
+        APPLIED_TO_PROD_LIST(newVal) {
+            if(newVal) {
+                console.log(newVal)
             }
         }
     },
@@ -3153,6 +3097,9 @@ button.modal-prod-save-btn:hover {
 }
 .multiselect__input {
     width: 100%;
+}
+.v-menu {
+    display: block !important;
 }
 </style>
 <style scoped src="vue-multiselect/dist/vue-multiselect.min.css"></style>

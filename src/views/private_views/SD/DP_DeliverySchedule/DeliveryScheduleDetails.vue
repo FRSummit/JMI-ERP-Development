@@ -145,7 +145,7 @@
                           <div class="modal-body">
                           <div class="row customer_info">
                             <div class="col-lg-4 col-12">
-                            <p>Order/Invoice No: <span>{{ DP_DS_INVOICE_DETAILS ? DP_DS_INVOICE_DETAILS.invoice_no : '' }}</span></p>
+                            <p>Invoice No: <span>{{ DP_DS_INVOICE_DETAILS ? DP_DS_INVOICE_DETAILS.invoice_no : '' }}</span></p>
                             </div>
                             <div class="col-lg-4 col-12">
                               <p>Date: <span>{{ DP_DS_INVOICE_DETAILS ? dateFormat(DP_DS_INVOICE_DETAILS.invoice_date) : '' }}</span></p>
