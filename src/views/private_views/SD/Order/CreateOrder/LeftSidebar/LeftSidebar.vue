@@ -23,13 +23,18 @@
                 <div class="sort-section-inner">
                     <div class="input-section">
                         <div class="select-options">
-                            <span class="right-icon"
-                                ><i class="fas fa-chevron-right"></i
-                            ></span>
-                            <select title="Pick a customer" class="selectpicker" v-model="selected_territory">
-                                <option :value="null" selected>Select Territory</option>
+                            <!-- <span class="right-icon"><i class="fas fa-chevron-right"></i></span> -->
+                            <!-- <select title="Pick a customer" class="selectpicker" v-model="selected_territory">
+                                <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+                                <option :value="null" selected>Select and search Territory</option>
                                 <option v-for="(tt, i) in TERRITORY_LIST" :key="i" :value="tt"><span>{{ tt.display_code }} - {{ tt.area_name }}</span></option>
-                            </select>
+                            </select> -->
+                            <form>
+                                <input list="browsers" name="browser" placeholder="Select and search Territory" v-model="selected_territory" @click="territoryInputClickOccured">
+                                <datalist id="browsers" class="selectpicker">
+                                    <option v-for="(tt, i) in TERRITORY_LIST" :key="i" :value="tt.display_code + ' - ' + tt.area_name" />
+                                </datalist>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -159,6 +164,8 @@ export default {
             TERRITORY_LIST: null,
             selected_territory: null,
             customer_data_list: null,
+
+            search: null,
         }
     },
     created() {},
@@ -258,11 +265,21 @@ export default {
                     }
                 })
         },
+        // ------------------------------------------------------------------------------
+        territoryInputClickOccured() {
+            this.selected_territory = null
+        }
     },
     watch: {
         selected_territory(newVal) {
             if(newVal) {
-                this.ALL_CUSTOMER_FOR_DEPOT_BY_TT__FROM_SERVICE(newVal.id)
+                console.log(newVal)
+                // this.ALL_CUSTOMER_FOR_DEPOT_BY_TT__FROM_SERVICE(newVal.id)
+                for(let i=0; i<this.TERRITORY_LIST.length; i++) {
+                    if(this.TERRITORY_LIST[i].display_code === newVal.split('-')[0].trim()) {
+                        this.ALL_CUSTOMER_FOR_DEPOT_BY_TT__FROM_SERVICE(this.TERRITORY_LIST[i].id)
+                    }
+                }
             }
         }
     }
