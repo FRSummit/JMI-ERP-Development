@@ -1298,7 +1298,8 @@ export default class PostService {
         // Free
         free_req_qty  : offer_details.free_req_qty,
         free_prod_id  : offer_details.free_prod_id,
-        free_prod_qty : offer_details.free_prod_qty
+        free_prod_qty : offer_details.free_prod_qty,
+        new_prod_list: JSON.stringify(applied_prods)
       }
     })
   }
