@@ -7,6 +7,7 @@
                 v-on:SINGLE_ITEM_FROM_LEFT="itemClickFromLeftEventHandler"
                 :RELOAD_LEFT_SECTION="RELOAD_LEFT_SECTION" />
             <DeliveryPreparationDetails
+                v-if="SELECTED_ITEM_FROM_LEFT"
                 :SELECTED_ITEM_FROM_LEFT="SELECTED_ITEM_FROM_LEFT"
                 :DS_DETAILS="DS_DETAILS"
                 v-on:RELOAD_LEFT_SECTION="reloadLeftSection" />

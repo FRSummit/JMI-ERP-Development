@@ -38,7 +38,7 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="mio">MIO: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info.name) : '') : '') : '') : '') : '') : '') : '' }}</span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-6"><p class="mio">MIO: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ PENDING_ORDER_DATA_BY_ID ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.user_info ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.user_info.name ? (PENDING_ORDER_DATA_BY_ID.sbu_customer_info.customer_area_info.sales_force.user_info.name) : '') : '') : '') : '') : '') : '' }}</span></p></div>
                         <div class="col-lg-3 col-md-6 col-sm-6" style="line-height: 1;">
                             <div class="sr" style="display: table-cell; width: 33%; padding-right: 20px; padding-bottom: 0; line-height: 1;">
                                 <span class="jmi-lvl">SR: </span>
@@ -233,7 +233,8 @@
                                         <tr class="responer-body-filter-output" v-for="(data, i) in PRODUCT_MODAL_DATA_LIST" :key="i">
                                             <td>
                                                 <span class="responer-body-filter-tag">{{  data ? data.prod_name : "" }}</span>
-                                                <span>{{ data ? (data.display_code ? ('Code: ' + data.display_code) : '') : "" }} {{ data ? (data.offer ? ('| ' + data.offer) : '') : "" }}<span class="responer-body-filter-tag-id hide" style="display: inline-block; margin-left: 2px;">{{ data ? (data.prod_id ? (' | ID: ' + data.prod_id) : '') : "" }}</span></span>
+                                                <span>{{ data ? (data.display_code ? ('Code: ' + data.display_code) : '') : "" }} {{ data ? (data.offer ? ('| ' + data.offer) : '') : "" }}<span class="responer-body-filter-tag-id hide" style="display: inline-block; margin-left: 2px;">{{ data ? (data.prod_id ? (' | ID: ' + data.prod_id) : '') : "" }}</span><span class="responer-body-filter-tag-search hide">{{ data.prod_name }} {{ data.display_code }} {{ data.prod_id }} {{ data.prod_code }} {{ data.prod_class }}</span></span>
+                                                
                                             </td>
                                             <td>
                                                 <span class="quantity-setup">
@@ -269,7 +270,8 @@
                                 <tr v-for="(data, i) in SELECTED_ORDERED_PRODUCTS__INIT_LIST" :key="i">
                                     <td>
                                         <span>{{  data ? data.prod_name : ""  }}</span>
-                                        <span>Code: {{ data ? (data.display_code ? data.display_code : data.prod_id) : "" }}<span class="responer-body-filter-tag-id hide" style="display: inline-block; margin-left: 2px;"> | ID: {{ data ? (data.prod_id ? (data.prod_id) : '') : "" }}</span></span>
+                                        <span>Code: {{ data ? (data.display_code ? data.display_code : data.prod_id) : "" }}<span class="responer-body-filter-tag-id hide" style="display: inline-block; margin-left: 2px;"> | ID: {{ data ? (data.prod_id ? (data.prod_id) : '') : "" }}</span><span class="responer-body-filter-tag-search hide">{{ data.prod_name }} {{ data.display_code }} {{ data.prod_id }} {{ data.prod_code }} {{ data.prod_class }}</span></span>
+                                        
                                     </td>
                                     <td>
                                         <span class="quantity-setup">
@@ -1518,16 +1520,19 @@ export default {
             let input = document.getElementById("order-approval-add-product");
             let filter = input.value.toUpperCase();
             let list = document.querySelectorAll('.responer-body-filter-output')
-            let txt_selector = "responer-body-filter-tag"
-            let id_selector = "responer-body-filter-tag-id"
+            // let txt_selector = "responer-body-filter-tag"
+            // let id_selector = "responer-body-filter-tag-id"
+            let txt_selector = "responer-body-filter-tag-search"
 
             // console.log(value.key)
-            let v = document.querySelector('#order-approval-add-product').value
-            if(isNaN(v)) {
-                jmiFilter.searchByID_Name_Details_Section(filter, list, txt_selector)
-            } else {
-                jmiFilter.searchByID_Name_Details_Section(filter, list, id_selector)
-            }
+            // let v = document.querySelector('#order-approval-add-product').value
+            // if(isNaN(v)) {
+            //     jmiFilter.searchByID_Name_Details_Section(filter, list, txt_selector)
+            // } else {
+            //     jmiFilter.searchByID_Name_Details_Section(filter, list, id_selector)
+            // }
+
+            jmiFilter.searchById_LeftSidebar(filter, list, txt_selector)
         }, 
         async printInvoiceClickHandler() {
             // ppInvoice_Type_1.print_invoice(demoPrintData.print_sdr_023_data())

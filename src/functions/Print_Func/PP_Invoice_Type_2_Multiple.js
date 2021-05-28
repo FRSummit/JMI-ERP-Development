@@ -14,9 +14,7 @@ var monthShortNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "
 
 export default class PP_Invoice_Type_2_Multiple {
     
-    print_invoice(data, due_data) {
-        PRODUCT_SERIAL_NO = null
-        PRODUCT_SERIAL_NO = 1
+    print_invoice(data) {
         var mywindow = window.open('', 'PRINT'); 
         mywindow.document.write(''
                             + '<html>'
@@ -27,7 +25,7 @@ export default class PP_Invoice_Type_2_Multiple {
                             +         '</style>'
                             +     '</head>'
                             +     '<body style="">'
-                            +      this.create_print_body(data, due_data)
+                            +      this.readyToPrintMultiple(data)
                 )
 
         mywindow.document.write('</body></html>');
@@ -39,9 +37,23 @@ export default class PP_Invoice_Type_2_Multiple {
         return true;
     }
 
+    readyToPrintMultiple(data) {
+        let str = ''
+        for(let i=0; i<data.length; i++) {
+            str += this.create_print_body(data[i].invoice_details, data[i].due_details)
+        }
+        return str
+    }
+
     create_print_body(data, due_data) {
+        PRODUCT_SERIAL_NO = null
+        PRODUCT_SERIAL_NO = 1
+        
+        let str = ''
+        str += ''
+
         +         '<div class="print-section" style="page-break-before: always; overflow: hidden; padding-right: 1px;">'
-        +             '<div class="print-section-inner">'
+        +             '<div class="print-section-inner" style="page-break-after: always;">'
         +                 '<table style="">'
         +                     '<thead>'
         +                         '<tr style="">'
@@ -135,6 +147,8 @@ export default class PP_Invoice_Type_2_Multiple {
         +                 this.create_signature_section(data)
         +             '</div>'
         +         '</div>'
+
+        return str
     }
 
     printing_Date_Format() {
@@ -520,14 +534,16 @@ export default class PP_Invoice_Type_2_Multiple {
 
     createCreditStatusData(data) {
         let result = ''
-        for(let i=0; i<data.length; i++) {
-            result += ''
-                    +   '<tr>'
-                    +       '<td>' + data[i].invoice_no + '</td>'
-                    +       '<td>' + globalDateFormat.dateFormatT4(data[i].invoice_date) + '</td>'
-                    // +       '<td>' + '' + '</td>'
-                    +       '<td style="text-align: right;">' + comaSeparatedDigits.comaSeparate(Number(data[i].due_amt).toFixed(2)) + '</td>'
-                    +   '</tr>'
+        if(data.length > 0) {
+            for(let i=0; i<data.length; i++) {
+                result += ''
+                        +   '<tr>'
+                        +       '<td>' + data[i].invoice_no + '</td>'
+                        +       '<td>' + globalDateFormat.dateFormatT4(data[i].invoice_date) + '</td>'
+                        // +       '<td>' + '' + '</td>'
+                        +       '<td style="text-align: right;">' + comaSeparatedDigits.comaSeparate(Number(data[i].due_amt).toFixed(2)) + '</td>'
+                        +   '</tr>'
+            }
         }
 
         return result

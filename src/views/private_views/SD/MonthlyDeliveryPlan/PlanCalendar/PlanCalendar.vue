@@ -74,6 +74,8 @@ export default {
   },
   created() {
   },
+  mounted() {
+  },
   methods: {
     getSelectedDateFromChildComponentCalendar(date) {
       this.$emit("selected_date_from_calendar", this.territoryData, date);

@@ -53,7 +53,7 @@
                               <td>
                                   <div>
                                       <p class="customer_name">{{ item.customer_name }}</p>
-                                      <p class="order">Order: <span>{{ dateFormat(item.order_date) }}</span> <span>({{ dateDifference(item.order_date) }} days Ago)</span> </p>
+                                      <p class="order">Order: <span style="text-decoration: underline; cursor: pointer;" @click="orderNoClickHandler(item)" data-toggle="modal" data-target="#order-modal">{{ item.order_no }}</span> - <span>{{ dateFormat(item.order_date) }}</span> <span>({{ dateDifference(item.order_date) }} days Ago)</span> </p>
                                   </div>
                               </td>
                               <td>
@@ -145,7 +145,7 @@
                           <div class="modal-body">
                           <div class="row customer_info">
                             <div class="col-lg-4 col-12">
-                            <p>Order/Invoice No: <span>{{ DP_DS_INVOICE_DETAILS ? DP_DS_INVOICE_DETAILS.invoice_no : '' }}</span></p>
+                            <p>Invoice No: <span>{{ DP_DS_INVOICE_DETAILS ? DP_DS_INVOICE_DETAILS.invoice_no : '' }}</span></p>
                             </div>
                             <div class="col-lg-4 col-12">
                               <p>Date: <span>{{ DP_DS_INVOICE_DETAILS ? dateFormat(DP_DS_INVOICE_DETAILS.invoice_date) : '' }}</span></p>
@@ -225,6 +225,99 @@
                         </div>
                       </div>
                     </div>
+
+
+
+
+                    <!------------ Start Order Modal------------>
+                    <div class="modal" id="order-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="width: 60%; min-width: 650px; max-width: 800px; height: 490px; max-height: unset; padding-right: 0;">
+                      <div class="modal-dialog modal-lg modal-dialog-centered" style="margin: 0; max-width: unset; margin-right: -17px;">
+                        <div class="modal-content" style="padding: 0; width: 100%; border: none;">
+                          <div class="modal-header">
+                            <h5 class="modal-title">Order</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                          <div class="row customer_info">
+                            <div class="col-lg-4 col-12">
+                            <p>Order No: <span>{{ ORDER_DETAILS_DATA ? ORDER_DETAILS_DATA.order_no : '' }}</span></p>
+                            </div>
+                            <div class="col-lg-4 col-12">
+                              <p>Date: <span>{{ ORDER_DETAILS_DATA ? dateFormat(ORDER_DETAILS_DATA.order_date) : '' }}</span></p>
+                            </div>
+                            <div class="col-lg-4 col-12">
+                              <p>Total: <span>{{ ORDER_DETAILS_DATA ? Number(ORDER_DETAILS_DATA.net_total).toFixed(2) : '' }}</span></p>
+                            </div>
+                            <div class="col-lg-4 col-12">
+                              <p>Customer: <span>{{ ORDER_DETAILS_DATA ? ORDER_DETAILS_DATA.sbu_customer_info.display_name : '' }}</span></p>
+                              </div>
+                              <div class="col-lg-4 col-12">
+                                <p>Type: <span>{{ ORDER_DETAILS_DATA ? (ORDER_DETAILS_DATA.customer_type === "422" ? 'CHEMIST' : 'INSTITUTION') : '' }}</span></p>
+                              </div>
+                              <!-- <div class="col-lg-4 col-12">
+                                <p>Current Due: <span>{{ CURRENT_DUE ? Number(CURRENT_DUE).toFixed(2) : 0.00 }}</span></p>
+                              </div> -->
+                              <div class="col-lg-4 col-12">
+                                <p>SR: <span>{{ SELECTED_DP_DS_LIST_ITEM ? SELECTED_DP_DS_LIST_ITEM.dp_force.force_name : '' }}</span></p>
+                              </div>
+                          </div>
+
+                          <div class="row invoice-modal-table">
+                            <table class="col-12">
+                              <thead>
+                                <tr>
+                                  <th>Items</th>
+                                  <th>Type</th>
+                                  <th>Amount</th>
+                                </tr>
+                              </thead>
+                              <tbody>  
+                                <tr v-for="(item, i) in ORDER_DETAILS_DATA ? ORDER_DETAILS_DATA.order_details : 0" :key="i">
+                                  <td>
+                                    <p>{{ item.product_info.prod_code }} - {{ item.product_info.prod_name }}</p>
+                                  </td>
+                                  <td>
+                                    <p>{{ item.sbu_product_info.element_info.element_name }}</p>
+                                  </td>
+                                  <td>
+                                    <p>{{ Number(item.tp).toFixed(2) }}</p>
+                                  </td>
+                                </tr>
+                              </tbody>
+                              <tfoot>
+                                <tr>
+                                  <th colspan="2"><span>Subtotal:</span></th>
+                                  <th><p>{{ Number(ORDER_DETAILS_TOTAL_SECTION.subtotal).toFixed(2) }}</p></th>
+                                </tr>
+                                <tr>
+                                  <th colspan="2"><span>(+) VAT:</span></th>
+                                  <th><p>{{ Number(ORDER_DETAILS_TOTAL_SECTION.vat).toFixed(2) }}</p></th>
+                                </tr>
+                                <tr>
+                                  <th colspan="2"><span>(-) Discount:</span></th>
+                                  <th><p>{{ Number(ORDER_DETAILS_TOTAL_SECTION.discount).toFixed(2) }}</p></th>
+                                </tr>
+                                <tr>
+                                  <th colspan="2"><span>Gross Total:</span></th>
+                                  <th><p>{{ Number(ORDER_DETAILS_TOTAL_SECTION.gross_total).toFixed(2) }}</p></th>
+                                </tr>
+                                <tr>
+                                  <th colspan="2"><span>(+/-) Rounding Adjustment:</span></th>
+                                  <th><p>{{ Number(ORDER_DETAILS_TOTAL_SECTION.rounding_adj).toFixed(2) }}</p></th>
+                                </tr>
+                                <tr>
+                                  <th colspan="2"> <span>Grand Total:</span></th>
+                                  <th><p>{{ Number(ORDER_DETAILS_TOTAL_SECTION.grand_total).toFixed(2) }}</p></th>
+                                </tr>
+                              </tfoot>
+                            </table>
+                          </div>
+                        </div>
+                        </div>
+                      </div>
+                    </div>
                 </div>
 
                 <div class="tab-pane fade" id="underline_map" role="tabpanel" aria-labelledby="underline_map-tab">
@@ -288,6 +381,14 @@ export default {
                 rounding_adj: 0.00,
                 grand_total: 0.00,
             },
+            ORDER_DETAILS_TOTAL_SECTION: {
+                subtotal: 0.00,
+                vat: 0.00,
+                discount: 0.00,
+                gross_total: 0.00,
+                rounding_adj: 0.00,
+                grand_total: 0.00,
+            },
 
             SELECTED_INVOICE_LIST_FROM_TABLE: [],
             SELECTED_INVOICE_ID_LIST_FROM_TABLE: [],
@@ -301,6 +402,8 @@ export default {
 
             msg_popup_modal: false,
             msg_popup_modal_msg: null,
+
+            ORDER_DETAILS_DATA: null,
         }
     },
     computed: {
@@ -500,6 +603,10 @@ export default {
           console.log(item)
           this.PRING_INVOCIE_DETAILS__FROM_SERVICE(item.inv_id)
         },
+        orderNoClickHandler(item) {
+          console.log(item.order_id)
+          this.PRINT_ORDER_DETAILS__FROM_SERVICE(item.order_id)
+        },
         // --------------------------------------------------------------------------------------------
         // SERVICE CALL
         async DP_DS_INVOICE_DETAILS__FROM_SERVICE(invoice_id) {
@@ -597,6 +704,27 @@ export default {
                 alert('No Invoice data found')
               }
             })
+            .catch(err => {
+                if(err) {
+                    console.log(err)
+                }
+            })
+        },
+        async PRINT_ORDER_DETAILS__FROM_SERVICE(order_id) {
+            this.ORDER_DETAILS_DATA = null
+            await service.getPrintOrderDetails_OrderApproval_INVOICE(order_id)
+                .then(res => {
+                    console.log(res.data.order_info.order_details)
+                    console.log(res.data.order_info)
+                    this.ORDER_DETAILS_DATA = res.data.order_info
+                    // ppInvoice_Type_1.print_invoice(res.data.order_info)
+                })
+                .catch(err => {
+                    if(err) {
+                        this.ORDER_DETAILS_DATA = null
+                        console.log('Server Problem 500. Please hit again.')
+                    }
+                })
         }
     },
     watch: {
@@ -673,6 +801,24 @@ export default {
                 console.log(newVal)
             }
         },
+        ORDER_DETAILS_DATA(newVal) {
+            if(newVal) {
+
+                console.log(newVal)
+
+                this.ORDER_DETAILS_TOTAL_SECTION.subtotal = newVal.gross_tp
+                this.ORDER_DETAILS_TOTAL_SECTION.vat = newVal.total_vat
+                this.ORDER_DETAILS_TOTAL_SECTION.discount = newVal.total_discount
+                this.ORDER_DETAILS_TOTAL_SECTION.gross_total = newVal.gross_total
+                
+                let total = this.ORDER_DETAILS_TOTAL_SECTION.gross_total
+                let round_total = Math.round(total);
+                let ROUNDING_ADJ = (total - round_total).toFixed(2);
+
+                this.ORDER_DETAILS_TOTAL_SECTION.rounding_adj = ROUNDING_ADJ
+                this.ORDER_DETAILS_TOTAL_SECTION.grand_total = newVal.net_total
+            }
+        }
     },
 }
 </script>
@@ -961,21 +1107,26 @@ svg {
 /* End Reshedule Modal */
 
 /*--------- Start Invoice Modal Area ---------*/
-#invoice-modal .modal-content {
+#invoice-modal .modal-content,
+#order-modal .modal-content {
     width: 90%;
     margin: auto;
 }
-#invoice-modal .modal-body{
+#invoice-modal .modal-body,
+#order-modal .modal-body {
     padding: 0rem 1rem;
 }
-#invoice-modal .modal-body .customer_info{
+#invoice-modal .modal-body .customer_info,
+#order-modal .modal-body .customer_info {
 padding: 10px 0px;
 }
-#invoice-modal .modal-body .customer_info p{
+#invoice-modal .modal-body .customer_info p,
+#order-modal .modal-body .customer_info p {
   font-size: var(--font14);
   color: var(--text-black);
 }
-#invoice-modal .modal-body .customer_info p span{
+#invoice-modal .modal-body .customer_info p span,
+#order-modal .modal-body .customer_info p span {
   font-size: var(--font14);
   color: var(--blue);
   font-weight: 500;

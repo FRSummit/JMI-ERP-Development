@@ -45,9 +45,9 @@
                                 <div class="row3"> 
                                     <div class="group-2" @click="childCardBodyClickHandler(card, j)"><p>Scheduled: <span>{{ card.dp_force.planned }}</span></p><p style="margin-left: 10px;">New: <span>{{ card.dp_force.new }}</span></p></div> 
                                     <i class="material-icons" :class="parseInt(card.dp_force.new) === 0 ? 'disabled_icon' : ''" v-if="card.dp_force.ds_status === 'N'" @click="parseInt(card.dp_force.new) !== 0 ? agorBatiIconClickHandler(card, j) : false">auto_fix_normal</i>
+                                    <!-- <i class="material-icons" @click="agorBatiIconClickHandler(card, j)">auto_fix_normal</i> -->
                                     <i class="zmdi zmdi-lock-open" v-if="(card.dp_force.ds_status === 'O') && (parseInt(card.dp_force.planned) > 0) && (parseInt(card.dp_force.new) === 0)" @click="unlockIconClickHandler(card, j)"></i>
                                     <i class="zmdi zmdi-lock-outline" v-if="card.dp_force.ds_status === 'L'"></i>
-                                    <!-- <i class="material-icons">auto_fix_normal</i> -->
                                 </div>
                             </div>
                         </div>
@@ -56,6 +56,32 @@
             </div>
         </div>
         <!--End Secondary Sidebar Content Area--> 
+
+        <!-- CONFIRMATION MODAL -->
+        <div class="modal-popup-section order-proceed-modal" v-if="inv_confirm_modal">
+            <div class="modal-popup-section-inner order-proceed-modal-inner">
+                <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
+                <p class="popup-text">Are you sure?</p>
+                <p class="popup-desc">{{ inv_confirm_modal_msg ? inv_confirm_modal_msg : '' }}</p>
+                <span class="divider"></span>
+                <div class="popup-submit-section">
+                    <div class="popup-cancel-btn-section">
+                        <span @click="cancelPaymentConfirmationClickHandler">Cancel</span>
+                    </div>
+                    <div class="popup-confirm-btn-section">
+                        <span @click="confirmPaymentConfirmationClickHandler">Confirm</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Success Message -->
+        <div id="update-successfully-modal" class="modal-popup-section update-successfully-modal" v-if="msg_popup_modal">
+            <div class="modal-popup-section-inner update-successfully-modal-inner">
+                <span class="proceed-popup-icon"><i class="zmdi zmdi-check-circle"></i></span>
+                <p class="popup-text">{{ msg_popup_modal_msg }}</p>
+            </div>
+        </div>
+
     </div>
     <!-- End Secondary Sidebar Area--> 
 </template>
@@ -73,6 +99,14 @@ export default {
             parentCard: 5,
             childCard: 2,
             DELIVERY_SCHEDULE_LIST: null,
+
+            SELECTED_CARD_ITEM: null,
+
+            inv_confirm_modal: false,
+            inv_confirm_modal_msg: null,
+
+            msg_popup_modal: false,
+            msg_popup_modal_msg: null,
         }
     },
     async mounted() {
@@ -113,7 +147,24 @@ export default {
             console.log(i)
             console.log(card)
             console.log(card.date + '    ' + card.dp_force.force_id)
-            this.CREATE_DELIVERY_SCHEDULE_INVOICE_LIST_BY_DA(card.dp_force.force_id, card.date)
+            // this.CREATE_DELIVERY_SCHEDULE_INVOICE_LIST_BY_DA(card.dp_force.force_id, card.date)
+            this.SELECTED_CARD_ITEM = card
+
+            if(this.inv_confirm_modal) {
+                this.inv_confirm_modal = false
+            } else {
+                this.inv_confirm_modal = true
+                this.inv_confirm_modal_msg = 'Create delivery schedule'
+            }
+        },
+        cancelPaymentConfirmationClickHandler() {
+            this.inv_confirm_modal = false
+        },
+        confirmPaymentConfirmationClickHandler() {
+            this.CREATE_DELIVERY_SCHEDULE_INVOICE_LIST_BY_DA(this.SELECTED_CARD_ITEM.dp_force.force_id, this.SELECTED_CARD_ITEM.date)
+            this.inv_confirm_modal = false
+            this.inv_confirm_modal_msg = null
+            this.SELECTED_CARD_ITEM = null
         },
         async unlockIconClickHandler(card, i) {
             console.log(i)
@@ -142,10 +193,26 @@ export default {
                 .then(res => {
                     console.log(res.data.invoice_count)
                     this.DP_DS_LIST__FROM_SERVICE()
+
+                    this.msg_popup_modal = true
+                    this.msg_popup_modal_msg = res.data.message
+
+                    setTimeout( () => {
+                        this.msg_popup_modal = false
+                        this.msg_popup_modal_msg = null
+                    }, 2000)
                 })
                 .catch(err => {
                     if(err) {
                         console.log(err)
+
+                        this.msg_popup_modal = true
+                        this.msg_popup_modal_msg = err
+
+                        setTimeout( () => {
+                            this.msg_popup_modal = false
+                            this.msg_popup_modal_msg = null
+                        }, 2000)
                     }
                 })
         },
