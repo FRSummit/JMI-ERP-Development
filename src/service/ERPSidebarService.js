@@ -1271,9 +1271,10 @@ export default class PostService {
   }
 
   // PRODUCT - PRODUCT DETAILS - CREATE OFFER
-  async getCreateNewProdOffer_PRODUCTS_DETAILS(prod_id, offer_details) {
+  async getCreateNewProdOffer_PRODUCTS_DETAILS(prod_id, offer_details, applied_prods) {
     console.log(prod_id)
     console.log(offer_details)
+    console.log(JSON.stringify(applied_prods))
     let web_menu_url = '/api/web/create-new-prod-offer/' + prod_id
     return await axios(web_menu_url, {
       method: 'POST',

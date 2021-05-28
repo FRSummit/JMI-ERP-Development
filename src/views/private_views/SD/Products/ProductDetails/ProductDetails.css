@@ -6366,3 +6366,12 @@
 #product-details .v-icon.notranslate.mdi.mdi-menu-down.theme--light {
     display: none !important;
 }
+
+#product-details .v-menu__content.theme--light.v-menu__content--fixed.menuable__content__active.v-autocomplete__content {
+    top: 344px !important;
+}
+
+#product-details .v-select.v-input--dense .v-select__selection--comma {
+    font-size: 14px;
+    color: var(--blue);
+}

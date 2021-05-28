@@ -13,6 +13,7 @@
         :SELECTED_PROD_SBU_PROD_DETAILS="SELECTED_PROD_SBU_PROD_DETAILS"
         :SELECTED_PROD_DOCS_DETAILS="SELECTED_PROD_DOCS_DETAILS"
         :ALL_PRODS_LIST_IN_DB="ALL_PRODS_LIST_IN_DB"
+        :SELECTED_PROD_FROM_LEFT="SELECTED_PROD_FROM_LEFT"
         v-on:RELOAD_SELECTED_PROD_DETAILS="reloadSelectedProdDetails" />
     </div>
   </div>
@@ -46,6 +47,7 @@ export default {
       SELECTED_PROD_SBU_PROD_DETAILS: null,
       SELECTED_PROD_DOCS_DETAILS: null,
       ALL_PRODS_LIST_IN_DB: null,
+      SELECTED_PROD_FROM_LEFT: null,
     };
   },
   computed: {},
@@ -61,6 +63,7 @@ export default {
     },
     async selectProdFromLeft(item) {
       console.log(item)
+      this.SELECTED_PROD_FROM_LEFT = item
       await this.SELECT_SBU_PRODUCT_DETAILS_BY_PROD_ID__FROM_SERVICE(item.prod_id)
     },
     getAllProdsList(value) {

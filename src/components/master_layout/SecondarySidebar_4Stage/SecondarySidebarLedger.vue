@@ -1,17 +1,17 @@
 <template>
     <div id="secondary-sidebar-ledger" class="secondary-sidebar-ledger">
         <div class="area-tree-inner">
-            <div class="area-title-text">
-                <div class="icon-arrow" @click="sidebarTitleIconClick"><i class="fas fa-chevron-down"></i></div>
-                <p class="list-text" @click="sidebarTitleIconClick">SBU List</p>
-            </div>
+          <div class="area-title-text hide">
+              <div class="icon-arrow" @click="sidebarTitleIconClick"><i class="fas fa-chevron-down"></i></div>
+              <p class="list-text" @click="sidebarTitleIconClick">SBU List</p>
+          </div>
         <div class="main-area-list-section">
           <div class="primary-area" v-for="(item_01, i) in 1" :key="i" :id="'primary-area-' + i">
-            <div class="icon-arrow" @click="primaryArrowClick(i)">
+            <div class="icon-arrow" @click="primaryArrowClick(i)" v-if="SBU_LIST_MENU_WAREHOUSE.plant_info ? true : false">
               <span :id="'primary-right-arrow-' + i" class=""><i class="fas fa-chevron-right"></i></span>
               <span :id="'primary-down-arrow-' + i" class="hide"><i class="fas fa-chevron-down"></i></span>
             </div>
-            <div class="primary-inner">
+            <div class="primary-inner" v-if="SBU_LIST_MENU_WAREHOUSE.plant_info ? true : false">
               <p class="primary-name" @click="primaryClick(i)">{{ SBU_LIST_MENU_WAREHOUSE ? SBU_LIST_MENU_WAREHOUSE.sbu_name : '' }}</p>
               <div :id="'secondary-area-section-' + i" class="secondary-area-section hide">
                 <div class="secondary-area" v-for="(item_02, j) in SBU_LIST_MENU_WAREHOUSE ? SBU_LIST_MENU_WAREHOUSE.plant_info : 0" :key="j" :id="'secondary-area-' + i + '-' + j">
@@ -53,6 +53,20 @@
                 </div>
               </div>
             </div>
+
+            <!-- FROM WAREHOUSE -->
+            <div v-if="SBU_LIST_MENU_WAREHOUSE">
+              <div class="primary-area" v-for="(item, i) in SBU_LIST_MENU_WAREHOUSE" :key="i" :id="'primary-area-' + i">
+                <div class="icon-arrow" @click="warehouseIconArrowClick(i)">
+                  <span :id="'primary-right-arrow-' + i" class=""><i class="fas fa-chevron-right"></i></span>
+                  <span :id="'primary-down-arrow-' + i" class="hide"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="primary-inner">
+                  <p class="primary-name" @click="warehouseNameClickHandler(item)" style="cursor: pointer;" >{{ item.wh_name }}</p>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
@@ -62,6 +76,10 @@
 <script>
 export default {
     props: ["SBU_LIST_MENU_WAREHOUSE", "SBU_LIST_MENU_WAREHOUSE_PLANT_INFO"],
+    mounted() {
+      console.log(this.SBU_LIST_MENU_WAREHOUSE)
+      console.log(this.SBU_LIST_MENU_WAREHOUSE_PLANT_INFO)
+    },
   methods: {
     sidebarTitleIconClick() {
       console.log("Area Location List Click");
@@ -154,6 +172,10 @@ export default {
       console.log(item.id)
       this.$emit('store_id', item.id)
     },
+    warehouseNameClickHandler(item) {
+      console.log(item)
+      this.$emit('store_id', item.id)
+    }
   },
 }
 </script>
