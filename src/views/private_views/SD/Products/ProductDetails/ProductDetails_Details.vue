@@ -2937,7 +2937,9 @@ button.modal-prod-save-btn:hover {
 }
 #tab-offers .create-offer-modal .modal-body,
 #tab-offers .edit-price-modal .modal-body {
-    min-height: 280px;
+    /* min-height: 280px; */
+    height: 280px;
+    overflow-y: scroll;
 }
 #tab-offers .create-offer-modal .modal-body .input-group input,
 #tab-offers .edit-price-modal .modal-body .input-group input {
@@ -3065,6 +3067,10 @@ button.modal-prod-save-btn:hover {
     height: 465px;
     max-width: 650px;
     padding-right: 0 !important;
+}
+#modal_edit_price_modal .modal-body {
+    height: 244px;
+    overflow-y: scroll;
 }
 #upload_document_file_modal {
     height: 500px;
