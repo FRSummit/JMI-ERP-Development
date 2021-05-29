@@ -1,7 +1,9 @@
 import ERPMasterLayoutData from '../service/ERPSidebarService';
 const erpService = new ERPMasterLayoutData();
 
-let users = [];
+import { store } from '../store'
+
+let users = null
 
 export function configureFakeBackend() {
     let realFetch = window.fetch;
@@ -12,8 +14,16 @@ export function configureFakeBackend() {
         await erpService.login(JSON.parse(opts.body).username, JSON.parse(opts.body).password)
             .then(res => {
                 // console.log(res.data)
-                users = res.data;
-            });
+                users = res.data
+            })
+            .catch(error => {
+                users = null
+                console.log(error)
+                store.state.LOGIN_FAILURE_STATUS = error.response
+                // console.log(error.response.data);
+                // console.log(error.response.status);
+                // console.log(error.response.headers);
+            })
         return new Promise((resolve, reject) => {
             // console.log('resolve or reject')
             // wrap in timeout to simulate server api call
