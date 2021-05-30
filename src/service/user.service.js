@@ -32,7 +32,7 @@ function login(username, password) {
             // console.log('done user service')
 
             return user;
-        });
+        })
 }
 
 function logout() {

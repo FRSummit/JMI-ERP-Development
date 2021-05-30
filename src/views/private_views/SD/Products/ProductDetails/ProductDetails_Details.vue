@@ -538,7 +538,7 @@
                                         <div class="modal-dialog modal-lg modal-dialog-centered" style="margin: 0; max-width: unset;">
                                             <div class="modal-content" style="border: none;">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalCenterTitle">{{ UPDATE_OFFER_ENABLE === false ? ( 'Create Offer for ' + (SELECTED_PROD_DETAILS.product_info ? SELECTED_PROD_DETAILS.product_info.prod_name : '') ) : ( 'Update Offer for ' + (SELECTED_PROD_DETAILS.product_info ? SELECTED_PROD_DETAILS.product_info.prod_name : '') ) }}</h5>
+                                                    <h5 class="modal-title" id="createOfferModalCenterTitle">{{ UPDATE_OFFER_ENABLE === false ? ( 'Create Offer for ' + (SELECTED_PROD_DETAILS.product_info ? SELECTED_PROD_DETAILS.product_info.prod_name : '') ) : ( 'Update Offer for ' + (SELECTED_PROD_DETAILS.product_info ? SELECTED_PROD_DETAILS.product_info.prod_name : '') ) }}</h5>
                                                     <button type="button" id="offer_tab_close_modal" class="close" data-dismiss="modal" aria-label="Close" @click="offerTabCloseBtnClickHandler">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
@@ -622,12 +622,22 @@
                                                                     <v-col cols="12"> -->
                                                                         <v-combobox
                                                                             v-model="APPLIED_TO_PROD_LIST"
-                                                                            :items="MULTI_SELECT_DATA_OPTION"
+                                                                            :items="MULTI_SELECT_PROD_LIST"
+                                                                            :label="items.name"
                                                                             multiple
                                                                             outlined
                                                                             dense
                                                                             return-object
                                                                         ></v-combobox>
+
+                                                                        <!-- <v-select
+                                                                            taggable
+                                                                            multiple
+                                                                            label="title"
+                                                                            :options="MULTI_SELECT_DATA_OPTION_2"
+                                                                            :create-option="book => ({ title: book, author: { firstName: '', lastName: '' } })"
+                                                                            :reduce="book => `${book.author.firstName} ${book.author.lastName}`"
+                                                                        /> -->
                                                                     <!-- </v-col>
                                                                 </v-row>
                                                             </v-container> -->
@@ -1389,7 +1399,8 @@ export default {
                 "SELECTED_PROD_OFFER_DETAILS",
                 "SELECTED_PROD_SBU_PROD_DETAILS",
                 "SELECTED_PROD_DOCS_DETAILS",
-                "ALL_PRODS_LIST_IN_DB"
+                "ALL_PRODS_LIST_IN_DB",
+                "SELECTED_PROD_FROM_LEFT"
             ],
     components: {
         DatePicker,
@@ -1539,7 +1550,18 @@ export default {
             // OFFER TAB
             APPLIED_TO_PROD_LIST: [],
             multi_select_data: null,
+            MULTI_SELECT_PROD_LIST: [],
             MULTI_SELECT_DATA_OPTION: ['Option 1', 'Option 2', 'Option 3', 'Option 4'],
+            MULTI_SELECT_DATA_OPTION_2: [
+                    {
+                        title: "HTML5",
+                        author: {
+                            firstName: "Remy",
+                            lastName: "Sharp"
+                        }
+                    },
+                    // {name: 'Option 1'}, {name: 'Option 2'}, {name: 'Option 3'}, {name: 'Option 4'}
+                ],
             multi_selec: null,
             items: [
                 'Programming',
@@ -1547,10 +1569,21 @@ export default {
                 'Vue',
                 'Vuetify',
             ],
+            options: [
+                    {
+                        title: "HTML5",
+                        author: {
+                            firstName: "Remy",
+                            lastName: "Sharp"
+                        }
+                    },
+            ],
+            APPLIED_TO_PROD_OBJECT_ARRAAY: null,
 
         }
     },
-    computed: {},
+    computed: {
+    },
     created() {},
     async mounted() {
         await this.SEARCH_PRODUCT_DATA_LIST__FROM_SERVICE()
@@ -1848,6 +1881,9 @@ export default {
         // Offers Tab Content Area
         onChangeOfferTypeOfferModal() {
             console.log(this.offer_type_offers_modal)
+
+            this.APPLIED_TO_PROD_LIST = []
+
             this.prod_offer_minimum_qty = null
             switch(this.offer_type_offers_modal) {
                 case "Percentage Discount":
@@ -2494,7 +2530,8 @@ export default {
         // Create Prod Offer
         async CREATE_NEW_PROD_OFFER__FROM_SERVICE(offer_details) {
             console.log(offer_details)
-            await service.getCreateNewProdOffer_PRODUCTS_DETAILS(this.SELECTED_PROD_DETAILS.prod_id, offer_details)
+            console.log(JSON.stringify(this.APPLIED_TO_PROD_OBJECT_ARRAAY))
+            await service.getCreateNewProdOffer_PRODUCTS_DETAILS(this.SELECTED_PROD_DETAILS.prod_id, offer_details, this.APPLIED_TO_PROD_OBJECT_ARRAAY)
                 .then(res => {
                     console.log(res.data)
                     if(res.data.response_code === 200 || res.data.response_code === 201) {
@@ -2541,6 +2578,7 @@ export default {
         },
         async UPDATE_PROD_OFFER__FROM_SERVICE(offer_details) {
             console.log(offer_details)
+            console.log(JSON.stringify(this.APPLIED_TO_PROD_OBJECT_ARRAAY))
             await service.getUpdateProdOffer_PRODUCTS_DETAILS(this.OFFER_EDITING_SELECTED_OFFER_ID, this.SELECTED_PROD_DETAILS.prod_id, offer_details)
                 .then(res => {
                     console.log(res.data)
@@ -2679,7 +2717,7 @@ export default {
                     console.log(res.data.menu_list)
                     if(res.data.response_code === 200 || res.data.response_code === 201) {
                         this.SBU_LIST_MENU_WAREHOUSE = res.data.menu_list
-                        this.SBU_LIST_MENU_WAREHOUSE_PLANT_INFO = res.data.menu_list.plant_info
+                        // this.SBU_LIST_MENU_WAREHOUSE_PLANT_INFO = res.data.menu_list.plant_info
                     }
                 })
                 .catch(err => {
@@ -2873,8 +2911,54 @@ export default {
         APPLIED_TO_PROD_LIST(newVal) {
             if(newVal) {
                 console.log(newVal)
+
+                this.APPLIED_TO_PROD_OBJECT_ARRAAY = []
+                let prods = []
+                for(let i=0; i<newVal.length; i++) {
+                    // console.log(newVal[i])
+                    for(let j=0; j<this.ALL_PRODS_LIST_IN_DB.length; j++) {
+                        let name = this.ALL_PRODS_LIST_IN_DB[j].display_code + ' - ' + this.ALL_PRODS_LIST_IN_DB[j].prod_name
+                        // console.log(name)
+                        if(name === newVal[i]) {
+                            let prod = {
+                                prod_id: this.ALL_PRODS_LIST_IN_DB[j].prod_id
+                            }
+                            prods.push(prod)
+                        } else {
+                            console.log('not matched')
+                        }
+                    }
+                }
+
+                // console.log(prods)
+                this.APPLIED_TO_PROD_OBJECT_ARRAAY = prods
+                document.getElementById('createOfferModalCenterTitle').click()
             }
-        }
+        },
+        APPLIED_TO_PROD_OBJECT_ARRAAY(newVal) {
+            if(newVal) {
+                console.log(newVal)
+            }
+        },
+        ALL_PRODS_LIST_IN_DB(newVal) {
+            if(newVal) {
+                console.log(newVal)
+            }
+        },
+        SELECTED_PROD_FROM_LEFT(newVal) {
+            if(newVal) {
+                console.log(newVal)
+                // MULTI_SELECT_PROD_LIST
+                this.MULTI_SELECT_PROD_LIST = []
+                for(let i=0; i<this.ALL_PRODS_LIST_IN_DB.length; i++) {
+                    let name = this.ALL_PRODS_LIST_IN_DB[i].display_code + ' - ' + this.ALL_PRODS_LIST_IN_DB[i].prod_name
+                    // console.log(name)
+                    if(parseInt(newVal.prod_id) !== parseInt(this.ALL_PRODS_LIST_IN_DB[i].prod_id)) {
+                        this.MULTI_SELECT_PROD_LIST.push(name)
+                    }
+                }
+            }
+        },
     },
 }
 </script>
@@ -2938,7 +3022,11 @@ button.modal-prod-save-btn:hover {
 #tab-offers .create-offer-modal .modal-body,
 #tab-offers .edit-price-modal .modal-body {
     /* min-height: 280px; */
-    height: 280px;
+    height: 244px;
+    overflow-y: scroll;
+}
+#upload_document_file_modal .modal-body {
+    height: 244px;
     overflow-y: scroll;
 }
 #tab-offers .create-offer-modal .modal-body .input-group input,

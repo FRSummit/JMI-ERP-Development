@@ -72,6 +72,16 @@
         <a class="policy">Privacy Policy</a>
       </div>
     </div>
+
+        <!-- Proceed Modal -->
+        <div class="modal-popup-section order-proceed-modal" v-if="login_failed_popup">
+            <div class="modal-popup-section-inner order-proceed-modal-inner">
+                <span class="proceed-popup-icon"><i class="zmdi zmdi-alert-triangle"></i></span>
+                <p class="popup-text">{{ login_failed_popup_msg_title ? login_failed_popup_msg_title : '' }}</p>
+                <p class="popup-desc">{{ login_failed_popup_msg ? login_failed_popup_msg : '' }}</p>
+            </div>
+        </div>
+
   </div>
 </template>
 
@@ -87,11 +97,18 @@ export default {
       showPass: false,
       username: "",
       password: "",
+
+      login_failed_popup: false,
+      login_failed_popup_msg_title: null,
+      login_failed_popup_msg: null,
     };
   },
   computed: {
     ...mapState("account", ["status"]),
     ...mapState("alert", ["message"]),
+    LOGIN_FAILURE_STATE() {
+      return this.$store.state.LOGIN_FAILURE_STATUS
+    }
   },
   created() {
     this.logout();
@@ -131,9 +148,21 @@ export default {
         return true
       }
       else {
-        document.getElementById('error-message').innerHTML = '*username or password is required'
-        document.getElementById('error-message').className = ''
-        return false
+        if((id.trim() === null && pass.trim() === null) || (id.trim() === '' && pass.trim() === '')) {
+          document.getElementById('error-message').innerHTML = '*username or password is required'
+          document.getElementById('error-message').className = ''
+          return false
+        } else if( (id.trim() === null) || (id.trim() === '') ) {
+          console.log('id null')
+          document.getElementById('error-message').innerHTML = '*username is required'
+          document.getElementById('error-message').className = ''
+          return false
+        } else if( (pass.trim() === null) || (pass.trim() === '') ) {
+          console.log('pass null')
+          document.getElementById('error-message').innerHTML = '*password is required'
+          document.getElementById('error-message').className = ''
+          return false
+        }
       }
     },
     signup() {
@@ -156,9 +185,75 @@ export default {
           document.getElementById('password-show-hide').className = 'password-show-hide'
         });
     }
+  },
+  watch: {
+    LOGIN_FAILURE_STATE(newVal) {
+      if(newVal) {
+        console.log(newVal)
+        console.log(newVal.status)
+        if(newVal.status === 401) {
+          this.login_failed_popup = true
+          this.login_failed_popup_msg_title = 'Access Denied !'
+          this.login_failed_popup_msg = newVal.data.message
+
+          setTimeout( () => {
+            this.login_failed_popup = false
+            this.login_failed_popup_msg_title = null
+            this.login_failed_popup_msg = null
+          }, 2000)
+        }
+      }
+    }
   }
 };
 </script>
+
 <style lang="less" scoped>
 @import url('./Login.less');
+</style>
+
+<style scoped>
+
+#login .modal-popup-section {
+    position        : fixed;
+    left            : calc((100vw / 2) - 200px);
+    z-index         : 9999;
+    width           : 100%;
+    height          : 100%;
+    left            : 0;
+    top             : 0;
+    background-color: rgb(0 18 35 / 86%);
+}
+
+#login .modal-popup-section .modal-popup-section-inner {
+    padding      : 20px;
+    text-align   : center;
+    width        : 400px;
+    background   : #FFFFFF;
+    position     : absolute;
+    top          : calc((100vh / 2) - 100px);
+    left         : calc((100vw / 2) - 200px);
+    opacity      : 1;
+    z-index      : 9999;
+    border-radius: 2px;
+}
+
+#login .modal-popup-section .modal-popup-section-inner i {
+    color : #C11616;
+    font-size: 40px;
+}
+
+#login .modal-popup-section .modal-popup-section-inner .popup-text {
+    color: #C11616;
+    font-size    : 24px;
+    line-height  : 1.5;
+}
+
+#login .modal-popup-section .modal-popup-section-inner .popup-desc {
+    font-size    : 20px;
+    margin       : 0;
+    line-height  : 1.5;
+    display      : block;
+    color        : #36454F;
+}
 </style>

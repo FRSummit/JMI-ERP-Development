@@ -1271,9 +1271,10 @@ export default class PostService {
   }
 
   // PRODUCT - PRODUCT DETAILS - CREATE OFFER
-  async getCreateNewProdOffer_PRODUCTS_DETAILS(prod_id, offer_details) {
+  async getCreateNewProdOffer_PRODUCTS_DETAILS(prod_id, offer_details, applied_prods) {
     console.log(prod_id)
     console.log(offer_details)
+    console.log(JSON.stringify(applied_prods))
     let web_menu_url = '/api/web/create-new-prod-offer/' + prod_id
     return await axios(web_menu_url, {
       method: 'POST',
@@ -1297,7 +1298,8 @@ export default class PostService {
         // Free
         free_req_qty  : offer_details.free_req_qty,
         free_prod_id  : offer_details.free_prod_id,
-        free_prod_qty : offer_details.free_prod_qty
+        free_prod_qty : offer_details.free_prod_qty,
+        new_prod_list: JSON.stringify(applied_prods)
       }
     })
   }

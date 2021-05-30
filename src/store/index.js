@@ -11,6 +11,7 @@ export const store = new Vuex.Store({
     userIsAuthorized: false,
     userData: [],
     JERP_LOGGED_USER_DATA: JSON.parse(localStorage.getItem('jerp_logged_user')) ? JSON.parse(localStorage.getItem('jerp_logged_user')) : null,
+    LOGIN_FAILURE_STATUS: null,
     
     // INVOICE CHALLAN SUMMERY
     INVOICE_CAHLLAN_SUMMERY__NEW_GATE_PASS_CREATED: null,

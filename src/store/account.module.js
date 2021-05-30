@@ -1,6 +1,7 @@
 // import env from '../environment'
 import { userService } from '../service/user.service'
 import { router } from '../router'
+// import { store } from '../store'
 
 
 const user = JSON.parse(localStorage.getItem('jerp_logged_user'));
@@ -22,6 +23,12 @@ const actions = {
                     router.push('/features/users/dashboard');
                 },
                 error => {
+                    // store.state.LOGIN_FAILURE_STATUS = error.response
+                    // console.log(error)
+                    // console.log(err.response.data);
+                    // console.log(err.response.status);
+                    // console.log(err.response.headers);
+
                     commit('loginFailure', error);
                     dispatch('alert/error', error, { root: true });
                 }
