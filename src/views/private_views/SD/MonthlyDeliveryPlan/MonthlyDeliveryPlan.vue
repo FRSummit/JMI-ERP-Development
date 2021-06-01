@@ -30,7 +30,8 @@
                   </div>
                   
                   <div class="delete-force-btn-section" v-if="!importPlanMonthsData.length && territory_area_data_list.length">
-                    <span class="delete-btn" @click="deleteAllAreaOfThisForce"><i class="fas fa-trash-alt"></i></span>
+                    <!-- <span class="delete-btn" @click="deleteAllAreaOfThisForce"><i class="fas fa-trash-alt"></i></span> -->
+                    <span class="delete-btn" @click="deleteAllAreaOfThisForce"><i class="zmdi zmdi-delete"></i></span>
                   </div>
                   <div class="select-option-box" v-if="importPlanMonthsData.length && !territory_area_data_list.length">
                     <div class="default-text">
@@ -50,7 +51,7 @@
                   <div class="da-name-section">
                     <p class="da-name-text">
                       <span class="default-text">SR Name:</span>
-                      <span class="da-name" v-if="monthlyPlanDetailsSection && selectedSchedule">{{ selectedSchedule.name }} ({{ selectedSchedule.id }})</span>
+                      <span class="da-name" v-if="monthlyPlanDetailsSection && selectedSchedule">{{ selectedSchedule.name }} ({{ selectedSchedule.emp_id }})</span>
                     </p>
                   </div>
                   <div class="territory-details-section" v-if="selectedSchedule">
@@ -61,7 +62,8 @@
                     </p>
                     <div class="add-btn-section" v-if="monthlyPlanDetailsSection">
                       <span class="add-btn-inner" @click="createNewTerritory">
-                        <i class="fas fa-plus"></i>
+                        <!-- <i class="fas fa-plus"></i> -->
+                        <i class="zmdi zmdi-plus"></i>
                       </span>
                       <span class="tool-tip">Add more</span>
                       <div class="add-territory-modal-section" v-if="territory_modal">

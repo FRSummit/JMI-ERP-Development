@@ -16,12 +16,22 @@
             </div>
             <div class="right-section">
               <div class="right-section-inner">
+                <div class="all-btn-section">
+                  <span
+                    class="all-btn-inner"
+                    @click="copyTerritoryCalendar(territoryData)"
+                  >
+                    <i class="zmdi zmdi-check-all"></i>
+                    <span class="tool-tip">Select All</span>
+                  </span>
+                </div>
                 <div class="copy-btn-section">
                   <span
                     class="copy-btn-inner"
                     @click="copyTerritoryCalendar(territoryData)"
                   >
-                    <i class="fas fa-copy"></i>
+                    <!-- <i class="fas fa-copy"></i> -->
+                    <i class="zmdi zmdi-copy"></i>
                     <span class="tool-tip">Copy Plan</span>
                   </span>
                 </div>
@@ -30,8 +40,9 @@
                     class="add-btn-inner"
                     @click="removeTerritoryCalendar(territoryData)"
                   >
-                    <i class="fas fa-trash-alt"></i>
-                    <!-- <span class="tool-tip">Delete Plan</span> -->
+                    <!-- <i class="fas fa-trash-alt"></i> -->
+                    <i class="zmdi zmdi-delete"></i>
+                    <span class="tool-tip">Delete Plan</span>
                   </span>
                 </div>
               </div>

@@ -34,8 +34,10 @@
               </select>
             </div>
             <div class="copy-delete-btn-section">
-              <span class="copy-btn" @click="copyMonthData" v-if="all_available_or_occupied_copy"><img src="../../../../../assets/images/copy.png" alt=""/></span>
-              <span class="copy-btn" @click="deleteMonthData" v-if="!all_available_or_occupied_copy"><img src="../../../../../assets/images/del.png" alt=""/></span>
+              <!-- <span class="copy-btn" @click="copyMonthData" v-if="all_available_or_occupied_copy"><img src="../../../../../assets/images/copy.png" alt=""/></span> -->
+              <span class="copy-btn" @click="copyMonthData" v-if="all_available_or_occupied_copy"><i class="zmdi zmdi-copy"></i></span>
+              <!-- <span class="copy-btn" @click="deleteMonthData" v-if="!all_available_or_occupied_copy"><img src="../../../../../assets/images/del.png" alt=""/></span> -->
+              <span class="copy-btn delete-btn" @click="deleteMonthData" v-if="!all_available_or_occupied_copy"><i class="zmdi zmdi-delete"></i></span>
             </div>
           </div>
         </div>
