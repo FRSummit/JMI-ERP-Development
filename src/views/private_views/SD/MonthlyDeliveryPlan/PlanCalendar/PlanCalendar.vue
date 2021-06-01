@@ -19,7 +19,7 @@
                 <div class="all-btn-section">
                   <span
                     class="all-btn-inner"
-                    @click="copyTerritoryCalendar(territoryData)"
+                    @click="selectAllDayFromCalendar(territoryData)"
                   >
                     <i class="zmdi zmdi-check-all"></i>
                     <span class="tool-tip">Select All</span>
@@ -94,6 +94,9 @@ export default {
         this.territoryData,
         date
       );
+    },
+    selectAllDayFromCalendar(territoryName) {
+      console.log(territoryName)
     },
     copyTerritoryCalendar(territoryName) {
       this.$emit("copy_territory_calendar", territoryName);
