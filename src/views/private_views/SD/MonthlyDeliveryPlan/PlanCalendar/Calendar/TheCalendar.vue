@@ -26,7 +26,7 @@
 
 <script>
 export default {
-  props: ["selectedDate", "territoryData", "create_ok", "destroy_ok"],
+  props: ["selectedDate", "territoryData", "create_ok", "destroy_ok", "DELIVERY_PLAN_DATE"],
   components: {},
   data() {
     return {
@@ -69,10 +69,18 @@ export default {
     },
     dateIsOld(d) {
       let cls = ''
-      if(parseInt(d) < new Date().getDate()) {
+      let to_day = new Date().getFullYear().toString() + '-' + (new Date().getMonth() + 1).toString()
+      // console.log(new Date(to_day).getTime())
+      // console.log(new Date(this.DELIVERY_PLAN_DATE).getTime())
+      if( (new Date(to_day).getTime() > new Date(this.DELIVERY_PLAN_DATE).getTime())) {
         cls = 'OLD_DAY'
       } else {
-        cls = ''
+        if(parseInt(d) < new Date().getDate()) {
+          cls = 'OLD_DAY'
+        } else {
+          cls = ''
+        }
+
       }
       return cls
     },

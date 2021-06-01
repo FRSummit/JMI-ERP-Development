@@ -114,6 +114,7 @@
                     :destroy_ok="destroyOK"
                     v-on:remove_territory_calendar="removeTerritoryCalendar"
                     v-on:copy_territory_calendar="copyTerritoryCalendar"
+                    :DELIVERY_PLAN_DATE="selectedDateMonth"
                   />
                 </div>
               </div>

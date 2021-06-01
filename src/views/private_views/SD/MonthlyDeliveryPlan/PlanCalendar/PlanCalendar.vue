@@ -43,14 +43,11 @@
             <TheCalendar
               :selectedDate="selectedDate"
               :territoryData="territoryData"
-              v-on:selected_date_from_calendar="
-                getSelectedDateFromChildComponentCalendar
-              "
+              v-on:selected_date_from_calendar="getSelectedDateFromChildComponentCalendar"
               :create_ok="create_ok"
-              v-on:selected_date_from_calendar_destroy="
-                getSelectedDateFromChildComponentCalendarToDestroy
-              "
+              v-on:selected_date_from_calendar_destroy="getSelectedDateFromChildComponentCalendarToDestroy"
               :destroy_ok="destroy_ok"
+              :DELIVERY_PLAN_DATE="DELIVERY_PLAN_DATE"
             />
           </div>
         </div>
@@ -63,7 +60,7 @@
 import TheCalendar from "./Calendar/TheCalendar";
 
 export default {
-  props: ["selectedDate", "territoryData", "create_ok", "destroy_ok"],
+  props: ["selectedDate", "territoryData", "create_ok", "destroy_ok", "DELIVERY_PLAN_DATE"],
   components: {
     TheCalendar,
   },
