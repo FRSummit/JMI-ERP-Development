@@ -502,6 +502,7 @@ export default class PP_Invoice_Type_2_Multiple {
 
     create_credit_status(due_data) {
         let result = ''
+        if(due_data.length > 0) {
             result += ''
                     +   '<div class="status-section" style=" margin-top: 20px;">'
                     +       '<table style="width: 50%; margin-left: 0%; page-break-inside: avoid;">'
@@ -528,6 +529,7 @@ export default class PP_Invoice_Type_2_Multiple {
                     +           '</tr>'
                     +       '</table>'
                     +   '</div>'
+        }
 
         return result
     }
