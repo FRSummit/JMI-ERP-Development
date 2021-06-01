@@ -22,7 +22,7 @@
                     @click="selectAllDayFromCalendar(territoryData)"
                   >
                     <i class="zmdi zmdi-check-all"></i>
-                    <span class="tool-tip">Select All</span>
+                    <span class="tool-tip">{{ ALL_DAY_IS_SELECTED ? "Deselect All" : "Select All" }}</span>
                   </span>
                 </div>
                 <div class="copy-btn-section">
@@ -81,6 +81,11 @@ export default {
       // hideCalendarRightSection: null
       ALL_DAY_SELECTED: false,
     };
+  },
+  computed: {
+    ALL_DAY_IS_SELECTED() {
+      return this.ALL_DAY_SELECTED
+    },
   },
   created() {
   },
