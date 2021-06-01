@@ -21,7 +21,7 @@
                     class="all-btn-inner"
                     @click="selectAllDayFromCalendar(territoryData)"
                   >
-                    <i class="zmdi zmdi-check-all"></i>
+                    <i class="zmdi zmdi-check-all" :class="ALL_DAY_IS_SELECTED ? 'selected' : ''"></i>
                     <span class="tool-tip">{{ ALL_DAY_IS_SELECTED ? "Deselect All" : "Select All" }}</span>
                   </span>
                 </div>
@@ -60,6 +60,7 @@
               :destroy_ok="destroy_ok"
               :DELIVERY_PLAN_DATE="DELIVERY_PLAN_DATE"
               :ALL_DAY_SELECTED="ALL_DAY_SELECTED"
+              v-on:ALL_DAY_IS_SELECTED="checkAllDayIsSelected"
             />
           </div>
         </div>
@@ -80,12 +81,10 @@ export default {
     return {
       // hideCalendarRightSection: null
       ALL_DAY_SELECTED: false,
+      ALL_DAY_IS_SELECTED: null,
     };
   },
   computed: {
-    ALL_DAY_IS_SELECTED() {
-      return this.ALL_DAY_SELECTED
-    },
   },
   created() {
   },
@@ -116,6 +115,9 @@ export default {
     removeTerritoryCalendar(territoryName) {
       this.$emit("remove_territory_calendar", territoryName);
     },
+    checkAllDayIsSelected(value) {
+      this.ALL_DAY_IS_SELECTED = value
+    }
   },
 };
 </script>

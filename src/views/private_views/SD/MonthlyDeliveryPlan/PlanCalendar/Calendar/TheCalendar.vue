@@ -99,18 +99,22 @@ export default {
   watch: {
     ALL_DAY_SELECTED(newVal) {
       console.log(newVal)
-      if(newVal === true) {
-        for(let i=0; i<this.selectedDate.length; i++) {
-          let tt = this.territoryData.area_id + '-dates-section-' + (i + 1)
-          let selector = document.getElementById(tt)
-          selector.className = 'dates-section DA-DATA'
+      let to_day = new Date().getFullYear().toString() + '-' + (new Date().getMonth() + 1).toString()
+      if( !(new Date(to_day).getTime() > new Date(this.DELIVERY_PLAN_DATE).getTime())) {
+        this.$emit('ALL_DAY_IS_SELECTED', newVal)
+        if(newVal === true) {
+          for(let i=0; i<this.selectedDate.length; i++) {
+            let tt = this.territoryData.area_id + '-dates-section-' + (i + 1)
+            let selector = document.getElementById(tt)
+            selector.className = 'dates-section DA-DATA'
 
-        }
-      } else {
-        for(let i=0; i<this.selectedDate.length; i++) {
-          let tt = this.territoryData.area_id + '-dates-section-' + (i + 1)
-          let selector = document.getElementById(tt)
-          selector.className = 'dates-section'
+          }
+        } else {
+          for(let i=0; i<this.selectedDate.length; i++) {
+            let tt = this.territoryData.area_id + '-dates-section-' + (i + 1)
+            let selector = document.getElementById(tt)
+            selector.className = 'dates-section'
+          }
         }
       }
     }
