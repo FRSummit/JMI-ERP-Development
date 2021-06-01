@@ -61,6 +61,8 @@
               :DELIVERY_PLAN_DATE="DELIVERY_PLAN_DATE"
               :ALL_DAY_SELECTED="ALL_DAY_SELECTED"
               v-on:ALL_DAY_IS_SELECTED="checkAllDayIsSelected"
+              v-on:FULL_MONTH_SELECTED="fullMonthSelectedHandler"
+              v-on:FULL_MONTH_DESELECTED="fullMonthDeselectedHandler"
             />
           </div>
         </div>
@@ -83,8 +85,6 @@ export default {
       ALL_DAY_SELECTED: false,
       ALL_DAY_IS_SELECTED: null,
     };
-  },
-  computed: {
   },
   created() {
   },
@@ -117,7 +117,13 @@ export default {
     },
     checkAllDayIsSelected(value) {
       this.ALL_DAY_IS_SELECTED = value
-    }
+    },
+    fullMonthSelectedHandler(date_list) {
+      this.$emit('FULL_MONTH_SELECTED', this.territoryData, date_list)
+    },
+    fullMonthDeselectedHandler() {
+      this.$emit('FULL_MONTH_DESELECTED')
+    },
   },
 };
 </script>

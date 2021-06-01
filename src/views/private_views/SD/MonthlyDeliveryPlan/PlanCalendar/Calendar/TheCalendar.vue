@@ -34,7 +34,9 @@ export default {
       d: [],
       my_dates: [],
       count: 0,
-      selected: true
+      selected: true,
+
+      DATE_LIST: [],
     };
   },
   created() {
@@ -108,16 +110,22 @@ export default {
             let selector = document.getElementById(tt)
             selector.className = 'dates-section DA-DATA'
 
+            let date = {
+              date: (i + 1) + ' ' + this.DELIVERY_PLAN_DATE
+            }
+            this.DATE_LIST.push(date)
           }
+          this.$emit('FULL_MONTH_SELECTED', this.DATE_LIST)
         } else {
           for(let i=0; i<this.selectedDate.length; i++) {
             let tt = this.territoryData.area_id + '-dates-section-' + (i + 1)
             let selector = document.getElementById(tt)
             selector.className = 'dates-section'
           }
+          this.$emit('FULL_MONTH_DESELECTED')
         }
       }
-    }
+    },
   }
 };
 </script>

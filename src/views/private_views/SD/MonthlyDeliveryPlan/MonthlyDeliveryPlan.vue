@@ -117,6 +117,8 @@
                     v-on:remove_territory_calendar="removeTerritoryCalendar"
                     v-on:copy_territory_calendar="copyTerritoryCalendar"
                     :DELIVERY_PLAN_DATE="selectedDateMonth"
+                    v-on:FULL_MONTH_SELECTED="fullMonthSelectedHandler"
+                    v-on:FULL_MONTH_DESELECTED="fullMonthDeselectedHandler"
                   />
                 </div>
               </div>
@@ -191,6 +193,17 @@
         </div>
       </div>
     </div>
+
+    
+        <!-- Success Modal -->
+        <!-- <div class="modal-popup-section order-proceed-modal" v-if="success_modal">
+            <div class="modal-popup-section-inner order-proceed-modal-inner">
+                <div id="progressbar" class="jmi-progressbar">
+                    <v-progress-circular indeterminate color="primary"></v-progress-circular>
+                    <p>{{ success_modal_msg ? success_modal_msg : 'Inprogress...' }}</p>
+                </div>
+            </div>
+        </div> -->
 
 
   </div>
@@ -293,6 +306,8 @@ export default {
       DELETE_THIS_MONTH_DATA_POPUP: false,
       adding_or_copy_tt: false,
     };
+  },
+  computed: {
   },
   created() {
     this.$emit("routeName", this.$route.name);
@@ -538,6 +553,7 @@ export default {
       return days[dayInt].charAt(0);
     },
     getSelectedDateFromChildComponentCalendar(territoryDetails, date) {
+      // console.log(territoryDetails)
       let ID = territoryDetails.id  //not area_id
       let selectedDAY = (date < 10) ? ('0' + date) : date
       let selectedDATE = this.YYYY_MM_DD_forNewDayAddingSavedFromLeftSide + '-' + selectedDAY
@@ -845,8 +861,33 @@ export default {
         let txt_selector = "territory_nm"
 
         jmiFilter.searchById_LeftSidebar(filter, list, txt_selector)
-    }
+    },
+    fullMonthSelectedHandler(tt_data, date_list) {
+      console.log(tt_data)
+      console.log(date_list)
+      let MMYYYY = this.changed_or_selected_MMYYYY
+      this.CREATE_SD_DPD_DAY_FOR_FULL_MONTH__FROM_SERVICE(tt_data.id, MMYYYY)
+    },
+    fullMonthDeselectedHandler() {
+      console.log('deselect all')
+    },
+    // -----------------------------------------------------------------------
+    // SERVICE CALL
+    async CREATE_SD_DPD_DAY_FOR_FULL_MONTH__FROM_SERVICE(dpa_id, mmyyyy) {
+      await service.getCreateSD_DPD_DayForFullMonth__MDP(dpa_id, mmyyyy)
+        .then( (res) => {
+          console.log(res.data)
+        })
+        .catch(err => {
+          if(err) {
+            console.log(err)
+          }
+        })
+    },
+
   },
+  watch: {
+  }
 };
 </script>
 
