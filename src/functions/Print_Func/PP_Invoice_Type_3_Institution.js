@@ -406,7 +406,7 @@ export default class PP_Invoice_Type_3_Institution {
         if(due_data.length > 0) {
             result += ''
                     +   '<div class="status-section" style=" margin-top: 20px;">'
-                    +       '<table style="width: 50%; margin-left: 0%; page-break-inside: avoid;">'
+                    +       '<table style="width: 50%; margin-left: 0%; page-break-inside: always;">'
                     +           '<tr>'
                     +               '<td colspan="4"><p style="text-align: left; font-size: 14px;">Present Credit Status:</p></td>'
                     +           '</tr>'
