@@ -59,6 +59,7 @@
               v-on:selected_date_from_calendar_destroy="getSelectedDateFromChildComponentCalendarToDestroy"
               :destroy_ok="destroy_ok"
               :DELIVERY_PLAN_DATE="DELIVERY_PLAN_DATE"
+              :ALL_DAY_SELECTED="ALL_DAY_SELECTED"
             />
           </div>
         </div>
@@ -78,6 +79,7 @@ export default {
   data() {
     return {
       // hideCalendarRightSection: null
+      ALL_DAY_SELECTED: false,
     };
   },
   created() {
@@ -97,6 +99,11 @@ export default {
     },
     selectAllDayFromCalendar(territoryName) {
       console.log(territoryName)
+      if(this.ALL_DAY_SELECTED) {
+        this.ALL_DAY_SELECTED = false
+      } else {
+        this.ALL_DAY_SELECTED = true
+      }
     },
     copyTerritoryCalendar(territoryName) {
       this.$emit("copy_territory_calendar", territoryName);
