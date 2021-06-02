@@ -16,7 +16,7 @@
     <!-- <router-link to="/sd/monthly-delivery-plan">SD ---- Monthly Delivery Plan</router-link> -->
     <div class="row" style="display: grid; justify-content: center; margin: 0;" v-if="BASE_URL === 'http://203.188.245.58:8889'">
       <div class="col-lg-12 col-md-12 col-sm-12 url-sec">
-        <a style="width: auto; padding: 8px 20px;">Development Server : Base URL -> {{ BASE_URL }}</a>
+        <a style="width: auto; padding: 8px 20px; color: var(--red); background-color: #df35454d;">Development Server : Base URL -> {{ BASE_URL }}</a>
       </div>
     </div>
 
