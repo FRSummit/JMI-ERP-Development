@@ -269,9 +269,9 @@ export default {
         printSingleData(item) {
             console.log(item)
             if(item.customer_info.customer_type === '422') {
-                this.PRING_INVOCIE_DETAILS__FROM_SERVICE(item.id, 422)
+                this.PRING_INVOCIE_DETAILS__FROM_SERVICE(item.invoice_id, 422)
             } else if(item.customer_info.customer_type === '424') {
-                this.PRING_INVOCIE_DETAILS__FROM_SERVICE(item.id, 424)
+                this.PRING_INVOCIE_DETAILS__FROM_SERVICE(item.invoice_id, 424)
             }
         },
         async handoverClickHandler() {
