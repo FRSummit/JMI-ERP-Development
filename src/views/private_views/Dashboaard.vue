@@ -18,7 +18,7 @@
       <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
         <router-link to="/features/local_sales/delivery_plan">Monthly Delivery Plan</router-link>
       </div>
-      <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
+      <!-- <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
         <router-link to="/features/local_sales/delivery_schedule">Delivery Scheduling</router-link>
       </div>
       <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
@@ -26,13 +26,13 @@
       </div>
       <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
         <router-link to="/sd/invoice-challan-summery">Invoice Challan Summary</router-link>
-      </div>
+      </div> -->
       <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
         <router-link to="/sd/dispatch-entry">Dispatch Entry</router-link>
       </div>
-      <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
+      <!-- <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
         <router-link to="/sd/pending-ds-invoice-list">Pending DS Invoice List</router-link>
-      </div>
+      </div> -->
       <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
         <router-link to="/features/local_sales/ds-transfer-packing-preparation">DS Transfer Packing Preparation</router-link>
       </div>
@@ -110,7 +110,7 @@
         <router-link to="/features/local_sales/cash-register">Cash Register</router-link>
       </div>
       <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
-        <router-link to="/features/local_sales/dp-ds">DP DS</router-link>
+        <router-link to="/features/local_sales/dp-ds">Delivery Schedule</router-link>
       </div>
       <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
         <router-link to="/features/local_sales/delivery-preparation">Delivery Preparation</router-link>
