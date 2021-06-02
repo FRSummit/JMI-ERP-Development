@@ -100,6 +100,9 @@ const pp_InvoiceChallanSummeryTD_Type1 = new PP_InvoiceChallanSummeryTD_Type1()
 import PP_Invoice_Type_2_Multiple from '../../../../functions/Print_Func/PP_Invoice_Type_2_Multiple'
 const pp_Invoice_Type_2_Multiple = new PP_Invoice_Type_2_Multiple()
 
+import PP_Invoice_Type_3_Institution_Multiple from '../../../../functions/Print_Func/PP_Invoice_Type_3_Institution_Multiple'
+const pp_Invoice_Type_3_Institution_Multiple = new PP_Invoice_Type_3_Institution_Multiple()
+
 export default {
     props: ["SELECTED_ITEM_FROM_LEFT", "DS_DETAILS"],
     data() {
@@ -166,7 +169,23 @@ export default {
                 await this.PRINT_MULTIPLE_INVOICE_DETAILS__FROM_SERVICE(selected_invoice)
             }
         },
-        async printAllChallanClickHandler() {},
+        async printAllChallanClickHandler() {
+            this.SELECTED_DATA_DETAILS = []
+            let selected_invoice = []
+            if(this.DS_DETAILS) {
+                for(let i=0; i<this.DS_DETAILS.length; i++) {
+                    if(parseInt(this.DS_DETAILS[i].customer_info.customer_type) === 424) {
+                        this.SELECTED_DATA_DETAILS.push(this.DS_DETAILS[i])
+                        let inv = {
+                            invoice_id: this.DS_DETAILS[i].invoice_id
+                        }
+                        selected_invoice.push(inv)
+                    }
+                }
+                console.log(selected_invoice)
+                await this.PRINT_MULTIPLE_CHALLAN_DETAILS__FROM_SERVICE(selected_invoice)
+            }
+        },
         async invoiceSummeryClickHandler() {
             await this.DELIVERY_SCHEDULE_DETAILS_INVOICE_SUMMERY__FROM_SERVICE(this.SELECTED_ITEM_FROM_LEFT.ds_id)
 
@@ -365,6 +384,20 @@ export default {
                     console.log(res.data)
                     this.MULTI_INV_DTL = res.data.data
                     pp_Invoice_Type_2_Multiple.print_invoice(res.data.data)
+                })
+                .catch(err => {
+                    if(err) {
+                        this.MULTI_INV_DTL = null
+                    }
+                })
+        },
+        async PRINT_MULTIPLE_CHALLAN_DETAILS__FROM_SERVICE(inv_list) {
+            this.MULTI_INV_DTL = []
+            await service.getPRINT_MULTI_INVOICE_DETAILS__DELIVERY_PREPARATION(inv_list)
+                .then(res => {
+                    console.log(res.data)
+                    this.MULTI_INV_DTL = res.data.data
+                    pp_Invoice_Type_3_Institution_Multiple.print_invoice(res.data.data)
                 })
                 .catch(err => {
                     if(err) {

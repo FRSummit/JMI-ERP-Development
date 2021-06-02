@@ -28,7 +28,7 @@
         </div>
         <!-- Customer Counter -->
         <div class="title-count">
-            <p class="total-customer">Total Invoice (<span class="count">{{ ALL_PENDING_ORDERS_CUSTOMER_LIST.length }}</span>)</p>
+            <p class="total-customer">Total Invoice (<span class="count">{{ ALL_PENDING_ORDERS_CUSTOMER_LIST ? ALL_PENDING_ORDERS_CUSTOMER_LIST.length : 0 }}</span>)</p>
         </div>
         <!-- Customer List -->
         <div class="customer-list-section">
@@ -166,7 +166,7 @@ export default {
     props: ["rejected_order_id", "SAVED_INVOICE_DELIVERY_INFO_FROM_RIGHT"],
     data() {
         return {
-            ALL_PENDING_ORDERS_CUSTOMER_LIST: [],
+            ALL_PENDING_ORDERS_CUSTOMER_LIST: null,
             months: [
                 {name: "January"},
                 {name: "February"},

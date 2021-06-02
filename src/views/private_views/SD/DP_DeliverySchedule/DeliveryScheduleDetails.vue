@@ -66,7 +66,7 @@
                                 <a title="Add bulk-button" @click="singleInvoicePlusClickHandler(item, i)" data-toggle="tooltip" data-placement="bottom" v-if="SELECTED_INVOICE_LIST_FROM_TABLE.length === 0 && DS_STATUS === 'OPEN'"><i class="zmdi zmdi-plus"></i></a>
                                 <!-- <a title="Reshedule" data-toggle="tooltip" data-placement="bottom" v-if="SELECTED_INVOICE_LIST_FROM_TABLE.length === 0" @click="singleRescheduleCalenderClickHandler(item, i)"><i class="zmdi zmdi-calendar-alt"></i></a> -->
                                 <a title="Reshedule" data-toggle="modal" data-target="#reshedule-modal" data-placement="bottom" v-if="SELECTED_INVOICE_LIST_FROM_TABLE.length === 0 && DS_STATUS === 'OPEN'" @click="singleRescheduleCalenderClickHandler(item, i)"><i class="zmdi zmdi-calendar-alt"></i></a>
-                                <a title="Reshedule" v-if="SELECTED_INVOICE_LIST_FROM_TABLE.length === 0 && DS_STATUS === 'OPEN'" @click="singleReschedulePrintClickHandler(item, i)"><i class="zmdi zmdi-print"></i></a>
+                                <a title="Print" v-if="SELECTED_INVOICE_LIST_FROM_TABLE.length === 0 && DS_STATUS === 'OPEN'" @click="singleReschedulePrintClickHandler(item, i)"><i class="zmdi zmdi-print"></i></a>
                               </td>
                           </tr>
                         </tbody>

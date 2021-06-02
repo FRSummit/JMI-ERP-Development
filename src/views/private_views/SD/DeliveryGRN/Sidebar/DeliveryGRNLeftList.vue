@@ -45,7 +45,7 @@
         </div>
         <div class="location-title">
           <div class="location-title-inner">
-            <p>Delivery Schedule List (<span>{{ INVOICE_LIST.length }}</span>)</p>
+            <p>Delivery Schedule List (<span>{{ INVOICE_LIST ? INVOICE_LIST.length : 0 }}</span>)</p>
           </div>
         </div>
         <div class="location-list-section">
@@ -120,7 +120,7 @@ export default {
       // },
       // datetime: '',
       // range: ''
-      INVOICE_LIST: []
+      INVOICE_LIST: null,
     };
   },
   created() {

@@ -34,8 +34,10 @@
               </select>
             </div>
             <div class="copy-delete-btn-section">
-              <span class="copy-btn" @click="copyMonthData" v-if="all_available_or_occupied_copy"><img src="../../../../../assets/images/copy.png" alt=""/></span>
-              <span class="copy-btn" @click="deleteMonthData" v-if="!all_available_or_occupied_copy"><img src="../../../../../assets/images/del.png" alt=""/></span>
+              <!-- <span class="copy-btn" @click="copyMonthData" v-if="all_available_or_occupied_copy"><img src="../../../../../assets/images/copy.png" alt=""/></span> -->
+              <span class="copy-btn" @click="copyMonthData" v-if="all_available_or_occupied_copy"><i class="zmdi zmdi-copy"></i></span>
+              <!-- <span class="copy-btn" @click="deleteMonthData" v-if="!all_available_or_occupied_copy"><img src="../../../../../assets/images/del.png" alt=""/></span> -->
+              <span class="copy-btn delete-btn" @click="deleteMonthData" v-if="!all_available_or_occupied_copy"><i class="zmdi zmdi-delete"></i></span>
             </div>
           </div>
         </div>
@@ -171,15 +173,22 @@ export default {
         let currentMonth = new Date().getMonth() + 1
         for(let i=0; i<6; i++) {
             let m = {}
-            if(this.getMonthName(currentYear + "-" + (currentMonth + i) + "-18") !== undefined) {
-                m.month = this.getMonthName(currentYear + "-" + (currentMonth + i) + "-18") + " 2021"
+            // console.log(this.getMonthName(currentYear + "-" + (currentMonth + i)))
+            // console.log(this.getMonthName(currentYear + "-" + (currentMonth + i)))
+
+            // if(this.getMonthName(currentYear + "-" + (currentMonth + i) + "-18") !== undefined) {
+            if(this.getMonthName(currentYear + "-" + (currentMonth + i)) !== undefined) {
+                // m.month = this.getMonthName(currentYear + "-" + (currentMonth + i) + "-18") + " 2021"
+                m.month = this.getMonthName(currentYear + "-" + (currentMonth + i - 1)) + " " + currentYear
             } else {
-                m.month = this.getMonthName((currentYear + 1) + "-" + (currentMonth + i - 12) + "-18") + " 2022"
+                // m.month = this.getMonthName((currentYear + 1) + "-" + (currentMonth + i - 12) + "-18") + " 2022"
+                m.month = this.getMonthName((currentYear + 1) + "-" + (currentMonth + i)) + " " + currentYear
             }
             this.months.push(m)
         }
     },
     getMonthName(month) {
+      // console.log(month)
       var months = [
         "January",
         "February",
