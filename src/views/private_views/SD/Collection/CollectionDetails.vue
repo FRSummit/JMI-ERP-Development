@@ -989,8 +989,8 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 30px;
-    height: 30px;
+    width: 24px;
+    height: 24px;
     font-size: var(--font12);
     color:  var(--white);
     border-radius: 100px;
@@ -1117,7 +1117,7 @@ export default {
     align-items: center;
     width: 18px;
     height: 18px;
-    font-size: var(--font10) !important;
+    font-size: var(--font12) !important;
     color:  var(--white);
     border-radius: 100px;
     background-color:var(--blue);
