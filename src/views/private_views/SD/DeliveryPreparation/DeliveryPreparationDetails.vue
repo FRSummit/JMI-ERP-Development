@@ -50,7 +50,8 @@
               <div class="col-8">
                 <div class="delivery_preparation-block">
                     <div class="heading">
-                        <h5>All Printings (<span>{{ SELECTED_DATA_DETAILS ? SELECTED_DATA_DETAILS.length : 0 }}</span>)</h5>
+                        <!-- <h5>All Printings (<span>{{ SELECTED_DATA_DETAILS ? SELECTED_DATA_DETAILS.length : 0 }}</span>)</h5> -->
+                        <h5>All Printings (<span>{{ DS_DETAILS ? DS_DETAILS.length : 0 }}</span>)</h5>
                     </div>
                     <div class="dPlaning_printing-table">
                         <table class="col-12">
