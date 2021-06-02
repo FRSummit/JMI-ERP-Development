@@ -315,7 +315,8 @@ export default class PP_Invoice_Type_3_Institution {
     }
 
     create_gross_TP_data(data) {
-        let total = data.inv_total
+        // let total = data.inv_total
+        let total = data.net_total
         let round_total = Math.round(total);
         ROUNDING_ADJ = (total - round_total).toFixed(2);
         NET_PAYABLE_AFTER_ADJ = round_total
