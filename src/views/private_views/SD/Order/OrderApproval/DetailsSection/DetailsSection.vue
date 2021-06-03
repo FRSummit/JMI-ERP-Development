@@ -67,7 +67,7 @@
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Unit Price<span class="with-vat">(TP+VAT)</span></th>
+                                <th>Unit Price<span class="with-vat">(TP + VAT)</span></th>
                                 <th>Quantity</th>
                                 <th>Stock</th>
                                 <th>Discount</th>

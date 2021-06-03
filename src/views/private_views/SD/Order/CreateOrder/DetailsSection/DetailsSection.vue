@@ -1,21 +1,33 @@
 <template>
     <div id="create-order-details-section" class="create-order-details-section">
-        <div class="create-order-details-section-inner">
+        <div v-if="!customer_data">
+            <div class="layout-container">
+                <div class="container-fluid">
+                    <div class="col-12">
+                    <!-- Start Empty State Area -->
+                    <div class="eState-body"> 
+                        <div class="eState-container">
+                            <img src="./es_territory.svg" alt="State Image">
+                            <h5>{{ 'Select a territory to begin' }}</h5>
+                            <p>{{ 'Search territory from the left sidebar' }}</p>
+                        </div>
+                    </div>
+                    <!-- End Empty State Area -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="create-order-details-section-inner" v-if="customer_data">
             <div class="title-section">
                 <div class="row">
-                    <!-- <div class="col-lg-4 col-md-4 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer ID:</span><span class="id">{{ customer_data ? customer_data.customer_id : ""}}</span><span class="customer-type">{{ customer_data ? customer_data.credit_flag === "Y" ? "Credit" : "Cash" : "No Customer" }}</span></p></div> -->
-                    <!-- <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer ID:</span><span class="id">{{ customer_data ? customer_data.display_code : ""}}</span><span class="customer-type" v-if="customer_data">{{ customer_data }}</span></p></div> -->
                     <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer ID:</span><span class="id">{{ customer_data ? (customer_data.display_code ? (customer_data.display_code) : '') : ""}}</span><span class="customer-type" v-if="customer_data ? (customer_data.credit_flag ? true : false) : false">{{ customer_data ? (customer_data.credit_flag ? (customer_data.credit_flag === "Y" ? "Credit" : "Cash") : '') : "" }}</span></p></div>
                     <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Customer Name:</span><span class="jmi-lvl-value">{{ customer_data ? (customer_data.display_name ? (customer_data.display_name) : '') : "" }}</span></p></div>
                 </div>
                 <div class="row">
-                    <!-- <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><span class="jmi-lvl-value address">{{ customer_data ? customer_data.customer_info.customer_address !== null ? customer_data.customer_info.customer_address : "Null" : "" }}</span></p></div> -->
-                    <!-- <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><input class="jmi-lvl-value-input" v-model="customer_address" /></p></div> -->
                     <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Address:</span><input class="jmi-lvl-value-input address-input" v-model="SELECTED_CUSTOMER_ADDRESS" /></p></div>
-                    <!-- <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title">Territory: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_70">{{ customer_data ? customer_data.customer_area_info.sales_force.get_sales_area.area_name : "" }}</span></p></div>                       -->
                     <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title">Order Territory: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_70" style="float: right;">
                         <div class="select-options jmi-select-options-section" style="width: 100%;">
-                            <span class="right-icon"><i class="fas fa-chevron-right"></i></span>
+                            <span class="right-icon" @click="orderTerritoryClick"><i class="fas fa-chevron-right"></i></span>
                                 <select title="Pick a customer" id="region_area_tt_list" class="selectpicker jmi-select-option" v-model="on_change_reg_area_tt" @change="onChangeRegAreaTTDropdown()" style="">
                                     <optgroup label="" v-if="checkReagionAreaTT(REGION_AREA_TERRITORY_LIST).reg.length > 0">
                                         <option v-for="(rat, m) in checkReagionAreaTT(REGION_AREA_TERRITORY_LIST).reg" :key="m" :value="rat.id"><span v-if="rat.lvl === '3'">{{ rat.display_code }} - {{ rat.area_short_name }}</span></option>
@@ -34,42 +46,33 @@
 
             <div class="header-summery-section">
                 <div class="header-summery-section-inner">
-
-
-                    <!-- <div class="row"> -->
-                        <!-- <div class="col-lg-3 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Current Outstanding:</span><span class="jmi-lvl-value url jmi-no-underline">{{ customer_data ? customer_data.current_due !== null ? customer_data.current_due : "00" : "" }}</span></p></div> -->
-                        <!-- <div class="col-lg-3 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Order Placed:</span> <span class="jmi-lvl-value"></span></p></div> -->
-                        <!-- <div class="col-lg-3 col-md-6 col-sm-12"><p class="jmi-title"><span class="jmi-lvl">Status:</span> <span class="jmi-lvl-value">Pending</span></p></div> -->
-                        <!-- <div class="col-lg-3 col-md-6 col-sm-12"><p class="jmi-title">Area: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80"></span></p></div> -->
-                        <!-- <div class="col-lg-6 col-md-6 col-sm-12"><p class="jmi-title">Territory: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_70">{{ customer_data ? customer_data.customer_area_info.sales_force.get_sales_area.area_name : "" }}</span></p></div> -->
-                    <!-- </div> -->
                     <div class="row">
-                        <!-- <div class="col-lg-3 col-md-6 col-sm-12"><p class="jmi-title">Territory: <span class="jmi-lvl-value">{{ customer_data ? customer_data.customer_area_info.sales_force.get_sales_area.area_name : "" }}</span></p></div> -->
                         <div class="col-lg-3 col-md-6 col-sm-12"><p class="am">AM: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ customer_data ? (customer_data.customer_area_info ? (customer_data.customer_area_info.sales_force ? (customer_data.customer_area_info.sales_force.manager_info ? (customer_data.customer_area_info.sales_force.manager_info.name ? (customer_data.customer_area_info.sales_force.manager_info.name) : '') : '') : '') : '') : "" }}</span></p></div>
-                        <!-- <div class="col-lg-3 col-md-6 col-sm-12"><p class="mio">MIO: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ customer_data ? (customer_data.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info.name) : "" }}</span></p></div> -->
                         <div class="col-lg-3 col-md-6 col-sm-12"><p class="mio">MIO: <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_80">{{ customer_data ? (customer_data.customer_area_info ? (customer_data.customer_area_info.sales_force ? (customer_data.customer_area_info.sales_force.user_info ? (customer_data.customer_area_info.sales_force.user_info.name ? (customer_data.customer_area_info.sales_force.user_info.name) : '') : '') : '') : '') : "" }}</span></p></div>
                         <div class="col-lg-3 col-md-6 col-sm-12">
                             <div class="sr" style="display: table-cell; width: 33%; padding-right: 20px; padding-bottom: 0px; line-height: 1;">
-                                <span class="jmi-lvl">SR: </span>
-                                <p class="selectpicker-pera"> 
-                                    <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_70">{{ selected_sr }}</span>
-                                    <span class="sr-modal" v-if="sr_add_modal">
-                                        <span class="sr-modal-inner" v-click-outside="srModalSectionOutsideClick">
-                                            <span class="jmi-title">Select SR</span>
-                                            <span class="sr-loop" v-for="(sr, m) in sr_list" :key="m">
-                                                <span  class="sr-name" @click="selectedSRClickHandler(sr.name)">{{ sr.name }}</span>
+                                <span class="jmi-lvl" id="sr-modal-txt">SR: </span>
+                                <p class="selectpicker-pera" :style="selected_sr ? '' : 'width: 0px;'"> 
+                                    <span class="jmi-lvl-value jmi-txt-nowrap-ellipsis-middle_70" style="width: 75%; line-height: 1.7;">{{ selected_sr }}</span>
+                                    <span id="sr-modal" class="sr-modal" v-if="sr_add_modal">
+                                        <!-- <span class="sr-modal-inner" v-click-outside="srModalSectionOutsideClick"> -->
+                                        <span class="sr-modal-inner">
+                                            <span class="close-icon"><i class="zmdi zmdi-close" @click="srModalSectionOutsideClick"></i></span>
+                                            <span class="jmi-title">Select a SR</span>
+                                            <span class="jmi-scroll">
+                                                <span class="sr-loop" v-for="(sr, m) in sr_list" :key="m">
+                                                    <span  class="sr-name" @click="selectedSRClickHandler(sr.name)">{{ sr.name }}</span>
+                                                </span>
+
                                             </span>
                                         </span>
                                     </span>
+                                    <span class="sr-add-icon" @click="srAddIconClickHandler"><i class="zmdi zmdi-plus"></i></span>
                                 </p>
-                                <span class="sr-add-icon" @click="srAddIconClickHandler"><i class="zmdi zmdi-plus"></i></span>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-6 col-sm-12 right_side_row"><p class="delivery-dt"><span class="jmi-lvl" style="font-size: 15px;">Delivery:</span> <span class="jmi-lvl-value"><input type="date" v-model="delivery_dt" id="expected-delivery-date" placeholder="09/12/2020"/></span></p></div>
+                        <div class="col-lg-3 col-md-6 col-sm-12 right_side_row"><p class="delivery-dt"><span class="jmi-lvl" style="font-size: 15px;">Delivery:</span> <span class="jmi-lvl-value" style="border: 1px solid #bfcfe23f; border-radius: 4px;"><input type="date" v-model="delivery_dt" id="expected-delivery-date" placeholder="09/12/2020"/></span></p></div>
                     </div>
-                    <!-- <div class="row"> -->
-                        <!-- <div class="col-lg-3 col-md-6 col-sm-12"><p class="delivery-dt"><span class="jmi-lvl">Exp D D:</span> <span class="jmi-lvl-value"><input type="date" id="expected-delivery-date" placeholder="09/12/2020"/></span></p></div> -->
-                    <!-- </div> -->
                 </div>
             </div>
             <!-- Order Table -->
@@ -79,12 +82,12 @@
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Trade Price<span class="with-vat">(TP+VAT)</span></th>
+                                <th>Trade Price<span class="with-vat">(TP + VAT)</span></th>
                                 <th>Quantity</th>
                                 <th>Discount</th>
                                 <th>Bonus</th>
                                 <th>Total Price</th>
-                                <th style="min-width: 70px;"></th>
+                                <!-- <th style="min-width: 70px;"></th> -->
                             </tr>
                         </thead>
                         <tbody>
@@ -128,10 +131,12 @@
                                     <td class="total_price">
                                         <span v-if="!data.row_class">{{ data ? (data.base_tp * data.quantity).toFixed(2) : 0 }}</span>
                                         <span v-if="data.row_class"></span>
+
+                                        <span v-if="!data.row_class" class="icon delete-icon" @click="deleteOrderitemClickHandler(data, i)"><i class="zmdi zmdi-delete"></i></span>
                                     </td>
-                                    <td class="row-action jmi-tr-td-option" style="min-width: 70px;">
+                                    <!-- <td class="row-action jmi-tr-td-option" style="min-width: 70px;">
                                         <span v-if="!data.row_class" class="icon delete-icon" @click="deleteOrderitemClickHandler(data, i)"><i class="fas fa-trash-alt"></i></span>
-                                    </td>
+                                    </td> -->
                                 </tr>
                             </div>
                             <!-- Bottom Total Section -->
@@ -140,37 +145,37 @@
                                     <td style="width: 50%;"><span class="add-order-attachment-section add-order" @click="addOrderClickHandler" v-if="customer_data"><i class="zmdi zmdi-plus"></i>Add Products</span></td>
                                     <td style="width: 25%;"><span v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">Subtotal</span></td>
                                     <td style="width: 15%;"><span v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">{{ Number(sub_total).toFixed(2) }}</span></td>
-                                    <td style="width: 10%; min-width: 70px;"></td>
+                                    <!-- <td style="width: 10%; min-width: 70px;"></td> -->
                                 </tr>
                                 <tr class="subtotal bottom-total" v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">
-                                    <td style="width: 50%;"><span class="add-order-attachment-section add-order" @click="addCommentClickHandler"><i class="zmdi zmdi-plus"></i>Order Note</span></td>
+                                    <td style="width: 50%;"><span class="add-order-attachment-section add-order" @click="addCommentClickHandler"><i class="zmdi zmdi-assignment-o"></i>Order Note</span></td>
                                     <td style="width: 25%;">(+) VAT</td>
                                     <td style="width: 15%;">{{ Number(vat_total).toFixed(2) }}</td>
-                                    <td style="width: 10%; min-width: 70px;"></td>
+                                    <!-- <td style="width: 10%; min-width: 70px;"></td> -->
                                 </tr>
                                 <tr class="subtotal bottom-total" v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">
                                     <td style="width: 50%;"></td>
                                     <td style="width: 25%;">Gross Total</td>
                                     <td style="width: 15%;">{{ Number(gross_total).toFixed(2) }}</td>
-                                    <td style="width: 10%; min-width: 70px;"></td>
-                                </tr>
-                                <tr class="subtotal bottom-total" v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">
-                                    <td style="width: 50%;"><span class="add-order-attachment-section add-attachment" @click="addAttachmentClickHandler"><i class="zmdi zmdi-attachment-alt"></i>Attachment</span></td>
-                                    <td style="width: 25%;">(-) Discount</td>
-                                    <td style="width: 15%;">{{ Number(discount_total).toFixed(2) }}</td>
-                                    <td style="width: 10%; min-width: 70px;"></td>
+                                    <!-- <td style="width: 10%; min-width: 70px;"></td> -->
                                 </tr>
                                 <tr class="subtotal bottom-total" v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">
                                     <td style="width: 50%;"></td>
+                                    <td style="width: 25%;">(-) Discount</td>
+                                    <td style="width: 15%;">{{ Number(discount_total).toFixed(2) }}</td>
+                                    <!-- <td style="width: 10%; min-width: 70px;"></td> -->
+                                </tr>
+                                <tr class="subtotal bottom-total" v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">
+                                    <td style="width: 50%;"><span class="add-order-attachment-section add-attachment" @click="addAttachmentClickHandler"><i class="zmdi zmdi-attachment-alt"></i>Attachment(s)</span></td>
                                     <td style="width: 25%;">(-) SP Discount</td>
                                     <td style="width: 15%;">{{ Number(special_discount).toFixed(2) }}</td>
-                                    <td style="width: 10%; min-width: 70px;"></td>
+                                    <!-- <td style="width: 10%; min-width: 70px;"></td> -->
                                 </tr>
                                 <tr class="grand-total bottom-total" style="border-top: 1px solid #BFCFE2;" v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">
                                     <td style="width: 50%;"></td>
                                     <td style="width: 25%;">Grand Total</td>
                                     <td style="width: 15%;">{{ Number(grand_total).toFixed(2) }}</td>
-                                    <td style="width: 10%; min-width: 70px;"></td>
+                                    <!-- <td style="width: 10%; min-width: 70px;"></td> -->
                                 </tr>
                             </div>
                         </tbody>
@@ -457,6 +462,11 @@ export default {
                 this.sr_add_modal = false
             } else {
                 this.sr_add_modal = true
+                let lt = document.getElementById('sr-modal-txt').getBoundingClientRect().left
+                console.log(lt)
+                setTimeout( () => {
+                    document.querySelector('#sr-modal .sr-modal-inner').style.left = lt + 30 + 'px'
+                }, 1)
             }
         },
         srModalSectionOutsideClick() {
@@ -908,8 +918,12 @@ export default {
             await service.getGetOrderOffer_Special_Discount_OrderApproval(regular_prods_line_total, date)
                 .then(res => {
                     console.log(res.data)
-                    this.special_discount = res.data.discount_data.discounted_tk
-                    this.createSubtotalCalculation()
+                    if(res.data.response_code === 200 || res.data.response_code === 201) {
+                        this.special_discount = res.data.discount_data.discounted_tk
+                        this.createSubtotalCalculation()
+                    } else {
+                        console.log('no discount added')
+                    }
                 })
                 .catch(err => {
                     if(err) {
@@ -1254,6 +1268,14 @@ export default {
             } else {
                 // this.selectREG_AREA_TT(id)
             }
+        },
+        orderTerritoryClick() {
+            // console.log('motherchod')
+            document.querySelector('#region_area_tt_list').click()
+            // document.getElementById('region_area_tt_list').addEventListener('click', () => {
+            //     console.log('working')
+            // })
+            console.log(document.querySelector('#region_area_tt_list'))
         }
     },
     computed: {
@@ -1318,4 +1340,89 @@ export default {
 .col-sm-12 {
     padding: 0;
 }
+
+table .total_price .icon.delete-icon {
+    display: none;
+    cursor: pointer;
+    width: 30px;
+    text-align: right;
+    margin-left: 4px;
+}
+
+table .total_price .icon.delete-icon i {
+    color : #DF2A43;
+    font-size: 16px;
+    background-color: rgba(255, 0, 0, 20%);
+    border-radius   : 50%;
+    cursor          : pointer;
+    padding         : 5px 9px;
+}
+table .total_price .icon.delete-icon i:hover {
+    background-color: rgb(255 0 0 / 29%);
+}
+
+table tr:hover .total_price {
+    /* padding-right: 0 !important; */
+}
+
+table tr:hover .icon.delete-icon {
+    display: inline-block;
+}
+#create-order .jmi-order-table tbody tr:first-child {
+    /* margin-top: 8px; */
+}
+#create-order .jmi-order-table tbody tr td {
+    padding: 2px 10px;
+}
+#create-order .jmi-order-table tbody tr {
+    margin-bottom: 6px;
+}
+span.proceed-order:hover,
+span.update-order:hover {
+    background: #0464bf !important;
+}
+
+
+p.delivery-dt span input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 1;
+    display: block;
+    width: 14px;
+    height: 14px;
+    border-width: thin;
+    background-image: url('./calendar.svg');
+}
+
+
+.eState-body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Use height when it needs otherwise remove the height*/
+    min-height: calc(100vh - (var(--used-height) - (-30px)));
+}
+.eState-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.eState-container img{
+    height: 200px;
+    width: 200px;
+}
+.eState-container h5{
+    margin-top: 20px !important;
+    font-size:var(--font20);
+    font-weight: 600;
+    color: #36454F;
+}
+.eState-container p{
+    margin-top: 10px !important;
+    margin-bottom: 10px;
+    font-size: var(--font16);
+}
+
+
+/* Last update repository (action button hover): dev_03_june */
 </style>

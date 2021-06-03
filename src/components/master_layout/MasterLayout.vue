@@ -82,14 +82,15 @@
     </div>
 
     <!-- Footer Section -->
-    <div id="footer" class="footer" v-if="privatePage" :style="BASE_URL === 'http://203.188.245.58:8889' ? 'background-color: lime; color: #000000;' : ''">
+    <div id="footer" class="footer" v-if="privatePage" :style="BASE_URL === 'http://203.188.245.58:8889' ? 'background-color: #ED2F48; color: #F6F9E4;' : ''">
       <marquee>
         <div class="footer-inner">
-          <p v-if="BASE_URL === 'http://203.188.245.58:8889'">DEV DEV DEV</p>
-          <p>New Life Hospital Opening Ceremony Going On</p>
-          <p>New Life Hospital Opening Ceremony Going On</p>
-          <p>New Life Hospital Opening Ceremony Going On</p>
-          <p v-if="BASE_URL === 'http://203.188.245.58:8889'">DEV DEV DEV</p>
+          <p v-if="BASE_URL === 'http://203.188.245.58:8889'" style="text-transform: uppercase;">This is JERP development site</p>
+          <p v-if="BASE_URL === 'http://203.188.245.58:8889'" style="text-transform: uppercase;">This is JERP development site</p>
+          <p v-if="BASE_URL === 'http://203.188.245.58:8889'" style="text-transform: uppercase;">This is JERP development site</p>
+          <p v-if="!BASE_URL === 'http://203.188.245.58:8889'">New Life Hospital Opening Ceremony Going On</p>
+          <p v-if="!BASE_URL === 'http://203.188.245.58:8889'">New Life Hospital Opening Ceremony Going On</p>
+          <p v-if="!BASE_URL === 'http://203.188.245.58:8889'">New Life Hospital Opening Ceremony Going On</p>
         </div>
       </marquee>
     </div>

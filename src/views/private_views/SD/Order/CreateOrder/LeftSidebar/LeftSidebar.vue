@@ -2,20 +2,6 @@
   <div id="create-order-left-sidebar" class="create-order-left-sidebar">
     <div class="create-order-left-sidebar-section">
       <div class="create-order-left-sidebar-section-inner">
-          <!-- Search & Filter section -->
-        <div class="search-section">
-          <div class="form-group has-search">
-            <span class="fa fa-search form-control-feedback"></span>
-            <input
-              type="text"
-              class="form-control"
-              id="search-filter"
-              placeholder="Search"
-              v-on:keyup="searchKeyUpHandler"
-            />
-          </div>
-          <span @click="filterClick" class="hide"><i class="fas fa-filter"></i></span>
-        </div>
         <!-- Customer Counter -->
         <div class="territory-selection">
             <!-- <p class="text">Select Territory</p> -->
@@ -23,7 +9,7 @@
                 <div class="sort-section-inner">
                     <div class="input-section">
                         <div class="select-options">
-                            <span class="right-icon"><i class="fas fa-chevron-right"></i></span>
+                            <span class="right-icon" @click="territoryInputClickOccured"><i class="fas fa-chevron-right"></i></span>
                             <!-- <select title="Pick a customer" class="selectpicker" v-model="selected_territory">
                                 <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
                                 <option :value="null" selected>Select and search Territory</option>
@@ -40,7 +26,8 @@
                                 v-model="selected_territory" 
                                 @click="territoryInputClickOccured"
                                 id="territory-search-filter"
-                                v-on:keyup="territorySearchKeyUpHandler" />
+                                v-on:keyup="territorySearchKeyUpHandler"
+                                autocomplete="off" />
 
                             <div class="add-territory-modal-section" v-if="territory_modal">
                                 <div class="add-territory-modal" v-click-outside="territoryModalSectionOutsideClick">
@@ -61,15 +48,29 @@
                 </div>
             </div>
         </div>
+          <!-- Search & Filter section -->
+        <div class="search-section">
+          <div class="form-group has-search" v-if="customer_data_list">
+            <span class="fa fa-search form-control-feedback"></span>
+            <input
+              type="text"
+              class="form-control"
+              id="search-filter"
+              placeholder="Search"
+              v-on:keyup="searchKeyUpHandler"
+            />
+          </div>
+          <span @click="filterClick" class="hide"><i class="fas fa-filter"></i></span>
+        </div>
         <div class="title-count">
-            <p class="total-customer">Total Customer (<span class="count">{{ customer_data_list ? customer_data_list.length : 0 }}</span>)</p>
+            <p class="total-customer" v-if="customer_data_list">Total Customer (<span class="count">{{ customer_data_list ? customer_data_list.length : 0 }}</span>)</p>
         </div>
         <!-- Customer List -->
         <div class="customer-list-section">
             <div class="customer-list-section-inner">
                 <div id="progressbar" class="progressbar" v-if="!customer_data_list">
                     <!-- <v-progress-circular indeterminate color="primary"></v-progress-circular> -->
-                    <p>Please select territory</p>
+                    <!-- <p>Please select territory</p> -->
                 </div>
                 <div id="progressbar" class="progressbar" v-if="customer_data_list && customer_data_list.length === 0">
                     <!-- <v-progress-circular indeterminate color="primary"></v-progress-circular> -->
@@ -82,7 +83,7 @@
                                 <div class="id-section">
                                     <!-- <p class="customer-id">{{ customer.customer_id }}</p> -->
                                     <p class="customer-id">{{ customer.display_code }}</p>
-                                    <p class="customer-id-search-key hide">{{ customer.search_words }}</p>
+                                    <p class="customer-id-search-key hide">{{ customer.search_words ? customer.search_words : customer.search_keywords }}</p>
                                 </div>
                                 <div class="type-section">
                                     <p class="customer-type">Customer Type: <span class="type" :class="customer.credit_flag === 'Y' ? 'Credit' : 'Cash'">{{ customer.credit_flag === "Y" ? "Credit" : "Cash" }}</span></p>
@@ -355,7 +356,7 @@ export default {
 
     .add-territory-modal {
         position     : fixed;
-        top          : 260px;
+        top          : 198px;
         left         : 80px;
         width        : 258px;
         height       : 400px;

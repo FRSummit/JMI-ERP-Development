@@ -2812,14 +2812,14 @@
     height   : 8px;
     position : absolute;
     right    : 8px;
-    top      : 4px;
+    top      : 6px;
     color    : #BFCFE2;
     transform: rotate(90deg);
 }
 
 #create-order .jmi-select-option {
     height     : auto;
-    padding    : 1px 5px 1px 10px;
+    padding    : 2px 5px 3px 10px;
     line-height: 1;
     border     : 1px solid #BFCFE2;
     font-size  : 12px;
@@ -3080,7 +3080,7 @@
 
 @media only screen and (min-width: 890px) {
     #create-order .with-vat {
-        margin-right: 14px;
+        margin-right: 20px;
     }
 }
 
