@@ -908,8 +908,12 @@ export default {
             await service.getGetOrderOffer_Special_Discount_OrderApproval(regular_prods_line_total, date)
                 .then(res => {
                     console.log(res.data)
-                    this.special_discount = res.data.discount_data.discounted_tk
-                    this.createSubtotalCalculation()
+                    if(res.data.response_code === 200 || res.data.response_code === 201) {
+                        this.special_discount = res.data.discount_data.discounted_tk
+                        this.createSubtotalCalculation()
+                    } else {
+                        console.log('no discount added')
+                    }
                 })
                 .catch(err => {
                     if(err) {
