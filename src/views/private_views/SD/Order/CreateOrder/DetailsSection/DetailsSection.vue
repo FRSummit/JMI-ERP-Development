@@ -1,7 +1,7 @@
 <template>
     <div id="create-order-details-section" class="create-order-details-section">
         <div v-if="!customer_data">
-            <div class="layout-container">
+            <div class="layout-container" v-if="CUSTOMER_DATA_LIST_COUNTER === 0 || CUSTOMER_DATA_LIST_COUNTER === null">
                 <div class="container-fluid">
                     <div class="col-12">
                     <!-- Start Empty State Area -->
@@ -10,6 +10,21 @@
                             <img src="./es_territory.svg" alt="State Image">
                             <h5>{{ 'Select a territory to begin' }}</h5>
                             <p>{{ 'Search territory from the left sidebar' }}</p>
+                        </div>
+                    </div>
+                    <!-- End Empty State Area -->
+                    </div>
+                </div>
+            </div>
+            <div class="layout-container" v-if="CUSTOMER_DATA_LIST_COUNTER > 0">
+                <div class="container-fluid">
+                    <div class="col-12">
+                    <!-- Start Empty State Area -->
+                    <div class="eState-body"> 
+                        <div class="eState-container">
+                            <img src="../../../../../../assets/images/es_icons/es_customer.svg" alt="State Image">
+                            <h5>{{ 'Select a customer' }}</h5>
+                            <p>{{ 'Customer list is given on the left sidebar' }}</p>
                         </div>
                     </div>
                     <!-- End Empty State Area -->
@@ -377,7 +392,7 @@ import ERPService from '../../../../../../service/ERPSidebarService'
 const service = new ERPService()
 
 export default {
-    props: ["customer_data"],
+    props: ["customer_data", "CUSTOMER_DATA_LIST_COUNTER"],
     components: {
         // AdvancedSearch 
     },

@@ -11,7 +11,7 @@
     overflow-x     : hidden;
     overflow-y     : scroll;
     scrollbar-width: none;
-    height         : calc(100vh - (74px + 73px + 32px));
+    height         : calc(100vh - (74px + 73px + 32px + 0));
 
     &::-webkit-scrollbar {
         width: 4px;
@@ -1417,6 +1417,10 @@
 
 // 1250+
 @media @extra_lerge {
+
+    #create-order-details-section.create-order-details-section {
+        // height: calc(100vh - (74px + 73px + 32px + 0)) !important;
+    }
 
     #create-order-details-section.create-order-details-section .create-order-details-section-inner .order-table .order-table-inner table tbody tr#subtotal-section td:nth-child(5) {
         padding-right: 16px;

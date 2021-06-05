@@ -8,8 +8,8 @@
             <div class="sort-section">
                 <div class="sort-section-inner">
                     <div class="input-section">
-                        <div class="select-options">
-                            <span class="right-icon" @click="territoryInputClickOccured"><i class="fas fa-chevron-right"></i></span>
+                        <div class="select-options" :class="focus_flag === true ? 'jmi_focus_flag' : ''" v-click-outside="focus_flag_remove">
+                            <span class="right-icon" @click="territoryInputClickOccured" :class="focus_flag === true ? 'jmi_focus_flag_icon' : ''"><i class="fas fa-chevron-right"></i></span>
                             <!-- <select title="Pick a customer" class="selectpicker" v-model="selected_territory">
                                 <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
                                 <option :value="null" selected>Select and search Territory</option>
@@ -22,12 +22,13 @@
                                 </datalist>
                             </form> -->
                             <input 
-                                placeholder="Select and search Territory" 
+                                placeholder="Select or search Territory" 
                                 v-model="selected_territory" 
                                 @click="territoryInputClickOccured"
                                 id="territory-search-filter"
                                 v-on:keyup="territorySearchKeyUpHandler"
-                                autocomplete="off" />
+                                autocomplete="off"
+                                @focus="focusFlag()" />
 
                             <div class="add-territory-modal-section" v-if="territory_modal">
                                 <div class="add-territory-modal" v-click-outside="territoryModalSectionOutsideClick">
@@ -50,7 +51,7 @@
         </div>
           <!-- Search & Filter section -->
         <div class="search-section">
-          <div class="form-group has-search" v-if="customer_data_list">
+          <div class="form-group has-search" v-if="customer_data_list && customer_data_list.length > 0">
             <span class="fa fa-search form-control-feedback"></span>
             <input
               type="text"
@@ -63,18 +64,21 @@
           <span @click="filterClick" class="hide"><i class="fas fa-filter"></i></span>
         </div>
         <div class="title-count">
-            <p class="total-customer" v-if="customer_data_list">Total Customer (<span class="count">{{ customer_data_list ? customer_data_list.length : 0 }}</span>)</p>
+            <p class="total-customer" v-if="customer_data_list && customer_data_list.length > 0">Total Customer (<span class="count">{{ customer_data_list ? customer_data_list.length : 0 }}</span>)</p>
         </div>
         <!-- Customer List -->
         <div class="customer-list-section">
-            <div class="customer-list-section-inner">
+            <div class="customer-list-section-inner" :class="customer_data_list ? 'customer_data_list' : ''">
                 <div id="progressbar" class="progressbar" v-if="!customer_data_list">
                     <!-- <v-progress-circular indeterminate color="primary"></v-progress-circular> -->
                     <!-- <p>Please select territory</p> -->
                 </div>
                 <div id="progressbar" class="progressbar" v-if="customer_data_list && customer_data_list.length === 0">
                     <!-- <v-progress-circular indeterminate color="primary"></v-progress-circular> -->
-                    <p>No customer found</p>
+                    <!-- <p>No customer found</p> -->
+                    <img src="../../../../../../assets/images/es_icons/es_customer.svg" alt="">
+                    <h5>{{ 'No customer found' }}</h5>
+                    <p>{{ 'Try a dierent territory from the list' }}</p>
                 </div>
                 <div :id="'customer-section-list-' + c" class="customer-section-list" v-for="(customer, c) in customer_data_list" :key="c" @click="customerClickHandlerFromList(customer, c)">
                     <div :id="'customer-section-list-inner-' + c" class="customer-section-list-inner">
@@ -186,8 +190,11 @@ export default {
             TERRITORY_LIST: null,
             selected_territory: null,
             customer_data_list: null,
+            customer_data_list_counter: null,
 
             territory_modal: false,
+
+            focus_flag: false,
         }
     },
     created() {},
@@ -275,15 +282,26 @@ export default {
         async ALL_CUSTOMER_FOR_DEPOT_BY_TT__FROM_SERVICE(id) {
             console.log(id)
             this.customer_data_list = []
+            this.customer_data_list_counter = null
             await service.getAllCustomerForDepotByTTId_CreateOrderLeftList(id)
                 .then(res => {
                     console.log(res.data)
-                    this.customer_data_list = res.data.sbu_customers
+                    this.customer_data_list_counter = res.data.count
+                    if(res.data.response_code === 200 || res.data.response_code === 201) {
+                        this.customer_data_list = res.data.sbu_customers
+                        if(res.data.count === 0) {
+                            // this.customer_data_list = null
+                        }
+                    } else {
+                        this.customer_data_list = null
+                        this.customer_data_list_counter = null
+                    }
                 })
                 .catch(err => {
                     if(err) {
                         console.log(err)
                         this.customer_data_list = null
+                        this.customer_data_list_counter = null
                     }
                 })
         },
@@ -314,7 +332,14 @@ export default {
             this.selected_territory = territory.display_code + ' - ' + territory.area_name
             this.ALL_CUSTOMER_FOR_DEPOT_BY_TT__FROM_SERVICE(territory.id)
             this.territory_modal = false
-        }
+        },
+        focusFlag() {
+            console.log(this.focus_flag)
+            this.focus_flag = true
+        },
+        focus_flag_remove() {
+            this.focus_flag = false
+        },
     },
     watch: {
         selected_territory(newVal) {
@@ -327,6 +352,14 @@ export default {
                 //     }
                 // }
             }
+        },
+        customer_data_list_counter(newVal) {
+            this.$emit('CUSTOMER_DATA_LIST_COUNTER', newVal)
+            if(newVal > 0) {
+                console.log(newVal)
+            } else {
+                console.log('null / 0')
+            }
         }
     }
 };
@@ -335,6 +368,23 @@ export default {
 <style lang="less" scoped>
 @import url("./LeftSidebar.less");
 
+#create-order-left-sidebar.create-order-left-sidebar .create-order-left-sidebar-section .create-order-left-sidebar-section-inner .territory-selection .sort-section .sort-section-inner .input-section .select-options {
+    border-radius: 4px;
+}
+.jmi_focus_flag {
+    border: 1px solid #026CD1 !important;
+}
+.jmi_focus_flag_icon svg {
+    color: #026CD1 !important;
+}
+#create-order-left-sidebar.create-order-left-sidebar .create-order-left-sidebar-section .create-order-left-sidebar-section-inner .territory-selection .sort-section .sort-section-inner .input-section .select-options span.right-icon svg {
+    top: 10px;
+    right: 12px;
+}
+#create-order input, #create-order #sd-balance-sheet.sd-balance-sheet .sd-balance-sheet-inner input {
+    padding-left: 10px;
+    color: #026CD1;
+}
 .select-options input {
     width         : 90%;
     white-space   : nowrap;
@@ -365,7 +415,7 @@ export default {
         // border-radius: 8px;
         border-bottom-left-radius: 8px;
         border-bottom-right-radius: 8px;
-        padding      : 10px;
+        padding      : 10px 0;
 
         .add-territory-modal-inner {
             width   : 100%;
@@ -401,7 +451,7 @@ export default {
 
                     p.territory-name {
                         // padding       : 10px 20px;
-                        padding       : 6px 0px;
+                        padding       : 6px 10px;
                         text-align    : left;
                         letter-spacing: 0px;
                         color         : #36454F;
@@ -421,16 +471,37 @@ export default {
                         }
 
                         span:first-child {
-                            margin-bottom: 4px;
+                            // margin-bottom: 4px;
                         }
 
                         &:hover {
                             background: #E2EDFA;
+                            span {
+                                color: #026CD1;
+                            }
                         }
                     }
                 }
             }
         }
     }
+}
+#progressbar.progressbar {
+    // margin-top: calc(((100vh - (74px + 73px + 62px + 44px + 32px + 52px)) / 2) - 100px) !important;
+}
+#progressbar.progressbar img {
+    width: 100px;
+}
+.progressbar h5{
+    margin-top: 20px !important;
+    font-size:var(--font20);
+    font-weight: 600;
+    color: #36454F;
+}
+.progressbar p{
+    margin-top: 10px !important;
+    margin-bottom: 10px;
+    font-size: var(--font16);
+    color: #36454F;
 }
 </style>

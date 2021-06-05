@@ -25,7 +25,7 @@
             height  : 100%;
 
             .search-section {
-                padding: 20px 20px 10px;
+                padding: 16px 20px 10px;
 
                 .form-group {
                     margin           : 0;
@@ -62,7 +62,9 @@
                     box-sizing   : inherit;
                     font-size    : 12px;
                     height       : auto;
-                    padding      : 6px 0;
+                    padding      : 6px 0 7px;
+                    border-radius: 4px;
+                    color: #000000;
                 }
 
                 input:focus {
@@ -229,13 +231,8 @@
                 position: relative;
                 height  : calc(100vh - (74px + 73px + 62px + 44px + 32px));
 
-                .customer-list-section-inner {
-                    position       : fixed;
-                    overflow-y     : scroll;
-                    width          : 300px;
-                    // height         : calc(100vh - (74px + 73px + 62px + 44px + 32px));
-                    height         : calc(100vh - (74px + 73px + 62px + 44px + 32px + 52px));
-                    scrollbar-width: none;
+                
+                .customer-list-section-inner.customer_data_list {
 
                     &::-webkit-scrollbar {
                         width: 4px;
@@ -254,6 +251,15 @@
                     &::-webkit-scrollbar-thumb:hover {
                         background: #004e98;
                     }
+                }
+
+                .customer-list-section-inner {
+                    position       : fixed;
+                    overflow-y     : scroll;
+                    width          : 300px;
+                    // height         : calc(100vh - (74px + 73px + 62px + 44px + 32px));
+                    height         : calc(100vh - (74px + 73px + 62px + 44px + 32px + 52px));
+                    scrollbar-width: none;
 
                     .progressbar {
                         text-align: center;
