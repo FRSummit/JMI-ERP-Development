@@ -4,30 +4,30 @@
             <div class="layout-container" v-if="CUSTOMER_DATA_LIST_COUNTER === 0 || CUSTOMER_DATA_LIST_COUNTER === null">
                 <div class="container-fluid">
                     <div class="col-12">
-                    <!-- Start Empty State Area -->
-                    <div class="eState-body"> 
-                        <div class="eState-container">
-                            <img src="./es_territory.svg" alt="State Image">
-                            <h5>{{ 'Select a territory to begin' }}</h5>
-                            <p>{{ 'Search territory from the left sidebar' }}</p>
+                        <!-- Start Empty State Area -->
+                        <div class="eState-body"> 
+                            <div class="eState-container">
+                                <img src="./es_territory.svg" alt="State Image">
+                                <h5>{{ 'Select a territory to begin' }}</h5>
+                                <p>{{ 'Search territory from the left sidebar' }}</p>
+                            </div>
                         </div>
-                    </div>
-                    <!-- End Empty State Area -->
+                        <!-- End Empty State Area -->
                     </div>
                 </div>
             </div>
             <div class="layout-container" v-if="CUSTOMER_DATA_LIST_COUNTER > 0">
                 <div class="container-fluid">
                     <div class="col-12">
-                    <!-- Start Empty State Area -->
-                    <div class="eState-body"> 
-                        <div class="eState-container">
-                            <img src="../../../../../../assets/images/es_icons/es_customer.svg" alt="State Image">
-                            <h5>{{ 'Select a customer' }}</h5>
-                            <p>{{ 'Customer list is given on the left sidebar' }}</p>
+                        <!-- Start Empty State Area -->
+                        <div class="eState-body"> 
+                            <div class="eState-container">
+                                <img src="../../../../../../assets/images/es_icons/es_customer.svg" alt="State Image">
+                                <h5>{{ 'Select a customer' }}</h5>
+                                <p>{{ 'Customer list is given on the left sidebar' }}</p>
+                            </div>
                         </div>
-                    </div>
-                    <!-- End Empty State Area -->
+                        <!-- End Empty State Area -->
                     </div>
                 </div>
             </div>
@@ -107,9 +107,20 @@
                         </thead>
                         <tbody>
                             <div id="progressbar" class="jmi-progressbar" v-if="ORDERED_TABLE_DATA__INIT_LIST.length <= 0">
-                                <!-- <v-progress-circular indeterminate color="primary"></v-progress-circular> -->
-                                    <p v-if="!customer_data">Please select a customer</p>
-                                    <p v-if="customer_data && !ORDERED_TABLE_DATA__INIT_LIST.length">Please add a product</p>
+                                    <div class="container-fluid" v-if="customer_data && !ORDERED_TABLE_DATA__INIT_LIST.length">
+                                        <div class="col-12">
+                                            <!-- Start Empty State Area -->
+                                            <div class="eState-body"> 
+                                                <div class="eState-container">
+                                                    <img src="../../../../../../assets/images/es_icons/es_add_product.svg" alt="State Image">
+                                                    <h5>{{ 'Add required products' }}</h5>
+                                                    <p>{{ 'Add products as customer requirement' }}</p>
+                                                    <button @click="addOrderClickHandler"><i class="zmdi zmdi-plus"></i>Add product</button>
+                                                </div>
+                                            </div>
+                                            <!-- End Empty State Area -->
+                                        </div>
+                                    </div>
                             </div>
                             <div class="table-data-rows" v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">
                                 <tr v-for="(data, i) in ORDERED_TABLE_DATA__INIT_LIST" :key="i" :class="data.row_class ? data.row_class : ''">
@@ -155,7 +166,7 @@
                                 </tr>
                             </div>
                             <!-- Bottom Total Section -->
-                            <div class="jmi-table-subtotal-btm-section">
+                            <div class="jmi-table-subtotal-btm-section" v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">
                                 <tr class="subtotal bottom-total" style="border-top: 1px solid #BFCFE2;">
                                     <td style="width: 50%;"><span class="add-order-attachment-section add-order" @click="addOrderClickHandler" v-if="customer_data"><i class="zmdi zmdi-plus"></i>Add Products</span></td>
                                     <td style="width: 25%;"><span v-if="ORDERED_TABLE_DATA__INIT_LIST.length > 0">Subtotal</span></td>
@@ -388,6 +399,8 @@
 // import AdvancedSearch from 'vue-advanced-search'
 import JMIFilter from '.././../../../../../functions/JMIFIlter'
 const jmiFilter = new JMIFilter()
+// import GlobalDateFormat from '.././../../../../../functions/GlobalDateFormat'
+// const globalDateFormat = new GlobalDateFormat()
 import ERPService from '../../../../../../service/ERPSidebarService'
 const service = new ERPService()
 
@@ -1305,6 +1318,7 @@ export default {
             this.CUSTOMER_ID_FROM_LEFT = newVal.customer_id
             this.REGION_AREA_TERRITORY_LIST = []
             this.AREA_LIST_BY_USER__FROM_SERVICE()
+            document.getElementById('expected-delivery-date').value = new Date().getDate() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getFullYear()
             // if( newVal && oldVal) {
             if( newVal) {
                 console.log(newVal)
@@ -1314,6 +1328,8 @@ export default {
                     this.SELECTED_CUSTOMER_ADDRESS = newVal.customer_info ? (newVal.customer_info.customer_address ? (newVal.customer_info.customer_address) : '') : ''
                     this.AREA_LIST_BY_USER__FROM_SERVICE()
                     this.defaultAllThisComponentData()
+                    // document.getElementById('expected-delivery-date').value = new Date().getDate() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getFullYear()
+                    // this.delivery_dt = globalDateFormat.dateFormatT4(new Date())
                 }
             }
         },
@@ -1380,8 +1396,18 @@ table tr:hover .total_price {
     /* padding-right: 0 !important; */
 }
 
-table tr:hover .icon.delete-icon {
+table tr:hover .total_price .icon.delete-icon {
     display: inline-block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 36px;
+    background-color: #E2EDFA;
+    padding: 6px 20px;
+    width: 100px;
+}
+#create-order .jmi-order-table thead {
+    border-bottom: 1px solid #E9F1FB;
 }
 #create-order .jmi-order-table tbody tr:first-child {
     /* margin-top: 8px; */
@@ -1391,6 +1417,7 @@ table tr:hover .icon.delete-icon {
 }
 #create-order .jmi-order-table tbody tr {
     margin-bottom: 6px;
+    position: relative;
 }
 span.proceed-order:hover,
 span.update-order:hover {
@@ -1436,6 +1463,59 @@ p.delivery-dt span input[type="date"]::-webkit-calendar-picker-indicator {
     margin-top: 10px !important;
     margin-bottom: 10px;
     font-size: var(--font16);
+    color: #36454F;
+}
+.order-table tbody #progressbar.jmi-progressbar {
+    margin: 20px 0;
+}
+.order-table tbody #progressbar.jmi-progressbar .eState-body {
+    /* min-height: auto; */
+    min-height: calc(100vh - (((74px + 73px + 32px) + (86px + 8px + 100px + 20px + 46px + 50px + 50px)) - (-30px)));
+}
+.order-table tbody #progressbar.jmi-progressbar img {
+    width: 100px;
+    height: 100px;
+}
+.order-table tbody #progressbar.jmi-progressbar h5 {
+    margin-top: 10px !important;
+    font-size:var(--font16);
+}
+.order-table tbody #progressbar.jmi-progressbar p {
+    margin-top: 4px !important;
+    font-size:var(--font12);
+}
+.order-table tbody #progressbar.jmi-progressbar button {
+    margin-top: 10px !important;
+    width: 150px;
+    background-color: #026CD1;
+    color: #FFFFFF;
+    padding: 10px 0;
+    border-radius: 4px;
+}
+.order-table tbody #progressbar.jmi-progressbar button:hover {
+    background-color: #0464bf;
+}
+.order-table tbody #progressbar.jmi-progressbar button i {
+    margin-right: 10px;
+    color: #FFFFFF;
+}
+
+@media only screen and (min-width: 1250px) {
+    .order-table tbody #progressbar.jmi-progressbar .eState-body {
+        min-height: calc(100vh - (((74px + 73px + 32px) + (86px + 8px + 100px + 20px + 46px + 20px + 0px)) - (0px)));
+    }
+    .order-table tbody #progressbar.jmi-progressbar img {
+        width: 200px;
+        height: 200px;
+    }
+    .order-table tbody #progressbar.jmi-progressbar h5 {
+        margin-top: 20px !important;
+        font-size:var(--font20);
+    }
+    .order-table tbody #progressbar.jmi-progressbar p {
+        margin-top: 10px !important;
+        font-size:var(--font18);
+    }
 }
 
 

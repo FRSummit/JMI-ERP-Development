@@ -22,7 +22,7 @@
                                 </datalist>
                             </form> -->
                             <input 
-                                placeholder="Select or search Territory" 
+                                placeholder="Select or search territory" 
                                 v-model="selected_territory" 
                                 @click="territoryInputClickOccured"
                                 id="territory-search-filter"
@@ -68,7 +68,7 @@
         </div>
         <!-- Customer List -->
         <div class="customer-list-section">
-            <div class="customer-list-section-inner" :class="customer_data_list ? 'customer_data_list' : ''">
+            <div class="customer-list-section-inner" :class="customer_data_list && customer_data_list.length > 0 ? 'customer_data_list' : ''">
                 <div id="progressbar" class="progressbar" v-if="!customer_data_list">
                     <!-- <v-progress-circular indeterminate color="primary"></v-progress-circular> -->
                     <!-- <p>Please select territory</p> -->
