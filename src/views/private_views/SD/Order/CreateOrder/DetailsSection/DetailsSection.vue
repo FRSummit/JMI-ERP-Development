@@ -1336,6 +1336,11 @@ export default {
         // ORDERED_TABLE_DATA__INIT_LIST(newVal) {
 
         // }
+        CUSTOMER_DATA_LIST_COUNTER( newVal) {
+            if( newVal) {
+                this.defaultAllThisComponentData()
+            }
+        }
     }
 }
 </script>
@@ -1500,7 +1505,7 @@ p.delivery-dt span input[type="date"]::-webkit-calendar-picker-indicator {
     color: #FFFFFF;
 }
 
-@media only screen and (min-width: 1250px) {
+@media only screen and (min-width: 1500px) {
     .order-table tbody #progressbar.jmi-progressbar .eState-body {
         min-height: calc(100vh - (((74px + 73px + 32px) + (86px + 8px + 100px + 20px + 46px + 20px + 0px)) - (0px)));
     }

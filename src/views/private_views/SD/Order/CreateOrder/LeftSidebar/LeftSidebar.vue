@@ -78,7 +78,7 @@
                     <!-- <p>No customer found</p> -->
                     <img src="../../../../../../assets/images/es_icons/es_customer.svg" alt="">
                     <h5>{{ 'No customer found' }}</h5>
-                    <p>{{ 'Try a dierent territory from the list' }}</p>
+                    <p>{{ 'Try a different territory from the list' }}</p>
                 </div>
                 <div :id="'customer-section-list-' + c" class="customer-section-list" v-for="(customer, c) in customer_data_list" :key="c" @click="customerClickHandlerFromList(customer, c)">
                     <div :id="'customer-section-list-inner-' + c" class="customer-section-list-inner">
@@ -332,6 +332,7 @@ export default {
             this.selected_territory = territory.display_code + ' - ' + territory.area_name
             this.ALL_CUSTOMER_FOR_DEPOT_BY_TT__FROM_SERVICE(territory.id)
             this.territory_modal = false
+            this.$emit("TERRITORY_CHANGE")
         },
         focusFlag() {
             console.log(this.focus_flag)
