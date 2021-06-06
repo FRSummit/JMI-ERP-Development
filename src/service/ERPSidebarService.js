@@ -267,6 +267,17 @@ export default class PostService {
     })
   }
 
+  // MONTHLY DELIVERY PLAN - SELECT FULL MONTH
+  async getCreateSD_DPD_DayForFullMonth__MDP(dpa_id, mmyyyy) {
+    let web_menu_url = '/api/web/create-sd-dpd-day-for-full-month/' + dpa_id + '/' + mmyyyy
+    return await axios(web_menu_url, {
+      method: 'GET',
+      headers: {
+        'Authorization': token_type + ' ' + token
+      }
+    })
+  }
+
   //////////////////////////////////////////////////////////////////////////////////////////
   // DOCTOR - 
   //////////////////////////////////////////////////////////////////////////////////////////

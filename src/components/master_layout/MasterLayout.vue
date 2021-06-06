@@ -82,12 +82,15 @@
     </div>
 
     <!-- Footer Section -->
-    <div id="footer" class="footer" v-if="privatePage">
+    <div id="footer" class="footer" v-if="privatePage" :style="BASE_URL === 'http://203.188.245.58:8889' ? 'background-color: #ED2F48; color: #F6F9E4;' : ''">
       <marquee>
         <div class="footer-inner">
-          <p>New Life Hospital Opening Ceremony Going On</p>
-          <p>New Life Hospital Opening Ceremony Going On</p>
-          <p>New Life Hospital Opening Ceremony Going On</p>
+          <p v-if="BASE_URL === 'http://203.188.245.58:8889'" style="text-transform: uppercase;">This is JERP development site</p>
+          <p v-if="BASE_URL === 'http://203.188.245.58:8889'" style="text-transform: uppercase;">This is JERP development site</p>
+          <p v-if="BASE_URL === 'http://203.188.245.58:8889'" style="text-transform: uppercase;">This is JERP development site</p>
+          <p v-if="!BASE_URL === 'http://203.188.245.58:8889'">New Life Hospital Opening Ceremony Going On</p>
+          <p v-if="!BASE_URL === 'http://203.188.245.58:8889'">New Life Hospital Opening Ceremony Going On</p>
+          <p v-if="!BASE_URL === 'http://203.188.245.58:8889'">New Life Hospital Opening Ceremony Going On</p>
         </div>
       </marquee>
     </div>
@@ -109,6 +112,7 @@ import NotificationModal from "./NotificationModal";
 import ChatModal from "./ChatModal";
 import ProfileModal from "./ProfileModal";
 
+import env from '../../environment';
 import ERPSidebarService from '../../service/ERPSidebarService';
 const service = new ERPSidebarService();
 import firebase from 'firebase'
@@ -123,25 +127,27 @@ export default {
     },
     data() {
         return {
-        userName: null,
-        userDesignation: null,
-        // authenticated: null,
-        // userName: JSON.parse(localStorage.getItem("jerp_logged_user")) ? JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.name : "",
-        // userDesignation: JSON.parse(localStorage.getItem("jerp_logged_user")) ? JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.role_name : "",
-        authenticated: this.$store.state.userIsAuthorized,
-        sidenav: false,
-        privatePage: false,
-        mouseOverTriger: true,
-        sbu_name: null,
-        sbu_list_is_present: false,
-        ASSIGNED_SBU_LIST: null,
-        WEB_MENU: null,
-        err_popup_modal: false,
-        err_message: null,
+          userName: null,
+          userDesignation: null,
+          // authenticated: null,
+          // userName: JSON.parse(localStorage.getItem("jerp_logged_user")) ? JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.name : "",
+          // userDesignation: JSON.parse(localStorage.getItem("jerp_logged_user")) ? JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.role_name : "",
+          authenticated: this.$store.state.userIsAuthorized,
+          sidenav: false,
+          privatePage: false,
+          mouseOverTriger: true,
+          sbu_name: null,
+          sbu_list_is_present: false,
+          ASSIGNED_SBU_LIST: null,
+          WEB_MENU: null,
+          err_popup_modal: false,
+          err_message: null,
+          BASE_URL: null,
         };
     },
     created() {},
     mounted() {
+      this.BASE_URL = env.apiBaseUrl
         // this.userName = JSON.parse(localStorage.getItem("jerp_logged_user")) ? JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.name : ""
         // this.userDesignation = JSON.parse(localStorage.getItem("jerp_logged_user")) ? JSON.parse(localStorage.getItem("jerp_logged_user")).user_detils.role_name : ""
         // this.authenticated = this.$store.state.userIsAuthorized

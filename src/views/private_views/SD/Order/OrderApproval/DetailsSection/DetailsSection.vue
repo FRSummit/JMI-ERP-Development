@@ -67,7 +67,7 @@
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Unit Price<span class="with-vat">(TP+VAT)</span></th>
+                                <th>Unit Price<span class="with-vat">(TP + VAT)</span></th>
                                 <th>Quantity</th>
                                 <th>Stock</th>
                                 <th>Discount</th>
@@ -1972,7 +1972,8 @@ export default {
                 this.CHECK_SPECIAL_DISCOUNT(this.ORDERED_TABLE_DATA__INIT_LIST)
 
                 this.set_Or_Change_SR(this.pending_order_list_by_id.da_id)
-                this.set_Or_Change_Date(this.pending_order_list_by_id.order_date)
+                // this.set_Or_Change_Date(this.pending_order_list_by_id.order_date)
+                this.set_Or_Change_Date(this.pending_order_list_by_id.est_delivery_date)
                 this.ORDER_CREATED_BY = this.pending_order_list_by_id.created_by
                 this.ORDER_AUTH_USER = this.pending_order_list_by_id.auth_user
                 console.log(this.PENDING_ORDER_DATA_BY_ID.is_verified)

@@ -71,7 +71,7 @@ export default class PP_Invoice_Type_3_Institution {
                             +                         '</tr>'
                             +                         '<tr style="">'
                             +                             '<td colspan="4" style="text-align: left;">'
-                            +                                 '<p><span class="label">MIO Name</span><span class="label-value">: ' + (data.sbu_customer_info ? (data.sbu_customer_info.customer_area_info ? (data.sbu_customer_info.customer_area_info.sales_force ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info.name ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info.name) : '') : '') : '') : '') : '') + '</span></p>'
+                            +                                 '<p><span class="label">Submitted By</span><span class="label-value">: ' + (data.sbu_customer_info ? (data.sbu_customer_info.customer_area_info ? (data.sbu_customer_info.customer_area_info.sales_force ? (data.sbu_customer_info.customer_area_info.sales_force.user_info ? (data.sbu_customer_info.customer_area_info.sales_force.user_info.name) : '') : '') : '') : '') + '</span></p>'
                             +                             '</td>'
                             +                             '<td colspan="4" style="text-align: right;">'
                             +                                 '<p><span class="label">T.Code :</span><span class="label-value" style="display: inline-block; min-width: 90px;">' + (data.sbu_customer_info ? (data.sbu_customer_info.customer_area_info ? (data.sbu_customer_info.customer_area_info.sales_force ? (data.sbu_customer_info.customer_area_info.sales_force.get_sales_area ? (data.sbu_customer_info.customer_area_info.sales_force.get_sales_area.display_code) : '') : '') : '') : '') + '</span></p>'
@@ -79,7 +79,7 @@ export default class PP_Invoice_Type_3_Institution {
                             +                         '</tr>'
                             +                         '<tr style="">'
                             +                             '<th colspan="4" style="text-align: left;">'
-                            +                                 '<p style="padding-bottom: 10px;"><span class="label">S.R Name</span><span class="label-value">: ' + (data.sbu_customer_info ? (data.sbu_customer_info.customer_area_info ? (data.sbu_customer_info.customer_area_info.sales_force ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info.name) : '') : '') : '') : '') : '') : '') + '</span></p>'
+                            +                                 '<p style="padding-bottom: 10px;"><span class="label">Delivered By</span><span class="label-value">: ' + (data.delivered_by_info ? (data.delivered_by_info.name ? data.delivered_by_info.name : '') : '') + '</span></p>'
                             +                             '</th>'
                             +                             '<th colspan="4" style="text-align: right;">'
                             +                                 '<p style="display: inline-block; margin-right: 20px;"><span class="label">Order No :</span><span class="label-value" style="">' + (data.order_info ? (data.order_info.order_no ? (data.order_info.order_no) : '') : '') + '</span></p>'
@@ -315,7 +315,8 @@ export default class PP_Invoice_Type_3_Institution {
     }
 
     create_gross_TP_data(data) {
-        let total = data.inv_total
+        // let total = data.inv_total
+        let total = data.net_total
         let round_total = Math.round(total);
         ROUNDING_ADJ = (total - round_total).toFixed(2);
         NET_PAYABLE_AFTER_ADJ = round_total
@@ -403,9 +404,10 @@ export default class PP_Invoice_Type_3_Institution {
 
     create_credit_status(due_data) {
         let result = ''
+        if(due_data.length > 0) {
             result += ''
                     +   '<div class="status-section" style=" margin-top: 20px;">'
-                    +       '<table style="width: 50%; margin-left: 0%; page-break-inside: avoid;">'
+                    +       '<table style="width: 50%; margin-left: 0%; page-break-inside: always;">'
                     +           '<tr>'
                     +               '<td colspan="4"><p style="text-align: left; font-size: 14px;">Present Credit Status:</p></td>'
                     +           '</tr>'
@@ -429,6 +431,7 @@ export default class PP_Invoice_Type_3_Institution {
                     +           '</tr>'
                     +       '</table>'
                     +   '</div>'
+        }
 
         return result
     }
@@ -522,7 +525,7 @@ export default class PP_Invoice_Type_3_Institution {
                 '</tr>' +
                 '<tr style="">' +
                     '<td colspan="6" style="text-align: left;">' +
-                        '<p><span class="label">MIO Name</span><span class="label-value">: ' + (data.sbu_customer_info ? (data.sbu_customer_info.customer_area_info ? (data.sbu_customer_info.customer_area_info.sales_force ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info.name ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info.name) : '') : '') : '') : '') : '') + '</span></p>' +
+                        '<p><span class="label">Submitted By</span><span class="label-value">: ' + (data.sbu_customer_info ? (data.sbu_customer_info.customer_area_info ? (data.sbu_customer_info.customer_area_info.sales_force ? (data.sbu_customer_info.customer_area_info.sales_force.user_info ? (data.sbu_customer_info.customer_area_info.sales_force.user_info.name) : '') : '') : '') : '') + '</span></p>' +
                     '</td>' +
                     '<td colspan="7" style="text-align: right;">' +
                         '<p><span class="label">T.Code :</span><span class="label-value" style="display: inline-block; min-width: 90px;">' + (data.sbu_customer_info ? (data.sbu_customer_info.customer_area_info ? (data.sbu_customer_info.customer_area_info.sales_force ? (data.sbu_customer_info.customer_area_info.sales_force.get_sales_area ? (data.sbu_customer_info.customer_area_info.sales_force.get_sales_area.display_code) : '') : '') : '') : '') + '</span></p>' +
@@ -530,7 +533,7 @@ export default class PP_Invoice_Type_3_Institution {
                 '</tr>' +
                 '<tr style="">' +
                     '<th colspan="6" style="text-align: left;">' +
-                        '<p style="padding-bottom: 10px;"><span class="label">S.R Name</span><span class="label-value">: ' + (data.sbu_customer_info ? (data.sbu_customer_info.customer_area_info ? (data.sbu_customer_info.customer_area_info.sales_force ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info ? (data.sbu_customer_info.customer_area_info.sales_force.manager_info.rsm_sales_force.manager_info.name) : '') : '') : '') : '') : '') : '') + '</span></p>' +
+                        '<p style="padding-bottom: 10px;"><span class="label">Delivered By</span><span class="label-value">: ' + (data.delivered_by_info ? (data.delivered_by_info.name ? data.delivered_by_info.name : '') : '') + '</span></p>' +
                     '</th>' +
                     '<th colspan="7" style="text-align: right;">' +
                         '<p style="display: inline-block; margin-right: 20px; padding-bottom: 6px;"><span class="label">Order No :</span><span class="label-value" style="">' + (data.order_info ? (data.order_info.order_no ? (data.order_info.order_no) : '') : '') + '</span></p>' +

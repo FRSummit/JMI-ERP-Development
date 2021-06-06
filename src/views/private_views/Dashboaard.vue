@@ -14,11 +14,17 @@
     <router-link to="/sd/geo-location">SD ---- Geo Location</router-link>
     <br /> -->
     <!-- <router-link to="/sd/monthly-delivery-plan">SD ---- Monthly Delivery Plan</router-link> -->
+    <div class="row" style="display: grid; justify-content: center; margin: 0;" v-if="BASE_URL === 'http://203.188.245.58:8889'">
+      <div class="col-lg-12 col-md-12 col-sm-12 url-sec">
+        <a style="width: auto; padding: 8px 20px; color: var(--red); background-color: #df35454d;">Development Server : Base URL -> {{ BASE_URL }}</a>
+      </div>
+    </div>
+
     <div class="row">
       <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
         <router-link to="/features/local_sales/delivery_plan">Monthly Delivery Plan</router-link>
       </div>
-      <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
+      <!-- <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
         <router-link to="/features/local_sales/delivery_schedule">Delivery Scheduling</router-link>
       </div>
       <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
@@ -26,13 +32,13 @@
       </div>
       <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
         <router-link to="/sd/invoice-challan-summery">Invoice Challan Summary</router-link>
-      </div>
+      </div> -->
       <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
         <router-link to="/sd/dispatch-entry">Dispatch Entry</router-link>
       </div>
-      <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
+      <!-- <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
         <router-link to="/sd/pending-ds-invoice-list">Pending DS Invoice List</router-link>
-      </div>
+      </div> -->
       <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
         <router-link to="/features/local_sales/ds-transfer-packing-preparation">DS Transfer Packing Preparation</router-link>
       </div>
@@ -110,7 +116,7 @@
         <router-link to="/features/local_sales/cash-register">Cash Register</router-link>
       </div>
       <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
-        <router-link to="/features/local_sales/dp-ds">DP DS</router-link>
+        <router-link to="/features/local_sales/dp-ds">Delivery Schedule</router-link>
       </div>
       <div class="col-lg-3 col-md-4 col-sm-6 url-sec">
         <router-link to="/features/local_sales/delivery-preparation">Delivery Preparation</router-link>
@@ -144,6 +150,7 @@
 </template>
 
 <script>
+import env from '../../environment'
 
 export default {
   components: {
@@ -151,6 +158,7 @@ export default {
   data() {
     return {
       output: null,
+      BASE_URL: null
     };
   },
   created() {
@@ -158,6 +166,7 @@ export default {
   },
   mounted() {
     this.$emit('new_dashboard_occured')
+    this.BASE_URL = env.apiBaseUrl
     // window.location.hash = "no-back-button";
 
     // // Again because Google Chrome doesn't insert
@@ -223,5 +232,9 @@ button {
 .col-sm-10,
 .col-sm-12 {
     padding: 0;
+}
+#landing-page.landing-page .url-sec a {
+  width: auto;
+  margin: 4px;
 }
 </style>

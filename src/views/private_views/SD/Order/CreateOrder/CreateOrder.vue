@@ -6,11 +6,14 @@
         <!-- <LeftSidebar :customer_list="left_side_customer_data_list" v-on:filter_modal="filterModalToggle" /> -->
         <LeftSidebar 
           v-on:filter_modal="filterModalToggle"
-          v-on:select_customer_by_customer_code="selectCustomerByCustomerCode" />
+          v-on:select_customer_by_customer_code="selectCustomerByCustomerCode"
+          v-on:CUSTOMER_DATA_LIST_COUNTER="customerDataListCounter"
+          v-on:TERRITORY_CHANGE="territoryChangeOccured" />
         <DetailsSection 
           :style="filter_modal_toggle === true ? 'z-index: -1;' : 'z-index: 5;'"
           :customer_id_from_left="customer_id"
-          :customer_data="customer_data" />
+          :customer_data="customer_data"
+          :CUSTOMER_DATA_LIST_COUNTER="CUSTOMER_DATA_LIST_COUNTER" />
       </div>
     </div>
   </div>
@@ -42,6 +45,7 @@ export default {
       left_side_customer_data_list: [],
       customer_id: null,
       customer_data: null,
+      CUSTOMER_DATA_LIST_COUNTER: null,
     };
   },
   created() {
@@ -82,9 +86,18 @@ export default {
     //       console.log(res.data)
     //     })
     // }
+    
 
+    customerDataListCounter(value) {
+      this.CUSTOMER_DATA_LIST_COUNTER = value
+    },
+    territoryChangeOccured() {
+      this.CUSTOMER_INFO_FOR_DEPOT__FROM_SERVICE(0)
+    },
+    // ------------------------------------------------------------------------------
     // Service call from left sidebar section
     async CUSTOMER_INFO_FOR_DEPOT__FROM_SERVICE(customer_id) {
+      this.customer_data = null
       await service.getCustomerInfoForDepot_CreateOrderLeftList(customer_id)
         .then(res => {
           console.log(res.data)

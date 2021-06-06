@@ -2,9 +2,10 @@
     padding: 20px;
 
     .plan-calendar-section {
-        background   : #E2EDFA;
-        border-radius: 8px;
-        padding      : 10px;
+        // background      : #E2EDFA;
+        background      : #E5F0FA;
+        border-radius   : 8px;
+        // padding      : 10px;
 
         .plan-calendar-inner-section {
             .plan-calendar-top-row {
@@ -24,6 +25,7 @@
                             font-size: 13px;
                             color    : #36454F;
                             overflow : hidden;
+                            padding  : 20px 10px 10px;
 
                             .default-text {
                                 display: inline-block;
@@ -56,22 +58,30 @@
 
                         .right-section-inner {
                             position: relative;
+                            padding : 20px 20px 0px;
 
-                            .copy-btn-section {
+                            .all-btn-section {
                                 display       : inline-block;
                                 vertical-align: middle;
-                                margin-left   : 16px;
+                                margin-left   : 20px;
 
-                                span.copy-btn-inner {
-                                    padding      : 5px 9px 4px;
-                                    display      : block;
-                                    overflow     : hidden;
+                                span.all-btn-inner {
+                                    padding      : 2px 0;
                                     border-radius: 50%;
-                                    cursor       : pointer;
 
-                                    svg {
-                                        color    : #026CD1;
-                                        font-size: 14px;
+                                    i {
+                                        color           : #026CD1;
+                                        font-size       : 14px;
+                                        background-color: #FFFFFF;
+                                        border-radius   : 50%;
+                                        cursor          : pointer;
+                                        padding         : 4px;
+
+                                    }
+
+                                    i.selected {
+                                        color           : #FFFFFF;
+                                        background-color: #026CD1;
                                     }
 
                                     span.tool-tip {
@@ -79,14 +89,59 @@
                                     }
 
                                     &:hover {
-                                        background   : #FFFFFF;
+                                        i {
+                                            color           : #FFFFFF;
+                                            background-color: #026CD1;
+
+                                        }
 
                                         span.tool-tip {
-                                            display: block;
-                                            color    : #026CD1;
+                                            display    : block;
+                                            color      : #026CD1;
+                                            position   : absolute;
+                                            top        : -4px;
+                                            // right   : 96px;
+                                            left       : 0;
+                                        }
+                                    }
+                                }
+                            }
+
+                            .copy-btn-section {
+                                display       : inline-block;
+                                vertical-align: middle;
+                                margin-left   : 20px;
+
+                                span.copy-btn-inner {
+                                    padding      : 2px 0;
+                                    border-radius: 50%;
+
+                                    svg,
+                                    i {
+                                        color           : #026CD1;
+                                        font-size       : 14px;
+                                        background-color: #FFFFFF;
+                                        border-radius   : 50%;
+                                        cursor          : pointer;
+                                        padding         : 5px 6px;
+                                    }
+
+                                    span.tool-tip {
+                                        display: none;
+                                    }
+
+                                    &:hover {
+                                        i {
+                                            color           : #FFFFFF;
+                                            background-color: #026CD1;
+                                        }
+
+                                        span.tool-tip {
+                                            display : block;
+                                            color   : #026CD1;
                                             position: absolute;
-                                            top: 6px;
-                                            left: -50px;
+                                            top     : -4px;
+                                            right   : 50px;
                                         }
                                     }
                                 }
@@ -95,35 +150,49 @@
                             .add-btn-section {
                                 display       : inline-block;
                                 vertical-align: middle;
-                                margin-left   : 16px;
+                                margin-left   : 20px;
 
                                 span.add-btn-inner {
-                                    padding      : 5px 9px 4px;
-                                    display      : block;
-                                    overflow     : hidden;
+                                    // padding      : 5px 9px 4px;
+                                    // display      : block;
+                                    // overflow     : hidden;
+                                    // border-radius: 50%;
+                                    // cursor       : pointer;
+                                    padding      : 2px 0;
                                     border-radius: 50%;
-                                    cursor       : pointer;
 
-                                    svg {
+                                    svg,
+                                    i {
                                         color    : #DF2A43;
                                         font-size: 14px;
+
+                                        // color           : #FFFFFF;
+                                        font-size       : 14px;
+                                        background-color: rgba(255, 0, 0, 0.2);
+                                        border-radius   : 50%;
+                                        cursor          : pointer;
+                                        padding         : 5px 8px;
                                     }
 
-                                    // span.tool-tip {
-                                    //     display: none;
-                                    // }
+                                    span.tool-tip {
+                                        display: none;
+                                    }
 
                                     &:hover {
-                                        background   : #FFFFFF;
+                                        i {
+                                            background-color: #FFFFFF;
+                                        }
 
-                                        // span.tool-tip {
-                                        //     display: block;
-                                        //     width: 100px;
-                                        //     color    : #DF2A43;
-                                        //     position: absolute;
-                                        //     top: -6px;
-                                        //     left: -50px;
-                                        // }
+                                        span.tool-tip {
+                                            display : block;
+                                            width   : 100px;
+                                            color   : #DF2A43;
+                                            position: absolute;
+                                            // top: -6px;
+                                            top     : -4px;
+                                            // left: -50px;
+                                            right   : 4px;
+                                        }
                                     }
                                 }
                             }
@@ -132,7 +201,11 @@
                 }
             }
 
-            .plan-calendar-row {}
+            .plan-calendar-row {
+                .plan-calendar-row-inner {
+                    padding: 0px 10px 10px;
+                }
+            }
         }
     }
 }

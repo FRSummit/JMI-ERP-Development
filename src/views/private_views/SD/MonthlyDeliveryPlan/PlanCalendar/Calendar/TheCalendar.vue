@@ -26,7 +26,7 @@
 
 <script>
 export default {
-  props: ["selectedDate", "territoryData", "create_ok", "destroy_ok"],
+  props: ["selectedDate", "territoryData", "create_ok", "destroy_ok", "DELIVERY_PLAN_DATE", "ALL_DAY_SELECTED"],
   components: {},
   data() {
     return {
@@ -34,7 +34,9 @@ export default {
       d: [],
       my_dates: [],
       count: 0,
-      selected: true
+      selected: true,
+
+      DATE_LIST: [],
     };
   },
   created() {
@@ -69,10 +71,18 @@ export default {
     },
     dateIsOld(d) {
       let cls = ''
-      if(parseInt(d) < new Date().getDate()) {
+      let to_day = new Date().getFullYear().toString() + '-' + (new Date().getMonth() + 1).toString()
+      // console.log(new Date(to_day).getTime())
+      // console.log(new Date(this.DELIVERY_PLAN_DATE).getTime())
+      if( (new Date(to_day).getTime() > new Date(this.DELIVERY_PLAN_DATE).getTime())) {
         cls = 'OLD_DAY'
       } else {
-        cls = ''
+        if(parseInt(d) < new Date().getDate()) {
+          cls = 'OLD_DAY'
+        } else {
+          cls = ''
+        }
+
       }
       return cls
     },
@@ -88,6 +98,35 @@ export default {
       return false
     }
   },
+  watch: {
+    ALL_DAY_SELECTED(newVal) {
+      console.log(newVal)
+      let to_day = new Date().getFullYear().toString() + '-' + (new Date().getMonth() + 1).toString()
+      if( !(new Date(to_day).getTime() > new Date(this.DELIVERY_PLAN_DATE).getTime())) {
+        this.$emit('ALL_DAY_IS_SELECTED', newVal)
+        if(newVal === true) {
+          for(let i=0; i<this.selectedDate.length; i++) {
+            let tt = this.territoryData.area_id + '-dates-section-' + (i + 1)
+            let selector = document.getElementById(tt)
+            selector.className = 'dates-section DA-DATA'
+
+            let date = {
+              date: (i + 1) + ' ' + this.DELIVERY_PLAN_DATE
+            }
+            this.DATE_LIST.push(date)
+          }
+          this.$emit('FULL_MONTH_SELECTED', this.DATE_LIST)
+        } else {
+          for(let i=0; i<this.selectedDate.length; i++) {
+            let tt = this.territoryData.area_id + '-dates-section-' + (i + 1)
+            let selector = document.getElementById(tt)
+            selector.className = 'dates-section'
+          }
+          this.$emit('FULL_MONTH_DESELECTED')
+        }
+      }
+    },
+  }
 };
 </script>
 

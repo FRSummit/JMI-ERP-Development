@@ -22,7 +22,7 @@
                         </div>
                     
                         <div :id="'collapseOne-' + i" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-1">
-                            <div class="card-body" v-for="(card, j) in item.force_list" :key="j" @click="childCardBodyClickHandler(card, j)">
+                            <div :id="'card-body-' + j" class="card-body" v-for="(card, j) in item.force_list" :key="j" @click="childCardBodyClickHandler(card, i, j)">
                                 <!-- Start Item -->
                                 <div class="ds_innerItem">
                                     <div class="row1"> 
@@ -154,9 +154,23 @@ export default {
                 document.querySelector('#headingOne-' + index).className = 'card-header'
             }
         },
-        childCardBodyClickHandler(card, index) {
-            console.log(index)
+        childCardBodyClickHandler(card, index_i, index_j) {
+            console.log(index_i + '    ' + index_j)
             console.log(card)
+
+            // let length = document.querySelectorAll('#collapseOne-' + index_i + ' .card-body').length
+            let length = document.getElementsByClassName('card-body').length
+            console.log(length)
+            for(let i=0; i<length; i++) {
+                // document.querySelector('#collapseOne-' + index_i + ' #card-body-' + i).className = 'card-body'
+                document.querySelectorAll('.card-body')[i].className = 'card-body'
+            }
+            if(document.querySelector('#collapseOne-' + index_i + ' #card-body-' + index_j).className === 'card-body') {
+                document.querySelector('#collapseOne-' + index_i + ' #card-body-' + index_j).className = 'card-body active'
+            } else {
+                document.querySelector('#collapseOne-' + index_i + ' #card-body-' + index_j).className = 'card-body'
+            }
+
             this.$emit('SINGLE_ITEM_FROM_LEFT', card)
         },
         // --------------------------------------------------------------------------------------------
@@ -338,6 +352,9 @@ height: 100%;
   border: none!important;
   padding: 0rem;
   cursor: pointer;
+}
+.deliveryPre_accordion .card .card-body.active .ds_innerItem {
+    background-color: #E2EDFA;
 }
 .deliveryPre_accordion .card .card-body .ds_innerItem {
   padding: 10px;

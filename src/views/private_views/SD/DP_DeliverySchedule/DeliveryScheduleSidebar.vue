@@ -26,24 +26,24 @@
                     </div>
                 
                     <div :id="'collapseOne-' + i" class="collapse" aria-labelledby="headingOne" data-parent="#accordion-1">
-                        <div class="card-body" v-for="(card, j) in item.data" :key="j">
+                        <div :id="'card-body-' + j" class="card-body" v-for="(card, j) in item.data" :key="j">
                             <!-- Start Item -->
                             <div class="ds_innerItem">
-                                <div class="row1" @click="childCardBodyClickHandler(card, j)"> 
+                                <div class="row1" @click="childCardBodyClickHandler(card, i, j)"> 
                                     <div class="group-1"> 
                                         <!-- <i class="fa fa-square status-active" aria-hidden="true"></i>  -->
                                         <p>{{ card.dp_force.force_name }} <span class="hide">DHK213686</span></p>
                                     </div>
                                     <h5>{{ card.dp_force.force_inv_total ? Number(card.dp_force.force_inv_total).toFixed(2) : 0.00 }}</h5>
                                 </div>
-                                <div class="row2" @click="childCardBodyClickHandler(card, j)">
+                                <div class="row2" @click="childCardBodyClickHandler(card, i, j)">
                                     <p>{{ card.dp_force.phone }}</p>
                                 </div>
-                                <div class="row2" @click="childCardBodyClickHandler(card, j)">
+                                <div class="row2" @click="childCardBodyClickHandler(card, i, j)">
                                     <p>{{ card.dp_force.micro_union_name }}</p>
                                 </div>
                                 <div class="row3"> 
-                                    <div class="group-2" @click="childCardBodyClickHandler(card, j)"><p>Scheduled: <span>{{ card.dp_force.planned }}</span></p><p style="margin-left: 10px;">New: <span>{{ card.dp_force.new }}</span></p></div> 
+                                    <div class="group-2" @click="childCardBodyClickHandler(card, i, j)"><p>Scheduled: <span>{{ card.dp_force.planned }}</span></p><p style="margin-left: 10px;">New: <span>{{ card.dp_force.new }}</span></p></div> 
                                     <i class="material-icons" :class="parseInt(card.dp_force.new) === 0 ? 'disabled_icon' : ''" v-if="card.dp_force.ds_status === 'N'" @click="parseInt(card.dp_force.new) !== 0 ? agorBatiIconClickHandler(card, j) : false">auto_fix_normal</i>
                                     <!-- <i class="material-icons" @click="agorBatiIconClickHandler(card, j)">auto_fix_normal</i> -->
                                     <i class="zmdi zmdi-lock-open" v-if="(card.dp_force.ds_status === 'O') && (parseInt(card.dp_force.planned) > 0) && (parseInt(card.dp_force.new) === 0)" @click="unlockIconClickHandler(card, j)"></i>
@@ -132,9 +132,23 @@ export default {
                 document.querySelector('#headingOne-' + index).className = 'card-header'
             }
         },
-        childCardBodyClickHandler(card, index) {
-            console.log(index)
+        childCardBodyClickHandler(card, index_i, index_j) {
+            console.log(index_i + '    ' + index_j)
             console.log(card)
+
+            // let length = document.querySelectorAll('#collapseOne-' + index_i + ' .card-body').length
+            let length = document.getElementsByClassName('card-body').length
+            console.log(length)
+            for(let i=0; i<length; i++) {
+                // document.querySelector('#collapseOne-' + index_i + ' #card-body-' + i).className = 'card-body'
+                document.querySelectorAll('.card-body')[i].className = 'card-body'
+            }
+            if(document.querySelector('#collapseOne-' + index_i + ' #card-body-' + index_j).className === 'card-body') {
+                document.querySelector('#collapseOne-' + index_i + ' #card-body-' + index_j).className = 'card-body active'
+            } else {
+                document.querySelector('#collapseOne-' + index_i + ' #card-body-' + index_j).className = 'card-body'
+            }
+
             this.$emit('SINGLE_ITEM_FROM_LEFT', card)
         },
         myObject(item) {
@@ -452,6 +466,9 @@ export default {
     border: none!important;
     padding: 0rem;
     cursor: pointer;
+}
+.layout-sidebar.delivery_schedule .content .ds_accordion .card .card-body.active .ds_innerItem {
+    background-color: #E2EDFA;
 }
 .ds_accordion .card .card-body .ds_innerItem {
     padding: 10px;
